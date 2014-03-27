@@ -44,14 +44,13 @@ QTEST_SUITE_BEGIN( QDateTime_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValueIsUndefined_Test )
 {
-    // [TODO] Thund: Uncomment when operator== is implemented
-    /*// [Preparation]
+    // [Preparation]
 
 	// [Execution]
     QDateTime dateTime;
 
     // [Verification]
-    BOOST_CHECK(dateTime == QDateTime::GetUndefinedDate());*/
+    BOOST_CHECK(dateTime == QDateTime::GetUndefinedDate());
 }
 
 /// <summary>
@@ -98,15 +97,14 @@ QTEST_CASE ( Constructor2_DateTimeIsCorrectlyCopied_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_UndefinedDateTimeIsCopied_Test )
 {
-    // [TODO] Thund: Uncomment when operator== is implemented
-    /*// [Preparation]
+    // [Preparation]
     const QDateTime EXPECTED_VALUE = QDateTime::GetUndefinedDate();
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_VALUE);
 
     // [Verification]
-    BOOST_CHECK(dateTime == EXPECTED_VALUE);*/
+    BOOST_CHECK(dateTime == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -3312,6 +3310,23 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenMillisecondIsTooHigh_Test )
 #endif
 
 /// <summary>
+/// Checks that the instance is correctly constructed.
+/// </summary>
+QTEST_CASE ( Constructor7_InstanceIsCorrectlyConstructed_Test )
+{
+    // [Preparation]
+    const QTimeZone* EXPECTED_TIMEZONE = null_q; // [TODO] Thund: Change this by SQTimeZoneFactory::GetTimeZoneById("Europe/Madrid")
+    const QDateTime EXPECTED_DATETIME(1, 2, 3, 4, 5, 6, 7, 8, 9, null_q);
+
+	// [Execution]
+    QDateTime dateTime(EXPECTED_DATETIME, EXPECTED_TIMEZONE);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
+}
+
+/// <summary>
 /// Checks that the input date and time are correctly copied.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
@@ -3351,15 +3366,11 @@ QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <summary>
 /// Checks that undefined dates are copied.
 /// </summary>
-QTEST_CASE ( OperatorAssignation_UndefinedDateIsCopied_Test )
+QTEST_CASE ( OperatorAssignment_UndefinedDateIsCopied_Test )
 {
-    // [TODO] Thund: Uncomment when operator== is implemented
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR  = 2013;
     const u64_q EXPECTED_MONTH = 5;
@@ -3374,7 +3385,1837 @@ QTEST_CASE ( OperatorAssignation_UndefinedDateIsCopied_Test )
     dateTime = UNDEFINED_DATETIME;
 
     // [Verification]
-    BOOST_CHECK(dateTime == EXPECTED_YEAR);*/
+    BOOST_CHECK(dateTime == UNDEFINED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a common time span is correctly added to a positive date.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_CommonTimeSpanIsCorrectlyAddedToPositiveDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime += INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a common time span is correctly added to a negative date.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_CommonTimeSpanIsCorrectlyAddedToNegativeDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime += INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the operator returns the resident value.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_ReturnsResidentValue_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    QDateTime& returnedValue = (dateTime += INPUT_TIMESPAN);
+
+    // [Verification]
+    BOOST_CHECK(&dateTime == &returnedValue);
+}
+
+/// <summary>
+/// Checks that a time span is correctly added when passing through the year zero.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_CommonTimeSpanIsCorrectlyAddedWhenPassingThroughYearZero_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-1, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME( 1,  1,  1, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime += INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly added when passing through the year zero (time span greater than 1 year).
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_CommonTimeSpanIsCorrectlyAddedWhenPassingThroughYearZeroMoreThanOneYear_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(          740, 2, 2,  2,   2,   2, 2); // +2 years
+    const QDateTime EXPECTED_DATETIME( 2, 1,   9, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime += INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the resident date is undefined.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(UNDEFINED_DATETIME);
+        dateTime += ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the result of the sum exceeds the maximum date.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllowedMaximumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMaxDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(MAXIMUM_DATETIME);
+        dateTime += ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that undefined dates do not change.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_UndefinedDatesDoNotChange_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime(UNDEFINED_DATETIME);
+    dateTime += ANY_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == UNDEFINED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the result is the maximum value when the result of the sum is greater than the maximum.
+/// </summary>
+QTEST_CASE ( OperatorAdditionAssignment_MaximumValueIsSetWhenAdditionOverflowsAllowedMaximumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMaxDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime(MAXIMUM_DATETIME);
+    dateTime += INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);*/
+}
+
+#endif
+
+/// <summary>
+/// Checks that a common time span is correctly subtracted to a positive date.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_CommonTimeSpanIsCorrectlySubtractedToPositiveDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime -= INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a common time span is correctly subtracted to a negative date.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_CommonTimeSpanIsCorrectlySubtractedToNegativeDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime -= INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the operator returns the resident value.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_ReturnsResidentValue_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    QDateTime& returnedValue = (dateTime -= INPUT_TIMESPAN);
+
+    // [Verification]
+    BOOST_CHECK(&dateTime == &returnedValue);
+}
+
+/// <summary>
+/// Checks that a time span is correctly subtracted when passing through the year zero.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_CommonTimeSpanIsCorrectlySubtractedWhenPassingThroughYearZero_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME( 1,  1,  1, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-1, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime -= INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly subtracted when passing through the year zero (time span greater than 1 year).
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_CommonTimeSpanIsCorrectlySubtractedWhenPassingThroughYearZeroMoreThanOneYear_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME( 2, 1,   9, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(          740, 2, 2,  2,   2,   2, 2); // +2 years
+    const QDateTime EXPECTED_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime(ORIGINAL_DATETIME);
+    dateTime -= INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the resident date is undefined.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(UNDEFINED_DATETIME);
+        dateTime -= ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the result of the subtraction exceeds the minimum date.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflowsAllowedMinimumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMinDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(MINIMUM_DATETIME);
+        dateTime -= ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that undefined dates do not change.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_UndefinedDatesDoNotChange_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime(UNDEFINED_DATETIME);
+    dateTime -= ANY_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == UNDEFINED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the result is the minimum value when the result of the subtraction is lower than the minimum.
+/// </summary>
+QTEST_CASE ( OperatorSubtractionAssignment_MinimumValueIsSetWhenSubtractionOverflowsAllowedMinimumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMinDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime(MINIMUM_DATETIME);
+    dateTime -= INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == MINIMUM_DATETIME);*/
+}
+
+#endif
+
+/// <summary>
+/// Checks that a common time span is correctly added to a positive date.
+/// </summary>
+QTEST_CASE ( OperatorAddition_CommonTimeSpanIsCorrectlyAddedToPositiveDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME + INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a common time span is correctly added to a negative date.
+/// </summary>
+QTEST_CASE ( OperatorAddition_CommonTimeSpanIsCorrectlyAddedToNegativeDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME + INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly added when passing through the year zero.
+/// </summary>
+QTEST_CASE ( OperatorAddition_CommonTimeSpanIsCorrectlyAddedWhenPassingThroughYearZero_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-1, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME( 1,  1,  1, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME + INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly added when passing through the year zero (time span greater than 1 year).
+/// </summary>
+QTEST_CASE ( OperatorAddition_CommonTimeSpanIsCorrectlyAddedWhenPassingThroughYearZeroMoreThanOneYear_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan INPUT_TIMESPAN(          740, 2, 2,  2,   2,   2, 2); // +2 years
+    const QDateTime EXPECTED_DATETIME( 2, 1,   9, 6, 8, 12, 102, 202, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME + INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the resident date is undefined.
+/// </summary>
+QTEST_CASE ( OperatorAddition_AssertionFailsWhenDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime = UNDEFINED_DATETIME + ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the result of the sum exceeds the maximum date.
+/// </summary>
+QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMaxDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime = MAXIMUM_DATETIME + ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that undefined dates do not change.
+/// </summary>
+QTEST_CASE ( OperatorAddition_UndefinedDatesDoNotChange_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime = UNDEFINED_DATETIME + ANY_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == UNDEFINED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the result is the maximum value when the result of the sum is greater than the maximum.
+/// </summary>
+QTEST_CASE ( OperatorAddition_MaximumValueIsSetWhenAdditionOverflowsAllowedMaximumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMaxDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime = MAXIMUM_DATETIME + INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);*/
+}
+
+#endif
+
+/// <summary>
+/// Checks that a common time span is correctly subtracted to a positive date.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_CommonTimeSpanIsCorrectlySubtractedToPositiveDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(           2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME - INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a common time span is correctly subtracted to a negative date.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_CommonTimeSpanIsCorrectlySubtractedToNegativeDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME(-100, 1, 5, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-100, 1, 3, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME - INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly subtracted when passing through the year zero.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_CommonTimeSpanIsCorrectlySubtractedWhenPassingThroughYearZero_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME( 1,  1,  1, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(            2, 2, 2,  2,   2,   2, 2);
+    const QDateTime EXPECTED_DATETIME(-1, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME - INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that a time span is correctly subtracted when passing through the year zero (time span greater than 1 year).
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_CommonTimeSpanIsCorrectlySubtractedWhenPassingThroughYearZeroMoreThanOneYear_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime ORIGINAL_DATETIME( 2, 1,   9, 6, 8, 12, 102, 202, 7, null_q);
+    const QTimeSpan INPUT_TIMESPAN(          740, 2, 2,  2,   2,   2, 2); // +2 years
+    const QDateTime EXPECTED_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+
+	// [Execution]
+    QDateTime dateTime = ORIGINAL_DATETIME - INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the resident date is undefined.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime = UNDEFINED_DATETIME - ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the result of the subtraction exceeds the minimum date.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedMinimumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMinDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime = MINIMUM_DATETIME - ANY_TIMESPAN;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that undefined dates do not change.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_UndefinedDatesDoNotChange_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QTimeSpan ANY_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime = UNDEFINED_DATETIME - ANY_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == UNDEFINED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the result is the minimum value when the result of the subtraction is lower than the minimum.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction1_MinimumValueIsSetWhenSubtractionOverflowsAllowedMinimumValue_Test )
+{
+    // [TODO] Thund: Uncomment when GetMinDate exists
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QTimeSpan INPUT_TIMESPAN(1);
+
+	// [Execution]
+    QDateTime dateTime = MINIMUM_DATETIME - INPUT_TIMESPAN;
+
+    // [Verification]
+    BOOST_CHECK(dateTime == MINIMUM_DATETIME);*/
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected result when subtracting a negative date to a positive date. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsExpectedTimeSpanWhenSubtractingNegativeDateToPositiveDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime LEFT_DATETIME(  2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime RIGHT_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan EXPECTED_TIMESPAN(    740, 2, 2,  2,   2,   2, 2); // +2 years
+
+	// [Execution]
+    QTimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result == EXPECTED_TIMESPAN);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when subtracting a positive date to a negative date. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsExpectedTimeSpanWhenSubtractingPositiveDateToNegativeDate_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME(-2, 12, 30, 4, 6, 10, 100, 200, 5, null_q);
+    const QTimeSpan EXPECTED_TIMESPAN(   740, 2, 2,  2,   2,   2, 2); // +2 years
+
+	// [Execution]
+    QTimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result == EXPECTED_TIMESPAN);
+}
+
+/// <summary>
+/// Checks that it returns zero when operands are equal. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsZeroWhenOperandsAreEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME(RIGHT_DATETIME);
+    const QTimeSpan EXPECTED_TIMESPAN(0);
+
+	// [Execution]
+    QTimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result == EXPECTED_TIMESPAN);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when subtracting positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsExpectedTimeSpanWhenSubtractingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 2,  1,  9, 7, 9, 16, 102, 202, 7, null_q);
+    const QTimeSpan EXPECTED_TIMESPAN(     0, 1, 1,  4,   0,   0, 0);
+
+	// [Execution]
+    QTimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result == EXPECTED_TIMESPAN);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when subtracting negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsExpectedTimeSpanWhenSubtractingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 7, 9, 16, 102, 202, 7, null_q);
+    const QTimeSpan EXPECTED_TIMESPAN(      0, 1, 1,  4,   0,   0, 0);
+
+	// [Execution]
+    QTimeSpan result = LEFT_DATETIME - RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result == EXPECTED_TIMESPAN);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_AssertionFailsWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        UNDEFINED_DATETIME - ANY_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed1 = true;
+    }
+    
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        ANY_DATETIME - UNDEFINED_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns zero when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_ReturnsZeroWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QTimeSpan ZERO_TIMESPAN(0);
+
+	// [Execution]
+    QTimeSpan result1 = UNDEFINED_DATETIME - ANY_DATETIME;
+    QTimeSpan result2 = ANY_DATETIME - UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK(result1 == ZERO_TIMESPAN);
+    BOOST_CHECK(result2 == ZERO_TIMESPAN);
+}
+
+#endif
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorSubtraction2_TimeZoneDoesNotAffectTheResult_Test )
+{
+    // [TODO] Thund: Uncomment when time zones exist
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 9, 16, 102, 202, 7, null_q);
+    const QTimeSpan EXPECTED_TIMESPAN(         0, 1, 1,  4,   0,   0, 0);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+	// [Execution]
+    QTimeSpan resultUTC = LEFT_DATETIME_WITH_TIMEZONE - RIGHT_DATETIME_WITH_TIMEZONE;
+    QTimeSpan resultWithTimeZones = LEFT_DATETIME_WITH_TIMEZONE - RIGHT_DATETIME_WITH_TIMEZONE;
+
+    // [Verification]
+    BOOST_CHECK(resultUTC == EXPECTED_TIMESPAN);
+    BOOST_CHECK(resultUTC == resultWithTimeZones);*/
+}
+
+/// <summary>
+/// Checks that it returns True when operands are equal. 
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenOperandsAreEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME == RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when operands are not equal. 
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenOperandsAreNotEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME == RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorEquality_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME == RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when operands are equal. 
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenOperandsAreEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME != RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when operands are not equal. 
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenOperandsAreNotEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME != RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorInequality_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME != RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when input operand is less than or equal to resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenInputIsNotLesserThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input operand is less than or equal to resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenInputIsNotLesserThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is lower than resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenInputIsLesserThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is lower than resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenInputIsLesserThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        UNDEFINED_DATETIME < ANY_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed1 = true;
+    }
+    
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        ANY_DATETIME < UNDEFINED_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that an it returns false when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult1 = UNDEFINED_DATETIME < ANY_DATETIME;
+    bool bResult2 = ANY_DATETIME < UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns False when input operand is greater than or equal to resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenInputIsNotGreaterThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input operand is greater than or equal to resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenInputIsNotGreaterThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is greater than resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenInputIsGreaterThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is greater than resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenInputIsGreaterThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        UNDEFINED_DATETIME > ANY_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed1 = true;
+    }
+    
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        ANY_DATETIME > UNDEFINED_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that an it returns false when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult1 = UNDEFINED_DATETIME > ANY_DATETIME;
+    bool bResult2 = ANY_DATETIME > UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns False when input operand is less than the resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenInputIsNotLesserThanOrEqualToResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input operand is less than the resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenInputIsNotLesserThanOrEqualToResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is lower than resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenInputIsLesserThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is lower than resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenInputIsLesserThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when dates are equal. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenDatesAreEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME(RIGHT_DATETIME);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when both dates are undefined. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenBothDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = UNDEFINED_DATETIME <= UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when only one of the dates is undefined.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        UNDEFINED_DATETIME <= ANY_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed1 = true;
+    }
+    
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        ANY_DATETIME <= UNDEFINED_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that an it returns false when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult1 = UNDEFINED_DATETIME <= ANY_DATETIME;
+    bool bResult2 = ANY_DATETIME <= UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns False when input operand is greater than or equal to resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenInputIsNotGreaterThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input operand is less than or equal to resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenInputIsNotGreaterThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 1,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is greater than resident operand when comparing negative dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenInputIsGreaterThanResidentWhenComparingNegativeDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(-3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( -2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input operand is greater than resident operand when comparing positive dates. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenInputIsGreaterThanResidentWhenComparingPositiveDates_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME( 3,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when dates are equal. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenDatesAreEqual_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME(RIGHT_DATETIME);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when both dates are undefined. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenBothDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = UNDEFINED_DATETIME >= UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that time zones do not affect the result. 
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_TimeZonesAreIgnored_Test )
+{
+    // [TODO] Thund: Uncomment when the timezones are implemented
+    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
+    const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
+
+    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+
+    const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
+    const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
+
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when only one of the dates is undefined.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        UNDEFINED_DATETIME >= ANY_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed1 = true;
+    }
+    
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        ANY_DATETIME >= UNDEFINED_DATETIME;
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that an it returns false when dates are undefined.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenDatesAreUndefined_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+    // [Preparation]
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const QDateTime ANY_DATETIME(1, 1, 1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult1 = UNDEFINED_DATETIME >= ANY_DATETIME;
+    bool bResult2 = ANY_DATETIME >= UNDEFINED_DATETIME;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
 
 #endif

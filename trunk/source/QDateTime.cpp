@@ -60,6 +60,7 @@ const u64_q QDateTime::HNS_PER_DAY      = 864000000000ULL;
 const u64_q QDateTime::HNS_PER_YEAR     = 315360000000000ULL;
 const u64_q QDateTime::HNS_PER_LEAPYEAR = 316224000000000ULL;
 const u64_q QDateTime::HNS_PER_4_CONSECUTIVE_YEARS = 1262304000000000ULL;
+const QTimeSpan QDateTime::UNDEFINED_VALUE(0ULL);
 
 
 //##################=======================================================##################
@@ -375,6 +376,11 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
     this->SubtractTimeZoneOffset();
 }
 
+QDateTime::QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone) : m_instant(dateTime.m_instant),
+                                                                              m_pTimeZone(pTimeZone)
+{
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -394,6 +400,122 @@ QDateTime& QDateTime::operator=(const QDateTime& dateTime)
     }
 
     return *this;
+}
+
+QDateTime& QDateTime::operator+=(const QTimeSpan &timeToAdd)
+{
+    QE_ASSERT(!this->IsUndefined(), "The date/time is undefined, the time span cannot be added");
+
+    // [TODO] Thund: Uncomment when GetMaxDate exists
+    //QE_ASSERT(QDateTime::GetMaxDate().m_instant - m_instant >= timeToAdd, "The result of adding that time span exceeds the maximum date, the result will be set to the maximum date allowed");
+
+    // Note: It assumes that the QTimeSpan class already prevents from overflow
+    if(*this != QDateTime::GetUndefinedDate())
+        m_instant += timeToAdd;
+
+    return *this;
+}
+
+QDateTime& QDateTime::operator-=(const QTimeSpan &timeToSubtract)
+{
+    QE_ASSERT(!this->IsUndefined(), "The date/time is undefined, the time span cannot be subtracted");
+
+    if(*this != QDateTime::GetUndefinedDate())
+    {
+        QE_ASSERT(m_instant > timeToSubtract, "The result of subtracting that time span exceeds the minimum date, the result will be set to the minimum date allowed");
+
+        if(m_instant <= timeToSubtract)
+            m_instant = QTimeSpan(1);// [TODO] Thund: Replace with QDateTime::GetMinDate().m_instant; when GetMinDate exists
+        else
+            m_instant -= timeToSubtract;
+    }
+
+    return *this;
+}
+
+QDateTime QDateTime::operator+(const QTimeSpan &timeToAdd) const
+{
+    QDateTime result(*this);
+    result += timeToAdd;
+
+    return result;
+}
+
+QDateTime QDateTime::operator-(const QTimeSpan &timeToSubtract) const
+{
+    QDateTime result(*this);
+    result -= timeToSubtract;
+
+    return result;
+}
+
+QTimeSpan QDateTime::operator-(const QDateTime &dateTime) const
+{
+    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to calculate the difference between undefined dates");
+
+    if(this->IsUndefined() || dateTime.IsUndefined())
+    {
+        return QTimeSpan(0);
+    }
+    else
+    {
+        if(dateTime.m_instant < m_instant)
+            return m_instant - dateTime.m_instant;
+        else
+            return dateTime.m_instant - m_instant;
+    }
+}
+
+bool QDateTime::operator==(const QDateTime &dateTime) const
+{
+    // Other members are not checked
+    return dateTime.m_instant == m_instant;
+}
+
+bool QDateTime::operator!=(const QDateTime &dateTime) const
+{
+    // Other members are not checked
+    return dateTime.m_instant != m_instant;
+}
+
+bool QDateTime::operator<(const QDateTime &dateTime) const
+{
+    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+
+    // Other members are not checked
+    return this->IsUndefined() || dateTime.IsUndefined() ? 
+                false :
+                m_instant < dateTime.m_instant;
+}
+
+bool QDateTime::operator>(const QDateTime &dateTime) const
+{
+    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+
+    // Other members are not checked
+    return this->IsUndefined() || dateTime.IsUndefined() ? 
+                false : 
+                m_instant > dateTime.m_instant;
+}
+
+bool QDateTime::operator<=(const QDateTime &dateTime) const
+{
+    QE_ASSERT(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+
+    // Other members are not checked
+    return (!this->IsUndefined() && dateTime.IsUndefined()) || (this->IsUndefined() && !dateTime.IsUndefined()) ? // If only one operand is undefined
+                false :
+                m_instant <= dateTime.m_instant;
+}
+
+bool QDateTime::operator>=(const QDateTime &dateTime) const
+{
+    QE_ASSERT(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+
+    // Other members are not checked
+    return (!this->IsUndefined() && dateTime.IsUndefined()) || (this->IsUndefined() && !dateTime.IsUndefined()) ? // If only one operand is undefined
+               false :
+               m_instant >= dateTime.m_instant;
 }
 
 unsigned int QDateTime::GetDaysInMonth(const unsigned int uMonth, const int nYear)
@@ -446,6 +568,7 @@ void QDateTime::SubtractTimeZoneOffset()
 }
 
 
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -459,8 +582,7 @@ bool QDateTime::IsLeapYear() const
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
-    // [TODO] Thund: Replace this comparison with *this == QDateTime::GEtUndefinedDate() when operator== is ready
-    //QE_ASSERT(*this != QDateTime::GetUndefinedDate(), "Undefined dates cannot represent either normal years or leap years");
+    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent either normal years or leap years");
 
     const u64_q HNS_PER_INSTANT = m_instant.GetHundredsOfNanoseconds();
 
@@ -482,6 +604,11 @@ bool QDateTime::IsLeapYear() const
 const QTimeZone* QDateTime::GetTimeZone() const
 {
     return m_pTimeZone;
+}
+
+bool QDateTime::IsUndefined() const
+{
+    return m_instant == QDateTime::UNDEFINED_VALUE;
 }
 
 } //namespace Time
