@@ -233,6 +233,9 @@
 		<Unit filename="../../../../headers/QTimeSpan.h">
 			<Option virtualFolder="Time/" />
 		</Unit>
+		<Unit filename="../../../../headers/QTimeZone.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
 		<Unit filename="../../../../headers/QTransformationMatrix.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -265,6 +268,9 @@
 		</Unit>
 		<Unit filename="../../../../headers/SQPoint.h">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQTimeZoneFactory.h">
+			<Option virtualFolder="Time/" />
 		</Unit>
 		<Unit filename="../../../../headers/ToolsDefinitions.h" />
 		<Unit filename="../../../../source/EQIntersections.cpp">
@@ -333,6 +339,9 @@
 		<Unit filename="../../../../source/QDateTime.cpp">
 			<Option virtualFolder="Time/" />
 		</Unit>
+		<Unit filename="../../../../source/QDstInformation.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
 		<Unit filename="../../../../source/QDualQuaternion.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -399,6 +408,9 @@
 		<Unit filename="../../../../source/QTimeSpan.cpp">
 			<Option virtualFolder="Time/" />
 		</Unit>
+		<Unit filename="../../../../source/QTimeZone.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
 		<Unit filename="../../../../source/QTransformationMatrix.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -431,6 +443,12 @@
 		</Unit>
 		<Unit filename="../../../../source/SQPoint.cpp">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/SQTimeZoneFactory.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/TimeZoneDatabase.cpp">
+			<Option virtualFolder="Time/" />
 		</Unit>
 		<Extensions>
 			<code_completion />

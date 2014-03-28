@@ -27,9 +27,9 @@
 #include "QPoolAllocator.h"
 #include "AllocationOperators.h"
 // To use memcpy
-#include <cstring> 
+#include <cstring>
 
-#include "Assertions.h" 
+#include "Assertions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 
@@ -62,15 +62,15 @@ namespace Memory
 //##################=======================================================##################
 
 QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const QAlignment &alignment) :
-            m_uBlockSize(uBlockSize), 
-            m_uAllocatedBytes(0), 
-            m_uAlignment(alignment), 
-            m_uNeedDestroyMemoryChunk(1), 
-            m_uPoolSize(uSize)
+            m_uBlockSize(uBlockSize),
+            m_uPoolSize(uSize),
+            m_uAllocatedBytes(0),
+            m_uAlignment(alignment),
+            m_uNeedDestroyMemoryChunk(1)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero"  );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
-    
+
     m_pAllocatedMemory = operator new(m_uPoolSize, alignment);
     QE_ASSERT( null_q != m_pAllocatedMemory, "Pointer to allocated memory is null" );
 
@@ -82,19 +82,19 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 }
 
 QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const void *pBuffer) :
-            m_uBlockSize(uBlockSize), 
-            m_uAllocatedBytes(0), 
-            m_uAlignment(QAlignment(sizeof(void**))), 
-            m_uNeedDestroyMemoryChunk(0),
-            m_uPoolSize(uSize)
+            m_uBlockSize(uBlockSize),
+            m_uPoolSize(uSize),
+            m_uAllocatedBytes(0),
+            m_uAlignment(QAlignment(sizeof(void**))),
+            m_uNeedDestroyMemoryChunk(0)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero" );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
     QE_ASSERT( 0 != pBuffer, "Pointer to buffer cannot be null" );
-        
+
     // Calculates needed memory address offset (adjustment) for the chunk starts at multiple of alignment
     pointer_uint_q uAdjustment = m_uAlignment - ((pointer_uint_q)pBuffer & (m_uAlignment - 1));
-    if(uAdjustment == m_uAlignment ) 
+    if(uAdjustment == m_uAlignment )
         uAdjustment = 0;
 
     m_pAllocatedMemory = (void**)((pointer_uint_q)pBuffer + uAdjustment);
@@ -106,11 +106,11 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 }
 
 QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const void *pBuffer, const QAlignment &alignment) :
-            m_uBlockSize(uBlockSize), 
-            m_uAllocatedBytes(0), 
-            m_uAlignment(alignment), 
-            m_uNeedDestroyMemoryChunk(0), 
-            m_uPoolSize(uSize)
+            m_uBlockSize(uBlockSize),
+            m_uPoolSize(uSize),
+            m_uAllocatedBytes(0),
+            m_uAlignment(alignment),
+            m_uNeedDestroyMemoryChunk(0)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero" );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
@@ -118,14 +118,14 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 
     pointer_uint_q uAdjustment = alignment - ((pointer_uint_q)pBuffer & (alignment - 1));
 
-    if(uAdjustment == alignment ) 
+    if(uAdjustment == alignment )
         uAdjustment = 0;
 
     m_pAllocatedMemory = (void**)((pointer_uint_q)pBuffer + uAdjustment);
     m_pFirst = m_pAllocatedMemory;
 
     m_uBlocksCount = (m_uPoolSize - uAdjustment) / uBlockSize;
-        
+
     this->AllocateFreeBlocksList();
 }
 
@@ -140,7 +140,7 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 
 QPoolAllocator::~QPoolAllocator()
 {
-    if(m_uNeedDestroyMemoryChunk != 0) 
+    if(m_uNeedDestroyMemoryChunk != 0)
         operator delete(m_pAllocatedMemory, m_uAlignment);
 
     operator delete(m_pFreeBlocks);
@@ -158,7 +158,7 @@ QPoolAllocator::~QPoolAllocator()
 
 void* QPoolAllocator::Allocate()
 {
-    if( null_q == m_ppNextFreeBlock ) 
+    if( null_q == m_ppNextFreeBlock )
         return null_q;
 
     m_uAllocatedBytes += m_uBlockSize;
@@ -243,14 +243,14 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
 
             // ppLastFreeBlock will contain the pointer to last free block in the list or null if there are no free blocks
             // when exits from the while loop.
-            if(null_q != *ppLastFreeBlock) 
+            if(null_q != *ppLastFreeBlock)
                 ppLastFreeBlock = (void**)*ppLastFreeBlock;
         }
 
         if(m_uBlocksCount < poolAllocator.m_uBlocksCount)
         {
             // Appends extra free blocks pointers of destination
-            
+
             // Links copied free blocks list from source to remaining free blocks from destination.
 
             // ppNext = first free block of remaining free blocks.

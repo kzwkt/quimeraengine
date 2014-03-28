@@ -192,6 +192,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp">
 			<Option virtualFolder="Tests/Time/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QDstInformation_Test.cpp">
+			<Option virtualFolder="Tests/Time/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
@@ -270,6 +273,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QTimeSpan_Test.cpp">
 			<Option virtualFolder="Tests/Time/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTimeZone_Test.cpp">
+			<Option virtualFolder="Tests/Time/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QTransformationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
@@ -302,6 +308,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/SQPoint_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQTimeZoneFactory_Test.cpp">
+			<Option virtualFolder="Tests/Time/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/TestModule_Tools.cpp">
 			<Option virtualFolder="Tests/" />

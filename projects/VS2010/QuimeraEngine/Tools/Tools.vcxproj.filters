@@ -188,6 +188,12 @@
     <ClInclude Include="..\..\..\..\headers\QFixedArray.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTimeZone.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h">
+      <Filter>Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -353,6 +359,18 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QDateTime.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTimeZone.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQTimeZoneFactory.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TimeZoneDatabase.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDstInformation.cpp">
       <Filter>Time</Filter>
     </ClCompile>
   </ItemGroup>

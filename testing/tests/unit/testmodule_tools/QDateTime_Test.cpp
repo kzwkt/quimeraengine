@@ -32,6 +32,8 @@ using namespace boost::unit_test;
 
 #include "QDateTime.h"
 
+#include "SQTimeZoneFactory.h"
+
 using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
@@ -58,8 +60,8 @@ QTEST_CASE ( Constructor1_DefaultValueIsUndefined_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_DateTimeIsCorrectlyCopied_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 5;
@@ -70,7 +72,7 @@ QTEST_CASE ( Constructor2_DateTimeIsCorrectlyCopied_Test )
     const u64_q EXPECTED_MILLISECOND = 666;
     const u64_q EXPECTED_MICROSECOND = 777;
     const u64_q EXPECTED_HNS         = 8;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
     const QDateTime ORIGINAL_DATETIME(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
                                       EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
                                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS,
@@ -80,16 +82,8 @@ QTEST_CASE ( Constructor2_DateTimeIsCorrectlyCopied_Test )
     QDateTime dateTime(ORIGINAL_DATETIME);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(dateTime.GetYear(), EXPECTED_YEAR);
-    BOOST_CHECK_EQUAL(dateTime.GetMonth(), EXPECTED_MONTH);
-    BOOST_CHECK_EQUAL(dateTime.GetDay(), EXPECTED_DAY);
-    BOOST_CHECK_EQUAL(dateTime.GetHour(), EXPECTED_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMinute(), EXPECTED_MINUTE);
-    BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK(dateTime == ORIGINAL_DATETIME);
+    BOOST_CHECK(dateTime.GetTimeZone() == EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -112,7 +106,7 @@ QTEST_CASE ( Constructor2_UndefinedDateTimeIsCopied_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
+    // [TODO] Thund: Uncomment when it is possible to get every time unit
     /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
@@ -151,7 +145,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNullTimeZone_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
+    // [TODO] Thund: Uncomment when it is possible to get every time unit
     /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
@@ -189,7 +183,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNul
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTimeZoneOffsetIsPositive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
+    // [TODO] Thund: Uncomment when it is possible to get every time unit
     /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
@@ -227,7 +221,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTimeZoneOffsetIsNegative_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
+    // [TODO] Thund: Uncomment when it is possible to get every time unit
     /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
@@ -3314,8 +3308,10 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenMillisecondIsTooHigh_Test )
 /// </summary>
 QTEST_CASE ( Constructor7_InstanceIsCorrectlyConstructed_Test )
 {
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
-    const QTimeZone* EXPECTED_TIMEZONE = null_q; // [TODO] Thund: Change this by SQTimeZoneFactory::GetTimeZoneById("Europe/Madrid")
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
     const QDateTime EXPECTED_DATETIME(1, 2, 3, 4, 5, 6, 7, 8, 9, null_q);
 
 	// [Execution]
@@ -3331,8 +3327,8 @@ QTEST_CASE ( Constructor7_InstanceIsCorrectlyConstructed_Test )
 /// </summary>
 QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 5;
@@ -3343,7 +3339,7 @@ QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
     const u64_q EXPECTED_MILLISECOND = 666;
     const u64_q EXPECTED_MICROSECOND = 777;
     const u64_q EXPECTED_HNS         = 8;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
     const QDateTime EXPECTED_DATETIME(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
                                       EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
                                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS,
@@ -3354,16 +3350,8 @@ QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
     dateTime = EXPECTED_DATETIME;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(dateTime.GetYear(), EXPECTED_YEAR);
-    BOOST_CHECK_EQUAL(dateTime.GetMonth(), EXPECTED_MONTH);
-    BOOST_CHECK_EQUAL(dateTime.GetDay(), EXPECTED_DAY);
-    BOOST_CHECK_EQUAL(dateTime.GetHour(), EXPECTED_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMinute(), EXPECTED_MINUTE);
-    BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+    BOOST_CHECK(dateTime.GetTimeZone() == EXPECTED_DATETIME.GetTimeZone());
 }
 
 /// <summary>
@@ -4313,16 +4301,16 @@ QTEST_CASE ( OperatorSubtraction2_ReturnsZeroWhenDatesAreUndefined_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction2_TimeZoneDoesNotAffectTheResult_Test )
 {
-    // [TODO] Thund: Uncomment when time zones exist
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 9, 16, 102, 202, 7, null_q);
     const QTimeSpan EXPECTED_TIMESPAN(         0, 1, 1,  4,   0,   0, 0);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4333,7 +4321,7 @@ QTEST_CASE ( OperatorSubtraction2_TimeZoneDoesNotAffectTheResult_Test )
 
     // [Verification]
     BOOST_CHECK(resultUTC == EXPECTED_TIMESPAN);
-    BOOST_CHECK(resultUTC == resultWithTimeZones);*/
+    BOOST_CHECK(resultUTC == resultWithTimeZones);
 }
 
 /// <summary>
@@ -4379,15 +4367,15 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenOperandsAreNotEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4395,10 +4383,10 @@ QTEST_CASE ( OperatorEquality_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME == RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE == RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -4444,15 +4432,15 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenOperandsAreNotEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4460,10 +4448,10 @@ QTEST_CASE ( OperatorInequality_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME != RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE != RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -4547,15 +4535,15 @@ QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenInputIsLesserThanResidentWhenCompa
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4563,10 +4551,10 @@ QTEST_CASE ( OperatorLowerThan_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME < RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE < RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -4717,15 +4705,15 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenInputIsGreaterThanResidentWhenCo
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4733,10 +4721,10 @@ QTEST_CASE ( OperatorGreaterThan_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME > RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE > RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -4924,15 +4912,15 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenBothDatesAreUndefined_Test
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -4940,10 +4928,10 @@ QTEST_CASE ( OperatorLowerThanOrEquals_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME <= RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE <= RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -5131,15 +5119,15 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenBothDatesAreUndefined_Te
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_TimeZonesAreIgnored_Test )
 {
-    // [TODO] Thund: Uncomment when the timezones are implemented
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const QDateTime RIGHT_DATETIME_UTC(2,  1,  9, 6, 8, 12, 102, 202, 7, null_q);
     const QDateTime LEFT_DATETIME_UTC( 2,  1,  9, 7, 8, 12, 102, 202, 7, null_q);
 
-    QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
-    QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
+    const QTimeZone* pTimeZone1 = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
+    const QTimeZone* pTimeZone2 = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
     const QDateTime RIGHT_DATETIME_WITH_TIMEZONE(RIGHT_DATETIME_UTC, pTimeZone1);
     const QDateTime LEFT_DATETIME_WITH_TIMEZONE(LEFT_DATETIME_UTC, pTimeZone2);
@@ -5147,10 +5135,10 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_TimeZonesAreIgnored_Test )
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResult = LEFT_DATETIME >= RIGHT_DATETIME;
+    bool bResult = LEFT_DATETIME_WITH_TIMEZONE >= RIGHT_DATETIME_WITH_TIMEZONE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -5363,8 +5351,7 @@ QTEST_CASE ( IsLeapYear_ReturnsFalseWhenYearIsNotLeapYear_Test )
 /// </summary>
 QTEST_CASE ( IsLeapYear_AssertionFailsWhenDateIsUndefined_Test )
 {
-    // [TODO] Thund: Uncomment when the operator QDateTime::operator== exists
-    /*// [Preparation]
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5380,7 +5367,7 @@ QTEST_CASE ( IsLeapYear_AssertionFailsWhenDateIsUndefined_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #endif
