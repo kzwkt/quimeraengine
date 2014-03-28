@@ -28,6 +28,7 @@
 
 #include "Assertions.h"
 #include "SQInteger.h"
+#include "QTimeZone.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
@@ -551,19 +552,18 @@ bool QDateTime::IsLeapYear(const int nYear)
 
 void QDateTime::SubtractTimeZoneOffset()
 {
-    // [TODO] Thund: Apply the time zone to the input when QTimeZone and QDateTime::operator+=/-= exist
     if(m_pTimeZone != null_q)
     {
         QTimeSpan timeZoneOffset(0);
         bool bOffsetIsNegative = false;
         
-        /*m_pTimeZone->CalculateOffset(*this, timeZoneOffset, bOffsetIsNegative);
-
+        m_pTimeZone->CalculateOffset(*this, timeZoneOffset, bOffsetIsNegative);
+        
         // The offset is subtracted to the calculated instant to make it UTC
         if(bOffsetIsNegative)
             *this += timeZoneOffset;
         else
-            *this -= timeZoneOffset;*/
+            *this -= timeZoneOffset;
     }
 }
 

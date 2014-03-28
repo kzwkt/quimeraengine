@@ -198,6 +198,15 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArray_test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQTimeZoneFactory_Test.cpp">
+      <Filter>Tests\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeZone_Test.cpp">
+      <Filter>Tests\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp">
+      <Filter>Tests\Time</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

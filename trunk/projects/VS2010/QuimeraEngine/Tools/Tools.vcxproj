@@ -214,6 +214,7 @@
     <ClInclude Include="..\..\..\..\headers\QSpaceConversionMatrix.h" />
     <ClInclude Include="..\..\..\..\headers\QSphere.h" />
     <ClInclude Include="..\..\..\..\headers\QTimeSpan.h" />
+    <ClInclude Include="..\..\..\..\headers\QTimeZone.h" />
     <ClInclude Include="..\..\..\..\headers\QTransformationMatrix.h" />
     <ClInclude Include="..\..\..\..\headers\QTransformationMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QTranslationMatrix.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="..\..\..\..\headers\QVector4.h" />
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
+    <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +252,7 @@
     <ClCompile Include="..\..\..\..\source\QBaseVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTime.cpp" />
+    <ClCompile Include="..\..\..\..\source\QDstInformation.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QHexahedron.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment.cpp" />
@@ -272,6 +275,7 @@
     <ClCompile Include="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
     <ClCompile Include="..\..\..\..\source\QTimeSpan.cpp" />
     <ClCompile Include="..\..\..\..\source\QSphere.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QTransformationMatrix.cpp" />
     <ClCompile Include="..\..\..\..\source\QTransformationMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\source\QTranslationMatrix.cpp" />
@@ -283,6 +287,8 @@
     <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\SQPoint.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQTimeZoneFactory.cpp" />
+    <ClCompile Include="..\..\..\..\source\TimeZoneDatabase.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
