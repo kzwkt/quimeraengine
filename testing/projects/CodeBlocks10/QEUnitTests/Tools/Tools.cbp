@@ -204,7 +204,7 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
-		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArray_test.cpp">
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp">
