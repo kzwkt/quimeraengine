@@ -95,9 +95,7 @@ QTEST_CASE ( Constructor1_ChecksifIsCorrectlyInitializedWithInitialValue_Test )
 
     for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; uIndex++ )
     {
-        // [TODO] rdelasheras : Replace with operator[] when it is ready.
-        uValue = *((u64_q*)((pointer_uint_q)fixedArray.GetAllocator()->GetPointer() + uIndex * SIZEOF_VALUE_TYPE));
-
+        uValue = fixedArray[uIndex];
         bValuesAreAsExpected &= ( uValue == INITIAL_VALUE );
     }
 
@@ -185,7 +183,7 @@ QTEST_CASE ( Constructor2_CopyConstructorOfArrayElementsAreCalled_Test )
     const pointer_uint_q ARRAY_COUNT = 10;
     const pointer_uint_q SIZEOF_VALUE_TYPE = sizeof(INITIAL_VALUE);
     const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
-    
+
     QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
@@ -215,7 +213,7 @@ QTEST_CASE ( Constructor2_CopyConstructorOfArrayElementsAreCalled_Test )
 QTEST_CASE ( Constructor3_ConstructorWithoutParametersInitializesCorrectly_Test )
 {
     // [Preparation]
- 
+
     const pointer_uint_q END_POSITION_FORWARD = -1;
     const pointer_uint_q END_POSITION_BACKWARD = -2;
 
@@ -242,10 +240,10 @@ QTEST_CASE ( OperatorAssignment_OperatorAssignmentOfArrayElementsIsCalled_Test )
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT = 10;
     const pointer_uint_q EXPECTED_CALLS_TO_OPERATOR_ASSIGNMENT = ARRAY_COUNT;
-    
+
     QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
     QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
-            
+
     // [Execution]
     fixedArrayDestination = fixedArrayOrigin;
 
@@ -275,7 +273,7 @@ QTEST_CASE ( OperatorAssignment_OriginSizeNumberOfCopiesAreDoneWhereIsLessThanDe
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT_ORIGIN = 5;
     const pointer_uint_q ARRAY_COUNT_DESTINATION = 10;
-    
+
     QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
     QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
 
@@ -311,7 +309,7 @@ QTEST_CASE ( OperatorAssignment_DestinationSizeNumberOfCopiesAreDoneWhereOriginS
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT_ORIGIN = 10;
     const pointer_uint_q ARRAY_COUNT_DESTINATION = 5;
-    
+
     QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
     QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
 
@@ -337,6 +335,315 @@ QTEST_CASE ( OperatorAssignment_DestinationSizeNumberOfCopiesAreDoneWhereOriginS
     BOOST_CHECK_EQUAL( uCallsToOperatorAssignment, EXPECTED_CALLS_TO_OPERATOR_ASSIGNMENT );
 }
 
+
+/// <sumary>
+/// Checks if the value is set at correct position.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_ValueIsSetAtCorrectPosition_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const u64_q NEW_VALUE = 10;
+    const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
+    const bool OTHER_POSITIONS_UNTOUCHED = true;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    fixedArray[POSITION_TO_SET_NEW_VALUE] = NEW_VALUE;
+
+    // [Verification]
+    u64_q uValue = fixedArray.GetValue(POSITION_TO_SET_NEW_VALUE);
+
+    bool bOtherPositionsUntouched = true;
+
+    for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; uIndex++)
+    {
+        if(uIndex != POSITION_TO_SET_NEW_VALUE)
+            bOtherPositionsUntouched = bOtherPositionsUntouched &&
+                (fixedArray.GetValue(uIndex) == INITIAL_VALUE);
+    }
+
+    BOOST_CHECK_EQUAL( uValue, NEW_VALUE );
+    BOOST_CHECK_EQUAL( bOtherPositionsUntouched, OTHER_POSITIONS_UNTOUCHED );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when attempts to set a value to a position greater than the array's size.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToSetAValueToAPositionGreaterThanArraySize_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
+    bool bAssertionFailed = false;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+
+    try
+    {
+        fixedArray[POSITION_GREATER_THAN_ARRAY_SIZE] = INITIAL_VALUE;
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+
+/// <sumary>
+/// Checks if it gets the correct value at supplied position.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_GetsCorrectValueAtSuppliedPosition_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const u64_q NEW_VALUE = 10;
+    const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
+
+    // [Execution]
+    u64_q uValue = fixedArray[POSITION_TO_SET_NEW_VALUE];
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( uValue, NEW_VALUE );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when it attempts to get the value from a position greater than the array's size.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToGetTheValueFromAPositionGreaterThanArraySize_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
+    bool bAssertionFailed = false;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+
+    try
+    {
+        fixedArray[POSITION_GREATER_THAN_ARRAY_SIZE];
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks if gets the correct value at supplied position.
+/// </sumary>
+QTEST_CASE( GetValue_GetsCorrectValueAtSuppliedPosition_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const u64_q NEW_VALUE = 10;
+    const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
+
+    // [Execution]
+    u64_q uValue = fixedArray.GetValue(POSITION_TO_SET_NEW_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( uValue, NEW_VALUE );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when attempts to get the value from a position greater than the array's size.
+/// </summary>
+QTEST_CASE ( GetValue_AssertionFailsWhenAttemptsToGetTheValueFromAPositionNotLessThanArraySize_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
+    bool bAssertionFailed = false;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+
+    try
+    {
+        fixedArray.GetValue(POSITION_GREATER_THAN_ARRAY_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Clones an array and checks if the arrays have the same values.
+/// </sumary>
+QTEST_CASE( Clone_ClonedArrayHasSameValuesThanTheOriginArray_Test )
+{
+    // [Preparation]
+    const u64_q VALUE_ORIGIN = 12;
+    const u64_q VALUE_DESTINATION = 15;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool SAME_VALUES = true;
+
+    QFixedArray<u64_q> fixedArrayOrigin = QFixedArray<u64_q>(ARRAY_COUNT, VALUE_ORIGIN);
+    QFixedArray<u64_q> fixedArrayDestination = QFixedArray<u64_q>(ARRAY_COUNT, VALUE_DESTINATION);
+
+    // [Execution]
+    fixedArrayOrigin.Clone(fixedArrayDestination);
+
+    // [Verification]
+    bool bSameValues = true;
+
+    for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; uIndex++)
+    {
+        bSameValues = bSameValues && ( VALUE_ORIGIN == fixedArrayDestination[uIndex] );
+    }
+
+    BOOST_CHECK_EQUAL( bSameValues, SAME_VALUES );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when the two array's capacities are different.
+/// </summary>
+QTEST_CASE ( Clone_AssertionFailsWhenArrayCapacitiesAreDifferent_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT_ORIGIN = 5;
+    const pointer_uint_q ARRAY_COUNT_DESTINATION = 6;
+    const bool ASSERTION_FAILED = true;
+
+    bool bAssertionFailed = false;
+
+    QFixedArray<u64_q> fixedArrayOrigin = QFixedArray<u64_q>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
+    QFixedArray<u64_q> fixedArrayDestination = QFixedArray<u64_q>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
+
+    // [Execution]
+
+    try
+    {
+        fixedArrayOrigin.Clone(fixedArrayDestination);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks if the value is set at correct position.
+/// </sumary>
+QTEST_CASE( SetValue_ValueIsSetAtCorrectPosition_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const u64_q NEW_VALUE = 10;
+    const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
+    const bool OTHER_POSITIONS_UNTOUCHED = true;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
+
+    // [Verification]
+    u64_q uValue = fixedArray.GetValue(POSITION_TO_SET_NEW_VALUE);
+    bool bOtherPositionsUntouched = true;
+
+    for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; uIndex++)
+    {
+        if(uIndex != POSITION_TO_SET_NEW_VALUE)
+            bOtherPositionsUntouched = bOtherPositionsUntouched &&
+                (fixedArray.GetValue(uIndex) == INITIAL_VALUE);
+    }
+
+    BOOST_CHECK_EQUAL( uValue, NEW_VALUE );
+    BOOST_CHECK_EQUAL( bOtherPositionsUntouched, OTHER_POSITIONS_UNTOUCHED );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when attempts to set a value to a position greater than the array's size.
+/// </summary>
+QTEST_CASE ( SetValue_AssertionFailsWhenAttemptsToSetAValueToAPositionNotLessThanArraySize_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
+    bool bAssertionFailed = false;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+
+    try
+    {
+        fixedArray.SetValue(POSITION_GREATER_THAN_ARRAY_SIZE, INITIAL_VALUE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if returns a valid allocator.
 /// </summary>
@@ -355,5 +662,63 @@ QTEST_CASE ( GetAllocator_ReturnsValidAllocator_Test )
     BOOST_CHECK_EQUAL( uFirstValue, INITIAL_VALUE );
 }
 
+/// <sumary>
+/// Returns the number of elements in the array.
+/// </sumary>
+QTEST_CASE( GetCount_ReturnsNumberOfElementsInTheArray_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q EXPECTED_NUMBER_OF_ELEMENTS = ARRAY_COUNT;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    pointer_uint_q uNumberOfElements = fixedArray.GetCount();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( uNumberOfElements, EXPECTED_NUMBER_OF_ELEMENTS );
+}
+
+/// <sumary>
+/// Returns the capacity of the array.
+/// </sumary>
+QTEST_CASE( GetCapacity_ReturnsTheCapacityOfTheArray_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q EXPECTED_CAPACITY = ARRAY_COUNT;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    pointer_uint_q uCapacity = fixedArray.GetCapacity();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( uCapacity, EXPECTED_CAPACITY );
+}
+
+/// <sumary>
+/// Returns false when the array is not empty.
+/// </sumary>
+QTEST_CASE( IsEmpty_ReturnsFalseWhenTheArrayIsNotEmpty_Test )
+{
+    // [Preparation]
+    const u64_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const bool ARRAY_NOT_EMPTY = false;
+
+    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    bool bIsEmpty = fixedArray.IsEmpty();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bIsEmpty, ARRAY_NOT_EMPTY );
+}
+
 // End - Test Suite: QFixedArray
 QTEST_SUITE_END()
+

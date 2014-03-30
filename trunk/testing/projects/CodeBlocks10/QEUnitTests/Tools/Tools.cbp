@@ -129,6 +129,9 @@
 			<Add directory="../../../../../3rdparty/Boost/include" />
 			<Add directory="../../../../tests/unit" />
 		</Compiler>
+		<Unit filename="../../../../tests/unit/testmodule_tools/ArrayElementMock.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
