@@ -75,12 +75,12 @@ protected:
 	/// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
 
-   
+
 	// CONSTRUCTORS
 	// ---------------
 
 public:
-    
+
 	/// <summary>
 	/// Constructs a fixed array passing the number of elements to store and their initial value.
 	/// </summary>
@@ -90,13 +90,13 @@ public:
     /// <param name="uCount"> [IN] Number of elements to store. It must be greater than zero.</param>
     /// <param name="initialValue"> [IN] The initial value to assign to all array elements.</param>
     QFixedArray(const pointer_uint_q uCount, const T &initialValue) :
-            m_uFirst(0), 
+            m_uFirst(0),
             m_uLast(uCount - 1)
     {
         QE_ASSERT( uCount > 0, "Zero elements array is not allowed." );
         QE_ASSERT( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows." );
 
-        m_pAllocator = new Allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T))); 
+        m_pAllocator = new Allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
 
         for(pointer_uint_q uIndex = 0; uIndex < uCount; uIndex++)
         {
@@ -116,27 +116,24 @@ public:
             m_uFirst(fixedArray.m_uFirst),
             m_uLast(fixedArray.m_uLast)
     {
-        // [TODO] : rdelasheras. Replace "fixedArray.m_uLast + 1" with "fixedArray.GetCount()" when it exists.
-        m_pAllocator = new Allocator((fixedArray.m_uLast + 1) * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
+        m_pAllocator = new Allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
 
         for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1; uIndex++)
         {
             // Constructs a T object over the buffer returned by the allocator and initializes it with
             // the value of the origin element in the corresponding array position.
-            // [TODO] : rdelasheras. Access to every element with "fixedArray[uIndex]" when it exists instead of using pointers arithmetic.
-            new(m_pAllocator->Allocate()) 
-                T(*(T*)((pointer_uint_q)fixedArray.GetAllocator()->GetPointer() + uIndex * sizeof(T)));
+            new(m_pAllocator->Allocate()) T(fixedArray[uIndex]);
         }
     }
 
-protected:       
+protected:
 
 	/// <summary>
 	/// Constructs an empty and invalid fixed array. It's responsability of the derived classes to initialize it properly.
 	/// </summary>
 	QFixedArray() :
-        m_uFirst(END_POSITION_BACKWARD), 
-        m_uLast(END_POSITION_FORWARD), 
+        m_uFirst(END_POSITION_BACKWARD),
+        m_uLast(END_POSITION_FORWARD),
         m_pAllocator(null_q)
     {
     }
@@ -146,19 +143,16 @@ protected:
 public:
 	/// <summary>
 	/// Destructor.
-	/// </summary>		
+	/// </summary>
     /// <remarks>
     /// The destructor is called for every element of the array.
     /// </remarks>
 	~QFixedArray()
     {
         QE_ASSERT( null_q != m_pAllocator, "Allocator is null" );
- 
-        // [TODO] : rdelasheras. Replace "m_uLast + 1" with "this->GetCount()" when it exists.
-        // [TODO] : rdelasheras. Access to every element with "(*this)[uIndex]" when it exists instead of using pointers arithmetic.
-        for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1; uIndex++)
-            ((T*)((pointer_uint_q)m_pAllocator->GetPointer() + uIndex * sizeof(T)))->~T();
-            
+
+        for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); uIndex++)
+            this->GetValue(uIndex).~T();
 
         delete m_pAllocator;
     }
@@ -168,7 +162,7 @@ public:
 	// ---------------
 public:
   	/// <summary>
-	/// Defines the assignment operator which makes a copy of the passed fixed array. 
+	/// Defines the assignment operator which makes a copy of the passed fixed array.
 	/// </summary>
     /// <remarks>
     /// If the size of the destination array is less than the size of the origin array, it will copy
@@ -186,25 +180,71 @@ public:
     {
         pointer_uint_q uElementsToCopy;
 
-        // [TODO] : rdelasheras. Replace "m_uLast + 1" with "GetCount()" when it exists.
-        if( m_uLast > fixedArray.m_uLast )
+        if(m_uLast > fixedArray.m_uLast)
             uElementsToCopy = fixedArray.m_uLast + 1;
         else
             uElementsToCopy = m_uLast + 1;
 
-        for( pointer_uint_q uIndex = 0; uIndex < uElementsToCopy; uIndex++ )
+        for(pointer_uint_q uIndex = 0; uIndex < uElementsToCopy; uIndex++)
         {
             // Destination array element value = Origin array element value, using pointers arithmetic
-            // [TODO] : rdelasheras. Access to every element with "[uIndex]" when it exists instead of using pointers arithmetic.
-            *(T*)((pointer_uint_q)m_pAllocator->GetPointer() + uIndex * sizeof(T)) =
-                *(T*)((pointer_uint_q)fixedArray.m_pAllocator->GetPointer() + uIndex * sizeof(T));
+            this->SetValue(uIndex, fixedArray.GetValue(uIndex));
         }
 
         return *this;
     }
 
+    /// <sumary>
+    /// Returns a reference to the element stored in the passed position.
+    /// </sumary>
+    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
+    /// <returns>
+    /// A reference to the element stored in the passed position.
+    /// </returns>
+    T& operator[] (const pointer_uint_q uIndex) const
+    {
+        return this->GetValue(uIndex);
+    }
+
+    /// <sumary>
+    /// Returns a reference to the element stored in the passed position.
+    /// </sumary>
+    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
+    /// <returns>
+    /// A reference to the element stored in the passed position.
+    /// </returns>
+    T& GetValue(const pointer_uint_q uIndex) const
+    {
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        return *((T*)m_pAllocator->GetPointer() + uIndex);
+    }
+
+    /// <sumary>
+    /// Performs a fast shallow copy of the array elements.
+    /// </sumary>
+    /// <param name="destinationArray"> [IN/OUT] Destination array where to copy the array elements. The capacity of the two arrays has to be equal.</param>
+    void Clone(QFixedArray &destinationArray) const
+    {
+        QE_ASSERT( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal" );
+        m_pAllocator->CopyTo(*destinationArray.m_pAllocator);
+    }
+
+    /// <sumary>
+    /// Copies the passed value in the passed position of the array.
+    /// </sumary>
+    /// <remarks>
+    /// The assignment operator will be called for the element that is currently occupying that position.
+    /// </remarks>
+    /// <param name="uIndex"> [IN] Position in the array where to copy the value. It must be less than the array's size.</param>
+    /// <param name="value"> [IN] Value to copy in the array.</param>
+    void SetValue(const pointer_uint_q uIndex, const T& value)
+    {
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        *((T*)m_pAllocator->GetPointer() + uIndex) = value;
+    }
+
 private:
-    
+
     /// <sumary>
     /// Checks if the multiplication of two operands overflows for the pointer_uint_q type.
     /// </sumary>
@@ -213,7 +253,7 @@ private:
     /// <returns>
     /// True if the result overflows for the pointer_uint_q type.
     /// </returns>
-    bool MultiplicationOverflows(pointer_uint_q uOperandA, pointer_uint_q uOperandB) const 
+    bool MultiplicationOverflows(pointer_uint_q uOperandA, pointer_uint_q uOperandB) const
     {
         return this->HighestOneBitPosition(uOperandA) + this->HighestOneBitPosition(uOperandB) > sizeof(pointer_uint_q) * 8;
     }
@@ -246,37 +286,71 @@ public:
 	/// Returns a constant pointer to the allocator.
 	/// </summary>
     /// <returns>
-    /// Constant pointer to the allocator. 
+    /// Constant pointer to the allocator.
     /// </returns>
     const Allocator* GetAllocator() const
     {
-        return m_pAllocator; 
+        return m_pAllocator;
     }
 
+    /// <sumary>
+    /// Returns the number of elements in the array.
+    /// </sumary>
+    /// <returns>
+    /// The number of elements in the array.
+    /// </returns>
+    pointer_uint_q GetCount() const
+    {
+        return m_pAllocator->GetAllocatedBytes() / sizeof(T);
+    }
+
+    /// <sumary>
+    /// Returns the number of elements that can be stored in the array without a reallocation.
+    /// </sumary>
+    /// <returns>
+    /// The number of elements that can be stored in the array without a reallocation.
+    /// </returns>
+    pointer_uint_q GetCapacity() const
+    {
+        return m_pAllocator->GetPoolSize() / sizeof(T);
+    }
+
+    /// <sumary>
+    /// Checks whether the array is empty or not.
+    /// </sumary>
+    /// <returns>
+    /// True if the array is empty.
+    /// </returns>
+    bool IsEmpty() const
+    {
+        return false;
+    }
 
     // ATTRIBUTES
 	// ---------------
+
 protected:
+
 	/// <summary>
 	/// Pointer to the allocator which stores the array elements.
-	/// </summary>		
+	/// </summary>
     Allocator* m_pAllocator;
-    
+
     /// <summary>
 	/// The Comparator.
-	/// </summary>		
+	/// </summary>
     Comparator m_comparator;
 
     /// <summary>
-	/// Index of the first element in the sequence. If the index points to an invalid position its value is the 
+	/// Index of the first element in the sequence. If the index points to an invalid position its value is the
     /// END_POSITION_BACKWARD constant.
-	/// </summary>		
+	/// </summary>
     pointer_uint_q m_uFirst;
 
    	/// <summary>
-	/// Index of the last element in the sequence. If the index points to an invalid position its value is the 
+	/// Index of the last element in the sequence. If the index points to an invalid position its value is the
     /// END_POSITION_FORWARD constant.
-	/// </summary>		
+	/// </summary>
     pointer_uint_q m_uLast;
 
 };
@@ -287,3 +361,4 @@ protected:
 } //namespace Kinesis
 
 #endif // __QFIXEDARRAY__
+
