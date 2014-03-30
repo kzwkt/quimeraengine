@@ -26,6 +26,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
@@ -52,6 +53,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
@@ -80,6 +82,7 @@
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
@@ -111,6 +114,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
@@ -182,6 +186,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/TestModule_Common.cpp">
 			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/UnicodeCollationTestData.h">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/UnicodeNormalizationTestData.h">
 			<Option virtualFolder="Tests/DataTypes/" />

@@ -57,6 +57,7 @@
 				<Linker>
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicudt.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
@@ -79,6 +80,7 @@
 					<Add option="-m32" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtDynamic" />
 				</Linker>
 			</Target>
@@ -102,6 +104,9 @@
 		<Unit filename="../../../../headers/CommonDefinitions.h" />
 		<Unit filename="../../../../headers/Configuration.h" />
 		<Unit filename="../../../../headers/DataTypesDefinitions.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/EQComparisonType.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../headers/EQNormalizationForm.h">
@@ -140,6 +145,9 @@
 			<Option virtualFolder="Memory/" />
 		</Unit>
 		<Unit filename="../../../../source/Assertions.cpp" />
+		<Unit filename="../../../../source/EQComparisonType.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../source/EQNormalizationForm.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>

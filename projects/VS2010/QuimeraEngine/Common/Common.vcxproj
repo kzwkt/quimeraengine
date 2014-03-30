@@ -88,7 +88,7 @@
       <SubSystem>NotSet</SubSystem>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>icudt.lib;icuuc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>icudt.lib;icuuc.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -97,6 +97,7 @@
     <ClInclude Include="..\..\..\..\headers\CommonDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />
     <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
@@ -113,6 +114,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp" />
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />

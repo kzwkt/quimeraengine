@@ -43,9 +43,8 @@ QTEST_SUITE_BEGIN( QConstCharIterator_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_IteratorPointsToFirstPositionWhenUsingCommonString_Test )
 {
-    // [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
     // [Preparation]
-    /*const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator EXPECTED_ITERATOR(SOURCE_STRING);
     EXPECTED_ITERATOR.MoveFirst();
 
@@ -53,7 +52,7 @@ QTEST_CASE ( Constructor1_IteratorPointsToFirstPositionWhenUsingCommonString_Tes
     QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
     
     // [Verification]
-    BOOST_CHECK(iterator == EXPECTED_ITERATOR);*/
+    BOOST_CHECK(iterator == EXPECTED_ITERATOR);
 }
 
 /// <summary>
@@ -61,8 +60,7 @@ QTEST_CASE ( Constructor1_IteratorPointsToFirstPositionWhenUsingCommonString_Tes
 /// </summary>
 QTEST_CASE ( Constructor1_IteratorPointsToEndPositionWhenUsingEmptyString_Test )
 {
-    // [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+    // [Preparation]
     const QStringUnicode SOURCE_STRING("");
     const bool IS_END = true;
 
@@ -70,15 +68,15 @@ QTEST_CASE ( Constructor1_IteratorPointsToEndPositionWhenUsingEmptyString_Test )
     QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
     
     // [Verification]
-    BOOST_CHECK_EQUAL(iterator.IsEnd(), IS_END);*/
+    BOOST_CHECK_EQUAL(iterator.IsEnd(), IS_END);
 }
 
 /// <summary>
 /// Checks that the iterator is correctly copied when using a common input interator.
 /// </summary>
 QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingCommonIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator EXPECTED_ITERATOR(SOURCE_STRING);
     ++EXPECTED_ITERATOR;
@@ -87,15 +85,15 @@ QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingCommonIterator_Test 
     QStringUnicode::QConstCharIterator iterator(EXPECTED_ITERATOR);
     
     // [Verification]
-    BOOST_CHECK(iterator == EXPECTED_ITERATOR);*/
+    BOOST_CHECK(iterator == EXPECTED_ITERATOR);
 }
 
 /// <summary>
 /// Checks that the iterator is correctly copied when using an invalid input interator.
 /// </summary>
 QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingInvalidIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator EXPECTED_ITERATOR(SOURCE_STRING);
     EXPECTED_ITERATOR.MoveLast();
@@ -105,7 +103,7 @@ QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingInvalidIterator_Test
     QStringUnicode::QConstCharIterator iterator(EXPECTED_ITERATOR);
     
     // [Verification]
-    BOOST_CHECK(!iterator.IsValid());*/
+    BOOST_CHECK(!iterator.IsValid());
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -114,9 +112,9 @@ QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingInvalidIterator_Test
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -135,16 +133,16 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
@@ -164,7 +162,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -173,9 +171,9 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
@@ -185,7 +183,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLas
     iterator++;
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
@@ -195,9 +193,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLas
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsPreviousState_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -211,7 +207,7 @@ QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
     
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(iterator.GetChar() == SECOND_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == SECOND_CHARACTER);
 }
 
 /// <summary>
@@ -219,9 +215,7 @@ QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirst_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -237,7 +231,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
     
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(currentChar == FIRST_CHARACTER);*/
+    BOOST_CHECK(currentChar == FIRST_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -246,8 +240,8 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -267,15 +261,15 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position before the first one.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveFirst();
@@ -296,7 +290,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -305,8 +299,8 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveFirst();
@@ -317,7 +311,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
     iterator--;
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
@@ -327,9 +321,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturnsPreviousState_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -343,7 +335,7 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
     
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(iterator.GetChar() == BEFORE_LAST_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == BEFORE_LAST_CHARACTER);
 }
 
 /// <summary>
@@ -351,9 +343,7 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPosition_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -368,7 +358,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
     
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -377,8 +367,8 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -398,15 +388,15 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveLast();
@@ -427,7 +417,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -436,8 +426,8 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveLast();
@@ -448,7 +438,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
     ++iterator;
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
@@ -458,9 +448,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCurrentState_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -474,7 +462,7 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
     
     // [Verification]
     BOOST_CHECK(iteratorCurrentState.GetChar() == SECOND_CHARACTER);
-    BOOST_CHECK(iterator.GetChar() == SECOND_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == SECOND_CHARACTER);
 }
 
 /// <summary>
@@ -482,9 +470,7 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirst_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -499,7 +485,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
     
     // [Verification]
     BOOST_CHECK(iteratorCurrentState.GetChar() == FIRST_CHARACTER);
-    BOOST_CHECK(iterator.GetChar() == FIRST_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == FIRST_CHARACTER);
 }
 
 
@@ -509,8 +495,8 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -530,15 +516,15 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position before the first one.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveFirst();
@@ -559,7 +545,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -568,8 +554,8 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_END(SOURCE_STRING);
     ITERATOR_END.MoveFirst();
@@ -580,7 +566,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
     --iterator;
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
@@ -590,9 +576,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsCurrentState_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -606,7 +590,7 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
     
     // [Verification]
     BOOST_CHECK(iteratorCurrentState.GetChar() == BEFORE_LAST_CHARACTER);
-    BOOST_CHECK(iterator.GetChar() == BEFORE_LAST_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == BEFORE_LAST_CHARACTER);
 }
 
 /// <summary>
@@ -614,9 +598,7 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPosition_Test )
 {
-    // [TODO] Thund: Uncomment when QCharUnicode::operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
@@ -631,7 +613,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     
     // [Verification]
     BOOST_CHECK(iteratorCurrentState.GetChar() == LAST_CHARACTER);
-    BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);*/
+    BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -640,8 +622,8 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
 /// Checks that an assertion fails when the input iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -662,15 +644,15 @@ QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorIsNotValid_Test 
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorPointsToDifferentString_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -691,7 +673,7 @@ QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorPointsToDifferen
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -700,8 +682,8 @@ QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorPointsToDifferen
 /// Checks that the iterator is copied when it is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_IteratorIsCopiedWhenInputIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -712,15 +694,15 @@ QTEST_CASE ( OperatorAssignation_IteratorIsCopiedWhenInputIteratorIsNotValid_Tes
     iterator = INVALID_ITERATOR;
     
     // [Verification]
-    BOOST_CHECK(iterator == INVALID_ITERATOR);*/
+    BOOST_CHECK(iterator == INVALID_ITERATOR);
 }
 
 /// <summary>
 /// Checks that the iterator is not copied when it points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_IteratorDoesNotChangeIfInputIteratorPointsToDifferentString_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -732,7 +714,7 @@ QTEST_CASE ( OperatorAssignation_IteratorDoesNotChangeIfInputIteratorPointsToDif
     
     // [Verification]
     BOOST_CHECK(iterator != ITERATOR_A);
-    BOOST_CHECK(iterator == ITERATOR_B);*/
+    BOOST_CHECK(iterator == ITERATOR_B);
 }
 
 #endif
@@ -741,8 +723,8 @@ QTEST_CASE ( OperatorAssignation_IteratorDoesNotChangeIfInputIteratorPointsToDif
 /// Checks that a common iterator is copied.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_InputIteratorIsCorrectlyCopied_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_SOURCE("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_SOURCE);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_SOURCE);
@@ -752,15 +734,15 @@ QTEST_CASE ( OperatorAssignation_InputIteratorIsCorrectlyCopied_Test )
     iterator = ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_A);*/
+    BOOST_CHECK(iterator == ITERATOR_A);
 }
 
 /// <summary>
 /// Checks that input iterator is copied when resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignation_InputIteratorIsCorrectlyCopiedWhenResidentIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -773,7 +755,7 @@ QTEST_CASE ( OperatorAssignation_InputIteratorIsCorrectlyCopiedWhenResidentItera
     
     // [Verification]
     BOOST_CHECK(iterator.IsValid());
-    BOOST_CHECK(iterator == VALID_ITERATOR);*/
+    BOOST_CHECK(iterator == VALID_ITERATOR);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -782,8 +764,8 @@ QTEST_CASE ( OperatorAssignation_InputIteratorIsCorrectlyCopiedWhenResidentItera
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -817,15 +799,15 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -846,7 +828,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -855,8 +837,8 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -867,7 +849,7 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentStrings_T
     bool bResult = ITERATOR_A == ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -876,8 +858,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentStrings_T
 /// Checks that it returns True when iterators are equal.
 /// </summary>
 QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -887,15 +869,15 @@ QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
     bool bResult = ITERATOR_A == ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when iterators are not equal.
 /// </summary>
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -907,7 +889,7 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
     bool bResult = ITERATOR_A == ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -916,8 +898,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-   /* // [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -951,15 +933,15 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -980,7 +962,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrin
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -989,8 +971,8 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrin
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -1001,7 +983,7 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentStrings_
     bool bResult = ITERATOR_A != ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1010,8 +992,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentStrings_
 /// Checks that it returns False when iterators are equal.
 /// </summary>
 QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -1021,15 +1003,15 @@ QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
     bool bResult = ITERATOR_A != ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns True when iterators are not equal.
 /// </summary>
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -1041,7 +1023,7 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
     bool bResult = ITERATOR_A != ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1050,8 +1032,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -1085,15 +1067,15 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -1114,7 +1096,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStri
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1123,8 +1105,8 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStri
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -1135,7 +1117,7 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentString
     bool bResult = ITERATOR_A > ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1144,8 +1126,8 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentString
 /// Checks that it returns True when the resident iterator is greater than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -1156,15 +1138,15 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInp
     bool bResult = ITERATOR_B > ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the resident iterator is not greater than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
@@ -1175,7 +1157,7 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
     bool bResult = ITERATOR_A > ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1184,8 +1166,8 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -1219,15 +1201,15 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -1248,7 +1230,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentString
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1257,8 +1239,8 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentString
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
-    /*// [Preparation]
+{
+    // [Preparation]
     QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
@@ -1269,7 +1251,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_
     bool bResult = ITERATOR_A < ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1278,9 +1260,9 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentStrings_
 /// Checks that it returns True when the resident iterator is lower than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_B;
@@ -1290,16 +1272,16 @@ QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIt
     bool bResult = ITERATOR_A < ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the resident iterator is not lower than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_B;
@@ -1309,7 +1291,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
     bool bResult = ITERATOR_B < ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1318,9 +1300,9 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -1353,16 +1335,16 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
 
@@ -1382,7 +1364,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1391,9 +1373,9 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-   /* QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_B);
@@ -1403,7 +1385,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDiffere
     bool bResult = ITERATOR_A >= ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1412,9 +1394,9 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDiffere
 /// Checks that it returns True when the resident iterator is greater than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_B;
@@ -1424,16 +1406,16 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreate
     bool bResult = ITERATOR_B >= ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns True when the resident iterator is equal to the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     const bool EXPECTED_RESULT = true;
@@ -1442,16 +1424,16 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsIn
     bool bResult = ITERATOR_B >= ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the resident iterator is neither greater than nor equals to the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGreaterThanAndDoNotEqualsInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_B;
@@ -1461,7 +1443,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
     bool bResult = ITERATOR_A >= ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1470,9 +1452,9 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -1505,16 +1487,16 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different string.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
 
@@ -1534,7 +1516,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1543,9 +1525,9 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 /// Checks that it returns False when iterators point to a different string.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentStrings_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode STRING_B("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_B);
@@ -1555,7 +1537,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
     bool bResult = ITERATOR_A <= ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1564,9 +1546,9 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
 /// Checks that it returns True when the resident iterator is lower than the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerThanInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_A;
@@ -1576,16 +1558,16 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerTha
     bool bResult = ITERATOR_B <= ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns True when the resident iterator is equal to the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     const bool EXPECTED_RESULT = true;
@@ -1594,16 +1576,16 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInpu
     bool bResult = ITERATOR_B <= ITERATOR_A;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the resident iterator is neither greater than nor equals to the input iterator.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowerThanAndDoNotEqualsInputIterator_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode STRING_A("ABCDEFGHIJKMN");
+    QStringUnicode STRING_A("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_A(STRING_A);
     QStringUnicode::QConstCharIterator ITERATOR_B(STRING_A);
     ++ITERATOR_A;
@@ -1613,7 +1595,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
     bool bResult = ITERATOR_A <= ITERATOR_B;
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1622,9 +1604,9 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -1643,7 +1625,7 @@ QTEST_CASE ( IsEnd_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1652,9 +1634,9 @@ QTEST_CASE ( IsEnd_AssertionFailsWhenIteratorIsNotValid_Test )
 /// Checks that it returns False when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -1664,7 +1646,7 @@ QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorIsNotValid_Test )
     bool bResult = INVALID_ITERATOR.IsEnd();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -1673,9 +1655,9 @@ QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorIsNotValid_Test )
 /// Checks that it returns True when the iterator points to the position before the first.
 /// </summary>
 QTEST_CASE ( IsEnd_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveFirst();
     ITERATOR--;
@@ -1686,16 +1668,16 @@ QTEST_CASE ( IsEnd_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
     bool bResult = ITERATOR.IsEnd();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns True when the iterator points to the position after the last.
 /// </summary>
 QTEST_CASE ( IsEnd_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveLast();
     ++ITERATOR;
@@ -1706,16 +1688,16 @@ QTEST_CASE ( IsEnd_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
     bool bResult = ITERATOR.IsEnd();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the iterator does not point to an end position.
 /// </summary>
 QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveLast();
 
@@ -1725,7 +1707,7 @@ QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
     bool bResult = ITERATOR.IsEnd();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1734,9 +1716,9 @@ QTEST_CASE ( IsEnd_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( GetChar_AssertionFailsWhenIteratorIsNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
     SOURCE_STRING = QStringUnicode("ABC");
@@ -1755,16 +1737,16 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorIsNotValid_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
+/// Checks that an assertion fails when the iterator points to end position.
 /// </summary>
 QTEST_CASE ( GetChar_AssertionFailsWhenIteratorPointsToEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveLast();
     ++ITERATOR;
@@ -1784,7 +1766,7 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1793,9 +1775,9 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorPointsToEndPosition_Test )
 /// Checks that it returns the Unicode code point U+FFFF when iterator points to an end position.
 /// </summary>
 QTEST_CASE ( GetChar_ReturnsUFFFFWhenIteratorPointsToEndPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveLast();
     ++ITERATOR;
@@ -1805,7 +1787,7 @@ QTEST_CASE ( GetChar_ReturnsUFFFFWhenIteratorPointsToEndPosition_Test )
     QCharUnicode character = ITERATOR.GetChar();
     
     // [Verification]
-    BOOST_CHECK(character == NONCHARACTER);*/
+    BOOST_CHECK(character == NONCHARACTER);
 }
 
 #endif
@@ -1814,9 +1796,11 @@ QTEST_CASE ( GetChar_ReturnsUFFFFWhenIteratorPointsToEndPosition_Test )
 /// Checks that it returns the expected character when the iterator points to a common position.
 /// </summary>
 QTEST_CASE ( GetChar_ReturnsExpectedCharacterWhenIteratorPointsCommonPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveFirst();
     ++ITERATOR;
@@ -1827,7 +1811,7 @@ QTEST_CASE ( GetChar_ReturnsExpectedCharacterWhenIteratorPointsCommonPosition_Te
     QCharUnicode character = ITERATOR.GetChar();
     
     // [Verification]
-    BOOST_CHECK(character == EXPECTED_CHARACTER);*/
+    BOOST_CHECK(character == EXPECTED_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1836,9 +1820,9 @@ QTEST_CASE ( GetChar_ReturnsExpectedCharacterWhenIteratorPointsCommonPosition_Te
 /// Checks that an assertion fails when the string is empty.
 /// </summary>
 QTEST_CASE ( MoveFirst_AssertionFailsWhenStringIsEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode EMPTY_STRING("");
+    QStringUnicode EMPTY_STRING("");
     QStringUnicode::QConstCharIterator ITERATOR(EMPTY_STRING);
 
     const bool ASSERTION_FAILED = true;
@@ -1856,7 +1840,7 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenStringIsEmpty_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1865,9 +1849,9 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenStringIsEmpty_Test )
 /// Checks that the iterator points to the end position when the string is empty.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode EMPTY_STRING("");
+    QStringUnicode EMPTY_STRING("");
     QStringUnicode::QConstCharIterator END_ITERATOR(EMPTY_STRING);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
@@ -1877,7 +1861,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
     ITERATOR.MoveFirst();
     
     // [Verification]
-    BOOST_CHECK(ITERATOR == END_ITERATOR);*/
+    BOOST_CHECK(ITERATOR == END_ITERATOR);
 }
 
 #endif
@@ -1886,9 +1870,9 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
 /// Checks that the iterator points to the first position when the string is not empty.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ORIGINAL_ITERATOR(SOURCE_STRING);
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
@@ -1900,16 +1884,16 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmpty_Test )
     iterator.MoveFirst();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the first position even when it was not valid.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndIteratorWasNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR_FIRST(SOURCE_STRING);
     QStringUnicode::QConstCharIterator INVALID_ITERATOR(SOURCE_STRING);
     INVALID_ITERATOR.MoveLast();
@@ -1920,16 +1904,16 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndItera
     iterator.MoveFirst();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ORIGINAL_ITERATOR(SOURCE_STRING);
     ORIGINAL_ITERATOR--;
 
@@ -1940,7 +1924,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndItera
     iterator.MoveFirst();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1949,9 +1933,9 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenStringIsNotEmptyAndItera
 /// Checks that an assertion fails when the string is empty.
 /// </summary>
 QTEST_CASE ( MoveLast_AssertionFailsWhenStringIsEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode EMPTY_STRING("");
+    QStringUnicode EMPTY_STRING("");
     QStringUnicode::QConstCharIterator ITERATOR(EMPTY_STRING);
 
     const bool ASSERTION_FAILED = true;
@@ -1969,7 +1953,7 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenStringIsEmpty_Test )
     }
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1978,9 +1962,9 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenStringIsEmpty_Test )
 /// Checks that the iterator points to the end position when the string is empty.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode EMPTY_STRING("");
+    QStringUnicode EMPTY_STRING("");
     QStringUnicode::QConstCharIterator END_ITERATOR(EMPTY_STRING);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
@@ -1990,7 +1974,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
     ITERATOR.MoveLast();
     
     // [Verification]
-    BOOST_CHECK(ITERATOR == END_ITERATOR);*/
+    BOOST_CHECK(ITERATOR == END_ITERATOR);
 }
 
 #endif
@@ -1999,9 +1983,9 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
 /// Checks that the iterator points to the last position when the string is not empty.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmpty_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABC");
+    QStringUnicode SOURCE_STRING("ABC");
     QStringUnicode::QConstCharIterator ORIGINAL_ITERATOR(SOURCE_STRING);
     QStringUnicode::QConstCharIterator ITERATOR_LAST(SOURCE_STRING);
     ++ITERATOR_LAST;
@@ -2012,16 +1996,16 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmpty_Test )
     iterator.MoveLast();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was not valid.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIteratorWasNotValid_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-   /*QStringUnicode SOURCE_STRING("ABC");
+    QStringUnicode SOURCE_STRING("ABC");
     QStringUnicode::QConstCharIterator ITERATOR_LAST(SOURCE_STRING);
     ++ITERATOR_LAST;
     ++ITERATOR_LAST;
@@ -2034,16 +2018,16 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIterato
     iterator.MoveLast();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABC");
+    QStringUnicode SOURCE_STRING("ABC");
     QStringUnicode::QConstCharIterator ORIGINAL_ITERATOR(SOURCE_STRING);
     ORIGINAL_ITERATOR--;
 
@@ -2056,7 +2040,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIterato
     iterator.MoveLast();
     
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
@@ -2064,9 +2048,8 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenStringIsNotEmptyAndIterato
 /// </summary>
 QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 {
-    // [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABC");
+    QStringUnicode SOURCE_STRING("ABC");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     const bool EXPECTED_RESULT = true;
 
@@ -2074,16 +2057,16 @@ QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
     bool bResult = ITERATOR.IsValid();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that it returns False when the iterator points to an out of bounds position.
 /// </summary>
 QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
-{// [TODO] Thund: Uncomment when QStringUnicode constructor from C-string and QCharUnicode::operator== are implemented
+{
     // [Preparation]
-    /*QStringUnicode SOURCE_STRING("ABCEFGHIJKMN");
+    QStringUnicode SOURCE_STRING("ABCEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);
     ITERATOR.MoveLast();
     SOURCE_STRING = "ABC";
@@ -2093,7 +2076,7 @@ QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
     bool bResult = ITERATOR.IsValid();
     
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 // End - Test Suite: QConstCharIterator

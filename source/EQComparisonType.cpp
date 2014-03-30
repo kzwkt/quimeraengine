@@ -24,25 +24,35 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __COMMONTESTDEFINITIONS__
-#define __COMMONTESTDEFINITIONS__
+#include "EQComparisonType.h"
 
-// --------------------------------------------------------------------------------------------------------
-// QStringUnicode::Normalization test switch: This switch enables or disables the tests of the Normalize
-// method of the class QStringUnicode, which takes a lot of time.
-// --------------------------------------------------------------------------------------------------------
-#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_ENABLED 0x0
-#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_DISABLED 0x1
 
-#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_DISABLED
+namespace Kinesis
+{
+namespace QuimeraEngine
+{
+namespace Common
+{
+namespace DataTypes
+{
 
-// --------------------------------------------------------------------------------------------------------
-// QStringUnicode::CompareTo test switch: This switch enables or disables the tests of the CompareTo
-// method of the class QStringUnicode, which takes a lot of time.
-// --------------------------------------------------------------------------------------------------------
-#define QE_TEST_CONFIG_QSTRINGUNICODE_COMPARE_TEST_ENABLED 0x0
-#define QE_TEST_CONFIG_QSTRINGUNICODE_COMPARE_TEST_DISABLED 0x1
+EQComparisonType::TNameValuePair EQComparisonType::sm_arValueName[] =
+    {
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("BinaryCaseSensitive"),    EQComparisonType::E_BinaryCaseSensitive),
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("BinaryCaseInsensitive"),    EQComparisonType::E_BinaryCaseInsensitive),
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseSensitive"),    EQComparisonType::E_CanonicalCaseSensitive),
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseInsensitive"),    EQComparisonType::E_CanonicalCaseInsensitive),
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseSensitive"),    EQComparisonType::E_CompatibilityCaseSensitive),
+        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseInsensitive"),    EQComparisonType::E_CompatibilityCaseInsensitive),
+    };
 
-#define QE_TEST_CONFIG_QSTRINGUNICODE_COMPARE_TEST QE_TEST_CONFIG_QSTRINGUNICODE_COMPARE_TEST_ENABLED
+EQComparisonType::TNameValueMap EQComparisonType::sm_mapValueName(
+        EQComparisonType::sm_arValueName ,
+        &EQComparisonType::sm_arValueName[0] + sizeof(EQComparisonType::sm_arValueName) / sizeof(EQComparisonType::sm_arValueName[0])
+    );
 
-#endif // __COMMONTESTDEFINITIONS__
+} //namespace DataTypes
+} //namespace Common
+} //namespace QuimeraEngine
+} //namespace Kinesis
+
