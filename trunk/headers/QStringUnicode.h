@@ -33,10 +33,12 @@
 #include <unicode/unistr.h>
 #include <unicode/schriter.h>
 #include <unicode/normalizer2.h>
+#include <unicode/coll.h>
 
 #include "QCharUnicode.h"
 #include "EQTextEncoding.h"
 #include "EQNormalizationForm.h"
+#include "EQComparisonType.h"
 
 
 namespace Kinesis
@@ -470,6 +472,29 @@ public:
     /// </remarks>
     /// <param name="eNormalizationForm">[IN] The normalization form on which the algorithm will be based. Only NFC and NFD are supported.</param>
     void Normalize(const EQNormalizationForm &eNormalizationForm);
+
+    /// <summary>
+    /// Compares two Unicode strings to know whether one is greater, lower or equal to the other, depending on the comparison type specified.
+    /// </summary>
+    /// <remarks>
+    /// The comparison is performed following the steps described in the Unicode Collation Algorithm (UCA), available in the Unicode Standard Annex #10
+    /// (http://www.unicode.org/reports/tr10/), which is based on the Default Unicode Collation Element Table (DUCET) (http://www.unicode.org/Public/UCA/latest/allkeys.txt).<br/> 
+    /// Variable collation elements are treated as non-ignorable. For canonical case sensitive comparisons, 
+    /// only primary to tertiary levels are checked; for canonical case insensitive comparisons, only primary and secondary levels are checked.<br/>
+    /// By default, the collation order is English. The expected order when using canonical comparison would be, for example:<br/>
+    /// Empty < Whitespaces < Puctuation marks < Numbers < Lowercase letters < Uppercase letters < Accented letters<br/>
+    /// <br/>
+    /// For canonical comparisons, both strings are normalized (NFD) internally, if they are not already, before compared.<br/>
+    /// The fastest comparison type is binary case sensitive. Remember that uppercase letters are lower than lowercase letters when using binary comparison.
+    /// </remarks>
+    /// <param name="strInputString">[IN] The other string to compare to.</param>
+    /// <param name="eComparisonType">[IN] The comparison type. Compatibility comparisons are not supported yet.</param>
+    /// <returns>
+    /// If the resident string is bigger than the input string, it returns 1; if the resident string is lower than the input string, it returns -1; if
+    /// strings are equal, it returns zero.
+    /// </returns>
+    int CompareTo(const QStringUnicode &strInputString, const EQComparisonType &eComparisonType) const;
+
     
 protected:
 
@@ -491,6 +516,14 @@ protected:
     /// </returns>
     static const icu::Normalizer2* GetNormalilzer(const EQNormalizationForm &eNormalizationForm);
 
+    /// <summary>
+    /// Gets an ICU collator instance for a comparison type.
+    /// </summary>
+    /// <param name="eComparisonType">[IN] The comparison type on which the collation algorithm will be based.</param>
+    /// <returns>
+    /// An object that applies the chosen collation algorithm to Unicode strings.
+    /// </returns>
+    static const icu::Collator* GetCollator(const EQComparisonType &eComparisonType);
 
 
 	// PROPERTIES

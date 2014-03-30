@@ -50,6 +50,9 @@
     <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQComparisonType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -87,6 +90,9 @@
       <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>

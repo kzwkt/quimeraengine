@@ -104,6 +104,9 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\CommonTestDefinitions.h">
       <Filter>Tests</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeCollationTestData.h">
+      <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">

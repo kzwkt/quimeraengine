@@ -29,7 +29,8 @@
 #include <cstring> // Needed for strlen function
 #include "Assertions.h"
 
-#include "unicode/ucnv.h"
+#include <unicode/ucnv.h>
+
 
 namespace Kinesis
 {
@@ -342,6 +343,88 @@ const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm
     QE_ASSERT(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
 
     return pNormalizer;
+}
+
+int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComparisonType &eComparisonType) const
+{
+    int nResult = 0;
+
+    switch(eComparisonType)
+    {
+    case EQComparisonType::E_BinaryCaseSensitive:
+        nResult = m_strString.compare(strInputString.m_strString);
+        break;
+    case EQComparisonType::E_BinaryCaseInsensitive:
+        nResult = m_strString.caseCompare(strInputString.m_strString, U_FOLD_CASE_DEFAULT);
+        break;
+    case EQComparisonType::E_CanonicalCaseInsensitive:
+        {
+            const icu::Collator* pCollator = QStringUnicode::GetCollator(eComparisonType);
+            nResult = pCollator->compare(m_strString, strInputString.m_strString);
+        }
+        break;
+    case EQComparisonType::E_CanonicalCaseSensitive:
+        {
+            const icu::Collator* pCollator = QStringUnicode::GetCollator(eComparisonType);
+            nResult = pCollator->compare(m_strString, strInputString.m_strString);
+        }
+        break;
+    case EQComparisonType::E_CompatibilityCaseInsensitive:
+    case EQComparisonType::E_CompatibilityCaseSensitive:
+        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        break;
+    }
+
+    return nResult;
+}
+
+const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eComparisonType)
+{
+    // Information of interest: http://userguide.icu-project.org/collation/architecture
+    static bool bInitialized = false;
+    static UErrorCode errorCode = U_ZERO_ERROR;
+    // By default, the collation is English
+    static icu::Collator* CANONICAL_CASESENSITIVE_COLLATOR = icu::Collator::createInstance(icu::Locale::getEnglish(), errorCode);
+    static icu::Collator* CANONICAL_CASEINSENSITIVE_COLLATOR = icu::Collator::createInstance(icu::Locale::getEnglish(), errorCode);
+
+    QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when getting the collator");
+
+    if(!bInitialized)
+    {
+        CANONICAL_CASESENSITIVE_COLLATOR->setStrength(icu::Collator::TERTIARY);
+        CANONICAL_CASESENSITIVE_COLLATOR->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        CANONICAL_CASESENSITIVE_COLLATOR->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+
+        CANONICAL_CASEINSENSITIVE_COLLATOR->setStrength(icu::Collator::SECONDARY); // Secondary: No tertiary checking, no case comparison
+        CANONICAL_CASEINSENSITIVE_COLLATOR->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        CANONICAL_CASEINSENSITIVE_COLLATOR->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+
+        bInitialized = true;
+    }
+
+    icu::Collator* pCollator = null_q;
+
+    switch(eComparisonType)
+    {
+    case EQComparisonType::E_CanonicalCaseInsensitive:
+        pCollator = CANONICAL_CASEINSENSITIVE_COLLATOR;
+        break;
+    case EQComparisonType::E_CanonicalCaseSensitive:
+        pCollator = CANONICAL_CASESENSITIVE_COLLATOR;
+        break;
+    case EQComparisonType::E_CompatibilityCaseInsensitive:
+    case EQComparisonType::E_CompatibilityCaseSensitive:
+        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        break;
+    default:
+        QE_ASSERT(false, "Invalid comparison type");
+    }
+
+    return pCollator;
 }
 
 
