@@ -140,28 +140,39 @@
             #error "Unknown configuration"
         #endif
     #endif
+#elif defined(QE_OS_MAC)
+    #if defined(QE_COMPILER_GCC) // GCC
+        #define UsingSharedRuntime // TODO [Thund]: How to know if the compiler is linking shared or static libstdc++?
+        #if defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Debug, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_MAC32_DEBUG_SHAREDRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Debug, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_MAC32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Release, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_MAC32_RELEASE_SHAREDRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Release, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_MAC32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Debug, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_MAC32_DEBUG_STATICRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Debug, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_MAC32_DEBUG_STATICRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Release, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_MAC32_RELEASE_STATICRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
+            // Mac OS X 32 bits OS, Release, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_MAC32_RELEASE_STATICRUNTIME_DYNAMICOUT
+        #else
+            #error "Unknown configuration"
+        #endif
+    #endif
 #else
-    #error "Operative system not supported."
-/*
-[TODO] Thund: Identify and add to the block
-
-// Macintosh 32 bits OS, Debug, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Debug, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Release, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Release, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Debug, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Debug, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Release, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Release, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
-*/
+    #error "Quimera Engine Error Message: Operative system not supported."
 #endif
 
 

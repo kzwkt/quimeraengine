@@ -131,7 +131,7 @@ protected:
     };
 
 public:
-    
+
     /// <summary>
     /// Converts the text of the test file into several arrays, one per section, that contain all the test cases.
     /// </summary>
@@ -147,7 +147,7 @@ public:
         if(fileStream.is_open())
         {
             fileStream.seekg(0, fileStream.end);
-            unsigned int uLength = scast_q(fileStream.tellg(), unsigned int);
+            uLength = scast_q(fileStream.tellg(), unsigned int);
             fileStream.seekg(0, fileStream.beg);
 
             char* pBuffer = new char[uLength];
@@ -206,7 +206,6 @@ protected:
         static const QCharUnicode NEWLINE_CHAR('\n');
         static const QCharUnicode SECTION_CHAR('@');
 
-        const unsigned int INPUT_LENGTH = strInput.GetLength();
         unsigned int uCurrentSection = 0;
 
         QCharUnicode firstCharInLine(0);

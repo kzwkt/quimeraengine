@@ -47,15 +47,15 @@ namespace Time
 //##################													   ##################
 //##################=======================================================##################
 
-QTimeZone::QTimeZone(const string_q &strId, const string_q &strName, 
-                     const QTimeSpan &timeZoneOffset, const bool bIsTimeZoneOffsetNegative, 
+QTimeZone::QTimeZone(const string_q &strId, const string_q &strName,
+                     const QTimeSpan &timeZoneOffset, const bool bIsTimeZoneOffsetNegative,
                      const QTimeZone::QDstInformation &dstInformation, const bool bHasDstOffset) :
-            
+
             m_strName(strName),
             m_strId(strId),
             m_dstInformation(dstInformation),
-            m_bTzOffsetIsNegative(bIsTimeZoneOffsetNegative),
             m_timeZoneOffset(timeZoneOffset),
+            m_bTzOffsetIsNegative(bIsTimeZoneOffsetNegative),
             m_bHasDstOffset(bHasDstOffset)
 {
 }

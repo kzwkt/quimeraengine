@@ -527,7 +527,7 @@ unsigned int QDateTime::GetDaysInMonth(const unsigned int uMonth, const int nYea
 
     QE_ASSERT(uMonth <= MAXIMUM_MONTH_INDEX, "The month index is zero-based, it must be lower than 12");
 
-    unsigned int uDays;
+    unsigned int uDays = 0;
 
     if(uMonth <= MAXIMUM_MONTH_INDEX)
         uDays = DAYS_IN_MONTH[uMonth - 1];

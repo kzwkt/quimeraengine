@@ -89,6 +89,13 @@ const unsigned int QE_VERSION_REVISION = 0;
         #define QE_IMPORT_SYMBOLS
         #define QE_IMPORT_SYMBOLS_EXTERN extern
     #endif
+#elif defined(QE_OS_MAC)
+    #if defined(QE_COMPILER_GCC)
+        #define QE_EXPORT_SYMBOLS __attribute__ ((visibility ("default")))
+        #define QE_EXPORT_SYMBOLS_EXTERN
+        #define QE_IMPORT_SYMBOLS
+        #define QE_IMPORT_SYMBOLS_EXTERN extern
+    #endif
 #endif
 
 

@@ -1,4 +1,4 @@
-Ôªø//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -137,8 +137,8 @@ QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]
-    const i8_q INPUT_STRING_BYTES[]        = { '√±', 'B', '√°', 0 };
+    // [Preparation]                           'Ò', 'B', '·'
+    const i8_q INPUT_STRING_BYTES[]        = { -15, 'B', -31, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_ISO88591;
 
@@ -164,12 +164,12 @@ QTEST_CASE ( Constructor3_Utf8StringIsCorrectlyConverted_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                         ¬©                       ?                                   ?                       ?                      \0
+    //                                         ©                       ?                                   ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xC2, (char)0xA9, (char)0xE1, (char)0x9A, (char)0xA1, (char)0xD8, (char)0xB4, (char)0xD0, (char)0x96, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -192,12 +192,12 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         BOM LE                  ¬©              ?                       ?                       ?                      \0
+    //                                         BOM LE                  ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -220,12 +220,12 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         BOM BE                  ¬©              ?                       ?                       ?                      \0
+    //                                         BOM BE                  ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -248,13 +248,13 @@ QTEST_CASE ( Constructor3_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         ¬©              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                            BOM BE                  ¬©              ?                       ?                       ?                      \0
+    //                                            BOM BE                  ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding EXPECTED_ENCODING    = EQTextEncoding::E_UTF16;
@@ -278,12 +278,12 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         BOM LE                        ¬©                    ?                             ?                             ?                            \0
+    //                                         BOM LE                        ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, 0, 0, (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -306,13 +306,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         ¬©                    ?                             ?                             ?                            \0
-    //                                         BOM BE                        ¬©                    ?                             ?                             ?                            \0
+    //                                         ©                    ?                             ?                             ?                            \0
+    //                                         BOM BE                        ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -335,13 +335,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         ¬©                    ?                             ?                             ?                            \0
+    //                                         ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                            BOM BE                        ¬©                    ?                             ?                             ?                            \0
+    //                                            BOM BE                        ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding EXPECTED_ENCODING    = EQTextEncoding::E_UTF32;
@@ -365,14 +365,14 @@ QTEST_CASE ( Constructor3_Utf16BEStringIsCorrectlyConverted_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         ¬©              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
     // [TODO] Thund: Change the expected result so it depends on the endianess of the machine where the tests are being executed.
     //               It is necessary to implement a way to know that endianess.
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -395,12 +395,12 @@ QTEST_CASE ( Constructor3_Utf16LEStringIsCorrectlyConverted_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         ¬©              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -422,12 +422,12 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                        BOM     ¬©       ?       ?       ?      \0
+    //                                        BOM     ©       ?       ?       ?      \0
     const u16_q INPUT_STRING_CODE_UNITS[] = { 0xFFFE, 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -451,12 +451,12 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                        BOM         ¬©           ?           ?           ?          \0
+    //                                        BOM         ©           ?           ?           ?          \0
     const u32_q INPUT_STRING_CODE_UNITS[] = { 0x0000FEFF, 0x000000A9, 0x000016A1, 0x00000634, 0x00000416, 0x00000000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -479,12 +479,12 @@ QTEST_CASE ( Constructor3_IllFormedSequencesAreRepairedUsingReplacementCharacter
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                         A           ILL-FORMED  √±                       B          \0
+    //                                         A           ILL-FORMED  Ò                       B          \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0x41, (char)0xC2, (char)0xC3, (char)0xB1, (char)0x42, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           A       REPLAC. √±       B      \0
+    //                                           A       REPLAC. Ò       B      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x0041, 0xFFFD, 0x00F1, 0x0042, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -505,11 +505,11 @@ QTEST_CASE ( Constructor3_OptionalParametersDefaultToNullTerminatedIso88591_Test
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]
-    const i8_q INPUT_STRING_BYTES[] = { '√±', 'B', '√°', 0 };
+    // [Preparation]                    'Ò', 'B', '·'
+    const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
 
-    //                                             √±       B       √°
-    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
+    //                                             Ò       B       ·
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
@@ -529,8 +529,8 @@ QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]
-    const i8_q INPUT_STRING_BYTES[] = { '√±', 'B', '√°', 0 };
+    // [Preparation]                    'Ò', 'B', '·'
+    const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
     const QStringUnicode EXPECTED_RESULT = QStringUnicode::GetEmpty();
     const int ZERO_LENGTH = 0;
     const EQTextEncoding ENCODING = EQTextEncoding::E_ISO88591;
@@ -586,12 +586,12 @@ QTEST_CASE ( Constructor3_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]
-    const i8_q INPUT_STRING_BYTES[] = { '√±', 'B', '√°', 0 };
+    // [Preparation]                    'Ò', 'B', '·'
+    const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
     const int UNKNOWN_LENGTH = QStringUnicode::LENGTH_NULL_TERMINATED;
     const EQTextEncoding ENCODING = EQTextEncoding::E_ISO88591;
 
-    //                                             √±       B       √°
+    //                                             Ò       B       ·
     const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -687,8 +687,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreEquivalentButNotTheSame_
     // [Preparation]
     // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
-    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // √Ö -> U+212B
-    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // √Ö -> U+00C5
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // ≈ -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // ≈ -> U+00C5
     const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
     const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
     const bool EXPECTED_RESULT = false;
@@ -745,8 +745,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreEquivalentButNotTheSame
     // [Preparation]
     // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
-    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // √Ö -> U+212B
-    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // √Ö -> U+00C5
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // ≈ -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // ≈ -> U+00C5
     const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
     const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
     const bool EXPECTED_RESULT = true;
@@ -1265,7 +1265,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF8Correctly_Test )
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           ¬©       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1295,7 +1295,7 @@ QTEST_CASE ( ToBytes_UTF8NullTerminatorAddedWhenSourceStringDoesNotTerminatesWit
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           ¬©       ?       ?       ?
+    //                                           ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1324,14 +1324,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16CorrectlyAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                            BOM BE                  ¬©              ?                       ?                       ?                      \0
+    //                                            BOM BE                  ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
-    //                                            BOM LE                  ¬©              ?                       ?                       ?                      \0
+    //                                            BOM LE                  ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1361,7 +1361,7 @@ QTEST_CASE ( ToBytes_UTF16NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1390,14 +1390,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32CorrectlyAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                         BOM BE                        ¬©                    ?                             ?                             ?                            \0
+    //                                         BOM BE                        ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
-    //                                         BOM LE                        ¬©                    ?                             ?                             ?                            \0
+    //                                         BOM LE                        ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, 0, 0, (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1427,7 +1427,7 @@ QTEST_CASE ( ToBytes_UTF32NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1456,14 +1456,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16LECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                              ¬©              ?                       ?                       ?                      \0
+    //                                              ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
-    //                                            ¬©              ?                       ?                       ?                      \0
+    //                                            ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16LE;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1493,7 +1493,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1522,14 +1522,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16BECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                              ¬©              ?                       ?                       ?                      \0
+    //                                              ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
-    //                                            ¬©              ?                       ?                       ?                      \0
+    //                                            ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16BE;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1559,7 +1559,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1588,14 +1588,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32LECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                           ¬©                    ?                             ?                             ?                            \0
+    //                                           ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
-    //                                            ¬©                    ?                             ?                             ?                            \0
+    //                                            ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32LE;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1625,7 +1625,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32LE;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1654,14 +1654,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32BECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                           ¬©                    ?                             ?                             ?                            \0
+    //                                           ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
-    //                                            ¬©                    ?                             ?                             ?                            \0
+    //                                            ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32BE;
 
-    //                                         ¬©       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1691,7 +1691,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32BE;
 
-    //                                         ¬©       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1982,7 +1982,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingBinaryInse
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD√â");
+    const QStringUnicode RESIDENT_STRING("ABCD…");
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
     const int EXPECTED_RESULT = 1;
@@ -2123,7 +2123,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingBinaryInse
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD√â");
+    const QStringUnicode INPUT_STRING("ABCD…");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2182,7 +2182,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingBinarySens
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD√â");
+    const QStringUnicode RESIDENT_STRING("ABCD…");
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
     const int EXPECTED_RESULT = 1;
@@ -2323,7 +2323,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingBinarySens
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD√â");
+    const QStringUnicode INPUT_STRING("ABCD…");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2382,7 +2382,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingCanonicalI
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD√â");
+    const QStringUnicode RESIDENT_STRING("ABCD…");
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
     const int EXPECTED_RESULT = 1;
@@ -2523,7 +2523,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingCanonicalI
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD√â");
+    const QStringUnicode INPUT_STRING("ABCD…");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2582,7 +2582,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingCanonicalS
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD√â");
+    const QStringUnicode RESIDENT_STRING("ABCD…");
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
     const int EXPECTED_RESULT = 1;
@@ -2723,7 +2723,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingCanonicalS
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD√â");
+    const QStringUnicode INPUT_STRING("ABCD…");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2884,8 +2884,8 @@ QTEST_CASE ( CompareTo_NormalizationDoesNotAffectTheResultWhenUsingCanonicalComp
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
 
     // [Preparation]
-    //                                 A       Ã±        ÕÅ        ¬®       √±
-    u16_q NONNORMALIZED_SEQUENCE[] = { 0x0041, 0x0331, 0x0341, 0x00A8, 0x00F1 }; // √ÅÃ±¬®√±
+    //                                 A       _        ?        ®       Ò
+    u16_q NONNORMALIZED_SEQUENCE[] = { 0x0041, 0x0331, 0x0341, 0x00A8, 0x00F1 }; // ¡_®Ò
     const QStringUnicode NONNORMALIZED_STRING((char*)NONNORMALIZED_SEQUENCE, sizeof(NONNORMALIZED_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
     QStringUnicode NORMALIZED_STRING(NONNORMALIZED_STRING);
     NORMALIZED_STRING.Normalize(EQNormalizationForm::E_D);

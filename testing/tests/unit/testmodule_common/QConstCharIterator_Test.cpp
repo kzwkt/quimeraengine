@@ -1776,6 +1776,8 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorPointsToEndPosition_Test )
 /// </summary>
 QTEST_CASE ( GetChar_ReturnsUFFFFWhenIteratorPointsToEndPosition_Test )
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
     QStringUnicode::QConstCharIterator ITERATOR(SOURCE_STRING);

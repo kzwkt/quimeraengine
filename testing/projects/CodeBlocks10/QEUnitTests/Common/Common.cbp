@@ -5,7 +5,7 @@
 		<Option title="Common" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Tests\;Tests\DataTypes\;Tests\General\;Tests\Memory\;TestSystem (shared)\;" />
+		<Option virtualFolders="Tests/;Tests/DataTypes/;Tests/General/;Tests/Memory/;TestSystem (shared)/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -49,7 +49,7 @@
 					<Add option="-DU_STATIC_IMPLEMENTATION" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
@@ -79,7 +79,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicuin.dll.a" />
@@ -124,6 +124,65 @@
 					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineCommon.so&quot; &quot;.&quot;' />
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../NormalizationTest.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after="rm *.so" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="DebugMac32SharedrtStatic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic/Unit_TestModule_Common" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtStatic" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../../../tests/unit/testmodule_tools" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="libQuimeraEngineCommon.a" />
+					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudata" />
+					<Add library="icuuc" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic/" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+				</ExtraCommands>
+			</Target>
+			<Target title="DebugMac32SharedrtDynamic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic/Unit_TestModule_Common" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE" />
+					<Add directory="../../../../tests/unit/testmodule_tools" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="libQuimeraEngineCommon" />
+					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudata" />
+					<Add library="icuuc" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic/" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineCommon.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineCommon.so&quot; &quot;.&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Add after="rm *.so" />
 					<Mode after="always" />
 				</ExtraCommands>

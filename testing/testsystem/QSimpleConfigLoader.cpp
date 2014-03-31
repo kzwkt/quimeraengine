@@ -46,7 +46,7 @@ namespace Test
 QSimpleConfigLoader::QSimpleConfigLoader()
 {
 }
-	
+
 QSimpleConfigLoader::QSimpleConfigLoader(const std::string &strPath)
 {
     this->SetFilePath(strPath);
@@ -89,7 +89,7 @@ bool QSimpleConfigLoader::LoadEntries()
         {
             // Opens the file
             std::ifstream inputFile(_strPath.c_str());
-        
+
             if(inputFile.is_open())
             {
                 // For each text line, until reaches the end of the file
