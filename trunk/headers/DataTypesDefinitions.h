@@ -61,7 +61,7 @@ namespace DataTypes
         typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
-        typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers 
+        typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #elif QE_COMPILER_GCC
         typedef unsigned char       u8_q;   // Unsigned 8-bits integer
@@ -123,9 +123,37 @@ namespace DataTypes
 
     typedef u32_q        pointer_uint_q; // Unsigned integer types for pointer conversion (32 bits) common for ms and gcc compilers
 
-    // [TODO] Thund: Test the system in another platform and write the basic types for that machine
-    // Win64, Linux 32, Mac OS 32
-    
+
+#elif defined(QE_OS_MAC) && (QE_OS_MAC == 32)
+    #if QE_COMPILER_GCC
+        typedef unsigned char       u8_q;   // Unsigned 8-bits integer
+        typedef char                i8_q;   // Signed 8-bits integer
+        typedef short unsigned int  u16_q;  // Unsigned 16-bits integer
+        typedef short int           i16_q;  // Signed 16-bits integer
+        typedef unsigned int        u32_q;  // Unsigned 32-bits integer
+        typedef int                 i32_q;  // Signed 32-bits integer
+        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
+        typedef long long           i64_q;  // Signed 64-bits integer
+        typedef float               f32_q;  // 32-bits floating point number
+        typedef double              f64_q;  // 64-bits floating point number
+        typedef union  // [TODO] Thund: Check if this type can be used with SSE instructions
+        {
+             float m128_f32[4];
+             u64_q m128_u64[2];
+             i8_q  m128_i8[16];
+             i16_q m128_i16[8];
+             i32_q m128_i32[4];
+             i64_q m128_i64[2];
+             u8_q  m128_u8[16];
+             u16_q m128_u16[8];
+             u32_q m128_u32[4];
+        } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
+    #endif
+
+    typedef unsigned long        pointer_uint_q; // Unsigned integer types for pointer conversion (32 bits) common for ms and gcc compilers
+
 #endif
 
 

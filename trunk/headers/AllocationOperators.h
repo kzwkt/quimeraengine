@@ -31,7 +31,7 @@
 #include "CommonDefinitions.h"
 #include "QAlignment.h"
 
-#ifdef QE_COMPILER_GCC
+#if (defined(QE_OS_WINDOWS) || defined(QE_OS_LINUX)) && defined(QE_COMPILER_GCC)
     #include "malloc.h" // __mingw_aligned_malloc, __mingw_aligned_free
                         //
                         // [REVIEW]: __mingw_aligned_alloc and __mingw_aligned_free may be unsafe, and break the code
@@ -85,6 +85,16 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
         // so the pointer will remain to a null value.
         posix_memalign(&pMemoryBlock, algAux, uSize);
     #endif
+#elif  defined (QE_OS_MAC)
+    #ifdef QE_COMPILER_GCC
+        // __posix_memalign will return an error message and the allocation operation will be cancelled if the alignment value is not a power of sizeof(void*),
+        // so if the entry one is lesser than it, it must be set to sizeof(void*)
+        QAlignment algAux( (alignment < (sizeof(void*))) ? sizeof(void*) : alignment );
+
+        // posix_memalign won't alter the pointer value if something goes wrong,
+        // so the pointer will remain to a null value.
+        posix_memalign(&pMemoryBlock, algAux, uSize);
+    #endif
 #endif
 
     return pMemoryBlock;
@@ -107,6 +117,10 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
         #define aligned_free_q(pMemoryBlock)                    __mingw_aligned_free(pMemoryBlock)
     #endif
 #elif defined(QE_OS_LINUX)
+    #ifdef QE_COMPILER_GCC
+        #define aligned_free_q(pMemoryBlock)                    free(pMemoryBlock)
+    #endif
+#elif defined(QE_OS_MAC)
     #ifdef QE_COMPILER_GCC
         #define aligned_free_q(pMemoryBlock)                    free(pMemoryBlock)
     #endif
