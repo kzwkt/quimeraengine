@@ -54,7 +54,7 @@ class QTimeZone;
 /// Date and time are stored together but this class can also be used to represent either the date only or the time only. When
 /// it is used to represent the time only, the first day of the Anno Domini will be used; this is just a convention and
 /// has no relevance. When it is used to store only dates, the time will be zero.<br/>
-/// The range of time that can be represented is from 29228/11/23 21:11:54.5224193 B.C. to 29228-02-08 02:48:05.4775807 A. D., with
+/// The range of time that can be represented is from 29228-11-23 21:11:54.5224193 B.C. to 29228-02-08 02:48:05.4775807 A. D., with
 /// a resolution of 100 nanoseconds.<br/>
 /// Instances are undefined by default until they are assigned a value.<br/>
 /// This class is not completely immutable. Only the assignment operator can modify an instance once it is created.
@@ -424,10 +424,25 @@ private:
     static bool IsLeapYear(const int nYear);
 
     /// <summary>
-    /// Applies the offset of the time zone and the DST to the internal time data so it becomes UTC.
+    /// Subtracts the offset of the time zone and the DST to the time data so it becomes UTC.
     /// </summary>
-    void SubtractTimeZoneOffset();
+    /// <param name="instant">[IN] A time instant, with time zone offset.</param>
+    /// <param name="pTimeZone">[IN] The time zone whose offset is to be subtracted.</param>
+    /// <returns>
+    /// The instant without time zone offset applied, if any.
+    /// </returns>
+    QTimeSpan SubtractTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
     
+    /// <summary>
+    /// Adds the offset of the time zone and the DST to the time data so it becomes Local Time.
+    /// </summary>
+    /// <param name="instant">[IN] A time instant, without time zone offset.</param>
+    /// <param name="pTimeZone">[IN] The time zone whose offset is to be added.</param>
+    /// <returns>
+    /// The instant with time zone offset applied, if any.
+    /// </returns>
+    QTimeSpan AddTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+
 
 	// PROPERTIES
 	// ---------------
@@ -435,6 +450,9 @@ public:
 
     /// <summary>
     /// Calculates whether the year is a leap year or not.
+    /// </summary>
+    /// <summary>
+    /// The year is calculated using the local time.
     /// </summary>
     /// <returns>
     /// True if it is a leap year; False otherwise.
@@ -448,6 +466,100 @@ public:
     /// A time zone instance.
     /// </returns>
     const QTimeZone* GetTimeZone() const;
+
+    /// <summary>
+    /// Gets the year, in local time.
+    /// </summary>
+    /// <remarks>
+    /// To know whether it is a negative or positive year, call IsPositive or IsNegative.
+    /// </remarks>
+    /// <returns>
+    /// The absolute value of the year. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetYear() const;
+
+    /// <summary>
+    /// Gets the month, in local time.
+    /// </summary>
+    /// <returns>
+    /// The value of the month, being 1 the value that represents January and 12 for December. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetMonth() const;
+
+    /// <summary>
+    /// Gets the day, in local time.
+    /// </summary>
+    /// <returns>
+    /// The value of the day, from 1 to 31, taking into account leap years. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetDay() const;
+
+    /// <summary>
+    /// Gets the hour, in local time.
+    /// </summary>
+    /// <returns>
+    /// The value of the hour, from 0 to 23. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetHour() const;
+
+    /// <summary>
+    /// Gets the minute, in local time.
+    /// </summary>
+    /// <returns>
+    /// The value of the minute, from 0 to 59. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetMinute() const;
+
+    /// <summary>
+    /// Gets the second, in local time.
+    /// </summary>
+    /// <returns>
+    /// The value of the second, from 0 to 59. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetSecond() const;
+    
+    /// <summary>
+    /// Gets the millisecond.
+    /// </summary>
+    /// <returns>
+    /// The value of the millisecond, from 0 to 999. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetMillisecond() const;
+    
+    /// <summary>
+    /// Gets the microsecond.
+    /// </summary>
+    /// <returns>
+    /// The value of the microsecond, from 0 to 999. If the date is undefined, the result is undefined too.
+    /// </returns>
+    unsigned int GetMicrosecond() const;
+    
+    /// <summary>
+    /// Gets the nanosecond, in hundreds.
+    /// </summary>
+    /// <returns>
+    /// The number of hundreds of nanoseconds, from 0 to 9. If the date is undefined, 
+    /// the result is undefined too.
+    /// </returns>
+    unsigned int GetHundredOfNanosecond() const;
+
+    /// <summary>
+    /// Gets the date and time in UTC.
+    /// </summary>
+    /// <returns>
+    /// A copy whose time zone is null. If the date is undefined, the result is undefined too.
+    /// </returns>
+    QDateTime GetUtc() const;
+    
+    /// <summary>
+    /// Gets the maximum positive date and time that can be represented (29228-02-08 02:48:05.4775807 A. D.), in UTC.
+    /// </summary>
+    static const QDateTime& GetMaxDateTime();
+    
+    /// <summary>
+    /// Gets the maximum negative date and time that can be represented (29228-11-23 21:11:54.5224193 B.C.), in UTC.
+    /// </summary>
+    static const QDateTime& GetMinDateTime();
 
 private:
 

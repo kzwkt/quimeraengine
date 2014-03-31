@@ -106,8 +106,8 @@ QTEST_CASE ( Constructor2_UndefinedDateTimeIsCopied_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
@@ -118,7 +118,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
     const u64_q EXPECTED_MILLISECOND = 654;
     const u64_q EXPECTED_MICROSECOND = 489;
     const u64_q EXPECTED_HNS         = 5;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("Atlantic/Canary");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Canary"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
@@ -135,9 +135,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
-
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -145,8 +144,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNullTimeZone_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
@@ -174,8 +171,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNul
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -183,8 +180,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNul
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTimeZoneOffsetIsPositive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
@@ -195,7 +192,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     const u64_q EXPECTED_MILLISECOND = 654;
     const u64_q EXPECTED_MICROSECOND = 489;
     const u64_q EXPECTED_HNS         = 5;
-    const QTimeZone* POSITIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("Europe/Madrid");
+    const QTimeZone* POSITIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
@@ -212,8 +209,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), POSITIVE_TIMEZONE);
 }
 
 /// <summary>
@@ -221,8 +218,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTimeZoneOffsetIsNegative_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
@@ -233,7 +230,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     const u64_q EXPECTED_MILLISECOND = 654;
     const u64_q EXPECTED_MICROSECOND = 489;
     const u64_q EXPECTED_HNS         = 5;
-    const QTimeZone* NEGATIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("America/New_York");
+    const QTimeZone* NEGATIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/New_York"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
@@ -250,8 +247,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), NEGATIVE_TIMEZONE);
 }
 
 /// <summary>
@@ -473,7 +470,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMonthEqualsZero_Test )
 }
 
 /// <summary>
-/// Checks that an assertion fails when the month is greater than the top limit.
+/// Checks that an assertion fails when the day is greater than the top limit.
 /// </summary>
 QTEST_CASE ( Constructor3_AssertionFailsWhenDayIsTooHigh_Test )
 {
@@ -819,18 +816,16 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenHundredsOfNanosecondsIsTooHigh_Test 
 /// </summary>
 QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
 {
-    /*
-    // [TODO] Thund: Uncomment when it is possible to get the maximum date and time
     // [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH       = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY         = QDateTime::GetMaxDate().GetDay();
-    const u64_q MAX_HOUR        = QDateTime::GetMaxDate().GetHour();
-    const u64_q MAX_MINUTE      = QDateTime::GetMaxDate().GetMinute();
-    const u64_q MAX_SECOND      = QDateTime::GetMaxDate().GetSecond();
-    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDate().GetMillisecond();
-    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDate().GetMicrosecond();
-    const u64_q MAX_HNS         = QDateTime::GetMaxDate().GetHundredsOfNanoseconds();
+    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
+    const u64_q MAX_HOUR        = QDateTime::GetMaxDateTime().GetHour();
+    const u64_q MAX_MINUTE      = QDateTime::GetMaxDateTime().GetMinute();
+    const u64_q MAX_SECOND      = QDateTime::GetMaxDateTime().GetSecond();
+    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDateTime().GetMillisecond();
+    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDateTime().GetMicrosecond();
+    const u64_q MAX_HNS         = QDateTime::GetMaxDateTime().GetHundredOfNanosecond();
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MAX_HNS_PLUS_ONE = MAX_HNS + 1;
 
@@ -852,7 +847,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -860,18 +855,16 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 {
-    /*
-    // [TODO] Thund: Uncomment when it is possible to get the minimum date and time
     // [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH       = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY         = QDateTime::GetMinDate().GetDay();
-    const u64_q MIN_HOUR        = QDateTime::GetMinDate().GetHour();
-    const u64_q MIN_MINUTE      = QDateTime::GetMinDate().GetMinute();
-    const u64_q MIN_SECOND      = QDateTime::GetMinDate().GetSecond();
-    const u64_q MIN_MILLISECOND = QDateTime::GetMinDate().GetMillisecond();
-    const u64_q MIN_MICROSECOND = QDateTime::GetMinDate().GetMicrosecond();
-    const u64_q MIN_HNS         = QDateTime::GetMinDate().GetHundredsOfNanoseconds();
+    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay();
+    const u64_q MIN_HOUR        = QDateTime::GetMinDateTime().GetHour();
+    const u64_q MIN_MINUTE      = QDateTime::GetMinDateTime().GetMinute();
+    const u64_q MIN_SECOND      = QDateTime::GetMinDateTime().GetSecond();
+    const u64_q MIN_MILLISECOND = QDateTime::GetMinDateTime().GetMillisecond();
+    const u64_q MIN_MICROSECOND = QDateTime::GetMinDateTime().GetMicrosecond();
+    const u64_q MIN_HNS         = QDateTime::GetMinDateTime().GetHundredOfNanosecond();
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MIN_HNS_MINUS_ONE = MIN_HNS - 1;
 
@@ -893,7 +886,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -903,20 +896,19 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_MaximumDateIsConstructedWhenDateIsPosteriorToMaximum_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get the maximum date and time
-    /*// [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH       = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY         = QDateTime::GetMaxDate().GetDay();
-    const u64_q MAX_HOUR        = QDateTime::GetMaxDate().GetHour();
-    const u64_q MAX_MINUTE      = QDateTime::GetMaxDate().GetMinute();
-    const u64_q MAX_SECOND      = QDateTime::GetMaxDate().GetSecond();
-    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDate().GetMillisecond();
-    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDate().GetMicrosecond();
-    const u64_q MAX_HNS         = QDateTime::GetMaxDate().GetHundredsOfNanoseconds();
+    // [Preparation]
+    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
+    const u64_q MAX_HOUR        = QDateTime::GetMaxDateTime().GetHour();
+    const u64_q MAX_MINUTE      = QDateTime::GetMaxDateTime().GetMinute();
+    const u64_q MAX_SECOND      = QDateTime::GetMaxDateTime().GetSecond();
+    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDateTime().GetMillisecond();
+    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDateTime().GetMicrosecond();
+    const u64_q MAX_HNS         = QDateTime::GetMaxDateTime().GetHundredOfNanosecond();
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MAX_HNS_PLUS_ONE = MAX_HNS + 1;
-    const QDateTime MAX_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAX_DATETIME = QDateTime::GetMaxDateTime();
 
 	// [Execution]
     QDateTime dateTime(MAX_YEAR, MAX_MONTH, MAX_DAY,
@@ -925,7 +917,7 @@ QTEST_CASE ( Constructor3_MaximumDateIsConstructedWhenDateIsPosteriorToMaximum_T
                        NULL_TIMEZONE);
 
     // [Verification]
-    BOOST_CHECK_(dateTime == MAX_DATETIME);*/
+    BOOST_CHECK(dateTime == MAX_DATETIME);
 }
 
 /// <summary>
@@ -933,29 +925,28 @@ QTEST_CASE ( Constructor3_MaximumDateIsConstructedWhenDateIsPosteriorToMaximum_T
 /// </summary>
 QTEST_CASE ( Constructor3_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get the minimum date and time
-    /*// [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH       = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY         = QDateTime::GetMinDate().GetDay();
-    const u64_q MIN_HOUR        = QDateTime::GetMinDate().GetHour();
-    const u64_q MIN_MINUTE      = QDateTime::GetMinDate().GetMinute();
-    const u64_q MIN_SECOND      = QDateTime::GetMinDate().GetSecond();
-    const u64_q MIN_MILLISECOND = QDateTime::GetMinDate().GetMillisecond();
-    const u64_q MIN_MICROSECOND = QDateTime::GetMinDate().GetMicrosecond();
-    const u64_q MIN_HNS         = QDateTime::GetMinDate().GetHundredsOfNanoseconds();
+    // [Preparation]
+    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay();
+    const u64_q MIN_HOUR        = QDateTime::GetMinDateTime().GetHour();
+    const u64_q MIN_MINUTE      = QDateTime::GetMinDateTime().GetMinute();
+    const u64_q MIN_SECOND      = QDateTime::GetMinDateTime().GetSecond();
+    const u64_q MIN_MILLISECOND = QDateTime::GetMinDateTime().GetMillisecond();
+    const u64_q MIN_MICROSECOND = QDateTime::GetMinDateTime().GetMicrosecond();
+    const u64_q MIN_HNS         = QDateTime::GetMinDateTime().GetHundredOfNanosecond();
     const QTimeZone* MIN_TIMEZONE = null_q;
     const u64_q MIN_HNS_MINUS_ONE = MIN_HNS - 1;
-    const QDateTime MIN_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MIN_DATETIME = QDateTime::GetMinDateTime();
 
 	// [Execution]
-    QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY,
+    QDateTime dateTime(-scast_q(MIN_YEAR, i32_q), MIN_MONTH, MIN_DAY,
                        MIN_HOUR, MIN_MINUTE, MIN_SECOND,
                        MIN_MILLISECOND, MIN_MICROSECOND, MIN_HNS_MINUS_ONE,
                        MIN_TIMEZONE);
 
     // [Verification]
-    BOOST_CHECK(dateTime == MIN_DATETIME);*/
+    BOOST_CHECK(dateTime == MIN_DATETIME);
 }
 
 #endif
@@ -965,8 +956,6 @@ QTEST_CASE ( Constructor3_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Te
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 5;
@@ -994,8 +983,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAf
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1003,10 +992,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAf
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1032,8 +1020,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1041,8 +1029,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 2;
@@ -1070,8 +1056,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBe
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1079,10 +1065,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBe
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1108,8 +1093,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1117,8 +1102,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
@@ -1146,8 +1129,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTim
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1155,10 +1138,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTim
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNegativeYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -1;
+    const i32_q NEGATIVE_YEAR        = -1;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1184,8 +1166,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1193,8 +1175,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfFive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 25;
     const u64_q EXPECTED_MONTH       = 1;
@@ -1222,8 +1202,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfF
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1231,10 +1211,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfF
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfFive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -25;
+    const i32_q NEGATIVE_YEAR        = -25;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1260,8 +1239,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1269,8 +1248,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs29February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
@@ -1298,8 +1275,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1307,10 +1284,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayIs29February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -20;
+    const i32_q NEGATIVE_YEAR        = -20;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 29;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1336,8 +1312,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1345,8 +1321,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs28February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
@@ -1374,8 +1348,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1383,10 +1357,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayIs28February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -20;
+    const i32_q NEGATIVE_YEAR        = -20;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 28;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1412,8 +1385,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1421,10 +1394,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastNegativeInstant_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -1;
+    const i32_q NEGATIVE_YEAR        = -1;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 12;
     const u64_q EXPECTED_DAY         = 31;
     const u64_q EXPECTED_HOUR        = 23;
@@ -1450,8 +1422,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastNegativeInstant_Tes
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1459,8 +1431,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastNegativeInstant_Tes
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPositiveYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 12;
@@ -1488,8 +1458,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPosit
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1497,8 +1467,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPosit
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 12;
     const u64_q EXPECTED_MONTH       = 1;
@@ -1526,8 +1494,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1535,10 +1503,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -12;
+    const i32_q NEGATIVE_YEAR        = -12;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1564,8 +1531,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1573,8 +1540,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
@@ -1602,8 +1567,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPosi
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1611,10 +1576,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPosi
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1626,7 +1590,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
+    QDateTime dateTime(NEGATIVE_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
                        EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
                        EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS,
                        EXPECTED_TIMEZONE);
@@ -1640,8 +1604,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1649,8 +1613,6 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
@@ -1678,8 +1640,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPosit
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1687,10 +1649,9 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPosit
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 12;
     const u64_q EXPECTED_DAY         = 31;
     const u64_q EXPECTED_HOUR        = 23;
@@ -1716,8 +1677,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstNegat
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1725,18 +1686,16 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstNegat
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH       = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY         = QDateTime::GetMaxDate().GetDay();
-    const u64_q MAX_HOUR        = QDateTime::GetMaxDate().GetHour();
-    const u64_q MAX_MAXUTE      = QDateTime::GetMaxDate().GetMaxute();
-    const u64_q MAX_SECOND      = QDateTime::GetMaxDate().GetSecond();
-    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDate().GetMillisecond();
-    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDate().GetMicrosecond();
-    const u64_q MAX_HNS         = QDateTime::GetMaxDate().GetHundredsOfNanoseconds();
+    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
+    const u64_q MAX_HOUR        = QDateTime::GetMaxDateTime().GetHour();
+    const u64_q MAX_MAXUTE      = QDateTime::GetMaxDateTime().GetMinute();
+    const u64_q MAX_SECOND      = QDateTime::GetMaxDateTime().GetSecond();
+    const u64_q MAX_MILLISECOND = QDateTime::GetMaxDateTime().GetMillisecond();
+    const u64_q MAX_MICROSECOND = QDateTime::GetMaxDateTime().GetMicrosecond();
+    const u64_q MAX_HNS         = QDateTime::GetMaxDateTime().GetHundredOfNanosecond();
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
@@ -1750,12 +1709,12 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetMonth(), MAX_MONTH);
     BOOST_CHECK_EQUAL(dateTime.GetDay(), MAX_DAY);
     BOOST_CHECK_EQUAL(dateTime.GetHour(), MAX_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMaxute(), MAX_MAXUTE);
+    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MAXUTE);
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MAX_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MAX_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), MAX_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), MAX_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1763,22 +1722,20 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
 /// </summary>
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH       = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY         = QDateTime::GetMinDate().GetDay();
-    const u64_q MIN_HOUR        = QDateTime::GetMinDate().GetHour();
-    const u64_q MIN_MINUTE      = QDateTime::GetMinDate().GetMinute();
-    const u64_q MIN_SECOND      = QDateTime::GetMinDate().GetSecond();
-    const u64_q MIN_MILLISECOND = QDateTime::GetMinDate().GetMillisecond();
-    const u64_q MIN_MICROSECOND = QDateTime::GetMinDate().GetMicrosecond();
-    const u64_q MIN_HNS         = QDateTime::GetMinDate().GetHundredsOfNanoseconds();
+    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay();
+    const u64_q MIN_HOUR        = QDateTime::GetMinDateTime().GetHour();
+    const u64_q MIN_MINUTE      = QDateTime::GetMinDateTime().GetMinute();
+    const u64_q MIN_SECOND      = QDateTime::GetMinDateTime().GetSecond();
+    const u64_q MIN_MILLISECOND = QDateTime::GetMinDateTime().GetMillisecond();
+    const u64_q MIN_MICROSECOND = QDateTime::GetMinDateTime().GetMicrosecond();
+    const u64_q MIN_HNS         = QDateTime::GetMinDateTime().GetHundredOfNanosecond();
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY,
+    QDateTime dateTime(-scast_q(MIN_YEAR, i32_q), MIN_MONTH, MIN_DAY,
                        MIN_HOUR, MIN_MINUTE, MIN_SECOND,
                        MIN_MILLISECOND, MIN_MICROSECOND, MIN_HNS,
                        EXPECTED_TIMEZONE);
@@ -1792,8 +1749,8 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MIN_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MIN_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MIN_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MIN_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), MIN_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), MIN_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 
@@ -1802,13 +1759,13 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR  = 2013;
     const u64_q EXPECTED_MONTH = 11;
     const u64_q EXPECTED_DAY   = 13;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/Antigua"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
@@ -1818,7 +1775,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
     BOOST_CHECK_EQUAL(dateTime.GetYear(), EXPECTED_YEAR);
     BOOST_CHECK_EQUAL(dateTime.GetMonth(), EXPECTED_MONTH);
     BOOST_CHECK_EQUAL(dateTime.GetDay(), EXPECTED_DAY);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -1992,7 +1949,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenMonthEqualsZero_Test )
 }
 
 /// <summary>
-/// Checks that an assertion fails when the month is greater than the top limit.
+/// Checks that an assertion fails when the day is greater than the top limit.
 /// </summary>
 QTEST_CASE ( Constructor4_AssertionFailsWhenDayIsTooHigh_Test )
 {
@@ -2086,12 +2043,10 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDayIsNotValidForTheGivenMonthAndYear
 /// </summary>
 QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
 {
-    /*
-    // [TODO] Thund: Uncomment when it is possible to get the maximum date and time
     // [Preparation]
-    const i32_q MAX_YEAR  = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY   = QDateTime::GetMaxDate().GetDay();
+    const i32_q MAX_YEAR  = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY   = QDateTime::GetMaxDateTime().GetDay();
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MAX_DAY_PLUS_ONE = MAX_DAY + 1;
 
@@ -2111,7 +2066,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -2119,12 +2074,10 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 {
-    /*
-    // [TODO] Thund: Uncomment when it is possible to get the minimum date and time
     // [Preparation]
-    const i32_q MIN_YEAR  = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY   = QDateTime::GetMinDate().GetDay() + 1; // (time is 00:00:00, which would be prior to minimum, so next day is used)
+    const i32_q MIN_YEAR  = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY   = QDateTime::GetMinDateTime().GetDay() + 1; // (time is 00:00:00, which would be prior to minimum, so next day is used)
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MIN_DAY_MINUS_ONE = MIN_DAY - 1;
 
@@ -2144,7 +2097,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2154,21 +2107,20 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_MaximumDateIsConstructedWhenDateIsPosteriorToMaximum_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get the maximum date and time
-    /*// [Preparation]
-    const i32_q MAX_YEAR  = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY   = QDateTime::GetMaxDate().GetDay();
+    // [Preparation]
+    const i32_q MAX_YEAR  = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY   = QDateTime::GetMaxDateTime().GetDay();
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MAX_DAY_PLUS_ONE = MAX_DAY + 1;
-    const QDateTime MAX_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAX_DATETIME = QDateTime::GetMaxDateTime();
 
 	// [Execution]
     QDateTime dateTime(MAX_YEAR, MAX_MONTH, MAX_DAY_PLUS_ONE,
                        NULL_TIMEZONE);
 
     // [Verification]
-    BOOST_CHECK_(dateTime == MAX_DATETIME);*/
+    BOOST_CHECK(dateTime == MAX_DATETIME);
 }
 
 /// <summary>
@@ -2176,21 +2128,20 @@ QTEST_CASE ( Constructor4_MaximumDateIsConstructedWhenDateIsPosteriorToMaximum_T
 /// </summary>
 QTEST_CASE ( Constructor4_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get the minimum date and time
-    /*// [Preparation]
-    const i32_q MIN_YEAR  = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY   = QDateTime::GetMinDate().GetDay() + 1; // (time is 00:00:00, which would be prior to minimum, so next day is used)
+    // [Preparation]
+    const i32_q MIN_YEAR  = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY   = QDateTime::GetMinDateTime().GetDay() + 1; // (time is 00:00:00, which would be prior to minimum, so next day is used)
     const QTimeZone* NULL_TIMEZONE = null_q;
     const u64_q MIN_DAY_MINUS_ONE = MIN_DAY - 1;
-    const QDateTime MIN_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MIN_DATETIME = QDateTime::GetMinDateTime();
 
 	// [Execution]
-    QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY_MINUS_ONE,
-                       MIN_TIMEZONE);
+    QDateTime dateTime(-scast_q(MIN_YEAR, i32_q), MIN_MONTH, MIN_DAY_MINUS_ONE,
+                       NULL_TIMEZONE);
 
     // [Verification]
-    BOOST_CHECK(dateTime == MIN_DATETIME);*/
+    BOOST_CHECK(dateTime == MIN_DATETIME);
 }
 
 #endif
@@ -2200,8 +2151,6 @@ QTEST_CASE ( Constructor4_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Te
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 5;
@@ -2227,8 +2176,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAf
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2236,10 +2185,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAf
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2263,8 +2211,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2272,8 +2220,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 2;
@@ -2299,8 +2245,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBe
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2308,10 +2254,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBe
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2335,8 +2280,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2344,8 +2289,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
@@ -2371,8 +2314,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTim
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2380,10 +2323,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTim
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNegativeYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -1;
+    const i32_q NEGATIVE_YEAR        = -1;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2407,8 +2349,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2416,8 +2358,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfFive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 25;
     const u64_q EXPECTED_MONTH       = 1;
@@ -2443,8 +2383,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfF
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2452,10 +2392,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfF
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfFive_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -25;
+    const i32_q NEGATIVE_YEAR        = -25;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2479,8 +2418,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2488,8 +2427,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs29February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
@@ -2515,8 +2452,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2524,10 +2461,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayIs29February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -20;
+    const i32_q NEGATIVE_YEAR        = -20;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 29;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2551,8 +2487,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2560,8 +2496,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs28February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
@@ -2587,8 +2521,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2596,10 +2530,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayIs28February_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -20;
+    const i32_q NEGATIVE_YEAR        = -20;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 28;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2623,8 +2556,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2632,8 +2565,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 12;
     const u64_q EXPECTED_MONTH       = 1;
@@ -2659,8 +2590,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2668,10 +2599,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -12;
+    const i32_q NEGATIVE_YEAR        = -12;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2695,8 +2625,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2704,8 +2634,6 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
@@ -2731,8 +2659,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPosi
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2740,10 +2668,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPosi
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = -4;
+    const i32_q NEGATIVE_YEAR        = -4;
+    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2767,8 +2694,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2776,12 +2703,10 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDate().GetYear();
-    const u64_q MAX_MONTH       = QDateTime::GetMaxDate().GetMonth();
-    const u64_q MAX_DAY         = QDateTime::GetMaxDate().GetDay();
+    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
+    const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
     const u64_q MAX_HOUR        = 0;
     const u64_q MAX_MAXUTE      = 0;
     const u64_q MAX_SECOND      = 0;
@@ -2799,12 +2724,12 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetMonth(), MAX_MONTH);
     BOOST_CHECK_EQUAL(dateTime.GetDay(), MAX_DAY);
     BOOST_CHECK_EQUAL(dateTime.GetHour(), MAX_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMaxute(), MAX_MAXUTE);
+    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MAXUTE);
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MAX_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MAX_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), MAX_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), MAX_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2812,12 +2737,10 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
 /// </summary>
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit
-    /*
     // [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDate().GetYear();
-    const u64_q MIN_MONTH       = QDateTime::GetMinDate().GetMonth();
-    const u64_q MIN_DAY         = QDateTime::GetMinDate().GetDay() + 1;
+    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
+    const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay() + 1;
     const u64_q MIN_HOUR        = 0;
     const u64_q MIN_MINUTE      = 0;
     const u64_q MIN_SECOND      = 0;
@@ -2827,7 +2750,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY,
+    QDateTime dateTime(-MIN_YEAR, MIN_MONTH, MIN_DAY,
                        EXPECTED_TIMEZONE);
 
     // [Verification]
@@ -2839,8 +2762,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MIN_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MIN_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MIN_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MIN_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), MIN_TIMEZONE)*/
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), MIN_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -2848,8 +2771,8 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
 /// </summary>
 QTEST_CASE ( Constructor5_IsCorrectlyConstructedWhenUsingCommonTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
@@ -2860,7 +2783,7 @@ QTEST_CASE ( Constructor5_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     const u64_q EXPECTED_MILLISECOND = 654;
     const u64_q EXPECTED_MICROSECOND = 489;
     const u64_q EXPECTED_HNS         = 5;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/Antigua"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
@@ -2876,9 +2799,8 @@ QTEST_CASE ( Constructor5_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
-
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -3116,8 +3038,8 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenHundredsOfNanosecondsTooHigh_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_IsCorrectlyConstructedWhenUsingCommonTime_Test )
 {
-    // [TODO] Thund: Uncomment when it is possible to get every time unit and time zones can be created
-    /*
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
     // [Preparation]
     const i32_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
@@ -3128,7 +3050,7 @@ QTEST_CASE ( Constructor6_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     const u64_q EXPECTED_MILLISECOND = 654;
     const u64_q EXPECTED_MICROSECOND = 0;
     const u64_q EXPECTED_HNS         = 0;
-    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("");
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/Antigua"));
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
@@ -3144,9 +3066,8 @@ QTEST_CASE ( Constructor6_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), EXPECTED_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), EXPECTED_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_MICROSECOND);
-    BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), EXPECTED_HNS);
-    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE)*/
-
+    BOOST_CHECK_EQUAL(dateTime.GetHundredOfNanosecond(), EXPECTED_HNS);
+    BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
 }
 
 /// <summary>
@@ -3511,11 +3432,10 @@ QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenDateIsUndefined_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllowedMaximumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMaxDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
     const bool ASSERTION_FAILED = true;
 
@@ -3525,7 +3445,7 @@ QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllow
     try
     {
         QDateTime dateTime(MAXIMUM_DATETIME);
-        dateTime += ANY_TIMESPAN;
+        dateTime += INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -3533,7 +3453,7 @@ QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllow
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -3562,11 +3482,10 @@ QTEST_CASE ( OperatorAdditionAssignment_UndefinedDatesDoNotChange_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignment_MaximumValueIsSetWhenAdditionOverflowsAllowedMaximumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMaxDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
 
 	// [Execution]
@@ -3574,7 +3493,7 @@ QTEST_CASE ( OperatorAdditionAssignment_MaximumValueIsSetWhenAdditionOverflowsAl
     dateTime += INPUT_TIMESPAN;
 
     // [Verification]
-    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);*/
+    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);
 }
 
 #endif
@@ -3714,11 +3633,10 @@ QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenDateIsUndefined_Tes
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflowsAllowedMinimumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMinDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
     const bool ASSERTION_FAILED = true;
 
@@ -3728,7 +3646,7 @@ QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflow
     try
     {
         QDateTime dateTime(MINIMUM_DATETIME);
-        dateTime -= ANY_TIMESPAN;
+        dateTime -= INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -3736,7 +3654,7 @@ QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflow
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -3765,11 +3683,10 @@ QTEST_CASE ( OperatorSubtractionAssignment_UndefinedDatesDoNotChange_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignment_MinimumValueIsSetWhenSubtractionOverflowsAllowedMinimumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMinDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
 
 	// [Execution]
@@ -3777,7 +3694,7 @@ QTEST_CASE ( OperatorSubtractionAssignment_MinimumValueIsSetWhenSubtractionOverf
     dateTime -= INPUT_TIMESPAN;
 
     // [Verification]
-    BOOST_CHECK(dateTime == MINIMUM_DATETIME);*/
+    BOOST_CHECK(dateTime == MINIMUM_DATETIME);
 }
 
 #endif
@@ -3893,11 +3810,10 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenDateIsUndefined_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMaxDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
     const bool ASSERTION_FAILED = true;
 
@@ -3906,7 +3822,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumV
 
     try
     {
-        QDateTime dateTime = MAXIMUM_DATETIME + ANY_TIMESPAN;
+        QDateTime dateTime = MAXIMUM_DATETIME + INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -3914,7 +3830,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumV
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -3942,18 +3858,17 @@ QTEST_CASE ( OperatorAddition_UndefinedDatesDoNotChange_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_MaximumValueIsSetWhenAdditionOverflowsAllowedMaximumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMaxDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDate();
+    const QDateTime MAXIMUM_DATETIME = QDateTime::GetMaxDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
 
 	// [Execution]
     QDateTime dateTime = MAXIMUM_DATETIME + INPUT_TIMESPAN;
 
     // [Verification]
-    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);*/
+    BOOST_CHECK(dateTime == MAXIMUM_DATETIME);
 }
 
 #endif
@@ -4069,11 +3984,10 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenDateIsUndefined_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedMinimumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMinDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
     const bool ASSERTION_FAILED = true;
 
@@ -4082,7 +3996,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedM
 
     try
     {
-        QDateTime dateTime = MINIMUM_DATETIME - ANY_TIMESPAN;
+        QDateTime dateTime = MINIMUM_DATETIME - INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -4090,7 +4004,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedM
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -4118,18 +4032,17 @@ QTEST_CASE ( OperatorSubtraction1_UndefinedDatesDoNotChange_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction1_MinimumValueIsSetWhenSubtractionOverflowsAllowedMinimumValue_Test )
 {
-    // [TODO] Thund: Uncomment when GetMinDate exists
-    /*using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
-    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDate();
+    const QDateTime MINIMUM_DATETIME = QDateTime::GetMinDateTime();
     const QTimeSpan INPUT_TIMESPAN(1);
 
 	// [Execution]
     QDateTime dateTime = MINIMUM_DATETIME - INPUT_TIMESPAN;
 
     // [Verification]
-    BOOST_CHECK(dateTime == MINIMUM_DATETIME);*/
+    BOOST_CHECK(dateTime == MINIMUM_DATETIME);
 }
 
 #endif
@@ -5378,6 +5291,3593 @@ QTEST_CASE ( IsLeapYear_AssertionFailsWhenDateIsUndefined_Test )
 QTEST_CASE ( GetTimeZone_NotNecessaryToTest_Test )
 {
     BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 25;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 25;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 20;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 20;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 20;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 20;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 12;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 12;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 29228;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uYear = MAXIMUM_POSITIVE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 29228;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uYear = MAXIMUM_NEGATIVE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it is local time.
+/// </summary>
+QTEST_CASE ( GetYear_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    const unsigned int EXPECTED_YEAR = 13;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(    EXPECTED_YEAR, 12, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    unsigned int uYearLocal = SOURCE_DATETIME.GetYear();
+    unsigned int uYearUtc   = SOURCE_DATETIME_UTC.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYearLocal, EXPECTED_YEAR);
+    BOOST_CHECK_NE(uYearLocal, uYearUtc);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined
+/// </summary>
+QTEST_CASE ( GetYear_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetYear();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 5;
+    const QDateTime SOURCE_DATETIME(4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 5;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(1, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(25, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-25, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(20, EXPECTED_MONTH, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(-20, EXPECTED_MONTH, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(20, EXPECTED_MONTH, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime SOURCE_DATETIME(-20, EXPECTED_MONTH, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(1, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(12, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-12, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(4, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 2;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uMonth = MAXIMUM_POSITIVE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 11;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uMonth = MAXIMUM_NEGATIVE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it is local time.
+/// </summary>
+QTEST_CASE ( GetMonth_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(    12, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    unsigned int uMonthLocal = SOURCE_DATETIME.GetMonth();
+    unsigned int uMonthUtc   = SOURCE_DATETIME_UTC.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonthLocal, EXPECTED_MONTH);
+    BOOST_CHECK_NE(uMonthLocal, uMonthUtc);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetMonth_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetMonth();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(4, 5, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-4, 5, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(4, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-4, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(1, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-1, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(25, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-25, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 29;
+    const QDateTime SOURCE_DATETIME(20, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 29;
+    const QDateTime SOURCE_DATETIME(-20, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 28;
+    const QDateTime SOURCE_DATETIME(20, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 28;
+    const QDateTime SOURCE_DATETIME(-20, 2, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-1, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(1, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(12, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-12, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(4, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-4, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(4, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-4, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 8;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uDay = MAXIMUM_POSITIVE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 23;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uDay = MAXIMUM_NEGATIVE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it is local time.
+/// </summary>
+QTEST_CASE ( GetDay_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(    12, 12, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    unsigned int uDayLocal = SOURCE_DATETIME.GetDay();
+    unsigned int uDayUtc   = SOURCE_DATETIME_UTC.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDayLocal, EXPECTED_DAY);
+    BOOST_CHECK_NE(uDayLocal, uDayUtc);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetDay_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetDay();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 2;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uHour = MAXIMUM_POSITIVE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 21;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uHour = MAXIMUM_NEGATIVE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it is local time.
+/// </summary>
+QTEST_CASE ( GetHour_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 1;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(    12, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    unsigned int uHourLocal = SOURCE_DATETIME.GetHour();
+    unsigned int uHourUtc   = SOURCE_DATETIME_UTC.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHourLocal, EXPECTED_HOUR);
+    BOOST_CHECK_NE(uHourLocal, uHourUtc);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetHour_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetHour();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 48;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uMinute = MAXIMUM_POSITIVE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 11;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uMinute = MAXIMUM_NEGATIVE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it is local time.
+/// </summary>
+QTEST_CASE ( GetMinute_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Pacific/Marquesas")); // MART-9:30
+    const QDateTime SOURCE_DATETIME(    12, 12, 31, 10, EXPECTED_MINUTE, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    unsigned int uMinuteLocal = SOURCE_DATETIME.GetMinute();
+    unsigned int uMinuteUtc   = SOURCE_DATETIME_UTC.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinuteLocal, EXPECTED_MINUTE);
+    BOOST_CHECK_NE(uMinuteLocal, uMinuteUtc);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetMinute_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetMinute();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is multiple of 5.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 5;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uSecond = MAXIMUM_POSITIVE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 54;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uSecond = MAXIMUM_NEGATIVE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetSecond_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetSecond();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 477;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uMillisecond = MAXIMUM_POSITIVE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 522;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uMillisecond = MAXIMUM_NEGATIVE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetMillisecond_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetMillisecond();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 580;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uMicrosecond = MAXIMUM_POSITIVE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 419;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uMicrosecond = MAXIMUM_NEGATIVE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetMicrosecond();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 7;
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	// [Execution]
+    unsigned int uNanosecond = MAXIMUM_POSITIVE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_NANOSECOND = 3;
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	// [Execution]
+    unsigned int uNanosecond = MAXIMUM_NEGATIVE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.GetHundredOfNanosecond();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the same date/time with different time zone.
+/// </summary>
+QTEST_CASE ( GetUtc_ReturnsSameDateTimeWithDifferentTimeZone_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const QTimeZone* EXPECTED_TIMEZONE = null_q;
+    const QTimeZone* TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid")); // CET+1
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime UTC_DATETIME(   SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    QDateTime result = SOURCE_DATETIME.GetUtc();
+
+    // [Verification]
+    const QTimeZone* pResultTimeZone = result.GetTimeZone();
+    BOOST_CHECK(result == UTC_DATETIME);
+    BOOST_CHECK(pResultTimeZone == EXPECTED_TIMEZONE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value.
+/// </summary>
+QTEST_CASE ( GetMaxDateTime_ReturnsExpectedValue_Test )
+{
+    // [Preparation]
+    const QDateTime EXPECTED_DATETIME(29228, 2, 8, 2, 48, 5, 477, 580, 7, null_q);
+    const QTimeZone* EXPECTED_TIMEZONE = null_q;
+
+	// [Execution]
+    QDateTime result = QDateTime::GetMaxDateTime();
+
+    // [Verification]
+    const QTimeZone* pResultTimeZone = result.GetTimeZone();
+    BOOST_CHECK(result == EXPECTED_DATETIME);
+    BOOST_CHECK(pResultTimeZone == EXPECTED_TIMEZONE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value.
+/// </summary>
+QTEST_CASE ( GetMinDateTime_ReturnsExpectedValue_Test )
+{
+    // [Preparation]
+    const QDateTime EXPECTED_DATETIME(-29228, 11, 23, 21, 11, 54, 522, 419, 3, null_q);
+    const QTimeZone* EXPECTED_TIMEZONE = null_q;
+
+	// [Execution]
+    QDateTime result = QDateTime::GetMinDateTime();
+
+    // [Verification]
+    const QTimeZone* pResultTimeZone = result.GetTimeZone();
+    BOOST_CHECK(result == EXPECTED_DATETIME);
+    BOOST_CHECK(pResultTimeZone == EXPECTED_TIMEZONE);
 }
 
 /// <summary>
