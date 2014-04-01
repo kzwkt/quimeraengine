@@ -53,6 +53,7 @@ namespace DataTypes
 const int QStringUnicode::LENGTH_NULL_TERMINATED = -1;
 const QCharUnicode QStringUnicode::CHAR_BOM_LE(0xFFFE);
 const QCharUnicode QStringUnicode::CHAR_BOM_BE(0xFEFF);
+const int QStringUnicode::PATTERN_NOT_FOUND = -1;
 
 
 //##################=======================================================##################
@@ -253,6 +254,7 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding eEncoding, unsigned int &uOut
 
 UConverter* QStringUnicode::GetConverter(const EQTextEncoding eEncoding)
 {
+    // About ICU converters: http://userguide.icu-project.org/conversion/converters
     static UErrorCode errorCode = U_ZERO_ERROR;
     static UConverter* const ASCII_CONVERTER    = ucnv_open("US-ASCII",    &errorCode);
     static UConverter* const ISO88591_CONVERTER = ucnv_open("ISO-8859-1",  &errorCode);
@@ -425,6 +427,197 @@ const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eCompar
     }
 
     return pCollator;
+}
+
+int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+{
+    int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+
+    if(!strPattern.IsEmpty() && !this->IsEmpty())
+    {
+        if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
+        {
+            nPosition = m_strString.indexOf(strPattern.m_strString);
+        }
+        else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
+        {
+            // There is no case insensitive indexOf in ICU so both strings are case-folded before searching
+            icu::UnicodeString strResidentCopy = m_strString;
+            strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            icu::UnicodeString strPatternCopy = strPattern.m_strString;
+            strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            nPosition = strResidentCopy.indexOf(strPatternCopy);
+        }
+        else
+        {
+            UErrorCode errorCode = U_ZERO_ERROR;
+
+            // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
+            icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
+
+            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+
+            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            nPosition = search.next(errorCode);
+            
+            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+        }
+
+        if(nPosition == USEARCH_DONE)
+            nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+    }
+
+    return nPosition;
+}
+
+void QStringUnicode::ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search)
+{
+    UErrorCode errorCode = U_ZERO_ERROR;
+
+    switch(eComparisonType)
+    {
+    case EQComparisonType::E_CanonicalCaseInsensitive:
+        search.setAttribute(USEARCH_CANONICAL_MATCH, USEARCH_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
+        search.setAttribute(USEARCH_OVERLAP, USEARCH_OFF, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
+        search.getCollator()->setStrength(icu::Collator::SECONDARY); // Secondary: No tertiary checking, no case comparison
+        search.getCollator()->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
+        search.getCollator()->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_ALTERNATE_HANDLING)");
+        break;
+    case EQComparisonType::E_CanonicalCaseSensitive:
+        search.setAttribute(USEARCH_CANONICAL_MATCH, USEARCH_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
+        search.setAttribute(USEARCH_OVERLAP, USEARCH_OFF, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
+        search.getCollator()->setStrength(icu::Collator::TERTIARY); // Tertiary: Case comparison
+        search.getCollator()->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
+        search.getCollator()->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NON_IGNORABLE)");
+        break;
+    case EQComparisonType::E_CompatibilityCaseInsensitive:
+    case EQComparisonType::E_CompatibilityCaseSensitive:
+        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        break;
+    default:
+        QE_ASSERT(false, "Invalid comparison type");
+    }
+}
+
+int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const
+{
+    int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+
+    if(!strPattern.IsEmpty() && !this->IsEmpty() && uStart < this->GetLength())
+    {
+        if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
+        {
+            nPosition = m_strString.indexOf(strPattern.m_strString, scast_q(uStart, int32_t));
+        }
+        else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
+        {
+            // There is no case insensitive indexOf in ICU so both strings are converted to lowercase before searching
+            icu::UnicodeString strResidentCopy = m_strString;
+            strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            icu::UnicodeString strPatternCopy = strPattern.m_strString;
+            strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            nPosition = strResidentCopy.indexOf(strPatternCopy);
+        }
+        else
+        {
+            UErrorCode errorCode = U_ZERO_ERROR;
+
+            // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
+            icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
+            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+
+            search.setOffset(scast_q(uStart, int32_t), errorCode);
+            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
+
+            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            nPosition = search.next(errorCode);
+
+            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+        }
+
+        if(nPosition == USEARCH_DONE)
+            nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+    }
+
+    return nPosition;
+}
+
+void QStringUnicode::Replace(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType)
+{
+    if(!(strSearchedPattern.IsEmpty() || this->IsEmpty()))
+    {
+        if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
+            m_strString.findAndReplace(strSearchedPattern.m_strString, strReplacement.m_strString);
+        else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
+            this->ReplaceBinaryCaseInsensitive(strSearchedPattern, strReplacement);
+        else
+            this->ReplaceCanonical(strSearchedPattern, strReplacement, eComparisonType);
+    }
+}
+
+void QStringUnicode::ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement)
+{
+    icu::UnicodeString strPatternCopy = strSearchedPattern.m_strString;
+    strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
+    icu::UnicodeString strResidentCopy = m_strString;
+    strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
+
+    // Iterates over a copy of the original string, but modifying the original string
+    int32_t nPosition = strResidentCopy.indexOf(strPatternCopy);
+    int32_t nAccumulatedOffset = 0;
+    const int32_t PATTERN_LENGTH = scast_q(strSearchedPattern.GetLength(), int32_t);
+    const int32_t REPLACEMENT_LENGTH = scast_q(strReplacement.GetLength(), int32_t);
+    const int32_t REPLACEMENT_LENGTH_DIFFERENCE = REPLACEMENT_LENGTH - PATTERN_LENGTH;
+
+    while(nPosition != USEARCH_DONE)
+    {
+        m_strString.replace(nPosition + nAccumulatedOffset, PATTERN_LENGTH, strReplacement.m_strString);
+
+        // An offset must be kept because the string being modified and the string the iterator traverses are not the same instance
+        // Adding this offset we get the position of the found match in the modified string
+        nAccumulatedOffset += REPLACEMENT_LENGTH_DIFFERENCE;
+
+        nPosition = strResidentCopy.indexOf(strPatternCopy, nPosition + 1);
+    }
+}
+
+void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType)
+{
+    // Creates the search object
+    UErrorCode errorCode = U_ZERO_ERROR;
+    icu::StringSearch search(strSearchedPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
+    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+
+    QStringUnicode::ConfigureSearch(eComparisonType, search);
+
+    // Iterates over a copy of the original string, modifying the original string
+    int32_t nPosition = search.next(errorCode);
+    int32_t nAccumulatedOffset = 0;
+    const int32_t PATTERN_LENGTH = scast_q(strSearchedPattern.GetLength(), int32_t);
+    const int32_t REPLACEMENT_LENGTH = scast_q(strReplacement.GetLength(), int32_t);
+    const int32_t REPLACEMENT_LENGTH_DIFFERENCE = REPLACEMENT_LENGTH - PATTERN_LENGTH;
+
+    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+
+    while(nPosition != USEARCH_DONE)
+    {
+        m_strString.replace(nPosition + nAccumulatedOffset, PATTERN_LENGTH, strReplacement.m_strString);
+
+        // An offset must be kept because the string being modified and the string the iterator traverses are not the same instance
+        // Adding this offset we get the position of the found match in the modified string
+        nAccumulatedOffset += REPLACEMENT_LENGTH_DIFFERENCE;
+
+        nPosition = search.next(errorCode);
+        QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+    }
 }
 
 

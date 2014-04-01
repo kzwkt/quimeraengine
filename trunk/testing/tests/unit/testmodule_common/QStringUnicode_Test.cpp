@@ -1,4 +1,4 @@
-//-------------------------------------------------------------------------------//
+﻿//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -37,6 +37,7 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
 
 QTEST_SUITE_BEGIN( QStringUnicode_TestSuite )
@@ -137,7 +138,7 @@ QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]                           '�', 'B', '�'
+    // [Preparation]                           'ñ', 'B', 'á'
     const i8_q INPUT_STRING_BYTES[]        = { -15, 'B', -31, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_ISO88591;
@@ -164,12 +165,12 @@ QTEST_CASE ( Constructor3_Utf8StringIsCorrectlyConverted_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                         �                       ?                                   ?                       ?                      \0
+    //                                         ©                       ?                                   ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xC2, (char)0xA9, (char)0xE1, (char)0x9A, (char)0xA1, (char)0xD8, (char)0xB4, (char)0xD0, (char)0x96, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -192,12 +193,12 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         BOM LE                  �              ?                       ?                       ?                      \0
+    //                                         BOM LE                  ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -220,12 +221,12 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         BOM BE                  �              ?                       ?                       ?                      \0
+    //                                         BOM BE                  ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -248,13 +249,13 @@ QTEST_CASE ( Constructor3_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         �              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                            BOM BE                  �              ?                       ?                       ?                      \0
+    //                                            BOM BE                  ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding EXPECTED_ENCODING    = EQTextEncoding::E_UTF16;
@@ -278,12 +279,12 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         BOM LE                        �                    ?                             ?                             ?                            \0
+    //                                         BOM LE                        ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, 0, 0, (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -306,13 +307,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         �                    ?                             ?                             ?                            \0
-    //                                         BOM BE                        �                    ?                             ?                             ?                            \0
+    //                                         ©                    ?                             ?                             ?                            \0
+    //                                         BOM BE                        ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -335,13 +336,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                         �                    ?                             ?                             ?                            \0
+    //                                         ©                    ?                             ?                             ?                            \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     // Note that the following byte sequence is read by a little-endian machine as DCBA, HGFE, etc.
-    //                                            BOM BE                        �                    ?                             ?                             ?                            \0
+    //                                            BOM BE                        ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding EXPECTED_ENCODING    = EQTextEncoding::E_UTF32;
@@ -365,14 +366,14 @@ QTEST_CASE ( Constructor3_Utf16BEStringIsCorrectlyConverted_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         �              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
     // [TODO] Thund: Change the expected result so it depends on the endianess of the machine where the tests are being executed.
     //               It is necessary to implement a way to know that endianess.
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -395,12 +396,12 @@ QTEST_CASE ( Constructor3_Utf16LEStringIsCorrectlyConverted_Test )
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
-    //                                         �              ?                       ?                       ?                      \0
+    //                                         ©              ?                       ?                       ?                      \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -422,12 +423,12 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                        BOM     �       ?       ?       ?      \0
+    //                                        BOM     ©       ?       ?       ?      \0
     const u16_q INPUT_STRING_CODE_UNITS[] = { 0xFFFE, 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -451,12 +452,12 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                        BOM         �           ?           ?           ?          \0
+    //                                        BOM         ©           ?           ?           ?          \0
     const u32_q INPUT_STRING_CODE_UNITS[] = { 0x0000FEFF, 0x000000A9, 0x000016A1, 0x00000634, 0x00000416, 0x00000000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -479,12 +480,12 @@ QTEST_CASE ( Constructor3_IllFormedSequencesAreRepairedUsingReplacementCharacter
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
-    //                                         A           ILL-FORMED  �                       B          \0
+    //                                         A           ILL-FORMED  ñ                       B          \0
     const i8_q INPUT_STRING_BYTES[]        = { (char)0x41, (char)0xC2, (char)0xC3, (char)0xB1, (char)0x42, 0 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           A       REPLAC. �       B      \0
+    //                                           A       REPLAC. ñ       B      \0
     const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x0041, 0xFFFD, 0x00F1, 0x0042, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -505,11 +506,11 @@ QTEST_CASE ( Constructor3_OptionalParametersDefaultToNullTerminatedIso88591_Test
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]                    '�', 'B', '�'
+    // [Preparation]                    'ñ', 'B', 'á'
     const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
 
-    //                                             �       B       �
-    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1, 0x0000 };
+    //                                             ñ       B       á
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
@@ -529,7 +530,7 @@ QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]                    '�', 'B', '�'
+    // [Preparation]                    'ñ', 'B', 'á'
     const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
     const QStringUnicode EXPECTED_RESULT = QStringUnicode::GetEmpty();
     const int ZERO_LENGTH = 0;
@@ -586,12 +587,12 @@ QTEST_CASE ( Constructor3_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    // [Preparation]                    '�', 'B', '�'
+    // [Preparation]                    'ñ', 'B', 'á'
     const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
     const int UNKNOWN_LENGTH = QStringUnicode::LENGTH_NULL_TERMINATED;
     const EQTextEncoding ENCODING = EQTextEncoding::E_ISO88591;
 
-    //                                             �       B       �
+    //                                             ñ       B       á
     const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -687,8 +688,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreEquivalentButNotTheSame_
     // [Preparation]
     // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
-    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // � -> U+212B
-    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // � -> U+00C5
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
     const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
     const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
     const bool EXPECTED_RESULT = false;
@@ -745,8 +746,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreEquivalentButNotTheSame
     // [Preparation]
     // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
-    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // � -> U+212B
-    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // � -> U+00C5
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
     const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
     const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
     const bool EXPECTED_RESULT = true;
@@ -1265,7 +1266,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF8Correctly_Test )
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           �       ?       ?       ?      \0
+    //                                           ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1295,7 +1296,7 @@ QTEST_CASE ( ToBytes_UTF8NullTerminatorAddedWhenSourceStringDoesNotTerminatesWit
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
-    //                                           �       ?       ?       ?
+    //                                           ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1324,14 +1325,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16CorrectlyAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                            BOM BE                  �              ?                       ?                       ?                      \0
+    //                                            BOM BE                  ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFE, (char)0xFF, 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
-    //                                            BOM LE                  �              ?                       ?                       ?                      \0
+    //                                            BOM LE                  ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1361,7 +1362,7 @@ QTEST_CASE ( ToBytes_UTF16NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1390,14 +1391,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32CorrectlyAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                         BOM BE                        �                    ?                             ?                             ?                            \0
+    //                                         BOM BE                        ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { 0, 0, (char)0xFE, (char)0xFF, 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
-    //                                         BOM LE                        �                    ?                             ?                             ?                            \0
+    //                                         BOM LE                        ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, 0, 0, (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1427,7 +1428,7 @@ QTEST_CASE ( ToBytes_UTF32NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1456,14 +1457,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16LECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                              �              ?                       ?                       ?                      \0
+    //                                              ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
-    //                                            �              ?                       ?                       ?                      \0
+    //                                            ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16LE;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1493,7 +1494,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1522,14 +1523,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16BECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                              �              ?                       ?                       ?                      \0
+    //                                              ©              ?                       ?                       ?                      \0
     //const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
-    //                                            �              ?                       ?                       ?                      \0
+    //                                            ©              ?                       ?                       ?                      \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16BE;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1559,7 +1560,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1588,14 +1589,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32LECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                           �                    ?                             ?                             ?                            \0
+    //                                           ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
-    //                                            �                    ?                             ?                             ?                            \0
+    //                                            ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32LE;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1625,7 +1626,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32LE;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1654,14 +1655,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32BECorrectlyNotAddingBOM_Test )
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
     // [TODO] Thund: Change this so it depends on the endianess of the machine
-    //                                           �                    ?                             ?                             ?                            \0
+    //                                           ©                    ?                             ?                             ?                            \0
     //const i8_q INPUT_STRING_BYTES[]        = { (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
-    //                                            �                    ?                             ?                             ?                            \0
+    //                                            ©                    ?                             ?                             ?                            \0
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32BE;
 
-    //                                         �       ?       ?       ?      \0
+    //                                         ©       ?       ?       ?      \0
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1691,7 +1692,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const unsigned int EXPECTED_STRING_LENGTH = sizeof(EXPECTED_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32BE;
 
-    //                                         �       ?       ?       ?
+    //                                         ©       ?       ?       ?
     const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
@@ -1982,7 +1983,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingBinaryInse
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD�");
+    const QStringUnicode RESIDENT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
     const int EXPECTED_RESULT = 1;
@@ -2123,7 +2124,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingBinaryInse
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD�");
+    const QStringUnicode INPUT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2182,7 +2183,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingBinarySens
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD�");
+    const QStringUnicode RESIDENT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
     const int EXPECTED_RESULT = 1;
@@ -2323,7 +2324,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingBinarySens
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD�");
+    const QStringUnicode INPUT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2382,7 +2383,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingCanonicalI
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD�");
+    const QStringUnicode RESIDENT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
     const int EXPECTED_RESULT = 1;
@@ -2523,7 +2524,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingCanonicalI
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD�");
+    const QStringUnicode INPUT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2582,7 +2583,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByAccentsAndUsingCanonicalS
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // [Preparation]
-    const QStringUnicode RESIDENT_STRING("ABCD�");
+    const QStringUnicode RESIDENT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode INPUT_STRING("ABCDE");
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
     const int EXPECTED_RESULT = 1;
@@ -2723,7 +2724,7 @@ QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByAccentsAndUsingCanonicalS
 
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
-    const QStringUnicode INPUT_STRING("ABCD�");
+    const QStringUnicode INPUT_STRING((const char*)L"ABCDÉ", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
     const int EXPECTED_RESULT = -1;
 
@@ -2884,8 +2885,8 @@ QTEST_CASE ( CompareTo_NormalizationDoesNotAffectTheResultWhenUsingCanonicalComp
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
 
     // [Preparation]
-    //                                 A       _        ?        �       �
-    u16_q NONNORMALIZED_SEQUENCE[] = { 0x0041, 0x0331, 0x0341, 0x00A8, 0x00F1 }; // �_��
+    //                                 A       _        ?        ¨       ñ
+    u16_q NONNORMALIZED_SEQUENCE[] = { 0x0041, 0x0331, 0x0341, 0x00A8, 0x00F1 }; // Á_¨ñ
     const QStringUnicode NONNORMALIZED_STRING((char*)NONNORMALIZED_SEQUENCE, sizeof(NONNORMALIZED_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
     QStringUnicode NORMALIZED_STRING(NONNORMALIZED_STRING);
     NORMALIZED_STRING.Normalize(EQNormalizationForm::E_D);
@@ -2949,6 +2950,1179 @@ QTEST_CASE ( CompareTo_AssertionFailsWhenUsingUnsupportedComparisonTypes_Test )
 }
 
 #endif
+
+/// <summary>
+/// Checks that it returns "not found" when the pattern is empty.
+/// </summary>
+QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenPatternIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the resident string is empty.
+/// </summary>
+QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns -1 when the result is not found.
+/// </summary>
+QTEST_CASE ( IndexOf1_ReturnsMinusOneWhenPatternIsNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("A");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = -1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence, from left to right.
+/// </summary>
+QTEST_CASE ( IndexOf1_ReturnsTheFirstOccurrence_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZabc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"Áñ¨ ");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("Ab");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the normalization form of resident string affects the result.
+/// </summary>
+QTEST_CASE ( IndexOf1_NormalizationAffectsTheResultWhenUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    //                                          B       A       ?        _        C
+    u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
+    const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+    //                                         A       _        ?  
+    u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
+    const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+
+    QStringUnicode NORMALIZED_RESIDENT_STRING(NONNORMALIZED_RESIDENT_STRING);
+    NORMALIZED_RESIDENT_STRING.Normalize(EQNormalizationForm::E_D);
+
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+
+	// [Execution]
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
+}
+
+/// <summary>
+/// Checks that the pattern is found at zero index.
+/// </summary>
+QTEST_CASE ( IndexOf1_MatchesExactlyAtZeroIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÁ");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 0;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found at last position possible.
+/// </summary>
+QTEST_CASE ( IndexOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the pattern is empty.
+/// </summary>
+QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the resident string is empty.
+/// </summary>
+QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns -1 when the result is not found.
+/// </summary>
+QTEST_CASE ( IndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("A");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = -1;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence, from left to right.
+/// </summary>
+QTEST_CASE ( IndexOf2_ReturnsTheFirstOccurrence_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZabc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"Áñ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("Ab");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 4;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 4;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the normalization form of strings affects the result.
+/// </summary>
+QTEST_CASE ( IndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    //                                          B       A       ?        _        C
+    u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
+    const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+    //                                         A       _        ?  
+    u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
+    const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+
+    QStringUnicode NORMALIZED_RESIDENT_STRING(NONNORMALIZED_RESIDENT_STRING);
+    NORMALIZED_RESIDENT_STRING.Normalize(EQNormalizationForm::E_D);
+
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
+}
+
+/// <summary>
+/// Checks that the pattern is found at zero index.
+/// </summary>
+QTEST_CASE ( IndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 0;
+    const unsigned int START_INDEX = 0;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found at last position possible.
+/// </summary>
+QTEST_CASE ( IndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 6;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the matches that are previous to the start position are not returned.
+/// </summary>
+QTEST_CASE ( IndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 7;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the matches are found at the start index.
+/// </summary>
+QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("CX");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 5;
+    const unsigned int START_INDEX = 5;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the matches are found at the start index.
+/// </summary>
+QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test2 )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("CX");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 50;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the string does not change when the pattern is empty.
+/// </summary>
+QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("");
+    const QStringUnicode REPLACEMENT("XX");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that resident string does not change when it is empty.
+/// </summary>
+QTEST_CASE ( Replace_StringDoesNotChangeWhenResidentStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("");
+    const QStringUnicode PATTERN("ABC");
+    const QStringUnicode REPLACEMENT("XX");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are removed when replacement string is empty.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreRemovedWhenReplacementStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("B");
+    const QStringUnicode REPLACEMENT("");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT("AC");
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that all occurrences are replaced.
+/// </summary>
+QTEST_CASE ( Replace_ReplacesAllOccurrences_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("AXBXCXDXEXF");
+    const QStringUnicode PATTERN("X");
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT("A_B_C_D_E_F");
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("X");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("X");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("X");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("X");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are replaced when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZÁñabc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"á_CX`*ºZÁñabc", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are replaced when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"Áñ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZÁñabc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"á_CX`*ºZÁñabc", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are replaced when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("Ab");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñab¨ CX`*ºZAbc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"áÁñab¨ CX`*ºZ_c", 30, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are replaced when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñab¨ CX`*ºZAbc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"áÁñ_¨ CX`*ºZ_c", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the normalization form of resident string affects the result.
+/// </summary>
+QTEST_CASE ( Replace_NormalizationAffectsTheResultWhenUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    //                                          B       A       ?        _        C
+    u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
+    const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+    //                                         A       _        ?  
+    u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
+    const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
+
+    QStringUnicode NORMALIZED_RESIDENT_STRING(NONNORMALIZED_RESIDENT_STRING);
+    NORMALIZED_RESIDENT_STRING.Normalize(EQNormalizationForm::E_D);
+
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const QStringUnicode EXPECTED_RESULT("B_C");
+
+	// [Execution]
+    QStringUnicode strNormalizedString(NORMALIZED_RESIDENT_STRING);
+    QStringUnicode strNonNormalizedString(NONNORMALIZED_RESIDENT_STRING);
+    strNormalizedString.Replace(NONNORMALIZED_PATTERN, REPLACEMENT, COMPARISON_TYPE);
+    strNonNormalizedString.Replace(NONNORMALIZED_PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strNormalizedString != strNonNormalizedString);
+}
+
+/// <summary>
+/// Checks that the pattern is replaced at zero index.
+/// </summary>
+QTEST_CASE ( Replace_MatchesExactlyAtZeroIndexAreReplaced_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"_ñ¨ CX`*ºZAb", 24, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is replaced at last position possible.
+/// </summary>
+QTEST_CASE ( Replace_MatchesExactlyAtLastPartOfResidentStringAreReplaced_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"áÁñ¨ CX`*ºZ_", 24, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are correctly replaced when the replacement string's length is greater than one.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsLongerThanOneCharacter_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("a");
+    const QStringUnicode RESIDENT_STRING((const char*)L"áañ¨aCX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("123456");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"á123456ñ¨123456CX`*ºZ123456b", 56, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are correctly replaced when the pattern string's length is greater than one.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenSearchPatternIsLongerThanOneCharacter_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("123456");
+    const QStringUnicode RESIDENT_STRING((const char*)L"á123456ñ¨123456CX`*ºZ123456b", 56, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("_");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"á_ñ¨_CX`*ºZ_b", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are correctly replaced when the pattern string's and replacement string's length are greater than one.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementAndSearchPatternAreLongerThanOneCharacter_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("123456");
+    const QStringUnicode RESIDENT_STRING((const char*)L"á123456ñ¨123456CX`*ºZ123456b", 56, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("ABC");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"áABCñ¨ABCCX`*ºZABCb", 38, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the resident string does not change when the pattern is larger.
+/// </summary>
+QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsBigger_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("123456");
+    const QStringUnicode RESIDENT_STRING((const char*)L"á1234", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("ABC");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = RESIDENT_STRING;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that matches are correctlty replaced when the replacement string is larger than the resident string.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsBiggerThanResidentString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("12");
+    const QStringUnicode RESIDENT_STRING((const char*)L"á12b12", 12, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode REPLACEMENT("ABCDEFGHI");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT((const char*)L"áABCDEFGHIbABCDEFGHI", 40, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the string is completely replaced when it equals the search pattern.
+/// </summary>
+QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenResidentStringIsEqualToPattern_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    
+    // [Preparation]
+    const QStringUnicode PATTERN("123456");
+    const QStringUnicode RESIDENT_STRING = PATTERN;
+    const QStringUnicode REPLACEMENT("ABCDEFGHI");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const QStringUnicode EXPECTED_RESULT = REPLACEMENT;
+
+	// [Execution]
+    QStringUnicode strString(RESIDENT_STRING);
+    strString.Replace(PATTERN, REPLACEMENT, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
 
 /// <summary>
 /// Checks that it returns zero when the string is empty.

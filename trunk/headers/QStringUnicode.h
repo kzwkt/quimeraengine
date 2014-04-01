@@ -34,6 +34,7 @@
 #include <unicode/schriter.h>
 #include <unicode/normalizer2.h>
 #include <unicode/coll.h>
+#include <unicode/stsearch.h>
 
 #include "QCharUnicode.h"
 #include "EQTextEncoding.h"
@@ -319,6 +320,11 @@ public:
     /// </summary>
     static const QCharUnicode CHAR_BOM_BE;
 
+    /// <summary>
+    /// Position returned when the string pattern was not found.
+    /// </summary>
+    static const int PATTERN_NOT_FOUND;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -495,8 +501,74 @@ public:
     /// </returns>
     int CompareTo(const QStringUnicode &strInputString, const EQComparisonType &eComparisonType) const;
 
-    
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string and returns the character position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <returns>
+    /// If the pattern is found, it returns the position of the Unicode character (zero-based); if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// </returns>
+    int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
+
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string, starting from a given position, and returns the character 
+    /// position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident 
+    /// string, the pattern will not be found.</param>
+    /// <returns>
+    /// If the pattern is found, it returns the position of the Unicode character (zero-based); if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// </returns>
+    int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const;
+
+    /// <summary>
+    /// Searches for a string pattern throuhout the resident string, replacing every occurrence with another string.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// it will not be normalized when comparing.<br/>
+    /// If the resident string is normalized, a non-normalized replacement string may make it non-normalized too.<br/>
+    /// The result will be stored in the resident string.
+    /// </remarks>
+    /// <param name="strSearchedPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="strReplacement">[IN] The replacement string.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    void Replace(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType);
+
 protected:
+
+    /// <summary>
+    /// Searches for a string pattern (using binary case insensitive comparisons) throuhout the resident string, replacing every occurrence with another string.
+    /// </summary>
+    /// <param name="strSearchedPattern">[IN] The string pattern to search for.</param>
+    /// <param name="strReplacement">[IN] The replacement string.</param>
+    void ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement);
+
+    /// <summary>
+    /// Searches for a string pattern (using canonical comparisons) throuhout the resident string, replacing every occurrence with another string.
+    /// </summary>
+    /// <param name="strSearchedPattern">[IN] The string pattern to search for.</param>
+    /// <param name="strReplacement">[IN] The replacement string.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search. Only canonical comparisons allowed.</param>
+    void ReplaceCanonical(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType);
+
+    /// <summary>
+    /// Configures an ICU string search object according to a given comparison type.
+    /// </summary>
+    /// <param name="eComparisonType">[IN] The comparison type on which to base the search object.</param>
+    /// <param name="search">[OUT] The resultant search object.</param>
+    static void ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search);
 
     /// <summary>
     /// Gets an ICU converter for a given text encoding.
