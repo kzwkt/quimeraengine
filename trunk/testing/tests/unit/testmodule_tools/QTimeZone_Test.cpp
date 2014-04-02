@@ -96,7 +96,7 @@ QTEST_CASE ( CalculateOffset_ReturnsExpectedOffsetWhenDstIsActive_Test )
     TIME_ZONE->CalculateOffset(DST_START_TIME, offset, bOffsetIsNegative);
 
     // [Verification]
-    //BOOST_CHECK(offset == EXPECTED_OFFSET); [TODO] Thund: Uncomment when GetYear exists
+    BOOST_CHECK(offset == EXPECTED_OFFSET);
     BOOST_CHECK_EQUAL(bOffsetIsNegative, EXPECTED_OFFSET_SIGN);
 }
 
@@ -121,7 +121,7 @@ QTEST_CASE ( CalculateOffset_ReturnsExpectedOffsetWhenDstIsNotActive_Test )
     TIME_ZONE->CalculateOffset(BEFORE_DST_START_TIME, offset, bOffsetIsNegative);
 
     // [Verification]
-    //BOOST_CHECK(offset == EXPECTED_OFFSET); [TODO] Thund: Uncomment when GetYear exists
+    BOOST_CHECK(offset == EXPECTED_OFFSET);
     BOOST_CHECK_EQUAL(bOffsetIsNegative, EXPECTED_OFFSET_SIGN);
 }
 
