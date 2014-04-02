@@ -194,6 +194,9 @@
     <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h">
       <Filter>Time</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQIterationDirection.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -372,6 +375,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QDstInformation.cpp">
       <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQIterationDirection.cpp">
+      <Filter>Containers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
