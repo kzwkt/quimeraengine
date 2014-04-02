@@ -191,6 +191,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/ArrayElementMock.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
