@@ -80,8 +80,7 @@ void QTimeZone::CalculateOffset(const QDateTime &dateTime, QTimeSpan &offset, bo
 
     if(m_bHasDstOffset)
     {
-        // [TODO] Thund: Uncomment when GetYear exists
-        /*QDateTime startDateTime = m_dstInformation.GetStartInYear(dateTime.GetYear());
+        QDateTime startDateTime = m_dstInformation.GetStartInYear(dateTime.GetYear());
         QDateTime endDateTime = m_dstInformation.GetEndInYear(dateTime.GetYear());
 
         if(dateTime >= startDateTime && dateTime < endDateTime)
@@ -112,9 +111,9 @@ void QTimeZone::CalculateOffset(const QDateTime &dateTime, QTimeSpan &offset, bo
             }
         }
         else
-        {*/
+        {
             bIsNegative = m_bTzOffsetIsNegative;
-        /*}*/
+        }
     }
     else
     {
