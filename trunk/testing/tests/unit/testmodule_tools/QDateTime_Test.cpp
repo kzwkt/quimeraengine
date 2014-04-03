@@ -5257,6 +5257,27 @@ QTEST_CASE ( IsLeapYear_ReturnsFalseWhenYearIsNotLeapYear_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that it is calculated using the local time.
+/// </summary>
+QTEST_CASE ( IsLeapYear_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    const bool EXPECTED_RESULT = false;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/Santiago")); // CLT-4
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    bool bIsLeapLocal = SOURCE_DATETIME.IsLeapYear();
+    bool bIsLeapUtc   = SOURCE_DATETIME_UTC.IsLeapYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bIsLeapLocal, EXPECTED_RESULT);
+    BOOST_CHECK_NE(bIsLeapLocal, bIsLeapUtc);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
