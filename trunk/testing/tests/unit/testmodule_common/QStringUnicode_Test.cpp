@@ -690,8 +690,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreEquivalentButNotTheSame_
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
     u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
     u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
-    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
-    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -748,12 +748,312 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreEquivalentButNotTheSame
     // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
     u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
     u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
-    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*));
-    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*));
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
     bool bResult = STRING1 != STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input string is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenInputStringIsGreater_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 < STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input string is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenInputStringIsLower_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING2 < STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when strings are equal.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenStringsAreEqual_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2(STRING1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING2 < STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equivalent but not exactly the same, and input is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenStringsAreEquivalentButNotTheSameAndInputIsGreater_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 <= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input string is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenInputStringIsGreater_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 <= STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input string is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenInputStringIsLower_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING2 <= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equal.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenStringsAreEqual_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2(STRING1);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 <= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equivalent but not exactly the same, and input is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenStringsAreEquivalentButNotTheSameAndInputIsGreater_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 <= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input string is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenInputStringIsLower_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 > STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input string is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenInputStringIsGreater_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING1 > STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when strings are equal.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenStringsAreEqual_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2(STRING1);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING2 > STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equivalent but not exactly the same, and input is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenStringsAreEquivalentButNotTheSameAndInputIsLower_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 > STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when input string is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenInputStringIsLower_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 >= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when input string is greater than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenInputStringIsGreater_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING1 >= STRING2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equal.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenStringsAreEqual_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2(STRING1);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING2 >= STRING1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equivalent but not exactly the same, and input is lower than resident string.
+/// </summary>
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenStringsAreEquivalentButNotTheSameAndInputIsLower_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    u16_q CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    u16_q CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(rcast_q(CHAR_STRING1, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const QStringUnicode STRING2(rcast_q(CHAR_STRING2, const i8_q*), 2, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 >= STRING2;
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
