@@ -403,6 +403,44 @@ public:
     bool operator!=(const QStringUnicode &strString) const;
 
     /// <summary>
+    /// Less than operator that performs a bitwise comparison of two strings to know which is cosidered "lower" than the other.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if input string (right operand) is lower than the resident string (left operand); False otherwise.
+    /// </returns>
+    bool operator<(const QStringUnicode &strString) const;
+
+    /// <summary>
+    /// Less than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "lower" than the 
+    /// other or whether they are equal or not.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if input string (right operand) is lower than or equals the resident string (left operand); False otherwise.
+    /// </returns>
+    bool operator<=(const QStringUnicode &strString) const;
+    
+    /// <summary>
+    /// Greater than operator that performs a bitwise comparison of two strings to know which is cosidered "greater" than the other.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if input string (right operand) is greater than the resident string (left operand); False otherwise.
+    /// </returns>
+    bool operator>(const QStringUnicode &strString) const;
+
+    /// <summary>
+    /// Greater than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "greater" than the 
+    /// other or whether they are equal or not.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if input string (right operand) is greater than or equals the resident string (left operand); False otherwise.
+    /// </returns>
+    bool operator>=(const QStringUnicode &strString) const;
+
+    /// <summary>
     /// Addition operator that generates a new string by concatenating two others.
     /// </summary>
     /// <param name="strString">[IN] The input string to append to the resident string.</param>

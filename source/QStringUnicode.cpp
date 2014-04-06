@@ -127,6 +127,26 @@ bool QStringUnicode::operator!=(const QStringUnicode &strString) const
     return (m_strString != strString.m_strString) != FALSE;
 }
 
+bool QStringUnicode::operator<(const QStringUnicode &strString) const
+{
+    return (m_strString < strString.m_strString) != FALSE;
+}
+
+bool QStringUnicode::operator<=(const QStringUnicode &strString) const
+{
+    return (m_strString <= strString.m_strString) != FALSE;
+}
+
+bool QStringUnicode::operator>(const QStringUnicode &strString) const
+{
+    return (m_strString > strString.m_strString) != FALSE;
+}
+
+bool QStringUnicode::operator>=(const QStringUnicode &strString) const
+{
+    return (m_strString >= strString.m_strString) != FALSE;
+}
+
 QStringUnicode QStringUnicode::operator+(const QStringUnicode &strString) const
 {
     QStringUnicode strNewString;
