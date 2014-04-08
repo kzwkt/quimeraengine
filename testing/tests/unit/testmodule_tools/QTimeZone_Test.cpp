@@ -125,6 +125,56 @@ QTEST_CASE ( CalculateOffset_ReturnsExpectedOffsetWhenDstIsNotActive_Test )
     BOOST_CHECK_EQUAL(bOffsetIsNegative, EXPECTED_OFFSET_SIGN);
 }
 
+/// <summary>
+/// Checks that the DST is not applied when the date is prior to 1916.
+/// </summary>
+QTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPriorTo1916_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+
+    // [Preparation]
+    const string_q COMMON_TIMEZONE_ID = QE_L("Europe/Madrid"); // +1 hour
+    const QTimeZone* TIME_ZONE = SQTimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
+    const QDateTime DATE_BEFORE_1916 = QDateTime(1915, 7, 1);
+    const QTimeSpan EXPECTED_OFFSET = QTimeSpan(36000000000); 
+    const bool EXPECTED_OFFSET_SIGN = false;
+
+	// [Execution]
+    QTimeSpan offset(0);
+    bool bOffsetIsNegative = true;
+    TIME_ZONE->CalculateOffset(DATE_BEFORE_1916, offset, bOffsetIsNegative);
+
+    // [Verification]
+    BOOST_CHECK(offset == EXPECTED_OFFSET);
+    BOOST_CHECK_EQUAL(bOffsetIsNegative, EXPECTED_OFFSET_SIGN);
+}
+
+/// <summary>
+/// Checks that the DST is not applied when the date is posterior to 9999.
+/// </summary>
+QTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPosteriorTo9999_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+    using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+
+    // [Preparation]
+    const string_q COMMON_TIMEZONE_ID = QE_L("Europe/Madrid"); // +1 hour
+    const QTimeZone* TIME_ZONE = SQTimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
+    const QDateTime DATE_YEAR_10000 = QDateTime(10000, 7, 1);
+    const QTimeSpan EXPECTED_OFFSET = QTimeSpan(36000000000);
+    const bool EXPECTED_OFFSET_SIGN = false;
+
+	// [Execution]
+    QTimeSpan offset(0);
+    bool bOffsetIsNegative = true;
+    TIME_ZONE->CalculateOffset(DATE_YEAR_10000, offset, bOffsetIsNegative);
+
+    // [Verification]
+    BOOST_CHECK(offset == EXPECTED_OFFSET);
+    BOOST_CHECK_EQUAL(bOffsetIsNegative, EXPECTED_OFFSET_SIGN);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
