@@ -55,7 +55,8 @@ namespace Time
 /// Time zones are identified by a unique region name in the IANA/Olson time zone database. They also have an abbreviated name
 /// intended to be part of ISO 8601 timestamps. The time offset of the time zone may be also affected by the Daylight Saving 
 /// Time (DST) offset, which is only active during a limited time lapse in the year (normally, during summer). Both offsets can
-/// be either positive or negative.<br/>
+/// be either positive or negative. DST will be applied only for dates between 1916 (the first year it was implemented) and
+/// 10000 (due to a Boost's limitation).<br/>
 /// This class is immutable.
 /// </remarks>
 class QE_LAYER_TOOLS_SYMBOLS QTimeZone

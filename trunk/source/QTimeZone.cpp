@@ -72,13 +72,19 @@ QTimeZone::QTimeZone(const string_q &strId, const string_q &strName,
 
 void QTimeZone::CalculateOffset(const QDateTime &dateTime, QTimeSpan &offset, bool &bIsNegative) const
 {
+    // DST started to be applied in 1916
+    static const QDateTime FIRST_DATETIME_WITH_DST(1916, 1, 1);
+
+    // Boost can only process dates prior to the year 10.000
+    static const QDateTime MAXIMUM_DATETIME_WITH_DST = QDateTime(10000, 1, 1) - QTimeSpan(1);
+
     QE_ASSERT(dateTime != QDateTime::GetUndefinedDate(), "The input date is undefined");
 
     QTimeSpan dstOffset(0);
 
     offset = m_timeZoneOffset;
 
-    if(m_bHasDstOffset)
+    if(m_bHasDstOffset && dateTime >= FIRST_DATETIME_WITH_DST && dateTime < MAXIMUM_DATETIME_WITH_DST)
     {
         QDateTime startDateTime = m_dstInformation.GetStartInYear(dateTime.GetYear());
         QDateTime endDateTime = m_dstInformation.GetEndInYear(dateTime.GetYear());
