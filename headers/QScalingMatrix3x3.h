@@ -49,6 +49,10 @@ template<class MatrixType> class QTranslationMatrix;
 class QBaseVector3;
 class QMatrix4x3;
 class QMatrix4x4;
+class QScalingMatrix3x3;
+
+// Preventing friend global operator to be called.
+QScalingMatrix3x3 operator*(const float_q &fScalar, const QScalingMatrix3x3 &matrix);
 
 
 /// <summary>
@@ -260,6 +264,19 @@ public:
 	float_q GetDeterminant() const;
 
 private:
+
+    // Preventing the operators from base class to be used.
+    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
+    QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
+    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator*=(const float_q fScalar);
+    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();

@@ -52,7 +52,10 @@ class QVector3;
 class QVector4;
 class QBaseQuaternion;
 class QMatrix4x3;
+class QSpaceConversionMatrix;
 
+// Preventing friend global operator to be called.
+QSpaceConversionMatrix operator*(const float_q &fScalar, const QSpaceConversionMatrix &matrix);
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations.
@@ -234,6 +237,19 @@ public:
     QSpaceConversionMatrix SwitchHandConventionProjectionSpaceMatrix() const;
 
 private:
+
+    // Preventing the operators from base class to be used.
+    QMatrix4x4 operator*(const float_q &fScalar) const;
+    QMatrix4x4 operator*(const QBaseMatrix4x4 &matrix) const;
+    QBaseMatrix4x3 operator*(const QBaseMatrix4x3 &matrix) const;
+    QMatrix4x4 operator/(const float_q &fScalar) const;
+    QMatrix4x4 operator+(const QBaseMatrix4x4 &matrix) const;
+    QMatrix4x4 operator-(const QBaseMatrix4x4 &matrix) const;
+    QMatrix4x4& operator*=(const QBaseMatrix4x4 &matrix);
+    QMatrix4x4& operator*=(const float_q fScalar);
+    QMatrix4x4& operator/=(const float_q &fScalar);
+    QMatrix4x4& operator+=(const QBaseMatrix4x4 &matrix);
+    QMatrix4x4& operator-=(const QBaseMatrix4x4 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
