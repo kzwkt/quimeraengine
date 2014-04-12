@@ -50,6 +50,10 @@ template<class MatrixType> class QTransformationMatrix;
 template<class MatrixType> class QTranslationMatrix;
 class QMatrix4x3;
 class QMatrix4x4;
+class QRotationMatrix3x3;
+
+// Preventing friend global operator to be called.
+QRotationMatrix3x3 operator*(const float_q &fScalar, const QRotationMatrix3x3 &matrix);
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
@@ -90,7 +94,7 @@ public:
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br/>
     /// The rotation matrix is obtained as follows:
     ///
-    /// \f$ R = \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix} 
+    /// \f$ R = \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix}
     /// \begin{bmatrix} 1 & 0 & 0\\ 0 & \cos x  & \sin x\\ 0 & -\sin x & \cos x \end{bmatrix}
     /// \begin{bmatrix} \cos y & 0 & -\sin y\\ 0 & 1 & 0\\ \sin y & 0 & \cos y \end{bmatrix} \f$
     ///
@@ -306,6 +310,19 @@ public:
 	float_q GetDeterminant() const;
 
 private:
+
+    // Preventing the operators from base class to be used.
+    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
+    QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
+    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator*=(const float_q fScalar);
+    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();

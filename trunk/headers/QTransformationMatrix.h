@@ -50,6 +50,12 @@ namespace Tools
 namespace Math
 {
 
+template <class MatrixType>
+class QTransformationMatrix;
+
+// Preventing friend global operator to be called.
+template <class MatrixType>
+QTransformationMatrix<MatrixType> operator*(const float_q &fScalar, const QTransformationMatrix<MatrixType> &matrix);
 
 /// <summary>
 /// Class that represents a transformation matrix.
@@ -78,7 +84,6 @@ namespace Math
 template <class MatrixType>
 class QTransformationMatrix : public MatrixType
 {
-
     // CONSTRUCTORS
     // ---------------
 public:
@@ -184,6 +189,15 @@ public:
     }
 
 private:
+
+    using MatrixType::operator*;
+    using MatrixType::operator/;
+    using MatrixType::operator+;
+    using MatrixType::operator-;
+    using MatrixType::operator*=;
+    using MatrixType::operator/=;
+    using MatrixType::operator+=;
+    using MatrixType::operator-=;
 
     /// <summary>
     /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and

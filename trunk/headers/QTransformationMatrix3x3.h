@@ -44,7 +44,10 @@ namespace Math
 // Forwoard declarations
 // -----------------------
 class QBaseVector2;
+class QTransformationMatrix3x3;
 
+// Preventing friend global operator to be called.
+QTransformationMatrix3x3 operator*(const float_q &fScalar, const QTransformationMatrix3x3 &matrix);
 
 /// <summary>
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
@@ -164,6 +167,19 @@ public:
     QTransformationMatrix3x3 SwitchHandConvention() const;
 
 private:
+
+    // Preventing the operators from base class to be used.
+    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
+    QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
+    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
+    QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator*=(const float_q fScalar);
+    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
+    QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 
     // Hidden method to prevent it could be used.
     void ResetToZero();

@@ -49,6 +49,12 @@ namespace Tools
 namespace Math
 {
 
+template <class MatrixType>
+class QTranslationMatrix;
+
+// Preventing friend global operator to be called.
+template <class MatrixType>
+QTranslationMatrix<MatrixType> operator*(const float_q &fScalar, const QTranslationMatrix<MatrixType> &matrix);
 
 /// <summary>
 /// Class to represent a matrix that contains a displacement in the direction of each coordinate axis.
@@ -430,7 +436,7 @@ public:
     }
 
 	/// <summary>
-    /// Calculates the determinant of the matrix. 
+    /// Calculates the determinant of the matrix.
     /// </summary>
     /// <remarks>
     /// Since this is a translation matrix,
@@ -445,6 +451,16 @@ public:
 	}
 
 private:
+
+    // Preventing the operators from base class to be used.
+    // using MatrixType::operator*; // Commented out to avoid cyclic dependency.
+    using MatrixType::operator/;
+    using MatrixType::operator+;
+    using MatrixType::operator-;
+    using MatrixType::operator*=;
+    using MatrixType::operator/=;
+    using MatrixType::operator+=;
+    using MatrixType::operator-=;
 
     /// <summary>
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
