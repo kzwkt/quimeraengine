@@ -1,4 +1,4 @@
-//-------------------------------------------------------------------------------//
+﻿//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -30,6 +30,8 @@
 #include "Assertions.h"
 
 #include <unicode/ucnv.h>
+#include <unicode/fmtable.h>
+#include <unicode/decimfmt.h>
 
 
 namespace Kinesis
@@ -639,6 +641,116 @@ void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, 
         QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
     }
 }
+
+void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
+{
+    m_strString.append(strStringToAppend.m_strString);
+}
+
+i64_q QStringUnicode::ToInteger() const
+{
+    const icu::NumberFormat* pFormatter = QStringUnicode::GetIntegerFormatter();
+    UErrorCode errorCodeParsing = U_ZERO_ERROR;
+    UErrorCode errorCodeGetting = U_ZERO_ERROR;
+
+    icu::Formattable formattable;
+    pFormatter->parse(m_strString, formattable, errorCodeParsing);
+    
+    i64_q nResult = formattable.getInt64(errorCodeGetting);
+
+    QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult != 0LL, "The string cannot be converted to an integer number");
+    QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult == 0LL, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
+    QE_ASSERT(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
+
+    return nResult;
+}
+
+bool  QStringUnicode::ToBoolean() const
+{
+    static const QStringUnicode BOOLEAN_STRING_TRUE("true");
+    static const QStringUnicode BOOLEAN_STRING_TRUE_NUMERIC("1");
+    static const QStringUnicode BOOLEAN_STRING_TRUE_ABBREVIATED1("t");
+    static const QStringUnicode BOOLEAN_STRING_TRUE_ABBREVIATED2("T");
+    static const QStringUnicode BOOLEAN_STRING_TRUE_ABBREVIATED3("y");
+    static const QStringUnicode BOOLEAN_STRING_TRUE_ABBREVIATED4("Y");
+    static const QStringUnicode BOOLEAN_STRING_FALSE("false");
+    static const QStringUnicode BOOLEAN_STRING_FALSE_NUMERIC("0");
+    static const QStringUnicode BOOLEAN_STRING_FALSE_ABBREVIATED1("f");
+    static const QStringUnicode BOOLEAN_STRING_FALSE_ABBREVIATED2("F");
+    static const QStringUnicode BOOLEAN_STRING_FALSE_ABBREVIATED3("n");
+    static const QStringUnicode BOOLEAN_STRING_FALSE_ABBREVIATED4("N");
+
+    bool bResult = false;
+
+    if(this->GetLength() > 1)
+    {
+        bResult = this->CompareTo(BOOLEAN_STRING_TRUE, EQComparisonType::E_BinaryCaseInsensitive) == 0;
+        
+        // If it's false and the string does not match the "false" word, then it has not got a valid value
+        QE_ASSERT(bResult == true || (this->CompareTo(BOOLEAN_STRING_FALSE, EQComparisonType::E_BinaryCaseInsensitive) == 0), "The string cannot be converted to a boolean value");
+    }
+    else
+    {
+        bResult = *this == BOOLEAN_STRING_TRUE_NUMERIC      || 
+                  *this == BOOLEAN_STRING_TRUE_ABBREVIATED1 || 
+                  *this == BOOLEAN_STRING_TRUE_ABBREVIATED2 || 
+                  *this == BOOLEAN_STRING_TRUE_ABBREVIATED3 || 
+                  *this == BOOLEAN_STRING_TRUE_ABBREVIATED4;
+
+        // If it's false and the string does not match any of the abbreviations, then it has not got a valid value
+        QE_ASSERT(bResult == true                            || 
+                  *this == BOOLEAN_STRING_FALSE_NUMERIC      ||                   *this == BOOLEAN_STRING_FALSE_ABBREVIATED1 || 
+                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED2 ||
+                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED3 ||
+                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED4, 
+                  "The string cannot be converted to a boolean value");
+    }
+
+    return bResult;
+}
+
+f64_q QStringUnicode::ToFloat() const
+{
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+    static const f64_q POSITIVE_INFINITE = +1e308 * 1e308;
+    static const f64_q NEGATIVE_INFINITE = -1e308 * 1e308;
+#endif
+    const icu::NumberFormat* pFormatter = QStringUnicode::GetFloatFormatter();
+    UErrorCode errorCodeParsing = U_ZERO_ERROR;
+    UErrorCode errorCodeGetting = U_ZERO_ERROR;
+
+    icu::Formattable formattable;
+    pFormatter->parse(m_strString, formattable, errorCodeParsing);
+
+    f64_q fResult = formattable.getDouble(errorCodeGetting);
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+    QE_ASSERT(fResult != POSITIVE_INFINITE && fResult != NEGATIVE_INFINITE, "The result is infinite, maybe the string contains a too big number");
+#endif
+    QE_ASSERT(U_SUCCESS(errorCodeParsing) || fResult != 0.0, "The string cannot be converted to a floating point number");
+    QE_ASSERT(U_SUCCESS(errorCodeParsing) || fResult == 0.0, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
+    QE_ASSERT(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
+
+    return fResult;
+}
+
+const icu::NumberFormat* QStringUnicode::GetIntegerFormatter()
+{
+    static UErrorCode errorCode = U_ZERO_ERROR;
+    static icu::NumberFormat* pNumberFormatter = icu::NumberFormat::createInstance(icu::Locale::getEnglish(), UNUM_DECIMAL, errorCode);
+    pNumberFormatter->setParseIntegerOnly(TRUE);
+    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
+    return pNumberFormatter;
+}
+
+const icu::NumberFormat* QStringUnicode::GetFloatFormatter()
+{
+    static UErrorCode errorCode = U_ZERO_ERROR;
+    static const icu::NumberFormat* pNumberFormatter = icu::DecimalFormat::createInstance(icu::Locale::getEnglish(), UNUM_SCIENTIFIC, errorCode);
+    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
+    return pNumberFormatter;
+}
+
 
 
 //##################=======================================================##################
