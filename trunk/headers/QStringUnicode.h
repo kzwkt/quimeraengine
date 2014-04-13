@@ -1,4 +1,4 @@
-//-------------------------------------------------------------------------------//
+﻿//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -35,6 +35,7 @@
 #include <unicode/normalizer2.h>
 #include <unicode/coll.h>
 #include <unicode/stsearch.h>
+#include <unicode/numfmt.h>
 
 #include "QCharUnicode.h"
 #include "EQTextEncoding.h"
@@ -584,7 +585,66 @@ public:
     /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
     void Replace(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType);
 
-protected:
+    /// <summary>
+    /// Adds text to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, appending a non-normalized string will make it non-normalized too.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="strStringToAppend">[IN] The string to be appended.</param>
+    void Append(const QStringUnicode &strStringToAppend);
+
+    /// <summary>
+    /// Parses the complete string, which represents an integer number.
+    /// </summary>
+    /// <remarks>
+    /// The number may contain decimals (separated by a period (.)), but they will be ignored.<br/>
+    /// The number may be negative, preceded by a dash (-).
+    /// </remarks>
+    /// <returns>
+    /// The integer part of the number represented in the string. If the string does not contain a valid number, zero will be returned.
+    /// If the number expressed in the string is bigger than the range of values the type can represent, it will be clamped to that range.
+    /// </returns>
+    i64_q ToInteger() const;
+
+    /// <summary>
+    /// Parses the complete string, which represents a boolean value.
+    /// </summary>
+    /// <remarks>
+    /// The following texts are considered as "true" (case insensitive):<br/>
+    /// - true<br/>
+    /// - t<br/>
+    /// - y<br/>
+    /// - 1<br/>
+    /// The following texts are considered as "false" (case insensitive):<br/>
+    /// - false<br/>
+    /// - f<br/>
+    /// - n<br/>
+    /// - 0
+    /// </remarks>
+    /// <returns>
+    /// True when the string represents the "true" value; False when the string represents the "false" value. If the string does not contain a 
+    /// valid boolean value, False will be returned.
+    /// </returns>
+    bool  ToBoolean() const;
+
+    /// <summary>
+    /// Parses the complete string, which represents a floating point number.
+    /// </summary>
+    /// <remarks>
+    /// The decimals separator is the period (.). The number may be negative, preceded by a dash (-).<br/>
+    /// Scientific notation (like "1e3") is allowed.<br/>
+    /// A loss of precision may occur during conversion.
+    /// </remarks>
+    /// <returns>
+    /// The floating point number represented in the string. If the string does not contain a valid number, zero will be returned. If the number
+    /// is too big, either positive infinite or negative infinite will be returned, depending on the number's sign. If the umber is too small,
+    /// zero will be returned.
+    /// </returns>
+    f64_q ToFloat() const;
+
+private:
 
     /// <summary>
     /// Searches for a string pattern (using binary case insensitive comparisons) throuhout the resident string, replacing every occurrence with another string.
@@ -607,6 +667,22 @@ protected:
     /// <param name="eComparisonType">[IN] The comparison type on which to base the search object.</param>
     /// <param name="search">[OUT] The resultant search object.</param>
     static void ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search);
+
+    /// <summary>
+    /// Gets an ICU number formatter configured to parse integer values.
+    /// </summary>
+    /// <returns>
+    /// A number formatter ready to be used.
+    /// </returns>
+    static const icu::NumberFormat* GetIntegerFormatter();
+
+    /// <summary>
+    /// Gets an ICU number formatter configured to parse floating point values.
+    /// </summary>
+    /// <returns>
+    /// A number formatter ready to be used.
+    /// </returns>
+    static const icu::NumberFormat* GetFloatFormatter();
 
     /// <summary>
     /// Gets an ICU converter for a given text encoding.

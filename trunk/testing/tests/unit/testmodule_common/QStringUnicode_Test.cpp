@@ -31,6 +31,7 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QStringUnicode.h"
+#include "SQInteger.h"
 
 #include "CommonTestDefinitions.h"
 #include "UnicodeNormalizationTestData.h"
@@ -2084,7 +2085,7 @@ QTEST_CASE ( Normalize_StringIsNormalizedAsExpected_Test )
 
     const EQTextEncoding ENCODING = EQTextEncoding::E_UTF32LE;
     const unsigned int CODEPOINT_SIZE = 4;
-    
+
     for(unsigned int i = 0; i < arSpecificCases.size(); ++i)
     {
         QStringUnicode strOriginal((const char*)arSpecificCases[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].CodePoints,
@@ -2204,7 +2205,7 @@ QTEST_CASE ( Normalize_StringIsNormalizedAsExpected_Test )
             BOOST_CHECK(strResultNFD == strExpectedNFD);
         }
     }
-    
+
     BOOST_MESSAGE("Normalization test finished");
 }
 
@@ -2321,7 +2322,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsEmptyAndUsingBinaryInsensitiveCo
 QTEST_CASE ( CompareTo_ReturnsEqualWhenInputIsLowerByLetterCaseAndUsingBinaryInsensitiveComparison_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
     const QStringUnicode INPUT_STRING("abcde");
@@ -2521,7 +2522,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsEmptyAndUsingBinarySensitiveComp
 QTEST_CASE ( CompareTo_ReturnsLowerWhenInputIsGreaterByLetterCaseAndUsingBinarySensitiveComparison_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("Abcde");
     const QStringUnicode INPUT_STRING("abcde");
@@ -2721,7 +2722,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsEmptyAndUsingCanonicalInsensitiv
 QTEST_CASE ( CompareTo_ReturnsEqualWhenInputIsLowerByLetterCaseAndUsingCanonicalInsensitiveComparison_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABCDE");
     const QStringUnicode INPUT_STRING("abcde");
@@ -2921,7 +2922,7 @@ QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsEmptyAndUsingCanonicalSensitiveC
 QTEST_CASE ( CompareTo_ReturnsGreaterWhenInputIsLowerByLetterCaseAndUsingCanonicalSensitiveComparison_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("Abcde");
     const QStringUnicode INPUT_STRING("abcde");
@@ -3257,7 +3258,7 @@ QTEST_CASE ( CompareTo_AssertionFailsWhenUsingUnsupportedComparisonTypes_Test )
 QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenPatternIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABC");
     const QStringUnicode PATTERN("");
@@ -3277,7 +3278,7 @@ QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenPatternIsEmpty_Test )
 QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("");
     const QStringUnicode PATTERN("DEF");
@@ -3297,7 +3298,7 @@ QTEST_CASE ( IndexOf1_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
 QTEST_CASE ( IndexOf1_ReturnsMinusOneWhenPatternIsNotFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("A");
     const QStringUnicode PATTERN("DEF");
@@ -3317,7 +3318,7 @@ QTEST_CASE ( IndexOf1_ReturnsMinusOneWhenPatternIsNotFound_Test )
 QTEST_CASE ( IndexOf1_ReturnsTheFirstOccurrence_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
@@ -3337,7 +3338,7 @@ QTEST_CASE ( IndexOf1_ReturnsTheFirstOccurrence_Test )
 QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3357,7 +3358,7 @@ QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComp
 QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3377,7 +3378,7 @@ QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparis
 QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3397,7 +3398,7 @@ QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparis
 QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3417,7 +3418,7 @@ QTEST_CASE ( IndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComp
 QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZabc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3437,7 +3438,7 @@ QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
 QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"Áñ¨ ");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3457,7 +3458,7 @@ QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
 QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("Ab");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3477,7 +3478,7 @@ QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBi
 QTEST_CASE ( IndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3504,7 +3505,7 @@ QTEST_CASE ( IndexOf1_NormalizationAffectsTheResultWhenUsingCanonicalComparison_
     //                                          B       A       ?        _        C
     u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
     const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
-    //                                         A       _        ?  
+    //                                         A       _        ?
     u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
     const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
 
@@ -3527,7 +3528,7 @@ QTEST_CASE ( IndexOf1_NormalizationAffectsTheResultWhenUsingCanonicalComparison_
 QTEST_CASE ( IndexOf1_MatchesExactlyAtZeroIndexAreFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÁ");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3547,7 +3548,7 @@ QTEST_CASE ( IndexOf1_MatchesExactlyAtZeroIndexAreFound_Test )
 QTEST_CASE ( IndexOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3567,7 +3568,7 @@ QTEST_CASE ( IndexOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABC");
     const QStringUnicode PATTERN("");
@@ -3588,7 +3589,7 @@ QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
 QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("");
     const QStringUnicode PATTERN("DEF");
@@ -3609,7 +3610,7 @@ QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
 QTEST_CASE ( IndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("A");
     const QStringUnicode PATTERN("DEF");
@@ -3630,7 +3631,7 @@ QTEST_CASE ( IndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
 QTEST_CASE ( IndexOf2_ReturnsTheFirstOccurrence_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
@@ -3651,7 +3652,7 @@ QTEST_CASE ( IndexOf2_ReturnsTheFirstOccurrence_Test )
 QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3672,7 +3673,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompar
 QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3693,7 +3694,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparison
 QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3714,7 +3715,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparison
 QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3735,7 +3736,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompar
 QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZabc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3756,7 +3757,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
 QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"Áñ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3777,7 +3778,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
 QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("Ab");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3798,7 +3799,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBi
 QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAbc", 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3826,7 +3827,7 @@ QTEST_CASE ( IndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalComparison_
     //                                          B       A       ?        _        C
     u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
     const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
-    //                                         A       _        ?  
+    //                                         A       _        ?
     u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
     const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
 
@@ -3850,7 +3851,7 @@ QTEST_CASE ( IndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalComparison_
 QTEST_CASE ( IndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3871,7 +3872,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
 QTEST_CASE ( IndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3892,7 +3893,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 QTEST_CASE ( IndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3913,7 +3914,7 @@ QTEST_CASE ( IndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
 QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("CX");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3934,7 +3935,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
 QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test2 )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("CX");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -3955,7 +3956,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test2 )
 QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABC");
     const QStringUnicode PATTERN("");
@@ -3977,7 +3978,7 @@ QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsEmpty_Test )
 QTEST_CASE ( Replace_StringDoesNotChangeWhenResidentStringIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("");
     const QStringUnicode PATTERN("ABC");
@@ -3999,7 +4000,7 @@ QTEST_CASE ( Replace_StringDoesNotChangeWhenResidentStringIsEmpty_Test )
 QTEST_CASE ( Replace_MatchesAreRemovedWhenReplacementStringIsEmpty_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("ABC");
     const QStringUnicode PATTERN("B");
@@ -4021,7 +4022,7 @@ QTEST_CASE ( Replace_MatchesAreRemovedWhenReplacementStringIsEmpty_Test )
 QTEST_CASE ( Replace_ReplacesAllOccurrences_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode RESIDENT_STRING("AXBXCXDXEXF");
     const QStringUnicode PATTERN("X");
@@ -4043,7 +4044,7 @@ QTEST_CASE ( Replace_ReplacesAllOccurrences_Test )
 QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4065,7 +4066,7 @@ QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompari
 QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4087,7 +4088,7 @@ QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonT
 QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZ", 22, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4109,7 +4110,7 @@ QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonT
 QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("A");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZab", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4131,7 +4132,7 @@ QTEST_CASE ( Replace_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompari
 QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÑ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZÁñabc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4153,7 +4154,7 @@ QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonT
 QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"Áñ¨ ", 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZÁñabc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4175,7 +4176,7 @@ QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchCanonicallyAndComparisonT
 QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("Ab");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñab¨ CX`*ºZAbc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4197,7 +4198,7 @@ QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchBitwiseAndComparisonTypeI
 QTEST_CASE ( Replace_MatchesAreReplacedWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñab¨ CX`*ºZAbc", 32, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4226,7 +4227,7 @@ QTEST_CASE ( Replace_NormalizationAffectsTheResultWhenUsingCanonicalComparison_T
     //                                          B       A       ?        _        C
     u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
     const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
-    //                                         A       _        ?  
+    //                                         A       _        ?
     u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
     const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this depending on the architecture
 
@@ -4253,7 +4254,7 @@ QTEST_CASE ( Replace_NormalizationAffectsTheResultWhenUsingCanonicalComparison_T
 QTEST_CASE ( Replace_MatchesExactlyAtZeroIndexAreReplaced_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN((const char*)L"áÁ", 4, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4275,7 +4276,7 @@ QTEST_CASE ( Replace_MatchesExactlyAtZeroIndexAreReplaced_Test )
 QTEST_CASE ( Replace_MatchesExactlyAtLastPartOfResidentStringAreReplaced_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("aB");
     const QStringUnicode RESIDENT_STRING((const char*)L"áÁñ¨ CX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4297,7 +4298,7 @@ QTEST_CASE ( Replace_MatchesExactlyAtLastPartOfResidentStringAreReplaced_Test )
 QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsLongerThanOneCharacter_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("a");
     const QStringUnicode RESIDENT_STRING((const char*)L"áañ¨aCX`*ºZAb", 26, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4319,7 +4320,7 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsLongerThanOneCh
 QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenSearchPatternIsLongerThanOneCharacter_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("123456");
     const QStringUnicode RESIDENT_STRING((const char*)L"á123456ñ¨123456CX`*ºZ123456b", 56, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4342,7 +4343,7 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenSearchPatternIsLongerThanOne
 QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementAndSearchPatternAreLongerThanOneCharacter_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("123456");
     const QStringUnicode RESIDENT_STRING((const char*)L"á123456ñ¨123456CX`*ºZ123456b", 56, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4364,7 +4365,7 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementAndSearchPatternA
 QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsBigger_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("123456");
     const QStringUnicode RESIDENT_STRING((const char*)L"á1234", 10, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4386,7 +4387,7 @@ QTEST_CASE ( Replace_StringDoesNotChangeWhenPatternIsBigger_Test )
 QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsBiggerThanResidentString_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("12");
     const QStringUnicode RESIDENT_STRING((const char*)L"á12b12", 12, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
@@ -4408,7 +4409,7 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenReplacementIsBiggerThanResid
 QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenResidentStringIsEqualToPattern_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    
+
     // [Preparation]
     const QStringUnicode PATTERN("123456");
     const QStringUnicode RESIDENT_STRING = PATTERN;
@@ -4423,6 +4424,848 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenResidentStringIsEqualToPatte
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
+
+/// <summary>
+/// Checks that a common string is correctly appended.
+/// </summary>
+QTEST_CASE ( Append_CommonStringIsCorrectlyAppended_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING("123456");
+    const QStringUnicode APPENDIX("789");
+    const QStringUnicode EXPECTED_RESULT("123456789");
+
+	// [Execution]
+    QStringUnicode strString(ORIGINAL_STRING);
+    strString.Append(APPENDIX);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that appending an empty string takes no effect.
+/// </summary>
+QTEST_CASE ( Append_AppendingEmptyStringTakesNoEffect_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING("123456");
+    const QStringUnicode APPENDIX("");
+    const QStringUnicode EXPECTED_RESULT = ORIGINAL_STRING;
+
+	// [Execution]
+    QStringUnicode strString(ORIGINAL_STRING);
+    strString.Append(APPENDIX);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that a common number is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToInteger_CommonNumberIsParsed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123456");
+    const i64_q EXPECTED_NUMBER = 123456;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that a negative number is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToInteger_NegativeNumberIsParsed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("-123456");
+    const i64_q EXPECTED_NUMBER = -123456;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that a fractional number is correctly parsed when the separator is a period.
+/// </summary>
+QTEST_CASE ( ToInteger_FractionalNumberIsParsedWhenSeparatorIsPeriod_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123.456");
+    const i64_q EXPECTED_NUMBER = 123;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that commas are ignored when used to express a fractional number.
+/// </summary>
+QTEST_CASE ( ToInteger_FractionalNumberCommaSeparatorIsIgnored_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123,456");
+    const i64_q EXPECTED_NUMBER = 123456;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that there is no rounding performed when a fractional number is parsed.
+/// </summary>
+QTEST_CASE ( ToInteger_NoRoundingWhenFractionalNumberIsParsed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123.999");
+    const i64_q EXPECTED_NUMBER = 123;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the string is empty.
+/// </summary>
+QTEST_CASE ( ToInteger_AssertionFailsWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToInteger();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string does not contain a valid number.
+/// </summary>
+QTEST_CASE ( ToInteger_AssertionFailsWhenStringStoresNoValidNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToInteger();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string contains a positive number that exceeds the limits of the type.
+/// </summary>
+QTEST_CASE ( ToInteger_AssertionFailsWhenStringContainsATooBigPositiveNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("92233720368547758070");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToInteger();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string contains a negative number that exceeds the limits of the type.
+/// </summary>
+QTEST_CASE ( ToInteger_AssertionFailsWhenStringContainsATooBigNegativeNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("92233720368547758080");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToInteger();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns zero when the string is empty.
+/// </summary>
+QTEST_CASE ( ToInteger_ReturnsZeroWhenStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const i64_q EXPECTED_NUMBER = 0;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that it returns zero when the string does not contain a valid number.
+/// </summary>
+QTEST_CASE ( ToInteger_ReturnsZeroWhenStringIsNotValid_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const i64_q EXPECTED_NUMBER = 0;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that the number is clamped to the maximum range when the string contains a too big positive number.
+/// </summary>
+QTEST_CASE ( ToInteger_ReturnsMaximumWhenStringsContainsTooBigPositiveNumber_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+    // [Preparation]
+    const QStringUnicode STRING("92233720368547758070");
+    const i64_q EXPECTED_NUMBER = SQInteger::MaxPositiveI64_Q;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that the number is clamped to the maximum range when the string contains a too big negative number.
+/// </summary>
+QTEST_CASE ( ToInteger_ReturnsMaximumWhenStringsContainsTooBigNegativeNumber_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+    // [Preparation]
+    const QStringUnicode STRING("-92233720368547758080");
+    const i64_q EXPECTED_NUMBER = SQInteger::MaxNegativeI64_Q;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the full "true" word is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_FullTrueWordIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("true");
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of true, "T", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_TrueAbbreviationTIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("t");
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of true, "Y", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_TrueAbbreviationYIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("y");
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of true, "1", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_TrueAbbreviation1IsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("1");
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the full "false" word is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_FullFalseWordIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("false");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of False, "F", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_FalseAbbreviationFIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("f");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of False, "N", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_FalseAbbreviationNIsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("n");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the abbreviation of False, "0", is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToBoolean_FalseAbbreviation0IsCorrectlyParsed_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("0");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the string is empty.
+/// </summary>
+QTEST_CASE ( ToBoolean_AssertionFailsWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToBoolean();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string does not contain a valid boolean value.
+/// </summary>
+QTEST_CASE ( ToBoolean_AssertionFailsWhenStringDoesNotContainValidValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToBoolean();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns False when the string is empty.
+/// </summary>
+QTEST_CASE ( ToBoolean_ReturnsFalseWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns False when the string does not contain a valid boolean value.
+/// </summary>
+QTEST_CASE ( ToBoolean_ReturnsFalseWhenStringDoesNotContainValidValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it is case insensitive.
+/// </summary>
+QTEST_CASE ( ToBoolean_IsCaseInsensitive_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("TrUe");
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bParsedValue = STRING.ToBoolean();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bParsedValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a common number is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToFloat_CommonNumberIsParsed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123456");
+    const f64_q EXPECTED_NUMBER = 123456.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that a negative number is correctly parsed.
+/// </summary>
+QTEST_CASE ( ToFloat_NegativeNumberIsParsed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("-123456");
+    const f64_q EXPECTED_NUMBER = -123456.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that a fractional number is correctly parsed when the separator is a period.
+/// </summary>
+QTEST_CASE ( ToFloat_FractionalNumberIsParsedWhenSeparatorIsPeriod_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123.456");
+    const f64_q EXPECTED_NUMBER = 123.456;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that the fractional part of the number is ignored if a comma is used as decimal separator.
+/// </summary>
+QTEST_CASE ( ToFloat_IfDecimalSeparatorIsCommaFractionalPartIsIgnored_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("123,456");
+    const f64_q EXPECTED_NUMBER = 123.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that scientific notation is also allowed.
+/// </summary>
+QTEST_CASE ( ToFloat_ScientificNotationIsAllowed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("1e03");
+    const f64_q EXPECTED_NUMBER = 1000.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the string is empty.
+/// </summary>
+QTEST_CASE ( ToFloat_AssertionFailsWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToFloat();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string does not contain a valid number.
+/// </summary>
+QTEST_CASE ( ToFloat_AssertionFailsWhenStringStoresNoValidNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToFloat();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string contains a positive number that exceeds the limits of the type.
+/// </summary>
+QTEST_CASE ( ToFloat_AssertionFailsWhenStringContainsATooBigPositiveNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("1e400");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToFloat();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string contains a negative number that exceeds the limits of the type.
+/// </summary>
+QTEST_CASE ( ToFloat_AssertionFailsWhenStringContainsATooBigNegativeNumber_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("-1e400");
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING.ToFloat();
+    }
+    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns zero when the string is empty.
+/// </summary>
+QTEST_CASE ( ToFloat_ReturnsZeroWhenStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("");
+    const f64_q EXPECTED_NUMBER = 0.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that it returns zero when the string does not contain a valid number.
+/// </summary>
+QTEST_CASE ( ToFloat_ReturnsZeroWhenStringIsNotValid_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("NotValid");
+    const f64_q EXPECTED_NUMBER = 0.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that it returns positive infinite when the string contains a too big positive number.
+/// </summary>
+QTEST_CASE ( ToFloat_ReturnsPlusInfiniteWhenStringsContainsTooBigPositiveNumber_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+
+    union UIntToFloat64
+    {
+        u64_q int_number;
+        f64_q float_number;
+    };
+
+    // [Preparation]
+    const QStringUnicode STRING("1e400");
+    UIntToFloat64 uitof;
+    uitof.int_number = 0x7FF0000000000000; // Positive infinite
+    const f64_q EXPECTED_NUMBER = uitof.float_number;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that it returns negative infinite when the string contains a too big negative number.
+/// </summary>
+QTEST_CASE ( ToFloat_ReturnsMinusInfiniteWhenStringsContainsTooBigNegativeNumber_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+
+    union UIntToFloat64
+    {
+        u64_q int_number;
+        f64_q float_number;
+    };
+
+    // [Preparation]
+    const QStringUnicode STRING("-1e400");
+    UIntToFloat64 uitof;
+    uitof.int_number = 0xFFF0000000000000; // Negative infinite
+    const f64_q EXPECTED_NUMBER = uitof.float_number;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+/// <summary>
+/// Checks that it returns zero when the number is too small.
+/// </summary>
+QTEST_CASE ( ToFloat_ReturnsZeroWhenStringsContainsTooSmallNumber_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("1e-400");
+    const f64_q EXPECTED_NUMBER = 0.0;
+
+	// [Execution]
+    f64_q fParsedNumber = STRING.ToFloat();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(fParsedNumber, EXPECTED_NUMBER);
+}
+
+#endif
 
 /// <summary>
 /// Checks that it returns zero when the string is empty.
