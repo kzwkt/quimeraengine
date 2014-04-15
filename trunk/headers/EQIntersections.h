@@ -326,7 +326,8 @@ private:
             return itValueName->first;
         else
         { 
-            static const string_q EMPTY_STRING; return EMPTY_STRING; // [TODO] Thund: This must be replaced by a QString constant.
+            static const string_q EMPTY_STRING;
+            return EMPTY_STRING;
         }
     }
 

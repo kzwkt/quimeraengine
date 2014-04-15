@@ -35,6 +35,10 @@ using namespace boost::unit_test;
 
 #include "CommonTestDefinitions.h"
 #include "UnicodeNormalizationTestData.h"
+#include "EQTextEncoding.h"
+#include "EQComparisonType.h"
+#include "EQNormalizationForm.h"
+#include "AllocationOperators.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -105,9 +109,124 @@ QTEST_CASE ( Constructor2_CopiedStringIsEqualToOriginal_Test )
 }
 
 /// <summary>
+/// Checks that input string, encoded in ISO 8859-1, is correctly converted.
+/// </summary>
+QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]                           'ñ', 'B', 'á'
+    const i8_q INPUT_STRING_BYTES[]        = { -15, 'B', -31, 0 };
+
+    //
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it creates an empty string when the input is null-termination.
+/// </summary>
+QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputIsNullTermination_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]
+    const i8_q INPUT_STRING_BYTES[] = { 0 };
+    const QStringUnicode EXPECTED_RESULT = QStringUnicode::GetEmpty();
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that input string, encoded in ISO 8859-1, is correctly converted.
+/// </summary>
+QTEST_CASE ( Constructor4_Iso88591StringIsCorrectlyConverted_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]                           'ñ', 'B', 'á'
+    const i8_q INPUT_STRING_BYTES[]        = { -15, 'B', -31, 0 };
+    const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
+
+    //
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1, 0x0000 };
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it creates an empty string when the input length equals zero.
+/// </summary>
+QTEST_CASE ( Constructor4_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]                    'ñ', 'B', 'á'
+    const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
+    const QStringUnicode EXPECTED_RESULT = QStringUnicode::GetEmpty();
+    const int ZERO_LENGTH = 0;
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES, ZERO_LENGTH);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the string is correctly built when the length is unknown and using a null-terminated input string.
+/// </summary>
+QTEST_CASE ( Constructor4_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]                    'ñ', 'B', 'á'
+    const i8_q INPUT_STRING_BYTES[] = { -15, 'B', -31, 0 };
+    const int UNKNOWN_LENGTH = QStringUnicode::LENGTH_NULL_TERMINATED;
+
+    //                                             ñ       B       á
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1 };
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+    // [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES, UNKNOWN_LENGTH);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that input string, encoded in ASCII, is correctly converted.
 /// </summary>
-QTEST_CASE ( Constructor3_AsciiStringIsCorrectlyConverted_Test )
+QTEST_CASE ( Constructor5_AsciiStringIsCorrectlyConverted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -133,7 +252,7 @@ QTEST_CASE ( Constructor3_AsciiStringIsCorrectlyConverted_Test )
 /// <summary>
 /// Checks that input string, encoded in ISO 8859-1, is correctly converted.
 /// </summary>
-QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
+QTEST_CASE ( Constructor5_Iso88591StringIsCorrectlyConverted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -159,7 +278,7 @@ QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-8, is correctly converted.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf8StringIsCorrectlyConverted_Test )
+QTEST_CASE ( Constructor5_Utf8StringIsCorrectlyConverted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -186,7 +305,7 @@ QTEST_CASE ( Constructor3_Utf8StringIsCorrectlyConverted_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-16, is correctly converted when the BOM indicates Little Endian.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Test )
+QTEST_CASE ( Constructor5_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -214,7 +333,7 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 /// <summary>
 /// Checks that input string, encoded in UTF-16, is correctly converted when the BOM indicates Big Endian.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
+QTEST_CASE ( Constructor5_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -242,7 +361,7 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-16, is treated as if it was Big Endian when there is no BOM.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
+QTEST_CASE ( Constructor5_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -272,7 +391,7 @@ QTEST_CASE ( Constructor3_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-32, is correctly converted when BOM indicates Little Endian.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Test )
+QTEST_CASE ( Constructor5_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -300,7 +419,7 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
 /// <summary>
 /// Checks that input string, encoded in UTF-32, is correctly converted when BOM indicates Big Endian.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
+QTEST_CASE ( Constructor5_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -329,7 +448,7 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-32, is treated as if it was Big Endian when there is no BOM.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
+QTEST_CASE ( Constructor5_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -359,7 +478,7 @@ QTEST_CASE ( Constructor3_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-16 Big Endian, is correctly converted.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf16BEStringIsCorrectlyConverted_Test )
+QTEST_CASE ( Constructor5_Utf16BEStringIsCorrectlyConverted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -389,7 +508,7 @@ QTEST_CASE ( Constructor3_Utf16BEStringIsCorrectlyConverted_Test )
 /// <summary>
 /// Checks that input string, encoded in UTF-16 Little Endian, is correctly converted.
 /// </summary>
-QTEST_CASE ( Constructor3_Utf16LEStringIsCorrectlyConverted_Test )
+QTEST_CASE ( Constructor5_Utf16LEStringIsCorrectlyConverted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -417,7 +536,7 @@ QTEST_CASE ( Constructor3_Utf16LEStringIsCorrectlyConverted_Test )
 /// <summary>
 /// Checks that the BOM character is removed from the resultant string when using UTF-16 encoding.
 /// </summary>
-QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
+QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -445,7 +564,7 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
 /// <summary>
 /// Checks that the BOM character is removed from the resultant string when using UTF-32 encoding.
 /// </summary>
-QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
+QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
@@ -474,7 +593,7 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
 /// <summary>
 /// Checks that ill-formed sequences are repaired, replacing the wrong characters by U+FFFD REPLACEMENT CHARACTER, when passing Utf8 string.
 /// </summary>
-QTEST_CASE ( Constructor3_IllFormedSequencesAreRepairedUsingReplacementCharacterWhenUsingUtf8_Test )
+QTEST_CASE ( Constructor5_IllFormedSequencesAreRepairedUsingReplacementCharacterWhenUsingUtf8_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -501,7 +620,7 @@ QTEST_CASE ( Constructor3_IllFormedSequencesAreRepairedUsingReplacementCharacter
 /// <summary>
 /// Checks that the values of the optional parameters are ISO 8859-1 encoding and Null-terminated length, when no arguments are passed.
 /// </summary>
-QTEST_CASE ( Constructor3_OptionalParametersDefaultToNullTerminatedIso88591_Test )
+QTEST_CASE ( Constructor5_OptionalParametersDefaultToNullTerminatedIso88591_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -525,7 +644,7 @@ QTEST_CASE ( Constructor3_OptionalParametersDefaultToNullTerminatedIso88591_Test
 /// <summary>
 /// Checks that it creates an empty string when the input length equals zero.
 /// </summary>
-QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
+QTEST_CASE ( Constructor5_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -549,7 +668,7 @@ QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
 /// <summary>
 /// Checks that an assertion fails when an incorrect combination of parameter values is passed.
 /// </summary>
-QTEST_CASE ( Constructor3_AssertionFailsWhenUsingIncorrectParameterValueCombination_Test )
+QTEST_CASE ( Constructor5_AssertionFailsWhenUsingIncorrectParameterValueCombination_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -582,7 +701,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenUsingIncorrectParameterValueCombinat
 /// <summary>
 /// Checks that the string is correctly built when the length is unknown and using a null-terminated input string.
 /// </summary>
-QTEST_CASE ( Constructor3_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
+QTEST_CASE ( Constructor5_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -608,7 +727,7 @@ QTEST_CASE ( Constructor3_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
 /// <summary>
 /// Checks that the resultant string contains the input character.
 /// </summary>
-QTEST_CASE ( Constructor4_ResultContainsInputCharacter_Test )
+QTEST_CASE ( Constructor6_ResultContainsInputCharacter_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;

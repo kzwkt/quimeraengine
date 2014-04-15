@@ -6,7 +6,7 @@
 		<Option execution_dir="/home/mar/Proyectos/C++/QuimeraEngine/projects/CodeBlocks10/QuimeraEngine/" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="DataTypes/;Memory/;" />
+		<Option virtualFolders="DataTypes\;Memory\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -142,6 +142,7 @@
 		<Unit filename="../../../../headers/Assertions.h" />
 		<Unit filename="../../../../headers/CommonDefinitions.h" />
 		<Unit filename="../../../../headers/Configuration.h" />
+		<Unit filename="../../../../headers/CrossPlatformBasicTypes.h" />
 		<Unit filename="../../../../headers/DataTypesDefinitions.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>

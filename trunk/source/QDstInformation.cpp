@@ -27,6 +27,7 @@
 #include "QTimeZone.h"
 
 #include "Assertions.h"
+#include "SQInteger.h"
 
 
 namespace Kinesis
@@ -49,6 +50,8 @@ namespace Time
 
 QTimeZone::QDstInformation::QDstInformation(boost::local_time::time_zone_ptr pTimeZone)
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
     QE_ASSERT(pTimeZone != boost::local_time::time_zone_ptr((boost::local_time::time_zone_ptr::element_type*) null_q), "Input time zone data must not be null");
 
     if(pTimeZone->has_dst())
@@ -57,9 +60,9 @@ QTimeZone::QDstInformation::QDstInformation(boost::local_time::time_zone_ptr pTi
 
         // The time offset to apply when DST is active
         m_offset = QTimeSpan(0,
-                             m_bIsNegative ? -pTimeZone->dst_offset().hours()   : pTimeZone->dst_offset().hours(),
-                             m_bIsNegative ? -pTimeZone->dst_offset().minutes() : pTimeZone->dst_offset().minutes(),
-                             m_bIsNegative ? -pTimeZone->dst_offset().seconds() : pTimeZone->dst_offset().seconds(),
+                             SQInteger::Abs(pTimeZone->dst_offset().hours()),
+                             SQInteger::Abs(pTimeZone->dst_offset().minutes()),
+                             SQInteger::Abs(pTimeZone->dst_offset().seconds()),
                              0,
                              0,
                              0);

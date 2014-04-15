@@ -4346,8 +4346,8 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const string_q G_STRING = VALUE_FOR_G.ToString();
     const string_q H_STRING = VALUE_FOR_H.ToString();
 
-    const string_q EXPECTED_STRING = QE_L("HX(a(") + A_STRING + QE_L("),b(") + B_STRING + QE_L("),c(") + C_STRING + QE_L("),d(") + D_STRING + QE_L("),") +
-                                     QE_L(   "e(") + E_STRING + QE_L("),f(") + F_STRING + QE_L("),g(") + G_STRING + QE_L("),h(") + H_STRING + QE_L("))");
+    const string_q EXPECTED_STRING = string_q("HX(a(") + A_STRING + QE_L("),b(") + B_STRING + QE_L("),c(") + C_STRING + QE_L("),d(") + D_STRING + QE_L("),") +
+                                         QE_L(   "e(") + E_STRING + QE_L("),f(") + F_STRING + QE_L("),g(") + G_STRING + QE_L("),h(") + H_STRING + QE_L("))");
 
 	// [Execution]
     string_q strReturnedString = HEXAHEDRON.ToString();

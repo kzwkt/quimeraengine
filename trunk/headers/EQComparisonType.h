@@ -40,9 +40,6 @@
     #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
 #endif
 
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
-
 
 namespace Kinesis
 {
@@ -327,7 +324,8 @@ private:
             return itValueName->first;
         else
         {
-            static const string_q EMPTY_STRING; return EMPTY_STRING;// [TODO] Thund: This must be replaced by a QString constant.
+            static const string_q EMPTY_STRING;
+            return EMPTY_STRING;
         }
     }
 

@@ -304,7 +304,7 @@ public:
 	/// </returns>
 	string_q ToString() const
 	{
-		return QE_L("T(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("),c(") + C.ToString() + QE_L("))");
+		return string_q("T(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("),c(") + C.ToString() + QE_L("))");
 	}
 };
 

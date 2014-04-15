@@ -96,6 +96,7 @@
     <ClInclude Include="..\..\..\..\headers\Assertions.h" />
     <ClInclude Include="..\..\..\..\headers\CommonDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
+    <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />

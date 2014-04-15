@@ -693,10 +693,10 @@ public:
     /// <returns>The string with the specified format.</returns>
     string_q ToString() const
     {
-        return QE_L("HX(a(") + this->A.ToString() + QE_L("),b(") + this->B.ToString() + QE_L("),c(") +
-                               this->C.ToString() + QE_L("),d(") + this->D.ToString() + QE_L("),e(") +
-                               this->E.ToString() + QE_L("),f(") + this->F.ToString() + QE_L("),g(") +
-                               this->G.ToString() + QE_L("),h(") + this->H.ToString() + QE_L("))");
+        return string_q("HX(a(") + this->A.ToString() + QE_L("),b(") + this->B.ToString() + QE_L("),c(") +
+                                   this->C.ToString() + QE_L("),d(") + this->D.ToString() + QE_L("),e(") +
+                                   this->E.ToString() + QE_L("),f(") + this->F.ToString() + QE_L("),g(") +
+                                   this->G.ToString() + QE_L("),h(") + this->H.ToString() + QE_L("))");
     }
 
 

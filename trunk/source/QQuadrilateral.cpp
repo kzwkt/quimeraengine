@@ -358,10 +358,10 @@ QQuadrilateral QQuadrilateral::TransformWithPivot(const QTransformationMatrix3x3
 
 string_q QQuadrilateral::ToString() const
 {
-    return QE_L("QL(a(") + this->A.ToString() + QE_L("),b(") +
-                           this->B.ToString() + QE_L("),c(") +
-                           this->C.ToString() + QE_L("),d(") +
-                           this->D.ToString() + QE_L("))");
+    return string_q("QL(a(") + this->A.ToString() + QE_L("),b(") +
+                               this->B.ToString() + QE_L("),c(") +
+                               this->C.ToString() + QE_L("),d(") +
+                               this->D.ToString() + QE_L("))");
 }
 
 bool QQuadrilateral::PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const QBaseVector2 &vPoint2,
