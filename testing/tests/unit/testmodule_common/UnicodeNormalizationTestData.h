@@ -33,6 +33,8 @@
 #include "QCharUnicode.h"
 #include <fstream>
 #include <math.h>
+#include "Assertions.h"
+#include "EQTextEncoding.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;

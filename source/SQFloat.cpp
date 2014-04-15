@@ -298,19 +298,15 @@ float_q SQFloat::Abs(const float_q &fValue)
 
 string_q SQFloat::ToString(const float_q &fValue)
 {
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-    std::wstringstream output;
-#else
     std::ostringstream output;
-#endif
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    output << std::setprecision(9)
+    output << std::setprecision(9) << fValue;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    output << std::setprecision(17)
+    output << std::setprecision(17) << fValue;
 #endif
-           << fValue;
-    return output.str();
+
+    return output.str().c_str();
 }
 
 } //namespace DataTypes

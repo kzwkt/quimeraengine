@@ -27,8 +27,6 @@
 #ifndef __SQFLOAT__
 #define __SQFLOAT__
 
-#include <string>
-
 #include <boost/math/special_functions/trunc.hpp>
 
 #include "Assertions.h"

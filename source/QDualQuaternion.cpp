@@ -296,8 +296,8 @@ QDualQuaternion QDualQuaternion::Lerp(const float_q &fProportion, const QDualQua
 
 string_q QDualQuaternion::ToString() const
 {
-    return QE_L("DQ(r(") + r.ToString() +
-           QE_L("),d(")  + d.ToString() + QE_L("))");
+    return string_q("DQ(r(") + r.ToString() +
+               QE_L("),d(")  + d.ToString() + QE_L("))");
 }
 
 template <class VectorType>

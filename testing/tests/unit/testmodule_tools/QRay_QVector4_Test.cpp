@@ -1881,7 +1881,7 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const QVector3 VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
     const QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
 
-    const string_q EXPECTED_STRING = QE_L("RY(o(") + VALUE_FOR_ORIGIN.ToString() + QE_L("),d(") + VALUE_FOR_DIRECTION.ToString() + QE_L("))");
+    const string_q EXPECTED_STRING = string_q("RY(o(") + VALUE_FOR_ORIGIN.ToString() + QE_L("),d(") + VALUE_FOR_DIRECTION.ToString() + QE_L("))");
 
 	// [Execution]
     string_q strReturnedString = RAY.ToString();

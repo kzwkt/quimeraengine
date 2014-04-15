@@ -53,6 +53,9 @@
     <ClInclude Include="..\..\..\..\headers\EQComparisonType.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">

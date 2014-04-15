@@ -30,7 +30,7 @@
 #include <map>
 #include <vector>
 
-#include "Assertions.h"
+//#include "Assertions.h" // Commented due to a mutual dependency between assertions and this enumeration
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 
@@ -39,9 +39,6 @@
     // In this case, it is not important since the data member is not accessible.
     #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
 #endif
-
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
 
 
 namespace Kinesis
@@ -255,7 +252,8 @@ public:
             const size_t ENUM_ARRAY_COUNT = EQTextEncoding::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
-            QE_ASSERT(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
+            // Commented due to a mutual dependency between assertions and this enumeration
+            // QE_ASSERT(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
                 arValues.push_back(EQTextEncoding::sm_arValueName[i].second);
@@ -330,7 +328,8 @@ private:
             return itValueName->first;
         else
         { 
-            static const string_q EMPTY_STRING; return EMPTY_STRING; // [TODO] Thund: This must be replaced by a QString constant.
+            static const string_q EMPTY_STRING;
+            return EMPTY_STRING;
         }
     }
 

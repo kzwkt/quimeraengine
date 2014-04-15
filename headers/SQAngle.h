@@ -27,8 +27,6 @@
 #ifndef __SQANGLE__
 #define __SQANGLE__
 
-#include <string>
-
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
 

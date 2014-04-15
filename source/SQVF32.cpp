@@ -110,10 +110,10 @@ string_q SQVF32::ToString(const vf32_q &inPack)
 
     SQVF32::Unpack(inPack, fFirst, fSecond, fThird, fFourth);
 
-    return QE_L("VF(") + SQFloat::ToString(fFirst)  + QE_L(", ") + 
-                         SQFloat::ToString(fSecond) + QE_L(", ") +
-                         SQFloat::ToString(fThird)  + QE_L(", ") +
-                         SQFloat::ToString(fFourth) + QE_L(")");
+    return string_q("VF(") + SQFloat::ToString(fFirst)  + QE_L(", ") + 
+                             SQFloat::ToString(fSecond) + QE_L(", ") +
+                             SQFloat::ToString(fThird)  + QE_L(", ") +
+                             SQFloat::ToString(fFourth) + QE_L(")");
 }
 
 

@@ -207,7 +207,7 @@ public:
 	/// </returns>
 	string_q ToString() const
 	{
-		return QE_L("OB(c(") + this->Center.ToString() + QE_L("),r(") + SQFloat::ToString(this->Radius) + QE_L("))");
+		return string_q("OB(c(") + this->Center.ToString() + QE_L("),r(") + SQFloat::ToString(this->Radius) + QE_L("))");
 	}
 
 };

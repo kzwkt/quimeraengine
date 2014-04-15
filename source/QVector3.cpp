@@ -414,9 +414,9 @@ QVector3 QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &transforma
 
 string_q QVector3::ToString() const
 {
-    return QE_L("V3(") + SQFloat::ToString(this->x) +
-           QE_L(",")  + SQFloat::ToString(this->y) +
-           QE_L(",")  + SQFloat::ToString(this->z) + QE_L(")");
+    return string_q("V3(") + SQFloat::ToString(this->x) +
+               QE_L(",")   + SQFloat::ToString(this->y) +
+               QE_L(",")   + SQFloat::ToString(this->z) + QE_L(")");
 }
 
 template <class MatrixType>

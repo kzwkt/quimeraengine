@@ -31,6 +31,8 @@
 #include "QDateTime.h"
 #include "QTimeZone.h"
 #include "Assertions.h"
+#include "EQTextEncoding.h"
+#include "SQInteger.h"
 
 
 namespace Kinesis
@@ -53,6 +55,10 @@ namespace Time
 
 const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
     static bool bTimeZoneDatabaseInitialized = false;
     static boost::local_time::tz_database timeZoneDatabase;
     static std::map<string_q, QTimeZone*> timeZones;// [TODO] Thund: Replace this with QBinarySearchTree or QDictionary
@@ -74,52 +80,37 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
     }
     else
     {
-        // [TODO] Thund: This conversion will dissapear when QStringUnicode is implemented
 #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-        std::string strTimeZoneId;
-
-        for(size_t i = 0; i < strId.length(); ++i)
-            strTimeZoneId += scast_q(strId[i], char);
-        
+        unsigned int uOutputAux = 0;
+        i8_q* szId = strId.ToBytes(EQTextEncoding::E_ASCII, uOutputAux);
+        boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId.ToBytes(EQTextEncoding::E_ASCII, uOutputAux));
+        delete[] szId;
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
-        std::string strTimeZoneId = strId;
+        boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId);
 #endif
-
-        boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strTimeZoneId);
 
         QE_ASSERT(pTimeZone != null_q, "The provided ID does not match any time zone available");
         
         // Copies the time zone information
         if(pTimeZone != null_q)
         {
-            const std::string TIMEZONE_NAME = pTimeZone->std_zone_abbrev();
-            const bool bIsTzNegative = pTimeZone->base_utc_offset().is_negative();
+            const string_q TIMEZONE_NAME = pTimeZone->std_zone_abbrev().c_str();
+            const bool IS_TZ_NEGATIVE    = pTimeZone->base_utc_offset().is_negative();
 
-            const QTimeSpan TIMEZONE_OFFSET = QTimeSpan(0, 
-                                                        bIsTzNegative ? -pTimeZone->base_utc_offset().hours()   : pTimeZone->base_utc_offset().hours(), 
-                                                        bIsTzNegative ? -pTimeZone->base_utc_offset().minutes() : pTimeZone->base_utc_offset().minutes(), 
-                                                        bIsTzNegative ? -pTimeZone->base_utc_offset().seconds() : pTimeZone->base_utc_offset().seconds(), 
+            const QTimeSpan TIMEZONE_OFFSET = QTimeSpan(0,
+                                                        SQInteger::Abs(pTimeZone->base_utc_offset().hours()),
+                                                        SQInteger::Abs(pTimeZone->base_utc_offset().minutes()),
+                                                        SQInteger::Abs(pTimeZone->base_utc_offset().seconds()),
                                                         0, 
                                                         0, 
                                                         0);
 
             QTimeZone::QDstInformation dstInfo(pTimeZone);
 
-            // [TODO] Thund: This conversion will dissapear when QStringUnicode is implemented
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-            std::wstring strTimeZoneName;
-
-            for(size_t i = 0; i < TIMEZONE_NAME.length(); ++i)
-                strTimeZoneName += scast_q(TIMEZONE_NAME[i], wchar_t);
-
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
-            std::wstring strTimeZoneName = TIMEZONE_NAME;
-#endif
-
             pTimeZoneResult = new QTimeZone(strId, 
-                                            strTimeZoneName, 
+                                            TIMEZONE_NAME, 
                                             TIMEZONE_OFFSET, 
-                                            bIsTzNegative,
+                                            IS_TZ_NEGATIVE,
                                             dstInfo,
                                             pTimeZone->has_dst());
 

@@ -27,7 +27,6 @@
 #ifndef __QSTRINGUNICODE__
 #define __QSTRINGUNICODE__
 
-#include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 
 #include <unicode/unistr.h>
@@ -38,9 +37,6 @@
 #include <unicode/numfmt.h>
 
 #include "QCharUnicode.h"
-#include "EQTextEncoding.h"
-#include "EQNormalizationForm.h"
-#include "EQComparisonType.h"
 
 
 namespace Kinesis
@@ -51,6 +47,13 @@ namespace Common
 {
 namespace DataTypes
 {
+
+// Forward declarations
+// -------------------------
+class EQTextEncoding;
+class EQNormalizationForm;
+class EQComparisonType;
+
 
 /// <summary>
 /// Represents text formed by a sequence of Unicode characters.
@@ -343,6 +346,27 @@ public:
     QStringUnicode(const QStringUnicode &strString);
 
     /// <summary>
+    /// Constructor that builds a string from an encoded input stream, assuming it is encoded in ISO 8859-1 and is null-terminated.
+    /// </summary>
+    /// <remarks>
+    /// The final null character will not be added to the resultant string.
+    /// </remarks>
+    /// <param name="arBytes">[IN] The input stream as an array of bytes.</param>
+    QStringUnicode(const i8_q* arBytes);
+
+    /// <summary>
+    /// Constructor that builds a string from an encoded input stream, assuming it is encoded in ISO 8859-1.
+    /// </summary>
+    /// <remarks>
+    /// The final null character will not be added to the resultant string.
+    /// </remarks>
+    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the 
+    /// input length equals zero, an empty string will be created. If is null and the specified length is greater than zero, the behavior is undefined.</param>
+    /// <param name="nLength">[IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
+    /// When the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can be used instead.</param>
+    QStringUnicode(const i8_q* arBytes, const int nLength);
+
+    /// <summary>
     /// Constructor that builds a string from an encoded input stream.
     /// </summary>
     /// <remarks>
@@ -359,11 +383,9 @@ public:
     /// input length equals zero, an empty string will be created. If is null and the specified length is greater than zero, the behavior is undefined.</param>
     /// <param name="nLength">[Optional][IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
     /// When the encoding is ASCII or ISO 8859-1 and the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can
-    /// be used instead. By default it is set to LENGTH_NULL_TERMINATED.</param>
-    /// <param name="eEncoding">[Optional][IN] The text encoding of the input byte stream. By default it is set to ISO 8859-1.</param>
-    QStringUnicode(const i8_q* arBytes, 
-                   const int nLength = QStringUnicode::LENGTH_NULL_TERMINATED, 
-                   const EQTextEncoding eEncoding = EQTextEncoding::E_ISO88591);
+    /// be used instead.</param>
+    /// <param name="eEncoding">[IN] The text encoding of the input byte stream.</param>
+    QStringUnicode(const i8_q* arBytes, const int nLength, const EQTextEncoding &eEncoding);
 
     /// <summary>
     /// Constructor that builds a string from only one character.
@@ -503,7 +525,7 @@ public:
     /// An array of bytes that contains the encoded text. If the string is empty, null will be returned. Remember to delete the array when
     /// do not need it anymore.
     /// </returns>
-    i8_q* ToBytes(const EQTextEncoding eEncoding, unsigned int &uOutputLength) const;
+    i8_q* ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const;
 
     /// <summary>
     /// Applies a Unicode text normalization form algorithm to the string.
@@ -691,7 +713,7 @@ private:
     /// <returns>
     /// A converter ready to be used.
     /// </returns>
-    static UConverter* GetConverter(const EQTextEncoding eEncoding);
+    static UConverter* GetConverter(const EQTextEncoding &eEncoding);
 
     /// <summary>
     /// Gets an ICU normalizer instance for a normalization form.

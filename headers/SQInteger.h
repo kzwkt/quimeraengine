@@ -207,14 +207,9 @@ public:
     template<typename IntegerType>
     static string_q ToString(const IntegerType &nValue)
     {
-    #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-        std::wstringstream output;
-    #else
         std::ostringstream output;
-    #endif
-
         output << nValue;
-        return output.str();
+        return output.str().c_str();
     }
 
 };
@@ -231,6 +226,16 @@ public:
 /// </returns>
 template<>
 string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const char &nValue);
+
+/// <summary>
+/// Converts the integer number to a readable character string that represents it.
+/// </summary>
+/// <param name="nValue">[IN] The integer number to be converted.</param>
+/// <returns>
+/// The string that represents the number.
+/// </returns>
+template<>
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<u8_q>(const unsigned char &uValue);
 
 } //namespace DataTypes
 } //namespace Common

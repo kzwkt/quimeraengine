@@ -405,7 +405,7 @@ public:
     /// </returns>
     string_q ToString() const
     {
-        return QE_L("RY(o(") + this->Origin.ToString() + QE_L("),d(") + this->Direction.ToString() + QE_L("))");
+        return string_q("RY(o(") + this->Origin.ToString() + QE_L("),d(") + this->Direction.ToString() + QE_L("))");
     }
 
 };

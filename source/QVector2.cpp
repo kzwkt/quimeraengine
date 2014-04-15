@@ -318,9 +318,9 @@ float_q QVector2::Distance(const QVector2 &vVector) const
 
 string_q QVector2::ToString() const
 {
-	return QE_L("V2(") + SQFloat::ToString(this->x) +
-		   QE_L(",")  + SQFloat::ToString(this->y) +
-		   QE_L(")");
+	return string_q("V2(") + SQFloat::ToString(this->x) +
+		       QE_L(",")   + SQFloat::ToString(this->y) +
+		       QE_L(")");
 }
 
 QVector2 QVector2::Transform(const QTransformationMatrix3x3 &matrix) const

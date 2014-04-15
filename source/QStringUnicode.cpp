@@ -28,6 +28,9 @@
 
 #include <cstring> // Needed for strlen function
 #include "Assertions.h"
+#include "EQComparisonType.h"
+#include "EQNormalizationForm.h"
+#include "EQTextEncoding.h"
 
 #include <unicode/ucnv.h>
 #include <unicode/fmtable.h>
@@ -76,9 +79,25 @@ QStringUnicode::QStringUnicode(const QStringUnicode &strString)
     m_strString = strString.m_strString;
 }
 
+QStringUnicode::QStringUnicode(const i8_q* arBytes)
+{
+    // CAUTION: This is just a workaround to avoid performance loss due to unncecessry class instancing
+    //          If this class inherited from another, a different solution should be applied (calling a common function)
+    //          It is not possible to call other constructors until C++11
+    new (this) QStringUnicode(arBytes, QStringUnicode::LENGTH_NULL_TERMINATED, EQTextEncoding::E_ISO88591);
+}
+
+QStringUnicode::QStringUnicode(const i8_q* arBytes, const int nLength)
+{
+    // CAUTION: This is just a workaround to avoid performance loss due to unncecessry class instancing
+    //          If this class inherited from another, a different solution should be applied (calling a common function)
+    //          It is not possible to call other constructors until C++11
+    new (this) QStringUnicode(arBytes, nLength, EQTextEncoding::E_ISO88591);
+}
+
 QStringUnicode::QStringUnicode(const i8_q* arBytes,
                                const int nLength,
-                               const EQTextEncoding eEncoding)
+                               const EQTextEncoding &eEncoding)
 {
     // Only ASCII and ISO 8859-1 encodings can be used along with null-terminated strings' length calculation
     QE_ASSERT(((eEncoding == EQTextEncoding::E_ASCII || eEncoding == EQTextEncoding::E_ISO88591) &&
@@ -185,7 +204,7 @@ QStringUnicode::QConstCharIterator QStringUnicode::GetConstCharIterator() const
     return QStringUnicode::QConstCharIterator(*this);
 }
 
-i8_q* QStringUnicode::ToBytes(const EQTextEncoding eEncoding, unsigned int &uOutputLength) const
+i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const
 {
     i8_q* pOutputBytes = null_q;
     uOutputLength = 0;
@@ -274,7 +293,7 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding eEncoding, unsigned int &uOut
     return pOutputBytes;
 }
 
-UConverter* QStringUnicode::GetConverter(const EQTextEncoding eEncoding)
+UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
 {
     // About ICU converters: http://userguide.icu-project.org/conversion/converters
     static UErrorCode errorCode = U_ZERO_ERROR;

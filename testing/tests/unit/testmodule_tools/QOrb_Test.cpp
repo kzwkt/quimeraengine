@@ -498,7 +498,7 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const QOrb<T> ORB( VECTOR_FOR_CENTER, RADIUS );
 
     const string_q CENTER_STRING = VECTOR_FOR_CENTER.ToString();
-    const string_q EXPECTED_STRING = QE_L("OB(c(") + CENTER_STRING + QE_L("),r(") + SQFloat::ToString(RADIUS) + QE_L("))");
+    const string_q EXPECTED_STRING = string_q("OB(c(") + CENTER_STRING + QE_L("),r(") + SQFloat::ToString(RADIUS) + QE_L("))");
 
 	// [Execution]
     string_q strReturnedString = ORB.ToString();

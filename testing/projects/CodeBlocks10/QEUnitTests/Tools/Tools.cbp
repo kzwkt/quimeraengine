@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;Tests/Containers/;Tests/Time/;" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\Containers\;Tests\Time\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -25,6 +25,9 @@
 					<Add library="libQuimeraEngineCommon.a" />
 					<Add library="libQuimeraEngineTools.a" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
@@ -45,14 +48,19 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -70,15 +78,20 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCommon.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -101,6 +114,9 @@
 					<Add library="libQuimeraEngineCommon" />
 					<Add library="libQuimeraEngineTools" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
@@ -133,6 +149,9 @@
 					<Add library="libQuimeraEngineCommon.a" />
 					<Add library="libQuimeraEngineTools.a" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic" />
@@ -160,6 +179,9 @@
 					<Add library="libQuimeraEngineCommon" />
 					<Add library="libQuimeraEngineTools" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
 				</Linker>
@@ -186,6 +208,7 @@
 			<Add option="-DQE_ASSERT_THROWS_EXCEPTION" />
 			<Add directory="../../../../../headers" />
 			<Add directory="../../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../../3rdparty/ICU/include" />
 			<Add directory="../../../../tests/unit" />
 		</Compiler>
 		<Unit filename="../../../../tests/unit/testmodule_tools/ArrayElementMock.h">

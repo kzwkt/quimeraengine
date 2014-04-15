@@ -465,7 +465,7 @@ QTEST_CASE ( CastToString_EnumerationIsProperlyConverted_Test )
     string_q strConvertedValue = ORIGINAL_VALUE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -481,7 +481,7 @@ QTEST_CASE ( CastToString_ReturnsEmptyStringWhenEnumerationIsNotEnumValue_Test )
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -497,7 +497,7 @@ QTEST_CASE ( CastToString_ReturnsEmptyStringWhenEnumerationIsNotValid_Test )
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -513,7 +513,7 @@ QTEST_CASE ( ToString_EnumerationIsProperlyConverted_Test )
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -529,7 +529,7 @@ QTEST_CASE ( ToString_ReturnsEmptyStringWhenEnumerationIsNotEnumValue_Test )
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -545,7 +545,7 @@ QTEST_CASE ( ToString_ReturnsEmptyStringWhenEnumerationIsNotValid_Test )
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(strConvertedValue.c_str(), EXPECTED_VALUE.c_str());
+    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
 }
 
 // End - Test Suite: EQEnumerationMock

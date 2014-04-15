@@ -29,6 +29,7 @@
 
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
+#include "EQTextEncoding.h"
 
 // Depending on the compiler, a different function is used to print the error message to the console
 #if   defined(QE_COMPILER_MSVC)
@@ -36,7 +37,17 @@
     #include "windows.h"
 
     #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-        #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringW(strMessage)
+        // [TODO] Thund: Change this to use either LE or BE depending on the machine
+        #define QE_CONSOLE_PRINT(strMessage)                                                                                               \
+                {                                                                                                                          \
+                    Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode _strOutMsg(strMessage);                                      \
+                    unsigned int _uOutSize = 0;                                                                                            \
+                    Kinesis::QuimeraEngine::Common::DataTypes::i8_q* _szOutMsg =                                                           \
+                                      _strOutMsg.ToBytes(Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding::E_UTF16LE, _uOutSize); \
+                    ::OutputDebugStringW((wchar_t*)_szOutMsg);                                                                             \
+                    delete[] _szOutMsg;                                                                                                    \
+                }
+                
     #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
         #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringA(strMessage)
     #endif
@@ -56,7 +67,7 @@
                     if(!(expression))                                           \
                     {                                                           \
                         QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
-                        QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
+                        QE_CONSOLE_PRINT(strErrorMessage);                      \
                         QE_CONSOLE_PRINT(QE_L("\n"));                           \
                         throw new std::exception();                             \
                     }                                                           \

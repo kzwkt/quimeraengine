@@ -715,7 +715,7 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const string_q A_STRING = VALUE_FOR_A.ToString();
     const string_q B_STRING = VALUE_FOR_B.ToString();
     const string_q C_STRING = VALUE_FOR_C.ToString();
-    const string_q EXPECTED_STRING = QE_L("T(a(") + A_STRING + QE_L("),b(") + B_STRING + QE_L("),c(") + C_STRING + QE_L("))");
+    const string_q EXPECTED_STRING = string_q("T(a(") + A_STRING + QE_L("),b(") + B_STRING + QE_L("),c(") + C_STRING + QE_L("))");
 
 	// [Execution]
     string_q strReturnedString = triangleUT.ToString();

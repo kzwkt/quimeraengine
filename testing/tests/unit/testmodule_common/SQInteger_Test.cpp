@@ -441,7 +441,7 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
         break;
     default: // This will cause that the test fails
         INPUT = 0;
-        EXPECTED_RESULT = -1;
+        EXPECTED_RESULT = "";
     }
 
 	// [Execution]
@@ -499,7 +499,7 @@ QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplat
         break;
     default: // This will cause that the test fails
         INPUT = 0;
-        EXPECTED_RESULT = -1;
+        EXPECTED_RESULT = "";
     }
 
 	// [Execution]

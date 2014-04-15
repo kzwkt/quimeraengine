@@ -12,12 +12,12 @@ LD = g++
 WINDRES = windres
 
 #DebugLinux32SharedrtStatic
-INC_DEBUGLINUX32SHAREDRTSTATIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit
+INC_DEBUGLINUX32SHAREDRTSTATIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit -I$(MAKEPATH)trunk/3rdparty/ICU/include
 CFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -m32 -D_DEBUG
 RESINC_DEBUGLINUX32SHAREDRTSTATIC =  
 RCFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  
 LIBDIR_DEBUGLINUX32SHAREDRTSTATIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtStatic
-LIB_DEBUGLINUX32SHAREDRTSTATIC = -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d
+LIB_DEBUGLINUX32SHAREDRTSTATIC = -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d -licudata -licuuc -licuin
 LDFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtStatic
 DEP_DEBUGLINUX32SHAREDRTSTATIC = 
@@ -30,7 +30,7 @@ CFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -W
 RESINC_DEBUGLINUX32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  
 LIBDIR_DEBUGLINUX32SHAREDRTDYNAMIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtDynamic
-LIB_DEBUGLINUX32SHAREDRTDYNAMIC = -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d
+LIB_DEBUGLINUX32SHAREDRTDYNAMIC = -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d -licudata -licuuc -licuin
 LDFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtDynamic
 DEP_DEBUGLINUX32SHAREDRTDYNAMIC = 
