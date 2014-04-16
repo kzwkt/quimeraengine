@@ -213,7 +213,9 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
             // If the year is positive, years, days and time are added to the offset
             instant = QTimeSpan(QDateTime::HALF_VALUE + uYearsAsHns + REMAINING_TIME);
 
-        m_instant = this->SubtractTimeZoneOffset(instant, pTimeZone);
+        // Removes the time zone offset
+        m_instant = pTimeZone == null_q ? instant :
+                                          this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
     }
 }
 
@@ -303,7 +305,9 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
             // If the year is positive, years, days and time are added to the offset
             instant = QTimeSpan(QDateTime::HALF_VALUE + uYearsAsHns + REMAINING_TIME);
 
-        m_instant = this->SubtractTimeZoneOffset(instant, pTimeZone);
+        // Removes the time zone offset
+        m_instant = pTimeZone == null_q ? instant :
+                                          this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
     }
 }
 
@@ -341,7 +345,9 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
 
     QTimeSpan instant = QTimeSpan(QDateTime::HALF_VALUE + REMAINING_TIME);
 
-    m_instant = this->SubtractTimeZoneOffset(instant, pTimeZone);
+    // Removes the time zone offset
+    m_instant = pTimeZone == null_q ? instant :
+                                      this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
 }
 
 QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond, const u64_q uMillisecond, const QTimeZone* pTimeZone) :
@@ -370,7 +376,10 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
 
     // If the year is positive, years, days and time are added to the offset
     QTimeSpan instant = QTimeSpan(QDateTime::HALF_VALUE + REMAINING_TIME);
-    m_instant = this->SubtractTimeZoneOffset(instant, pTimeZone);
+
+    // Removes the time zone offset
+    m_instant = pTimeZone == null_q ? instant :
+                                      this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
 }
 
 QDateTime::QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone) : m_instant(dateTime.m_instant),
@@ -546,44 +555,38 @@ bool QDateTime::IsLeapYear(const int nYear)
     return SQInteger::Abs(nYear) % 4ULL == 0;
 }
 
-QTimeSpan QDateTime::SubtractTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
+QTimeSpan QDateTime::GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
 {
     QDateTime localDateTime;
     localDateTime.m_instant = instant;
 
-    if(pTimeZone != null_q)
-    {
-        QTimeSpan timeZoneOffset(0);
-        bool bOffsetIsNegative = false;
-        pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
+    QTimeSpan timeZoneOffset(0);
+    bool bOffsetIsNegative = false;
+    pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
         
-        // The offset is subtracted to the calculated instant to make it UTC
-        if(bOffsetIsNegative)
-            localDateTime.m_instant += timeZoneOffset;
-        else
-            localDateTime.m_instant -= timeZoneOffset;
-    }
+    // The offset is subtracted to the calculated instant to make it UTC
+    if(bOffsetIsNegative)
+        localDateTime.m_instant += timeZoneOffset;
+    else
+        localDateTime.m_instant -= timeZoneOffset;
 
     return localDateTime.m_instant;
 }
 
-QTimeSpan QDateTime::AddTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
+QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
 {
     QDateTime localDateTime;
     localDateTime.m_instant = instant;
 
-    if(pTimeZone != null_q)
-    {
-        QTimeSpan timeZoneOffset(0);
-        bool bOffsetIsNegative = false;
-        pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
+    QTimeSpan timeZoneOffset(0);
+    bool bOffsetIsNegative = false;
+    pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
         
-        // The offset is added to the calculated instant to make it UTC
-        if(bOffsetIsNegative)
-            localDateTime.m_instant -= timeZoneOffset;
-        else
-            localDateTime.m_instant += timeZoneOffset;
-    }
+    // The offset is added to the calculated instant to make it UTC
+    if(bOffsetIsNegative)
+        localDateTime.m_instant -= timeZoneOffset;
+    else
+        localDateTime.m_instant += timeZoneOffset;
 
     return localDateTime.m_instant;
 }
@@ -602,7 +605,9 @@ bool QDateTime::IsLeapYear() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent either normal years or leap years");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
     
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
@@ -630,8 +635,9 @@ unsigned int QDateTime::GetYear() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent years");
     
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
-
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
     u64_q uYear = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
@@ -683,7 +689,9 @@ unsigned int QDateTime::GetMonth() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent months");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMonth = 0;
 
@@ -774,7 +782,9 @@ unsigned int QDateTime::GetDay() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent days");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uDay = 0;
 
@@ -865,7 +875,9 @@ unsigned int QDateTime::GetHour() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent hours");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uHour = 0;
 
@@ -943,7 +955,9 @@ unsigned int QDateTime::GetMinute() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent minutes");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMinute = 0;
 
@@ -1022,7 +1036,9 @@ unsigned int QDateTime::GetSecond() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent seconds");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uSecond = 0;
 
@@ -1102,7 +1118,9 @@ unsigned int QDateTime::GetMillisecond() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent milliseconds");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMillisecond = 0;
 
@@ -1183,7 +1201,9 @@ unsigned int QDateTime::GetMicrosecond() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent microseconds");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMicrosecond = 0;
 
@@ -1265,7 +1285,9 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent nanoseconds");
 
-    QTimeSpan localTimeInstant = this->AddTimeZoneOffset(this->m_instant, this->m_pTimeZone);
+    // Adds the time zone offset
+    QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
+                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uNanosecond = 0;
 
@@ -1358,6 +1380,52 @@ const QDateTime& QDateTime::GetMinDateTime()
 {
     static const QDateTime MINIMUM_DATETIME(-29228, 11, 23, 21, 11, 54, 522, 419, 3);
     return MINIMUM_DATETIME;
+}
+
+bool QDateTime::IsPositive() const
+{
+    bool bIsPositive = false;
+
+    if(this->IsUndefined())
+    {
+        QE_ASSERT(false, "The date is undefined, it cannot be positive");
+    }
+    else if(m_pTimeZone == null_q)
+    {
+        bIsPositive = m_instant.GetHundredsOfNanoseconds() >= QDateTime::HALF_VALUE;
+    }
+    else
+    {
+        // Adds the time zone offset before checking
+        QTimeSpan localTime = m_instant;
+        localTime = this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+        bIsPositive = localTime.GetHundredsOfNanoseconds() >= QDateTime::HALF_VALUE;
+    }
+
+    return bIsPositive;
+}
+
+bool QDateTime::IsNegative() const
+{
+    bool bIsNegative = false;
+
+    if(this->IsUndefined())
+    {
+        QE_ASSERT(false, "The date is undefined, it cannot be negative");
+    }
+    else if(m_pTimeZone == null_q)
+    {
+        bIsNegative = m_instant.GetHundredsOfNanoseconds() < QDateTime::HALF_VALUE;
+    }
+    else
+    {
+        // Adds the time zone offset before checking
+        QTimeSpan localTime = m_instant;
+        localTime = this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+        bIsNegative = localTime.GetHundredsOfNanoseconds() < QDateTime::HALF_VALUE;
+    }
+
+    return bIsNegative;
 }
 
 bool QDateTime::IsUndefined() const

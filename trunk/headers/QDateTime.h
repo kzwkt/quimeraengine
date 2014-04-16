@@ -427,21 +427,21 @@ private:
     /// Subtracts the offset of the time zone and the DST to the time data so it becomes UTC.
     /// </summary>
     /// <param name="instant">[IN] A time instant, with time zone offset.</param>
-    /// <param name="pTimeZone">[IN] The time zone whose offset is to be subtracted.</param>
+    /// <param name="pTimeZone">[IN] The time zone whose offset is to be subtracted. It cannot be null.</param>
     /// <returns>
     /// The instant without time zone offset applied, if any.
     /// </returns>
-    QTimeSpan SubtractTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+    QTimeSpan GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
     
     /// <summary>
     /// Adds the offset of the time zone and the DST to the time data so it becomes Local Time.
     /// </summary>
     /// <param name="instant">[IN] A time instant, without time zone offset.</param>
-    /// <param name="pTimeZone">[IN] The time zone whose offset is to be added.</param>
+    /// <param name="pTimeZone">[IN] The time zone whose offset is to be added. It cannot be null.</param>
     /// <returns>
     /// The instant with time zone offset applied, if any.
     /// </returns>
-    QTimeSpan AddTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+    QTimeSpan GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
 
 
 	// PROPERTIES
@@ -560,6 +560,28 @@ public:
     /// Gets the maximum negative date and time that can be represented (29228-11-23 21:11:54.5224193 B.C.), in UTC.
     /// </summary>
     static const QDateTime& GetMinDateTime();
+
+    /// <summary>
+    /// Indicates whether the date is positive (A.D.) or not.
+    /// </summary>
+    /// <summary>
+    /// It is calculated using the local time.
+    /// </summary>
+    /// <returns>
+    /// True if the date is positive; False otherwise. If the date is undefined, it will return False.
+    /// </returns>
+    bool IsPositive() const;
+
+    /// <summary>
+    /// Indicates whether the date is negative (B.C.) or not.
+    /// </summary>
+    /// <summary>
+    /// It is calculated using the local time.
+    /// </summary>
+    /// <returns>
+    /// True if the date is negative; False otherwise. If the date is undefined, it will return False.
+    /// </returns>
+    bool IsNegative() const;
 
 private:
 

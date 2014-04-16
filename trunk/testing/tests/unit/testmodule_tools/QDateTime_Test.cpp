@@ -8902,6 +8902,236 @@ QTEST_CASE ( GetMinDateTime_ReturnsExpectedValue_Test )
 }
 
 /// <summary>
+/// Checks that it returns True when the date is positive.
+/// </summary>
+QTEST_CASE ( IsPositive_ReturnsTrueWhenDateIsPositive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QDateTime SOURCE_DATETIME(4, 3, 2);
+
+	// [Execution]
+    bool bResult = SOURCE_DATETIME.IsPositive();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the date is not positive.
+/// </summary>
+QTEST_CASE ( IsPositive_ReturnsFalseWhenDateIsNotPositive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QDateTime SOURCE_DATETIME(-4, 3, 2);
+
+	// [Execution]
+    bool bResult = SOURCE_DATETIME.IsPositive();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the date is calculated based on local time in order to know whether it is positive or not.
+/// </summary>
+QTEST_CASE ( IsPositive_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    const bool EXPECTED_RESULT = false;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 30, 0, 0, 0, 0, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    bool bResultLocal = SOURCE_DATETIME.IsPositive();
+    bool bResultUtc   = SOURCE_DATETIME_UTC.IsPositive();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResultLocal, EXPECTED_RESULT);
+    BOOST_CHECK_NE(bResultLocal, bResultUtc);
+}
+
+/// <summary>
+/// Checks that it returns True when the date / time represent the first positive instant 0001-01-01 00:00:00.000000000.
+/// </summary>
+QTEST_CASE ( IsPositive_FirstPositiveInstantIsConsideredPositive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0);
+
+	// [Execution]
+    bool bResult = FIRST_POSITIVE_INSTANT.IsPositive();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( IsPositive_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.IsPositive();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns False when date / time is undefined.
+/// </summary>
+QTEST_CASE ( IsPositive_ReturnsFalseWhenDateIsUndefined_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+
+	// [Execution]
+    bool bResult = UNDEFINED_DATETIME.IsPositive();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns False when the date is not negative.
+/// </summary>
+QTEST_CASE ( IsNegative_ReturnsTrueWhenDateIsNegative_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QDateTime SOURCE_DATETIME(4, 3, 2);
+
+	// [Execution]
+    bool bResult = SOURCE_DATETIME.IsNegative();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the date is negative.
+/// </summary>
+QTEST_CASE ( IsNegative_ReturnsTrueWhenDateIsNotNegative_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QDateTime SOURCE_DATETIME(-4, 3, 2);
+
+	// [Execution]
+    bool bResult = SOURCE_DATETIME.IsNegative();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the date is calculated based on local time in order to know whether it is negative or not.
+/// </summary>
+QTEST_CASE ( IsNegative_IsLocalTime_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    const bool EXPECTED_RESULT = true;
+    const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Atlantic/Azores")); // AZOT-1
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 30, 0, 0, 0, 0, EXPECTED_TIMEZONE);
+    const QDateTime SOURCE_DATETIME_UTC(SOURCE_DATETIME, null_q);
+
+	// [Execution]
+    bool bResultLocal = SOURCE_DATETIME.IsNegative();
+    bool bResultUtc   = SOURCE_DATETIME_UTC.IsNegative();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResultLocal, EXPECTED_RESULT);
+    BOOST_CHECK_NE(bResultLocal, bResultUtc);
+}
+
+/// <summary>
+/// Checks that it returns False when the date / time represent the first positive instant 0001-01-01 00:00:00.000000000.
+/// </summary>
+QTEST_CASE ( IsNegative_FirstNegativeInstantIsNotConsideredNegative_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0);
+
+	// [Execution]
+    bool bResult = FIRST_POSITIVE_INSTANT.IsNegative();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( IsNegative_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.IsNegative();
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns False when date / time is undefined.
+/// </summary>
+QTEST_CASE ( IsNegative_ReturnsFalseWhenDateIsUndefined_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+
+	// [Execution]
+    bool bResult = UNDEFINED_DATETIME.IsNegative();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
 /// It is not necessary to test this method since it is just a getter.
 /// </summary>
 QTEST_CASE ( GetUndefinedDate_NotNecessaryToTest_Test )
