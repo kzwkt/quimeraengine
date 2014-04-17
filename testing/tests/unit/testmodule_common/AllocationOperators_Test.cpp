@@ -82,9 +82,9 @@ QTEST_CASE ( OperatorDelete_AssertionFailsWhenReceivedANonAlignedMemoryBlock_Tes
         // Memory block probably not aligned in memory. However, note that the size
         // of the memory block is 1 byte bigger, that's because maybe it's necessary
         // to provide manually a non-aligned addrees (se below).
-        char_q  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        char  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
         arMemoryBuffer[sizeof(TFooEightBytesSize)] = '\0';
-        char_q* p                                  = arMemoryBuffer;
+        char* p                                  = arMemoryBuffer;
 
         // If true, the pointer is pointing to an aligned address, so it's necessary
         // to modify the pointer manually in order to provide a non-aligned address.
@@ -140,9 +140,9 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANonAlignedMemoryBloc
         // Memory block probably not aligned in memory. However, note that the size
         // of the memory block is 1 byte bigger, that's because maybe it's necessary
         // to provide manually a non-aligned addrees (se below).
-        char_q  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        char  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
         arMemoryBuffer[sizeof(TFooEightBytesSize)] = '\0';
-        char_q* p                                  = arMemoryBuffer;
+        char* p                                  = arMemoryBuffer;
 
         // If true, the pointer is pointing to an aligned address, so it's necessary
         // to modify the pointer manually in order to provide a non-aligned address.
