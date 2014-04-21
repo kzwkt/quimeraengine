@@ -5466,5 +5466,237 @@ QTEST_CASE ( GetEmpty_ReturnsZeroLengthString_Test )
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that converting a string with only English characters to upper case works fine.
+/// </summary>
+QTEST_CASE ( ToUpperCase_StringWithEnglishCharactersConvertedToUpperCase_Test )
+{
+    // [Preparation]
+    const QStringUnicode EXPECTED_RESULT("ABCDEFG");
+    QStringUnicode INPUT_STRING("aBcdefg");
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToUpperCase();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that converting a string with non-ASCII characters and numbers to upper case works fine.
+/// </summary>
+QTEST_CASE ( ToUpperCase_StringWithNonASCIICharsAndNumbersConvertedToUpperCase_Test )
+{
+    // [Preparation]
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Raul: Change this so it depends on the endianess of the machine
+
+    // Info for inputs&outputs extracted from:
+    // ftp://ftp.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+
+    // Inputs:
+    // 00F2;LATIN SMALL LETTER O WITH GRAVE
+    // 010D;LATIN SMALL LETTER C WITH CARON
+    // 0121;LATIN SMALL LETTER G WITH DOT ABOVE
+    // 00DB;LATIN CAPITAL LETTER U WITH CIRCUMFLEX
+    // 0037;DIGIT SEVEN
+    const u16_q INPUT_STRING_CODE_UNITS[]   = { 0x00F2, 0x010D, 0x0121, 0x0037, 0x00DB, 0 };
+    const QStringUnicode INPUT_STRING(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), sizeof(INPUT_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+    // Outputs:
+    // 00D2;LATIN CAPITAL LETTER O WITH GRAVE
+    // 010C;LATIN CAPITAL LETTER C WITH CARON
+    // 0120;LATIN CAPITAL LETTER G WITH DOT ABOVE
+    // 00DB;LATIN CAPITAL LETTER U WITH CIRCUMFLEX
+    // 0037;DIGIT SEVEN
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00D2, 0x010C, 0x0120, 0x0037, 0x00DB, 0 };
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+    // [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToUpperCase();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that empty string remains empty after applying the conversion to upper case.
+/// </summary>
+QTEST_CASE ( ToUpperCase_EmptyStringConvertedToUpperCase_Test )
+{
+    // [Preparation]
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode INPUT_STRING("");
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToUpperCase();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that converting a string with only English characters to lower case works fine.
+/// </summary>
+QTEST_CASE ( ToLowerCase_StringWithEnglishCharactersConvertedToLowerCase_Test )
+{
+    // [Preparation]
+    const QStringUnicode EXPECTED_RESULT("abcdefg");
+    QStringUnicode INPUT_STRING("AbCDEFG");
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToLowerCase();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that converting a string with non-ASCII characters and numbers to lower case works fine.
+/// </summary>
+QTEST_CASE ( ToLowerCase_StringWithNonASCIICharsAndNumbersConvertedToLowerCase_Test )
+{
+    // [Preparation]
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Raul: Change this so it depends on the endianess of the machine
+
+    // Info for inputs&outputs extracted from:
+    // ftp://ftp.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+
+    // Inputs:
+    // 00D2;LATIN CAPITAL LETTER O WITH GRAVE
+    // 010C;LATIN CAPITAL LETTER C WITH CARON
+    // 0120;LATIN CAPITAL LETTER G WITH DOT ABOVE
+    // 013C;LATIN SMALL LETTER L WITH CEDILLA
+    // 0037;DIGIT SEVEN
+    const u16_q INPUT_STRING_CODE_UNITS[]   = { 0x00D2, 0x010C, 0x0120, 0x0037, 0x013C, 0 };
+    const QStringUnicode INPUT_STRING(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), sizeof(INPUT_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+    // Outputs:
+    // 00F2;LATIN SMALL LETTER O WITH GRAVE
+    // 010D;LATIN SMALL LETTER C WITH CARON
+    // 0121;LATIN SMALL LETTER G WITH DOT ABOVE
+    // 013C;LATIN SMALL LETTER L WITH CEDILLA
+    // 0037;DIGIT SEVEN
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F2, 0x010D, 0x0121, 0x0037, 0x013C, 0 };
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+    // [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToLowerCase();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that empty string remains empty after applying the conversion to lower case.
+/// </summary>
+QTEST_CASE ( ToLowerCase_EmptyStringConvertedToLowerCase_Test )
+{
+    // [Preparation]
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode INPUT_STRING("");
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToLowerCase();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that converting a string with only English characters to folded case works fine.
+/// </summary>
+QTEST_CASE ( ToCaseFolded_StringConvertedToFoldedCase_Test )
+{
+    // [Preparation]
+
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF32LE; // [TODO] Raul: Change this so it depends on the endianess of the machine
+
+    // Data extracted from:
+    // http://www.unicode.org/Public/UNIDATA/CaseFolding.txt
+    // First row the original value.
+    // 01F4; C; 01F5; # LATIN CAPITAL LETTER G WITH ACUTE
+    // 0181; C; 0253; # LATIN CAPITAL LETTER B WITH HOOK
+    // 004E; C; 006E; # LATIN CAPITAL LETTER N
+    // 10426; C; 1044E; # DESERET CAPITAL LETTER OI
+    // 00C3; C; 00E3; # LATIN CAPITAL LETTER A WITH TILDE
+    // Useful to see the mappings:
+    // http://www.branah.com/unicode-converter
+    const u32_q INPUT_STRING_CODE_UNITS[]   = { 0x01F4, 0x0181, 0x004E, 0x10426, 0x00C3, 0 };
+    const QStringUnicode INPUT_STRING(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), sizeof(INPUT_STRING_CODE_UNITS), NATIVE_ENCODING);
+   
+    // Third row the mapped value.
+    // 01F4; C; 01F5; # LATIN CAPITAL LETTER G WITH ACUTE
+    // 0181; C; 0253; # LATIN CAPITAL LETTER B WITH HOOK
+    // 004E; C; 006E; # LATIN CAPITAL LETTER N
+    // 10426; C; 1044E; # DESERET CAPITAL LETTER OI
+    // 00C3; C; 00E3; # LATIN CAPITAL LETTER A WITH TILDE
+    const u32_q EXPECTED_STRING_CODE_UNITS[]   = { 0x01F5, 0x0253, 0x006E, 0x1044E, 0x00E3 ,0 };
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToCaseFolded();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the conversion to folded case works fine in the case of the conversion to may change the length in bytes of the resultant string.
+/// </summary>
+QTEST_CASE ( ToCaseFolded_StringConvertedToFoldedCaseStringLengthMayChange_Test ) 
+{
+    // [Preparation]
+
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+
+    const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF32LE; // [TODO] Raul: Change this so it depends on the endianess of the machine
+
+    // Data extracted from:
+    // http://www.unicode.org/Public/UNIDATA/CaseFolding.txt
+    // First row the original value.
+    // 03B0; F; 03C5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS.
+    // Useful to see the mappings:
+    // http://www.branah.com/unicode-converter
+    const u32_q INPUT_STRING_CODE_UNITS[]   = { 0x03B0, 0 };
+    const QStringUnicode INPUT_STRING(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), sizeof(INPUT_STRING_CODE_UNITS), NATIVE_ENCODING);
+   
+    // Third row the mapped value.
+    // 03B0; F; 03C5 0308 0301; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS.
+    const u32_q EXPECTED_STRING_CODE_UNITS[]   = { 0x03C5, 0x0308, 0x0301, 0 };
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToCaseFolded();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that empty string remains empty after applying the conversion to folded case.
+/// </summary>
+QTEST_CASE ( ToCaseFolded_EmptyStringConvertedToFoldedCase_Test )
+{
+    // [Preparation]
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode INPUT_STRING("");
+
+	// [Execution]
+    QStringUnicode strResult = INPUT_STRING.ToCaseFolded();
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
 // End - Test Suite: QStringUnicode
 QTEST_SUITE_END()

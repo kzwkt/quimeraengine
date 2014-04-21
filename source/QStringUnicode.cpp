@@ -35,6 +35,8 @@
 #include <unicode/ucnv.h>
 #include <unicode/fmtable.h>
 #include <unicode/decimfmt.h>
+#include "unicode/locid.h"
+#include "unicode/uchar.h"
 
 
 namespace Kinesis
@@ -343,13 +345,37 @@ UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
     return pConverter;
 }
 
+QStringUnicode QStringUnicode::ToLowerCase() const
+{
+    QStringUnicode strLowerCase(*this);
+    // Use English as locale.
+    const Locale &en = Locale::getEnglish();
+    strLowerCase.m_strString.toLower(en);
+    return strLowerCase;
+}
+
+QStringUnicode QStringUnicode::ToUpperCase() const
+{
+    QStringUnicode strUpperCase(*this);
+    // Use English as locale.
+    const Locale &en = Locale::getEnglish();
+    strUpperCase.m_strString.toUpper(en);
+    return strUpperCase;
+}
+
+QStringUnicode QStringUnicode::ToCaseFolded() const
+{
+    QStringUnicode strFoldedCase(*this);
+    strFoldedCase.m_strString.foldCase(U_FOLD_CASE_DEFAULT);
+    return strFoldedCase;
+}
+
 void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
 {
     const icu::Normalizer2* pNormalizer = QStringUnicode::GetNormalilzer(eNormalizationForm);
     UErrorCode eErrorCode = U_ZERO_ERROR;
     
     UBool bIsNormalized = pNormalizer->isNormalized(m_strString, eErrorCode); // [TODO] Thund: Change this by a call to this->IsNormalized when implemented
-
     QE_ASSERT(U_SUCCESS(eErrorCode), "An error occurred when checking if the string was normalized"); // And this also.
 
     if(!bIsNormalized && U_SUCCESS(eErrorCode) != FALSE)
