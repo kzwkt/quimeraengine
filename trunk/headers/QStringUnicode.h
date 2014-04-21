@@ -277,7 +277,6 @@ public:
         /// </returns>
         bool IsValid() const;
 
-
         // ATTRIBUTES
 	    // ---------------
     private:
@@ -526,6 +525,39 @@ public:
     /// do not need it anymore.
     /// </returns>
     i8_q* ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const;
+
+    /// <summary>
+    /// Method that returns copy of the string with all its characters in lower case.
+    /// </summary>
+    /// <remarks>
+    /// The result string may have different length, in bytes, not in number of characters, than the original one.
+    /// </remarks>
+    /// <returns>
+    /// String with all its characters in lower case.
+    /// </returns>
+    QStringUnicode ToLowerCase() const;
+
+    /// <summary>
+    /// Method that returns copy of the string with all its characters in upper case.
+    /// </summary>
+    /// <remarks>
+    /// The result string may have different length, in bytes, not in number of characters, than the original one.
+    /// </remarks>
+    /// <returns>
+    /// String with all its characters in upper case.
+    /// </returns>
+    QStringUnicode ToUpperCase() const;
+
+    /// <summary>
+    /// Method that returns copy of the string with all its characters in folded case.
+    /// </summary>
+    /// <remarks>
+    /// The result string may have different length, in bytes, not in number of characters, than the original one.
+    /// </remarks>
+    /// <returns>
+    /// String with all its characters in folded case.
+    /// </returns>
+    QStringUnicode ToCaseFolded() const;
 
     /// <summary>
     /// Applies a Unicode text normalization form algorithm to the string.
