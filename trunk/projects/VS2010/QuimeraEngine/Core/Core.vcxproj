@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\CoreDefinitions.h" />
-    <ClInclude Include="..\..\..\..\headers\QConvertible.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\Prueba.cpp" />

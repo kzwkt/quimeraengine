@@ -67,7 +67,7 @@
       <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <StringPooling>false</StringPooling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_EXPORTLIB_SYSTEM;QE_PREPROCESSOR_IMPORTLIB_TOOLS;QE_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\include;$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <StringPooling>false</StringPooling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -117,8 +117,8 @@
       <SubSystem>NotSet</SubSystem>
       <ImportLibrary>
       </ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libboost_thread-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\DebugWin32SharedrtDynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
       <Version>0.0.0</Version>
       <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
@@ -159,11 +159,11 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\headers\Prueba.h" />
+    <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\source\Prueba.cpp" />
+    <ClCompile Include="..\..\..\..\source\QObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

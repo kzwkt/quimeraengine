@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\headers\QConvertible.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\CoreDefinitions.h">
       <Filter>Header Files</Filter>
     </ClInclude>

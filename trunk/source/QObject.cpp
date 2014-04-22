@@ -24,95 +24,73 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "SQInteger.h"
+#include "QObject.h"
 
-#include <stdlib.h>
+using Kinesis::QuimeraEngine::Common::DataTypes::QType;
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Common
-{
-namespace DataTypes
+namespace Core
 {
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |  CONSTANTS INITIALIZATION  |			   ##################
+//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
 
-const u8_q SQInteger::MaxU8_Q = 0xFF;
-const u16_q SQInteger::MaxU16_Q = 0xFFFF;
-const u32_q SQInteger::MaxU32_Q = 0xFFFFFFFF;
-const u64_q SQInteger::MaxU64_Q = 0xFFFFFFFFFFFFFFFFULL;
-const i8_q SQInteger::MaxPositiveI8_Q = 127;
-const i8_q SQInteger::MaxNegativeI8_Q = -128;
-const i16_q SQInteger::MaxPositiveI16_Q = 32767;
-const i16_q SQInteger::MaxNegativeI16_Q = -32768;
-const i32_q SQInteger::MaxPositiveI32_Q = 2147483647;
-const i32_q SQInteger::MaxNegativeI32_Q = -2147483647 - 1;// Defined this way to avoid compiler warnings due to size overflow, see http://bytes.com/topic/c/answers/674140-int-2147483648-a
-const i64_q SQInteger::MaxPositiveI64_Q = 9223372036854775807LL;
-const i64_q SQInteger::MaxNegativeI64_Q = -9223372036854775807LL - 1LL;// Defined this way to avoid compiler warnings due to size overflow, see http://bytes.com/topic/c/answers/674140-int-2147483648-a
+const QType* QObject::OBJECT_TYPE = new QType(QE_L("QObject"));
 
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
 
-i8_q SQInteger::Abs(i8_q& nValue)
+QObject::QObject()
 {
-    return abs(nValue);
+}
+	
+	
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |		  DESTRUCTOR		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QObject::~QObject()
+{
 }
 
-i16_q SQInteger::Abs(const i16_q& nValue)
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QType* QObject::GetTypeClass()
 {
-    return abs(nValue);
+    return QObject::OBJECT_TYPE;
 }
 
-i32_q SQInteger::Abs(const i32_q& nValue)
-{
-    return abs(nValue);
-}
 
-i64_q SQInteger::Abs(const i64_q& nValue)
-{
-	return llabs(nValue);
-}
-
-template<>
-string_q SQInteger::ToString<i8_q>(const i8_q &nValue)
-{
-    // [SMELL] Thund: This specialization is necessary since STL's converter treats signed chars
-    //                in a different way than how it does with the other integer types.
-    std::ostringstream output;
-    output << scast_q(nValue, i32_q);
-
-    return output.str().c_str();
-}
-
-template<>
-string_q SQInteger::ToString<u8_q>(const u8_q &uValue)
-{
-    // [SMELL] Thund: This specialization is necessary since STL's converter treats unsigned chars
-    //                in a different way than how it does with the other integer types.
-    std::ostringstream output;
-    output << scast_q(uValue, u32_q);
-
-    return output.str().c_str();
-}
-
-} //namespace DataTypes
-} //namespace Common
+} //namespace Core
 } //namespace QuimeraEngine
 } //namespace Kinesis

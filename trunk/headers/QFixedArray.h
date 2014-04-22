@@ -50,11 +50,17 @@ namespace Containers
 
 /// <summary>
 /// Class that represents a contiguous sequence of elements that can be arbitrarly accessed using a zero-based
-/// index. Their size is defined when it is constructed and cannot be changed afterwards.
+/// index. Its size is defined when it is constructed and cannot be changed afterwards.
 /// </summary>
 /// <remarks>
-/// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.
+/// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
+/// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
+/// <typeparam name="T">The type of every element in the array.</typeparam>
+/// <typeparam name="Allocator">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will 
+/// be used.</typeparam>
+/// <typeparam name="Comparator">Optional. The type of comparator to compare elements to each other, used in search and ordering 
+/// algorithms. By default, QComparatorDefault will be used.</typeparam>
 template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class Comparator = QComparatorDefault<T> >
 class QFixedArray
 {
@@ -90,7 +96,7 @@ public:
         /// The iterator will point to the first position. If array is empty, it will point to the end position (forward iteration).
         /// </remarks>
         /// <param name="pArray">[IN] The array to iterate. It must not be null.</param>
-        QArrayIterator(const QFixedArray* pArray) : m_pArray(pArray)
+        explicit QArrayIterator(const QFixedArray* pArray) : m_pArray(pArray)
         {
             QE_ASSERT(pArray != null_q, "Invalid argument: The pointer to the array cannot be null");
 

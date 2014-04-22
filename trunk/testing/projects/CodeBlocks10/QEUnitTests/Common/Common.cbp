@@ -233,6 +233,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_common/QStringUnicode_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QType_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/SQBoolean_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>

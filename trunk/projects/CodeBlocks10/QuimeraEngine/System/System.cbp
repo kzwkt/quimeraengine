@@ -5,6 +5,7 @@
 		<Option title="System" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="Core\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -55,11 +56,15 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
 					<Add library="libboost_thread-mt-d.a" />
 					<Add library="libboost_system-mt-d.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 			</Target>
 			<Target title="DebugLinux32SharedrtDynamic">
@@ -80,6 +85,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
@@ -120,6 +128,9 @@
 				<Linker>
 					<Add option="-m32" />
 					<Add library="boost_system-mt-d" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
@@ -135,10 +146,15 @@
 			<Add option="-Wall" />
 			<Add directory="../../../../headers" />
 			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
 		</Compiler>
-		<Unit filename="../../../../headers/Prueba.h" />
+		<Unit filename="../../../../headers/QObject.h">
+			<Option virtualFolder="Core/" />
+		</Unit>
 		<Unit filename="../../../../headers/SystemDefinitions.h" />
-		<Unit filename="../../../../source/Prueba.cpp" />
+		<Unit filename="../../../../source/QObject.cpp">
+			<Option virtualFolder="Core/" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

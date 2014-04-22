@@ -24,77 +24,9 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __CLASSNAME__
-#define __CLASSNAME__
+#define BOOST_TEST_MODULE TestModule_System
 
-#include <StlHeaders>
-#include <3rdPartyHeaders>
-#include "QEHeaders"
-#include "<LayerName>Definitions.h"
+#include "../../testsystem/QUnitTestModuleBase.h"
+#include "../../testsystem/TestingHelperDefinitions.h"
 
-ForwardDeclarations
-
-usings
-
-namespace Kinesis
-{
-namespace QuimeraEngine
-{
-namespace NAMESPACE
-{
-
-/// <summary>
-/// [DOC]
-/// </summary>
-class QE_LAYER_<LayerName>_SYMBOLS ClassName
-{
-    friends
-
-    typedefs
-
-    constants
-
-    enumerations
-
-	// CONSTRUCTORS
-	// ---------------
-public:
-
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	ClassName();
-
-
-	// DESTRUCTOR
-	// ---------------
-public:
-
-	/// <summary>
-	/// Destructor.
-	/// </summary>		
-	virtual ~ClassName();
-
-
-	// METHODS
-	// ---------------
-public:
-
-
-	// PROPERTIES
-	// ---------------
-public:
-
-
-	// ATTRIBUTES
-	// ---------------
-protected:
-
-
-};
-
-} //namespace NAMESPACE
-} //namespace QuimeraEngine
-} //namespace Kinesis
-
-#endif // __CLASSNAME__
+QUNITTEST_MODULE_CONFIG( System )

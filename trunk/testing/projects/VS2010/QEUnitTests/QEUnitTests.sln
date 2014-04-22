@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tools", "Tools\Tools.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxproj", "{186DC61B-8070-4227-9F30-25C36982512F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System", "System\System.vcxproj", "{9A9B6D7E-9D5D-4D99-9EFC-E19C6C5BEDD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugWin32SharedrtDynamic|Win32 = DebugWin32SharedrtDynamic|Win32
@@ -19,6 +21,10 @@ Global
 		{186DC61B-8070-4227-9F30-25C36982512F}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
 		{186DC61B-8070-4227-9F30-25C36982512F}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
 		{186DC61B-8070-4227-9F30-25C36982512F}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
+		{9A9B6D7E-9D5D-4D99-9EFC-E19C6C5BEDD3}.DebugWin32SharedrtDynamic|Win32.ActiveCfg = DebugWin32SharedrtDynamic|Win32
+		{9A9B6D7E-9D5D-4D99-9EFC-E19C6C5BEDD3}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
+		{9A9B6D7E-9D5D-4D99-9EFC-E19C6C5BEDD3}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
+		{9A9B6D7E-9D5D-4D99-9EFC-E19C6C5BEDD3}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
