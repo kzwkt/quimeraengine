@@ -24,77 +24,100 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __CLASSNAME__
-#define __CLASSNAME__
+#ifndef __QTYPE__
+#define __QTYPE__
 
-#include <StlHeaders>
-#include <3rdPartyHeaders>
-#include "QEHeaders"
-#include "<LayerName>Definitions.h"
+#include "CommonDefinitions.h"
+#include "DataTypesDefinitions.h"
 
-ForwardDeclarations
+#ifdef QE_COMPILER_MSVC
+    // This warning appears when instancing a template to create a data member and that template instance is not exported.
+    // In this case, it is not important since the data member is not accessible.
+    #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+#endif
 
-usings
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace NAMESPACE
+namespace Common
+{
+namespace DataTypes
 {
 
 /// <summary>
-/// [DOC]
+/// Describes a data type.
 /// </summary>
-class QE_LAYER_<LayerName>_SYMBOLS ClassName
+/// <remarks>
+/// QType instances are intended to be unique for every class for which they are defined. Do not create
+/// any instance unless you are defining a new class.<br/>
+/// This class is immutable and it is not intended to be derived.
+/// </remarks>
+class QE_LAYER_COMMON_SYMBOLS QType
 {
-    friends
-
-    typedefs
-
-    constants
-
-    enumerations
 
 	// CONSTRUCTORS
 	// ---------------
 public:
 
 	/// <summary>
-	/// Default constructor.
+	/// Constructor that receives the type's information.
 	/// </summary>
-	ClassName();
-
-
-	// DESTRUCTOR
-	// ---------------
-public:
-
-	/// <summary>
-	/// Destructor.
-	/// </summary>		
-	virtual ~ClassName();
+    /// <param name="strName">The unqualified name of the type.</param>
+	explicit QType(const string_q &strName);
 
 
 	// METHODS
 	// ---------------
 public:
 
+    /// <summary>
+	/// Equality operator that checks if two instances are the same or not.
+	/// </summary>
+    /// <param name="type">The other instance to compare to.</param>
+    /// <returns>
+    /// True if both instances are equal (same memory address); False otherwise.
+    /// </returns>
+    bool operator==(const QType &type) const;
+
+    /// <summary>
+	/// Inequality operator that checks if two instances are different or not.
+	/// </summary>
+    /// <param name="type">The other instance to compare to.</param>
+    /// <returns>
+    /// True if instances are not equal (different memory address); False otherwise.
+    /// </returns>
+    bool operator!=(const QType &type) const;
+
 
 	// PROPERTIES
 	// ---------------
 public:
 
+    /// <summary>
+	/// Gets the unqualified name of the type.
+	/// </summary>
+    /// <returns>
+    /// The unqualified name of the type.
+    /// </returns>
+    const string_q& GetName() const;
+
 
 	// ATTRIBUTES
 	// ---------------
-protected:
+private:
 
+    /// <summary>
+    /// The unqualified name of the type.
+    /// </summary>
+    const string_q m_strName;
 
 };
 
-} //namespace NAMESPACE
+} //namespace DataTypes
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __CLASSNAME__
+#endif // __QTYPE__

@@ -56,6 +56,9 @@
     <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -96,6 +99,9 @@
       <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QType.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>

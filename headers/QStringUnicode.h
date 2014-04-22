@@ -67,14 +67,14 @@ class QE_LAYER_COMMON_SYMBOLS QStringUnicode
 {
     // INTERNAL CLASSES
     // ------------------
-public:    
+public:
 
     /// <summary>
-    /// Iterator that steps once per Unicode character throuhout a string. This iterator is constant, which means it does not
+    /// Iterator that steps once per Unicode character throughout a string. This iterator is constant, which means it does not
     /// allow to modify the referenced string.
     /// </summary>
     /// <remarks>
-    /// Once an interator have been bound to a string, it cannot point to another string ever.<br/>
+    /// Once an iterator have been bound to a string, it cannot point to another string ever.<br/>
     /// Iterators can be invalid, this means, they may not point to an existing position of the string.<br/>
     /// The position before the first character or after the last one (end positions) are considered as valid positions.
     /// </remarks>
@@ -88,7 +88,7 @@ public:
         /// Constructor that receives the string to iterate.
         /// </summary>
         /// <param name="strString">[IN] The string to iterate.</param>
-        QConstCharIterator(const QStringUnicode &strString);
+        explicit QConstCharIterator(const QStringUnicode &strString);
 
         /// <summary>
         /// Copy constructor.
@@ -147,7 +147,7 @@ public:
         /// A reference to the resident iterator.
         /// </returns>
         QConstCharIterator& operator=(const QConstCharIterator &iterator);
-        
+
         /// <summary>
         /// Equality operator that checks if both iterators are the same.
         /// </summary>
@@ -159,7 +159,7 @@ public:
         /// True if they are pointing to the same position of the same string; False otherwise.
         /// </returns>
         bool operator==(const QConstCharIterator &iterator) const;
-        
+
         /// <summary>
         /// Inequality operator that checks if both iterators are different.
         /// </summary>
@@ -197,7 +197,7 @@ public:
         bool operator<(const QConstCharIterator &iterator) const;
 
         /// <summary>
-        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the 
+        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the
         /// input iterator or to the same position.
         /// </summary>
         /// <remarks>
@@ -210,7 +210,7 @@ public:
         bool operator>=(const QConstCharIterator &iterator) const;
 
         /// <summary>
-        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input 
+        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input
         /// iterator or to the same position.
         /// </summary>
         /// <remarks>
@@ -221,7 +221,7 @@ public:
         /// True if the resident iterator points to a more anterior position than the input iterator or to the same position; False otherwise.
         /// </returns>
         bool operator<=(const QConstCharIterator &iterator) const;
-        
+
         /// <summary>
         /// Obtains the Unicode character pointed by the interator.
         /// </summary>
@@ -238,7 +238,7 @@ public:
         /// Indicates whether the iterator is pointing to one of the ends of the string.
         /// </summary>
         /// <remarks>
-        /// The position immediately before the first character and the position immediately after the last character are cosidered end 
+        /// The position immediately before the first character and the position immediately after the last character are cosidered end
         /// positions; therefore, this method can be used both for forward and backard iteration.<br/>
         /// An invalid iterator is not considered as an end position.
         /// </remarks>
@@ -267,7 +267,7 @@ public:
         /// Checks whether the iterator is valid or not.
         /// </summary>
         /// <remarks>
-        /// An iterator is considered invalid when it points to an unexisting position (a string may have been shortened while the iterator 
+        /// An iterator is considered invalid when it points to an unexisting position (a string may have been shortened while the iterator
         /// was pointing to its last position). If the string to iterate have been destroyed, there is no way for the iterator to realize that so
         /// its behavior is undefined and this method will not detect that situation.<br/>
         /// The position before the first character or after the last one (end positions) are considered as valid positions.
@@ -299,10 +299,10 @@ public:
         /// Note that the other end position, after the last position, can be easily calculated using the current implementation.
         /// </remarks>
         bool m_bIsBeforeFirst;
-    
+
     }; // QConstCharIterator
-    
-    
+
+
 
     // CONSTANTS
 	// ---------------
@@ -359,7 +359,7 @@ public:
     /// <remarks>
     /// The final null character will not be added to the resultant string.
     /// </remarks>
-    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the 
+    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the
     /// input length equals zero, an empty string will be created. If is null and the specified length is greater than zero, the behavior is undefined.</param>
     /// <param name="nLength">[IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
     /// When the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can be used instead.</param>
@@ -378,7 +378,7 @@ public:
     /// local machine's architecture. If the stream includes a BOM character, it does not affect the result and will be included in the resultant string.<br/>
     /// If the stream is a null-terminated string (ASCII or ISO 8859-1) and the length is not provided, the final null character will not be added to the resultant string.
     /// </remarks>
-    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the 
+    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the
     /// input length equals zero, an empty string will be created. If is null and the specified length is greater than zero, the behavior is undefined.</param>
     /// <param name="nLength">[Optional][IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
     /// When the encoding is ASCII or ISO 8859-1 and the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can
@@ -434,7 +434,7 @@ public:
     bool operator<(const QStringUnicode &strString) const;
 
     /// <summary>
-    /// Less than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "lower" than the 
+    /// Less than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "lower" than the
     /// other or whether they are equal or not.
     /// </summary>
     /// <param name="strString">[IN] The input string to compare to.</param>
@@ -442,7 +442,7 @@ public:
     /// True if input string (right operand) is lower than or equals the resident string (left operand); False otherwise.
     /// </returns>
     bool operator<=(const QStringUnicode &strString) const;
-    
+
     /// <summary>
     /// Greater than operator that performs a bitwise comparison of two strings to know which is cosidered "greater" than the other.
     /// </summary>
@@ -453,7 +453,7 @@ public:
     bool operator>(const QStringUnicode &strString) const;
 
     /// <summary>
-    /// Greater than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "greater" than the 
+    /// Greater than or equals operator that performs a bitwise comparison of two strings to know which is cosidered "greater" than the
     /// other or whether they are equal or not.
     /// </summary>
     /// <param name="strString">[IN] The input string to compare to.</param>
@@ -470,14 +470,14 @@ public:
     /// A new string where the resident string appears in first place followed by the input string.
     /// </returns>
     QStringUnicode operator+(const QStringUnicode &strString) const;
-    
+
     /// <summary>
     /// Array subscripting operator that returns a Unicode character located at a given position.
     /// </summary>
     /// <remarks>
     /// If the string is empty, a non-character value will be returned (U+FFFF).
     /// </remarks>
-    /// <param name="uIndex">[IN] The zero-based index of the character to retrieve. It must be lower than the lenght of the string or 
+    /// <param name="uIndex">[IN] The zero-based index of the character to retrieve. It must be lower than the lenght of the string or
     /// a non-character value (U+FFFF) will be returned.</param>
     /// <returns>
     /// True if strings are not equal; False otherwise.
@@ -501,7 +501,7 @@ public:
     /// A constant iterator.
     /// </returns>
     QConstCharIterator GetConstCharIterator() const;
-    
+
     /// <summary>
     /// Converts the string to an array of bytes encoded in certain text encoding.
     /// </summary>
@@ -510,7 +510,7 @@ public:
     /// Since it is not possible to predict the length of the UTF-8 representation of the string (internally encoded in UTF-16), the
     /// amount of memory reserved to allocate the result may be bigger than necessary when using that encoding. However, the output length
     /// will contain only the size of the occupied memory.<br/>
-    /// When the encoding is UTF-16 or UTF-32 (without endianness), the U+FFFE or U+FEFF BYTE ORDER CHARACTER is added at the beginning of the sequence. 
+    /// When the encoding is UTF-16 or UTF-32 (without endianness), the U+FFFE or U+FEFF BYTE ORDER CHARACTER is added at the beginning of the sequence.
     /// Which of both depends on the local machine's endianness.<br/>
     /// When using UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE encodings, the bytes of the output steam will be reordered depending on the
     /// local machine's endianness.<br/>
@@ -518,7 +518,7 @@ public:
     /// replaced by Substitution characters (#26 in ASCII table).
     /// </remarks>
     /// <param name="eEncoding">[IN] The encoding of the resultant text.</param>
-    /// <param name="uOutputLength">[OUT] The length, in number of bytes, of the output byte stream, counting the null terminator. 
+    /// <param name="uOutputLength">[OUT] The length, in number of bytes, of the output byte stream, counting the null terminator.
     /// If the string is empty, it will be set to zero.</param>
     /// <returns>
     /// An array of bytes that contains the encoded text. If the string is empty, null will be returned. Remember to delete the array when
@@ -577,8 +577,8 @@ public:
     /// </summary>
     /// <remarks>
     /// The comparison is performed following the steps described in the Unicode Collation Algorithm (UCA), available in the Unicode Standard Annex #10
-    /// (http://www.unicode.org/reports/tr10/), which is based on the Default Unicode Collation Element Table (DUCET) (http://www.unicode.org/Public/UCA/latest/allkeys.txt).<br/> 
-    /// Variable collation elements are treated as non-ignorable. For canonical case sensitive comparisons, 
+    /// (http://www.unicode.org/reports/tr10/), which is based on the Default Unicode Collation Element Table (DUCET) (http://www.unicode.org/Public/UCA/latest/allkeys.txt).<br/>
+    /// Variable collation elements are treated as non-ignorable. For canonical case sensitive comparisons,
     /// only primary to tertiary levels are checked; for canonical case insensitive comparisons, only primary and secondary levels are checked.<br/>
     /// By default, the collation order is English. The expected order when using canonical comparison would be, for example:<br/>
     /// Empty < Whitespaces < Puctuation marks < Numbers < Lowercase letters < Uppercase letters < Accented letters<br/>
@@ -598,7 +598,7 @@ public:
     /// Searches for a string pattern throughout the resident string and returns the character position of the first occurrence.
     /// </summary>
     /// <remarks>
-    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
     /// it will not be normalized when comparing.
     /// </remarks>
     /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
@@ -609,16 +609,16 @@ public:
     int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
 
     /// <summary>
-    /// Searches for a string pattern throughout the resident string, starting from a given position, and returns the character 
+    /// Searches for a string pattern throughout the resident string, starting from a given position, and returns the character
     /// position of the first occurrence.
     /// </summary>
     /// <remarks>
-    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
     /// it will not be normalized when comparing.
     /// </remarks>
     /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
     /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
-    /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident 
+    /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident
     /// string, the pattern will not be found.</param>
     /// <returns>
     /// If the pattern is found, it returns the position of the Unicode character (zero-based); if it is not found, it returns the PATTERN_NOT_FOUND constant.
@@ -629,7 +629,7 @@ public:
     /// Searches for a string pattern throuhout the resident string, replacing every occurrence with another string.
     /// </summary>
     /// <remarks>
-    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons; 
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
     /// it will not be normalized when comparing.<br/>
     /// If the resident string is normalized, a non-normalized replacement string may make it non-normalized too.<br/>
     /// The result will be stored in the resident string.
@@ -678,7 +678,7 @@ public:
     /// - 0
     /// </remarks>
     /// <returns>
-    /// True when the string represents the "true" value; False when the string represents the "false" value. If the string does not contain a 
+    /// True when the string represents the "true" value; False when the string represents the "false" value. If the string does not contain a
     /// valid boolean value, False will be returned.
     /// </returns>
     bool  ToBoolean() const;

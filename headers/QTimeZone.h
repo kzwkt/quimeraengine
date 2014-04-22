@@ -84,7 +84,7 @@ public:
 	    /// Constructor that receives all the necessary data to calculate the DST offset and when is it applied.
 	    /// </summary>
 	    /// <param name="pTimeZone">[IN] Data to calculate the DST offset. It must not be null.</param>
-        QDstInformation(boost::local_time::time_zone_ptr pTimeZone);
+        explicit QDstInformation(boost::local_time::time_zone_ptr pTimeZone);
 
 
         // METHODS

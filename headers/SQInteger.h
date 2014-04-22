@@ -168,6 +168,7 @@ public:
     /// <remarks>
     /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </remarks>
+    /// <typeparam name="IntegerType">The integral type passed as argument.</typeparam>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>
     /// <returns>
     /// The transformed value.
@@ -200,6 +201,7 @@ public:
     /// <summary>
     /// Converts the integer number to a readable character string that represents it.
     /// </summary>
+    /// <typeparam name="IntegerType">The type of integral type passed as argument.</typeparam>
     /// <param name="nValue">[IN] The integer number to be converted.</param>
     /// <returns>
     /// The string that represents the number.
@@ -225,7 +227,7 @@ public:
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const char &nValue);
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const i8_q &nValue);
 
 /// <summary>
 /// Converts the integer number to a readable character string that represents it.
@@ -235,7 +237,7 @@ string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const char &nValue);
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<u8_q>(const unsigned char &uValue);
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<u8_q>(const u8_q &uValue);
 
 } //namespace DataTypes
 } //namespace Common

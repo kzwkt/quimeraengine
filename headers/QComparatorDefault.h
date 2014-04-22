@@ -43,6 +43,10 @@ namespace Containers
 /// <summary>
 /// Class implementing functionality for comparing two objects of the same type.
 /// </summary>
+/// <remarks>
+/// Types used as template parameter MUST implement operators "==" and "<".
+/// </remarks>
+/// <typeparam name="T">The type of the elements to compare.</typeparam>
 template <class T>
 class QComparatorDefault
 {
@@ -53,27 +57,26 @@ public:
     /// <summary>
     /// Method to compare two elements.
     /// </summary>
-    /// <remarks>
-    /// Types used as template parameter MUST implement operators "==" and "<".
-    /// </remarks>
     /// <param name="leftOperand">[IN] First operand to compare.</param>
     /// <param name="rightOperand">[IN] Second operand to compare.</param>
     /// <returns>
 	/// Compare returns -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
 	/// </returns>
-    Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand)
+    Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand) const
     {
         // Variables representing the three return values
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q uLeftLowerThanRight = -1;
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q uLeftGreaterThanRight = 1;
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q uLeftEqualsToRight = 0;
+        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftLowerThanRight = -1;
+        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftGreaterThanRight = 1;
+        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftEqualsToRight = 0;
+
+        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nResult = nLeftGreaterThanRight;
 
         if (leftOperand < rightOperand)
-            return uLeftLowerThanRight;
+            nResult = nLeftLowerThanRight;
         else if (leftOperand == rightOperand)
-            return uLeftEqualsToRight;
+            nResult = nLeftEqualsToRight;
 
-        return uLeftGreaterThanRight;
+        return nResult;
     }
 };
 

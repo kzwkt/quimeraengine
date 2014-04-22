@@ -107,6 +107,7 @@
     <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h" />
     <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
+    <ClInclude Include="..\..\..\..\headers\QType.h" />
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
     <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />
     <ClCompile Include="..\..\..\..\source\QPoolAllocator.cpp" />
     <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
+    <ClCompile Include="..\..\..\..\source\QType.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />

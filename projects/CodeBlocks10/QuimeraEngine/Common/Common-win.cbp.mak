@@ -22,7 +22,7 @@ LDFLAGS_DEBUGWIN32SHAREDRTSTATIC =
 OBJDIR_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic
 DEP_DEBUGWIN32SHAREDRTSTATIC = 
 OUT_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic\\QuimeraEngineCommon.lib
-OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Assertions.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQVF32.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQFloat.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQBoolean.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQInteger.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QAlignment.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\AllocationOperators.o  $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QStringUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QCharUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QConstCharIterator.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QPoolAllocator.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQTextEncoding.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQNormalizationForm.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o
+OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Assertions.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQVF32.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQFloat.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQBoolean.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\SQInteger.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QAlignment.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\AllocationOperators.o  $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QStringUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QCharUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QConstCharIterator.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QPoolAllocator.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQTextEncoding.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQNormalizationForm.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QType.o
 
 #DebugWin32SharedrtDynamic
 INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/3rdparty/ICU/include
@@ -35,7 +35,7 @@ LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
 OUT_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic\\QuimeraEngineCommon.dll
-OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Assertions.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQVF32.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQFloat.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQBoolean.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQInteger.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QAlignment.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\AllocationOperators.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QStringUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QCharUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QConstCharIterator.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QPoolAllocator.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQTextEncoding.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQNormalizationForm.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o
+OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Assertions.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQVF32.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQFloat.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQBoolean.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\SQInteger.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QAlignment.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\AllocationOperators.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QStringUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QCharUnicode.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QConstCharIterator.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QPoolAllocator.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQTextEncoding.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQNormalizationForm.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QType.o
 OUT_IMPORT_DEBUGWIN32SHAREDRTDYNAMIC = libQuimeraEngineCommon.dll.a
 	
 all: debugwin32sharedrtstatic debugwin32sharedrtdynamic
@@ -98,7 +98,13 @@ $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQNormalizationF
 	
 $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o: $(MAKEPATH)\\trunk\\source\\EQComparisonType.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)\\trunk\\source\\EQComparisonType.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o
+
+$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QType.o: $(MAKEPATH)\\trunk\\source\\QType.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)\\trunk\\source\\QType.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QType.o
 	
+clean_debugwin32sharedrtstatic:
+	
+
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #	DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~  #  
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -155,6 +161,9 @@ $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQNormalization
 
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o: $(MAKEPATH)\\trunk\\source\\EQComparisonType.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\EQComparisonType.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\EQComparisonType.o
+
+$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QType.o: $(MAKEPATH)\\trunk\\source\\QType.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\QType.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\QType.o
 	
 clean_debugwin32sharedrtdynamic: 
 	

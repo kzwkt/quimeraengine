@@ -24,77 +24,68 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __CLASSNAME__
-#define __CLASSNAME__
+#include "QType.h"
 
-#include <StlHeaders>
-#include <3rdPartyHeaders>
-#include "QEHeaders"
-#include "<LayerName>Definitions.h"
-
-ForwardDeclarations
-
-usings
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace NAMESPACE
+namespace Common
+{
+namespace DataTypes
 {
 
-/// <summary>
-/// [DOC]
-/// </summary>
-class QE_LAYER_<LayerName>_SYMBOLS ClassName
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QType::QType(const string_q &strName) : m_strName(strName)
 {
-    friends
+}
+	
 
-    typedefs
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |		    METHODS			 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
 
-    constants
+bool QType::operator==(const QType &type) const
+{
+    return this == &type;
+}
 
-    enumerations
-
-	// CONSTRUCTORS
-	// ---------------
-public:
-
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	ClassName();
-
-
-	// DESTRUCTOR
-	// ---------------
-public:
-
-	/// <summary>
-	/// Destructor.
-	/// </summary>		
-	virtual ~ClassName();
+bool QType::operator!=(const QType &type) const
+{
+    return this != &type;
+}
 
 
-	// METHODS
-	// ---------------
-public:
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const string_q& QType::GetName() const
+{
+    return m_strName;
+}
 
 
-	// PROPERTIES
-	// ---------------
-public:
-
-
-	// ATTRIBUTES
-	// ---------------
-protected:
-
-
-};
-
-} //namespace NAMESPACE
+} //namespace DataTypes
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
-
-#endif // __CLASSNAME__

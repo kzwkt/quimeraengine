@@ -57,9 +57,9 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineSystem.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineSystem.dll" />
 					<Add library="libboost_thread-mt-d.a" />
 					<Add library="libboost_system-mt-d.a" />
 					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -141,9 +141,9 @@
 			<Add option="-Wall" />
 			<Add directory="../../../../headers" />
 			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
 		</Compiler>
 		<Unit filename="../../../../headers/CoreDefinitions.h" />
-		<Unit filename="../../../../headers/QConvertible.h" />
 		<Unit filename="../../../../source/Prueba.cpp" />
 		<Extensions>
 			<code_completion />

@@ -77,6 +77,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
 			</Target>
@@ -117,6 +120,9 @@
 					<Add option="-m32" />
 					<Add option="-v" />
 					<Add library="..\..\..\..\bin\CodeBlocks10\DebugMac32SharedrtDynamic\libQuimeraEngineCommon.so" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
 					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
 				</Linker>

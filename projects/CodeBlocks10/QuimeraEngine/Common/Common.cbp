@@ -169,6 +169,9 @@
 		<Unit filename="../../../../headers/QStringUnicode.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../headers/QType.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../headers/SQBoolean.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
@@ -207,6 +210,9 @@
 			<Option virtualFolder="Memory/" />
 		</Unit>
 		<Unit filename="../../../../source/QStringUnicode.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QType.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../source/SQBoolean.cpp">
