@@ -51,18 +51,20 @@ struct TestStructure
 QTEST_SUITE_BEGIN( QArrayIterator_TestSuite )
 
 /// <summary>
-/// Checks that the iterator points to the first position when using a common array.
+/// Checks that the iterator points to the given position when using a common array.
 /// </summary>
-QTEST_CASE ( Constructor1_IteratorPointsToFirstPositionWhenUsingCommonArray_Test )
+QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonArray_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator EXPECTED_ITERATOR(&SOURCE_ARRAY);
+    const unsigned int POSITION = 1;
+    QFixedArray<int>::QArrayIterator EXPECTED_ITERATOR(&SOURCE_ARRAY, 0);
     EXPECTED_ITERATOR.MoveFirst();
+    ++EXPECTED_ITERATOR;
 
 	// [Execution]
-    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
-
+    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, POSITION);
+    
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);
 }
@@ -70,7 +72,7 @@ QTEST_CASE ( Constructor1_IteratorPointsToFirstPositionWhenUsingCommonArray_Test
 /// <summary>
 /// Checks that the iterator points to the end position (forward iteration) when using an empty array.
 /// </summary>
-QTEST_CASE ( Constructor1_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_Test )
+QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_Test )
 {
     /*[TODO] Thund: Uncomment when QDynamicArray exists
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
@@ -80,11 +82,32 @@ QTEST_CASE ( Constructor1_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_
     const bool IS_END = true;
 
 	// [Execution]
-    QDynamicArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator iterator(SOURCE_ARRAY, 0);
 
     // [Verification]
     bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
     BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);*/
+}
+
+/// <summary>
+/// Checks that the iterator points to the end position (forward iteration) when using an invalid position.
+/// </summary>
+QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosition_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const unsigned int NUMBER_OF_ELEMENTS = 3;
+    QFixedArray<int> SOURCE_ARRAY(NUMBER_OF_ELEMENTS, 0);
+    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
+    const bool IS_END = true;
+
+	// [Execution]
+    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, INVALID_POSITION);
+
+    // [Verification]
+    bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -92,7 +115,7 @@ QTEST_CASE ( Constructor1_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_
 /// <summary>
 /// Checks that an assertion fails when input array is null.
 /// </summary>
-QTEST_CASE ( Constructor1_AssertionFailsWhenInputArrayIsNull_Test )
+QTEST_CASE ( Constructor_AssertionFailsWhenInputArrayIsNull_Test )
 {
     // [Preparation]
     QFixedArray<int>* SOURCE_ARRAY = null_q;
@@ -103,7 +126,34 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenInputArrayIsNull_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY, 0);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when input position is not lower than the number of elements.
+/// </summary>
+QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const unsigned int NUMBER_OF_ELEMENTS = 3;
+    QFixedArray<int> SOURCE_ARRAY(NUMBER_OF_ELEMENTS, 0);
+    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, INVALID_POSITION);
     }
     catch(...)
     {
@@ -125,7 +175,7 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     const int EXPECTED_VALUE = 1;
     SOURCE_ARRAY[1] = EXPECTED_VALUE;
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR++;
 
 	// [Execution]
@@ -145,7 +195,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
     /* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -173,7 +223,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPos
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -201,7 +251,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -233,7 +283,7 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
     QFixedArray<TestStructure> SOURCE_ARRAY(3, TestStructure(0));
     const int EXPECTED_VALUE = 1;
     SOURCE_ARRAY[1] = TestStructure(EXPECTED_VALUE);
-    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR++;
 
 	// [Execution]
@@ -253,7 +303,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
     /* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<TestStructure> SOURCE_ARRAY(10, TestStructure(0));
-    QFixedArray<TestStructure>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<TestStructure>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -281,7 +331,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndP
 {
     // [Preparation]
     QFixedArray<TestStructure> SOURCE_ARRAY(3, TestStructure(0));
-    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -309,7 +359,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEnd
 {
     // [Preparation]
     QFixedArray<TestStructure> SOURCE_ARRAY(3, TestStructure(0));
-    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<TestStructure>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -341,7 +391,7 @@ QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
     const int SECOND_ELEMENT_VALUE = 2;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[1] = SECOND_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveFirst();
 
 	// [Execution]
@@ -362,7 +412,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
     const int FIRST_ELEMENT_VALUE = 1;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[0] = FIRST_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
@@ -385,7 +435,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -413,7 +463,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -444,7 +494,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLas
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -467,7 +517,7 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
     const int SECOND_ELEMENT_VALUE = 2;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[1] = SECOND_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveLast();
 
 	// [Execution]
@@ -488,7 +538,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
     const int LAST_ELEMENT_VALUE = 3;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[2] = LAST_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveLast();
     ++ORIGINAL_ITERATOR;
 
@@ -511,7 +561,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -539,7 +589,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -570,7 +620,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -593,7 +643,7 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
     const int SECOND_ELEMENT_VALUE = 2;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[1] = SECOND_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveFirst();
 
 	// [Execution]
@@ -614,7 +664,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
     const int FIRST_ELEMENT_VALUE = 1;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[0] = FIRST_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
@@ -637,7 +687,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -665,7 +715,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -696,7 +746,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -719,7 +769,7 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
     const int SECOND_ELEMENT_VALUE = 2;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[1] = SECOND_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveLast();
 
 	// [Execution]
@@ -740,7 +790,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     const int LAST_ELEMENT_VALUE = 3;
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     SOURCE_ARRAY[2] = LAST_ELEMENT_VALUE;
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR.MoveLast();
     ++ORIGINAL_ITERATOR;
 
@@ -763,7 +813,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -791,7 +841,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -822,7 +872,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -843,8 +893,8 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&SOURCE_ARRAY);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&SOURCE_ARRAY, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&SOURCE_ARRAY, 0);
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator = ITERATOR_B;
@@ -861,10 +911,10 @@ QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIterat
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
-    QFixedArray<int>::QArrayIterator VALID_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator VALID_ITERATOR(&SOURCE_ARRAY, 0);
 
 	// [Execution]
     QDynamicArray<int>::QDynamicIterator iterator = INVALID_ITERATOR;
@@ -884,7 +934,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QDynamicArray INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QDynamicArray INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -914,7 +964,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -923,7 +973,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator = ITERATOR_A;
     }
     catch(...)
@@ -944,12 +994,12 @@ QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
 
 	// [Execution]
-    QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
     iterator = INVALID_ITERATOR;
 
     // [Verification]
@@ -964,8 +1014,8 @@ QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDiff
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator = ITERATOR_B;
@@ -985,8 +1035,8 @@ QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1003,8 +1053,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = false;
@@ -1025,7 +1075,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1035,7 +1085,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator == INVALID_ITERATOR;
     }
     catch(...)
@@ -1047,7 +1097,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR == iterator;
     }
     catch(...)
@@ -1068,7 +1118,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentArrays_
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1077,7 +1127,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentArrays_
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator == ITERATOR_A;
     }
     catch(...)
@@ -1099,8 +1149,8 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentArrays_Te
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1119,8 +1169,8 @@ QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1137,8 +1187,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = true;
@@ -1159,7 +1209,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1202,7 +1252,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentArray
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1211,7 +1261,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentArray
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator != ITERATOR_A;
     }
     catch(...)
@@ -1233,8 +1283,8 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentArrays_T
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1253,8 +1303,8 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInp
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1272,8 +1322,8 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1293,7 +1343,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1303,7 +1353,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator > INVALID_ITERATOR;
     }
     catch(...)
@@ -1315,7 +1365,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR > iterator;
     }
     catch(...)
@@ -1336,7 +1386,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentArra
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1345,7 +1395,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentArra
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator > ITERATOR_A;
     }
     catch(...)
@@ -1367,9 +1417,9 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentArrays
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
     ++ITERATOR_A;
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1388,8 +1438,8 @@ QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIt
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1407,8 +1457,8 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1471,7 +1521,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentArrays
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
     ++ITERATOR_A;
 
     const bool ASSERTION_FAILED = true;
@@ -1481,7 +1531,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentArrays
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator < ITERATOR_A;
     }
     catch(...)
@@ -1503,8 +1553,8 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentArrays_T
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1524,8 +1574,8 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreate
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1543,8 +1593,8 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsIn
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1561,8 +1611,8 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1582,7 +1632,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1625,7 +1675,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1634,7 +1684,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator >= ITERATOR_A;
     }
     catch(...)
@@ -1656,9 +1706,9 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDiffere
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
     ++ITERATOR_A;
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1677,8 +1727,8 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerTha
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = true;
 
@@ -1696,8 +1746,8 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInpu
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1714,8 +1764,8 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 {
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_A, 0);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = false;
 
@@ -1735,7 +1785,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1745,7 +1795,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator <= INVALID_ITERATOR;
     }
     catch(...)
@@ -1757,7 +1807,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR <= iterator;
     }
     catch(...)
@@ -1778,7 +1828,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1787,7 +1837,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B);
+        QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator <= ITERATOR_A;
     }
     catch(...)
@@ -1809,8 +1859,8 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
     // [Preparation]
     QFixedArray<int> ARRAY_A(3, 0);
     QFixedArray<int> ARRAY_B(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A);
-    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B);
+    QFixedArray<int>::QArrayIterator ITERATOR_A(&ARRAY_A, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_B(&ARRAY_B, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1830,7 +1880,7 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -1850,7 +1900,7 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -1870,7 +1920,7 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -1891,7 +1941,7 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1944,7 +1994,7 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -1966,7 +2016,7 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -1988,7 +2038,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -2011,7 +2061,7 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
 
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -2064,11 +2114,11 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmpty_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(10, 0);
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
-    QFixedArray<int>::QArrayIterator ITERATOR_FIRST(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_FIRST(&SOURCE_ARRAY, 0);
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator(ORIGINAL_ITERATOR);
@@ -2105,10 +2155,10 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIterat
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     ORIGINAL_ITERATOR--;
 
-    QFixedArray<int>::QArrayIterator ITERATOR_FIRST(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_FIRST(&SOURCE_ARRAY, 0);
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator(ORIGINAL_ITERATOR);
@@ -2177,8 +2227,8 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmpty_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
-    QFixedArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
+    QFixedArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY, 0);
     ++ITERATOR_LAST;
     ++ITERATOR_LAST;
 
@@ -2197,10 +2247,10 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIterator
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY, 0);
     ++ITERATOR_LAST;
     ++ITERATOR_LAST;
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     ++INVALID_ITERATOR;
     ++INVALID_ITERATOR;
     SOURCE_ARRAY.Remove(0);
@@ -2220,10 +2270,10 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIterator
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ORIGINAL_ITERATOR(&SOURCE_ARRAY, 0);
     --ORIGINAL_ITERATOR;
 
-    QFixedArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY, 0);
     ++ITERATOR_LAST;
     ++ITERATOR_LAST;
 
@@ -2295,7 +2345,7 @@ QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
-    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -2312,7 +2362,7 @@ QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
 {/* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
     QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY);
+    QDynamicArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool EXPECTED_RESULT = false;
