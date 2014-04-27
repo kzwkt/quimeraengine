@@ -90,19 +90,19 @@ public:
     public:
 
         /// <summary>
-        /// Constructor that receives the array to iterate.
+        /// Constructor that receives the array to iterate and the position to point to.
         /// </summary>
         /// <remarks>
-        /// The iterator will point to the first position. If array is empty, it will point to the end position (forward iteration).
+        /// If array is empty, it will point to the end position (forward iteration).
         /// </remarks>
         /// <param name="pArray">[IN] The array to iterate. It must not be null.</param>
-        explicit QArrayIterator(const QFixedArray* pArray) : m_pArray(pArray)
+        /// <param name="uPosition">[IN] The position the iterator will point to. It must be lower than the number of elements in the array.</param>
+        QArrayIterator(const QFixedArray* pArray, const unsigned int uPosition) : m_pArray(pArray), m_uPosition(uPosition)
         {
             QE_ASSERT(pArray != null_q, "Invalid argument: The pointer to the array cannot be null");
+            QE_ASSERT(pArray->GetCount() > uPosition, "Invalid argument: The position must be lower than the number of elements in the array");
 
-            if(pArray != null_q && pArray->GetCount() > 0)
-                m_uPosition = pArray->m_uFirst;
-            else
+            if(pArray == null_q || pArray->GetCount() <= uPosition)
                 m_uPosition = QFixedArray::END_POSITION_FORWARD;
         }
 
