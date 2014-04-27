@@ -89,27 +89,6 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_T
     BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);*/
 }
 
-/// <summary>
-/// Checks that the iterator points to the end position (forward iteration) when using an invalid position.
-/// </summary>
-QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosition_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
-
-    // [Preparation]
-    const unsigned int NUMBER_OF_ELEMENTS = 3;
-    QFixedArray<int> SOURCE_ARRAY(NUMBER_OF_ELEMENTS, 0);
-    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
-    const bool IS_END = true;
-
-	// [Execution]
-    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, INVALID_POSITION);
-
-    // [Verification]
-    bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
-    BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);
-}
-
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -162,6 +141,29 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCount_Test
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the iterator points to the end position (forward iteration) when using an invalid position.
+/// </summary>
+QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosition_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const unsigned int NUMBER_OF_ELEMENTS = 3;
+    QFixedArray<int> SOURCE_ARRAY(NUMBER_OF_ELEMENTS, 0);
+    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
+    const bool IS_END = true;
+
+	// [Execution]
+    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, INVALID_POSITION);
+
+    // [Verification]
+    bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);
 }
 
 #endif
