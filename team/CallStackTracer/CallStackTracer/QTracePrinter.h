@@ -10,15 +10,15 @@ class QTracePrinter
 {
 public:
 
-    QTracePrinter(const QTraceFormatter &formatter) : m_formatter(formatter)
+    QTracePrinter(const QTraceFormatter* pFormatter) : m_pFormatter(pFormatter)
     {
     }
 
-    void Print(const QCallStackTrace &trace)
+    void Print(const QCallStackTrace &trace) const
     {
         std::string strOutput;
         std::string strFormattedOutput;
-        m_formatter.FormatCallStackTraceHeader(trace, strFormattedOutput);
+        m_pFormatter->FormatCallStackTraceHeader(trace, strFormattedOutput);
         strOutput = strFormattedOutput;
         ::OutputDebugStringA(strOutput.c_str());
         std::cout << strOutput;
@@ -28,21 +28,21 @@ public:
             this->Print(*it);
         }
         
-        m_formatter.FormatCallStackTraceFooter(trace, strFormattedOutput);
+        m_pFormatter->FormatCallStackTraceFooter(trace, strFormattedOutput);
         strOutput = strFormattedOutput;
         ::OutputDebugStringA(strOutput.c_str());
         std::cout << strOutput;
     }
 
-    void Print(const QCallTrace &trace)
+    void Print(const QCallTrace &trace) const
     {
         std::string strOutput;
         std::string strFormattedOutput;
-        m_formatter.FormatTraceHeader(trace, strFormattedOutput);
+        m_pFormatter->FormatTraceHeader(trace, strFormattedOutput);
         strOutput += strFormattedOutput;
-        m_formatter.FormatTrace(trace, strFormattedOutput);
+        m_pFormatter->FormatTrace(trace, strFormattedOutput);
         strOutput += strFormattedOutput;
-        m_formatter.FormatTraceFooter(trace, strFormattedOutput);
+        m_pFormatter->FormatTraceFooter(trace, strFormattedOutput);
         strOutput += strFormattedOutput;
         ::OutputDebugStringA(strOutput.c_str());
         std::cout << strOutput;
@@ -50,7 +50,7 @@ public:
     
 private:
 
-    QTraceFormatter m_formatter;
+    const QTraceFormatter* m_pFormatter;
 
 };
 

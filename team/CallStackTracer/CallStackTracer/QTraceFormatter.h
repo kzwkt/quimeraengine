@@ -10,7 +10,7 @@ class QTraceFormatter
 {
 public:
 
-    void FormatTrace(const QCallTrace &trace, std::string &strTrace) const
+    virtual void FormatTrace(const QCallTrace &trace, std::string &strTrace) const
     {
         strTrace = "-->";
 
@@ -40,19 +40,24 @@ public:
                 strTrace.append("\n");
             }
         }
+
+        if(!trace.m_objectInformation.empty())
+        {
+            strTrace.append("     this->ToString()=").append(trace.m_objectInformation).append("\n");
+        }
     }
 
-    void FormatTraceHeader(const QCallTrace &trace, std::string &strTrace) const
+    virtual void FormatTraceHeader(const QCallTrace &trace, std::string &strTrace) const
     {
         strTrace = "";
     }
 
-    void FormatTraceFooter(const QCallTrace &trace, std::string &strTrace) const
+    virtual void FormatTraceFooter(const QCallTrace &trace, std::string &strTrace) const
     {
         strTrace = "";
     }
 
-    void FormatCallStackTraceHeader(const QCallStackTrace &trace, std::string &strTrace) const
+    virtual void FormatCallStackTraceHeader(const QCallStackTrace &trace, std::string &strTrace) const
     {
         strTrace = "Call stack trace for Thread: ";
 
@@ -63,7 +68,7 @@ public:
         strTrace.append(strThreadId).append("\n");
     }
 
-    void FormatCallStackTraceFooter(const QCallStackTrace &trace, std::string &strTrace) const
+    virtual void FormatCallStackTraceFooter(const QCallStackTrace &trace, std::string &strTrace) const
     {
         strTrace = "\nEnd of stack trace information.";
     }

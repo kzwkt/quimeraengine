@@ -11,7 +11,7 @@ class QCallStackTracer
 {
 public:
 
-    QCallStackTracer(const QTracePrinter &printer) : m_printer(printer)
+    QCallStackTracer(const QTracePrinter* pPrinter) : m_pPrinter(pPrinter)
     {
     }
 
@@ -41,14 +41,14 @@ public:
     {
         for(std::map<int, QCallStackTrace>::const_iterator it = m_callStackTraces.begin(); it != m_callStackTraces.end(); ++it)
         {
-            m_printer.Print(it->second);
+            m_pPrinter->Print(it->second);
         }
     }
 
 
 private:
 
-    QTracePrinter m_printer;
+    const QTracePrinter* m_pPrinter;
     std::map<int, QCallStackTrace> m_callStackTraces;
 
 };

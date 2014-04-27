@@ -11,14 +11,22 @@
 #include "QTracePrinter.h"
 #include "BaseClass.h"
 
+class Formatt : public QTraceFormatter
+{
+public:
+    virtual void FormatTrace(const QCallTrace &trace, std::string &strTrace) const
+    {
+    }
+};
+
 QTraceFormatter FORMATTER;
-QTracePrinter PRINTER(FORMATTER);
-QCallStackTracer TRACER(PRINTER);
+QTracePrinter PRINTER(&FORMATTER);
+QCallStackTracer TRACER(&PRINTER);
 
 
 #define TRACE_OBJECT_METHOD_3PARAMS(functionSignature, param1, param2, param3)                                   \
     const QTypeIdentifier params[3] = { QTypeIdentifier(param1), QTypeIdentifier(param2), QTypeIdentifier(param3) }; \
-    QScopedCallStackNotifier notifier(QCallTrace(GetTypeClass(), functionSignature, params, 3), TRACER);
+    QScopedCallStackNotifier notifier(QCallTrace(GetTypeClass(), functionSignature, params, 3, this), TRACER);
 
 #define TRACE_METHOD_3PARAMS(className, functionSignature, param1, param2, param3)                                   \
     const QTypeIdentifier params[3] = { QTypeIdentifier(param1), QTypeIdentifier(param2), QTypeIdentifier(param3) }; \
@@ -115,4 +123,23 @@ int _tmain(int argc, _TCHAR* argv[])
     system("pause");
 	return 0;
 }
+/*
+Call stack trace for Thread: 1
+-->int _tmain(int argc, _TCHAR* argv[])
+  |  -{0}int=1
+  |  -{1}Pointer=00674760
+  -->void VoidFunc()
+    -->int ParametersFunc(int i, QObject* o, float f)
+      |  -{0}int=3
+      |  -{1}ObjectDerivedClass=ObjectDerivedClass: m_value=3
+      |  -{2}float=3.4
+      -->template<class T> void TemplateFunc(T o)
+        |  -{0}ObjectDerivedClass=ObjectDerivedClass: m_value=3
+        -->ObjectDerivedClass::int GetValue(int i, int x, int n)
+             -{0}int=234
+             -{1}int=3
+             -{2}int=5
+             this->ToString()=ObjectDerivedClass: m_value=3
 
+End of stack trace information.
+*/

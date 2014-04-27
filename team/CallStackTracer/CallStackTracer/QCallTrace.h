@@ -28,6 +28,16 @@ public:
         
     }
 
+    QCallTrace(const std::string &className, const std::string &functionSignature, const QTypeIdentifier* pParams, const unsigned int numParams, BaseClass* pObject) : 
+                                                                                                                     m_functionSignature(functionSignature),
+                                                                                                                     m_className(className),
+                                                                                                                     m_pParameters(pParams),
+                                                                                                                     m_numParameters(numParams),
+                                                                                                                     m_objectInformation(pObject->ToString())
+    {
+        
+    }
+
     QCallTrace(const std::string &className, const std::string &functionSignature, const QTypeIdentifier param1, const QTypeIdentifier param2, const QTypeIdentifier param3) : 
                                                                                                                      m_functionSignature(functionSignature),
                                                                                                                      m_className(className)
@@ -40,6 +50,8 @@ public:
     std::string m_functionSignature;
 
     std::string m_className;
+
+    std::string m_objectInformation;
 
     const QTypeIdentifier* m_pParameters;
 
