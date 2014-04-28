@@ -197,6 +197,7 @@
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment3D.h" />
+    <ClInclude Include="..\..\..\..\headers\QList.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix2x2.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x4.h" />

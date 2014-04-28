@@ -231,6 +231,9 @@
 		<Unit filename="../../../../headers/QLineSegment3D.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../headers/QList.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
 		<Unit filename="../../../../headers/QMatrix2x2.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
