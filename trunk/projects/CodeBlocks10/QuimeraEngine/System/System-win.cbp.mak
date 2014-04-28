@@ -12,7 +12,7 @@ LD = g++.exe
 WINDRES = windres.exe
 
 #DebugWin32SharedrtStatic
-INC_DEBUGWIN32SHAREDRTSTATIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include
+INC_DEBUGWIN32SHAREDRTSTATIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/3rdparty/ICU/include
 CFLAGS_DEBUGWIN32SHAREDRTSTATIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -std=c++98 -Wall -g -D_DEBUG
 RESINC_DEBUGWIN32SHAREDRTSTATIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTSTATIC =  
@@ -25,12 +25,12 @@ OUT_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32
 OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\QObject.o
 
 #DebugWin32SharedrtDynamic
-INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include
+INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/3rdparty/ICU/include
 CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -std=c++98 -Wall -g -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_COMMON -DQE_PREPROCESSOR_IMPORTLIB_TOOLS -DQE_PREPROCESSOR_EXPORTLIB_SYSTEM
 RESINC_DEBUGWIN32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
-LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L$(MAKEPATH)\trunk\3rdparty\Boost\bin\Win32\DebugSharedrtStatic
-LIB_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll -lboost_system-mt-d -lboost_thread-mt-d
+LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L$(MAKEPATH)\trunk\3rdparty\Boost\bin\Win32\DebugSharedrtStatic -L$(MAKEPATH)\\trunk\\3rdparty\\ICU\\bin\\Win32\\ReleaseSharedrtDynamic\\MinGW
+LIB_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll -lboost_system-mt-d -lboost_thread-mt-d -licuuc.dll -licudt.dll -licuin.dll
 LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
