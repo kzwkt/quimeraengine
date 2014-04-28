@@ -210,6 +210,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayIterator_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QList_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -252,6 +255,12 @@
       <Filter>Tests\Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ArrayElementMock.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ListElementMock.h">
       <Filter>Tests\Containers</Filter>
     </ClInclude>
   </ItemGroup>

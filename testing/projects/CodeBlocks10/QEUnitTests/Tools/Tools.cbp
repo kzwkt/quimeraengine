@@ -214,6 +214,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/ArrayElementMock.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/ListElementMock.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
@@ -306,6 +309,12 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QListWhiteBox.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QList_Test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix2x2_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />

@@ -43,6 +43,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment3D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QList_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp" />
@@ -87,8 +88,10 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ArrayElementMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ListElementMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
   </ItemGroup>
