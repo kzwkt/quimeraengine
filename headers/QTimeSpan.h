@@ -49,11 +49,11 @@ namespace Time
 /// </summary>
 class QE_LAYER_TOOLS_SYMBOLS QTimeSpan
 {
-    
+
     // CONSTANTS
     // ---------------
-private:    
-    
+private:
+
     /// <summary>
     /// Constant representing the factor to convert from microseconds to hundreds of nanoseconds.
     /// </summary>
@@ -92,7 +92,7 @@ private:
 	// CONSTRUCTORS
  	// ---------------
 public:
-        
+
     /// <summary>
 	/// Default constructor.
 	/// </summary>
@@ -109,10 +109,10 @@ public:
     }
 
     /// <summary>
-	/// Constructor from different units of time. 
+	/// Constructor from different units of time.
 	/// </summary>
-    /// <remarks> 
-    /// If the number of days, hours, etc. exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible. 
+    /// <remarks>
+    /// If the number of days, hours, etc. exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible.
 	/// </remarks>
     /// <param name="uDays">[IN] Number of days.</param>
     /// <param name="uHours">[IN] Number of hours.</param>
@@ -121,20 +121,20 @@ public:
     /// <param name="uMilliseconds">[IN] Number of milliseconds.</param>
     /// <param name="uMicroseconds">[IN] Number of microseconds.</param>
     /// <param name="uHundredsNanoseconds">[IN] Number of hundreds of nanoseconds.</param>
-    QTimeSpan(const u64_q uDays, 
-              const u64_q uHours, 
-              const u64_q uMinutes, 
-              const u64_q uSeconds, 
-              const u64_q uMilliseconds, 
-              const u64_q uMicroseconds, 
+    QTimeSpan(const u64_q uDays,
+              const u64_q uHours,
+              const u64_q uMinutes,
+              const u64_q uSeconds,
+              const u64_q uMilliseconds,
+              const u64_q uMicroseconds,
               const u64_q uHundredsNanoseconds);
-       
+
     /// <summary>
 	/// Copy constructor. Copies the content of the given time span.
 	/// </summary>
 	/// <param name="timeSpan">[IN] Time span instance that will be used to copy from.</param>
     QTimeSpan(const QTimeSpan& timeSpan);
-      
+
 
     // METHODS
     // --------------
@@ -153,8 +153,8 @@ public:
     /// Addition operator. Adds two time span objects.
     /// </summary>
     /// <param name="timeSpan">[IN] Time span instance to add.</param>
-    /// <remarks> 
-    /// If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible. 
+    /// <remarks>
+    /// If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible.
     /// </remarks>
     /// <returns>
     /// Time span object containing the result of the adition.
@@ -165,35 +165,35 @@ public:
     /// Addition and assignment operator.
     /// </summary>
     /// <remarks>
-    /// Resident time span stores the result of the addition. If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent, 
-    /// then it will be set to the maximum value possible. 
+    /// Resident time span stores the result of the addition. If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent,
+    /// then it will be set to the maximum value possible.
     /// </remarks>
     /// <param name="timeSpan">[IN] The time span to be added.</param>
     /// <returns>
     /// The modified QTimeSpan object.
-    /// </returns>    
+    /// </returns>
     QTimeSpan& operator+= (const QTimeSpan& timeSpan);
 
     /// <summary>
     /// Subtraction and assignment operator.
     /// </summary>
-    /// <remarks> 
+    /// <remarks>
     /// The result of the subtraction will be always positive.
-    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive. 
+    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive.
     /// This means that it cannot be used in complex arithmetic operations, for example: 3 - 5 - 6 == 4 instead of -4, -8 or 8, because 3 - 5 == +2, and then 2 - 6 == +4.
     /// </remarks>
     /// <param name="timeSpan">[IN] The time span to be subtracted.</param>
     /// <returns>
     /// The modified QTimeSpan object.
-    /// </returns>    
+    /// </returns>
     QTimeSpan& operator-= (const QTimeSpan& timeSpan);
 
     /// <summary>
     /// Subtraction operator. Subtracts two time span objects.
     /// </summary>
-    /// <remarks> 
+    /// <remarks>
     /// The result of the subtraction will be always positive.
-    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive. 
+    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive.
     /// This means that it cannot be used in complex arithmetic operations, for example: 3 - 5 - 6 == 4 instead of -4, -8 or 8, because 3 - 5 == +2, and then 2 - 6 == +4.
     /// </remarks>
     /// <param name="timeSpan">[IN] Time span instance to subtract.</param>
@@ -209,7 +209,7 @@ public:
     /// <returns>
     /// True if the objects are equal. False otherwise.
     /// </returns>
-    inline bool operator== (const QTimeSpan& timeSpan) const 
+    inline bool operator== (const QTimeSpan& timeSpan) const
     {
         return (this->m_uTimeSpan == timeSpan.m_uTimeSpan);
     }
@@ -221,7 +221,7 @@ public:
     /// <returns>
     /// True if the objects are NOT equal. False otherwise.
     /// </returns>
-    inline bool operator!= (const QTimeSpan& timeSpan) const 
+    inline bool operator!= (const QTimeSpan& timeSpan) const
     {
         return (this->m_uTimeSpan != timeSpan.m_uTimeSpan);
     }
@@ -317,6 +317,14 @@ public:
     /// The number of hundreds of nanoseconds.
     /// </returns>
     u64_q GetHundredsOfNanoseconds() const;
+
+    /// <summary>
+    /// Converts and returns the time span representation as string.
+    /// </summary>
+    /// <returns>
+    /// Time span representation as string.
+    /// </returns>
+    Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const;
 
     // ATTRIBUTES
 	// ---------------
