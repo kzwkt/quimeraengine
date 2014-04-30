@@ -27,10 +27,14 @@
 
 #include "QTimeSpan.h"
 #include "Assertions.h"
+#include "SQInteger.h"
 
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
 
 
 namespace Kinesis
@@ -68,7 +72,7 @@ const u64_q QTimeSpan::MAXIMUM_VALUE = -1;
 //##################													   ##################
 //##################=======================================================##################
 
-       
+
 QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes, const u64_q uSeconds, const u64_q uMilliseconds, const u64_q uMicroseconds, const u64_q uHundredsNanoseconds)
 {
     // Constants containing the max value for each parameter.
@@ -80,16 +84,16 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
     const u64_q MAX_HOURS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
     const u64_q MAX_DAYS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
 
-    bool bNotGreaterThanMaxValue = (uDays <= MAX_DAYS                && 
-                                   uHours <= MAX_HOURS               && 
-                                   uMinutes <= MAX_MINUTES           && 
-                                   uSeconds <= MAX_SECONDS           && 
-                                   uMilliseconds <= MAX_MILLISECONDS &&  
-                                   uMicroseconds <= MAX_MICROSECONDS && 
+    bool bNotGreaterThanMaxValue = (uDays <= MAX_DAYS                &&
+                                   uHours <= MAX_HOURS               &&
+                                   uMinutes <= MAX_MINUTES           &&
+                                   uSeconds <= MAX_SECONDS           &&
+                                   uMilliseconds <= MAX_MILLISECONDS &&
+                                   uMicroseconds <= MAX_MICROSECONDS &&
                                    uHundredsNanoseconds <= MAXIMUM_VALUE);
 
     // Assertion to verify that we will not get overflow while calculating the time span
-    QE_ASSERT(bNotGreaterThanMaxValue == true, "Parameters must be lower than maximum values"); 
+    QE_ASSERT(bNotGreaterThanMaxValue == true, "Parameters must be lower than maximum values");
 
     // To avoid overflow if it happens return max value allowed
     if (!bNotGreaterThanMaxValue)
@@ -104,7 +108,7 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
         u64_q uMinutesToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::SECONDS_PER_MINUTE * uMinutes * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
         u64_q uHoursToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::MINUTES_PER_HOUR * uHours * QTimeSpan::SECONDS_PER_MINUTE * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
         u64_q uDaysToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::HOURS_PER_DAY * uDays * QTimeSpan::MINUTES_PER_HOUR * QTimeSpan::SECONDS_PER_MINUTE * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
-    
+
         // Now check that we will not have overflow with the addition either
         bNotGreaterThanMaxValue = uMicrosecondsToHundreds <= (MAXIMUM_VALUE - uHundredsNanoseconds ) &&
                                   uMillisecondsToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds)) &&
@@ -112,7 +116,7 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
                                   uMinutesToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds)) &&
                                   uHoursToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds)) &&
                                   uDaysToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds + uHoursToHundreds));
-    
+
         QE_ASSERT(bNotGreaterThanMaxValue == true, "The converted values must be low enough to avoid overflow");
 
         // To avoid overflow if it happens return max value allowed
@@ -122,7 +126,7 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
         }
         else
         {
-           // Add all the parameters 
+           // Add all the parameters
            m_uTimeSpan = uHundredsNanoseconds + uMicrosecondsToHundreds +
                          uMillisecondsToHundreds + uSecondsToHundreds +
                          uMinutesToHundreds + uHoursToHundreds + uDaysToHundreds;
@@ -130,8 +134,8 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
     }
 
 }
-        
-        
+
+
 QTimeSpan::QTimeSpan(const QTimeSpan& timeSpan)
 {
     m_uTimeSpan = timeSpan.m_uTimeSpan;
@@ -154,29 +158,29 @@ QTimeSpan& QTimeSpan::operator= (const QTimeSpan& timeSpan)
 
 QTimeSpan QTimeSpan::operator+ (const QTimeSpan& timeSpan) const
 {
-    return QTimeSpan(*this) += timeSpan; 
+    return QTimeSpan(*this) += timeSpan;
 }
 
 QTimeSpan& QTimeSpan::operator+= (const QTimeSpan& timeSpan)
 {
     bool bNotGreaterThanMaxValue = ((QTimeSpan::MAXIMUM_VALUE  - this->m_uTimeSpan) >= timeSpan.m_uTimeSpan);
     // Assertion to verify that we will not get overflow while calculating the time span
-    QE_ASSERT(bNotGreaterThanMaxValue == true, "The addition of the two timespan objects can not be higher than maximum value"); 
-    
+    QE_ASSERT(bNotGreaterThanMaxValue == true, "The addition of the two timespan objects can not be higher than maximum value");
+
     if (bNotGreaterThanMaxValue)
     {
-        this->m_uTimeSpan += timeSpan.m_uTimeSpan;        
+        this->m_uTimeSpan += timeSpan.m_uTimeSpan;
     }
     else
     {
         this->m_uTimeSpan = QTimeSpan::MAXIMUM_VALUE;
     }
-     
+
     return *this;
 }
 
 QTimeSpan& QTimeSpan::operator-= (const QTimeSpan& timeSpan)
-{    
+{
     this->m_uTimeSpan = (this->m_uTimeSpan < timeSpan.m_uTimeSpan) ? (timeSpan.m_uTimeSpan - this->m_uTimeSpan) : (this->m_uTimeSpan - timeSpan.m_uTimeSpan);
     return *this;
 }
@@ -191,7 +195,7 @@ bool QTimeSpan::operator> (const QTimeSpan& timeSpan) const
     return (this->m_uTimeSpan > timeSpan.m_uTimeSpan);
 }
 
-bool QTimeSpan::operator>= (const QTimeSpan& timeSpan) const 
+bool QTimeSpan::operator>= (const QTimeSpan& timeSpan) const
 {
     return (this->m_uTimeSpan >= timeSpan.m_uTimeSpan);
 }
@@ -208,34 +212,34 @@ bool QTimeSpan::operator<= (const QTimeSpan& timeSpan) const
 
 u32_q QTimeSpan::GetDays() const
 {
-    return scast_q(m_uTimeSpan / (QTimeSpan::HOURS_PER_DAY * 
-                                  QTimeSpan::MINUTES_PER_HOUR * 
-                                  QTimeSpan::SECONDS_PER_MINUTE * 
-                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+    return scast_q(m_uTimeSpan / (QTimeSpan::HOURS_PER_DAY *
+                                  QTimeSpan::MINUTES_PER_HOUR *
+                                  QTimeSpan::SECONDS_PER_MINUTE *
+                                  QTimeSpan::MILLISECONDS_PER_SECOND *
                                   QTimeSpan::MICROSECONDS_PER_MILLISECOND *
                                   QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
 }
 
 u32_q QTimeSpan::GetHours() const
 {
-    return scast_q(m_uTimeSpan / (QTimeSpan::MINUTES_PER_HOUR * 
-                                  QTimeSpan::SECONDS_PER_MINUTE * 
-                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+    return scast_q(m_uTimeSpan / (QTimeSpan::MINUTES_PER_HOUR *
+                                  QTimeSpan::SECONDS_PER_MINUTE *
+                                  QTimeSpan::MILLISECONDS_PER_SECOND *
                                   QTimeSpan::MICROSECONDS_PER_MILLISECOND *
                                   QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
 }
 
 u32_q QTimeSpan::GetMinutes() const
 {
-    return scast_q(m_uTimeSpan / (QTimeSpan::SECONDS_PER_MINUTE * 
-                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+    return scast_q(m_uTimeSpan / (QTimeSpan::SECONDS_PER_MINUTE *
+                                  QTimeSpan::MILLISECONDS_PER_SECOND *
                                   QTimeSpan::MICROSECONDS_PER_MILLISECOND *
                                   QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
 }
 
 u64_q QTimeSpan::GetSeconds() const
 {
-    return m_uTimeSpan / (QTimeSpan::MILLISECONDS_PER_SECOND * 
+    return m_uTimeSpan / (QTimeSpan::MILLISECONDS_PER_SECOND *
                           QTimeSpan::MICROSECONDS_PER_MILLISECOND *
                           QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND);
 }
@@ -254,6 +258,11 @@ u64_q QTimeSpan::GetMicroseconds() const
 u64_q QTimeSpan::GetHundredsOfNanoseconds() const
 {
     return m_uTimeSpan;
+}
+
+string_q QTimeSpan::ToString() const
+{
+    return SQInteger::ToString<u64_q>(m_uTimeSpan);
 }
 
 } //namespace Time

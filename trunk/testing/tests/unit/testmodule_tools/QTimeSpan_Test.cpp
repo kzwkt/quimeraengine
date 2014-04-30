@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 QTEST_SUITE_BEGIN( QTimeSpan_TestSuite )
 
@@ -47,10 +48,10 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
     const u64_q EXPECTED_VALUE_FOR_TIMESPAN = 0;
     //QTimeSpan object to perform the comparison.
     QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
- 
+
 	// [Execution]
     QTimeSpan timeSpan;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpan == timeSpanExpectedResult);
 }
@@ -67,7 +68,7 @@ QTEST_CASE ( Constructor2_ParameterIsProperlyAssigned_Test )
 
 	// [Execution]
     QTimeSpan timeSpan(EXPECTED_VALUE_FOR_TIMESPAN);
-    
+
     // [Verification]
     BOOST_CHECK(timeSpan == timeSpanExpectedResult);
 }
@@ -97,7 +98,7 @@ QTEST_CASE ( Constructor3_InstanceIsCorrectlyConstructedWhenUsingCommonTimeValue
     QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
-    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
+    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
 
 
@@ -124,12 +125,12 @@ QTEST_CASE ( Constructor3_MaximumValueIsAssignedWhenParametersProduceOverflow_Te
     QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
-    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
+    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
 
     // [Verification]
     BOOST_CHECK(timeSpan == timeSpanExpectedResult);
-   
+
 }
 
 /// <summary>
@@ -153,12 +154,12 @@ QTEST_CASE ( Constructor3_MaximumValueIsAssignedWhenAdditionOfParametersProduceO
     QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
-    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
+    QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
 
     // [Verification]
     BOOST_CHECK(timeSpan == timeSpanExpectedResult);
-   
+
 }
 
 #endif
@@ -184,7 +185,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithParameterOccurs_Test )
 
     try
     {
-        QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
+        QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
     }
     catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet
@@ -218,7 +219,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithAdditionOccurs_Test )
 
     try
     {
-        QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
+        QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
     }
     catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet
@@ -233,7 +234,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithAdditionOccurs_Test )
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks if copy constructor works properly. 
+/// Checks if copy constructor works properly.
 /// </summary>
 QTEST_CASE ( Constructor4_QTimeSpanIsCopiedCorrectly_Test )
 {
@@ -243,13 +244,13 @@ QTEST_CASE ( Constructor4_QTimeSpanIsCopiedCorrectly_Test )
 
 	// [Execution]
     QTimeSpan timeSpanResult(timeSpanOriginal);
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanResult == timeSpanOriginal);
 }
 
 /// <summary>
-/// Checks assignment operator. 
+/// Checks assignment operator.
 /// </summary>
 QTEST_CASE ( AssignmentOperator_AssignmentOperationIsDoneCorrectly_Test )
 {
@@ -259,7 +260,7 @@ QTEST_CASE ( AssignmentOperator_AssignmentOperationIsDoneCorrectly_Test )
 
 	// [Execution]
     QTimeSpan timeSpanAssigned = timeSpanOriginal;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanAssigned == timeSpanOriginal);
 }
@@ -277,11 +278,11 @@ QTEST_CASE ( AdditionAndAssignmentOperator_OperationIsDoneCorrectly_Test )
     QTimeSpan timeSpanOriginal(INITIAL_VALUE_FOR_TIMESPAN);
     QTimeSpan timeSpanToAdd(TIMESPAN_VALUE_TO_ADD);
     //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
     timeSpanOriginal += timeSpanToAdd;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
 }
@@ -326,20 +327,20 @@ QTEST_CASE ( AdditionAndAssignmentOperator_MaximumValueIsAssignedWhenAdditionPro
     QTimeSpan timeSpanOriginal(-1);
     QTimeSpan timeSpanToAdd(-1);
      //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
     timeSpanOriginal += timeSpanToAdd;
 
     // [Verification]
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
-   
+
 }
 
 #endif
 
 /// <summary>
-/// Checks addition operator. The addition is correctly performed and result is assigned to a new instance.  
+/// Checks addition operator. The addition is correctly performed and result is assigned to a new instance.
 /// </summary>
 QTEST_CASE ( AdditionOperator_OperationIsDoneCorrectly_Test )
 {
@@ -350,12 +351,12 @@ QTEST_CASE ( AdditionOperator_OperationIsDoneCorrectly_Test )
     QTimeSpan timeSpanOriginal(INITIAL_VALUE_FOR_TIMESPAN);
     QTimeSpan timeSpanToAdd(TIMESPAN_VALUE_TO_ADD);
     //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 
 	// [Execution]
     QTimeSpan timeSpanResult = timeSpanOriginal + timeSpanToAdd;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanResult == timeSpanExpectedResult);
 }
@@ -409,7 +410,7 @@ QTEST_CASE ( AdditionOperator_MaximumValueIsAssignedWhenAdditionProducesOverflow
     // [Verification]
     // [TODO] [raul] To uncomment this line the getter must be implemented in class QTimeSpan.
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
-   
+
 }
 
 #endif
@@ -426,18 +427,18 @@ QTEST_CASE ( SubtractionOperator_OperationIsDoneCorrectly_Test )
     QTimeSpan timeSpanOriginal(INITIAL_VALUE_FOR_TIMESPAN);
     QTimeSpan timeSpanToSubstract(TIMESPAN_VALUE_TO_SUBSTRACT);
     //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
     QTimeSpan timeSpanResult = timeSpanOriginal - timeSpanToSubstract;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanResult == timeSpanExpectedResult);
 }
 
 /// <summary>
-/// Checks subtraction operator. 
-/// In this case checks that if you substract a bigger value the result is the absolute value. 
+/// Checks subtraction operator.
+/// In this case checks that if you substract a bigger value the result is the absolute value.
 /// </summary>
 QTEST_CASE ( SubtractionOperator_OperationIsDoneCorrectlyWhenSecondOperatorIsBigger_Test )
 {
@@ -448,11 +449,11 @@ QTEST_CASE ( SubtractionOperator_OperationIsDoneCorrectlyWhenSecondOperatorIsBig
     QTimeSpan timeSpanOriginal(INITIAL_VALUE_FOR_TIMESPAN);
     QTimeSpan timeSpanToSubstract(TIMESPAN_VALUE_TO_SUBSTRACT);
     //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
     QTimeSpan timeSpanResult = timeSpanOriginal - timeSpanToSubstract;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanResult == timeSpanExpectedResult);
 }
@@ -470,17 +471,17 @@ QTEST_CASE ( SubtractionAndAssignmentOperator_OperationIsDoneCorrectly_Test )
     QTimeSpan timeSpanOriginal(INITIAL_VALUE_FOR_TIMESPAN);
     QTimeSpan timeSpanToSubstract(TIMESPAN_VALUE_TO_SUBSTRACT);
     //QTimeSpan object to perform the comparison.
-    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN); 
+    QTimeSpan timeSpanExpectedResult(EXPECTED_VALUE_FOR_TIMESPAN);
 
 	// [Execution]
     timeSpanOriginal -= timeSpanToSubstract;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
 }
 
 /// <summary>
-/// Checks subtraction operator. 
+/// Checks subtraction operator.
 /// In this case checks that if you subtract a bigger value the result is the absolute value and the it is assigned to first operand.
 /// </summary>
 QTEST_CASE ( SubtractionAndAssignmentOperator_OperationIsDoneCorrectlyWhenSecondOperatorIsBigger_Test )
@@ -496,7 +497,7 @@ QTEST_CASE ( SubtractionAndAssignmentOperator_OperationIsDoneCorrectlyWhenSecond
 
 	// [Execution]
     timeSpanOriginal -= timeSpanToAdd;
-    
+
     // [Verification]
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
 }
@@ -515,13 +516,13 @@ QTEST_CASE ( EqualityOperator_ReturnsTrueWhenComparingTwoEqualValues_Test )
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 == timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks equality operator. This case checks than the return value is false when the values are not equal. 
+/// Checks equality operator. This case checks than the return value is false when the values are not equal.
 /// </summary>
 QTEST_CASE ( EqualityOperator_ReturnsFalseWhenComparingTwoDifferentValues_Test )
 {
@@ -534,7 +535,7 @@ QTEST_CASE ( EqualityOperator_ReturnsFalseWhenComparingTwoDifferentValues_Test )
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 == timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
@@ -553,7 +554,7 @@ QTEST_CASE ( InequalityOperator_ReturnsFalseWhenComparingTwoEqualValues_Test )
 
 	// [Execution]
     bool bComparisonResult = (timeSpan1 != timeSpan2);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_VALUE);
 }
@@ -572,13 +573,13 @@ QTEST_CASE ( InequalityOperator_ReturnsTrueWhenComparingTwoDifferentValues_Test 
 
 	// [Execution]
     bool bComparisonResult = (timeSpan1 != timeSpan2);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks greater than operator. 
+/// Checks greater than operator.
 /// This test checks that the return value is true since first operator is bigger than the second one.
 /// </summary>
 QTEST_CASE ( GreaterThanOperator_ReturnsTrueWhenFirstValueGreater_Test )
@@ -592,13 +593,13 @@ QTEST_CASE ( GreaterThanOperator_ReturnsTrueWhenFirstValueGreater_Test )
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 > timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks greater than operator. 
+/// Checks greater than operator.
 /// This test checks that the return value is false since first operator is not bigger than the second one.
 /// </summary>
 QTEST_CASE ( GreaterThanOperator_ReturnsFalseWhenFirstValueNotGreater_Test )
@@ -613,13 +614,13 @@ QTEST_CASE ( GreaterThanOperator_ReturnsFalseWhenFirstValueNotGreater_Test )
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 > timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks greater than or equals to operator. 
+/// Checks greater than or equals to operator.
 /// First value bigger than the second one, the test checks that the return value is true.
 /// </summary>
 QTEST_CASE ( GreaterThanOrEqualsOperator_ReturnsTrueWhenFirstValueGreater_Test )
@@ -634,13 +635,13 @@ QTEST_CASE ( GreaterThanOrEqualsOperator_ReturnsTrueWhenFirstValueGreater_Test )
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 >= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks greater than or equals to operator. 
+/// Checks greater than or equals to operator.
 /// First value equal to the second one, this test checks that the return value is true.
 /// </summary>
 QTEST_CASE ( GreaterThanOrEqualsOperator_ReturnsTrueWhenFirstValueEqualToSecondValue_Test )
@@ -655,13 +656,13 @@ QTEST_CASE ( GreaterThanOrEqualsOperator_ReturnsTrueWhenFirstValueEqualToSecondV
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 >= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks greater than or equals to operator. 
+/// Checks greater than or equals to operator.
 /// First value lower than the second one, this test checks that the return value is false.
 /// </summary>
 QTEST_CASE ( GreaterThanOperator_ReturnsFalseWhenFirstValueLowerThanSecondValue_Test )
@@ -676,13 +677,13 @@ QTEST_CASE ( GreaterThanOperator_ReturnsFalseWhenFirstValueLowerThanSecondValue_
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 >= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks lower than operator. 
+/// Checks lower than operator.
 //  First value lower than the second one, this test checks that the return value is true.
 /// </summary>
 QTEST_CASE ( LowerThanOperator_ReturnsTrueWhenFirstValueLowerThanSecondValue_Test )
@@ -696,13 +697,13 @@ QTEST_CASE ( LowerThanOperator_ReturnsTrueWhenFirstValueLowerThanSecondValue_Tes
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 < timeSpan2;
-    
+
     // [Verification]
      BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks lower than operator. 
+/// Checks lower than operator.
 /// First value not lower than the second one, this test checks that the return value is false.
 /// </summary>
 QTEST_CASE ( LowerThanOperator_ReturnsFalseWhenFirstValueNotLowerThanSecondOne_Test )
@@ -716,13 +717,13 @@ QTEST_CASE ( LowerThanOperator_ReturnsFalseWhenFirstValueNotLowerThanSecondOne_T
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 < timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks lower than or equals to operator. 
+/// Checks lower than or equals to operator.
 /// First value lower than the second one, this test will check that the return value is true.
 /// </summary>
 QTEST_CASE ( LowerThanOrEquals_Operator_ReturnsTrueWhenFirstValueLowerThanSecondValue_Test )
@@ -736,13 +737,13 @@ QTEST_CASE ( LowerThanOrEquals_Operator_ReturnsTrueWhenFirstValueLowerThanSecond
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 <= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks lower than or equals to operator. 
+/// Checks lower than or equals to operator.
 /// First value equal than the second one, this test will check that the return value is true.
 /// </summary>
 QTEST_CASE ( LowerThanOrEqualsOperator_ReturnsTrueWhenFirstValueEqualToSeCondValue_Test )
@@ -756,13 +757,13 @@ QTEST_CASE ( LowerThanOrEqualsOperator_ReturnsTrueWhenFirstValueEqualToSeCondVal
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 <= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Checks lower than or equals to operator. 
+/// Checks lower than or equals to operator.
 /// First value bigger than the second one, so this test checks that the return value is false.
 /// </summary>
 QTEST_CASE ( LowerThanOrEqualsOperator_ReturnsFalseWhenFirstValueGreaterThanSeCondValue_Test )
@@ -776,7 +777,7 @@ QTEST_CASE ( LowerThanOrEqualsOperator_ReturnsFalseWhenFirstValueGreaterThanSeCo
 
 	// [Execution]
     bool bComparisonResult = timeSpan1 <= timeSpan2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_VALUE);
 }
@@ -792,7 +793,7 @@ QTEST_CASE ( GetDays_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u32_q uDays = MINIMUM_TIMESPAN.GetDays();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
 }
@@ -808,7 +809,7 @@ QTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
 
 	// [Execution]
     u32_q uDays = COMMON_TIMESPAN.GetDays();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
 }
@@ -824,7 +825,7 @@ QTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 
 	// [Execution]
     u32_q uDays = MAXIMUM_TIMESPAN.GetDays();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
 }
@@ -840,7 +841,7 @@ QTEST_CASE ( GetHours_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u32_q uHours = MINIMUM_TIMESPAN.GetHours();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uHours, EXPECTED_VALUE);
 }
@@ -869,10 +870,10 @@ QTEST_CASE ( GetHours_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
     // [Preparation]
     const u32_q EXPECTED_VALUE = 512409557;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u32_q uHours = MAXIMUM_TIMESPAN.GetHours();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uHours, EXPECTED_VALUE);
 }
@@ -888,7 +889,7 @@ QTEST_CASE ( GetMinutes_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u32_q uMinutes = MINIMUM_TIMESPAN.GetMinutes();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMinutes, EXPECTED_VALUE);
 }
@@ -917,10 +918,10 @@ QTEST_CASE ( GetMinutes_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
     // [Preparation]
     const u32_q EXPECTED_VALUE = 679802384;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u32_q uMinutes = MAXIMUM_TIMESPAN.GetMinutes();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMinutes, EXPECTED_VALUE);
 }
@@ -936,7 +937,7 @@ QTEST_CASE ( GetSeconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u64_q uSeconds = MINIMUM_TIMESPAN.GetSeconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
 }
@@ -965,10 +966,10 @@ QTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
     // [Preparation]
     const u64_q EXPECTED_VALUE = 1844674407370LL;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u64_q uSeconds = MAXIMUM_TIMESPAN.GetSeconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
 }
@@ -984,7 +985,7 @@ QTEST_CASE ( GetMilliseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u64_q uMilliseconds = MINIMUM_TIMESPAN.GetMilliseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMilliseconds, EXPECTED_VALUE);
 }
@@ -1013,10 +1014,10 @@ QTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
     // [Preparation]
     const u64_q EXPECTED_VALUE = 1844674407370955LL;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u64_q uMilliseconds = MAXIMUM_TIMESPAN.GetMilliseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMilliseconds, EXPECTED_VALUE);
 }
@@ -1032,7 +1033,7 @@ QTEST_CASE ( GetMicroseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u64_q uMicroseconds = MINIMUM_TIMESPAN.GetMicroseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMicroseconds, EXPECTED_VALUE);
 }
@@ -1061,10 +1062,10 @@ QTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
     // [Preparation]
     const u64_q EXPECTED_VALUE = 1844674407370955161LL;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u64_q uMicroseconds = MAXIMUM_TIMESPAN.GetMicroseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uMicroseconds, EXPECTED_VALUE);
 }
@@ -1080,7 +1081,7 @@ QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
 
 	// [Execution]
     u64_q uHundredsOfNanoseconds = MINIMUM_TIMESPAN.GetHundredsOfNanoseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uHundredsOfNanoseconds, EXPECTED_VALUE);
 }
@@ -1109,12 +1110,28 @@ QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingMaximumTimeSp
     // [Preparation]
     const u64_q EXPECTED_VALUE = 18446744073709551615LL;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
-    
+
 	// [Execution]
     u64_q uHundredsOfNanoseconds = MAXIMUM_TIMESPAN.GetHundredsOfNanoseconds();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uHundredsOfNanoseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Returns the time span (hundreds of nanosecond) as string.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsTimeSpanAsString_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_VALUE = QE_L("12345678912345");
+    QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    string_q strStringRepresentation = COMMON_TIMESPAN.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strStringRepresentation == EXPECTED_VALUE);
 }
 
 // End - Test Suite: QTimeSpan
