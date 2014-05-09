@@ -171,9 +171,9 @@ protected:
    	// CONSTANTS
 	// ---------------
 
-    /// <sumary>
+    /// <summary>
     /// Number of elements for which to reserve memory in the default constructor.
-    /// </sumary>
+    /// </summary>
     static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 10;
 
 	/// <summary>
@@ -191,9 +191,9 @@ protected:
 
 public:
 
-    /// <sumary>
+    /// <summary>
     /// Default constructor. It reserves memory for the number of elements indicated at DEFAULT_NUMBER_OF_ELEMENTS constants.
-    /// </sumary>
+    /// </summary>
     QList() :
             m_uFirst(QList::END_POSITION_BACKWARD),
             m_uLast(QList::END_POSITION_FORWARD)
@@ -202,9 +202,9 @@ public:
         m_pLinkAllocator = new Allocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)));
     }
 
-    /// <sumary>
+    /// <summary>
     /// Constructor that reserves space to store the number of elements passed by parameter.
-    /// </sumary>
+    /// </summary>
     /// <param name="uInitialCapacity"> [IN] Number of elements for wich to reserve space. It must be greater than zero.</param>
     QList(const pointer_uint_q uInitialCapacity) :
             m_uFirst(QList::END_POSITION_BACKWARD),
@@ -218,9 +218,9 @@ public:
 
     // [TODO] rdelasheras. Uncomment when iterators exists.
 /*
-    /// <sumary>
+    /// <summary>
     /// Copy constructor.
-    /// </sumary>
+    /// </summary>
     /// <remarks>
     /// The copy constructor is called for every element of the list.
     /// </remarks>
@@ -265,9 +265,9 @@ protected:
 
 public:
 
-    /// <sumary>
+    /// <summary>
     /// Destructor.
-    /// </sumary>
+    /// </summary>
     /// <remarks>
     /// The destructor of every element is called in the same order they appear in the list.
     /// </remarks>

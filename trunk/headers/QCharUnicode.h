@@ -78,6 +78,9 @@ public:
     /// Assignment operator that makes a copy of the input character.
     /// </summary>
     /// <param name="character">[IN] The input character to be copied.</param>
+    /// <returns>
+    /// A reference to the character.
+    /// </returns>
     QCharUnicode& operator=(const QCharUnicode &character);
 
     /// <summary>
