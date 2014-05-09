@@ -389,7 +389,7 @@ public:
     /// <summary>
     /// Constructor that builds a string from only one character.
     /// </summary>
-    /// <param name="arBytes">[IN] The character that will form the new string.</param>
+    /// <param name="character">[IN] The character that will form the new string.</param>
     QStringUnicode(const QCharUnicode &character);
 
 

@@ -182,7 +182,6 @@ public:
     /// <param name="uMonth">[IN] The month number, being January the number 1. It must be greater than zero and lower than 13.</param>
     /// <param name="uDay">[IN] The day number, as it appears in the calendar. It must be greater than zero and lower than or equal to
     /// the corresponding last day of the month.</param>
-    /// <param name="uHundredsOfNanosecond">[IN] The number of hundreds of nanoseconds (tenths of microsecond).</param>
     /// <param name="pTimeZone">[Optional][IN] The information about the time zone on which the time is based. Its default value 
     /// is null, which means no time zone offset (UTC).</param>
     QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, const QTimeZone* pTimeZone = null_q);
@@ -554,11 +553,17 @@ public:
     /// <summary>
     /// Gets the maximum positive date and time that can be represented (29228-02-08 02:48:05.4775807 A. D.), in UTC.
     /// </summary>
+    /// <returns>
+    /// The maximum positive date and time.
+    /// </returns>
     static const QDateTime& GetMaxDateTime();
     
     /// <summary>
     /// Gets the maximum negative date and time that can be represented (29228-11-23 21:11:54.5224193 B.C.), in UTC.
     /// </summary>
+    /// <returns>
+    /// The maximum negative date and time.
+    /// </returns>
     static const QDateTime& GetMinDateTime();
 
     /// <summary>

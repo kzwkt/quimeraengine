@@ -124,7 +124,7 @@ public:
 	/// <summary>
 	/// Deallocates the block passed in the parameter.
 	/// </summary>		
-    /// <param name="pBuffer">[IN] Pointer to a block previously allocated with the corresponding class method. Other values may cause an unexpected behaviour.</param>
+    /// <param name="pBlock">[IN] Pointer to a block previously allocated with the corresponding class method. Other values may cause an unexpected behaviour.</param>
     void Deallocate( const void* pBlock );
 
 	/// <summary>

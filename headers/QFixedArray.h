@@ -625,9 +625,9 @@ public:
         return *this;
     }
 
-    /// <sumary>
+    /// <summary>
     /// Returns a reference to the element stored in the passed position.
-    /// </sumary>
+    /// </summary>
     /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
@@ -637,9 +637,9 @@ public:
         return this->GetValue(uIndex);
     }
 
-    /// <sumary>
+    /// <summary>
     /// Returns a reference to the element stored in the passed position.
-    /// </sumary>
+    /// </summary>
     /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
@@ -650,9 +650,9 @@ public:
         return *((T*)m_pAllocator->GetPointer() + uIndex);
     }
 
-    /// <sumary>
+    /// <summary>
     /// Performs a fast shallow copy of the array elements.
-    /// </sumary>
+    /// </summary>
     /// <param name="destinationArray"> [IN/OUT] Destination array where to copy the array elements. The capacity of the two arrays has to be equal.</param>
     void Clone(QFixedArray &destinationArray) const
     {
@@ -660,9 +660,9 @@ public:
         m_pAllocator->CopyTo(*destinationArray.m_pAllocator);
     }
 
-    /// <sumary>
+    /// <summary>
     /// Copies the passed value in the passed position of the array.
-    /// </sumary>
+    /// </summary>
     /// <remarks>
     /// The assignment operator will be called for the element that is currently occupying that position.
     /// </remarks>
@@ -676,9 +676,9 @@ public:
 
 private:
 
-    /// <sumary>
+    /// <summary>
     /// Checks if the multiplication of two operands overflows for the pointer_uint_q type.
-    /// </sumary>
+    /// </summary>
     /// <param name="uOperandA"> [IN] Operand to multiply.</param>
     /// <param name="uOperandB"> [IN] Operand to multiply.</param>
     /// <returns>
@@ -689,9 +689,9 @@ private:
         return this->HighestOneBitPosition(uOperandA) + this->HighestOneBitPosition(uOperandB) > sizeof(pointer_uint_q) * 8;
     }
 
-    /// <sumary>
+    /// <summary>
     /// Gets the highest one bit position of a number converted to binary format.
-    /// </sumary>
+    /// </summary>
     /// <param name="uValue"> [IN] Number to trate.</param>
     /// <returns>
     /// The highest one bit position of the number passed by parameter.
@@ -724,9 +724,9 @@ public:
         return m_pAllocator;
     }
 
-    /// <sumary>
+    /// <summary>
     /// Returns the number of elements in the array.
-    /// </sumary>
+    /// </summary>
     /// <returns>
     /// The number of elements in the array.
     /// </returns>
@@ -735,9 +735,9 @@ public:
         return m_pAllocator->GetAllocatedBytes() / sizeof(T);
     }
 
-    /// <sumary>
+    /// <summary>
     /// Returns the number of elements that can be stored in the array without a reallocation.
-    /// </sumary>
+    /// </summary>
     /// <returns>
     /// The number of elements that can be stored in the array without a reallocation.
     /// </returns>
@@ -746,9 +746,9 @@ public:
         return m_pAllocator->GetPoolSize() / sizeof(T);
     }
 
-    /// <sumary>
+    /// <summary>
     /// Checks whether the array is empty or not.
-    /// </sumary>
+    /// </summary>
     /// <returns>
     /// True if the array is empty.
     /// </returns>

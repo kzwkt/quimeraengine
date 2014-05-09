@@ -232,7 +232,7 @@ string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const i8_q &nValue);
 /// <summary>
 /// Converts the integer number to a readable character string that represents it.
 /// </summary>
-/// <param name="nValue">[IN] The integer number to be converted.</param>
+/// <param name="uValue">[IN] The integer number to be converted.</param>
 /// <returns>
 /// The string that represents the number.
 /// </returns>
