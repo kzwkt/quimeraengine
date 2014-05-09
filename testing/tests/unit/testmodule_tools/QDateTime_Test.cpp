@@ -9139,5 +9139,35 @@ QTEST_CASE ( GetUndefinedDate_NotNecessaryToTest_Test )
     BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
 }
 
+/// <summary>
+/// Checks that IsUndefined method returns true with an undefined date.
+/// </summary>
+QTEST_CASE ( IsUndefined_ReturnsTrueWithUndefinedDate_Test )
+{
+    const QDateTime DATETIME = QDateTime::GetUndefinedDate();
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bCheckResult = DATETIME.IsUndefined();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bCheckResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that IsUndefined method returns false with a valid date.
+/// </summary>
+QTEST_CASE ( IsUndefined_ReturnsFalseWithValidDate_Test )
+{
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bCheckResult = DATETIME.IsUndefined();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bCheckResult, EXPECTED_RESULT);
+}
+
 // End - Test Suite: QDateTime
 QTEST_SUITE_END()

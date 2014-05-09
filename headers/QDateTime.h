@@ -583,8 +583,6 @@ public:
     /// </returns>
     bool IsNegative() const;
 
-private:
-
     /// <summary>
     /// Checks whether the date / time instance is undefined.
     /// </summary>
