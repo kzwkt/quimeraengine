@@ -32,12 +32,15 @@ using namespace boost::unit_test;
 
 #include "QFixedArray.h"
 #include "QFixedArrayWhiteBox.h"
+#include "QFixedArrayTestClass.h"
 #include "ArrayElementMock.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QFixedArrayWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::ArrayElementMock;
+using Kinesis::QuimeraEngine::Tools::Containers::Test::QFixedArrayTestClass;
 
 i16_q ArrayElementMock::m_nNumberOfAllocatedObjects = 0;
 
@@ -643,6 +646,166 @@ QTEST_CASE ( SetValue_AssertionFailsWhenAttemptsToSetAValueToAPositionNotLessTha
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Returns an iterator to the position passed as parameter.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsIteratorToSpecificPositionInTheArray_Test )
+{
+    // [Preparation]
+    const u32_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q INDEX = 2;
+    const u32_q NEW_VALUE = 10;
+    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    arFixedArray.SetValue(INDEX, NEW_VALUE);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator it = arFixedArray.GetIterator(INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*it, NEW_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// This test checks that the assert is thrown when trying to get an iterator passing an index bigger than array´s size.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
+{
+    // [Preparation]
+    const u32_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q INDEX = 7;
+    QFixedArray<u32_q> arFixedArray(ARRAY_COUNT, INITIAL_VALUE);
+    bool bAssertionFailed = false;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    try
+    {
+        QFixedArray<u32_q>::QArrayIterator it = arFixedArray.GetIterator(INDEX);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that if parameter bigger than array´s size is passed forward end position of the array is returned.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsIteratorToForwardEndPositionInTheArrayWhenParameterIsBiggerThanArraySize_Test )
+{
+    // [Preparation]
+    const u32_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q INDEX = 7;
+    const bool EXPECTED_VALUE = true;
+    bool bForwardEndPosition = false;
+    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator it = arFixedArray.GetIterator(INDEX);
+    bForwardEndPosition = it.IsEnd();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bForwardEndPosition, EXPECTED_VALUE);
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Returns an iterator to the first element in the array.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnsIteratorToFirstElementInTheArray_Test )
+{
+    // [Preparation]
+    const u32_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q INITIAL_POS = 0;
+    const u32_q NEW_VALUE = 10;
+    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    arFixedArray.SetValue(INITIAL_POS, NEW_VALUE);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator it = arFixedArray.GetFirst();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*it, NEW_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that if the array is empty backward end position of the array is returned.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnsIteratorToBackwardEndPositionInTheArrayWhenArrayIsEmpty_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_VALUE = true;
+    bool bBackwardEndPosition = false;
+    QFixedArrayTestClass<u32_q> arFixedArray;
+
+    // [Execution]
+    QFixedArrayTestClass<u32_q>::QArrayIterator it = arFixedArray.GetFirst();
+    bBackwardEndPosition = it.IsEnd(); 
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bBackwardEndPosition, EXPECTED_VALUE);
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Returns an iterator to the last element in the array.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnsIteratorToLastElementInTheArray_Test )
+{
+    // [Preparation]
+    const u32_q INITIAL_VALUE = 12;
+    const pointer_uint_q ARRAY_COUNT = 5;
+    const pointer_uint_q LAST_POS = 4;
+    const u32_q NEW_VALUE = 10;
+    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    arFixedArray.SetValue(LAST_POS, NEW_VALUE);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator it = arFixedArray.GetLast();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*it, NEW_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that if the array is empty forward end position of the array is returned.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnsIteratorToForwardEndPositionInTheArrayWhenArrayIsEmpty_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_VALUE = true;
+    bool bForwardEndPosition = false;
+    QFixedArrayTestClass<u32_q> arFixedArray;
+
+    // [Execution]
+    QFixedArrayTestClass<u32_q>::QArrayIterator it = arFixedArray.GetLast();
+    bForwardEndPosition = it.IsEnd(); 
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bForwardEndPosition, EXPECTED_VALUE);
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
 /// Checks if returns a valid allocator.
