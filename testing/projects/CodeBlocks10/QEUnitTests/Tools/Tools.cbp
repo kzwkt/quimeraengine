@@ -292,6 +292,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>

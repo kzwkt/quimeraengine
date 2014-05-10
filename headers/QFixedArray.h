@@ -57,9 +57,9 @@ namespace Containers
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of every element in the array.</typeparam>
-/// <typeparam name="Allocator">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will 
+/// <typeparam name="Allocator">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will
 /// be used.</typeparam>
-/// <typeparam name="Comparator">Optional. The type of comparator to compare elements to each other, used in search and ordering 
+/// <typeparam name="Comparator">Optional. The type of comparator to compare elements to each other, used in search and ordering
 /// algorithms. By default, QComparatorDefault will be used.</typeparam>
 template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class Comparator = QComparatorDefault<T> >
 class QFixedArray
@@ -288,7 +288,7 @@ public:
 
             return m_uPosition == iterator.m_uPosition && m_pArray == iterator.m_pArray;
         }
-        
+
         /// <summary>
         /// Inequality operator that checks if both iterators are different.
         /// </summary>
@@ -326,7 +326,7 @@ public:
 
             return ((m_uPosition == QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition != QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition != QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
-                    m_uPosition > iterator.m_uPosition) && 
+                    m_uPosition > iterator.m_uPosition) &&
                     m_pArray == iterator.m_pArray;
         }
 
@@ -348,12 +348,12 @@ public:
 
             return ((m_uPosition != QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition == QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition == QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition != QFixedArray::END_POSITION_BACKWARD) ||
-                    m_uPosition < iterator.m_uPosition) && 
+                    m_uPosition < iterator.m_uPosition) &&
                     m_pArray == iterator.m_pArray;
         }
 
         /// <summary>
-        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the 
+        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the
         /// input iterator or to the same position.
         /// </summary>
         /// <remarks>
@@ -371,12 +371,12 @@ public:
 
             return ((m_uPosition == QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition != QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition != QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
-                    m_uPosition >= iterator.m_uPosition) && 
+                    m_uPosition >= iterator.m_uPosition) &&
                     m_pArray == iterator.m_pArray;
         }
 
         /// <summary>
-        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input 
+        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input
         /// iterator or to the same position.
         /// </summary>
         /// <remarks>
@@ -394,7 +394,7 @@ public:
 
             return ((m_uPosition != QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition == QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition == QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition != QFixedArray::END_POSITION_BACKWARD) ||
-                    m_uPosition <= iterator.m_uPosition) && 
+                    m_uPosition <= iterator.m_uPosition) &&
                     m_pArray == iterator.m_pArray;
         }
 
@@ -402,7 +402,7 @@ public:
         /// Indicates whether the iterator is pointing to one of the ends of the array.
         /// </summary>
         /// <remarks>
-        /// The position immediately before the first element and the position immediately after the last element are cosidered end 
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
         /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
         /// An invalid iterator is not considered as an end position.
         /// </remarks>
@@ -413,12 +413,12 @@ public:
         {
             return m_uPosition == QFixedArray::END_POSITION_BACKWARD || m_uPosition == QFixedArray::END_POSITION_FORWARD;
         }
-        
+
         /// <summary>
         /// Indicates whether the iterator is pointing to one of the ends of the array, distinguishing which of them.
         /// </summary>
         /// <remarks>
-        /// The position immediately before the first element and the position immediately after the last element are cosidered end 
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
         /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
         /// An invalid iterator is not considered as an end position.
         /// </remarks>
@@ -429,7 +429,7 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
-            return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) || 
+            return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
                    (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QFixedArray::END_POSITION_FORWARD);
         }
 
@@ -459,7 +459,7 @@ public:
         /// Checks whether the iterator is valid or not.
         /// </summary>
         /// <remarks>
-        /// An iterator is considered invalid when it points to an unexisting position (an array may have been shortened while the iterator 
+        /// An iterator is considered invalid when it points to an unexisting position (an array may have been shortened while the iterator
         /// was pointing to its last position). If the array to iterate have been destroyed, there is no way for the iterator to realize that so
         /// its behavior is undefined and this method will not detect that situation.<br/>
         /// The position before the first element or after the last one (end positions) are considered as valid positions.
@@ -488,7 +488,7 @@ public:
         /// The current iteration position regarding the first element. It is zero-based.
         /// </summary>
         pointer_uint_q m_uPosition;
-    
+
     }; // QArrayIterator
 
 
@@ -674,6 +674,66 @@ public:
         *((T*)m_pAllocator->GetPointer() + uIndex) = value;
     }
 
+    /// <summary>
+    /// Method that returns the element placed in the position given by the parameter.
+    /// </summary>
+    /// <remarks>
+    /// If the index is out of bounds the returned iterator will point to the end position.
+    /// </remarks>
+    /// <returns>
+    /// An iterator that points to the position of the element which occupies the position N.
+    /// </returns>
+    QArrayIterator GetIterator(const pointer_uint_q uIndex) const 
+    {
+        if (uIndex >= this->GetCount())
+        {
+            QE_ASSERT( uIndex <= this->GetCount(), "Index must be less than the array's size" );
+            return QArrayIterator(this, END_POSITION_FORWARD);
+        }
+        return QArrayIterator(this, uIndex);
+    }
+
+    /// <summary>
+    /// Method that returns the first element in the array.
+    /// </summary>
+    /// <remarks>
+    /// If the array is empty the returned iterator will point to an invalid position.
+    /// </remarks>
+    /// <returns>
+    /// An iterator that points to the first element.
+    /// </returns>
+    QArrayIterator GetFirst() const
+    {
+        const pointer_uint_q FIRST_INDEX = 0;
+        if (this->IsEmpty())
+        {
+            QE_ASSERT( this->GetCount() != 0, "Array cannot be empty!" );
+            return QArrayIterator(this, END_POSITION_BACKWARD);
+        }
+        return QArrayIterator(this, FIRST_INDEX);
+        
+    }
+
+    /// <summary>
+    /// Method that returns the last element in the array.
+    /// </summary>
+    /// <remarks>
+    /// If the array is empty the returned iterator will point to an invalid position.
+    /// </remarks>
+    /// <returns>
+    /// An iterator that points to the last element.
+    /// </returns>
+    QArrayIterator GetLast() const
+    {
+        if (this->IsEmpty())
+        {
+            QE_ASSERT( this->GetCount() != 0, "Array cannot be empty!" );
+            return QArrayIterator(this, END_POSITION_FORWARD);
+        }
+        const pointer_uint_q LAST_INDEX = this->GetCount() - 1;
+        return QArrayIterator(this, LAST_INDEX);
+    }
+
 private:
 
     /// <summary>
@@ -754,7 +814,7 @@ public:
     /// </returns>
     bool IsEmpty() const
     {
-        return false;
+        return (this->GetCount() == 0);
     }
 
     // ATTRIBUTES
