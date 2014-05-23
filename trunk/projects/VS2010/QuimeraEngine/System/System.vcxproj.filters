@@ -10,6 +10,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
