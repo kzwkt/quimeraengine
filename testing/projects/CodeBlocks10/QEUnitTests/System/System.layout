@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="DebugWin32SharedrtDynamic" />
+	<ActiveTarget name="DebugWin32SharedrtStatic" />
 </CodeBlocks_layout_file>

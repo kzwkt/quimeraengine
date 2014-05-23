@@ -28,6 +28,7 @@
 #define __QOBJECTBASEMOCK__
 
 #include "QObject.h"
+#include "RTTIDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
 
@@ -61,40 +62,13 @@ namespace Test
 /// </summary>
 class QObjectMockA : public virtual QObject
 {
-
-	// PROPERTIES
-	// ---------------
-public:
-
-    static const QType* GetTypeClass()
-    {
-        return QObjectMockA::OBJECT_TYPE;
-    }
-
-    virtual const QType* GetTypeObject() const
-    {
-        return QObjectMockA::OBJECT_TYPE;
-    }
-
-protected:
-
-    virtual bool OverrideIs(const QType* pType) const
-    {
-        return QObjectMockA::OBJECT_TYPE == pType;
-    }
-
-
-	// ATTRIBUTES
-	// ---------------
-private:
-
-    static const QType* OBJECT_TYPE;
+    QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QObjectMockA);
 };
 
 
 // ATTRIBUTE INITIALIZATION
 // --------------------------
-const QType* QObjectMockA::OBJECT_TYPE = new QType(QE_L("QObjectMockA"));
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockA);
 
 
 // QObjectMockB
@@ -106,40 +80,13 @@ const QType* QObjectMockA::OBJECT_TYPE = new QType(QE_L("QObjectMockA"));
 /// </summary>
 class QObjectMockB : public virtual QObject
 {
-
-	// PROPERTIES
-	// ---------------
-public:
-
-    static const QType* GetTypeClass()
-    {
-        return QObjectMockB::OBJECT_TYPE;
-    }
-
-    virtual const QType* GetTypeObject() const
-    {
-        return QObjectMockB::OBJECT_TYPE;
-    }
-
-protected:
-
-    virtual bool OverrideIs(const QType* pType) const
-    {
-        return QObjectMockB::OBJECT_TYPE == pType;
-    }
-
-
-	// ATTRIBUTES
-	// ---------------
-private:
-
-    static const QType* OBJECT_TYPE;
+	QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QObjectMockB);
 };
 
 
 // ATTRIBUTE INITIALIZATION
 // --------------------------
-const QType* QObjectMockB::OBJECT_TYPE = new QType(QE_L("QObjectMockB"));
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockB);
 
 
 
@@ -152,40 +99,13 @@ const QType* QObjectMockB::OBJECT_TYPE = new QType(QE_L("QObjectMockB"));
 /// </summary>
 class QObjectMockInterface : public virtual QObject
 {
-
-	// PROPERTIES
-	// ---------------
-public:
-
-    static const QType* GetTypeClass()
-    {
-        return QObjectMockInterface::OBJECT_TYPE;
-    }
-
-    virtual const QType* GetTypeObject() const
-    {
-        return QObjectMockInterface::OBJECT_TYPE;
-    }
-
-protected:
-
-    virtual bool OverrideIs(const QType* pType) const
-    {
-        return QObjectMockInterface::OBJECT_TYPE == pType;
-    }
-
-
-	// ATTRIBUTES
-	// ---------------
-private:
-
-    static const QType* OBJECT_TYPE;
+    QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QObjectMockInterface);
 };
 
 
 // ATTRIBUTE INITIALIZATION
 // --------------------------
-const QType* QObjectMockInterface::OBJECT_TYPE = new QType(QE_L("QObjectMockInterface"));
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockInterface);
 
 
 
@@ -198,42 +118,13 @@ const QType* QObjectMockInterface::OBJECT_TYPE = new QType(QE_L("QObjectMockInte
 /// </summary>
 class QObjectMockDerivedA : public QObjectMockInterface, public QObjectMockA
 {
-
-	// PROPERTIES
-	// ---------------
-public:
-
-    static const QType* GetTypeClass()
-    {
-        return QObjectMockDerivedA::OBJECT_TYPE;
-    }
-
-    virtual const QType* GetTypeObject() const
-    {
-        return QObjectMockDerivedA::OBJECT_TYPE;
-    }
-
-protected:
-
-    virtual bool OverrideIs(const QType* pType) const
-    {
-        return QObjectMockDerivedA::OBJECT_TYPE == pType ||
-                 QObjectMockInterface::OverrideIs(pType) ||
-                 QObjectMockA::OverrideIs(pType);
-    }
-
-
-	// ATTRIBUTES
-	// ---------------
-private:
-
-    static const QType* OBJECT_TYPE;
+    QE_RTTI_SUPPORT_DERIVED_FROM_2_CLASSES(QObjectMockDerivedA, QObjectMockInterface, QObjectMockA);
 };
 
 
 // ATTRIBUTE INITIALIZATION
 // --------------------------
-const QType* QObjectMockDerivedA::OBJECT_TYPE = new QType(QE_L("QObjectMockDerivedA"));
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockDerivedA);
 
 
 } //namespace Test

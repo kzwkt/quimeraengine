@@ -151,6 +151,9 @@
 		<Unit filename="../../../../headers/QObject.h">
 			<Option virtualFolder="Core/" />
 		</Unit>
+		<Unit filename="../../../../headers/RTTIDefinitions.h">
+			<Option virtualFolder="Core/" />
+		</Unit>
 		<Unit filename="../../../../headers/SystemDefinitions.h" />
 		<Unit filename="../../../../source/QObject.cpp">
 			<Option virtualFolder="Core/" />

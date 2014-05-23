@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
