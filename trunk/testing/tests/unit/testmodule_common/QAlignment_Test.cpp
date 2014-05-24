@@ -42,7 +42,7 @@ QTEST_SUITE_BEGIN( QAlignment_TestSuite )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the alignment value passed to the constructor is not a power of two. 
+/// Checks that an assertion fails when the alignment value passed to the constructor is not a power of two.
 /// </summary>
 QTEST_CASE ( Constructor_AssertionFailsWhenAlignmentValueIsNotPowerOfTwo_Test )
 {
@@ -68,7 +68,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenAlignmentValueIsNotPowerOfTwo_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed01, ASSERTION_FAILED);
 }
 
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if constructor sets the alignment value properly.
@@ -86,9 +86,6 @@ QTEST_CASE ( Constructor_CorrectAlignmentValueIsSet_Test )
     uAlignmentValue01 = align_001;
     BOOST_CHECK(ALIGNMENT_VALUE_POWER_OF_TWO == uAlignmentValue01 );
 }
-
-#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
 
 /// <summary>
 /// Checks if conversion operator works properly.
