@@ -93,23 +93,18 @@
                                  }                                                          \
                              }
         #else
-            #include <boost/assert.hpp>
+            #include <assert.h>
 
-            #ifdef BOOST_ASSERT
-
-                #define QE_ASSERT(expression, strErrorMessage)                          \
-                        {                                                               \
-                            if(!(expression))                                           \
-                            {                                                           \
-                                QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
-                                QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
-                                QE_CONSOLE_PRINT(QE_L("\n"));                           \
-                                BOOST_ASSERT(expression);                               \
-                            }                                                           \
-                        }
-            #else
-                #define QE_ASSERT(expression, strErrorMessage) ;
-            #endif
+            #define QE_ASSERT(expression, strErrorMessage)                          \
+                    {                                                               \
+                        if(!(expression))                                           \
+                        {                                                           \
+                            QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
+                            QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
+                            QE_CONSOLE_PRINT(QE_L("\n"));                           \
+                            assert(expression);                                     \
+                        }                                                           \
+                    }
         #endif
     #endif
 
