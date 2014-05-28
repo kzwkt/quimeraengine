@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\Containers\;Tests\Time\;" />
+		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;Tests/Containers/;Tests/Time/;" />
 		<Build>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
@@ -19,8 +19,8 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
@@ -49,8 +49,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicuin.dll.a" />
@@ -81,12 +81,12 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="libQuimeraEngineCommon.a" />
 					<Add library="libQuimeraEngineTools.a" />
+					<Add library="libQuimeraEngineCommon.a" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
-					<Add library="icuin" />
+					<Add library="icui18n" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
@@ -116,7 +116,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
-					<Add library="icuin" />
+					<Add library="icui18n" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
@@ -289,10 +289,10 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h">
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
-		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h">
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp">

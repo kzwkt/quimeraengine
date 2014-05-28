@@ -30,6 +30,11 @@
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 #include "QAlignment.h"
+#include "Assertions.h"
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning(disable:4290) // This disables the warning C4290 produced by throw exception specification
+#endif
 
 #if (defined(QE_OS_WINDOWS) || defined(QE_OS_LINUX)) && defined(QE_COMPILER_GCC)
     #include "malloc.h" // __mingw_aligned_malloc, __mingw_aligned_free
@@ -126,6 +131,173 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
     #endif
 #endif
 
+/// <summary>
+/// Allocates a memory block. Overrides the global new operator provided by the CRT libraries.
+/// </summary>
+/// <param name="uSize">[IN] Size (in bytes) of the memory block to be allocated. It must be greater than zero.</param>
+/// <returns>
+/// A memory block of the specified size.
+/// </returns>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+
+    void* p = malloc(uSize);
+
+    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+
+    return p;
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Allocates a memory block. Overrides the global new operator provided by the CRT libraries.
+/// </summary>
+/// <param name="uSize">[IN] Size (in bytes) of the memory block to be allocated. It must be greater than zero.</param>
+/// <param name="nothrow_value">[IN] Parameter used to specify that no exceptions should be thrown.</param>
+/// <returns>
+/// A memory block of the specified size.
+/// </returns>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+
+    void* p = malloc(uSize);
+
+    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+
+    return p;
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Allocates a memory block. Overrides the global new array operator provided by the CRT libraries.
+/// </summary>
+/// <param name="uSize">[IN] Size (in bytes) of the memory block to be allocated. It must be greater than zero.</param>
+/// <returns>
+/// A memory block of the specified size.
+/// </returns>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+
+    void* p = malloc(uSize);
+
+    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+
+    return p;
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Allocates a memory block. Overrides the global new array operator provided by the CRT libraries.
+/// </summary>
+/// <param name="uSize">[IN] Size (in bytes) of the memory block to be allocated. It must be greater than zero.</param>
+/// <param name="nothrow_value">[IN] Parameter used to specify that no exceptions should be thrown.</param>
+/// <returns>
+/// A memory block of the specified size.
+/// </returns>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void* operator new[](const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+
+    void* p = malloc(uSize);
+
+    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+
+    return p;
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Frees a memory block. Overrides the delete operator provided by the CRT libraries.
+/// </summary>
+/// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void operator delete(void* pMemoryBlock) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    free(pMemoryBlock);
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Frees a memory block. Overrides the delete operator provided by the CRT libraries.
+/// </summary>
+/// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
+/// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void operator delete(void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    free(pMemoryBlock);
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Frees a memory block. Overrides the delete array operator provided by the CRT libraries.
+/// </summary>
+/// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void operator delete[](void* pMemoryBlock) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    free(pMemoryBlock);
+}
+#else
+;
+#endif
+
+/// <summary>
+/// Frees a memory block. Overrides the delete array operator provided by the CRT libraries.
+/// </summary>
+/// <param name="pMemoryBlock">[IN] Pointer to the memory block to be deallocated.</param>
+/// <param name="nothrow_constant">[IN] Parameter used to specify that no exceptions should be thrown.</param>
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+inline
+#endif
+void operator delete[](void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
+#ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
+{
+    free(pMemoryBlock);
+}
+#else
+;
+#endif
 
 /// <summary>
 /// Overload for new operator to get dynamic allocation of aligned memory blocks.
@@ -133,7 +305,7 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
 /// <param name="uSize">[IN] Size (in bytes) of the memory block to be allocated (in C++, this value will always at least 1).</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two). Please refer to the documentation of <B>alignment_alloq_q</B> for further information about the specifications of the date alignment value.</param>
 /// <returns>
-/// An aligned memory block of the specified type when calling to the operator.
+/// An aligned memory block of the specified size.
 /// </returns>
 QE_LAYER_COMMON_SYMBOLS void* operator new      (const pointer_uint_q uSize, const QAlignment& alignment);
 
@@ -143,7 +315,7 @@ QE_LAYER_COMMON_SYMBOLS void* operator new      (const pointer_uint_q uSize, con
 /// <param name="uSize">[IN] Size (in bytes) of the whole memory block to be allocated (in C++, this value will always at least 1).</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two). Please refer to the documentation of <B>alignment_alloq_q</B> for further information about the specifications of the date alignment value.</param>
 /// <returns>
-/// An aligned memory block of the specified amount of the specified type when calling to the operator, grouped as an array of the specified amount of elements.
+/// An aligned memory block of the specified size.
 /// </returns>
 QE_LAYER_COMMON_SYMBOLS void* operator new[]    (const pointer_uint_q uSize, const QAlignment& alignment);
 
@@ -160,5 +332,6 @@ QE_LAYER_COMMON_SYMBOLS void operator delete    (void* pMemoryBlock, const QAlig
 /// <param name="pMemoryBlock">[IN] Pointer to the first aligned memory block of the whole to be deallocated.</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two).</param>
 QE_LAYER_COMMON_SYMBOLS void operator delete[]  (void* pMemoryBlock, const QAlignment& alignment);
+
 
 #endif // __ALLOCATIONOPERATORS__
