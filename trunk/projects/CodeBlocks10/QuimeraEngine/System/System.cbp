@@ -5,7 +5,7 @@
 		<Option title="System" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Core\;" />
+		<Option virtualFolders="Core/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -56,8 +56,8 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
 					<Add library="libboost_thread-mt-d.a" />
 					<Add library="libboost_system-mt-d.a" />
 					<Add library="libicudt.dll.a" />
@@ -85,9 +85,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="icudt" />
+					<Add library="icudata" />
 					<Add library="icuuc" />
-					<Add library="icuin" />
+					<Add library="icui18n" />
 					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>

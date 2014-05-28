@@ -5,7 +5,7 @@
 		<Option title="System" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Core\;" />
+		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Core/;" />
 		<Build>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
@@ -19,9 +19,9 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
@@ -52,9 +52,9 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineSystem.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineSystem.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicuin.dll.a" />
@@ -91,7 +91,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
-					<Add library="icuin" />
+					<Add library="icui18n" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
@@ -122,7 +122,7 @@
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="icudata" />
 					<Add library="icuuc" />
-					<Add library="icuin" />
+					<Add library="icui18n" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
