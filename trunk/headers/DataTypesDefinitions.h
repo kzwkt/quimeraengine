@@ -29,7 +29,7 @@
 
 #include "CrossPlatformBasicTypes.h"
 
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
     #include <string>
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
     #include "QCharUnicode.h"
@@ -134,7 +134,7 @@ namespace DataTypes
 // --------------------------------------------------------------------------------------------------------
 // Char type: Defines the char width used throughout the engine, depending on the selected character set.
 // --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
     typedef char char_q;
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
     typedef QCharUnicode char_q;
@@ -146,7 +146,7 @@ namespace DataTypes
 // --------------------------------------------------------------------------------------------------------
 // String type: Defines the string class used throughout the engine, depending on the selected character set.
 // --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
     typedef std::string string_q;
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
     typedef QStringUnicode string_q;
@@ -157,7 +157,7 @@ namespace DataTypes
 // Literals prefix: Specifies if character string literals must be prefixed with the wide-char token, depending
 // on the selected character set.
 // --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
     #define QE_L(str) str
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
     #define QE_L(str) str

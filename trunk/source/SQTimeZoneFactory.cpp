@@ -85,7 +85,7 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
         i8_q* szId = strId.ToBytes(EQTextEncoding::E_ASCII, uOutputAux);
         boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId.ToBytes(EQTextEncoding::E_ASCII, uOutputAux));
         delete[] szId;
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
         boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId);
 #endif
 
