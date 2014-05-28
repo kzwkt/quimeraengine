@@ -48,7 +48,7 @@
                     delete[] _szOutMsg;                                                                                                    \
                 }
                 
-    #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+    #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
         #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringA(strMessage)
     #endif
 
