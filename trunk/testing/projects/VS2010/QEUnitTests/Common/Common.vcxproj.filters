@@ -66,6 +66,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QType_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QDelegate_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeCollationTestData.h">
       <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\FunctionsForQDelegateTests.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

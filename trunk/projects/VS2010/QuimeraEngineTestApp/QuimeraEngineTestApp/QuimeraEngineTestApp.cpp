@@ -60,11 +60,47 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+class CLASE
+{
+public:
+
+    template<class T>
+    CLASE* Method()
+    {
+        return NULL;
+    }
+
+    template<>
+    CLASE* Method<int>()
+    {
+        return new CLASE();
+    }
+    
+    template<>
+    CLASE* Method<char>()
+    {
+        return new CLASE();
+    }
+    
+    template<>
+    CLASE* Method<float>()
+    {
+        return new CLASE();
+    }
+};
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+    CLASE* p = new CLASE();
+    p = p->Method<int>();
+    p = p->Method<char>();
+    p = p->Method<float>();
+    p = p->Method<void*>();
+
+
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 

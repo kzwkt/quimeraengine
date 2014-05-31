@@ -215,6 +215,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_common/EQEnumeration_Test.cpp">
 			<Option virtualFolder="Tests/General/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/FunctionsForQDelegateTests.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QAlignment_Test.cpp">
 			<Option virtualFolder="Tests/Memory/" />
 		</Unit>
@@ -223,6 +226,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QConstCharIterator_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QDelegate_Test.cpp">
+			<Option virtualFolder="Tests/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QPoolAllocatorWhiteBox.h">
 			<Option virtualFolder="Tests/Memory/" />
