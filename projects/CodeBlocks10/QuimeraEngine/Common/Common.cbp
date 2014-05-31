@@ -146,6 +146,7 @@
 		<Unit filename="../../../../headers/DataTypesDefinitions.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../headers/DelegateInternals.h" />
 		<Unit filename="../../../../headers/EQComparisonType.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
@@ -163,6 +164,7 @@
 		<Unit filename="../../../../headers/QCharUnicode.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../headers/QDelegate.h" />
 		<Unit filename="../../../../headers/QPoolAllocator.h">
 			<Option virtualFolder="Memory/" />
 		</Unit>

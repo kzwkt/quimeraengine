@@ -59,6 +59,8 @@
     <ClInclude Include="..\..\..\..\headers\QType.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
+    <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">

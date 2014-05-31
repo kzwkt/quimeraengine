@@ -98,6 +98,7 @@
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
     <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />
     <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
@@ -105,6 +106,7 @@
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
     <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
+    <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
     <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h" />
     <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QType.h" />
