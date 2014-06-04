@@ -196,7 +196,7 @@ QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, cons
     QE_ASSERT(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
 
     QStringUnicode strResult;
-    m_strString.extract(uStartPosition, uLastPosition - uStartPosition, strResult.m_strString);
+    m_strString.extract(uStartPosition, uLastPosition - uStartPosition + 1, strResult.m_strString);
 
     return strResult;
 }
