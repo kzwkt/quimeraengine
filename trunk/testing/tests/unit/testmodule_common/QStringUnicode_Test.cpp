@@ -1322,7 +1322,7 @@ QTEST_CASE ( Substring_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
     const QStringUnicode EXPECTED_RESULT("EFGH");
     const unsigned int START_POSITION = 4;
-    const unsigned int LAST_POSITION = START_POSITION + 4;
+    const unsigned int LAST_POSITION = START_POSITION + 3;
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
@@ -1383,13 +1383,13 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosit
 #endif
 
 /// <summary>
-/// Checks that an empty string is returned when start position equals last position.
+/// Checks that an 1-length string is returned when start position equals last position.
 /// </summary>
 QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionEqualsLastPosition_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
-    const QStringUnicode EXPECTED_RESULT("");
+    const QStringUnicode EXPECTED_RESULT("E");
     const unsigned int START_POSITION = 4;
     const unsigned int LAST_POSITION = START_POSITION;
 
