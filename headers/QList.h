@@ -441,6 +441,83 @@ public:
         */
         return *this;
     }
+    /// <summary>
+    /// Performs a fast shallow copy of the list elements.
+    /// </summary>
+    /// <param name="destinationList"> [OUT] Destination list where to copy the list elements. If the destination list's size is lower than the resident list's size reallocation will occur.</param>
+    void Clone(QList &destinationList) const
+    {
+        if ( destinationList.GetCapacity() < this->GetCapacity())
+            // Uncomment when reserve method is implemented
+            // destinationList.Reserve(this->GetCapacity());
+        m_pElementAllocator->CopyTo(*destinationList.m_pElementAllocator);
+        m_pLinkAllocator->CopyTo(*destinationList.m_pLinkAllocator);
+    }
+
+    /// <summary>
+    /// Returns a reference to the element stored in the passed position.
+    /// </summary>
+    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the list's size. Note that indexes are zero-based.</param>
+    /// <returns>
+    /// A reference to the element stored in the passed position.
+    /// </returns>
+    T& GetValue(const pointer_uint_q uIndex) const
+    {
+        // [TODO] raul. Uncomment when iterators exist. 
+        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements. 
+        // [TODO] raul. If so a remark must be added in the documentation.        
+        /*
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the list's size" );
+        QListIterator iterator = QListIterator(this);
+        pointer_uint_q uCurrentIndex = 0;
+
+        for(iterator.MoveFirst(); !iterator.IsEnd(); ++iterator, ++uCurrentIndex)
+        {
+            if (uCurrentIndex == uIndex)
+                break;
+        }
+        return (*iterator);
+        */
+    }
+
+    /// <summary>
+    /// Sets the value in the index passed as parameter.
+    /// </summary>
+    /// <param name="uIndex"> [IN] Position of the element to set. It must be less than the list's size. Note that indexes are zero-based.</param>
+    void SetValue(const pointer_uint_q uIndex, const T& value)
+    {
+        // [TODO] raul. Uncomment when iterators exist.
+        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements. 
+        // [TODO] raul. If so a remark must be added in the documentation.
+        /*
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the list's size" );
+        QListIterator iterator = QListIterator(this);
+        pointer_uint_q uCurrentIndex = 0;
+        iterator.MoveFirst();
+
+        while ( (uCurrentIndex <= uIndex) && (!iterator.IsEnd()) )
+        {
+            if (uCurrentIndex == uIndex)
+                *iterator = T;
+            ++iterator;
+            ++uCurrentIndex;
+        }
+        */
+    }
+
+    /// <summary>
+    /// Returns a reference to the element stored in the passed position. Indexes are zero-based.
+    /// </summary>
+    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the list's size.</param>
+    /// <returns>
+    /// A reference to the element stored in the passed position.
+    /// </returns>
+    T& operator[] (const pointer_uint_q uIndex) const
+    {
+        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements. 
+        // [TODO] raul. If so a remark must be added in the documentation. 
+        return this->GetValue(uIndex);
+    }
 
 private:
 
@@ -458,6 +535,39 @@ public:
     const Allocator* GetAllocator() const
     {
         return m_pElementAllocator;
+    }
+
+    /// <summary>
+    /// Returns the number of elements in the list.
+    /// </summary>
+    /// <returns>
+    /// The number of elements in the list.
+    /// </returns>
+    pointer_uint_q GetCount() const
+    {
+        return m_pElementAllocator->GetAllocatedBytes() / sizeof(T);
+    }
+
+    /// <summary>
+    /// Returns the number of elements that can be stored in the list without a reallocation.
+    /// </summary>
+    /// <returns>
+    /// The number of elements that can be stored in the list without a reallocation.
+    /// </returns>
+    pointer_uint_q GetCapacity() const
+    {
+        return m_pElementAllocator->GetPoolSize() / sizeof(T);
+    }
+
+    /// <summary>
+    /// Checks whether the list is empty or not.
+    /// </summary>
+    /// <returns>
+    /// True if the list is empty.
+    /// </returns>
+    bool IsEmpty() const
+    {
+        return (GetCount() == 0);
     }
 
     // ATTRIBUTES
