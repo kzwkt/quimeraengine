@@ -478,6 +478,8 @@ public:
         }
         return (*iterator);
         */
+        T t;
+        return t; // [TODO] Thund: Remove this line when the above block is uncommented
     }
 
     /// <summary>

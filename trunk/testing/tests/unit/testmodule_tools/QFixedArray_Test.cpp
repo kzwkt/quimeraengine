@@ -208,8 +208,6 @@ QTEST_CASE ( Constructor2_CopyConstructorOfArrayElementsAreCalled_Test )
     BOOST_CHECK_EQUAL( uCallsToCopyConstructor, EXPECTED_CALLS_TO_COPY_CONSTRUCTOR );
 }
 
-
-
 /// <summary>
 /// Checks if the constructor without parameters initializes correctly.
 /// </summary>
@@ -233,6 +231,81 @@ QTEST_CASE ( Constructor3_ConstructorWithoutParametersInitializesCorrectly_Test 
     BOOST_CHECK_EQUAL( uLast, END_POSITION_FORWARD );
 }
 
+/// <summary>
+/// Checks if the instance is correctly constructed when it receives a common array and its size.
+/// </summary>
+QTEST_CASE ( Constructor4_ItIsCorrectlyConstructedFromCommonArray_Test )
+{
+    // [Preparation]
+    const int ARRAY_SIZE = 3;
+    const char SOURCE_ARRAY[ARRAY_SIZE] = {0, 1, 2};
+
+    // [Execution]
+    QFixedArray<char> arArray(SOURCE_ARRAY, ARRAY_SIZE);
+
+    // [Verification]
+    unsigned int uArraySize = arArray.GetCount();
+    BOOST_CHECK_EQUAL(uArraySize, ARRAY_SIZE);
+
+    for(unsigned int i = 0; i < arArray.GetCount(); ++i)
+        BOOST_CHECK_EQUAL( arArray[i], SOURCE_ARRAY[i] );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when the input array is null.
+/// </summary>
+QTEST_CASE ( Constructor4_AssertionFailsWhenArrayIsNull_Test )
+{
+    // [Preparation]
+    const int* NULL_ARRAY = null_q;
+    const unsigned int NON_ZERO_SIZE = 3;
+    const bool ASSERTION_FAILED = true;
+
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        QFixedArray<int> arArray = QFixedArray<int>(NULL_ARRAY, NON_ZERO_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <summary>
+/// Checks than assertion fails when the input array size equals zero.
+/// </summary>
+QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
+{
+    // [Preparation]
+    const int SOURCE_ARRAY[3] = {0, 1, 2};
+    const unsigned int ZERO_SIZE = 0;
+    const bool ASSERTION_FAILED = true;
+
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        QFixedArray<int> arArray = QFixedArray<int>(SOURCE_ARRAY, ZERO_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if it calls to operator assignment of the array elements.

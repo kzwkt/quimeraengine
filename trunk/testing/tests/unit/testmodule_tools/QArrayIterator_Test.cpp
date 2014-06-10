@@ -2339,6 +2339,355 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenArrayIsEmpty_Test )
 
 #endif
 
+/// <summary>
+/// Checks that the iterator is correctly incremented when the increment is greater than zero.
+/// </summary>
+QTEST_CASE ( MoveForward_CommonIteratorIsCorrectlyIncrementedWhenIncrementIsGreaterThanZero_Test )
+{
+    // [Preparation]
+    const int THIRD_ELEMENT_VALUE = 3;
+    const int INCREMENT = 2;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[2] = THIRD_ELEMENT_VALUE;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveFirst();
+
+	// [Execution]
+    iterator.MoveForward(INCREMENT);
+
+    // [Verification]
+    int uElementValue = *iterator;
+    BOOST_CHECK_EQUAL(uElementValue, THIRD_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator is not modified when the increment equals zero.
+/// </summary>
+QTEST_CASE ( MoveForward_CommonIteratorDoesNotChangeWhenIncrementIsZero_Test )
+{
+    // [Preparation]
+    const int FIRST_ELEMENT_VALUE = 3;
+    const int INCREMENT = 0;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[0] = FIRST_ELEMENT_VALUE;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveFirst();
+
+	// [Execution]
+    iterator.MoveForward(INCREMENT);
+
+    // [Verification]
+    int uElementValue = *iterator;
+    BOOST_CHECK_EQUAL(uElementValue, FIRST_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator points to the forward end position when the new position is out of bounds.
+/// </summary>
+QTEST_CASE ( MoveForward_CommonIteratorPointsToForwardEndPositionWhenNewPositionIsOutOfBounds_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QFixedArray<int> arSourceArray(3, 0);
+    const int INCREMENT = arSourceArray.GetCount();
+    const bool EXPECTED_RESULT = true;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveFirst();
+
+	// [Execution]
+    iterator.MoveForward(INCREMENT);
+
+    // [Verification]
+    bool bIsForwardEnd = iterator.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsForwardEnd, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the iterator points to the first position when it was pointing to the backward end position and then was incremented by 1.
+/// </summary>
+QTEST_CASE ( MoveForward_CommonIteratorPointsToFirstElementWhenStartsFromBackwardEndPositionAndIsIncrementedByOne_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const int FIRST_ELEMENT_VALUE = 5;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[0] = FIRST_ELEMENT_VALUE;
+    const int INCREMENT = 1;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveFirst();
+    --iterator;
+
+	// [Execution]
+    iterator.MoveForward(INCREMENT);
+
+    // [Verification]
+    int nCurrentElementValue = *iterator;
+    BOOST_CHECK_EQUAL(nCurrentElementValue, FIRST_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator points to the forward end position when it was pointing to the backward end position and then was incremented by the size of the array.
+/// </summary>
+QTEST_CASE ( MoveForward_CommonIteratorPointsToForwardEndWhenStartsFromBackwardEndPositionAndIsIncrementedByMoreThanCount_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QFixedArray<int> SOURCE_ARRAY(3, 0);
+    const int INCREMENT = SOURCE_ARRAY.GetCount();
+    const bool EXPECTED_RESULT = true;
+    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
+    iterator.MoveFirst();
+    --iterator;
+
+	// [Execution]
+    iterator.MoveForward(INCREMENT);
+
+    // [Verification]
+    bool bIsForwardEnd = iterator.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsForwardEnd, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/* [TODO] Thund: Uncomment when QDynamicArray exists
+/// <summary>
+/// Checks that an assertion fails when the iterator is invalid.
+/// </summary>
+QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorIsNotValid_Test )
+{
+    // [Preparation]
+    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    const int INCREMENT = 1;
+    const bool ASSERTION_FAILED = true;
+    QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
+    iterator.MoveLast();
+    SOURCE_ARRAY.Remove(2);
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        iterator.MoveForward(INCREMENT);
+    }
+    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+*/
+
+/// <summary>
+/// Checks that an assertion fails when the iterator points to forward end position.
+/// </summary>
+QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
+{
+    // [Preparation]
+    QFixedArray<int> SOURCE_ARRAY(3, 0);
+    const int INCREMENT = 1;
+    const bool ASSERTION_FAILED = true;
+    QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
+    iterator.MoveLast();
+    ++iterator;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        iterator.MoveForward(INCREMENT);
+    }
+    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the iterator is correctly decremented when the decrement is greater than zero.
+/// </summary>
+QTEST_CASE ( MoveBackward_CommonIteratorIsCorrectlyDecrementedWhenDecrementIsGreaterThanZero_Test )
+{
+    // [Preparation]
+    const int FIRST_ELEMENT_VALUE = 3;
+    const int DECREMENT = 2;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[0] = FIRST_ELEMENT_VALUE;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveLast();
+
+	// [Execution]
+    iterator.MoveBackward(DECREMENT);
+
+    // [Verification]
+    int uElementValue = *iterator;
+    BOOST_CHECK_EQUAL(uElementValue, FIRST_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator is not modified when the decrement equals zero.
+/// </summary>
+QTEST_CASE ( MoveBackward_CommonIteratorDoesNotChangeWhenDecrementIsZero_Test )
+{
+    // [Preparation]
+    const int THIRD_ELEMENT_VALUE = 3;
+    const int DECREMENT = 0;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[2] = THIRD_ELEMENT_VALUE;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveLast();
+
+	// [Execution]
+    iterator.MoveBackward(DECREMENT);
+
+    // [Verification]
+    int uElementValue = *iterator;
+    BOOST_CHECK_EQUAL(uElementValue, THIRD_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator points to the backward end position when the new position is out of bounds.
+/// </summary>
+QTEST_CASE ( MoveBackward_CommonIteratorPointsToBackwardEndPositionWhenNewPositionIsOutOfBounds_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QFixedArray<int> arSourceArray(3, 0);
+    const int DECREMENT = arSourceArray.GetCount();
+    const bool EXPECTED_RESULT = true;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveLast();
+
+	// [Execution]
+    iterator.MoveBackward(DECREMENT);
+
+    // [Verification]
+    bool bIsBackwardEnd = iterator.IsEnd(EQIterationDirection::E_Backward);
+    BOOST_CHECK_EQUAL(bIsBackwardEnd, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the iterator points to the last position when it was pointing to the forward end position and then was decremented by 1.
+/// </summary>
+QTEST_CASE ( MoveBackward_CommonIteratorPointsToFirstElementWhenStartsFromForwardEndPositionAndIsIncrementedByOne_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const int LAST_ELEMENT_VALUE = 5;
+    QFixedArray<int> arSourceArray(3, 0);
+    arSourceArray[2] = LAST_ELEMENT_VALUE;
+    const int DECREMENT = 1;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveLast();
+    ++iterator;
+
+	// [Execution]
+    iterator.MoveBackward(DECREMENT);
+
+    // [Verification]
+    int nCurrentElementValue = *iterator;
+    BOOST_CHECK_EQUAL(nCurrentElementValue, LAST_ELEMENT_VALUE);
+}
+
+/// <summary>
+/// Checks that the iterator points to the backward end position when it was pointing to the forward end position and then was decremented by the size of the array.
+/// </summary>
+QTEST_CASE ( MoveBackward_CommonIteratorPointsToBackwardEndWhenStartsFromForwardEndPositionAndIsDecrementedByMoreThanCount_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QFixedArray<int> arSourceArray(3, 0);
+    const int DECREMENT = arSourceArray.GetCount();
+    const bool EXPECTED_RESULT = true;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveLast();
+    ++iterator;
+
+	// [Execution]
+    iterator.MoveBackward(DECREMENT);
+
+    // [Verification]
+    bool bIsBackwardEnd = iterator.IsEnd(EQIterationDirection::E_Backward);
+    BOOST_CHECK_EQUAL(bIsBackwardEnd, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/* [TODO] Thund: Uncomment when QDynamicArray exists
+/// <summary>
+/// Checks that an assertion fails when the iterator is invalid.
+/// </summary>
+QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorIsNotValid_Test )
+{
+    // [Preparation]
+    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    const int DECREMENT = 1;
+    const bool ASSERTION_FAILED = true;
+    QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
+    iterator.MoveLast();
+    SOURCE_ARRAY.Remove(2);
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        iterator.MoveBackward(DECREMENT);
+    }
+    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+*/
+
+/// <summary>
+/// Checks that an assertion fails when the iterator is pointing to the backward end position.
+/// </summary>
+QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorPointsToBackwardEndPosition_Test )
+{
+    // [Preparation]
+    QFixedArray<int> arSourceArray(3, 0);
+    const int DECREMENT = 1;
+    const bool ASSERTION_FAILED = true;
+    QFixedArray<int>::QArrayIterator iterator(&arSourceArray, 0);
+    iterator.MoveFirst();
+    --iterator;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        iterator.MoveBackward(DECREMENT);
+    }
+    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
 
 /// <summary>
 /// Checks that it returns True when iterator points to a common position.
