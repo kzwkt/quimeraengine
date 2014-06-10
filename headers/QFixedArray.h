@@ -269,7 +269,7 @@ public:
 
             return *this;
         }
-
+        
         /// <summary>
         /// Equality operator that checks if both iterators are the same.
         /// </summary>
@@ -454,6 +454,94 @@ public:
         {
             m_uPosition = m_pArray->m_uLast;
         }
+        
+        /// <summary>
+        /// Increments the position the iterator points to.
+        /// </summary>
+        /// <remarks>
+        /// It is recommended to use pre-increment or post-increment operators instead if the intention is to advance just one position.<br/>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <param name="uIncrement">[IN] The amount of positions to move the iterator forward. If the new position is out of bounds, the iterator 
+        /// will point to the position after the last element (end position).</param>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QArrayIterator& MoveForward(const pointer_uint_q uIncrement)
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+
+            if(uIncrement != 0)
+            {
+                if(m_uPosition == m_pArray->m_uLast)
+                    m_uPosition = QFixedArray::END_POSITION_FORWARD;
+                else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
+                {
+                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
+
+                    if(uIncrement < ARRAY_COUNT)
+                        m_uPosition = m_pArray->m_uFirst + uIncrement - 1U;
+                    else if(uIncrement == ARRAY_COUNT)
+                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
+                }
+                else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
+                {
+                    if((m_pArray->GetCount() - m_uPosition) <= uIncrement)
+                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
+                    else
+                        m_uPosition += uIncrement;
+                }
+            }
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Decrements the position the iterator points to.
+        /// </summary>
+        /// <remarks>
+        /// It is recommended to use pre-decrement or post-decrement operators instead if the intention is to move just one position back.<br/>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <param name="uDecrement">[IN] The amount of positions to move the iterator backward. If the new position is out of bounds, the iterator 
+        /// will point to the position before the first element (end position).</param>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QArrayIterator& MoveBackward(const pointer_uint_q uDecrement)
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+
+            if(uDecrement != 0)
+            {
+                if(m_uPosition == m_pArray->m_uFirst)
+                    m_uPosition = QFixedArray::END_POSITION_BACKWARD;
+                else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
+                {
+                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
+
+                    if(uDecrement < ARRAY_COUNT)
+                        m_uPosition = m_pArray->m_uLast - uDecrement + 1U;
+                    else if(uDecrement == ARRAY_COUNT)
+                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
+                }
+                else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
+                {
+                    if(m_uPosition < uDecrement)
+                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
+                    else
+                        m_uPosition -= uDecrement;
+                }
+            }
+
+            return *this;
+        }
 
         /// <summary>
         /// Checks whether the iterator is valid or not.
@@ -518,14 +606,14 @@ public:
     /// <remarks>
     /// The copy constructor is called for every element of the array.
     /// </remarks>
-    /// <param name="uCount"> [IN] Number of elements to store. It must be greater than zero.</param>
-    /// <param name="initialValue"> [IN] The initial value to assign to all array elements.</param>
+    /// <param name="uCount">[IN] Number of elements to store. It must be greater than zero.</param>
+    /// <param name="initialValue">[IN] The initial value to assign to all array elements.</param>
     QFixedArray(const pointer_uint_q uCount, const T &initialValue) :
             m_uFirst(0),
             m_uLast(uCount - 1)
     {
         QE_ASSERT( uCount > 0, "Zero elements array is not allowed." );
-        QE_ASSERT( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows." );
+        QE_ASSERT( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
 
         m_pAllocator = new Allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
 
@@ -536,20 +624,44 @@ public:
         }
     }
 
+	/// <summary>
+	/// Constructor that receives an existing array and its size.
+	/// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every element of the array.
+    /// </remarks>
+    /// <param name="pArray">[IN] The existing array that will be copied. It must not be null.</param>
+    /// <param name="uNumberOfElements">[IN] The number of elements in the input array. It must be greater than zero.</param>
+    QFixedArray(const T* pArray, const pointer_uint_q uNumberOfElements) :
+            m_uFirst(0),
+            m_uLast(uNumberOfElements - 1)
+    {
+        QE_ASSERT( pArray != null_q, "The argument pArray is null." );
+        QE_ASSERT( uNumberOfElements > 0, "Zero elements array is not allowed." );
+
+        m_pAllocator = new Allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
+
+        for(pointer_uint_q uIndex = 0; uIndex < uNumberOfElements; ++uIndex)
+        {
+            // Allocates and writes in the returned buffer a copy of the input array
+            new(m_pAllocator->Allocate()) T(pArray[uIndex]);
+        }
+    }
+
     /// <summary>
 	/// Copy constructor. Creates a fixed array from another.
 	/// </summary>
     /// <remarks>
     /// The copy constructor is called for every element of the array.
     /// </remarks>
-    /// <param name="fixedArray"> [IN] Fixed array from which to copy.</param>
+    /// <param name="fixedArray">[IN] Fixed array from which to copy.</param>
     QFixedArray(const QFixedArray &fixedArray) :
             m_uFirst(fixedArray.m_uFirst),
             m_uLast(fixedArray.m_uLast)
     {
         m_pAllocator = new Allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
 
-        for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1; uIndex++)
+        for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1; ++uIndex)
         {
             // Constructs a T object over the buffer returned by the allocator and initializes it with
             // the value of the origin element in the corresponding array position.
@@ -582,7 +694,7 @@ public:
     {
         QE_ASSERT( null_q != m_pAllocator, "Allocator is null" );
 
-        for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); uIndex++)
+        for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); ++uIndex)
             this->GetValue(uIndex).~T();
 
         delete m_pAllocator;
@@ -603,7 +715,7 @@ public:
     /// elements in the destination array does not change.
     /// Assignment operator will be called for every element of the array.
     /// </remarks>
-    /// <param name="fixedArray"> [IN] Fixed array from which to copy.</param>
+    /// <param name="fixedArray">[IN] Fixed array from which to copy.</param>
     /// <returns>
     /// A reference to the resulting fixed array.
     /// </returns>
@@ -616,7 +728,7 @@ public:
         else
             uElementsToCopy = this->GetCount();
 
-        for(pointer_uint_q uIndex = 0; uIndex < uElementsToCopy; uIndex++)
+        for(pointer_uint_q uIndex = 0; uIndex < uElementsToCopy; ++uIndex)
         {
             // Destination array element value = Origin array element value, using pointers arithmetic
             this->SetValue(uIndex, fixedArray.GetValue(uIndex));
@@ -628,7 +740,7 @@ public:
     /// <summary>
     /// Returns a reference to the element stored in the passed position.
     /// </summary>
-    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
+    /// <param name="uIndex">[IN] Position of the element to access. It must be less than the array's size.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
     /// </returns>
@@ -640,7 +752,7 @@ public:
     /// <summary>
     /// Returns a reference to the element stored in the passed position.
     /// </summary>
-    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the array's size.</param>
+    /// <param name="uIndex">[IN] Position of the element to access. It must be less than the array's size.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
     /// </returns>
@@ -666,8 +778,8 @@ public:
     /// <remarks>
     /// The assignment operator will be called for the element that is currently occupying that position.
     /// </remarks>
-    /// <param name="uIndex"> [IN] Position in the array where to copy the value. It must be less than the array's size.</param>
-    /// <param name="value"> [IN] Value to copy in the array.</param>
+    /// <param name="uIndex">[IN] Position in the array where to copy the value. It must be less than the array's size.</param>
+    /// <param name="value">[IN] Value to copy in the array.</param>
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
         QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
@@ -739,8 +851,8 @@ private:
     /// <summary>
     /// Checks if the multiplication of two operands overflows for the pointer_uint_q type.
     /// </summary>
-    /// <param name="uOperandA"> [IN] Operand to multiply.</param>
-    /// <param name="uOperandB"> [IN] Operand to multiply.</param>
+    /// <param name="uOperandA">[IN] Operand to multiply.</param>
+    /// <param name="uOperandB">[IN] Operand to multiply.</param>
     /// <returns>
     /// True if the result overflows for the pointer_uint_q type.
     /// </returns>
@@ -752,7 +864,7 @@ private:
     /// <summary>
     /// Gets the highest one bit position of a number converted to binary format.
     /// </summary>
-    /// <param name="uValue"> [IN] Number to trate.</param>
+    /// <param name="uValue">[IN] Number to trate.</param>
     /// <returns>
     /// The highest one bit position of the number passed by parameter.
     /// </returns>
