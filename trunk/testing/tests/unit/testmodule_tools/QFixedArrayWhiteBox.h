@@ -49,9 +49,8 @@ namespace Test
 template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator>
 class QFixedArrayWhiteBox : public QFixedArray<T>
 {
-    using QFixedArray<T>::m_pAllocator;
+    using QFixedArray<T>::m_allocator;
 
-    static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -60,9 +59,6 @@ public:
 	// Necessary for testing
     QFixedArrayWhiteBox() : QFixedArray<T>()
     {
-        // To avoid that the destructor tries to delete a null pointer.
-        if( null_q == m_pAllocator )
-            m_pAllocator = new Allocator(QFixedArrayWhiteBox::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
     }
 
 	// PROPERTIES
@@ -84,7 +80,7 @@ public:
     // Necessary for testing
     Allocator* GetpAllocator() const
     {
-        return QFixedArray<T, Allocator>::m_pAllocator;
+        return &QFixedArray<T, Allocator>::m_allocator;
     }
 };
 

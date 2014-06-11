@@ -144,6 +144,25 @@ public:
     /// Other values may cause an unexpected behaviour.</param>
     void CopyTo(QPoolAllocator &poolAllocator) const;
 
+    /// <summary>
+	/// Moves the allocated data to a bigger memory block at a different memory address.
+	/// </summary>	
+    /// <remarks>
+    /// The new address will be resolved by the system.
+    /// </remarks>
+    /// <param name="uNewSize">[IN] The new size of the pool, in bytes. It must be greater than the current size of the pool; otherwise, no action 
+    /// will be performed.</param>
+    void Reallocate(const pointer_uint_q uNewSize);
+
+    /// <summary>
+	/// Moves the allocated data to a bigger memory block at a different memory address.
+	/// </summary>	
+    /// <param name="uNewSize">[IN] The new size of the pool, in bytes. It must be greater than the current size of the pool; otherwise, no action 
+    /// will be performed.</param>
+    /// <param name="pNewLocation">[IN] The new memory address where the new block will be reserved. It must not be null, or no reallocation will be done.</param>
+    void Reallocate(const pointer_uint_q uNewSize, const void* pNewLocation);
+
+
 private:
 
 	// Disabled.
@@ -158,6 +177,14 @@ private:
 	/// Initializes the free blocks list. So all blocks area available to allocate.
 	/// </summary>	
     void ClearFreeBlocksList(); 
+
+    /// <summary>
+	/// Moves the allocated data to a bigger memory block at a different memory address. It's intended for internal use only.
+	/// </summary>	
+    /// <param name="uNewSize">[IN] The new size of the pool, in bytes. It must be greater than the current size of the pool; otherwise, no action 
+    /// will be performed.</param>
+    /// <param name="pNewLocation">[IN] The new memory address where the new block will be reserved. It must not be null, or no reallocation will be done.</param>
+    void InternalReallocate(const pointer_uint_q uNewSize, void* pNewLocation);
 
 
 	// PROPERTIES
@@ -219,7 +246,7 @@ protected:
   	/// <summary>
 	/// Pointer to the chunk containing pointers to the free blocks of the pool.
 	/// </summary>		
-    void** m_pFreeBlocks;
+    void** m_ppFreeBlocks;
 
     /// <summary>
 	/// Pointer to the block containing the pointer to the next free block.
@@ -278,7 +305,7 @@ private:
 	/// False if memory buffer was passed by parameter to the constructor, in which case it does not need to be destroyed.
     /// Otherwise True and memory buffer needs to be destroyed.
 	/// </summary>	
-    u8_q m_uNeedDestroyMemoryChunk;
+    bool m_bNeedDestroyMemoryChunk;
 };
 
 } //namespace Memory

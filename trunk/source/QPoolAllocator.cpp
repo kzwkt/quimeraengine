@@ -66,7 +66,7 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uPoolSize(uSize),
             m_uAllocatedBytes(0),
             m_uAlignment(alignment),
-            m_uNeedDestroyMemoryChunk(1)
+            m_bNeedDestroyMemoryChunk(true)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero"  );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
@@ -86,7 +86,7 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uPoolSize(uSize),
             m_uAllocatedBytes(0),
             m_uAlignment(QAlignment(sizeof(void**))),
-            m_uNeedDestroyMemoryChunk(0)
+            m_bNeedDestroyMemoryChunk(false)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero" );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
@@ -110,7 +110,7 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uPoolSize(uSize),
             m_uAllocatedBytes(0),
             m_uAlignment(alignment),
-            m_uNeedDestroyMemoryChunk(0)
+            m_bNeedDestroyMemoryChunk(false)
 {
     QE_ASSERT( 0 != uSize, "Size cannot be zero" );
     QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
@@ -140,10 +140,10 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 
 QPoolAllocator::~QPoolAllocator()
 {
-    if(m_uNeedDestroyMemoryChunk != 0)
+    if(m_bNeedDestroyMemoryChunk)
         operator delete(m_pAllocatedMemory, m_uAlignment);
 
-    operator delete(m_pFreeBlocks);
+    operator delete(m_ppFreeBlocks);
 }
 
 
@@ -164,7 +164,7 @@ void* QPoolAllocator::Allocate()
     m_uAllocatedBytes += m_uBlockSize;
 
     // Takes the index of the next free block from the free blocks pointers list.
-    pointer_uint_q uNextFreeBlockIndex = m_ppNextFreeBlock - m_pFreeBlocks;
+    pointer_uint_q uNextFreeBlockIndex = m_ppNextFreeBlock - m_ppFreeBlocks;
 
     // Updates with the pointer to the new free block pointer.
     m_ppNextFreeBlock = (void**)*m_ppNextFreeBlock;
@@ -181,8 +181,8 @@ void QPoolAllocator::Deallocate(const void* pBlock)
     m_uAllocatedBytes -= m_uBlockSize;
 
     // Calculates the address in the blocks pointers list of the block to deallocate.
-    // ppDeallocatedBlock = m_pFreeBlocks + Index of the block to deallocate
-    void **ppDeallocatedBlock = m_pFreeBlocks + (((pointer_uint_q)pBlock - (pointer_uint_q)m_pFirst) / m_uBlockSize);
+    // ppDeallocatedBlock = m_ppFreeBlocks + Index of the block to deallocate
+    void **ppDeallocatedBlock = m_ppFreeBlocks + (((pointer_uint_q)pBlock - (pointer_uint_q)m_pFirst) / m_uBlockSize);
 
     // Inserts at the beginning of the free blocks pointers list the deallocated block.
     *ppDeallocatedBlock = m_ppNextFreeBlock;
@@ -192,7 +192,7 @@ void QPoolAllocator::Deallocate(const void* pBlock)
 
 void QPoolAllocator::Clear()
 {
-    m_ppNextFreeBlock = m_pFreeBlocks;
+    m_ppNextFreeBlock = m_ppFreeBlocks;
     this->ClearFreeBlocksList();
 }
 
@@ -208,13 +208,13 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
         if(m_uBlocksCount < poolAllocator.m_uBlocksCount)
         {
             // ppNext = first free block of remaining free blocks.
-            void **ppNext = poolAllocator.m_pFreeBlocks + m_uBlocksCount;
+            void **ppNext = poolAllocator.m_ppFreeBlocks + m_uBlocksCount;
 
             // Assigns the next free block in the destination pool
             poolAllocator.m_ppNextFreeBlock = ppNext;
 
             // Frees remaining blocks from destination redoing the rest of the list.
-            for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < poolAllocator.m_uBlocksCount - 1; uIndex++ )
+            for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < poolAllocator.m_uBlocksCount - 1; ++uIndex )
             {
                 *ppNext = (void*)((void**)ppNext + 1);
                 ppNext = (void**)*ppNext;
@@ -230,16 +230,16 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
     else
     {
         // Assigns the next free block in the destination pool (same block index as in origin).
-        poolAllocator.m_ppNextFreeBlock = poolAllocator.m_pFreeBlocks + (m_ppNextFreeBlock - m_pFreeBlocks);
+        poolAllocator.m_ppNextFreeBlock = poolAllocator.m_ppFreeBlocks + (m_ppNextFreeBlock - m_ppFreeBlocks);
 
         // Copy free blocks pointers list from source to destination
         void **ppLastFreeBlock = m_ppNextFreeBlock;
 
         while( null_q != *ppLastFreeBlock )
         {
-            // Index of the next free block in the source = *ppLastFreeBlock - m_pFreeBlocks
-            *(poolAllocator.m_pFreeBlocks + ((void**)ppLastFreeBlock - m_pFreeBlocks)) =
-                                    poolAllocator.m_pFreeBlocks + ((void**)*ppLastFreeBlock - m_pFreeBlocks);
+            // Index of the next free block in the source = *ppLastFreeBlock - m_ppFreeBlocks
+            *(poolAllocator.m_ppFreeBlocks + ((void**)ppLastFreeBlock - m_ppFreeBlocks)) =
+                                    poolAllocator.m_ppFreeBlocks + ((void**)*ppLastFreeBlock - m_ppFreeBlocks);
 
             // ppLastFreeBlock will contain the pointer to last free block in the list or null if there are no free blocks
             // when exits from the while loop.
@@ -254,10 +254,10 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
             // Links copied free blocks list from source to remaining free blocks from destination.
 
             // ppNext = first free block of remaining free blocks.
-            void **ppNext = poolAllocator.m_pFreeBlocks + m_uBlocksCount;
+            void **ppNext = poolAllocator.m_ppFreeBlocks + m_uBlocksCount;
 
             // Links two lists.
-            *(poolAllocator.m_pFreeBlocks +  (ppLastFreeBlock - m_pFreeBlocks)) = ppNext;
+            *(poolAllocator.m_ppFreeBlocks +  (ppLastFreeBlock - m_ppFreeBlocks)) = ppNext;
 
             // Frees the rest of blocks from destination redoing the rest of the list.
             for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < poolAllocator.m_uBlocksCount - 1; uIndex++ )
@@ -276,12 +276,37 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
     poolAllocator.m_uAllocatedBytes = m_uAllocatedBytes;
 }
 
+void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize)
+{
+    QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
+
+    void* pNewLocation = operator new(uNewSize, m_uAlignment);
+
+    this->InternalReallocate(uNewSize, pNewLocation);
+
+    m_bNeedDestroyMemoryChunk = true;
+}
+
+void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize, const void* pNewLocation)
+{
+    QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
+    QE_ASSERT(pNewLocation != null_q, "The input new location cannot be null.");
+
+    pointer_uint_q uNewLocationAddress = (pointer_uint_q)pNewLocation;
+    pointer_uint_q uAlignmentOffset = m_uAlignment - (uNewLocationAddress % m_uAlignment);
+    void* pAdjustedNewLocation = (void*)((pointer_uint_q)pNewLocation + uAlignmentOffset);
+
+    this->InternalReallocate(uNewSize, pAdjustedNewLocation);
+
+    m_bNeedDestroyMemoryChunk = false;
+}
+
 void QPoolAllocator::AllocateFreeBlocksList()
 {
-    m_pFreeBlocks = (void**) operator new(m_uBlocksCount * sizeof(void**));
-    QE_ASSERT( null_q != m_pFreeBlocks, "Pointer to allocated memory for internals is null" );
+    m_ppFreeBlocks = (void**) operator new(m_uBlocksCount * sizeof(void**));
+    QE_ASSERT( null_q != m_ppFreeBlocks, "Pointer to allocated memory for internals is null" );
 
-    m_ppNextFreeBlock = m_pFreeBlocks;
+    m_ppNextFreeBlock = m_ppFreeBlocks;
     m_uSize = m_uPoolSize + m_uBlocksCount * sizeof(void**);
 
     this->ClearFreeBlocksList();
@@ -289,7 +314,7 @@ void QPoolAllocator::AllocateFreeBlocksList()
 
 void QPoolAllocator::ClearFreeBlocksList()
 {
-    void **ppNext = m_pFreeBlocks;
+    void **ppNext = m_ppFreeBlocks;
 
     // Every pointer points to the next pointer as a linked list of free blocks to allocate.
     for( pointer_uint_q uIndex = 0; uIndex < m_uBlocksCount - 1; uIndex++ )
@@ -301,6 +326,95 @@ void QPoolAllocator::ClearFreeBlocksList()
     *ppNext = null_q;
 
     m_uAllocatedBytes = 0;
+}
+
+void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNewLocation)
+{
+    pointer_uint_q uNewBlocksCount = uNewSize / m_uBlockSize;
+
+    QE_ASSERT( null_q != pNewLocation, "Pointer to allocated memory is null" );
+
+    memcpy(pNewLocation, m_pFirst, m_uBlockSize * m_uBlocksCount);
+
+    // Copies the free block list
+    // -----------------------------------
+    void** ppNewFreeBlockList = (void**) operator new(uNewBlocksCount * sizeof(void**));
+
+    QE_ASSERT( null_q != ppNewFreeBlockList, "Pointer to allocated memory for internals is null" );
+
+    if(null_q == m_ppNextFreeBlock) // No free blocks in source.
+    {
+        // Appends extra destination free blocks pointers
+        // ppNext = first free block of remaining free blocks.
+        void** ppNext = ppNewFreeBlockList + m_uBlocksCount;
+
+        // Assigns the next free block
+        m_ppNextFreeBlock = ppNext;
+
+        // Frees remaining blocks from destination redoing the rest of the list.
+        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1; ++uIndex )
+        {
+            *ppNext = (void*)((void**)ppNext + 1);
+            ppNext = (void**)*ppNext;
+        }
+
+        *ppNext = null_q;
+    }
+    else
+    {
+        // Copy free blocks pointers list from source to destination
+        void **ppLastFreeBlock = m_ppNextFreeBlock;
+
+        while( null_q != *ppLastFreeBlock )
+        {
+            // Index of the next free block in the source = *ppLastFreeBlock - m_ppFreeBlocks
+            *(ppNewFreeBlockList + ((void**)ppLastFreeBlock - m_ppFreeBlocks)) =
+                                    ppNewFreeBlockList + ((void**)*ppLastFreeBlock - m_ppFreeBlocks);
+
+            // ppLastFreeBlock will contain the pointer to last free block in the list or null if there are no free blocks
+            // when exits from the while loop.
+            if(null_q != *ppLastFreeBlock)
+                ppLastFreeBlock = (void**)*ppLastFreeBlock;
+        }
+
+        // Assigns the next free block in the destination (same block index as in origin).
+        m_ppNextFreeBlock = ppNewFreeBlockList + (m_ppNextFreeBlock - m_ppFreeBlocks);
+
+        // Appends extra free blocks pointers of destination
+        // Links copied free blocks list from source to remaining free blocks from destination.
+
+        // ppNext = first free block of remaining free blocks.
+        ppLastFreeBlock = ppNewFreeBlockList + m_uBlocksCount;
+
+        // Links two lists.
+        *(ppNewFreeBlockList + (ppLastFreeBlock - ppNewFreeBlockList)) = ppLastFreeBlock;
+
+        // Frees the rest of blocks from destination redoing the rest of the list.
+        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1; ++uIndex )
+        {
+            *ppLastFreeBlock = (void*)((void**)ppLastFreeBlock + 1);
+            ppLastFreeBlock = (void**)*ppLastFreeBlock;
+        }
+
+        *ppLastFreeBlock = null_q;
+    }
+
+    // Updates some additional fields
+    // ---------------------------------
+    m_uBlocksCount = uNewBlocksCount;
+    m_uPoolSize = uNewSize;
+    m_uSize = m_uPoolSize + sizeof(void**) * m_uBlocksCount;
+
+    // Frees the old buffers
+    // -------------------------
+    if(m_bNeedDestroyMemoryChunk)
+        operator delete(m_pAllocatedMemory, m_uAlignment);
+    
+    m_pAllocatedMemory = pNewLocation;
+    m_pFirst = m_pAllocatedMemory;
+
+    operator delete(m_ppFreeBlocks);
+    m_ppFreeBlocks = ppNewFreeBlockList;
 }
 
 

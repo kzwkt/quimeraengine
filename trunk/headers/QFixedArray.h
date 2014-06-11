@@ -141,7 +141,7 @@ public:
 
             QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return *(((T*)m_pArray->m_pAllocator->GetPointer()) + m_uPosition);
+            return *(((T*)m_pArray->m_allocator.GetPointer()) + m_uPosition);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ public:
 
             QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return ((T*)m_pArray->m_pAllocator->GetPointer()) + m_uPosition;
+            return ((T*)m_pArray->m_allocator.GetPointer()) + m_uPosition;
         }
 
         /// <summary>
@@ -593,6 +593,11 @@ protected:
 	/// Constant to symbolize the end of the sequence near the first element.
 	/// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    
+	/// <summary>
+	/// The default capacity for an array when it is not specified by the user.
+	/// </summary>
+    static const pointer_uint_q DEFAULT_CAPACITY = 1;
 
 
 	// CONSTRUCTORS
@@ -610,17 +615,16 @@ public:
     /// <param name="initialValue">[IN] The initial value to assign to all array elements.</param>
     QFixedArray(const pointer_uint_q uCount, const T &initialValue) :
             m_uFirst(0),
-            m_uLast(uCount - 1)
+            m_uLast(uCount - 1),
+            m_allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
         QE_ASSERT( uCount > 0, "Zero elements array is not allowed." );
         QE_ASSERT( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
 
-        m_pAllocator = new Allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-
         for(pointer_uint_q uIndex = 0; uIndex < uCount; uIndex++)
         {
             // Allocates and writes in the returned buffer the initial value
-            new(m_pAllocator->Allocate()) T(initialValue);
+            new(m_allocator.Allocate()) T(initialValue);
         }
     }
 
@@ -634,17 +638,16 @@ public:
     /// <param name="uNumberOfElements">[IN] The number of elements in the input array. It must be greater than zero.</param>
     QFixedArray(const T* pArray, const pointer_uint_q uNumberOfElements) :
             m_uFirst(0),
-            m_uLast(uNumberOfElements - 1)
+            m_uLast(uNumberOfElements - 1),
+            m_allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
         QE_ASSERT( pArray != null_q, "The argument pArray is null." );
         QE_ASSERT( uNumberOfElements > 0, "Zero elements array is not allowed." );
 
-        m_pAllocator = new Allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-
         for(pointer_uint_q uIndex = 0; uIndex < uNumberOfElements; ++uIndex)
         {
             // Allocates and writes in the returned buffer a copy of the input array
-            new(m_pAllocator->Allocate()) T(pArray[uIndex]);
+            new(m_allocator.Allocate()) T(pArray[uIndex]);
         }
     }
 
@@ -657,15 +660,14 @@ public:
     /// <param name="fixedArray">[IN] Fixed array from which to copy.</param>
     QFixedArray(const QFixedArray &fixedArray) :
             m_uFirst(fixedArray.m_uFirst),
-            m_uLast(fixedArray.m_uLast)
+            m_uLast(fixedArray.m_uLast),
+            m_allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
-        m_pAllocator = new Allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-
         for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1; ++uIndex)
         {
             // Constructs a T object over the buffer returned by the allocator and initializes it with
             // the value of the origin element in the corresponding array position.
-            new(m_pAllocator->Allocate()) T(fixedArray[uIndex]);
+            new(m_allocator.Allocate()) T(fixedArray[uIndex]);
         }
     }
 
@@ -677,9 +679,10 @@ protected:
 	QFixedArray() :
         m_uFirst(END_POSITION_BACKWARD),
         m_uLast(END_POSITION_FORWARD),
-        m_pAllocator(null_q)
+        m_allocator(QFixedArray::DEFAULT_CAPACITY * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
     }
+
 
     // DESTRUCTOR
 	// ---------------
@@ -692,12 +695,8 @@ public:
     /// </remarks>
 	~QFixedArray()
     {
-        QE_ASSERT( null_q != m_pAllocator, "Allocator is null" );
-
         for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); ++uIndex)
             this->GetValue(uIndex).~T();
-
-        delete m_pAllocator;
     }
 
 
@@ -759,7 +758,7 @@ public:
     T& GetValue(const pointer_uint_q uIndex) const
     {
         QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
-        return *((T*)m_pAllocator->GetPointer() + uIndex);
+        return *((T*)m_allocator.GetPointer() + uIndex);
     }
 
     /// <summary>
@@ -769,7 +768,7 @@ public:
     void Clone(QFixedArray &destinationArray) const
     {
         QE_ASSERT( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal" );
-        m_pAllocator->CopyTo(*destinationArray.m_pAllocator);
+        m_allocator.CopyTo(destinationArray.m_allocator);
     }
 
     /// <summary>
@@ -783,7 +782,7 @@ public:
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
         QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
-        *((T*)m_pAllocator->GetPointer() + uIndex) = value;
+        *((T*)m_allocator.GetPointer() + uIndex) = value;
     }
 
     /// <summary>
@@ -893,7 +892,7 @@ public:
     /// </returns>
     const Allocator* GetAllocator() const
     {
-        return m_pAllocator;
+        return &m_allocator;
     }
 
     /// <summary>
@@ -904,7 +903,7 @@ public:
     /// </returns>
     pointer_uint_q GetCount() const
     {
-        return m_pAllocator->GetAllocatedBytes() / sizeof(T);
+        return m_allocator.GetAllocatedBytes() / sizeof(T);
     }
 
     /// <summary>
@@ -915,7 +914,7 @@ public:
     /// </returns>
     pointer_uint_q GetCapacity() const
     {
-        return m_pAllocator->GetPoolSize() / sizeof(T);
+        return m_allocator.GetPoolSize() / sizeof(T);
     }
 
     /// <summary>
@@ -935,9 +934,9 @@ public:
 protected:
 
 	/// <summary>
-	/// Pointer to the allocator which stores the array elements.
+	/// The allocator which stores the array elements.
 	/// </summary>
-    Allocator* m_pAllocator;
+    Allocator m_allocator;
 
     /// <summary>
 	/// The Comparator.
@@ -957,6 +956,7 @@ protected:
     pointer_uint_q m_uLast;
 
 };
+
 
 } //namespace Containers
 } //namespace Tools

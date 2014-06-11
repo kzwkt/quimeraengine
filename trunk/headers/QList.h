@@ -196,10 +196,10 @@ public:
     /// </summary>
     QList() :
             m_uFirst(QList::END_POSITION_BACKWARD),
-            m_uLast(QList::END_POSITION_FORWARD)
+            m_uLast(QList::END_POSITION_FORWARD),
+            m_elementAllocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+            m_linkAllocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
     {
-        m_pElementAllocator = new Allocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-        m_pLinkAllocator = new Allocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)));
     }
 
     /// <summary>
@@ -208,12 +208,11 @@ public:
     /// <param name="uInitialCapacity"> [IN] Number of elements for wich to reserve space. It must be greater than zero.</param>
     QList(const pointer_uint_q uInitialCapacity) :
             m_uFirst(QList::END_POSITION_BACKWARD),
-            m_uLast(QList::END_POSITION_FORWARD)
+            m_uLast(QList::END_POSITION_FORWARD),
+            m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+            m_linkAllocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
     {
         QE_ASSERT( uInitialCapacity > 0, "Initial capacity must be greater than zero" );
-
-        m_pElementAllocator = new Allocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-        m_pLinkAllocator = new Allocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)));
     }
 
     // [TODO] rdelasheras. Uncomment when iterators exists.
@@ -225,12 +224,9 @@ public:
     /// The copy constructor is called for every element of the list.
     /// </remarks>
     /// <param name="list"> [IN] Origin list to copy.</param>
-    QList(const QList& list)
+    QList(const QList& list) : m_elementAllocator(list.m_elementAllocator.GetPoolSize() / sizeof(T), sizeof(T), QAlignment(alignof_q(T))), // [TODO] rdelasheras. Use GetCapacity when it exists.
+                               m_linkAllocator(list.m_linkAllocator.GetPoolSize() / sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
     {
-        // [TODO] rdelasheras. Use GetCapacity when it exists.
-        m_pElementAllocator = new Allocator(list.m_pElementAllocator->GetPoolSize() / sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-        m_pLinkAllocator = new Allocator(list.m_pLinkAllocator->GetPoolSize() / sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)));
-
         if(list.m_uFirst == QList::END_POSITION_BACKWARD)
         {
             m_uFirst = QList::END_POSITION_BACKWARD;
@@ -239,8 +235,8 @@ public:
         else
         {
             // [TODO] rdelasheras. Uncomment when iterators exists.
-            list.m_pLinkAllocator->CopyTo(*m_pLinkAllocator);
-            list.m_pElementAllocator->CopyTo(*m_pElementAllocator);
+            list.m_linkAllocator.CopyTo(*m_linkAllocator);
+            list.m_elementAllocator.CopyTo(*m_elementAllocator);
 
             m_uFirst = list.m_uFirst;
             m_uLast = list.m_uLast;
@@ -284,10 +280,10 @@ public:
 
             while(!bDestroyed)
             {
-                pLink = (QList::QLink*)m_pLinkAllocator->GetPointer() + uIndex * sizeof(QList::QLink);
+                pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
                 uNextIndex = pLink->GetNext();
 
-                pElement = (T*)m_pElementAllocator->GetPointer() + uIndex * sizeof(T);
+                pElement = (T*)m_elementAllocator.GetPointer() + uIndex * sizeof(T);
                 pElement->~T();
 
                 if(uIndex == m_uLast)
@@ -296,9 +292,6 @@ public:
                     uIndex = uNextIndex;
             }
         }
-
-        delete m_pElementAllocator;
-        delete m_pLinkAllocator;
     }
 
 	// METHODS
@@ -360,18 +353,18 @@ public:
 
                     while(!bCopied)
                     {
-                        pElementOrigin = (T*)list.m_pElementAllocator->GetPointer() + uIndexOrigin * sizeof(T);
-                        pElementDestination = (T*)m_pElementAllocator->GetPointer() + uIndexDestination * sizeof(T);
+                        pElementOrigin = (T*)list.m_elementAllocator.GetPointer() + uIndexOrigin * sizeof(T);
+                        pElementDestination = (T*)m_elementAllocator.GetPointer() + uIndexDestination * sizeof(T);
 
                         *pElementDestination = *pElementOrigin;
 
                         bCopied = (uIndexOrigin == list.m_uLast);
                         m_uLast = uIndexDestination;
 
-                        pLinkOrigin = (QList::QLink*)list.m_pLinkAllocator->GetPointer() + uIndexOrigin * sizeof(QList::QLink);
+                        pLinkOrigin = (QList::QLink*)list.m_linkAllocator.GetPointer() + uIndexOrigin * sizeof(QList::QLink);
                         uIndexOrigin = pLinkOrigin->GetNext();
 
-                        pLinkDestination = (QList::QLink*)m_pLinkAllocator->GetPointer() + uIndex * sizeof(QList::QLink);
+                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
                         uIndexDestination = pLinkDestination->GetNext();
                     }
                     uFirstIndexToDestroy = uIndexDestination;
@@ -386,13 +379,13 @@ public:
 
                 while(!bDestroyed && uIndex != QList::END_POSITION_FORWARD)
                 {
-                    QList::QLink* pLink = (QList::QLink*)m_pLinkAllocator->GetPointer() + uIndex * sizeof(QList::QLink);
+                    QList::QLink* pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
                     uNextIndex = pLink->GetNext();
-                    m_pLinkAllocator->Deallocate(pLink);
+                    m_linkAllocator.Deallocate(pLink);
 
-                    T* pElement = (T*)m_pElementAllocator->GetPointer() + uIndex * sizeof(T);
+                    T* pElement = (T*)m_elementAllocator.GetPointer() + uIndex * sizeof(T);
                     pElement->~T();
-                    m_pElementAllocator->Deallocate(pElement);
+                    m_elementAllocator.Deallocate(pElement);
 
                     bDestroyed = (uIndex == uOldLast);
                     uIndex = uNextIndex;
@@ -402,16 +395,16 @@ public:
             {
                 if(list.GetCapacity() > this->GetCapacity()) 
                 {
-                    Allocator *pOldElementAllocator = m_pElementAllocator;
-                    Allocator *pOldLinkAllocator = m_pLinkAllocator;
+                    Allocator *pOldElementAllocator = m_elementAllocator;
+                    Allocator *pOldLinkAllocator = m_linkAllocator;
 
                     // Creates new allocators
 
-                    m_pElementAllocator = new Allocator(list.GetCapacity(), sizeof(T), QAlignment(alignof_q(T)));
-                    m_pLinkAllocator = new Allocator(list.GetCapacity(), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)));
+                    m_elementAllocator.Reallocate(list.GetCapacity() * sizeof(T));
+                    m_linkAllocator.Reallocate(list.GetCapacity() * sizeof(QList::QLink));
 
-                    pOldElementAllocator->CopyTo(*m_pLinkAllocator);
-                    pOldLinkAllocator->CopyTo(*m_pElementAllocator);
+                    pOldElementAllocator->CopyTo(*m_linkAllocator);
+                    pOldLinkAllocator->CopyTo(*m_elementAllocator);
 
                     delete pOldElementAllocator;
                     delete pOldLinkAllocator;
@@ -450,8 +443,8 @@ public:
         if ( destinationList.GetCapacity() < this->GetCapacity())
             // Uncomment when reserve method is implemented
             // destinationList.Reserve(this->GetCapacity());
-        m_pElementAllocator->CopyTo(*destinationList.m_pElementAllocator);
-        m_pLinkAllocator->CopyTo(*destinationList.m_pLinkAllocator);
+        m_elementAllocator->CopyTo(*destinationList.m_elementAllocator);
+        m_linkAllocator->CopyTo(*destinationList.m_linkAllocator);
     }
 
     /// <summary>
@@ -536,7 +529,7 @@ public:
     /// </returns>
     const Allocator* GetAllocator() const
     {
-        return m_pElementAllocator;
+        return &m_elementAllocator;
     }
 
     /// <summary>
@@ -547,7 +540,7 @@ public:
     /// </returns>
     pointer_uint_q GetCount() const
     {
-        return m_pElementAllocator->GetAllocatedBytes() / sizeof(T);
+        return m_elementAllocator.GetAllocatedBytes() / sizeof(T);
     }
 
     /// <summary>
@@ -558,7 +551,7 @@ public:
     /// </returns>
     pointer_uint_q GetCapacity() const
     {
-        return m_pElementAllocator->GetPoolSize() / sizeof(T);
+        return m_elementAllocator.GetPoolSize() / sizeof(T);
     }
 
     /// <summary>
@@ -578,14 +571,14 @@ public:
 protected:
 
 	/// <summary>
-	/// Pointer to the allocator which stores the list elements.
+	/// The allocator which stores the list elements.
 	/// </summary>
-    Allocator* m_pElementAllocator;
+    Allocator m_elementAllocator;
 
   	/// <summary>
-	/// Pointer to the allocator which stores the double linked list for internals.
+	/// The allocator which stores the double linked list for internals.
 	/// </summary>
-    Allocator* m_pLinkAllocator;
+    Allocator m_linkAllocator;
 
     /// <summary>
 	/// The comparator used to compare elements.

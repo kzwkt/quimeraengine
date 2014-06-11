@@ -53,7 +53,7 @@ QTEST_CASE ( Constructor1_ChecksIfConstructorWithoutParametersInitializesMembers
     static const pointer_uint_q INITIAL_CAPACITY = QListWhiteBox<u64_q>::GetDefaultInitialCapacity();
 
     // [Execution]
-    QListWhiteBox<u64_q> list = QListWhiteBox<u64_q>();
+    QListWhiteBox<u64_q> list;
 
     // [Verification]
     pointer_uint_q uFirst = list.GetFirst();
@@ -80,7 +80,7 @@ QTEST_CASE ( Constructor2_ChecksIfConstructorInitializesMembersCorrectly_Test )
     static const pointer_uint_q INITIAL_CAPACITY = 5;
 
     // [Execution]
-    QListWhiteBox<u64_q> list = QListWhiteBox<u64_q>( INITIAL_CAPACITY );
+    QListWhiteBox<u64_q> list( INITIAL_CAPACITY );
 
     // [Verification]
     pointer_uint_q uFirst = list.GetFirst();
@@ -112,7 +112,7 @@ QTEST_CASE ( Constructor2_AssertionFailedWhenPassingZeroElementsAsInitialCapacit
 
     try
     {
-        QList<u64_q> list = QList<u64_q>(INITIAL_CAPACITY_ZERO);
+        QList<u64_q> list(INITIAL_CAPACITY_ZERO);
     }
     catch(...)
     {
@@ -194,7 +194,7 @@ QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingAnEm
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 5;
-    
+
     QListWhiteBox<u64_q> listOrigin = QListWhiteBox<u64_q>(INITIAL_CAPACITY);
 
     // [Execution]

@@ -27,6 +27,11 @@
 #ifndef __ASSERTIONS__
 #define __ASSERTIONS__
 
+#ifdef QE_COMPILER_MSVC
+    #pragma warning(disable: 4297) // This prevents the compiler from complaining about functions that are supposed not 
+                                   // to throw exceptions but do throw exceptions due to the assertion behavior compilation flag
+#endif
+
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 #include "EQTextEncoding.h"
