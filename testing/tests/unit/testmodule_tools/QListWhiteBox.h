@@ -50,7 +50,7 @@ namespace Test
 template <class T, class Allocator = QPoolAllocator>
 class QListWhiteBox : public QList<T>
 {
-    using QList<T>::m_pLinkAllocator;
+    using QList<T>::m_linkAllocator;
     using QList<T>::m_uFirst;
     using QList<T>::m_uLast;
     using QList<T>::DEFAULT_NUMBER_OF_ELEMENTS;
@@ -88,7 +88,7 @@ public:
     // Necessary for testing
     Allocator* GetLinkAllocator() const
     {
-        return m_pLinkAllocator;
+        return &m_linkAllocator;
     }
 
     // Necessary for testing

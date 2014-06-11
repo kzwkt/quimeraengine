@@ -466,7 +466,8 @@ QTEST_CASE( Deallocate_DeallocationOfEntirePoolAllowsItToBeAllocatedAgain_Test )
     for( pointer_uint_q uIndex = 0; uIndex < BLOCKS_COUNT; uIndex++ )
     {
         f64_q *pBlock = (f64_q*)pool.Allocate();
-        if( null_q != pBlock ) uAllocationsCount++;
+        if( null_q != pBlock ) 
+            uAllocationsCount++;
     }
 
     // [Verification]
@@ -499,7 +500,8 @@ QTEST_CASE( Clear_ClearAFullPoolMakesItAvailableToAllocateAgain_Test )
     for( pointer_uint_q uIndex = 0; uIndex < BLOCKS_COUNT; uIndex++ )
     {
         f64_q *pBlock = (f64_q*)pool.Allocate();
-        if( null_q != pBlock ) uAllocationsCount++;
+        if( null_q != pBlock ) 
+            uAllocationsCount++;
     }
 
     // [Verification]
@@ -1038,6 +1040,288 @@ QTEST_CASE( CopyTo_WhenCopiedAnOriginWithOneAllocatedBlockToADestinationCheckIfD
 
     BOOST_CHECK_EQUAL( uAllocations, EXPECTED_NUMBER_OF_ALLOCATIONS );
 }
+
+/// <summary>
+/// Checks that the data inside the pool is correctly copied.
+/// </summary>
+QTEST_CASE( Reallocate1_PoolContentIsCorrectlyCopied_Test )
+{
+    // [Preparation]
+    const bool IS_SAME_DATA = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        *(int*)allocator.Allocate() = i;
+    
+    // [Execution]
+    allocator.Reallocate(BLOCK_SIZE * (BLOCKS_COUNT + 1));
+ 
+    // [Verification]
+    bool bIsSameData = true;
+    
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        bIsSameData = bIsSameData && *((int*)allocator.GetPointer() + i) == i;
+
+    BOOST_CHECK_EQUAL(bIsSameData, IS_SAME_DATA);
+}
+
+/// <summary>
+/// Checks that the size of the pool, the total size and the allocated bytes are correct after the reallocation.
+/// </summary>
+QTEST_CASE( Reallocate1_SizesAreCorrectAfterReallocation_Test )
+{
+    // [Preparation]
+    const bool IS_SAME_DATA = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT - 1; ++i)
+        *(int*)allocator.Allocate() = i;
+
+    const pointer_uint_q EXPECTED_POOL_SIZE       = (BLOCKS_COUNT + 1) * BLOCK_SIZE;
+    const pointer_uint_q EXPECTED_TOTAL_SIZE      = EXPECTED_POOL_SIZE + sizeof(void**) * (BLOCKS_COUNT + 1);
+    const pointer_uint_q EXPECTED_ALLOCATED_BYTES = allocator.GetAllocatedBytes();
+    
+    // [Execution]
+    allocator.Reallocate(EXPECTED_POOL_SIZE);
+ 
+    // [Verification]
+    pointer_uint_q uTotalSize      = allocator.GetTotalSize();
+    pointer_uint_q uPoolSize       = allocator.GetPoolSize();
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+
+    BOOST_CHECK_EQUAL(uTotalSize,      EXPECTED_TOTAL_SIZE);
+    BOOST_CHECK_EQUAL(uPoolSize,       EXPECTED_POOL_SIZE);
+    BOOST_CHECK_EQUAL(uAllocatedBytes, EXPECTED_ALLOCATED_BYTES);
+}
+
+/// <summary>
+/// Checks that the data inside the pool is correctly copied.
+/// </summary>
+QTEST_CASE( Reallocate1_AllocationsCanBeDoneAfterReallocatingFullAllocator_Test )
+{
+    // [Preparation]
+    void* NULL_POINTER = null_q;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        *(int*)allocator.Allocate() = i;
+    
+    // [Execution]
+    allocator.Reallocate(BLOCK_SIZE * (BLOCKS_COUNT + 1));
+ 
+    // [Verification]
+    void* pAllocation = allocator.Allocate();
+    
+    BOOST_CHECK_NE(pAllocation, NULL_POINTER);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input size is not greater than the current pool size.
+/// </summary>
+QTEST_CASE( Reallocate1_AssertionFailsWhenInputSizeIsNotGreaterThanCurrentPoolSize_Test )
+{
+    // [Preparation]
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q CURRENT_POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    QPoolAllocator allocator(CURRENT_POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        allocator.Reallocate(CURRENT_POOL_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+ 
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the data inside the pool is correctly copied.
+/// </summary>
+QTEST_CASE( Reallocate2_PoolContentIsCorrectlyCopied_Test )
+{
+    // [Preparation]
+    const bool IS_SAME_DATA = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    const pointer_uint_q NEW_POOL_SIZE = POOL_SIZE + BLOCK_SIZE;
+
+    void* pInputBuffer = operator new(NEW_POOL_SIZE);
+
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        *(int*)allocator.Allocate() = i;
+    
+    // [Execution]
+    allocator.Reallocate(NEW_POOL_SIZE, pInputBuffer);
+ 
+    // [Verification]
+    bool bIsSameData = true;
+    
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        bIsSameData = bIsSameData && *((int*)allocator.GetPointer() + i) == i;
+
+    BOOST_CHECK_EQUAL(bIsSameData, IS_SAME_DATA);
+
+    // [Cleaning]
+    delete pInputBuffer;
+}
+
+/// <summary>
+/// Checks that the size of the pool, the total size and the allocated bytes are correct after the reallocation.
+/// </summary>
+QTEST_CASE( Reallocate2_SizesAreCorrectAfterReallocation_Test )
+{
+    // [Preparation]
+    const bool IS_SAME_DATA = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    const pointer_uint_q NEW_POOL_SIZE = POOL_SIZE + BLOCK_SIZE;
+
+    void* pInputBuffer = operator new(NEW_POOL_SIZE);
+
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT - 1; ++i)
+        *(int*)allocator.Allocate() = i;
+
+    const pointer_uint_q EXPECTED_POOL_SIZE       = (BLOCKS_COUNT + 1) * BLOCK_SIZE;
+    const pointer_uint_q EXPECTED_TOTAL_SIZE      = EXPECTED_POOL_SIZE + sizeof(void**) * (BLOCKS_COUNT + 1);
+    const pointer_uint_q EXPECTED_ALLOCATED_BYTES = allocator.GetAllocatedBytes();
+    
+    // [Execution]
+    allocator.Reallocate(EXPECTED_POOL_SIZE, pInputBuffer);
+ 
+    // [Verification]
+    pointer_uint_q uTotalSize      = allocator.GetTotalSize();
+    pointer_uint_q uPoolSize       = allocator.GetPoolSize();
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+
+    BOOST_CHECK_EQUAL(uTotalSize,      EXPECTED_TOTAL_SIZE);
+    BOOST_CHECK_EQUAL(uPoolSize,       EXPECTED_POOL_SIZE);
+    BOOST_CHECK_EQUAL(uAllocatedBytes, EXPECTED_ALLOCATED_BYTES);
+
+    // [Cleaning]
+    delete pInputBuffer;
+}
+
+/// <summary>
+/// Checks that the data inside the pool is correctly copied.
+/// </summary>
+QTEST_CASE( Reallocate2_AllocationsCanBeDoneAfterReallocatingFullAllocator_Test )
+{
+    // [Preparation]
+    void* NULL_POINTER = null_q;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    const pointer_uint_q NEW_POOL_SIZE = POOL_SIZE + BLOCK_SIZE;
+
+    void* pInputBuffer = operator new(NEW_POOL_SIZE);
+
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
+        *(int*)allocator.Allocate() = i;
+    
+    // [Execution]
+    allocator.Reallocate(BLOCK_SIZE * (BLOCKS_COUNT + 1), pInputBuffer);
+ 
+    // [Verification]
+    void* pAllocation = allocator.Allocate();
+    
+    BOOST_CHECK_NE(pAllocation, NULL_POINTER);
+
+    // [Cleaning]
+    delete pInputBuffer;
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input size is not greater than the current pool size.
+/// </summary>
+QTEST_CASE( Reallocate2_AssertionFailsWhenInputSizeIsNotGreaterThanCurrentPoolSize_Test )
+{
+    // [Preparation]
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q CURRENT_POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    const pointer_uint_q NEW_POOL_SIZE = CURRENT_POOL_SIZE + BLOCK_SIZE;
+
+    void* pInputBuffer = operator new(NEW_POOL_SIZE);
+
+    QPoolAllocator allocator(CURRENT_POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        allocator.Reallocate(CURRENT_POOL_SIZE, pInputBuffer);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+ 
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+
+    // [Cleaning]
+    delete pInputBuffer;
+}
+
+/// <summary>
+/// Checks that an assertion fails when the input buffer is null.
+/// </summary>
+QTEST_CASE( Reallocate2_AssertionFailsWhenInputBufferIsNull_Test )
+{
+    // [Preparation]
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCKS_COUNT = 4;
+    const pointer_uint_q CURRENT_POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
+    const void* NULL_POINTER = null_q;
+    QPoolAllocator allocator(CURRENT_POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        allocator.Reallocate(CURRENT_POOL_SIZE, NULL_POINTER);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+ 
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
 
 
 // End - Test Suite: QPoolAllocator
