@@ -936,7 +936,7 @@ QTEST_CASE ( GetCount_MethodReturnsZeroWithEmptyList_Test )
     const pointer_uint_q LIST_CAPACITY = 5;
     pointer_uint_q uReturnedValue = 0;
     const pointer_uint_q EXPECTED_VALUE = 0;
-    QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
+    QList<u64_q> list(LIST_CAPACITY);
 
     // [Execution]
     uReturnedValue = list.GetCount();
@@ -954,7 +954,7 @@ QTEST_CASE ( IsEmpty_ReturnsTrueWhenEmptyList_Test )
     const pointer_uint_q LIST_CAPACITY = 5;
     const bool LIST_IS_EMPTY = true;
     bool bIsEmptyList = false;
-    QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
+    QList<u64_q> list(LIST_CAPACITY);
 
     // [Execution]
     bIsEmptyList = list.IsEmpty();
@@ -999,7 +999,7 @@ QTEST_CASE( GetCapacity_ReturnsTheCapacityOfTheList_Test )
     // [Preparation]
     const pointer_uint_q LIST_CAPACITY = 5;
     const pointer_uint_q EXPECTED_CAPACITY = LIST_CAPACITY;
-    QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
+    QList<u64_q> list(LIST_CAPACITY);
 
     // [Execution]
     pointer_uint_q uCapacity = list.GetCapacity();
