@@ -57,18 +57,18 @@ namespace Containers
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of every element in the array.</typeparam>
-/// <typeparam name="Allocator">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will
+/// <typeparam name="AllocatorT">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will
 /// be used.</typeparam>
-/// <typeparam name="Comparator">Optional. The type of comparator to compare elements to each other, used in search and ordering
+/// <typeparam name="ComparatorT">Optional. The type of comparator to compare elements to each other, used in search and ordering
 /// algorithms. By default, QComparatorDefault will be used.</typeparam>
-template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class Comparator = QComparatorDefault<T> >
+template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
 class QFixedArray
 {
     // TYPEDEFS
 	// --------------
 protected:
 
-    typedef QFixedArray<T, Allocator, Comparator> TFixedArray;
+    typedef QFixedArray<T, AllocatorT, ComparatorT> TFixedArray;
 
 
     // INTERNAL CLASSES
@@ -718,7 +718,7 @@ public:
     /// <returns>
     /// A reference to the resulting fixed array.
     /// </returns>
-    QFixedArray<T, Allocator, Comparator>& operator= (const QFixedArray<T, Allocator, Comparator> &fixedArray)
+    QFixedArray& operator= (const QFixedArray &fixedArray)
     {
         pointer_uint_q uElementsToCopy;
 
@@ -890,7 +890,7 @@ public:
     /// <returns>
     /// Constant pointer to the allocator.
     /// </returns>
-    const Allocator* GetAllocator() const
+    const AllocatorT* GetAllocator() const
     {
         return &m_allocator;
     }
@@ -936,12 +936,12 @@ protected:
 	/// <summary>
 	/// The allocator which stores the array elements.
 	/// </summary>
-    Allocator m_allocator;
+    AllocatorT m_allocator;
 
     /// <summary>
 	/// The Comparator.
 	/// </summary>
-    Comparator m_comparator;
+    ComparatorT m_comparator;
 
     /// <summary>
 	/// Index of the first element in the sequence. If the index points to an invalid position its value is the

@@ -200,6 +200,9 @@
     <ClInclude Include="..\..\..\..\headers\QList.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QNTree.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">

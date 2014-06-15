@@ -203,6 +203,7 @@
     <ClInclude Include="..\..\..\..\headers\QMatrix3x4.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix4x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix4x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QNTree.h" />
     <ClInclude Include="..\..\..\..\headers\QOrb.h" />
     <ClInclude Include="..\..\..\..\headers\QPlane.h" />
     <ClInclude Include="..\..\..\..\headers\QQuadrilateral.h" />
