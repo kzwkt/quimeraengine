@@ -24,20 +24,15 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QLISTWHITEBOX__
-#define __QLISTWHITEBOX__
+#ifndef __CALLCOUNTER__
+#define __CALLCOUNTER__
 
-#include "QList.h"
-#include "QPoolAllocator.h"
-
-using Kinesis::QuimeraEngine::Tools::Containers::QList;
-using Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator;
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Tools    
 {
 namespace Containers
 {
@@ -45,58 +40,102 @@ namespace Test
 {
 
 /// <summary>
-/// Class intended to be used to expose protected methods of QList for testing purposes.
+/// Counts the number of calls to 4 methods: default constructor, copy constructor, destructor and assignment operator.
+/// It should be Reset before it is used to assure a clean test scenario.
 /// </summary>
-template <class T, class AllocatorT = QPoolAllocator>
-class QListWhiteBox : public QList<T, AllocatorT>
+class CallCounter
 {
-    using QList<T>::m_linkAllocator;
-    using QList<T>::m_uFirst;
-    using QList<T>::m_uLast;
-    using QList<T>::DEFAULT_NUMBER_OF_ELEMENTS;
-
 	// CONSTRUCTORS
 	// ---------------
+
 public:
 
-	// Necessary for testing
-    QListWhiteBox() : QList<T>()
+    CallCounter()
     {
+        CallCounter::sm_uConstructorCalls++;
     }
 
-    // Necessary for testing
-    QListWhiteBox(pointer_uint_q uReserve) : QList<T>(uReserve)
+    CallCounter(const CallCounter&)
     {
+        CallCounter::sm_uCopyConstructorCalls++;
     }
-
-	// PROPERTIES
+	
+	// DESTRUCTOR
 	// ---------------
+
 public:
 
-    // Necessary for testing
-    pointer_uint_q GetFirst() const
+    ~CallCounter()
     {
-        return m_uFirst;
+        CallCounter::sm_uDestructorCalls++;
     }
 
-    // Necessary for testing
-    pointer_uint_q GetLast() const
+
+	// METHODS
+	// ---------------
+
+public:
+
+    CallCounter& operator=(const CallCounter&)
     {
-        return m_uLast;
+        CallCounter::sm_uAssignmentCalls++;
+        return *this;
     }
 
-    // Necessary for testing
-    AllocatorT* GetLinkAllocator() const
+    static void ResetCounters()
     {
-        return &m_linkAllocator;
+        CallCounter::sm_uConstructorCalls = 0;
+        CallCounter::sm_uDestructorCalls = 0;
+        CallCounter::sm_uCopyConstructorCalls = 0;
+        CallCounter::sm_uAssignmentCalls = 0;
     }
 
-    // Necessary for testing
-    static pointer_uint_q GetDefaultInitialCapacity()
+
+    // PROPERTIES
+	// ---------------
+
+public:
+
+    static unsigned int GetConstructorCallsCount()
     {
-        return DEFAULT_NUMBER_OF_ELEMENTS;
+        return CallCounter::sm_uConstructorCalls;
     }
+
+    static unsigned int GetCopyConstructorCallsCount()
+    {
+        return CallCounter::sm_uCopyConstructorCalls;
+    }
+
+    static unsigned int GetDestructorCallsCount()
+    {
+        return CallCounter::sm_uDestructorCalls;
+    }
+
+    static unsigned int GetAssignmentCallsCount()
+    {
+        return CallCounter::sm_uAssignmentCalls;
+    }
+    
+    // ATTRIBUTES
+	// ---------------
+
+private:
+
+    static unsigned int sm_uConstructorCalls;
+    static unsigned int sm_uCopyConstructorCalls;
+    static unsigned int sm_uDestructorCalls;
+    static unsigned int sm_uAssignmentCalls;
+
 };
+
+    
+// ATTRIBUTES INITIALIZATION
+// -----------------------------
+unsigned int CallCounter::sm_uConstructorCalls = 0;
+unsigned int CallCounter::sm_uDestructorCalls = 0;
+unsigned int CallCounter::sm_uCopyConstructorCalls = 0;
+unsigned int CallCounter::sm_uAssignmentCalls = 0;
+
 
 } //namespace Test
 } //namespace Containers
@@ -104,4 +143,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QLISTWHITEBOX__
+#endif // __CALLCOUNTER__

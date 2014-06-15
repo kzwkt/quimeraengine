@@ -49,17 +49,16 @@ namespace Containers
 {
 
 /// <summary>
-/// Represents a sequence of elements to be accessed sequentally, although they can be arbitrarily accessed using a zero-based index.<br/>
-/// For best performance it's internally managed as a double linked-list.
+/// Represents a double linked list of elements that can be accessed either sequentally or arbitrarily, using a zero-based index.
 /// </summary>
 /// <remarks>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T"> The type of the list elements.</typeparam>
-/// <typeparam name="Allocator"> The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
-/// <typeparam name="Comparator"> The comparator. The default type is QComparatorDefault.</typeparam>
-template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class Comparator = QComparatorDefault<T> >
+/// <typeparam name="AllocatorT"> The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
+/// <typeparam name="ComparatorT"> The comparator. The default type is QComparatorDefault.</typeparam>
+template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
 class QList
 {
 
@@ -73,9 +72,6 @@ protected:
     /// </summary>
     class QLink
     {
-   	    // CONSTANTS
-	    // ---------------
-
 	    // CONSTRUCTORS
 	    // ---------------
 
@@ -93,17 +89,6 @@ protected:
         {
         }
 
-    protected:
-
-        // DESTRUCTOR
-	    // ---------------
-
-    public:
-
-	    // METHODS
-	    // ---------------
-
-    public:
 
         // PROPERTIES
 	    // ---------------
@@ -174,7 +159,7 @@ protected:
     /// <summary>
     /// Number of elements for which to reserve memory in the default constructor.
     /// </summary>
-    static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 10;
+    static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
 
 	/// <summary>
 	/// Constant to symbolize the end of the sequence near the last element.
@@ -395,8 +380,8 @@ public:
             {
                 if(list.GetCapacity() > this->GetCapacity()) 
                 {
-                    Allocator *pOldElementAllocator = m_elementAllocator;
-                    Allocator *pOldLinkAllocator = m_linkAllocator;
+                    AllocatorT *pOldElementAllocator = m_elementAllocator;
+                    AllocatorT *pOldLinkAllocator = m_linkAllocator;
 
                     // Creates new allocators
 
@@ -527,7 +512,7 @@ public:
     /// <returns>
     /// Constant pointer to the element allocator.
     /// </returns>
-    const Allocator* GetAllocator() const
+    const AllocatorT* GetAllocator() const
     {
         return &m_elementAllocator;
     }
@@ -573,17 +558,17 @@ protected:
 	/// <summary>
 	/// The allocator which stores the list elements.
 	/// </summary>
-    Allocator m_elementAllocator;
+    AllocatorT m_elementAllocator;
 
   	/// <summary>
 	/// The allocator which stores the double linked list for internals.
 	/// </summary>
-    Allocator m_linkAllocator;
+    AllocatorT m_linkAllocator;
 
     /// <summary>
 	/// The comparator used to compare elements.
 	/// </summary>
-    Comparator m_comparator;
+    ComparatorT m_comparator;
 
     /// <summary>
 	/// Index of the first element in the sequence. If there is no first element, its value is END_POSITION_BACKWARD constant.

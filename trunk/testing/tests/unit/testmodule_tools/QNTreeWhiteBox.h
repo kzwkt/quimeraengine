@@ -24,14 +24,15 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QLISTWHITEBOX__
-#define __QLISTWHITEBOX__
+#ifndef __QNTREEWHITEBOX__
+#define __QNTREEWHITEBOX__
 
-#include "QList.h"
+#include "QNTree.h"
 #include "QPoolAllocator.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QList;
+using Kinesis::QuimeraEngine::Tools::Containers::QNTree;
 using Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator;
+
 
 namespace Kinesis
 {
@@ -45,57 +46,54 @@ namespace Test
 {
 
 /// <summary>
-/// Class intended to be used to expose protected methods of QList for testing purposes.
+/// Class intended to be used to expose protected methods of QNTree for testing purposes.
 /// </summary>
 template <class T, class AllocatorT = QPoolAllocator>
-class QListWhiteBox : public QList<T, AllocatorT>
+class QNTreeWhiteBox : public QNTree<T, AllocatorT>
 {
-    using QList<T>::m_linkAllocator;
-    using QList<T>::m_uFirst;
-    using QList<T>::m_uLast;
-    using QList<T>::DEFAULT_NUMBER_OF_ELEMENTS;
+public:
+
+    using QNTree<T, AllocatorT>::QNode;
+
 
 	// CONSTRUCTORS
 	// ---------------
 public:
 
-	// Necessary for testing
-    QListWhiteBox() : QList<T>()
+    QNTreeWhiteBox(const pointer_uint_q uMaximumChildren) : QNTree<T, AllocatorT>(uMaximumChildren)
     {
     }
 
-    // Necessary for testing
-    QListWhiteBox(pointer_uint_q uReserve) : QList<T>(uReserve)
+    QNTreeWhiteBox(const pointer_uint_q uMaximumChildren, const pointer_uint_q uInitialCapacity) : QNTree<T, AllocatorT>(uMaximumChildren, uInitialCapacity)
     {
     }
+
+
 
 	// PROPERTIES
 	// ---------------
 public:
 
-    // Necessary for testing
-    pointer_uint_q GetFirst() const
+    pointer_uint_q GetRootPosition() const
     {
-        return m_uFirst;
+        return QNTree<T, AllocatorT>::m_uRoot;
     }
 
-    // Necessary for testing
-    pointer_uint_q GetLast() const
+    const pointer_uint_q GetMaximumChildren() const
     {
-        return m_uLast;
+        return QNTree<T, AllocatorT>::MAX_CHILDREN;
     }
 
-    // Necessary for testing
-    AllocatorT* GetLinkAllocator() const
+    const AllocatorT& GetNodeAllocator() const
     {
-        return &m_linkAllocator;
+        return QNTree<T, AllocatorT>::m_nodeAllocator;
     }
 
-    // Necessary for testing
-    static pointer_uint_q GetDefaultInitialCapacity()
+    static pointer_uint_q GetEndPositionForward()
     {
-        return DEFAULT_NUMBER_OF_ELEMENTS;
+        return QNTree<T, AllocatorT>::END_POSITION_FORWARD;
     }
+
 };
 
 } //namespace Test
@@ -104,4 +102,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QLISTWHITEBOX__
+#endif // __QNTREEWHITEBOX__

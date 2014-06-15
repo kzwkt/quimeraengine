@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Math/;Containers/;Time/;" />
+		<Option virtualFolders="Math\;Containers\;Time\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -52,7 +52,7 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicuin.dll.a" />
@@ -119,7 +119,7 @@
 				<Linker>
 					<Add option="-m32" />
 					<Add option="-v" />
-					<Add library="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic/libQuimeraEngineCommon.so" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugMac32SharedrtDynamic\libQuimeraEngineCommon.so" />
 					<Add library="icudt" />
 					<Add library="icuuc" />
 					<Add library="icuin" />
@@ -248,6 +248,9 @@
 		</Unit>
 		<Unit filename="../../../../headers/QMatrix4x4.h">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QNTree.h">
+			<Option virtualFolder="Containers/" />
 		</Unit>
 		<Unit filename="../../../../headers/QOrb.h">
 			<Option virtualFolder="Math/" />

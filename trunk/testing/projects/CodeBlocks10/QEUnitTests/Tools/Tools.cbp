@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;Tests/Containers/;Tests/Time/;" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\Containers\;Tests\Time\;" />
 		<Build>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
@@ -19,8 +19,8 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
@@ -49,8 +49,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
 					<Add library="libicuin.dll.a" />
@@ -214,6 +214,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/ArrayElementMock.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/CallCounter.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/ListElementMock.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
@@ -333,6 +336,12 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix4x4_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QNTreeWhiteBox.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QNTree_Test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QOrb_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />

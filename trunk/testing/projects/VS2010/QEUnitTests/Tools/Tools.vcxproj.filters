@@ -213,6 +213,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QList_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTree_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -264,6 +267,12 @@
       <Filter>Tests\Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayTestClass.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeWhiteBox.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.h">
       <Filter>Tests\Containers</Filter>
     </ClInclude>
   </ItemGroup>
