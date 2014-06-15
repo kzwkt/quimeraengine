@@ -106,6 +106,59 @@ QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingInvalidIterator_Test
     BOOST_CHECK(!iterator.IsValid());
 }
 
+/// <summary>
+/// Checks that the iterator points to the given position.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToTheGivenPosition_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    const QCharUnicode EXPECTED_CHARACTER = 'F';
+
+	// [Execution]
+    QStringUnicode::QConstCharIterator iterator(SOURCE_STRING, 5);
+    
+    // [Verification]
+    QCharUnicode charPointedToByIterator = iterator.GetChar();
+    BOOST_CHECK(charPointedToByIterator == EXPECTED_CHARACTER);
+}
+
+/// <summary>
+/// Checks that the iterator points to end position (forward) when input initial position is out of bounds.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToEndPositionWhenInitialPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    const bool POINTS_TO_END_POSITION = true;
+
+	// [Execution]
+    QStringUnicode::QConstCharIterator iterator(SOURCE_STRING, SOURCE_STRING.GetLength());
+    
+    // [Verification]
+    bool bPointsToEndPosition = iterator.IsEnd();
+    BOOST_CHECK_EQUAL(bPointsToEndPosition, POINTS_TO_END_POSITION);
+}
+
+/// <summary>
+/// Checks that the iterator points to end position (forward) when the string is empty.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING = QStringUnicode::GetEmpty();
+    const bool POINTS_TO_END_POSITION = true;
+
+	// [Execution]
+    QStringUnicode::QConstCharIterator iterator(SOURCE_STRING, 0);
+    
+    // [Verification]
+    bool bPointsToEndPosition = iterator.IsEnd();
+    BOOST_CHECK_EQUAL(bPointsToEndPosition, POINTS_TO_END_POSITION);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>

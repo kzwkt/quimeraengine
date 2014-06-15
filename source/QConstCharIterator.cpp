@@ -70,6 +70,12 @@ QStringUnicode::QConstCharIterator::QConstCharIterator(const QConstCharIterator 
 {
 }
 
+QStringUnicode::QConstCharIterator::QConstCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition) : 
+                                                                                             m_pString(&strString),
+                                                                                             m_iterator(strString.m_strString, uInitialPosition),
+                                                                                             m_bIsBeforeFirst(false)
+{
+}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

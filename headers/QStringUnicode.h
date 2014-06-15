@@ -95,6 +95,13 @@ public:
         /// </summary>
         /// <param name="iterator">[IN] The iterator to be copied.</param>
         QConstCharIterator(const QConstCharIterator &iterator);
+        
+        /// <summary>
+        /// Constructor that receives the string to iterate.
+        /// </summary>
+        /// <param name="strString">[IN] The string to iterate.</param>
+        /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to.</param>
+        QConstCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition);
 
 
         // METHODS
@@ -501,6 +508,15 @@ public:
     /// A constant iterator.
     /// </returns>
     QConstCharIterator GetConstCharIterator() const;
+    
+    /// <summary>
+    /// Obtains a constant iterator pointing to a given position.
+    /// </summary>
+    /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to.</param>
+    /// <returns>
+    /// A constant iterator.
+    /// </returns>
+    QConstCharIterator GetConstCharIterator(const unsigned int uInitialPosition) const;
 
     /// <summary>
     /// Converts the string to an array of bytes encoded in certain text encoding.
