@@ -70,7 +70,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../../3rdparty/Boost/include"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
@@ -79,7 +79,7 @@
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
       </Compiler>
-      <Linker Options="" Required="yes">
+      <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
         <LibraryPath Value="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
         <LibraryPath Value="../../../../../bin/MinGW/$(ConfigurationName)"/>
@@ -132,7 +132,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../../3rdparty/Boost/include"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
@@ -140,7 +140,7 @@
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
-      <Linker Options="" Required="yes">
+      <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
         <LibraryPath Value="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
         <LibraryPath Value="../../../../../bin/MinGW/$(ConfigurationName)"/>

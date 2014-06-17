@@ -86,6 +86,7 @@ namespace DataTypes
         } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #else
+		#error Compiler not detected on Windows
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
 
@@ -116,6 +117,7 @@ namespace DataTypes
              u32_q m128_u32[4];
         } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
     #else
+		#error Compiler not detected on Linux
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
 
@@ -147,11 +149,17 @@ namespace DataTypes
              u32_q m128_u32[4];
         } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
     #else
+	
+		#error Compiler not detected on Mac
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
 
     typedef unsigned long        pointer_uint_q; // Unsigned integer types for pointer conversion (32 bits) common for ms and gcc compilers
 
+#else
+
+	#error OS not detected
+	
 #endif
 
 } //namespace DataTypes
