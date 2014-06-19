@@ -31,8 +31,22 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QType.h"
+#include "SQVF32.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
+using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::f32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 QTEST_SUITE_BEGIN( QType_TestSuite )
 
@@ -164,6 +178,255 @@ QTEST_CASE ( GetName_NotNecessaryToTest_Test )
 {
     BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
 }
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns8BitsUnsignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "u8_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<u8_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns8BitsSignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "i8_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<i8_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns16BitsUnsignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "u16_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<u16_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns16BitsSignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "i16_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<i16_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns32BitsUnsignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "u32_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<u32_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns32BitsSignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "i32_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<i32_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns64BitsUnsignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "u64_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<u64_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns64BitsSignedIntegerType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "i64_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<i64_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns32BitsFloatingPointType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "f32_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<f32_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns64BitsFloatingPointType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "f64_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<f64_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_Returns4x32BitsPackedFloatingPointType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "vf32_q";
+    QType QTYPE_INSTANCE(EXPECTED_TYPE);
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<vf32_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+/// <summary>
+/// Checks that null pointer is returned when non basic type is passed.
+/// </summary>
+QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
+{
+    // [Preparation]
+    const string_q WRONG_TYPE = "string_q";
+    QType QTYPE_INSTANCE(WRONG_TYPE);
+    const QType* NULL_POINTER = 0;
+
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<std::string>();
+    
+    // [Verification]
+    BOOST_CHECK(pQTypePointer == NULL_POINTER);
+}
+#endif
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Assertion failed when passing zero elements as initial capacity.
+/// </summary>
+QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
+{
+    // [Preparation]
+    const string_q WRONG_TYPE = "string";
+    QType QTYPE_INSTANCE(WRONG_TYPE);
+    const QType* NULL_POINTER = 0;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        const QType* pQTypePointer = QType::FindType<std::string>();
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // End - Test Suite: QType
 QTEST_SUITE_END()
