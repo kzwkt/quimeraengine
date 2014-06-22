@@ -2,11 +2,29 @@
 <CodeLite_Project Name="Tools" InternalType="Console">
   <Plugins>
     <Plugin Name="qmake">
-      <![CDATA[00030001N0005Debug0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+      <![CDATA[00050001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
     </Plugin>
     <Plugin Name="CMakePlugin">
       <![CDATA[[{
 		"name":	"Debug",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtStatic",
 		"enabled":	false,
 		"buildDirectory":	"build",
 		"sourceDirectory":	"$(ProjectPath)",
@@ -42,76 +60,76 @@
     <VirtualDirectory Name="Containers">
       <File Name="../../../../tests/unit/testmodule_tools/ArrayElementMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/ListElementMock.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QComparatorDefault_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QList_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QListWhiteBox.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QComparatorDefault_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QList_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QListWhiteBox.h" ExcludeProjConfig=""/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
-      <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QDstInformation_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTimeSpan_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTimeZone_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/SQTimeZoneFactory_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDstInformation_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTimeSpan_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTimeZone_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQTimeZoneFactory_Test.cpp" ExcludeProjConfig=""/>
     </VirtualDirectory>
     <VirtualDirectory Name="Math">
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseHexahedron_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseLineSegment_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix2x2_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseOrb_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBasePlane_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuadrilateral_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuaternion_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_QVector4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseTriangle_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector2_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QCircle_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment2D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment3D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QLineSegmentWhiteBox.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QMatrix2x2_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QOrb_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QPlane_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QQuadrilateral_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QQuaternion_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QRay2D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QRay3D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QRay_QVector4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QRay_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QRotationMatrix3x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QScalingMatrix3x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QSpaceConversionMatrix_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QSphere_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix3x3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrixWhiteBox.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTranslationMatrix_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTriangle2D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTriangle3D_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QTriangle_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QVector2_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QVector3_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QVector4_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/SQAngle_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/SQPoint_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseHexahedron_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseLineSegment_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix2x2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseOrb_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBasePlane_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuadrilateral_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseTriangle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QCircle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegmentWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix2x2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QOrb_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QPlane_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QQuadrilateral_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay_QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRotationMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QScalingMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QSpaceConversionMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QSphere_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrixWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTranslationMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQAngle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQPoint_Test.cpp" ExcludeProjConfig=""/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
@@ -139,6 +157,126 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../../3rdparty/Boost/include"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "."</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "."</Command>
+        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes">rm *.so</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../../3rdparty/Boost/include"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="_DEBUG"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes"/>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>

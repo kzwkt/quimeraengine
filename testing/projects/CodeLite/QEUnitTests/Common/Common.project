@@ -2,11 +2,29 @@
 <CodeLite_Project Name="Common" InternalType="Console">
   <Plugins>
     <Plugin Name="qmake">
-      <![CDATA[00030001N0005Debug0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+      <![CDATA[00050001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
     </Plugin>
     <Plugin Name="CMakePlugin">
       <![CDATA[[{
 		"name":	"Debug",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtStatic",
 		"enabled":	false,
 		"buildDirectory":	"build",
 		"sourceDirectory":	"$(ProjectPath)",
@@ -54,7 +72,7 @@
       <File Name="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/QAlignment_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/QPoolAllocatorWhiteBox.h"/>
-      <File Name="../../../../tests/unit/testmodule_common/QPoolAllocator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QPoolAllocator_Test.cpp" ExcludeProjConfig=""/>
     </VirtualDirectory>
     <VirtualDirectory Name="General">
       <File Name="../../../../tests/unit/testmodule_common/EQEnumeration_Test.cpp"/>
@@ -90,6 +108,123 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../../3rdparty/Boost/include"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_common"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "."</Command>
+        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes">rm *.so</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../../3rdparty/Boost/include"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_common"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="_DEBUG"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes"/>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>

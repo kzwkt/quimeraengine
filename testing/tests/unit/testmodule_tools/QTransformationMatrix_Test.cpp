@@ -4097,7 +4097,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_
         const float_q EXPECTED_ROTATION_Z = SQAngle::_ThirdPi;
     #endif
 
-    // By rotating 90บ (or PI/2) two gimbals, they become alligned so rotating any of them results in the same transformation
+    // By rotating 90ยบ (or PI/2) two gimbals, they become alligned so rotating any of them results in the same transformation
     QTransformationMatrix<T> ROTATION;
     ROTATION.ij[0][0] = (float_q)0.86602545;
     ROTATION.ij[0][1] = (float_q)-3.7855173e-008;
@@ -4672,8 +4672,6 @@ QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTyp
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
-
-    const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
     QTransformationMatrix<T> ROTATION;
     ROTATION.ij[0][0] = (float_q)0.53571428571428581;

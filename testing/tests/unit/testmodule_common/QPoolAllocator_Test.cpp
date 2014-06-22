@@ -485,7 +485,7 @@ QTEST_CASE( Clear_ClearAFullPoolMakesItAvailableToAllocateAgain_Test )
     const pointer_uint_q BLOCKS_COUNT = 4;
     const pointer_uint_q POOL_SIZE = BLOCKS_COUNT*BLOCK_SIZE;
     const QAlignment ALIGNMENT(BLOCK_SIZE);
-    int uAllocationsCount = 0;
+    unsigned int uAllocationsCount = 0;
 
     // [Execution]
     QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, ALIGNMENT);
@@ -503,9 +503,9 @@ QTEST_CASE( Clear_ClearAFullPoolMakesItAvailableToAllocateAgain_Test )
         if( null_q != pBlock ) 
             uAllocationsCount++;
     }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(  uAllocationsCount, BLOCKS_COUNT );
+	
+	// [Verification]
+    BOOST_CHECK_EQUAL( uAllocationsCount, BLOCKS_COUNT );
 }
 
 

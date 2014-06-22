@@ -933,11 +933,6 @@ public:
 
 protected:
 
-	/// <summary>
-	/// The allocator which stores the array elements.
-	/// </summary>
-    AllocatorT m_allocator;
-
     /// <summary>
 	/// The Comparator.
 	/// </summary>
@@ -954,6 +949,11 @@ protected:
     /// END_POSITION_FORWARD constant.
 	/// </summary>
     pointer_uint_q m_uLast;
+    
+	/// <summary>
+	/// The allocator which stores the array elements.
+	/// </summary>
+    AllocatorT m_allocator;
 
 };
 
