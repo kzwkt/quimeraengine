@@ -237,7 +237,7 @@ QTEST_CASE ( Constructor3_ConstructorWithoutParametersInitializesCorrectly_Test 
 QTEST_CASE ( Constructor4_ItIsCorrectlyConstructedFromCommonArray_Test )
 {
     // [Preparation]
-    const int ARRAY_SIZE = 3;
+    const unsigned int ARRAY_SIZE = 3;
     const char SOURCE_ARRAY[ARRAY_SIZE] = {0, 1, 2};
 
     // [Execution]
@@ -743,7 +743,7 @@ QTEST_CASE( GetIterator_ReturnsIteratorToSpecificPositionInTheArray_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
-/// This test checks that the assert is thrown when trying to get an iterator passing an index bigger than array´s size.
+/// This test checks that the assert is thrown when trying to get an iterator passing an index bigger than arrayÂ´s size.
 /// </sumary>
 QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
 {
@@ -774,7 +774,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <sumary>
-/// Checks that if parameter bigger than array´s size is passed forward end position of the array is returned.
+/// Checks that if parameter bigger than arrayÂ´s size is passed forward end position of the array is returned.
 /// </sumary>
 QTEST_CASE( GetIterator_ReturnsIteratorToForwardEndPositionInTheArrayWhenParameterIsBiggerThanArraySize_Test )
 {

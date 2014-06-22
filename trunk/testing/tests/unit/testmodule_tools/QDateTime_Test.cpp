@@ -63,7 +63,7 @@ QTEST_CASE ( Constructor2_DateTimeIsCorrectlyCopied_Test )
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 2;
     const u64_q EXPECTED_HOUR        = 3;
@@ -109,7 +109,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
     const u64_q EXPECTED_DAY         = 13;
     const u64_q EXPECTED_HOUR        = 10;
@@ -145,7 +145,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndNullTimeZone_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
     const u64_q EXPECTED_DAY         = 13;
     const u64_q EXPECTED_HOUR        = 10;
@@ -183,7 +183,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
     const u64_q EXPECTED_DAY         = 13;
     const u64_q EXPECTED_HOUR        = 10;
@@ -221,7 +221,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
     const u64_q EXPECTED_DAY         = 13;
     const u64_q EXPECTED_HOUR        = 10;
@@ -257,7 +257,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingCommonDateAndTimeAndTim
 QTEST_CASE ( Constructor3_TimeZoneDefaultValueIsNull_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 11;
     const u64_q EXPECTED_DAY         = 13;
     const u64_q EXPECTED_HOUR        = 10;
@@ -285,7 +285,7 @@ QTEST_CASE ( Constructor3_TimeZoneDefaultValueIsNull_Test )
 QTEST_CASE ( Constructor3_AssertionFailsWhenYearIsTooHigh_Test )
 {
     // [Preparation]
-    const i32_q NOT_ALLOWED_YEAR   = 30000;
+    const u64_q NOT_ALLOWED_YEAR   = 30000;
     const u64_q COMMON_MONTH       = 11;
     const u64_q COMMON_DAY         = 13;
     const u64_q COMMON_HOUR        = 10;
@@ -957,7 +957,7 @@ QTEST_CASE ( Constructor3_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Te
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -994,7 +994,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -4;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1030,7 +1030,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1067,7 +1067,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -4;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1103,7 +1103,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 1;
+    const u64_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1140,7 +1140,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -1;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1176,7 +1176,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfFive_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 25;
+    const u64_q EXPECTED_YEAR        = 25;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1213,7 +1213,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -25;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1249,7 +1249,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs29February_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 20;
+    const u64_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 29;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1286,7 +1286,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -20;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 29;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1322,7 +1322,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs28February_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 20;
+    const u64_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 28;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1359,7 +1359,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -20;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 28;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1396,7 +1396,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastNegativeInstant_Tes
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -1;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 12;
     const u64_q EXPECTED_DAY         = 31;
     const u64_q EXPECTED_HOUR        = 23;
@@ -1432,7 +1432,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastNegativeInstant_Tes
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPositiveYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 1;
+    const u64_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 12;
     const u64_q EXPECTED_DAY         = 31;
     const u64_q EXPECTED_HOUR        = 23;
@@ -1468,7 +1468,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPosit
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveLeapYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 12;
+    const u64_q EXPECTED_YEAR        = 12;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1504,7 +1504,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeLeapYear_Test )
 {
     // [Preparation]
-    const i32_q NEGATIVE_YEAR        = -12;
+    const u64_q NEGATIVE_YEAR        = -12;
     const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
@@ -1541,7 +1541,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1578,7 +1578,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 {
     // [Preparation]
     const i32_q NEGATIVE_YEAR        = -4;
-    const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
+    const u64_q EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -1614,7 +1614,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 23;
@@ -1687,7 +1687,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingLastInstantOfFirstNegat
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
     const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
     const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
     const u64_q MAX_HOUR        = QDateTime::GetMaxDateTime().GetHour();
@@ -1723,7 +1723,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
     const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
     const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay();
     const u64_q MIN_HOUR        = QDateTime::GetMinDateTime().GetHour();
@@ -1762,7 +1762,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR  = 2013;
+    const u64_q EXPECTED_YEAR  = 2013;
     const u64_q EXPECTED_MONTH = 11;
     const u64_q EXPECTED_DAY   = 13;
     const QTimeZone* EXPECTED_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("America/Antigua"));
@@ -1784,7 +1784,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingCommonDateAndTime_Test 
 QTEST_CASE ( Constructor4_TimeZoneDefaultValueIsNull_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR  = 2013;
+    const u64_q EXPECTED_YEAR  = 2013;
     const u64_q EXPECTED_MONTH = 11;
     const u64_q EXPECTED_DAY   = 13;
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
@@ -2152,7 +2152,7 @@ QTEST_CASE ( Constructor4_MinimumDateIsConstructedWhenDateIsAnteriorToMinimum_Te
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2221,7 +2221,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearAf
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2290,7 +2290,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstNegativeLeapYearBe
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstPositiveDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 1;
+    const u64_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2359,7 +2359,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsPositiveAndMultipleOfFive_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 25;
+    const u64_q EXPECTED_YEAR        = 25;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2428,7 +2428,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenYearIsNegativeAndMultipleOfF
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs29February_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 20;
+    const u64_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 29;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2497,7 +2497,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingPositiveLeapYearAndDayIs28February_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 20;
+    const u64_q EXPECTED_YEAR        = 20;
     const u64_q EXPECTED_MONTH       = 2;
     const u64_q EXPECTED_DAY         = 28;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2566,7 +2566,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingNegativeLeapYearAndDayI
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveLeapYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 12;
+    const u64_q EXPECTED_YEAR        = 12;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2635,7 +2635,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 4;
+    const u64_q EXPECTED_YEAR        = 4;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 0;
@@ -2704,7 +2704,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingFirstInstantOfFirstNega
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
+    const u64_q MAX_YEAR        = QDateTime::GetMaxDateTime().GetYear();
     const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
     const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
     const u64_q MAX_HOUR        = 0;
@@ -2738,7 +2738,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
 QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test )
 {
     // [Preparation]
-    const i32_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
+    const u64_q MIN_YEAR        = QDateTime::GetMinDateTime().GetYear();
     const u64_q MIN_MONTH       = QDateTime::GetMinDateTime().GetMonth();
     const u64_q MIN_DAY         = QDateTime::GetMinDateTime().GetDay() + 1;
     const u64_q MIN_HOUR        = 0;
@@ -2774,7 +2774,7 @@ QTEST_CASE ( Constructor5_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 1;
+    const u64_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 10;
@@ -3041,7 +3041,7 @@ QTEST_CASE ( Constructor6_IsCorrectlyConstructedWhenUsingCommonTime_Test )
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 1;
+    const u64_q EXPECTED_YEAR        = 1;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
     const u64_q EXPECTED_HOUR        = 10;
@@ -3251,7 +3251,7 @@ QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
     using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
     // [Preparation]
-    const i32_q EXPECTED_YEAR        = 2013;
+    const u64_q EXPECTED_YEAR        = 2013;
     const u64_q EXPECTED_MONTH       = 5;
     const u64_q EXPECTED_DAY         = 2;
     const u64_q EXPECTED_HOUR        = 3;
@@ -3281,7 +3281,7 @@ QTEST_CASE ( OperatorAssignation_InputDateTimeIsCorrectlyCopied_Test )
 QTEST_CASE ( OperatorAssignment_UndefinedDateIsCopied_Test )
 {
     // [Preparation]
-    const i32_q EXPECTED_YEAR  = 2013;
+    const u64_q EXPECTED_YEAR  = 2013;
     const u64_q EXPECTED_MONTH = 5;
     const u64_q EXPECTED_DAY   = 2;
     const QTimeZone* EXPECTED_TIMEZONE = null_q;

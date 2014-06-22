@@ -2,10 +2,28 @@
 <CodeLite_Project Name="QuimeraEngineTestApp" InternalType="Console">
   <Plugins>
     <Plugin Name="qmake">
-      <![CDATA[00020001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+      <![CDATA[00040001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
     </Plugin>
     <Plugin Name="CMakePlugin">
       <![CDATA[[{
+		"name":	"DebugLinux32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
 		"name":	"DebugWin32SharedrtDynamic",
 		"enabled":	false,
 		"buildDirectory":	"build",
@@ -41,6 +59,121 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <IncludePath Value="../../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineCore"/>
+        <Library Value="QuimeraEngineSystem"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "$(IntermediateDirectory)"</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "$(IntermediateDirectory)"</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineSystem.so" "$(IntermediateDirectory)"</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCore.so" "$(IntermediateDirectory)"</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "."</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "."</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineSystem.so" "."</Command>
+        <Command Enabled="yes">cp "$(IntermediateDirectory)/../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCore.so" "."</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes">rm *.so</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <IncludePath Value="../../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="_DEBUG"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineCore"/>
+        <Library Value="QuimeraEngineSystem"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="yes"/>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>

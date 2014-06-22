@@ -507,10 +507,10 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenRaysDoNotIntersectButWouldDo
     // ^        ^
     //  \      /
     //   O1   /
-    //    ·  /
-    //     ·/
-    //     /·
-    //   O2  ·
+    //    Â·  /
+    //     Â·/
+    //     /Â·
+    //   O2  Â·
 
     // [Preparation]
     const float_q ORIGIN_COMPONENTS1[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -979,10 +979,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenRayAndLineDoNotIntersectButW
     // A      /
     //  \    /
     //   \  O
-    //    \·
-    //    ·\
-    //   ·  \
-    //  ·    B
+    //    \Â·
+    //    Â·\
+    //   Â·  \
+    //  Â·    B
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
@@ -1015,10 +1015,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenRayAndLineDoNotIntersectButW
     // A      /
     //  \    /
     //   B  /
-    //    ·/
-    //    /·
-    //   /  ·
-    //  O    ·
+    //    Â·/
+    //    /Â·
+    //   /  Â·
+    //  O    Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
@@ -2758,10 +2758,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoIntersectionsWhenRaysDoNotInte
     // ^        ^
     //  \      /
     //   O1   /
-    //    ·  /
-    //     ·/
-    //     /·
-    //   O2  ·
+    //    Â·  /
+    //     Â·/
+    //     /Â·
+    //   O2  Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
@@ -3335,10 +3335,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     // A      /
     //  \    /
     //   \  O
-    //    \·
-    //    ·\
-    //   ·  \
-    //  ·    B
+    //    \Â·
+    //    Â·\
+    //   Â·  \
+    //  Â·    B
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3375,10 +3375,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     // A      /
     //  \    /
     //   B  /
-    //    ·/
-    //    /·
-    //   /  ·
-    //  O    ·
+    //    Â·/
+    //    /Â·
+    //   /  Â·
+    //  O    Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3507,7 +3507,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const T EXPECTED_FIRSTPOINT = T::GetNullVector();
-    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
 	// [Execution]
     T vFirstIntersection = T::GetNullVector();
@@ -3907,10 +3906,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     // A      /
     //  \    /
     //   \  O
-    //    \·
-    //    ·\
-    //   ·  \
-    //  ·    B
+    //    \Â·
+    //    Â·\
+    //   Â·  \
+    //  Â·    B
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3947,10 +3946,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     // A      /
     //  \    /
     //   B  /
-    //    ·/
-    //    /·
-    //   /  ·
-    //  O    ·
+    //    Â·/
+    //    /Â·
+    //   /  Â·
+    //  O    Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;

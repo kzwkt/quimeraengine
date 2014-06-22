@@ -2705,9 +2705,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointAnd
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const T EXPECTED_POINT_A = VERTEX_A;
-    const T EXPECTED_POINT_B = VERTEX_B;
-    const T EXPECTED_POINT_C = VERTEX_C;
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -3120,9 +3117,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenLineSegmentDo
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
     const T EXPECTED_FIRSTPOINT = T::GetNullVector();
-    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-
+    
 	// [Execution]
     T vFirstIntersection = T::GetNullVector();
     T vSecondIntersection = T::GetNullVector();
@@ -3626,9 +3622,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointAnd
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const T EXPECTED_FIRSTPOINT_A = VERTEX_A;
-    const T EXPECTED_FIRSTPOINT_B = VERTEX_B;
-    const T EXPECTED_FIRSTPOINT_C = VERTEX_C;
     const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 

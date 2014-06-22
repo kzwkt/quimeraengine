@@ -142,8 +142,6 @@ QTEST_CASE_TEMPLATE ( GetUnitSphere_ValueHasNotChanged_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_CENTER(VECTOR_COMPONENTS);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
 
-    const QSphere<T> EXPECTED_ORB = QSphere<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
-
 	// [Execution]
     QSphere<T> sphereUT = QSphere<T>::GetUnitSphere();
 

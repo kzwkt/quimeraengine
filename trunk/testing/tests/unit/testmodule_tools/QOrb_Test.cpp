@@ -141,7 +141,6 @@ QTEST_CASE_TEMPLATE ( GetUnitOrb_ValueHasNotChanged_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_CENTER(VECTOR_COMPONENTS);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
 
-    const QOrb<T> EXPECTED_ORB = QOrb<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
 	// [Execution]
     QOrb<T> orbUT = QOrb<T>::GetUnitOrb();

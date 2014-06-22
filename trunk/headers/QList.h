@@ -555,16 +555,6 @@ public:
 
 protected:
 
-	/// <summary>
-	/// The allocator which stores the list elements.
-	/// </summary>
-    AllocatorT m_elementAllocator;
-
-  	/// <summary>
-	/// The allocator which stores the double linked list for internals.
-	/// </summary>
-    AllocatorT m_linkAllocator;
-
     /// <summary>
 	/// The comparator used to compare elements.
 	/// </summary>
@@ -580,6 +570,15 @@ protected:
 	/// </summary>
     pointer_uint_q m_uLast;
 
+	/// <summary>
+	/// The allocator which stores the list elements.
+	/// </summary>
+    AllocatorT m_elementAllocator;
+
+  	/// <summary>
+	/// The allocator which stores the double linked list for internals.
+	/// </summary>
+    AllocatorT m_linkAllocator;
 };
 
 } //namespace Containers
