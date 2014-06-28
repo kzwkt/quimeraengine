@@ -2,7 +2,7 @@
 <CodeLite_Project Name="Core" InternalType="Library">
   <Plugins>
     <Plugin Name="qmake">
-      <![CDATA[00050001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+      <![CDATA[00070001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugMac32SharedrtDynamic0000000000000001N0024DebugMac32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
     </Plugin>
     <Plugin Name="CMakePlugin">
       <![CDATA[[{
@@ -25,6 +25,24 @@
 		"parentProject":	""
 	}, {
 		"name":	"DebugLinux32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtStatic",
 		"enabled":	false,
 		"buildDirectory":	"build",
 		"sourceDirectory":	"$(ProjectPath)",
@@ -71,7 +89,27 @@
     <Project Name="Tools"/>
     <Project Name="System"/>
   </Dependencies>
-  <Settings Type="Static Library">
+  <Dependencies Name="DebugLinux32SharedrtDynamic">
+    <Project Name="Common"/>
+    <Project Name="Tools"/>
+    <Project Name="System"/>
+  </Dependencies>
+  <Dependencies Name="DebugLinux32SharedrtStatic">
+    <Project Name="Common"/>
+    <Project Name="Tools"/>
+    <Project Name="System"/>
+  </Dependencies>
+  <Dependencies Name="DebugMac32SharedrtStatic">
+    <Project Name="Common"/>
+    <Project Name="Tools"/>
+    <Project Name="System"/>
+  </Dependencies>
+  <Dependencies Name="DebugMac32SharedrtDynamic">
+    <Project Name="Common"/>
+    <Project Name="Tools"/>
+    <Project Name="System"/>
+  </Dependencies>
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -145,6 +183,102 @@
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngine$(ProjectName).a" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <IncludePath Value="../../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_CORE"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_SYSTEM"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../bin/Clang/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+        <Library Value="QuimeraEngineSystem"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_system-mt-d"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngine$(ProjectName).dylib" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <IncludePath Value="../../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="_DEBUG"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngine$(ProjectName).a" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
@@ -274,14 +408,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="DebugLinux32SharedrtDynamic">
-    <Project Name="Common"/>
-    <Project Name="Tools"/>
-    <Project Name="System"/>
-  </Dependencies>
-  <Dependencies Name="DebugLinux32SharedrtStatic">
-    <Project Name="Common"/>
-    <Project Name="Tools"/>
-    <Project Name="System"/>
-  </Dependencies>
 </CodeLite_Project>
