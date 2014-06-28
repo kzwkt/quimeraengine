@@ -45,6 +45,10 @@ namespace Test
     {
     public:
 
+        QMethods()
+        {
+        }
+
         int ConstMethod() const
         {
             return 0;
