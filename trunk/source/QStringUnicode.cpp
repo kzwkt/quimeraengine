@@ -190,6 +190,14 @@ QCharUnicode QStringUnicode::operator[](const unsigned int uIndex) const
     return charUnicode;
 }
 
+QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition) const
+{
+    QStringUnicode strResult;
+    m_strString.extract(uStartPosition, this->GetLength(), strResult.m_strString);
+
+    return strResult;
+}
+
 QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const
 {
     // The start position index must be lower or equal than the last position index
@@ -197,6 +205,57 @@ QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, cons
 
     QStringUnicode strResult;
     m_strString.extract(uStartPosition, uLastPosition - uStartPosition + 1, strResult.m_strString);
+
+    return strResult;
+}
+
+QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterator& startPosition) const
+{
+    QStringUnicode strResult;
+
+    if(!startPosition.IsEnd())
+        m_strString.extract(startPosition.m_iterator.getIndex(), this->GetLength(), strResult.m_strString);
+    else if(startPosition < this->GetConstCharIterator()) // Is backward end position
+        strResult = *this;                                // Returns the entire string
+
+    return strResult;
+}
+
+QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterator& startPosition, const QStringUnicode::QConstCharIterator& lastPosition) const
+{
+    // The start position index must be lower or equal than the last position index
+    QE_ASSERT(startPosition <= lastPosition, "The start position must be prior or equal to the last position.");
+
+    QStringUnicode strResult;
+    int32_t nStartPosition = 0;
+    int32_t nLastPosition = 0;
+    
+    if(!startPosition.IsEnd())
+    {
+        nStartPosition = startPosition.m_iterator.getIndex();
+        nLastPosition = lastPosition.m_iterator.getIndex();
+    }
+    else if(startPosition < this->GetConstCharIterator()) // Is backward end position
+    {
+        if(startPosition == lastPosition)
+        {
+            // Both iterators point to backward end position
+            nStartPosition = this->GetLength();
+            nLastPosition = nStartPosition;
+        }
+        else
+        {
+            nStartPosition = 0;
+            nLastPosition = lastPosition.m_iterator.getIndex();
+        }
+    }
+    else if(startPosition.IsEnd()) // Is forward end position
+    {
+        nStartPosition = this->GetLength();
+        nLastPosition = nStartPosition;
+    }
+    
+    m_strString.extract(nStartPosition, nLastPosition - nStartPosition + 1, strResult.m_strString);
 
     return strResult;
 }

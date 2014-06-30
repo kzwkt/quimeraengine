@@ -11,7 +11,7 @@
       <Project Name="Core" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="Common" ConfigName="DebugWin32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="no">
+    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="yes">
       <Project Name="Common" ConfigName="DebugWin32SharedrtDynamic"/>
       <Project Name="Tools" ConfigName="DebugWin32SharedrtDynamic"/>
       <Project Name="System" ConfigName="DebugWin32SharedrtDynamic"/>
@@ -35,7 +35,7 @@
       <Project Name="Core" ConfigName="DebugMac32SharedrtStatic"/>
       <Project Name="Common" ConfigName="DebugMac32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugMac32SharedrtDynamic" Selected="yes">
+    <WorkspaceConfiguration Name="DebugMac32SharedrtDynamic" Selected="no">
       <Project Name="Tools" ConfigName="DebugMac32SharedrtDynamic"/>
       <Project Name="System" ConfigName="DebugMac32SharedrtDynamic"/>
       <Project Name="Core" ConfigName="DebugMac32SharedrtDynamic"/>

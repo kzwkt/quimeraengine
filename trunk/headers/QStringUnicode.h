@@ -80,6 +80,8 @@ public:
     /// </remarks>
     class QE_LAYER_COMMON_SYMBOLS QConstCharIterator
     {
+        friend class QStringUnicode;
+
         // CONSTRUCTORS
 	    // ---------------
     public:
@@ -87,7 +89,7 @@ public:
         /// <summary>
         /// Constructor that receives the string to iterate.
         /// </summary>
-        /// <param name="strString">[IN] The string to iterate.</param>
+        /// <param name="strString">[IN] The string to iterate. If it is empty, the iterator will point to the end position.</param>
         explicit QConstCharIterator(const QStringUnicode &strString);
 
         /// <summary>
@@ -99,8 +101,9 @@ public:
         /// <summary>
         /// Constructor that receives the string to iterate.
         /// </summary>
-        /// <param name="strString">[IN] The string to iterate.</param>
-        /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to.</param>
+        /// <param name="strString">[IN] The string to iterate. If it is empty, the iterator will point to the end position.</param>
+        /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to. If it is out of bounds, 
+        /// the iterator will point to the end position.</param>
         QConstCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition);
 
 
@@ -490,16 +493,46 @@ public:
     /// True if strings are not equal; False otherwise.
     /// </returns>
     QCharUnicode operator[](const unsigned int uIndex) const;
+    
+    /// <summary>
+    /// Obtains a new string from a subset of characters of the resident string, starting from a given position to the last one.
+    /// </summary>
+    /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.</param>
+    /// <returns>
+    /// A subset of the resident string.
+    /// </returns>
+    QStringUnicode Substring(const unsigned int uStartPosition) const;
 
     /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
     /// </summary>
     /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.</param>
-    /// <param name="uLastPosition">[IN] The position (zero-based index) of the last character of the resultant substring.</param>
+    /// <param name="uLastPosition">[IN] The position (zero-based index) of the last character of the resultant substring. It must be 
+    /// greater than the start position. If it is out bounds, the last position will be used instead.</param>
     /// <returns>
     /// A subset of the resident string.
     /// </returns>
     QStringUnicode Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const;
+    
+    /// <summary>
+    /// Obtains a new string from a subset of characters of the resident string, starting from a given position to the last one.
+    /// </summary>
+    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.</param>
+    /// <returns>
+    /// A subset of the resident string.
+    /// </returns>
+    QStringUnicode Substring(const QStringUnicode::QConstCharIterator& startPosition) const;
+
+    /// <summary>
+    /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
+    /// </summary>
+    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.</param>
+    /// <param name="lastPosition">[IN] The position of the last character of the resultant substring. It must be 
+    /// posterior to the start position. If it is out bounds, the last position will be used instead.</param>
+    /// <returns>
+    /// A subset of the resident string.
+    /// </returns>
+    QStringUnicode Substring(const QStringUnicode::QConstCharIterator& startPosition, const QStringUnicode::QConstCharIterator& lastPosition) const;
 
     /// <summary>
     /// Obtains a constant iterator pointing to the first position.
@@ -512,7 +545,8 @@ public:
     /// <summary>
     /// Obtains a constant iterator pointing to a given position.
     /// </summary>
-    /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to.</param>
+    /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to. If it is out of bounds, 
+    /// the iterator will point to the end position.</param>
     /// <returns>
     /// A constant iterator.
     /// </returns>
