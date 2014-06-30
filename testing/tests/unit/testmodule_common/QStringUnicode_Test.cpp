@@ -1314,9 +1314,60 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenStringIsEmpty_Test )
 #endif
 
 /// <summary>
+/// Checks that it returns the expected result when using common input position.
+/// </summary>
+QTEST_CASE ( Substring1_ReturnsExpectedResultWhenUsingCommonInputPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("EFGHIJKLMN");
+    const unsigned int START_POSITION = 4;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the source string is empty.
+/// </summary>
+QTEST_CASE ( Substring1_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("");
+    const QStringUnicode EXPECTED_RESULT("");
+    const unsigned int START_POSITION = 1;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the start position is out of the string's bounds.
+/// </summary>
+QTEST_CASE ( Substring1_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("");
+    const unsigned int START_POSITION = SOURCE_STRING.GetLength();
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that it returns the expected result when using common input positions.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
+QTEST_CASE ( Substring2_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
@@ -1336,7 +1387,7 @@ QTEST_CASE ( Substring_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
 /// <summary>
 /// Checks that an assertion fails when the start position is greater than the last position.
 /// </summary>
-QTEST_CASE ( Substring_AssertionFailsWhenStartPositionIsGreaterThanLastPosition_Test )
+QTEST_CASE ( Substring2_AssertionFailsWhenStartPositionIsGreaterThanLastPosition_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
@@ -1365,7 +1416,7 @@ QTEST_CASE ( Substring_AssertionFailsWhenStartPositionIsGreaterThanLastPosition_
 /// <summary>
 /// Checks that an empty string is returned when the start position is greater than the last position.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosition_Test )
+QTEST_CASE ( Substring2_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosition_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
@@ -1385,7 +1436,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosit
 /// <summary>
 /// Checks that an 1-length string is returned when start position equals last position.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionEqualsLastPosition_Test )
+QTEST_CASE ( Substring2_ReturnsOneLenthStringWhenStartPositionEqualsLastPosition_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
@@ -1403,7 +1454,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionEqualsLastPosition_Tes
 /// <summary>
 /// Checks that an empty string is returned when the source string is empty.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
+QTEST_CASE ( Substring2_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("");
@@ -1421,7 +1472,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
 /// <summary>
 /// Checks that it returns the rest of the string when the last position is out of the string's bounds.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsTheRestOfTheStringWhenLastPositionIsOutOfBounds_Test )
+QTEST_CASE ( Substring2_ReturnsTheRestOfTheStringWhenLastPositionIsOutOfBounds_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
@@ -1439,13 +1490,283 @@ QTEST_CASE ( Substring_ReturnsTheRestOfTheStringWhenLastPositionIsOutOfBounds_Te
 /// <summary>
 /// Checks that an empty string is returned when the start position is out of the string's bounds.
 /// </summary>
-QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
+QTEST_CASE ( Substring2_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
     const QStringUnicode EXPECTED_RESULT("");
     const unsigned int START_POSITION = SOURCE_STRING.GetLength();
     const unsigned int LAST_POSITION = START_POSITION + 2;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using common input position.
+/// </summary>
+QTEST_CASE ( Substring3_ReturnsExpectedResultWhenUsingCommonInputPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("EFGHIJKLMN");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(4);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the source string is empty.
+/// </summary>
+QTEST_CASE ( Substring3_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("");
+    const QStringUnicode EXPECTED_RESULT("");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(1);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the entire string is returned when the start position iterator points to the end position (backward).
+/// </summary>
+QTEST_CASE ( Substring3_ReturnsFullStringWhenStartPositionIteratorPointsToBackwardEndPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT = SOURCE_STRING;
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator();
+    --START_POSITION;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the start position iterator points to the end position (forward).
+/// </summary>
+QTEST_CASE ( Substring3_ReturnsEmptyStringWhenStartPositionIteratorPointsToForwardEndPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator();
+    START_POSITION.MoveLast();
+    ++START_POSITION;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using common input positions.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("EFGH");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(4);
+    const QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(7);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the start position is greater than the last position.
+/// </summary>
+QTEST_CASE ( Substring4_AssertionFailsWhenStartPositionIsGreaterThanLastPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(4);
+    const QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(2);
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that an empty string is returned when the start position is greater than the last position.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(4);
+    const QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(2);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that an 1-length string is returned when start position equals last position.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsOneLenthStringWhenStartPositionEqualsLastPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("E");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(4);
+    const QStringUnicode::QConstCharIterator LAST_POSITION = START_POSITION;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the source string is empty.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("");
+    const QStringUnicode EXPECTED_RESULT("");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(1);
+    const QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(3);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the rest of the string when the last position is out of the string's bounds.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsTheRestOfTheStringWhenLastPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("FGHIJKLMN");
+    const QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(5);
+    QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(SOURCE_STRING.GetLength());
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the start position is out of the string's bounds.
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator(SOURCE_STRING.GetLength());
+    QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(SOURCE_STRING.GetLength());
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that an empty string is returned when the start position iterator and the last position iterator point to the end position (backward).
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsEmptyStringWhenBothStartPositionAndLastPositionPointToBackwardEndPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("");
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator();
+    --START_POSITION;
+    QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator();
+    --LAST_POSITION;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+    
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the start position points to first position when it was pointing to the end position (backward).
+/// </summary>
+QTEST_CASE ( Substring4_StartPositionPointsToFirstPositionWhenItWasPointingToBackwardEndPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT("ABCD");
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator();
+    --START_POSITION;
+    const QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(3);
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the entire string is returned when the start position points to the end position (backward) and the last position points to the end position (forward).
+/// </summary>
+QTEST_CASE ( Substring4_ReturnsFullStringWhenStartPositionPointsToBackwardEndPositionAndLastPositionPointsToForwardEndPosition_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const QStringUnicode EXPECTED_RESULT = SOURCE_STRING;
+    QStringUnicode::QConstCharIterator START_POSITION = SOURCE_STRING.GetConstCharIterator();
+    --START_POSITION;
+    QStringUnicode::QConstCharIterator LAST_POSITION = SOURCE_STRING.GetConstCharIterator(SOURCE_STRING.GetLength());
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
