@@ -270,6 +270,11 @@ QStringUnicode::QConstCharIterator QStringUnicode::GetConstCharIterator(const un
     return QStringUnicode::QConstCharIterator(*this, uInitialPosition);
 }
 
+QStringUnicode::QCharIterator QStringUnicode::GetCharIterator()
+{
+    return QStringUnicode::QCharIterator(*this);
+}
+
 i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const
 {
     i8_q* pOutputBytes = null_q;

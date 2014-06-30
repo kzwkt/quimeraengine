@@ -85,6 +85,7 @@
       <File Name="../../../../tests/unit/testmodule_common/SQVF32_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/UnicodeCollationTestData.h"/>
       <File Name="../../../../tests/unit/testmodule_common/UnicodeNormalizationTestData.h"/>
+      <File Name="../../../../tests/unit/testmodule_common/QCharIterator_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Memory">
       <File Name="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp"/>

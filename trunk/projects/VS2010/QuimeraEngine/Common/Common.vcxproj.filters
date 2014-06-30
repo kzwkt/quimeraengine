@@ -106,5 +106,8 @@
     <ClCompile Include="..\..\..\..\source\QType.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCharIterator.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
