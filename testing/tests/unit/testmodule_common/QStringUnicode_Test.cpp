@@ -1799,7 +1799,6 @@ QTEST_CASE ( GetConstCharIterator1_IteratorPointsToEndPositionWhenStringIsEmpty_
 {
     // [Preparation]
     const QStringUnicode SOURCE_STRING("");
-    const QStringUnicode::QConstCharIterator EXPECTED_ITERATOR(SOURCE_STRING);
     const bool IS_END = true;
 
 	// [Execution]
@@ -1860,6 +1859,39 @@ QTEST_CASE ( GetConstCharIterator2_IteratorPointsToEndPositionWhenStringIsEmpty_
     // [Verification]
     bool bPointsToEndPosition = iterator.IsEnd();
     BOOST_CHECK_EQUAL(bPointsToEndPosition, POINTS_TO_END_POSITION);
+}
+
+/// <summary>
+/// Checks that the obtained iterator points to the first position when the string is not empty.
+/// </summary>
+QTEST_CASE ( GetCharIterator_IteratorPointsToFirstPositionWhenStringIsNotEmpty_Test )
+{
+    // [Preparation]
+    QStringUnicode strSourceString("ABCDEFGHIJKLMN");
+    QStringUnicode::QCharIterator EXPECTED_ITERATOR(strSourceString);
+    EXPECTED_ITERATOR.MoveFirst();
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator = strSourceString.GetCharIterator();
+
+    // [Verification]
+    BOOST_CHECK(iterator == EXPECTED_ITERATOR);
+}
+
+/// <summary>
+/// Checks that the obtained iterator points to the end position when the string is empty.
+/// </summary>
+QTEST_CASE ( GetCharIterator_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    QStringUnicode strEmptyString("");
+    const bool IS_END = true;
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator = strEmptyString.GetCharIterator();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(iterator.IsEnd(), IS_END);
 }
 
 /// <summary>

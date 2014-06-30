@@ -289,7 +289,7 @@ public:
 
         // ATTRIBUTES
 	    // ---------------
-    private:
+    protected:
 
         /// <summary>
         /// The string to iterate.
@@ -312,6 +312,109 @@ public:
 
     }; // QConstCharIterator
 
+    
+    /// <summary>
+    /// Iterator that steps once per Unicode character throughout a string. This iterator allows to modify the referenced string.
+    /// </summary>
+    /// <remarks>
+    /// Once an iterator have been bound to a string, it cannot point to another string ever.<br/>
+    /// Iterators can be invalid, this means, they may not point to an existing position of the string.<br/>
+    /// The position before the first character or after the last one (end positions) are considered as valid positions.
+    /// </remarks>
+    class QE_LAYER_COMMON_SYMBOLS QCharIterator : public QStringUnicode::QConstCharIterator
+    {
+        // CONSTRUCTORS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Constructor that receives the string to iterate.
+        /// </summary>
+        /// <param name="strString">[IN] The string to iterate.</param>
+        explicit QCharIterator(QStringUnicode &strString);
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="iterator">[IN] The iterator to be copied.</param>
+        QCharIterator(const QCharIterator &iterator);
+
+
+        // METHODS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Post-increment operator that makes the iterator step forward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last character (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QCharIterator operator++(int);
+
+        /// <summary>
+        /// Post-decrement operator that makes the iterator step backward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first character (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QCharIterator operator--(int);
+
+        /// <summary>
+        /// Pre-increment operator that makes the iterator step forward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last character (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QCharIterator& operator++();
+
+        /// <summary>
+        /// Pre-decrement operator that makes the iterator step backward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first character (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QCharIterator& operator--();
+
+        /// <summary>
+        /// Assignment operator that makes a copy of another iterator.
+        /// </summary>
+        /// <param name="iterator">[IN] The other iterator to be copied.</param>
+        /// <returns>
+        /// A reference to the resident iterator, after the copy.
+        /// </returns>
+        QCharIterator& operator=(const QCharIterator &iterator);
+
+        /// <summary>
+        /// Replaces a character in the current position with other.
+        /// </summary>
+        /// <remarks>
+        /// This operation does not invalidate the iterator.<br/>
+        /// If the iterator points to an end position, nothing will be done.<br/>
+        /// If the iterator is invalid, the behavior is undefined.
+        /// </remarks>
+        /// <param name="newCharacter">[IN] The new Unicode character.</param>
+        void SetChar(const QCharUnicode &newCharacter);
+
+    }; // QCharIterator
 
 
     // CONSTANTS
@@ -551,6 +654,14 @@ public:
     /// A constant iterator.
     /// </returns>
     QConstCharIterator GetConstCharIterator(const unsigned int uInitialPosition) const;
+
+    /// <summary>
+    /// Obtains a regular iterator pointing to the first position.
+    /// </summary>
+    /// <returns>
+    /// A regular iterator.
+    /// </returns>
+    QCharIterator GetCharIterator();
 
     /// <summary>
     /// Converts the string to an array of bytes encoded in certain text encoding.

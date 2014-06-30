@@ -17,6 +17,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QConstCharIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QDelegate_Test.cpp" />
