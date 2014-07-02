@@ -280,11 +280,14 @@ void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize)
 {
     QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
 
-    void* pNewLocation = operator new(uNewSize, m_uAlignment);
+    if(uNewSize > m_uPoolSize)
+    {
+        void* pNewLocation = operator new(uNewSize, m_uAlignment);
 
-    this->InternalReallocate(uNewSize, pNewLocation);
+        this->InternalReallocate(uNewSize, pNewLocation);
 
-    m_bNeedDestroyMemoryChunk = true;
+        m_bNeedDestroyMemoryChunk = true;
+    }
 }
 
 void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize, const void* pNewLocation)
@@ -292,13 +295,16 @@ void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize, const void* pNewL
     QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
     QE_ASSERT(pNewLocation != null_q, "The input new location cannot be null.");
 
-    pointer_uint_q uNewLocationAddress = (pointer_uint_q)pNewLocation;
-    pointer_uint_q uAlignmentOffset = m_uAlignment - (uNewLocationAddress % m_uAlignment);
-    void* pAdjustedNewLocation = (void*)((pointer_uint_q)pNewLocation + uAlignmentOffset);
+    if(uNewSize > m_uPoolSize && pNewLocation != null_q)
+    {
+        pointer_uint_q uNewLocationAddress = (pointer_uint_q)pNewLocation;
+        pointer_uint_q uAlignmentOffset = m_uAlignment - (uNewLocationAddress % m_uAlignment);
+        void* pAdjustedNewLocation = (void*)((pointer_uint_q)pNewLocation + uAlignmentOffset);
 
-    this->InternalReallocate(uNewSize, pAdjustedNewLocation);
+        this->InternalReallocate(uNewSize, pAdjustedNewLocation);
 
-    m_bNeedDestroyMemoryChunk = false;
+        m_bNeedDestroyMemoryChunk = false;
+    }
 }
 
 void QPoolAllocator::AllocateFreeBlocksList()
