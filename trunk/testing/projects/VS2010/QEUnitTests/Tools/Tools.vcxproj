@@ -43,6 +43,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment3D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QListIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QList_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x4_Test.cpp" />

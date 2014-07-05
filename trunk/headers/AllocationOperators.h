@@ -34,6 +34,7 @@
 
 #ifdef QE_COMPILER_MSVC
     #pragma warning(disable:4290) // This disables the warning C4290 produced by throw exception specification
+    #pragma warning(disable:4297) // This disables the warning C4297 produced by throw exception specification
 #endif
 
 #if (defined(QE_OS_WINDOWS) || defined(QE_OS_LINUX)) && defined(QE_COMPILER_GCC)

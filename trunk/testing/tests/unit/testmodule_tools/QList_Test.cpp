@@ -60,8 +60,7 @@ QTEST_CASE ( Constructor1_ChecksIfConstructorWithoutParametersInitializesMembers
     pointer_uint_q uLast  = list.GetLast();
     const QPoolAllocator* pElementsAllocator = list.GetAllocator();
 
-    // [TODO] rdelasheras: Replace by GetCapacity when exists.
-    pointer_uint_q uInitialCapacity = pElementsAllocator->GetPoolSize() / sizeof(u64_q);
+    pointer_uint_q uInitialCapacity = list.GetCapacity();
 
 
     BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
@@ -87,8 +86,7 @@ QTEST_CASE ( Constructor2_ChecksIfConstructorInitializesMembersCorrectly_Test )
     pointer_uint_q uLast  = list.GetLast();
     const QPoolAllocator* pElementsAllocator = list.GetAllocator();
 
-    // [TODO] rdelasheras: Replace by GetCapacity when exists.
-    pointer_uint_q uInitialCapacity = pElementsAllocator->GetPoolSize() / sizeof(u64_q);
+    pointer_uint_q uInitialCapacity = list.GetCapacity();
 
     BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
     BOOST_CHECK_EQUAL( uLast, EXPECTED_END_POSITION_FORWARD );
@@ -729,7 +727,7 @@ QTEST_CASE ( SetValue_AssertionFailedWhenListIsEmpty_Test )
 {/* [TODO] Thund: Uncomment when SetValue is implemented
     // [Preparation]
     const pointer_uint_q LIST_CAPACITY = 5;
-    const pointer_uint_q INDEX_POSITION_TO_SET = 4;
+    const pointer_uint_q INDEX_POSITION_TO_RETURN = 4;
     QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
     const u64_q VALUE_TO_SET = 10;
     const bool ASSERTION_FAILED = true;
@@ -797,7 +795,7 @@ QTEST_CASE ( SetValue_AssertionFailedWhenSettingValueInWrongIndex_Test )
 /// <summary>
 /// Checks if it the operator returns the value placed in the position passed as parameter.
 /// </summary>
-QTEST_CASE ( OperatorListSubscript_CorrectValueReturned_Test )
+QTEST_CASE ( OperatorArraySubscript_CorrectValueReturned_Test )
 {
     // [Preparation]
     const pointer_uint_q LIST_CAPACITY = 5;
@@ -833,7 +831,7 @@ QTEST_CASE ( OperatorListSubscript_CorrectValueReturned_Test )
 /// <summary>
 /// Assertion failed when empty list.
 /// </summary>
-QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenListIsEmpty_Test )
+QTEST_CASE ( OperatorArraySubscript_AssertionFailedWhenListIsEmpty_Test )
 {/* [TODO] Thund: Uncomment when GetValue is implemented
     // [Preparation]
     const pointer_uint_q LIST_CAPACITY = 5;
@@ -867,7 +865,7 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenListIsEmpty_Test )
 /// <summary>
 /// Assertion failed when passing a wrong index to get the element.
 /// </summary>
-QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenPassingAnIndexBiggerThanNumberOfElements_Test )
+QTEST_CASE ( OperatorArraySubscript_AssertionFailedWhenPassingAnIndexBiggerThanNumberOfElements_Test )
 {
     // [Preparation]
     const pointer_uint_q LIST_CAPACITY = 5;

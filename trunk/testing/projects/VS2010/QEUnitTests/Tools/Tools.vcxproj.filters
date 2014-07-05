@@ -216,6 +216,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTree_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QListIterator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
