@@ -316,6 +316,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QListIterator_Test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QListWhiteBox.h">
 			<Option virtualFolder="Tests/Containers/" />
 		</Unit>

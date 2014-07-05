@@ -85,6 +85,7 @@
       <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QList_Test.cpp" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QListWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QListIterator_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>

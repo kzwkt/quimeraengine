@@ -81,7 +81,7 @@ public:
     /// <remarks>
     /// Once an interator have been bound to an array, it cannot point to another array ever.<br/>
     /// Iterators can be invalid, this means, they may not point to an existing position of the array.<br/>
-    /// The position before the first character or after the last one (end positions) are considered as valid positions.
+    /// The position before the first element or after the last one (end positions) are considered as valid positions.
     /// </remarks>
     class QArrayIterator
     {
