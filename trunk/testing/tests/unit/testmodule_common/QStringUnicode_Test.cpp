@@ -5076,6 +5076,24 @@ QTEST_CASE ( ToInteger_NoRoundingWhenFractionalNumberIsParsed_Test )
     BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
 }
 
+/// <summary>
+/// Checks that number preceded by a plus sign (+) are allowed.
+/// </summary>
+QTEST_CASE ( ToInteger_PlusSignIsAllowed_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+
+    // [Preparation]
+    const QStringUnicode STRING("+123");
+    const i64_q EXPECTED_NUMBER = 123;
+
+	// [Execution]
+    i64_q nParsedNumber = STRING.ToInteger();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>

@@ -1504,7 +1504,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfPositiveL
 QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeLeapYear_Test )
 {
     // [Preparation]
-    const u64_q NEGATIVE_YEAR        = -12;
+    const i32_q NEGATIVE_YEAR        = -12;
     const unsigned int EXPECTED_YEAR = -NEGATIVE_YEAR;
     const u64_q EXPECTED_MONTH       = 1;
     const u64_q EXPECTED_DAY         = 1;
@@ -1517,7 +1517,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingFirstInstantOfNegativeL
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
+    QDateTime dateTime(NEGATIVE_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
                        EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
                        EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS,
                        EXPECTED_TIMEZONE);
@@ -1699,7 +1699,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(MAX_YEAR, MAX_MONTH, MAX_DAY,
+    QDateTime dateTime(scast_q(MAX_YEAR, i32_q), MAX_MONTH, MAX_DAY,
                        MAX_HOUR, MAX_MAXUTE, MAX_SECOND,
                        MAX_MILLISECOND, MAX_MICROSECOND, MAX_HNS,
                        EXPECTED_TIMEZONE);
@@ -2716,7 +2716,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(MAX_YEAR, MAX_MONTH, MAX_DAY,
+    QDateTime dateTime(scast_q(MAX_YEAR, i32_q), MAX_MONTH, MAX_DAY,
                        EXPECTED_TIMEZONE);
 
     // [Verification]
@@ -2750,7 +2750,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMinimumDateAndTime_Test
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(-MIN_YEAR, MIN_MONTH, MIN_DAY,
+    QDateTime dateTime(-scast_q(MIN_YEAR, i32_q), MIN_MONTH, MIN_DAY,
                        EXPECTED_TIMEZONE);
 
     // [Verification]
@@ -3241,6 +3241,1033 @@ QTEST_CASE ( Constructor7_InstanceIsCorrectlyConstructed_Test )
     // [Verification]
     BOOST_CHECK(dateTime == EXPECTED_DATETIME);
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, without year sign, time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithNoYearSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1234-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with year positive sign but without time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithYearPositiveSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+1234-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with year negative sign but without time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithYearNegativeSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-1234-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(-1235, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a year of 5 numbers, and without year sign or time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithYearOfFiveNumbersAndNoYearSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a year of 5 numbers and with year positive sign but without time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithYearOfFiveNumbersAndYearPositiveSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+12345-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a year of 5 numbers and with year negative sign but without time fraction or time zone offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithYearOfFiveNumbersAndYearNegativeSignAndNoFractionAndNoTimeZone_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-12345-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(-12346, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("123451223T123456");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:56");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 56, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a positive time offset, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithPositiveTimeOffsetUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("123451223T235657+1122");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a positive time offset, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithPositiveTimeOffsetUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T23:56:57+11:22");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a negative time offset, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithNegativeTimeOffsetUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("123451223T123457-1122");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 23, 56, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a negative time offset, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithNegativeTimeOffsetUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57-11:22");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 23, 56, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a time offset and a time fraction, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithTimeOffsetAndFractionUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("123451223T123457.1234567-1122");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 23, 56, 57, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with a time offset and a time fraction, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithTimeOffsetAndFractionUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.1234567-11:22");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 23, 56, 57, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction of 8 numbers.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionOfEightNumbers_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.12345678");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction of 7 numbers.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionOfSevenNumbers_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.1234567");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction of 1 number.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionOfOneNumber_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.1");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 100, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction with format "0000001".
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionWithFormat0000001_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.0000001");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 0, 0, 1, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction with format "0010023".
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionWithFormat0010023_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.0010023");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 1, 2, 3, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with fraction with format "1002003".
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithFractionWithFormat1002003_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.1002003");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 100, 200, 3, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp combines a date and a time, with Zulu time.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCombinesDateAndTimeWithZuluTime_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-12-23T12:34:57.1234567Z");
+    const QDateTime EXPECTED_DATETIME(12345, 12, 23, 12, 34, 57, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the year +0000 means 1 BC.
+/// </summary>
+QTEST_CASE ( Constructor8_PositiveYear0000Means1BC_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-0000-12-23T12:34:57");
+    const QDateTime EXPECTED_DATETIME(-1, 12, 23, 12, 34, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the year -0000 means 1 BC.
+/// </summary>
+QTEST_CASE ( Constructor8_NegativeYear0000Means1BC_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-0000-12-23T12:34:57");
+    const QDateTime EXPECTED_DATETIME(-1, 12, 23, 12, 34, 57, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the hour 24 means 00.
+/// </summary>
+QTEST_CASE ( Constructor8_Hour24Means00_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1234-12-23T24:00:00");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 23, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the negative time offset affects the date.
+/// </summary>
+QTEST_CASE ( Constructor8_NegativeTimeOffsetAffectsTheDate_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1234-12-23T23:00:00-03:00");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 24, 2, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the positive time offset affects the date.
+/// </summary>
+QTEST_CASE ( Constructor8_PositiveTimeOffsetAffectsTheDate_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1234-12-23T01:00:00+03:00");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 22, 22, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a year of 4 numbers with a positive sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFourNumbersWithPositiveSign_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+1234");
+    const QDateTime EXPECTED_DATETIME(1234, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a year of 4 numbers with a negative sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFourNumbersWithNegativeSign_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-1234");
+    const QDateTime EXPECTED_DATETIME(-1235, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a year of 5 numbers with a positive sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFiveNumbersWithPositiveSign_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+12345");
+    const QDateTime EXPECTED_DATETIME(12345, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a year of 5 numbers with a negative sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFiveNumbersWithNegativeSign_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-12345");
+    const QDateTime EXPECTED_DATETIME(-12346, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a date with a year of 5 numbers without sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfDateWithYearOfFiveNumbersWithoutSignUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("12345-09-15");
+    const QDateTime EXPECTED_DATETIME(12345, 9, 15, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a date with a year of 4 numbers without sign.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfDateWithYearOfFourNumbersWithoutSignUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1234-09-15");
+    const QDateTime EXPECTED_DATETIME(1234, 9, 15, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a date with a year of 4 numbers with positive sign and month and day, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFourNumbersWithPositiveSignAndMonthAndDayUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+12341223");
+    const QDateTime EXPECTED_DATETIME(1234, 12, 23, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of a date with a year of 4 numbers with negative sign and month and day, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfYearOfFourNumbersWithNegativeSignAndMonthAndDayUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-12341223");
+    const QDateTime EXPECTED_DATETIME(-1235, 12, 23, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the year +0000 is the year 1 BC.
+/// </summary>
+QTEST_CASE ( Constructor8_PositiveYear0000Means1BCWhenTimestampIsCompoundOfDateOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("+00001223");
+    const QDateTime EXPECTED_DATETIME(-1, 12, 23, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the year -0000 is the year 1 BC.
+/// </summary>
+QTEST_CASE ( Constructor8_NegativeYear0000Means1BCWhenTimestampIsCompoundOfDateOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("-00001223");
+    const QDateTime EXPECTED_DATETIME(-1, 12, 23, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour only.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute only, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteOnlyUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1357");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute and second only, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteAndSecondOnlyUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("135748");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute only, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteOnlyUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute and second only, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteAndSecondOnlyUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour only with time offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourOnlyWithTimeOffset_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13+0130");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 11, 30, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute only with time offset, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteOnlyWithTimeOffsetUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("1357+0130");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 12, 27, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute and second only with time offset, using basic format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteAndSecondOnlyWithTimeOffsetUsingBasicFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("135748+0130");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 12, 27, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute only with time offset, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteOnlyWithTimeOffsetUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57+01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 12, 27, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of hour and minute and second only with time offset, using extended format.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfHourAndMinuteAndSecondOnlyWithTimeOffsetUsingExtendedFormat_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48+01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 12, 27, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset composed of hour only.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetCompoundOfHourOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48+01");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 12, 57, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with negative time offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithNegativeTimeOffset_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with fraction but without time offset.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithFractionWithoutTimeOffset_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.1234567");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 48, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset and fraction of 7 numbers.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetAndFractionOfSevenNumbers_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.1234567-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset and fraction of 8 numbers.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetAndFractionOfEightNumbers_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.12345678-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 123, 456, 7, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset and fraction of 1 number.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetAndFractionOfOneNumber_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.1-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 100, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset and fraction like "0000001".
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetAndFractionLike0000001_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.0000001-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 0, 0, 1, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with time offset and fraction like "1002003".
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithTimeOffsetAndFractionLike0010023_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.1002003-01:30");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 15, 27, 48, 100, 200, 3, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with fraction and Zulu Time.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithFractionAndZuluTime_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48.1234Z");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 48, 123, 400, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the expected instance is created when the input timestamp is composed of time with Zulu Time.
+/// </summary>
+QTEST_CASE ( Constructor8_CreatesExpectedInstanceWhenTimestampCompoundOfTimeWithZuluTime_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("13:57:48Z");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 13, 57, 48, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the hour 24 means 00 when the timestamp is composed of the hour only.
+/// </summary>
+QTEST_CASE ( Constructor8_Hour24Means00WhenTimeIsCompoundOfHourOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("24");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the hour 24 means 00 when the timestamp is composed of the hour and the minute only.
+/// </summary>
+QTEST_CASE ( Constructor8_Hour24Means00WhenTimeIsCompoundOfHourAndMinuteOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("24:00");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the hour 24 means 00 when the timestamp is composed of the hour, the minute and the second.
+/// </summary>
+QTEST_CASE ( Constructor8_Hour24Means00WhenTimeIsCompoundOfHourAndMinuteAndSecond_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("240000");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the negative time offset does not affect the date when the timestamp is composed of time only.
+/// </summary>
+QTEST_CASE ( Constructor8_NegativeTimeOffsetDoesNotAffectTheDateWhenTimestampIsCompoundOfTimeOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("23:00:00-03:00");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 2, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that the positive time offset does not affect the date when the timestamp is composed of time only.
+/// </summary>
+QTEST_CASE ( Constructor8_PositiveTimeOffsetDoesNotAffectTheDateWhenTimestampIsCompoundOfTimeOnly_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP("01:00:00+03:00");
+    const QDateTime EXPECTED_DATETIME(1, 1, 1, 22, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    QDateTime dateTime(TIMESTAMP);
+
+    // [Verification]
+    BOOST_CHECK(dateTime == EXPECTED_DATETIME);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the input string is empty.
+/// </summary>
+QTEST_CASE ( Constructor8_AssertionFailsWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q EMPTY_TIMESTAMP;
+    const bool ASSERTION_FAILED = true;
+
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(EMPTY_TIMESTAMP);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the input string contains whitespaces.
+/// </summary>
+QTEST_CASE ( Constructor8_AssertionFailsWhenInputStringContainsWhitesSpaces_Test )
+{
+    // [Preparation]
+    const string_q TIMESTAMP = "2000-12-13 10:20:33";
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QDateTime dateTime(TIMESTAMP);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -5218,6 +6245,189 @@ QTEST_CASE ( GetDaysInMonth_AssertionFailsWhenMonthIsNotValid_Test )
 }
 
 #endif
+
+/// <summary>
+/// Checks that negative years start at menis zero (1 BC).
+/// </summary>
+QTEST_CASE ( ToString_NegativeYearsStartAtMinusZero_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "-0000-01-01T00:00:00Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the timestamp is preceded by a negative sign when the date is negative.
+/// </summary>
+QTEST_CASE ( ToString_NegativeSignWhenYearIsNegative_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(-1234, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "-1233-01-01T00:00:00Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the timestamp is preceded by a positive sign when the date is positive.
+/// </summary>
+QTEST_CASE ( ToString_PositiveSignWhenYearIsPositive_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(1234, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "+1234-01-01T00:00:00Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the timestamp ends with a Z when the time is UTC.
+/// </summary>
+QTEST_CASE ( ToString_TimestampEndsWithZWhenTimeIsUtc_Test )
+{
+    // [Preparation]
+    const QTimeZone* UTC_TZ = null_q;
+    const QDateTime DATETIME(1234, 2, 11, 13, 14, 25, 0, 0, 0, UTC_TZ);
+    const string_q EXPECTED_RESULT = "+1234-02-11T13:14:25Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the date and time parts are correctly padded when they are formed by one number.
+/// </summary>
+QTEST_CASE ( ToString_DateAndTimePartsAreCorrectlyPaddedWhenTheyAreFormedByOneNumber_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(3, 2, 1, 4, 5, 6, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "+0003-02-01T04:05:06Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the years formed of five numbers are correctly created.
+/// </summary>
+QTEST_CASE ( ToString_YearsOfFiveNumbersAreCorrectlyCreated_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(12345, 2, 1, 4, 5, 6, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "+12345-02-01T04:05:06Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that only the necessary numbers of the time fraction are added to the timestamp.
+/// </summary>
+QTEST_CASE ( ToString_OnlyNecessaryFractionNumbersAreAddedToTimestamp_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 123, 400, 0, null_q);
+    const string_q EXPECTED_RESULT = "+0001-01-01T00:00:00.1234Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the fraction with maximum length is correctly created.
+/// </summary>
+QTEST_CASE ( ToString_TheMaximumFractionLengthIsCorrectlyCreated_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 123, 456, 7, null_q);
+    const string_q EXPECTED_RESULT = "+0001-01-01T00:00:00.1234567Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that no fraction is added when millisecond, microsecond and hundred of nanosecond equal zero.
+/// </summary>
+QTEST_CASE ( ToString_NoFractionIsAddedWhenMillisecondMicrosecondAndHundredOfNanosecondEqualZero_Test )
+{
+    // [Preparation]
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+    const string_q EXPECTED_RESULT = "+0001-01-01T00:00:00Z";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that positive time offsets are correctly appended.
+/// </summary>
+QTEST_CASE ( ToString_PositiveOffsetAreCorrectlyAppended_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const QTimeZone* POSITIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Asia/Calcutta")); // IST+5:30
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, POSITIVE_TIMEZONE);
+    const string_q EXPECTED_RESULT = "+0001-01-01T00:00:00+05:30";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that negative time offsets are correctly appended.
+/// </summary>
+QTEST_CASE ( ToString_NegativeOffsetAreCorrectlyAppended_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
+
+    // [Preparation]
+    const QTimeZone* NEGATIVE_TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Pacific/Marquesas")); // MART-9:30
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, NEGATIVE_TIMEZONE);
+    const string_q EXPECTED_RESULT = "+0001-01-01T00:00:00-09:30";
+
+	// [Execution]
+    string_q strTimestamp = DATETIME.ToString();
+
+    // [Verification]
+    BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
+}
 
 /// <summary>
 /// Checks that it returns True when the year is a leap year.
