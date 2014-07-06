@@ -29,9 +29,11 @@
 #include "Assertions.h"
 #include "SQInteger.h"
 #include "QTimeZone.h"
+#include "EQComparisonType.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
+using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 
 namespace Kinesis
 {
@@ -387,6 +389,87 @@ QDateTime::QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone) : m_
 {
 }
 
+QDateTime::QDateTime(const string_q &strTimestamp)
+{
+    static const char_q DATE_SEPARATOR = '-';
+    static const char_q TIME_START_SEPARATOR = 'T';
+    static const char_q POSITIVE_SIGN = '+';
+    static const char_q NEGATIVE_SIGN = '-';
+
+    QE_ASSERT(!strTimestamp.IsEmpty(), "The input timestamp must not be empty.");
+    QE_ASSERT(strTimestamp.IndexOf(" ", EQComparisonType::E_BinaryCaseSensitive) == string_q::PATTERN_NOT_FOUND, "The input timestamp must not contain whitespaces.");
+
+    i32_q nYear, nOffsetHours;
+    u32_q uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, uOffsetMinutes;
+
+    // [TODO] Thund: Replace this with PositionOf, when it exists, and remove the IF block below
+    int nTimePosition = strTimestamp.IndexOf(TIME_START_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+
+    if(nTimePosition != string_q::PATTERN_NOT_FOUND)
+    {
+        // The timestamp combines Date and Time
+
+        this->ParseTimestampCompleteDate(strTimestamp, scast_q(nTimePosition, u32_q), nYear, uMonth, uDay);
+        this->ParseTimestampCompleteTime(strTimestamp, scast_q(nTimePosition, u32_q), uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+
+        // The date and time is constructed
+        *this = QDateTime(nYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+
+        this->ApplyOffsetToTimestamp(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+    }
+    else
+    {
+        // The timestamp contains either Date or Time information only
+
+        if(strTimestamp[0] == POSITIVE_SIGN || strTimestamp[0] == NEGATIVE_SIGN)
+        {
+            // It is preceeded by a sign, so it must be a date
+            // [TODO] Thund: Replace this with Contains when it exists
+            const int SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1); // Starts from 1 to skip the sign
+
+            if(SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
+                this->ParseTimestampIncompleteDateWithSeparators(strTimestamp, SEPARATOR_POSITION, nYear, uMonth, uDay);
+            else
+                this->ParseTimestampIncompleteDateWithoutSeparators(strTimestamp, nYear, uMonth, uDay);
+
+            *this = QDateTime(nYear, uMonth, uDay);
+        }
+        else
+        {
+            // It is not preceded by a sign, so it may be either a date or a time
+
+            const int FIRST_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive); // [TODO] Thund: Replace this with Contains when it exists
+
+            if(FIRST_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
+            {
+                const int SECOND_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, FIRST_SEPARATOR_POSITION + 1U); // [TODO] Thund: Replace this with Contains when it exists
+
+                if(SECOND_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
+                {
+                    // It contains 2 hyphens, it must be a date
+                    this->ParseTimestampIncompleteDateWithSeparators(strTimestamp, FIRST_SEPARATOR_POSITION, nYear, uMonth, uDay);
+                    *this = QDateTime(nYear, uMonth, uDay);
+                }
+                else
+                {
+                    // It is interpreted as time by default, even if it does not contain colons (the hyphen is considered a minus sign of the time offset instead of a date seprator)
+
+                    this->ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+                    *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+                    this->ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+                }
+            }
+            else
+            {
+                // It is interpreted as time by default, even if it does not contain colons
+                this->ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+                *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+                this->ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+            }
+        }
+    }
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -488,7 +571,7 @@ bool QDateTime::operator<(const QDateTime &dateTime) const
     QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
-    return this->IsUndefined() || dateTime.IsUndefined() ? 
+    return this->IsUndefined() || dateTime.IsUndefined() ?
                 false :
                 m_instant < dateTime.m_instant;
 }
@@ -498,8 +581,8 @@ bool QDateTime::operator>(const QDateTime &dateTime) const
     QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
-    return this->IsUndefined() || dateTime.IsUndefined() ? 
-                false : 
+    return this->IsUndefined() || dateTime.IsUndefined() ?
+                false :
                 m_instant > dateTime.m_instant;
 }
 
@@ -550,6 +633,231 @@ const QDateTime& QDateTime::GetUndefinedDate()
     return UNDEFINED_DATETIME;
 }
 
+string_q QDateTime::ToString() const
+{
+    // Output format samples: +YYYYY-MM-DDThh:mm:ss.uuuuuuu+hh:mm
+    //                        -YYYY-MM-DDThh:mm:ss.uuuuuuuZ
+    //                        +YYYY-MM-DDThh:mm:ss-hh:mm
+
+    static const string_q TIME_SEPARATOR = ":";
+    static const string_q DATE_SEPARATOR = "-";
+    static const string_q TIME_START_SEPARATOR = "T";
+    static const string_q POSITIVE_SIGN = "+";
+    static const string_q NEGATIVE_SIGN = "-";
+    static const string_q ZULU_TIME = "Z";
+    static const string_q ZERO_STRING = "0";
+
+    QE_ASSERT(!this->IsUndefined(), "Undefined date/times cannot be represented as string");
+
+    string_q strTimestamp;
+    if(this->IsNegative())
+        strTimestamp.Append(NEGATIVE_SIGN);
+    else
+        strTimestamp.Append(POSITIVE_SIGN);
+
+    // [TODO] Thund: Use Decompose instead of every Get, when it exists
+    // Negative years are adjusted so the year 1 BC, or -1, is represented by "-0000" in timestamps
+    const unsigned int YEAR   = this->IsNegative() ? this->GetYear() - 1U : this->GetYear();
+    const unsigned int MONTH  = this->GetMonth();
+    const unsigned int DAY    = this->GetDay();
+    const unsigned int HOUR   = this->GetHour();
+    const unsigned int MINUTE = this->GetMinute();
+    const unsigned int SECOND = this->GetSecond();
+
+    const string_q& YEAR_STRING = SQInteger::ToString(YEAR);
+
+    // Padding with zeroes
+    if(YEAR_STRING.GetLength() < 4U) // YYYYY is allowed, but padding is applied only when width is lower than 4 cyphers
+    {
+        for(unsigned int i = 0; i < 4U - YEAR_STRING.GetLength(); ++i)
+            strTimestamp.Append(ZERO_STRING);
+    }
+
+    strTimestamp.Append(YEAR_STRING);
+    strTimestamp.Append(DATE_SEPARATOR);
+
+    // Padding with zeroes
+    const unsigned int FIRST_NUMBER_WITH_2_CYPHERS = 10U;
+
+    if(MONTH < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+        strTimestamp.Append(ZERO_STRING);
+
+    strTimestamp.Append(SQInteger::ToString(MONTH));
+    strTimestamp.Append(DATE_SEPARATOR);
+
+    // Padding with zeroes
+    if(DAY < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+        strTimestamp.Append(ZERO_STRING);
+
+    strTimestamp.Append(SQInteger::ToString(DAY));
+    strTimestamp.Append(TIME_START_SEPARATOR);
+
+    // Padding with zeroes
+    if(HOUR < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+        strTimestamp.Append(ZERO_STRING);
+
+    strTimestamp.Append(SQInteger::ToString(HOUR));
+    strTimestamp.Append(TIME_SEPARATOR);
+
+    // Padding with zeroes
+    if(MINUTE < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+        strTimestamp.Append(ZERO_STRING);
+
+    strTimestamp.Append(SQInteger::ToString(MINUTE));
+    strTimestamp.Append(TIME_SEPARATOR);
+
+    // Padding with zeroes
+    if(SECOND < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+        strTimestamp.Append(ZERO_STRING);
+
+    strTimestamp.Append(SQInteger::ToString(SECOND));
+
+    const unsigned int MILLISECOND = this->GetMillisecond();
+    const unsigned int MICROSECOND = this->GetMicrosecond();
+    const unsigned int HUNDREDOFNANOSECOND = this->GetHundredOfNanosecond();
+
+    // Converts milliseconds, microseconds and nanoseconds to a fraction of second
+    this->SecondFractionToString(MILLISECOND, MICROSECOND, HUNDREDOFNANOSECOND, strTimestamp);
+
+    // Adds the time offset
+    if(m_pTimeZone == null_q)
+    {
+        strTimestamp.Append(ZULU_TIME);
+    }
+    else
+    {
+        QTimeSpan offset(0);
+        bool bIsNegative = false;
+        m_pTimeZone->CalculateOffset(*this, offset, bIsNegative);
+
+        if(bIsNegative)
+            strTimestamp.Append(NEGATIVE_SIGN);
+        else
+            strTimestamp.Append(POSITIVE_SIGN);
+
+        static const unsigned int MINUTES_PER_HOUR = 60;
+        const unsigned int OFFSET_HOURS = offset.GetHours();
+        const unsigned int OFFSET_MINUTES = offset.GetMinutes() % MINUTES_PER_HOUR;
+
+        // Padding with zeroes
+        if(OFFSET_HOURS < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+            strTimestamp.Append(ZERO_STRING);
+
+        strTimestamp.Append(SQInteger::ToString(OFFSET_HOURS));
+        strTimestamp.Append(TIME_SEPARATOR);
+
+        // Padding with zeroes
+        if(OFFSET_MINUTES < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
+            strTimestamp.Append(ZERO_STRING);
+
+        strTimestamp.Append(SQInteger::ToString(OFFSET_MINUTES));
+    }
+
+    return strTimestamp;
+}
+
+void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const
+{
+    static const string_q SECOND_FRACTION_SEPARATOR1 = ".";
+    static const string_q ZERO_STRING = "0";
+    static const string_q THREE_ZERO_STRING = "000";
+    static const string_q SIX_ZERO_STRING = "000000";
+    bool bHasFraction = false;
+
+    if(uMillisecond > 0)
+    {
+        // Has milliseconds
+        bHasFraction = true;
+        strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
+
+        const string_q& strMillisecond = SQInteger::ToString(uMillisecond);
+
+        for(unsigned int i = 0; i < 3U - strMillisecond.GetLength(); ++i)
+            strTimestamp.Append(ZERO_STRING);
+
+        strTimestamp.Append(strMillisecond);
+
+        if(uMicrosecond > 0)
+        {
+            // Has milliseconds and microseconds
+            const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
+
+            for(unsigned int i = 0; i < 3U - strMicrosecond.GetLength(); ++i)
+                strTimestamp.Append(ZERO_STRING);
+
+            strTimestamp.Append(strMicrosecond);
+
+            if(uHundredOfNanosecond > 0)
+            {
+                // Has milliseconds, microseconds and hundreds of nanoseconds
+                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+            }
+        }
+        else
+        {
+            if(uHundredOfNanosecond > 0)
+            {
+                // Has milliseconds and hundreds of nanoseconds, no microseconds
+                strTimestamp.Append(THREE_ZERO_STRING);
+                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+            }
+        }
+    }
+    else
+    {
+        if(uMicrosecond > 0)
+        {
+            // Has microseconds, no milliseconds
+            bHasFraction = true;
+            strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
+            strTimestamp.Append(THREE_ZERO_STRING);
+
+            const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
+
+            for(unsigned int i = 0; i < 3U - strMicrosecond.GetLength(); ++i)
+                strTimestamp.Append(ZERO_STRING);
+
+            strTimestamp.Append(strMicrosecond);
+
+            if(uHundredOfNanosecond > 0)
+            {
+                // Has microseconds and hundreds of nanoseconds, no milliseconds
+                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+            }
+        }
+        else
+        {
+            if(uHundredOfNanosecond > 0)
+            {
+                // Has hundreds of nanoseconds, no milliseconds, no microseconds
+                bHasFraction = true;
+                strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
+                strTimestamp.Append(SIX_ZERO_STRING);
+                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+            }
+        }
+    }
+
+    if(bHasFraction)
+    {
+        // Removes last zeroes
+        static const char_q CHARACTER_ZERO = '0';
+        unsigned int uNumberOfZeroesToRemove = 0;
+
+        string_q::QConstCharIterator it = strTimestamp.GetConstCharIterator();
+        it.MoveLast();
+
+        while(!it.IsEnd() && it.GetChar() == CHARACTER_ZERO)
+        {
+            --it;
+            ++uNumberOfZeroesToRemove ;
+        }
+
+        if(uNumberOfZeroesToRemove > 0)
+            strTimestamp = strTimestamp.Substring(0, strTimestamp.GetLength() - 1U - uNumberOfZeroesToRemove); // [TODO] Thund: Replace this with Substring overload that uses iterators
+    }
+}
+
 bool QDateTime::IsLeapYear(const int nYear)
 {
     return SQInteger::Abs(nYear) % 4ULL == 0;
@@ -563,7 +871,7 @@ QTimeSpan QDateTime::GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &ins
     QTimeSpan timeZoneOffset(0);
     bool bOffsetIsNegative = false;
     pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
-        
+
     // The offset is subtracted to the calculated instant to make it UTC
     if(bOffsetIsNegative)
         localDateTime.m_instant += timeZoneOffset;
@@ -581,7 +889,7 @@ QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant,
     QTimeSpan timeZoneOffset(0);
     bool bOffsetIsNegative = false;
     pTimeZone->CalculateOffset(localDateTime, timeZoneOffset, bOffsetIsNegative);
-        
+
     // The offset is added to the calculated instant to make it UTC
     if(bOffsetIsNegative)
         localDateTime.m_instant -= timeZoneOffset;
@@ -589,6 +897,469 @@ QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant,
         localDateTime.m_instant += timeZoneOffset;
 
     return localDateTime.m_instant;
+}
+
+
+void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+{
+    static const char_q DATE_SEPARATOR = '-';
+    static const char_q TIME_START_SEPARATOR = 'T';
+
+    // Gets the Date part only
+    const string_q& DATE_PART = strTimestamp.Substring(0, uTPosition - 1); // [TODO] Thund: Replace this with Substring(iterators) when it exists
+
+    const int FIRST_SEPARATOR_POSITION = DATE_PART.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1U); // Starts from 1 because it may have a "-" sign at the beginning
+
+    if(FIRST_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
+    {
+        // The date uses separators (YYYYY-MM-DD)
+        const string_q& YEAR_PART  = DATE_PART.Substring(0,                            FIRST_SEPARATOR_POSITION - 1);
+        const string_q& MONTH_PART = DATE_PART.Substring(FIRST_SEPARATOR_POSITION + 1, FIRST_SEPARATOR_POSITION + 2);
+        const string_q& DAY_PART   = DATE_PART.Substring(FIRST_SEPARATOR_POSITION + 4, FIRST_SEPARATOR_POSITION + 5);
+        nYear  = scast_q(YEAR_PART.ToInteger(),  i32_q);
+        uMonth = scast_q(MONTH_PART.ToInteger(), u32_q);
+        uDay   = scast_q(DAY_PART.ToInteger(),   u32_q);
+    }
+    else
+    {
+        // The date does not use separators (YYYYYMMDD)
+        unsigned int uLength = DATE_PART.GetLength();
+        const string_q& DAY_PART   = DATE_PART.Substring(uLength - 2U, uLength - 1U);
+        const string_q& MONTH_PART = DATE_PART.Substring(uLength - 4U, uLength - 3U);
+        const string_q& YEAR_PART  = DATE_PART.Substring(0,            uLength - 5U);
+        nYear  = scast_q(YEAR_PART.ToInteger(),  i32_q);
+        uMonth = scast_q(MONTH_PART.ToInteger(), u32_q);
+        uDay   = scast_q(DAY_PART.ToInteger(),   u32_q);
+    }
+
+    // -0000 represents the year 1 BC, or -1, so it must be adjusted
+    if(nYear <= 0)
+        nYear -= 1;
+}
+
+void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
+{
+    static const char_q TIME_START_SEPARATOR = 'T';
+    static const char_q SECOND_FRACTION_SEPARATOR1 = '.';
+    static const char_q SECOND_FRACTION_SEPARATOR2 = ',';
+    static const char_q POSITIVE_SIGN = '+';
+    static const char_q NEGATIVE_SIGN = '-';
+    static const char_q ZULU_TIME = 'Z';
+
+    const unsigned int FIRST_TIME_POSITION = uTPosition + 1U;
+
+    const string_q& TIME_PART = strTimestamp.Substring(FIRST_TIME_POSITION, strTimestamp.GetLength());
+
+    // Searches for a comma or a dot that indicate the presence of a second fraction
+    int nFractionSeparatorPosition = TIME_PART.IndexOf(SECOND_FRACTION_SEPARATOR1, EQComparisonType::E_BinaryCaseSensitive);
+    if(nFractionSeparatorPosition == string_q::PATTERN_NOT_FOUND)
+    {
+        nFractionSeparatorPosition = TIME_PART.IndexOf(SECOND_FRACTION_SEPARATOR2, EQComparisonType::E_BinaryCaseSensitive);
+    }
+
+    if(nFractionSeparatorPosition != string_q::PATTERN_NOT_FOUND)
+    {
+        // Contains a fraction
+
+        const string_q& TIME_WITHOUT_FRACTION = TIME_PART.Substring(0, nFractionSeparatorPosition - 1);
+        this->ParseTimestampCompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
+
+        // Searches for a positive or a negative sign
+        int nSignPosition = TIME_PART.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+        if(nSignPosition == string_q::PATTERN_NOT_FOUND)
+        {
+            nSignPosition = TIME_PART.IndexOf(NEGATIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+        }
+
+        if(nSignPosition != string_q::PATTERN_NOT_FOUND)
+        {
+            // Contains a positive or negative sign
+
+            const string_q& TIME_FRACTION = TIME_PART.Substring(nFractionSeparatorPosition + 1, nSignPosition - 1);
+            this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+            const string_q& TIME_OFFSET = TIME_PART.Substring(nSignPosition, TIME_PART.GetLength() - 1U);
+            this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+        }
+        else
+        {
+            // Does not contain a positive or negative sign
+
+            nOffsetHours   = 0;
+            uOffsetMinutes = 0;
+
+            // Searches for a Z at the end
+            unsigned int uLastPosition = TIME_PART.GetLength() - 1U;
+            const string_q& LAST_CHAR = TIME_PART[uLastPosition];
+
+            // If Z exists, the last position of the time part is one position before
+            if(LAST_CHAR == ZULU_TIME)
+                --uLastPosition;
+
+            const string_q& TIME_FRACTION = TIME_PART.Substring(nFractionSeparatorPosition + 1, uLastPosition);
+            this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+        }
+    }
+    else
+    {
+        // Does not contain a fraction
+        uMillisecond = 0;
+        uMicrosecond = 0;
+        uHundredOfNanosecond = 0;
+
+        // Searches for a positive or a negative sign
+        int nSignPosition = TIME_PART.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+        if(nSignPosition == string_q::PATTERN_NOT_FOUND)
+        {
+            nSignPosition = TIME_PART.IndexOf(NEGATIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+        }
+
+        if(nSignPosition != string_q::PATTERN_NOT_FOUND)
+        {
+            // Contains a positive or negative sign
+            const string_q& TIME_WITHOUT_OFFSET = TIME_PART.Substring(0, nSignPosition - 1);
+            this->ParseTimestampCompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
+
+            const string_q& TIME_OFFSET = TIME_PART.Substring(nSignPosition, TIME_PART.GetLength() - 1U);
+            this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+        }
+        else
+        {
+            // Does not contain a positive or negative sign
+            nOffsetHours   = 0;
+            uOffsetMinutes = 0;
+
+            // Searches for a Z at the end
+            unsigned int uLastPosition = TIME_PART.GetLength() - 1U;
+            const string_q& LAST_CHAR = TIME_PART.Substring(uLastPosition, uLastPosition);
+
+            // If Z exists, the last position of the time part is one position before
+            if(LAST_CHAR == ZULU_TIME)
+                --uLastPosition;
+
+            this->ParseTimestampCompleteTimePart(TIME_PART.Substring(0, uLastPosition), uHour, uMinute, uSecond);
+        }
+    }
+}
+
+void QDateTime::ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
+{
+    static const char_q TIME_SEPARATOR = ':';
+
+    // Calculates the separator space to be skipped in the next operation, depending on whether it exists or not
+    u32_q uSeparatorSpace = 0;
+
+    if(strTimeWithoutFraction.IndexOf(TIME_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND)
+        uSeparatorSpace = 1U;
+
+    const string_q& HOUR   = strTimeWithoutFraction.Substring(0, 1U);
+    const string_q& MINUTE = strTimeWithoutFraction.Substring(2U + uSeparatorSpace, 3U + uSeparatorSpace);
+    const string_q& SECOND = strTimeWithoutFraction.Substring(4U + uSeparatorSpace * 2U, 5U + uSeparatorSpace * 2U);
+
+    uHour   = scast_q(HOUR.ToInteger(),   u32_q);
+    uMinute = scast_q(MINUTE.ToInteger(), u32_q);
+    uSecond = scast_q(SECOND.ToInteger(), u32_q);
+
+    // 24 is allowed in a timestamp, but not as a valid hour in this class
+    if(uHour == 24)
+        uHour = 0;
+}
+
+void QDateTime::ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const
+{
+    static const string_q TIME_SEPARATOR = ":";
+
+    const string_q& HOURS = strTimeOffset.Substring(0, 2);
+    nOffsetHours = scast_q(HOURS.ToInteger(), u32_q);
+
+    // If the length is greater than 3, that means that it contains more than the hour part (hh:)
+    if(strTimeOffset.GetLength() > 3)
+    {
+        const int SEPARATOR_POSITION = strTimeOffset.IndexOf(TIME_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+        const u32_q SEPARATOR_WIDTH = SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND ? 1 : 0;
+
+        const string_q& MINUTES = strTimeOffset.Substring(3U + SEPARATOR_WIDTH, 4 + SEPARATOR_WIDTH);
+        uOffsetMinutes = scast_q(MINUTES.ToInteger(), u32_q);
+    }
+    else
+    {
+        uOffsetMinutes = 0;
+    }
+}
+
+void QDateTime::ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const
+{
+    static const double MAXIMUM_FRACTION_LENGTH = 7.0; // 3 numbers for milliseconds, 3 numbers for microseconds and 1 number for hundreds of nanoseconds
+    const double FRACTION_LENGTH = scast_q(strTimeFraction.GetLength(), double);
+    // Decimals must be multiplied by 10 N times depending on how many cyphers are there, regarding the maximum, which is set for hundreds of nanoseconds
+    // For example: .0132 --> 0132 * 10^3 = 132000 hundreds of nanoseconds, where N = 3 because 7(max) - 4(length) = 3
+    const unsigned int DECIMAL_OFFSET = scast_q(powl(10.0, MAXIMUM_FRACTION_LENGTH - FRACTION_LENGTH), unsigned int);
+
+    unsigned int uHundredsOfNanoseconds = 0;
+
+    if(FRACTION_LENGTH > MAXIMUM_FRACTION_LENGTH)
+    {
+        uHundredsOfNanoseconds = scast_q(strTimeFraction.Substring(0, scast_q(MAXIMUM_FRACTION_LENGTH, unsigned int) - 1U).ToInteger(), unsigned int);
+    }
+    else
+    {
+        uHundredsOfNanoseconds = scast_q(strTimeFraction.ToInteger(), unsigned int);
+        uHundredsOfNanoseconds *= DECIMAL_OFFSET;
+    }
+
+    uMillisecond = uHundredsOfNanoseconds / QDateTime::HNS_PER_MILLISECOND;
+    uMicrosecond = (uHundredsOfNanoseconds % QDateTime::HNS_PER_MILLISECOND) / QDateTime::HNS_PER_MICROSECOND;
+    uHundredOfNanosecond = (uHundredsOfNanoseconds % QDateTime::HNS_PER_MICROSECOND);
+}
+
+void QDateTime::ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+{
+    static const u32_q FIRST_DAY_NUMBER = 1;
+    static const u32_q SEPARATOR_WIDTH = 1;
+    const string_q& YEAR = strTimestamp.Substring(0, uFirstSeparatorPosition - 1U);
+    const string_q& MONTH = strTimestamp.Substring(uFirstSeparatorPosition + SEPARATOR_WIDTH, uFirstSeparatorPosition + 2U * SEPARATOR_WIDTH);
+    nYear  = scast_q(YEAR.ToInteger(), i32_q);
+    uMonth = scast_q(MONTH.ToInteger(), u32_q);
+
+    if(strTimestamp.GetLength() > uFirstSeparatorPosition + 2U * SEPARATOR_WIDTH)
+    {
+        const string_q& DAY = strTimestamp.Substring(uFirstSeparatorPosition + 4U, strTimestamp.GetLength()); // [TODO] Thund: Replace with Substring(start) when it exists
+        uDay = scast_q(DAY.ToInteger(), u32_q);
+    }
+    else
+    {
+        uDay = FIRST_DAY_NUMBER;
+    }
+
+    // -0000 represents the year 1 BC, or -1, so it must be adjusted
+    if(nYear <= 0)
+        nYear -= 1;
+}
+
+void QDateTime::ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+{
+    static const u32_q FIRST_MONTH_NUMBER = 1;
+    static const u32_q FIRST_DAY_NUMBER = 1;
+    static const u32_q MAXIMUM_YEAR_SIZE_INCLUDING_SIGN = 6; // +YYYYY
+
+    if(strTimestamp.GetLength() > MAXIMUM_YEAR_SIZE_INCLUDING_SIGN)
+    {
+        const u32_q LAST_POSITION = strTimestamp.GetLength() - 1U;
+        const string_q& DAY = strTimestamp.Substring(LAST_POSITION - 1U, LAST_POSITION);
+        const string_q& MONTH = strTimestamp.Substring(LAST_POSITION - 3U, LAST_POSITION - 2U);
+        const string_q& YEAR = strTimestamp.Substring(0, LAST_POSITION - 4U);
+
+        nYear  = scast_q(YEAR.ToInteger(), i32_q);
+        uMonth = scast_q(MONTH.ToInteger(), u32_q);
+        uDay   = scast_q(DAY.ToInteger(), u32_q);
+    }
+    else
+    {
+        nYear  = scast_q(strTimestamp.ToInteger(), i32_q);
+        uMonth = FIRST_MONTH_NUMBER;
+        uDay   = FIRST_DAY_NUMBER;
+    }
+
+    // -0000 represents the year 1 BC, or -1, so it must be adjusted
+    if(nYear <= 0)
+        nYear -= 1;
+}
+
+void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
+                                             u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
+{
+    static const string_q SECOND_FRACTION_SEPARATOR1 = ".";
+    static const string_q SECOND_FRACTION_SEPARATOR2 = ",";
+    static const string_q POSITIVE_SIGN = "+";
+    static const string_q NEGATIVE_SIGN = "-";
+    static const char_q ZULU_TIME = 'Z';
+
+    const u32_q TIME_LENGTH = strTimestamp.GetLength();
+
+    if(TIME_LENGTH > 2)
+    {
+        // There are more parts besides the hour
+
+        int nFractionSeparator = strTimestamp.IndexOf(SECOND_FRACTION_SEPARATOR1, EQComparisonType::E_BinaryCaseSensitive);
+        if(nFractionSeparator == string_q::PATTERN_NOT_FOUND)
+            nFractionSeparator = strTimestamp.IndexOf(SECOND_FRACTION_SEPARATOR2, EQComparisonType::E_BinaryCaseSensitive);
+
+        if(nFractionSeparator != string_q::PATTERN_NOT_FOUND)
+        {
+            // Contains a fraction
+            const string_q& TIME_WITHOUT_FRACTION = strTimestamp.Substring(0, nFractionSeparator - 1U);
+            this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
+
+            int nSignPosition = strTimestamp.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+            if(nSignPosition == string_q::PATTERN_NOT_FOUND)
+                nSignPosition = strTimestamp.IndexOf(NEGATIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+
+            if(nSignPosition != string_q::PATTERN_NOT_FOUND)
+            {
+                // Contains an offset
+
+                const string_q& TIME_FRACTION = strTimestamp.Substring(nFractionSeparator + 1U, nSignPosition - 1U);
+                this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+                const string_q& TIME_OFFSET = strTimestamp.Substring(nSignPosition, TIME_LENGTH - 1U);
+                this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+            }
+            else
+            {
+                // Does not contain an offset
+                nOffsetHours   = 0;
+                uOffsetMinutes = 0;
+
+                const u32_q Z_WIDTH = strTimestamp[TIME_LENGTH - 1U] == ZULU_TIME ? 1 : 0;
+                const string_q& TIME_FRACTION = strTimestamp.Substring(nFractionSeparator + 1U, TIME_LENGTH - 1U - Z_WIDTH);
+                this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+            }
+        }
+        else
+        {
+            // Does not contain a fraction
+
+            int nSignPosition = strTimestamp.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+            if(nSignPosition == string_q::PATTERN_NOT_FOUND)
+                nSignPosition = strTimestamp.IndexOf(NEGATIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
+
+            if(nSignPosition != string_q::PATTERN_NOT_FOUND)
+            {
+                // Contains an offset
+                const string_q& TIME_WITHOUT_OFFSET = strTimestamp.Substring(0, nSignPosition - 1U);
+                this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
+                const string_q& TIME_OFFSET = strTimestamp.Substring(nSignPosition, TIME_LENGTH - 1U);
+                this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+            }
+            else
+            {
+                // Does not contain an offset
+                nOffsetHours   = 0;
+                uOffsetMinutes = 0;
+
+                const u32_q Z_WIDTH = strTimestamp[TIME_LENGTH - 1U] == ZULU_TIME ? 1 : 0;
+
+                const string_q& TIME_WITHOUT_Z = strTimestamp.Substring(0, TIME_LENGTH - 1U - Z_WIDTH);
+                this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_Z, uHour, uMinute, uSecond);
+            }
+
+            uMillisecond = 0;
+            uMicrosecond = 0;
+            uHundredOfNanosecond = 0;
+        }
+    }
+    else
+    {
+        // There is information about the hour only
+        const string_q& HOUR = strTimestamp.Substring(0, 1);
+        uHour = scast_q(HOUR.ToInteger(), u32_q);
+
+        // 24 is allowed in a timestamp, but not as a valid hour in this class
+        if(uHour == 24)
+            uHour = 0;
+
+        uMinute = 0;
+        uSecond = 0;
+        uMillisecond = 0;
+        uMicrosecond = 0;
+        uHundredOfNanosecond = 0;
+        nOffsetHours = 0;
+        uOffsetMinutes = 0;
+    }
+}
+
+void QDateTime::ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
+{
+    static const string_q TIME_SEPARATOR = ":";
+
+    const u32_q TIME_LENGTH = strTimeWithoutFraction.GetLength();
+    const i32_q FISRT_SEPARATOR_POSITION = strTimeWithoutFraction.IndexOf(TIME_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+
+    const string_q& HOUR = strTimeWithoutFraction.Substring(0, 1);
+    uHour = scast_q(HOUR.ToInteger(), u32_q);
+
+    // 24:00 is allowed in a timestamp, but not as a valid hour in this class
+    if(uHour == 24U)
+        uHour = 0;
+
+    if(FISRT_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
+    {
+        // It uses separators
+
+        const string_q& MINUTE = strTimeWithoutFraction.Substring(3U, 4U);
+        uMinute = scast_q(MINUTE.ToInteger(), u32_q);
+
+        // If the length is greater than 5 (hh:mm), it contains information about the second
+        if(TIME_LENGTH > 5U)
+        {
+            const string_q& SECOND = strTimeWithoutFraction.Substring(6U, 7U);
+            uSecond = scast_q(SECOND.ToInteger(), u32_q);
+        }
+        else
+        {
+            uSecond = 0;
+        }
+    }
+    else if(TIME_LENGTH > 2U) // If the length is greater than 2 (hh), it contains information about the minute
+    {
+        // It does not use separators and has minutes
+
+        const string_q& MINUTE = strTimeWithoutFraction.Substring(2U, 3U);
+        uMinute = scast_q(MINUTE.ToInteger(), u32_q);
+
+        if(TIME_LENGTH > 4U)// If the length is greater than 4 (hhmm), it contains information about the second
+        {
+            const string_q& SECOND = strTimeWithoutFraction.Substring(4U, 5U);
+            uSecond = scast_q(SECOND.ToInteger(), u32_q);
+        }
+        else
+        {
+            uSecond = 0;
+        }
+    }
+    else
+    {
+        uMinute = 0;
+        uSecond = 0;
+    }
+}
+
+void QDateTime::ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
+{
+    static const QTimeSpan HNS_PER_DAY_TIMESPAN(QDateTime::HNS_PER_DAY);
+
+    // The offset is subtracted to the time
+
+    const i32_q OFFSET_SIGN = nOffsetHours < 0 ? -1 : 1;
+    QTimeSpan offset(QDateTime::HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::HNS_PER_MINUTE * uOffsetMinutes);
+    QTimeSpan timeInHNS(QDateTime::HNS_PER_HOUR * uHour + QDateTime::HNS_PER_MINUTE * uMinute);
+
+    if(nOffsetHours < 0) // The offset is negative, so it will be added
+    {
+        if(offset + timeInHNS > HNS_PER_DAY_TIMESPAN)
+            dateTime -= HNS_PER_DAY_TIMESPAN - offset; // 1 day is subtracted to keep the date being 0001-01-01
+        else
+            dateTime += offset;
+    }
+    else if(nOffsetHours > 0 || uOffsetMinutes > 0) // The offset is positive, so it will be subtracted
+    {
+        if(offset > timeInHNS)
+            dateTime += HNS_PER_DAY_TIMESPAN - offset; // 1 day is added to keep the date being 0001-01-01
+        else
+            dateTime -= offset;
+    }
+}
+
+void QDateTime::ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
+{
+    // The offset is subtracted to the time
+
+    const i32_q OFFSET_SIGN = nOffsetHours < 0 ? -1 : 1;
+    QTimeSpan offset(QDateTime::HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::HNS_PER_MINUTE * uOffsetMinutes);
+    QTimeSpan timeInHNS(QDateTime::HNS_PER_HOUR * uHour + QDateTime::HNS_PER_MINUTE * uMinute);
+
+    if(nOffsetHours < 0) // The offset is negative, so it will be added
+        dateTime += offset;
+    else if(nOffsetHours > 0 || uOffsetMinutes > 0) // The offset is positive, so it will be subtracted
+        dateTime -= offset;
 }
 
 
@@ -608,7 +1379,7 @@ bool QDateTime::IsLeapYear() const
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
                                                          this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
-    
+
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
     const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
@@ -634,7 +1405,7 @@ const QTimeZone* QDateTime::GetTimeZone() const
 unsigned int QDateTime::GetYear() const
 {
     QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent years");
-    
+
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
                                                          this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
@@ -660,7 +1431,7 @@ unsigned int QDateTime::GetYear() const
     uYear = YEARS_PASSED_PROVISIONAL + REMAINING_YEARS;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -718,7 +1489,7 @@ unsigned int QDateTime::GetMonth() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -811,7 +1582,7 @@ unsigned int QDateTime::GetDay() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -904,7 +1675,7 @@ unsigned int QDateTime::GetHour() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -984,7 +1755,7 @@ unsigned int QDateTime::GetMinute() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -1065,7 +1836,7 @@ unsigned int QDateTime::GetSecond() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -1147,7 +1918,7 @@ unsigned int QDateTime::GetMillisecond() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -1230,7 +2001,7 @@ unsigned int QDateTime::GetMicrosecond() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year
@@ -1314,7 +2085,7 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
     const bool IS_LEAP_YEAR = REMAINING_YEARS > 2ULL;
 
     u64_q uHnsInLastYear = 0;
-    
+
     if(!IS_NEGATIVE_DATE)
     {
         if(REMAINING_YEARS == 4) // This occurs the last day of a leap year

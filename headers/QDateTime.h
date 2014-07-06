@@ -28,10 +28,11 @@
 #define __QDATETIME__
 
 #include "QTimeSpan.h"
+#include "DataTypesDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
-
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 namespace Kinesis
 {
@@ -229,7 +230,29 @@ public:
     /// <param name="dateTime">[IN] The date and time to be copied.</param>
     /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Null means no time zone offset (UTC).</param>
     QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone);
-
+    
+    /// <summary>
+    /// Builds a valid date/time instance from a string that contains a timestamp based on the ISO 8601:2004 standard.
+    /// </summary>
+    /// <remarks>
+    /// Only calendar dates or times (including time zone offsets), using any of both basic or extended format, are allowed. Week dates, 
+    /// ordinal dates, durations and time intervals are not supported.<br/>
+    /// Since this method has no way to distinguish between dates and times (unless they appear combined in the same timestamp), the
+    /// following cases will be parsed as times:<br/>
+    /// - "YYMMDD" will be treated as "hhmmss"<br/>
+    /// - "YYYYMM" will be treated as "hhmmss"<br/>
+    /// - "YY-MM" will be treated as "hh-hh"<br/>
+    /// - "YYYY-MM" will be treated as "hhmm-hh"<br/>
+    /// When using timestamps that combine both dates and times, the separator "T" is mandatory. Besides, both must be complete, without the 
+    /// omission of any part.<br/>
+    /// No whitespaces are allowed.<br/>
+    /// Any letter in the timestamp must be uppercase (for example: "T" or "Z").<br/>
+    /// Fractions of second are optional but, when they appear, they must be 7-numbers long at most.<br/>
+    /// More information at http://en.wikipedia.org/wiki/ISO_8601 .
+    /// </remarks>
+    /// <param name="strTimestamp">[IN] A valid timestamp compound of a date, a time or both. It must not be empty nor contain whitespaces.</param>
+    QDateTime(const string_q &strTimestamp);
+    
 
 	// METHODS
 	// ---------------
@@ -411,6 +434,22 @@ public:
     /// </returns>
     static const QDateTime& GetUndefinedDate();
 
+    /// <summary>
+    /// Creates a string representation of the date/time instance (a timestamp) following the ISO 8601:2004 standard.
+    /// </summary>
+    /// <remarks>
+    /// The resultant timestamp will be composed of the complete date, preceded by either a positive or negative sign, and the complete 
+    /// time (including the time zone offset), using the extended format: [+|-][Y]YYYYY-MM-DDThh:mm:ss[.fffffff][[+|-]hh:mm|Z].<br/>
+    /// The year (Y) will be formed by 5 numbers only if it is greater than 9999. The fraction of second will not be included if
+    /// the current millisecond, microsecond and hundred of nanosecond equal zero; besides, the amount of decimal numbers will depend
+    /// on the value of the mentioned time parts.<br/>
+    /// Undefined date/times cannot be represented as valid timestamps.
+    /// </remarks>
+    /// <returns>
+    /// A valid timestamp compound of the date and the time, including a time fraction and the time offset, if any.
+    /// </returns>
+    string_q ToString() const;
+
 private:
 
     /// <summary>
@@ -441,6 +480,131 @@ private:
     /// The instant with time zone offset applied, if any.
     /// </returns>
     QTimeSpan GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+    
+    /// <summary>
+    /// Parses a complete date from a timestamp.
+    /// </summary>
+    /// <param name="strTimestamp">[IN] The original timestamp, which is a combination of date and time.</param>
+    /// <param name="uTPosition">[IN] The position of the date/time separator in the timestamp.</param>
+    /// <param name="nYear">[OUT] The year read from the timestamp.</param>
+    /// <param name="uMonth">[OUT] The month read from the timestamp.</param>
+    /// <param name="uDay">[OUT] The day read from the timestamp.</param>
+    void ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+
+    /// <summary>
+    /// Parses a complete time from a timestamp.
+    /// </summary>
+    /// <param name="strTimestamp">[IN] The original timestamp, which is a combination of date and time.</param>
+    /// <param name="uTPosition">[IN] The position of the date/time separator in the timestamp.</param>
+    /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
+    /// <param name="uMinute">[OUT] The minute read from the timestamp.</param>
+    /// <param name="uSecond">[OUT] The second read from the timestamp.</param>
+    /// <param name="uMillisecond">[OUT] The millisecond read from the timestamp.</param>
+    /// <param name="uMicrosecond">[OUT] The microsecond read from the timestamp.</param>
+    /// <param name="uHundredOfNanosecond">[OUT] The hundred of nanosecond read from the timestamp.</param>
+    /// <param name="nOffsetHours">[OUT] The offset hour read from the timestamp.</param>
+    /// <param name="uOffsetMinutes">[OUT] The offset minute read from the timestamp.</param>
+    void ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
+                                    u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
+
+    /// <summary>
+    /// Parses a complete time from the time part of a timestamp, without fraction or time offset.
+    /// </summary>
+    /// <param name="strTimeWithoutFraction">[IN] The time part of a timestamp, without fraction or time offset.</param>
+    /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
+    /// <param name="uMinute">[OUT] The minute read from the timestamp.</param>
+    /// <param name="uSecond">[OUT] The second read from the timestamp.</param>
+    void ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
+
+    /// <summary>
+    /// Parses a time offset of a timestamp, including the sign. It may be incomplete and use either basic or extended formats.
+    /// </summary>
+    /// <param name="strTimeOffset">[IN] The time offset of a timestamp.</param>
+    /// <param name="nOffsetHours">[OUT] The offset hours read from the timestamp.</param>
+    /// <param name="uOffsetMinutes">[OUT] The offset minutes read from the timestamp.</param>
+    void ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const;
+
+    /// <summary>
+    /// Parses a fraction of second of a timestamp, without the initial separator.
+    /// </summary>
+    /// <param name="strTimeFraction">[IN] The time fraction of a timestamp, without the initial separator.</param>
+    /// <param name="uMillisecond">[OUT] The milliseconds in the fraction.</param>
+    /// <param name="uMicrosecond">[OUT] The microseconds in the fraction.</param>
+    /// <param name="uHundredOfNanosecond">[OUT] The hundreds of nanoseconds in the fraction.</param>
+    void ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const;
+
+    /// <summary>
+    /// Parses a date from a timestamp that may be incomplete and uses separators (extended format).
+    /// </summary>
+    /// <param name="strTimestamp">[IN] The original timestamp.</param>
+    /// <param name="uFirstSeparatorPosition">[IN] The position of the first date separator in the timestamp.</param>
+    /// <param name="nYear">[OUT] The year read from the timestamp.</param>
+    /// <param name="uMonth">[OUT] The month read from the timestamp.</param>
+    /// <param name="uDay">[OUT] The day read from the timestamp. It will be equal to 1 if the day was not provided.</param>
+    void ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+
+    /// <summary>
+    /// Parses a date from a timestamp that may be incomplete and does not use separators (basic format).
+    /// </summary>
+    /// <param name="strTimestamp">[IN] The original timestamp.</param>
+    /// <param name="nYear">[OUT] The year read from the timestamp.</param>
+    /// <param name="uMonth">[OUT] The month read from the timestamp. It will be equal to 1 if the month was not provided.</param>
+    /// <param name="uDay">[OUT] The day read from the timestamp. It will be equal to 1 if the day was not provided.</param>
+    void ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+
+    /// <summary>
+    /// Parses a time from a timestamp which may be incomplete.
+    /// </summary>
+    /// <param name="strTimestamp">[IN] The original timestamp, which is a time that may be incomplete, and that may not have fraction nor time offset.</param>
+    /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
+    /// <param name="uMinute">[OUT] The minute read from the timestamp. It will be equal to 0 if the minute was not provided.</param>
+    /// <param name="uSecond">[OUT] The second read from the timestamp. It will be equal to 0 if the second was not provided.</param>
+    /// <param name="uMillisecond">[OUT] The millisecond read from the timestamp. It will be equal to 0 if the millisecond was not provided.</param>
+    /// <param name="uMicrosecond">[OUT] The microsecond read from the timestamp. It will be equal to 0 if the microsecond was not provided.</param>
+    /// <param name="uHundredOfNanosecond">[OUT] The hundred of nanosecond read from the timestamp. It will be equal to 0 if the hundred of nanosecond was not provided.</param>
+    /// <param name="nOffsetHours">[OUT] The offset hour read from the timestamp. It will be equal to 0 if the offset hours were not provided.</param>
+    /// <param name="uOffsetMinutes">[OUT] The offset minute read from the timestamp. It will be equal to 0 if the offset minutes were not provided.</param>
+    void ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, 
+                                      u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
+
+    /// <summary>
+    /// Parses a time from a timestamp which may be incomplete, without time offset or fraction.
+    /// </summary>
+    /// <param name="strTimeWithoutFraction">[IN] The time part, which is a time that may be incomplete, and that may not have fraction nor time offset.</param>
+    /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
+    /// <param name="uMinute">[OUT] The minute read from the timestamp. It will be equal to 0 if the minute was not provided.</param>
+    /// <param name="uSecond">[OUT] The second read from the timestamp. It will be equal to 0 if the second was not provided.</param>
+    void ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
+
+    /// <summary>
+    /// Parses a time from a timestamp which may be incomplete, without time offset or fraction.
+    /// </summary>
+    /// <param name="nOffsetHours">[IN] The offset hours to apply.</param>
+    /// <param name="uOffsetMinutes">[IN] The offset minutes to apply.</param>
+    /// <param name="uHour">[IN] The current hour read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
+    /// <param name="uMinute">[IN] The current minute read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
+    /// <param name="dateTime">[OUT] The current date/time instance to which apply the offset.</param>
+    void ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
+
+    /// <summary>
+    /// Parses a time from a timestamp which may be incomplete, without time offset or fraction. If the final time overflows a day, it will be clamped to the original day of the date.
+    /// </summary>
+    /// <param name="nOffsetHours">[IN] The offset hours to apply.</param>
+    /// <param name="uOffsetMinutes">[IN] The offset minutes to apply.</param>
+    /// <param name="uHour">[IN] The current hour read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
+    /// <param name="uMinute">[IN] The current minute read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
+    /// <param name="dateTime">[OUT] The current date/time instance to which apply the offset.</param>
+    void ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
+
+    /// <summary>
+    /// Transforms milliseconds, microseconds and hundreds of seconds to the fraction part of a timestamp, appending the result to the output timestamp.
+    /// If all the input values equal zero, no fraction will be appended.
+    /// </summary>
+    /// <param name="uMillisecond">[IN] The millisecond to transform.</param>
+    /// <param name="uMicrosecond">[IN] The microsecond to transform.</param>
+    /// <param name="uHundredOfNanosecond">[IN] The hundred of nanosecond to transform.</param>
+    /// <param name="strTimestamp">[OUT] The timestamp to which concatenate the fraction value, including the separator.</param>
+    void SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const;
 
 
 	// PROPERTIES

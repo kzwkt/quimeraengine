@@ -815,7 +815,7 @@ public:
     /// </summary>
     /// <remarks>
     /// The number may contain decimals (separated by a period (.)), but they will be ignored.<br/>
-    /// The number may be negative, preceded by a dash (-).
+    /// The number may be negative, preceded by a dash (-). Positive numbers preceded by a plus sign (+) are also allowed.
     /// </remarks>
     /// <returns>
     /// The integer part of the number represented in the string. If the string does not contain a valid number, zero will be returned.
