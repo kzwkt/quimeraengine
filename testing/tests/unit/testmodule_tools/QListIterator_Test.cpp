@@ -102,19 +102,19 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputListIsNull_Test )
 }
 
 /// <summary>
-/// Checks that an assertion fails when input position is not lower than the number of elements.
+/// Checks that an assertion fails when input position is not lower than the capacity.
 /// </summary>
-QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCount_Test )
+QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_Test )
 {/* [TODO] Thund: Uncomment when the method Add exists
     // [Preparation]
-    const unsigned int NUMBER_OF_ELEMENTS = 3;
-    QList<int> SOURCE_LIST(NUMBER_OF_ELEMENTS);
-    for(unsigned int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+    const unsigned int CAPACITY = 3;
+    QList<int> SOURCE_LIST(CAPACITY);
+    for(unsigned int i = 0; i < CAPACITY; ++i)
     {
         SOURCE_LIST.Add(i);
     }
 
-    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
+    const unsigned int INVALID_POSITION = CAPACITY;
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -1044,6 +1044,7 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 
     QList<int>::QListIterator ITERATOR_A(&SOURCE_LIST, 0);
     QList<int>::QListIterator ITERATOR_B(&SOURCE_LIST, 0);
+    ++ITERATOR_A;
 
 	// [Execution]
     QList<int>::QListIterator iterator = ITERATOR_B;
@@ -2406,7 +2407,8 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
 
     QList<int>::QListIterator INVALID_ITERATOR(SOURCE_LIST);
     INVALID_ITERATOR.MoveLast();
-    
+    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
+
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -2653,7 +2655,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     QList<int>::QListIterator END_ITERATOR(&EMPTY_ARRAY, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QList<int>::QListIterator ITERATOR(&EMPTY_ARRAY);
+    QList<int>::QListIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]
     ITERATOR.MoveFirst();
@@ -2756,7 +2758,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     QList<int>::QListIterator END_ITERATOR(&EMPTY_ARRAY, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QList<int>::QListIterator ITERATOR(&EMPTY_ARRAY);
+    QList<int>::QListIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]
     ITERATOR.MoveLast();

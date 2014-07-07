@@ -58,7 +58,7 @@ class QTimeZone;
 /// The range of time that can be represented is from 29228-11-23 21:11:54.5224193 B.C. to 29228-02-08 02:48:05.4775807 A. D., with
 /// a resolution of 100 nanoseconds.<br/>
 /// Instances are undefined by default until they are assigned a value.<br/>
-/// This class is not completely immutable. Only the assignment operator can modify an instance once it is created.
+/// This class is not immutable, although only the assignment operator can modify an instance once it is created.
 /// </remarks>
 class QE_LAYER_TOOLS_SYMBOLS QDateTime
 {

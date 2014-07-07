@@ -441,7 +441,7 @@ public:
         /// </remarks>
         void MoveFirst()
         {
-            m_uPosition = m_pArray->m_uFirst;
+            m_uPosition = m_pArray->m_uFirst == QFixedArray::END_POSITION_BACKWARD ? QFixedArray::END_POSITION_FORWARD : m_pArray->m_uFirst;
         }
 
         /// <summary>

@@ -72,10 +72,10 @@ public:
         // http://en.wikipedia.org/wiki/Tree_traversal
         // http://en.wikipedia.org/wiki/Breadth-first_search
         // 
-        E_DepthFirstInOrder    = QE_ENUMERATION_MIN_VALUE, /*!< First in-order search. */
-        E_DepthFirstPreOrder,                              /*!< First in pre-order search. */
-        E_DepthFirstPostOrder,                             /*!< First in post-order search. */
-        E_BreadthFirst,                                    /*!< Breadth-first search (BFS). */
+        E_DepthFirstInOrder    = QE_ENUMERATION_MIN_VALUE, /*!< Depth-first in-order. */
+        E_DepthFirstPreOrder,                              /*!< Depth-first pre-order. */
+        E_DepthFirstPostOrder,                             /*!< Depth-first post-order. */
+        E_BreadthFirst,                                    /*!< Breadth-first. */
         _NotEnumValue          = QE_ENUMERATION_MAX_VALUE  /*!< Not valid value. */
     };
 
