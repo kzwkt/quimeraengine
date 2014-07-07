@@ -178,13 +178,13 @@ public:
         /// </remarks>
         /// <param name="pList">[IN] The list to iterate. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of list elements, but the physical.
-        /// It must be lower than the number of elements in the list.</param>
+        /// It must be lower than the capacity of the list.</param>
         QListIterator(const QList* pList, const unsigned int uPosition) : m_pList(pList), m_uPosition(uPosition)
         {
             QE_ASSERT(pList != null_q, "Invalid argument: The pointer to the list cannot be null");
-            QE_ASSERT(pList->GetCount() > uPosition, "Invalid argument: The position must be lower than the number of elements in the list");
+            QE_ASSERT(pList->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the list");
 
-            if(pList == null_q || pList->GetCount() <= uPosition)
+            if(pList == null_q || pList->GetCapacity() <= uPosition || pList->IsEmpty())
                 m_uPosition = QList::END_POSITION_FORWARD;
         }
 
@@ -266,7 +266,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_pLinkAllocator->GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
 
             return iteratorCopy;
         }
@@ -295,7 +295,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_pLinkAllocator->GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
 
             return iteratorCopy;
         }
@@ -321,7 +321,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_pLinkAllocator->GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
 
             return *this;
         }
@@ -347,7 +347,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_pLinkAllocator->GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
 
             return *this;
         }
@@ -394,7 +394,8 @@ public:
         /// Greater than operator that checks whether resident iterator points to a more posterior position than the input iterator.
         /// </summary>
         /// <remarks>
-        /// If iterators point to different lists or they are not valid, the result is undefined.
+        /// If iterators point to different lists or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
         /// </remarks>
         /// <param name="iterator">[IN] The other iterator to compare to.</param>
         /// <returns>
@@ -430,7 +431,8 @@ public:
         /// Lower than operator that checks whether resident iterator points to a more anterior position than the input iterator.
         /// </summary>
         /// <remarks>
-        /// If iterators point to different lists or they are not valid, the result is undefined.
+        /// If iterators point to different lists or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
         /// </remarks>
         /// <param name="iterator">[IN] The other iterator to compare to.</param>
         /// <returns>
@@ -467,7 +469,8 @@ public:
         /// input iterator or to the same position.
         /// </summary>
         /// <remarks>
-        /// If iterators point to different lists or they are not valid, the result is undefined.
+        /// If iterators point to different lists or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
         /// </remarks>
         /// <param name="iterator">[IN] The other iterator to compare to.</param>
         /// <returns>
@@ -506,7 +509,8 @@ public:
         /// iterator or to the same position.
         /// </summary>
         /// <remarks>
-        /// If iterators point to different lists or they are not valid, the result is undefined.
+        /// If iterators point to different lists or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
         /// </remarks>
         /// <param name="iterator">[IN] The other iterator to compare to.</param>
         /// <returns>
@@ -583,7 +587,7 @@ public:
         /// </remarks>
         void MoveFirst()
         {
-            m_uPosition = m_pList->m_uFirst;
+            m_uPosition = m_pList->m_uFirst == QList::END_POSITION_BACKWARD ? QList::END_POSITION_FORWARD : m_pList->m_uFirst;
         }
 
         /// <summary>
@@ -611,9 +615,10 @@ public:
         /// </returns>
         bool IsValid() const
         {
-            return m_pList != null_q && ((m_uPosition >= m_pList->m_uFirst && m_uPosition <= m_pList->m_uLast) ||
-                                          m_uPosition == QList::END_POSITION_BACKWARD ||
-                                          m_uPosition == QList::END_POSITION_FORWARD);
+            return m_pList != null_q && 
+                   (m_uPosition < m_linkAllocator.GetPoolSize() / sizeof(QList::QLink) ||
+                    m_uPosition == QList::END_POSITION_BACKWARD ||
+                    m_uPosition == QList::END_POSITION_FORWARD);
         }
 
 
@@ -627,7 +632,7 @@ public:
         const QList* m_pList;
 
         /// <summary>
-        /// The current iteration position regarding the first element. It is zero-based.
+        /// The current iteration position regarding the base position of the buffer (zero). It is zero-based.
         /// </summary>
         pointer_uint_q m_uPosition;
 
