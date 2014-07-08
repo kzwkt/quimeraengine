@@ -560,7 +560,6 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
 {
     // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
-    const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
 
     const QTriangle3D<T> TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_C);
@@ -2701,7 +2700,6 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
 {
     // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
-    const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
 
     const QTriangle3D<T> TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_C);
