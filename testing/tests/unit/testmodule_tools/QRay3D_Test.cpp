@@ -9656,8 +9656,6 @@ QTEST_CASE_TEMPLATE ( Scale2_AssertionFailsWhenTransformedByScalingValuesThatEqu
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
-
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -9776,8 +9774,6 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenTransformedByNullScaling
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
@@ -9903,8 +9899,6 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenTransformedByNullScaling
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);

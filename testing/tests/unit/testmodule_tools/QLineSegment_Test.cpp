@@ -738,10 +738,10 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenSegmentDoesNotIntersectButWo
     // A1       A2
     //  \      /
     //   B1   /
-    //    ·  /
-    //     ·/
-    //     /·
-    //   B2  ·
+    //    Â·  /
+    //     Â·/
+    //     /Â·
+    //   B2  Â·
 
     // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -987,11 +987,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrbByAnE
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /            \
     //        |  A1---B1   |
     //        \            /
-    //          ` ______ ´
+    //          ` ______ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1020,11 +1020,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Te
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
-    //          ´        `            ´        `
+    //          Â´        `            Â´        `
     //        /           \         /           \
     //        |      A1---B1        |      B1---A1
     //        \           /         \           /
-    //          ` _____ ´             ` _____ ´
+    //          ` _____ Â´             ` _____ Â´
     //
     //              I                    II
 
@@ -1058,11 +1058,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //       A1-----------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1091,11 +1091,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //   A1------------------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1124,11 +1124,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIntersectsTheOrbInTwoP
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
 {
     //        A1   _____
-    //        |  ´       `
+    //        |  Â´       `
     //        |/           \
     //        |      x     |
     //        |\           /
-    //        B1 ` _____ ´
+    //        B1 ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1158,7 +1158,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenTheSegmentDoesNotIntersectTh
 {
     //                ___
     //              /     \
-    // A1----B1····|···x···|····
+    // A1----B1Â·Â·Â·Â·|Â·Â·Â·xÂ·Â·Â·|Â·Â·Â·Â·
     //              \ ___ /
     //
     //         I
@@ -1247,11 +1247,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
 QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1328,11 +1328,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheRadiusEqualsZer
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1865,10 +1865,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
     // A1       A2
     //  \      /
     //   B1   /
-    //    ·  /
-    //     ·/
-    //     /·
-    //   B2  ·
+    //    Â·  /
+    //     Â·/
+    //     /Â·
+    //   B2  Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
@@ -2561,7 +2561,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
     T OUTPUT_SECONDPOINT1 = T::GetNullVector();
     T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
@@ -2674,10 +2673,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointWhenSegmentDoesNotInterse
     // A1       A2
     //  \      /
     //   B1   /
-    //    ·  /
-    //     ·/
-    //     /·
-    //   B2  ·
+    //    Â·  /
+    //     Â·/
+    //     /Â·
+    //   B2  Â·
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
@@ -3110,11 +3109,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //        |  A1---B1  |
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3149,11 +3148,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLine
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
-    //          ´        `            ´        `
+    //          Â´        `            Â´        `
     //        /           \         /           \
     //        |      A1---B1        |      B1---A1
     //        \           /         \           /
-    //          ` _____ ´             ` _____ ´
+    //          ` _____ Â´             ` _____ Â´
     //
     //              I                    II
 
@@ -3199,11 +3198,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsCont
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //       A1-----------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3241,11 +3240,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsCon
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //   A1------------------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3283,11 +3282,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineInter
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
 {
     //        A1   _____
-    //        |  ´       `
+    //        |  Â´       `
     //        |/           \
     //        |      x     |
     //        |\           /
-    //        B1 ` _____ ´
+    //        B1 ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3325,7 +3324,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
 {
     //                ___
     //              /     \
-    // A1----B1····|···x···|····
+    // A1----B1Â·Â·Â·Â·|Â·Â·Â·xÂ·Â·Â·|Â·Â·Â·Â·
     //              \ ___ /
     //
     //         I
@@ -3435,11 +3434,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3533,11 +3532,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
     //       method behaves as expected when assertions are disabled.
 
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3591,11 +3590,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
 QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToAThanSecondPoint_Test, TQTemplateTypes )
 {
     //               ______                       ______
-    //             ´        `                   ´        `
+    //             Â´        `                   Â´        `
     //           /           \                /           \
     //   A1--------------------B1    B1---------------------A1
     //           \           /                \           /
-    //             ` _____ ´                    ` _____ ´
+    //             ` _____ Â´                    ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3767,11 +3766,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //        |  A1---B1  |
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3804,11 +3803,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLine
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
-    //          ´        `            ´        `
+    //          Â´        `            Â´        `
     //        /           \         /           \
     //        |      A1---B1        |      B1---A1
     //        \           /         \           /
-    //          ` _____ ´             ` _____ ´
+    //          ` _____ Â´             ` _____ Â´
     //
     //              I                    II
 
@@ -3849,11 +3848,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsCont
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //       A1-----------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3887,11 +3886,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsCon
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
     //            ______
-    //          ´        `
+    //          Â´        `
     //        /           \
     //   A1------------------B1
     //        \           /
-    //          ` _____ ´
+    //          ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3925,11 +3924,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineInter
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
 {
     //        A1   _____
-    //        |  ´       `
+    //        |  Â´       `
     //        |/           \
     //        |      x     |
     //        |\           /
-    //        B1 ` _____ ´
+    //        B1 ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3964,7 +3963,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentD
 {
     //                ___
     //              /     \
-    // A1----B1····|···x···|····
+    // A1----B1Â·Â·Â·Â·|Â·Â·Â·xÂ·Â·Â·|Â·Â·Â·Â·
     //              \ ___ /
     //
     //         I
@@ -4066,11 +4065,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -4167,11 +4166,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
     //       method behaves as expected when assertions are disabled.
 
     //             _____
-    //           ´       `
+    //           Â´       `
     //         /           \
     //        A1B1   x     |
     //         \           /
-    //           ` _____ ´
+    //           ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -4231,11 +4230,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateTypes )
 {
     //               ______                       ______
-    //             ´        `                   ´        `
+    //             Â´        `                   Â´        `
     //           /           \                /           \
     //   A1--------------------B1    B1---------------------A1
     //           \           /                \           /
-    //             ` _____ ´                    ` _____ ´
+    //             ` _____ Â´                    ` _____ Â´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
