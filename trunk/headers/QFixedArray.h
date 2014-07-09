@@ -90,10 +90,11 @@ public:
     public:
 
         /// <summary>
-        /// Constructor that receives the array to iterate and the position to point to.
+        /// Constructor that receives the array to iterate and the position to point to. This constructor is intended to be used internally, use
+        /// GetConstIterator and GetIterator methods of QFixedArray instead.
         /// </summary>
         /// <remarks>
-        /// If array is empty, it will point to the end position (forward iteration).
+        /// If the array is empty, it will point to the end position (forward iteration).
         /// </remarks>
         /// <param name="pArray">[IN] The array to iterate. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. It must be lower than the number of elements in the array.</param>

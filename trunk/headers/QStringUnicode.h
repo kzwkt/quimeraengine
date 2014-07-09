@@ -80,7 +80,8 @@ public:
     /// </remarks>
     class QE_LAYER_COMMON_SYMBOLS QConstCharIterator
     {
-        friend class QStringUnicode;
+        friend class QStringUnicode; // This is necessary while the internal implementation is based on ICU
+
 
         // CONSTRUCTORS
 	    // ---------------
@@ -661,7 +662,7 @@ public:
     /// <returns>
     /// A regular iterator.
     /// </returns>
-    QCharIterator GetCharIterator();
+    QCharIterator GetCharIterator() const;
 
     /// <summary>
     /// Converts the string to an array of bytes encoded in certain text encoding.
@@ -787,7 +788,54 @@ public:
     int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const;
 
     /// <summary>
-    /// Searches for a string pattern throuhout the resident string, replacing every occurrence with another string.
+    /// Searches for a string pattern throughout the resident string and indicates whether such pattern exists or not.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <returns>
+    /// If the pattern is found, it returns True; if it is not found, it returns False.
+    /// </returns>
+    bool Contains(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
+
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string and returns an iterator that points to the position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <returns>
+    /// If the pattern is found, it returns an iterator that points to the the position of the Unicode character; if it is not found, the resultant iterator will point
+    /// to the end position (forward).
+    /// </returns>
+    QCharIterator PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
+
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string, starting from a given position, and returns an iterator that points to the
+    /// position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <param name="startPosition">[IN] The start position to search from. If the iterator points to an end position, the pattern will not be found.
+    /// If the iterator is not valid, the behavior is undefined.</param>
+    /// <returns>
+    /// If the pattern is found, it returns an iterator that points to the the position of the Unicode character; if it is not found, the resultant iterator will point
+    /// to the end position (forward).
+    /// </returns>
+    QCharIterator PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const QConstCharIterator &startPosition) const;
+
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string, replacing every occurrence with another string.
     /// </summary>
     /// <remarks>
     /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
