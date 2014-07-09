@@ -771,13 +771,12 @@ i64_q QStringUnicode::ToInteger() const
     const bool HAS_NEGATIVE_SIGN = m_strString[0] == '-';
 
     icu::Formattable formattable;
-    if(HAS_POSITIVE_SIGN || HAS_NEGATIVE_SIGN)
+    if(HAS_POSITIVE_SIGN)
         pFormatter->parse(this->Substring(1, this->GetLength()).m_strString, formattable, errorCodeParsing);
     else
         pFormatter->parse(m_strString, formattable, errorCodeParsing);
     
     i64_q nResult = formattable.getInt64(errorCodeGetting);
-    nResult *= HAS_NEGATIVE_SIGN ? -1 : 1;
 
     QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult != 0LL, "The string cannot be converted to an integer number");
     QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult == 0LL, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
