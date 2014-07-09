@@ -4219,6 +4219,8 @@ QTEST_CASE ( Constructor8_PositiveTimeOffsetDoesNotAffectTheDateWhenTimestampIsC
     BOOST_CHECK(dateTime == EXPECTED_DATETIME);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the input string is empty.
 /// </summary>
@@ -4269,6 +4271,8 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenInputStringContainsWhitesSpaces_Test
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif
 
 /// <summary>
 /// Checks that the input date and time are correctly copied.

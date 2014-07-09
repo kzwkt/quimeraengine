@@ -586,7 +586,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrbButW
 {
     //             ___
     //            /   \
-    //  <-----o贩|贩贩穦贩
+    //  <-----o路路|路路路路路|路路
     //            \___/
     //
 
@@ -763,7 +763,6 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusOfTheOrbEquals
 
     const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
-    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
     const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const bool EXPECTED_RESULT_CONTAINED = true;
@@ -1014,7 +1013,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
 {
     //             ___
     //            /   \
-    //  <-----o贩|贩贩穦贩
+    //  <-----o路路|路路路路路|路路
     //            \___/
     //
 
@@ -1196,7 +1195,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
 
     const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
-    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
     const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
@@ -1243,10 +1241,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsWrongResultWhenRayDirectionIsNot
 
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
-
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
-    float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
-    const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
 
 	// [Execution]
     T vNormalizedRayResult = T::GetNullVector();
@@ -1559,7 +1553,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
 {
     //             ___
     //            /   \
-    //  <-----o贩|贩贩穦贩
+    //  <-----o路路|路路路路路|路路
     //            \___/
     //
 
@@ -1746,7 +1740,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
 
     const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
-    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
     const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
 
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
@@ -1798,10 +1791,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNot
 
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
-
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
-    float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
-    const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
 
 	// [Execution]
     T vFirstNormalizedRayResult = T::GetNullVector();
