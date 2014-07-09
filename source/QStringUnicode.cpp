@@ -270,9 +270,11 @@ QStringUnicode::QConstCharIterator QStringUnicode::GetConstCharIterator(const un
     return QStringUnicode::QConstCharIterator(*this, uInitialPosition);
 }
 
-QStringUnicode::QCharIterator QStringUnicode::GetCharIterator()
+QStringUnicode::QCharIterator QStringUnicode::GetCharIterator() const
 {
-    return QStringUnicode::QCharIterator(*this);
+    // The constant casting operator is used deliberately due to there is no other way if we want to keep this design,
+    // however, the string instance is not modified ever, not even inside the function.
+    return QStringUnicode::QCharIterator(ccast_q(*this, QStringUnicode&));
 }
 
 i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const
@@ -684,6 +686,60 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
     }
 
     return nPosition;
+}
+
+bool QStringUnicode::Contains(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+{
+    return this->IndexOf(strPattern, eComparisonType) != QStringUnicode::PATTERN_NOT_FOUND;
+}
+
+QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+{
+    QCharIterator resultIterator = this->GetCharIterator();
+
+    if(this->GetLength() > 0)
+    {
+        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, 0);
+
+        if(nPatternPosition == QStringUnicode::PATTERN_NOT_FOUND)
+        {
+            // Returns end position
+            resultIterator.MoveLast();
+            ++resultIterator;
+        }
+        else
+        {
+            resultIterator.m_iterator.setIndex32(nPatternPosition);
+        }
+    }
+
+    return resultIterator;
+}
+
+QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const QStringUnicode::QConstCharIterator &startPosition) const
+{
+    QE_ASSERT(!startPosition.IsEnd(), "The start position is out of bounds, it cannot be used to search for the pattern.");
+    QE_ASSERT(startPosition.IsValid(), "The input iterator is not valid, it cannot be used to search for the pattern.");
+
+    QCharIterator resultIterator = this->GetCharIterator();
+
+    if(this->GetLength() > 0)
+    {
+        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, startPosition.m_iterator.getIndex());
+
+        if(nPatternPosition == QStringUnicode::PATTERN_NOT_FOUND)
+        {
+            // Returns end position
+            resultIterator.MoveLast();
+            ++resultIterator;
+        }
+        else
+        {
+            resultIterator.m_iterator.setIndex32(nPatternPosition);
+        }
+    }
+
+    return resultIterator;
 }
 
 void QStringUnicode::Replace(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType)
