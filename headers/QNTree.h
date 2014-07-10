@@ -390,8 +390,8 @@ public:
     {
         if(uNumberOfElements > this->GetCapacity())
         {
-            m_elementAllocator.Reallocate(uNumberOfElements);
-            m_nodeAllocator.Reallocate(uNumberOfElements);
+            m_elementAllocator.Reallocate(uNumberOfElements * sizeof(T));
+            m_nodeAllocator.Reallocate(uNumberOfElements * sizeof(QNTree::QNode));
         }
     }
 
@@ -414,7 +414,7 @@ public:
             static const pointer_uint_q NO_CHILD_POSITION = QNTree::END_POSITION_FORWARD;
 
             T* pNewRoot = new(m_elementAllocator.Allocate()) T(newRoot);
-            QNTree::QNode* pNode = new(m_nodeAllocator.Allocate()) QNTree::QNode(NO_PARENT_POSITION, NO_NEXT_POSITION, NO_PREVIOUS_POSITION, NO_CHILD_POSITION);
+            new(m_nodeAllocator.Allocate()) QNTree::QNode(NO_PARENT_POSITION, NO_NEXT_POSITION, NO_PREVIOUS_POSITION, NO_CHILD_POSITION);
 
             m_uRoot = pNewRoot - (T*)m_elementAllocator.GetPointer();
         }
@@ -543,11 +543,6 @@ public:
 
 protected:
 
-    /// <summary>
-	/// The position of the root node in the internal buffer.
-	/// </summary>
-    pointer_uint_q m_uRoot;
-
 	/// <summary>
 	/// The allocator which stores the tree elements.
 	/// </summary>
@@ -558,6 +553,11 @@ protected:
 	/// </summary>
     AllocatorT m_nodeAllocator;
 
+    /// <summary>
+	/// The position of the root node in the internal buffer.
+	/// </summary>
+    pointer_uint_q m_uRoot;
+    
     /// <summary>
 	/// The comparator used to compare elements.
 	/// </summary>

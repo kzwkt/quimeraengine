@@ -787,63 +787,45 @@ public:
     }
 
     /// <summary>
-    /// Method that returns the element placed in the position given by the parameter.
+    /// Gets an iterator that points to a given position in the array.
     /// </summary>
-    /// <remarks>
-    /// If the index is out of bounds the returned iterator will point to the end position.
-    /// </remarks>
+    /// <param name="uIndex">[IN] Position in the array to which the iterator will point. If it is out of bounds, the returned iterator will point 
+    /// to the end position.</param>
     /// <returns>
-    /// An iterator that points to the position of the element which occupies the position N.
+    /// An iterator that points to the position of the element.
     /// </returns>
     QArrayIterator GetIterator(const pointer_uint_q uIndex) const 
     {
-        if (uIndex >= this->GetCount())
-        {
-            QE_ASSERT( uIndex <= this->GetCount(), "Index must be less than the array's size" );
-            return QArrayIterator(this, END_POSITION_FORWARD);
-        }
-        return QArrayIterator(this, uIndex);
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+
+        return QFixedArray::QArrayIterator(this, uIndex);
     }
 
     /// <summary>
-    /// Method that returns the first element in the array.
+    /// Gets an iterator that points to the first position in the array.
     /// </summary>
-    /// <remarks>
-    /// If the array is empty the returned iterator will point to an invalid position.
-    /// </remarks>
     /// <returns>
-    /// An iterator that points to the first element.
+    /// An iterator that points to the position of the first element. If the array is empty, the iterator will point to the end position.
     /// </returns>
     QArrayIterator GetFirst() const
     {
-        const pointer_uint_q FIRST_INDEX = 0;
-        if (this->IsEmpty())
-        {
-            QE_ASSERT( this->GetCount() != 0, "Array cannot be empty!" );
-            return QArrayIterator(this, END_POSITION_BACKWARD);
-        }
-        return QArrayIterator(this, FIRST_INDEX);
+        QE_ASSERT( !this->IsEmpty(), "The array is empty, there is no first position." );
+
+        return QFixedArray::QArrayIterator(this, m_uFirst);
         
     }
 
     /// <summary>
-    /// Method that returns the last element in the array.
+    /// Gets an iterator that points to the last position in the array.
     /// </summary>
-    /// <remarks>
-    /// If the array is empty the returned iterator will point to an invalid position.
-    /// </remarks>
     /// <returns>
-    /// An iterator that points to the last element.
+    /// An iterator that points to the position of the last element. If the array is empty, the iterator will point to the end position.
     /// </returns>
     QArrayIterator GetLast() const
     {
-        if (this->IsEmpty())
-        {
-            QE_ASSERT( this->GetCount() != 0, "Array cannot be empty!" );
-            return QArrayIterator(this, END_POSITION_FORWARD);
-        }
-        const pointer_uint_q LAST_INDEX = this->GetCount() - 1;
-        return QArrayIterator(this, LAST_INDEX);
+        QE_ASSERT( !this->IsEmpty(), "The array is empty, there is no last position." );
+
+        return QFixedArray::QArrayIterator(this, m_uLast);
     }
 
 private:
