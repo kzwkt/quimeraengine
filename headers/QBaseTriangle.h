@@ -56,65 +56,65 @@ template <class VectorType>
 class QBaseTriangle
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QBaseTriangle() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0)
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QBaseTriangle() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0)
     {
     }
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
-	QBaseTriangle(const QBaseTriangle &triangle) : A(triangle.A), B(triangle.B), C(triangle.C)
-	{
-	}
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
+    QBaseTriangle(const QBaseTriangle &triangle) : A(triangle.A), B(triangle.B), C(triangle.C)
+    {
+    }
 
-	/// <summary>
-	/// Constructor from three vectors.
-	/// </summary>
-	/// <param name="vA">[IN] Vector to define vertex A.</param>
-	/// <param name="vB">[IN] Vector to define vertex B.</param>
-	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
+    /// <summary>
+    /// Constructor from three vectors.
+    /// </summary>
+    /// <param name="vA">[IN] Vector to define vertex A.</param>
+    /// <param name="vB">[IN] Vector to define vertex B.</param>
+    /// <param name="vC">[IN] Vector to define vertex C.</param>
+    QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
                             A(vA), B(vB), C(vC)
     {
     }
 
-	/// <summary>
-	/// Constructor from a pointer to floating point values to define each vertex.
+    /// <summary>
+    /// Constructor from a pointer to floating point values to define each vertex.
     /// </summary>
     /// <remarks>
-	/// Pointer must have two, three or four values depending on VectorType.
-	/// </remarks>
-	/// <param name="arValuesA">[IN] Array of values that define the vertex A. If the pointer is null, the behavior  
+    /// Pointer must have two, three or four values depending on VectorType.
+    /// </remarks>
+    /// <param name="arValuesA">[IN] Array of values that define the vertex A. If the pointer is null, the behavior  
     /// is undefined.</param>
-	/// <param name="arValuesB">[IN] Array of values that define the vertex B. If the pointer is null, the behavior  
+    /// <param name="arValuesB">[IN] Array of values that define the vertex B. If the pointer is null, the behavior  
     /// is undefined.</param>
-	/// <param name="arValuesC">[IN] Array of values that define the vertex C. If the pointer is null, the behavior 
+    /// <param name="arValuesC">[IN] Array of values that define the vertex C. If the pointer is null, the behavior 
     /// is undefined.</param>
-	QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
-	{
-		// Checkout to ensure pointers are not null.
-		QE_ASSERT( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) , "Input values must not be null");
+    QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
+    {
+        // Checkout to ensure pointers are not null.
+        QE_ASSERT( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) , "Input values must not be null");
 
-		A = VectorType(arValuesA);
-		B = VectorType(arValuesB);
-		C = VectorType(arValuesC);
-	}
+        A = VectorType(arValuesA);
+        B = VectorType(arValuesB);
+        C = VectorType(arValuesC);
+    }
 
-	/// <summary>
-	/// Constructor from three 4x32 packed floating point values to define each vertex.
-	/// </summary>
-	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
-	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
-	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
+    /// <summary>
+    /// Constructor from three 4x32 packed floating point values to define each vertex.
+    /// </summary>
+    /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
+    /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
+    /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
+    QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
                              A(valueA), B(valueB), C(valueC)
     {
     }
@@ -149,24 +149,24 @@ public:
     }
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 public:
 
-	/// <summary>
-	/// Vector which represents a vextex of the triangle.
-	/// </summary>
-	VectorType A;
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorType A;
 
-	/// <summary>
-	/// Vector which represents a vextex of the triangle.
-	/// </summary>
-	VectorType B;
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorType B;
 
-	/// <summary>
-	/// Vector which represents a vextex of the triangle.
-	/// </summary>
-	VectorType C;
+    /// <summary>
+    /// Vector which represents a vextex of the triangle.
+    /// </summary>
+    VectorType C;
 
 };
 

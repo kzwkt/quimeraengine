@@ -64,7 +64,7 @@ class QBaseVector3;
 /// A vector with four components: X, Y, Z and W.
 /// </summary>
 /// <remarks>
-///	A vector is a geometric object that has both a magnitude (or length) and a direction.
+///    A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// This is important when applying transformations to the vector.
 /// </remarks>
@@ -75,13 +75,13 @@ class QE_LAYER_TOOLS_SYMBOLS QVector4 : public QBaseVector4
 public:
 
     /// <summary>
-	/// Product of a scalar by a vector. All the components are multiplied by the scalar provided.
-	/// </summary>
-	/// <param name="fScalar">[IN] Scalar to multiply.</param>
-	/// <param name="vVector">[IN] Vector to be multiplied by.</param>
-	/// <returns>
-	/// A vector that is the result of the product.
-	/// </returns>
+    /// Product of a scalar by a vector. All the components are multiplied by the scalar provided.
+    /// </summary>
+    /// <param name="fScalar">[IN] Scalar to multiply.</param>
+    /// <param name="vVector">[IN] Vector to be multiplied by.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
     friend QVector4 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QVector4 &vVector);
 
 
@@ -93,21 +93,21 @@ public:
     /// Default constructor.
     /// </summary>
     /// <remarks>
-    ///	By default, all the components are set to zero.
+    ///    By default, all the components are set to zero.
     /// </remarks>
     QVector4();
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	QVector4(const QVector4 &vVector);
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
+    QVector4(const QVector4 &vVector);
 
     /// <summary>
-	/// Constructor that receives an instance of the base type.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	QVector4(const QBaseVector4 &vVector);
+    /// Constructor that receives an instance of the base type.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
+    QVector4(const QBaseVector4 &vVector);
 
     /// <summary>
     /// Constructor that receives 3D vector. The W component is set to zero.
@@ -120,31 +120,31 @@ public:
     /// </summary>
     /// <param name="vVector">[IN] The vector to copy its components.</param>
     /// <param name="fValue">[IN] Scalar value representing the W component.</param>
-	explicit QVector4(const QBaseVector3 &vVector, const float &fValue);
+    explicit QVector4(const QBaseVector3 &vVector, const float &fValue);
 
     /// <summary>
-	/// Constructor that receives the value of every vector's component.
-	/// </summary>
-	/// <param name="fValueX">[IN] The value for X component.</param>
-	/// <param name="fValueY">[IN] The value for Y component.</param>
+    /// Constructor that receives the value of every vector's component.
+    /// </summary>
+    /// <param name="fValueX">[IN] The value for X component.</param>
+    /// <param name="fValueY">[IN] The value for Y component.</param>
     /// <param name="fValueZ">[IN] The value for Z component.</param>
     /// <param name="fValueW">[IN] The value for W component.</param>
     QVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW);
 
     /// <summary>
-	/// Constructor from a single value for all the vector's components.
-	/// </summary>
-	/// <param name="fValueAll">[IN] The value for all components.</param>
+    /// Constructor from a single value for all the vector's components.
+    /// </summary>
+    /// <param name="fValueAll">[IN] The value for all components.</param>
     explicit QVector4(const float_q &fValueAll);
 
     /// <summary>
-	/// Constructor that receives an array of scalars.
-	/// </summary>
+    /// Constructor that receives an array of scalars.
+    /// </summary>
     /// <remarks>
     /// The array must contain, at least, four elements. Only the first four elements will be considered; the rest will be ignored.
     /// </remarks>
-	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, four elements. If it is null, the behavior is undefined.</param>
-	explicit QVector4(const float_q* arValues);
+    /// <param name="arValues">[IN] An array of scalars. It must contain, at least, four elements. If it is null, the behavior is undefined.</param>
+    explicit QVector4(const float_q* arValues);
 
     /// <summary>
     /// Constructor that receives a pack of four scalars.
@@ -160,7 +160,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-	explicit QVector4(const QTranslationMatrix<QMatrix4x3> &translation);
+    explicit QVector4(const QTranslationMatrix<QMatrix4x3> &translation);
 
     /// <summary>
     /// Constructor that receives a 4x3 translation matrix from which to extract the translation vector.
@@ -170,7 +170,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-	explicit QVector4(const QTranslationMatrix<QMatrix4x4> &translation);
+    explicit QVector4(const QTranslationMatrix<QMatrix4x4> &translation);
 
 
     // PROPERTIES
@@ -178,75 +178,75 @@ public:
 public:
 
     /// <summary>
-	/// Gets a vector whose X, Y and Z components equal zero and W component equals one.
-	/// </summary>
-	/// <returns>
-	/// A point placed in the origin of coordinates.
-	/// </returns>
+    /// Gets a vector whose X, Y and Z components equal zero and W component equals one.
+    /// </summary>
+    /// <returns>
+    /// A point placed in the origin of coordinates.
+    /// </returns>
     static const QVector4& GetZeroPoint();
 
     /// <summary>
-	/// Gets a vector whose components equal zero.
-	/// </summary>
-	/// <returns>
-	/// A null vector.
-	/// </returns>
+    /// Gets a vector whose components equal zero.
+    /// </summary>
+    /// <returns>
+    /// A null vector.
+    /// </returns>
     static const QVector4& GetNullVector();
 
     /// <summary>
-	/// Gets a vector whose components equal one.
-	/// </summary>
-	/// <returns>
-	/// A vector of ones.
-	/// </returns>
+    /// Gets a vector whose components equal one.
+    /// </summary>
+    /// <returns>
+    /// A vector of ones.
+    /// </returns>
     static const QVector4& GetVectorOfOnes();
 
     /// <summary>
-	/// Gets a unit vector that points to the positive direction of the X axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the positive direction of the X axis.
-	/// </returns>
+    /// Gets a unit vector that points to the positive direction of the X axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the positive direction of the X axis.
+    /// </returns>
     static const QVector4& GetUnitVectorX();
 
     /// <summary>
-	/// Gets a unit vector that points to the positive direction of the Y axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the positive direction of the Y axis.
-	/// </returns>
+    /// Gets a unit vector that points to the positive direction of the Y axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the positive direction of the Y axis.
+    /// </returns>
     static const QVector4& GetUnitVectorY();
 
     /// <summary>
-	/// Gets a unit vector that points to the positive direction of the Z axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the positive direction of the Z axis.
-	/// </returns>
+    /// Gets a unit vector that points to the positive direction of the Z axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the positive direction of the Z axis.
+    /// </returns>
     static const QVector4& GetUnitVectorZ();
 
     /// <summary>
-	/// Gets a unit vector that points to the negative direction of the X axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the negative direction of the X axis.
-	/// </returns>
+    /// Gets a unit vector that points to the negative direction of the X axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the negative direction of the X axis.
+    /// </returns>
     static const QVector4& GetUnitVectorInvX();
 
     /// <summary>
-	/// Gets a unit vector that points to the negative direction of the Y axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the negative direction of the Y axis.
-	/// </returns>
+    /// Gets a unit vector that points to the negative direction of the Y axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the negative direction of the Y axis.
+    /// </returns>
     static const QVector4& GetUnitVectorInvY();
 
     /// <summary>
-	/// Gets a unit vector that points to the negative direction of the Z axis.
-	/// </summary>
-	/// <returns>
-	/// A unit vector that points to the negative direction of the Z axis.
-	/// </returns>
+    /// Gets a unit vector that points to the negative direction of the Z axis.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to the negative direction of the Z axis.
+    /// </returns>
     static const QVector4& GetUnitVectorInvZ();
 
 
@@ -255,57 +255,57 @@ public:
 public:
 
     /// <summary>
-	/// Adds two vectors by adding each component.
-	/// </summary>
-	/// <param name="vVector">[IN] Vector to be added.</param>
-	/// <returns>
-	/// A vector that is the result of the addition.
-	/// </returns>
+    /// Adds two vectors by adding each component.
+    /// </summary>
+    /// <param name="vVector">[IN] Vector to be added.</param>
+    /// <returns>
+    /// A vector that is the result of the addition.
+    /// </returns>
     QVector4 operator+(const QBaseVector4 &vVector) const;
 
     /// <summary>
-	/// Adds two vectors by adding each component. The W component does not change.
-	/// </summary>
-	/// <param name="vVector">[IN] Vector to be added.</param>
-	/// <returns>
-	/// A vector that is the result of the addition.
-	/// </returns>
+    /// Adds two vectors by adding each component. The W component does not change.
+    /// </summary>
+    /// <param name="vVector">[IN] Vector to be added.</param>
+    /// <returns>
+    /// A vector that is the result of the addition.
+    /// </returns>
     QVector4 operator+(const QBaseVector3 &vVector) const;
 
     /// <summary>
-	/// Substracts two vectors by substracting each component.
-	/// </summary>
-	/// <param name="vVector">[IN] Vector to be substracted.</param>
-	/// <returns>
-	/// A vector that is the result of the subtraction.
-	/// </returns>
+    /// Substracts two vectors by substracting each component.
+    /// </summary>
+    /// <param name="vVector">[IN] Vector to be substracted.</param>
+    /// <returns>
+    /// A vector that is the result of the subtraction.
+    /// </returns>
     QVector4 operator-(const QBaseVector4 &vVector) const;
 
     /// <summary>
-	/// Substracts two vectors by substracting each component. The W component does not change.
-	/// </summary>
-	/// <param name="vVector">[IN] Vector to be substracted.</param>
-	/// <returns>
-	/// A vector that is the result of the subtraction.
-	/// </returns>
+    /// Substracts two vectors by substracting each component. The W component does not change.
+    /// </summary>
+    /// <param name="vVector">[IN] Vector to be substracted.</param>
+    /// <returns>
+    /// A vector that is the result of the subtraction.
+    /// </returns>
     QVector4 operator-(const QBaseVector3 &vVector) const;
 
     /// <summary>
-	/// Multiplies the vector by a scalar.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to multiply by.</param>
-	/// <returns>
-	/// A vector that is the result of the product.
-	/// </returns>
+    /// Multiplies the vector by a scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
     QVector4 operator*(const float_q &fScalar) const;
 
     /// <summary>
-	/// Multiplies two vectors by multiplying each component.
-	/// </summary>
-	/// <param name="vVector">[IN] Vector to multiply by.</param>
-	/// <returns>
-	/// A vector that is the result of the product.
-	/// </returns>
+    /// Multiplies two vectors by multiplying each component.
+    /// </summary>
+    /// <param name="vVector">[IN] Vector to multiply by.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
     QVector4 operator*(const QBaseVector4 &vVector) const;
 
     /// <summary>
@@ -333,75 +333,75 @@ public:
     QBaseVector3 operator*(const QBaseMatrix4x3 &matrix) const;
 
     /// <summary>
-	/// Divides the vector by a scalar.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
-	/// <returns>
-	/// A vector that is the result of the division.
-	/// </returns>
+    /// Divides the vector by a scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
+    /// <returns>
+    /// A vector that is the result of the division.
+    /// </returns>
     QVector4 operator/(const float_q &fScalar) const;
 
     /// <summary>
-	/// Divides two vectors by dividing each component.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to divide by. If any of its components equal zero, the result is undefined.</param>
-	/// <returns>
-	/// A vector that is the result of the division.
-	/// </returns>
+    /// Divides two vectors by dividing each component.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to divide by. If any of its components equal zero, the result is undefined.</param>
+    /// <returns>
+    /// A vector that is the result of the division.
+    /// </returns>
     QVector4 operator/(const QBaseVector4 &vVector) const;
 
     /// <summary>
-	/// Adds a vector to the resident vector. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to be added.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the addition.
-	/// </returns>
+    /// Adds a vector to the resident vector. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to be added.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the addition.
+    /// </returns>
     QVector4& operator+=(const QBaseVector4 &vVector);
 
     /// <summary>
-	/// Adds a vector to the resident vector, without changing the W component. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to be added.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the addition.
-	/// </returns>
+    /// Adds a vector to the resident vector, without changing the W component. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to be added.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the addition.
+    /// </returns>
     QVector4& operator+=(const QBaseVector3 &vVector);
 
     /// <summary>
-	/// Subtracts a vector to the resident vector. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to be substracted.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the subtraction.
-	/// </returns>
+    /// Subtracts a vector to the resident vector. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to be substracted.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the subtraction.
+    /// </returns>
     QVector4& operator-=(const QBaseVector4 &vVector);
 
     /// <summary>
-	/// Subtracts a vector to the resident vector, without changing the W component. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to be substracted.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the subtraction.
-	/// </returns>
+    /// Subtracts a vector to the resident vector, without changing the W component. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to be substracted.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the subtraction.
+    /// </returns>
     QVector4& operator-=(const QBaseVector3 &vVector);
 
     /// <summary>
-	/// Multiplies the resident vector by a scalar. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to multiply by.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the product.
-	/// </returns>
+    /// Multiplies the resident vector by a scalar. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the product.
+    /// </returns>
     QVector4& operator*=(const float_q fScalar);
 
     /// <summary>
-	/// Multiplies two vectors by multiplying each component. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to multiply by.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the product.
-	/// </returns>
+    /// Multiplies two vectors by multiplying each component. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to multiply by.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the product.
+    /// </returns>
     QVector4& operator*=(const QBaseVector4 &vVector);
 
     /// <summary>
@@ -417,21 +417,21 @@ public:
     QVector4& operator*=(const QBaseMatrix4x4 &matrix);
 
     /// <summary>
-	/// Divides the vector by a scalar. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the division.
-	/// </returns>
+    /// Divides the vector by a scalar. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the division.
+    /// </returns>
     QVector4& operator/=(const float_q &fScalar);
 
     /// <summary>
-	/// Divides two vectors by dividing each component. The resident vector is set to the result.
-	/// </summary>
-	/// <param name="vVector">[IN] The vector to divide by. If any of its components equal zero, the result is undefined.</param>
-	/// <returns>
-	/// A reference to the resident vector, result of the division.
-	/// </returns>
+    /// Divides two vectors by dividing each component. The resident vector is set to the result.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to divide by. If any of its components equal zero, the result is undefined.</param>
+    /// <returns>
+    /// A reference to the resident vector, result of the division.
+    /// </returns>
     QVector4& operator/=(const QBaseVector4 &vVector);
 
     /// <summary>
@@ -444,19 +444,19 @@ public:
     QVector4& operator=(const QBaseVector4 &vVector);
 
     /// <summary>
-	/// Negates the vector by negating each component.
-	/// </summary>
-	/// <returns>
-	/// A vector that is the result of the negation.
-	/// </returns>
+    /// Negates the vector by negating each component.
+    /// </summary>
+    /// <returns>
+    /// A vector that is the result of the negation.
+    /// </returns>
     QVector4 operator-() const;
 
     /// <summary>
-	/// Calculates the length (magnitude) of the vector.
-	/// </summary>
-	/// <returns>
-	/// A scalar whose value equals the length of the vector.
-	/// </returns>
+    /// Calculates the length (magnitude) of the vector.
+    /// </summary>
+    /// <returns>
+    /// A scalar whose value equals the length of the vector.
+    /// </returns>
     float_q GetLength() const;
 
     /// <summary>
@@ -471,58 +471,58 @@ public:
     float_q GetSquaredLength() const;
 
     /// <summary>
-	/// Normalizes the vector. The vector keeps its direction but its length equals one.
-	/// </summary>
+    /// Normalizes the vector. The vector keeps its direction but its length equals one.
+    /// </summary>
     /// <remarks>
     /// If the vector is null, the result is undefined.
     /// </remarks>
     /// <returns>
-	/// The normalized vector.
-	/// </returns>
+    /// The normalized vector.
+    /// </returns>
     QVector4 Normalize() const;
 
     /// <summary>
-	/// Sets all the components of the vector to one.
-	/// </summary>
+    /// Sets all the components of the vector to one.
+    /// </summary>
     void ResetToOne();
 
     /// <summary>
-	/// Sets all the components of the vector to zero but W, which is set to one.
-	/// </summary>
+    /// Sets all the components of the vector to zero but W, which is set to one.
+    /// </summary>
     void ResetToZeroPoint();
 
     /// <summary>
-	/// Sets all the components of the vector to zero.
-	/// </summary>
+    /// Sets all the components of the vector to zero.
+    /// </summary>
     void ResetToZeroVector();
 
     /// <summary>
-	/// Checks if all components equal zero.
-	/// </summary>
-	/// <returns>
-	/// True if all components equal zero; False otherwise.
-	/// </returns>
+    /// Checks if all components equal zero.
+    /// </summary>
+    /// <returns>
+    /// True if all components equal zero; False otherwise.
+    /// </returns>
     bool IsZero() const;
 
     /// <summary>
-	/// Checks if all components equal one.
-	/// </summary>
-	/// <returns>
-	/// True if all components equal one; False otherwise.
-	/// </returns>
+    /// Checks if all components equal one.
+    /// </summary>
+    /// <returns>
+    /// True if all components equal one; False otherwise.
+    /// </returns>
     bool IsVectorOfOnes() const;
 
     /// <summary>
-	/// Calculates the dot product of two vectors.
-	/// </summary>
+    /// Calculates the dot product of two vectors.
+    /// </summary>
     /// <remarks>
-	/// Remember that the dot product is commutative.<br/>
+    /// Remember that the dot product is commutative.<br/>
     /// Both vectors are considered as 3D vectors so the W component is ignored.
-	/// </remarks>
-	/// <param name="vVector">[IN] The second operand of the product.</param>
-	/// <returns>
-	/// A scalar whose value equals the result of dot product.
-	/// </returns>
+    /// </remarks>
+    /// <param name="vVector">[IN] The second operand of the product.</param>
+    /// <returns>
+    /// A scalar whose value equals the result of dot product.
+    /// </returns>
     float_q DotProduct(const QBaseVector4 &vVector) const;
 
     /// <summary>
@@ -553,27 +553,27 @@ public:
     QVector4 CrossProduct(const QBaseVector4 &vVector) const;
 
     /// <summary>
-	/// Calculates the linear interpolation between two vectors.
-	/// </summary>
-	/// <param name="fProportion">[IN] A value that represents how close is the resultant vector to the provided 
+    /// Calculates the linear interpolation between two vectors.
+    /// </summary>
+    /// <param name="fProportion">[IN] A value that represents how close is the resultant vector to the provided 
     /// vector. A value of 0 will produce a vector that equals the resident vector; a value of 1 will produce a vector that
     /// equals the input vector. Note tha values lower than 0 and higher than 1 are also valid.</param>
-	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
+    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
     QVector4 Lerp(const float_q &fProportion, const QBaseVector4 &vVector) const;
 
     /// <summary>
-	/// Calculates the distance between two vectors (two points).
-	/// </summary>
+    /// Calculates the distance between two vectors (two points).
+    /// </summary>
     /// <remarks>
     /// The W component is ignored.
     /// </remarks>
-	/// <param name="vVector">[IN] Vector to calculate the distance to.</param>
-	/// <returns>
-	/// A positive value that equals the distance between both vectors.
-	/// </returns>
+    /// <param name="vVector">[IN] Vector to calculate the distance to.</param>
+    /// <returns>
+    /// A positive value that equals the distance between both vectors.
+    /// </returns>
     float_q Distance(const QBaseVector4 &vVector) const;
 
     /// <summary>
@@ -631,7 +631,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QRotationMatrix3x3 &rotation) const;
+    QVector4 Transform(const QRotationMatrix3x3 &rotation) const;
 
     /// <summary>
     /// Applies a scale to the resident vector by multiplying the vector by a scaling matrix.
@@ -643,7 +643,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QScalingMatrix3x3 &scale) const;
+    QVector4 Transform(const QScalingMatrix3x3 &scale) const;
     
     /// <summary>
     /// Applies a translation to the resident vector by multiplying the vector by a translation matrix.
@@ -659,7 +659,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QTranslationMatrix<QMatrix4x3> &translation) const;
+    QVector4 Transform(const QTranslationMatrix<QMatrix4x3> &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident vector by multiplying the vector by a translation matrix.
@@ -675,11 +675,11 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QTranslationMatrix<QMatrix4x4> &translation) const;
+    QVector4 Transform(const QTranslationMatrix<QMatrix4x4> &translation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation,a translation or a combination of them 
-	/// to the resident vector by multiplying it by a transformation matrix.
+    /// to the resident vector by multiplying it by a transformation matrix.
     /// </summary>
     /// <remarks>
     /// The result depends on whether the W component equals zero (it is a normal) or one (it is a point). Since normals cannot be
@@ -692,11 +692,11 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const;
+    QVector4 Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation,a translation or a combination of them 
-	/// to the resident vector by multiplying it by a transformation matrix.
+    /// to the resident vector by multiplying it by a transformation matrix.
     /// </summary>
     /// <remarks>
     /// The result depends on whether the W component equals zero (it is a normal) or one (it is a point). Since normals cannot be
@@ -709,7 +709,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const;
+    QVector4 Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const;
 
     /// <summary>
     /// Applies a transformation to the resident vector by multiplying the vector by a space conversion matrix. This produces
@@ -725,29 +725,29 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector4 Transform(const QSpaceConversionMatrix &spaceConversion) const;
+    QVector4 Transform(const QSpaceConversionMatrix &spaceConversion) const;
 
     /// <summary>
-	/// Converts vector into a string.
+    /// Converts vector into a string.
     /// </summary>
     /// <remarks>
     /// The format of the string is:<br/>
-	/// "V4($x,$y,$z,$w)".<br/>
+    /// "V4($x,$y,$z,$w)".<br/>
     /// Where "$" means "string representation of attribute".
-	/// </summary>
-	/// <returns>
-	/// The string with the format specified.
-	/// </returns>
+    /// </summary>
+    /// <returns>
+    /// The string with the format specified.
+    /// </returns>
     string_q ToString() const;
 
 private:
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
-	/// to resident vector, multiplying the vector by a transformation matrix
-	/// to transform it. The translation takes effect depending on if resident vector represents a 3D point
-	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
-	/// since a 3D vector cannot be displaced.
+    /// to resident vector, multiplying the vector by a transformation matrix
+    /// to transform it. The translation takes effect depending on if resident vector represents a 3D point
+    /// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+    /// since a 3D vector cannot be displaced.
     /// </summary>
     /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
@@ -759,9 +759,9 @@ private:
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
-	/// to transform it. The translation takes effect depending on if resident vector represents a 3D point
-	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
-	/// since a 3D vector cannot be displaced.
+    /// to transform it. The translation takes effect depending on if resident vector represents a 3D point
+    /// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+    /// since a 3D vector cannot be displaced.
     /// </summary>
     /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>

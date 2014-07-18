@@ -56,38 +56,38 @@ class QE_LAYER_<LayerName>_SYMBOLS ClassName
 
     enumerations
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	ClassName();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    ClassName();
 
 
-	// DESTRUCTOR
-	// ---------------
+    // DESTRUCTOR
+    // ---------------
 public:
 
-	/// <summary>
-	/// Destructor.
-	/// </summary>
-	virtual ~ClassName();
+    /// <summary>
+    /// Destructor.
+    /// </summary>
+    virtual ~ClassName();
 
 
-	// METHODS
-	// ---------------
-public:
-
-
-	// PROPERTIES
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
 
-	// ATTRIBUTES
-	// ---------------
+    // PROPERTIES
+    // ---------------
+public:
+
+
+    // ATTRIBUTES
+    // ---------------
 protected:
 
 

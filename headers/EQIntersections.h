@@ -84,8 +84,8 @@ public:
     typedef std::pair<string_q, EQIntersections::EnumType> TNameValuePair;
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -303,7 +303,7 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     // <summary>

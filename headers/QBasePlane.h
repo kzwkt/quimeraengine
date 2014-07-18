@@ -52,49 +52,49 @@ namespace Math
 class QE_LAYER_TOOLS_SYMBOLS QBasePlane
 {
     // CONSTRUCTORS
-	// ---------------
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QBasePlane();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QBasePlane();
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
-	QBasePlane(const QBasePlane &plane);
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
+    QBasePlane(const QBasePlane &plane);
 
-	/// <summary>
-	/// Constructor from a floating point value for each coefficient.
-	/// </summary>
-	/// <param name="fValueA">[IN] Floating point value for a coefficient.</param>
-	/// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
-	/// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
-	/// <param name="fValueD">[IN] Floating point value for independent term d.</param>
-	QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD);
+    /// <summary>
+    /// Constructor from a floating point value for each coefficient.
+    /// </summary>
+    /// <param name="fValueA">[IN] Floating point value for a coefficient.</param>
+    /// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
+    /// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
+    /// <param name="fValueD">[IN] Floating point value for independent term d.</param>
+    QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD);
 
-	/// <summary>
-	/// Constructor from a floating point value for all coefficients.
-	/// </summary>
-	/// <param name="fValueAll">[IN] Floating point value.</param>
-	explicit QBasePlane(const float_q &fValueAll);
+    /// <summary>
+    /// Constructor from a floating point value for all coefficients.
+    /// </summary>
+    /// <param name="fValueAll">[IN] Floating point value.</param>
+    explicit QBasePlane(const float_q &fValueAll);
 
-	/// <summary>
-	/// Constructor from a pointer to a array of floating point values.
-	/// </summary>
-	/// <param name="arValues">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// <summary>
+    /// Constructor from a pointer to a array of floating point values.
+    /// </summary>
+    /// <param name="arValues">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
     /// is undefined.</param>
-	explicit QBasePlane(const float_q* arValues);
+    explicit QBasePlane(const float_q* arValues);
 
-	/// <summary>
-	/// Constructor from a 4x32 packed float value.
-	/// </summary>
-	/// <param name="value">[IN] 4x32 packed float containing the four components.<br/>
-	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
-	/// 3rd value (c coefficient), 4th value (d independent term).</param>
-	explicit QBasePlane(const vf32_q &value);
+    /// <summary>
+    /// Constructor from a 4x32 packed float value.
+    /// </summary>
+    /// <param name="value">[IN] 4x32 packed float containing the four components.<br/>
+    /// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
+    /// 3rd value (c coefficient), 4th value (d independent term).</param>
+    explicit QBasePlane(const vf32_q &value);
 
 
     // METHODS
@@ -130,29 +130,29 @@ public:
     bool operator!=(const QBasePlane &plane) const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 public:
 
-	/// <summary>
-	/// X coefficient of the plane equation.
-	/// </summary>
-	float_q a;
+    /// <summary>
+    /// X coefficient of the plane equation.
+    /// </summary>
+    float_q a;
 
-	/// <summary>
-	/// Y coefficient of the plane equation.
-	/// </summary>
-	float_q b;
+    /// <summary>
+    /// Y coefficient of the plane equation.
+    /// </summary>
+    float_q b;
 
-	/// <summary>
-	/// Z coefficient of the plane equation.
-	/// </summary>
-	float_q c;
+    /// <summary>
+    /// Z coefficient of the plane equation.
+    /// </summary>
+    float_q c;
 
-	/// <summary>
-	/// Independent term of the plane equation.
-	/// </summary>
-	float_q d;
+    /// <summary>
+    /// Independent term of the plane equation.
+    /// </summary>
+    float_q d;
 };
 
 } //namespace Math

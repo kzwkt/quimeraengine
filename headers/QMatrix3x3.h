@@ -221,7 +221,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-	QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
+    QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
 
     /// <summary>
     /// Divides current matrix by a floating point value.

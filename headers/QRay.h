@@ -61,24 +61,24 @@ template<class VectorTypeOrigin, class VectorTypeDirection>
 class QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QRay()
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QRay()
     {
     }
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-	QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
-	{
-	}
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
+    QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+    {
+    }
 
     /// <summary>
     /// Base type constructor.
@@ -106,9 +106,9 @@ public:
 public:
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is null.
+    /// </summary>
+    /// <returns>
     /// The null ray.
     /// </returns>
     static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetNullRay()
@@ -118,8 +118,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -184,7 +184,7 @@ public:
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersection with the ray will be checked.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the orb intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the orb intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the orb intersect, including the following cases:
@@ -195,7 +195,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the orb do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
@@ -273,25 +273,25 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-	EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
-	{
-		VectorTypeOrigin vAux;
-		return this->IntersectionPoint(orb, vIntersection, vAux);
-	}
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
+    {
+        VectorTypeOrigin vAux;
+        return this->IntersectionPoint(orb, vIntersection, vAux);
+    }
 
 
     /// <summary>
-	/// Computes the intersection point between the ray and provided orb, if it exists.
-	/// </summary>
+    /// Computes the intersection point between the ray and provided orb, if it exists.
+    /// </summary>
     /// <remarks>
-	/// The ray must be normalized to obtain a correct result.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.<br/>
+    /// The ray must be normalized to obtain a correct result.<br/>
+    /// If there's no intersection point, the output parameters won't be modified.<br/>
     /// Neither the length of the direction vector nor the radius of the orb should equal zero.
-	/// </remarks>
-	/// <param name="orb">[IN] The orb whose intersection with the ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] A vector where to store the closest intersection point to the origin of the ray.</param>
-	/// <param name="vIntersection2">[OUT] A vector where to store the furthest intersection point to the origin of the ray.</param>
-	/// <returns>
+    /// </remarks>
+    /// <param name="orb">[IN] The orb whose intersection with the ray will be checked.</param>
+    /// <param name="vIntersection1">[OUT] A vector where to store the closest intersection point to the origin of the ray.</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the furthest intersection point to the origin of the ray.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -393,11 +393,11 @@ public:
     }
 
     /// <summary>
-	/// Converts ray into a string.
+    /// Converts ray into a string.
     /// </summary>
     /// <remarks>
     /// The format of the string is:<br/>
-	/// "RY(o($Origin),d($Direction))".<br/>
+    /// "RY(o($Origin),d($Direction))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>

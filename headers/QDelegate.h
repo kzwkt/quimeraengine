@@ -93,8 +93,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -136,8 +136,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -158,15 +158,15 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() () const
+    ReturnValueT operator() () const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))();
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))();
     }
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -192,7 +192,7 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -253,8 +253,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -296,8 +296,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -312,22 +312,22 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1) const
+    ReturnValueT operator() (Param1T p1) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1);
     }
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -352,7 +352,7 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -419,8 +419,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -461,8 +461,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -477,7 +477,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -485,14 +485,14 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2) const
+    ReturnValueT operator() (Param1T p1, Param2T p2) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2);
     }
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -517,7 +517,7 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -590,8 +590,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -632,8 +632,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -648,7 +648,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -657,15 +657,15 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3);
     }
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -691,7 +691,7 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -770,8 +770,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -812,8 +812,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -828,7 +828,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -838,15 +838,15 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4);
     }
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -872,7 +872,7 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -957,8 +957,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -1001,8 +1001,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -1017,7 +1017,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -1028,14 +1028,14 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5);
     }
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -1060,7 +1060,7 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -1151,8 +1151,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -1196,8 +1196,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -1212,7 +1212,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -1224,14 +1224,14 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6);
     }
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -1256,7 +1256,7 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -1353,8 +1353,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -1398,8 +1398,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -1414,7 +1414,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -1427,14 +1427,14 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7);
     }
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -1459,7 +1459,7 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -1562,8 +1562,8 @@ public:
     typedef ReturnValueT ReturnType;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
     /// <summary>
     /// Default constructor. Delgates are considered as null when they have not been assigned to a function.
@@ -1607,8 +1607,8 @@ public:
     {
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 
     /// <summary>
     /// Assignment operator that copies a delegate.
@@ -1623,7 +1623,7 @@ public:
         return *this;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
     /// <param name="Param1T">[IN] The first parameter of the function.</param>
@@ -1637,15 +1637,15 @@ public:
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
-	ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7, Param8T p8) const
+    ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7, Param8T p8) const
     {
         QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
-	    return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7, p8);
+        return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7, p8);
     }
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
     /// <summary>
     /// Gets the number of parameters of the function.
@@ -1671,7 +1671,7 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>

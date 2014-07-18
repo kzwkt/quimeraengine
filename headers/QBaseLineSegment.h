@@ -68,12 +68,12 @@ public:
     QBaseLineSegment() : A(SQFloat::_0), B(SQFloat::_0) { }
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
-	QBaseLineSegment(const QBaseLineSegment &segment) : A(segment.A), B(segment.B)
-	{
-	}
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
+    QBaseLineSegment(const QBaseLineSegment &segment) : A(segment.A), B(segment.B)
+    {
+    }
 
     /// <summary>
     /// Constructor from two vectors.

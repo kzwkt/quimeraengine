@@ -77,41 +77,41 @@ public:
     class QE_LAYER_TOOLS_SYMBOLS QDstInformation
     {
         // CONSTRUCTORS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
-	    /// Constructor that receives all the necessary data to calculate the DST offset and when is it applied.
-	    /// </summary>
-	    /// <param name="pTimeZone">[IN] Data to calculate the DST offset. It must not be null.</param>
+        /// Constructor that receives all the necessary data to calculate the DST offset and when is it applied.
+        /// </summary>
+        /// <param name="pTimeZone">[IN] Data to calculate the DST offset. It must not be null.</param>
         explicit QDstInformation(boost::local_time::time_zone_ptr pTimeZone);
 
 
         // METHODS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
-	    /// Calculates the date and time when the DST offset starts taking effect.
-	    /// </summary>
+        /// Calculates the date and time when the DST offset starts taking effect.
+        /// </summary>
         /// <remarks>
-	    /// Since the DST period is different for every year (although it repeats periodically), it must
+        /// Since the DST period is different for every year (although it repeats periodically), it must
         /// be calculated for a given year.
-	    /// </remarks>
-	    /// <param name="nYear">[IN] The year on which to base the date and time calculation. Zero is not a valid year value.</param>
+        /// </remarks>
+        /// <param name="nYear">[IN] The year on which to base the date and time calculation. Zero is not a valid year value.</param>
         /// <returns>
         /// The first instant (UTC) the DST is active. If the year is zero, it will return an undefined date/time.
         /// </returns>
         QDateTime GetStartInYear(const int nYear) const;
 
         /// <summary>
-	    /// Calculates the date and time when the DST offset stops taking effect.
-	    /// </summary>
+        /// Calculates the date and time when the DST offset stops taking effect.
+        /// </summary>
         /// <remarks>
-	    /// Since the DST period is different for every year (although it repeats periodically), it must
+        /// Since the DST period is different for every year (although it repeats periodically), it must
         /// be calculated for a given year.
-	    /// </remarks>
-	    /// <param name="nYear">[IN] The year on which to base the date and time calculation. Zero is not a valid year value.</param>
+        /// </remarks>
+        /// <param name="nYear">[IN] The year on which to base the date and time calculation. Zero is not a valid year value.</param>
         /// <returns>
         /// The first instant (UTC) the DST is not active. If the year is zero, it will return an undefined date/time.
         /// </returns>
@@ -119,12 +119,12 @@ public:
 
 
         // PROPERTIES
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
-	    /// Gets the offset to be applied when the DST is active.
-	    /// </summary>
+        /// Gets the offset to be applied when the DST is active.
+        /// </summary>
         /// <returns>
         /// An amount of time to be subtracted or added to UTC time.
         /// </returns>
@@ -140,7 +140,7 @@ public:
        
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
     private:
 
         /// <summary>
@@ -162,16 +162,16 @@ public:
 
     
     // CONSTRUCTORS
-	// ---------------
+    // ---------------
 public:
 
-	/// <summary>
-	/// Constructor that receives all the information about the time zone, including DST.
-	/// </summary>
+    /// <summary>
+    /// Constructor that receives all the information about the time zone, including DST.
+    /// </summary>
     /// <remarks>
-	/// Time zones are not intended to be instanced by users, they are created by the SQTimeZoneFactory class.
-	/// </remarks>
-	/// <param name="strId">[IN] The region Id in the IANA/Olson time zone database.</param>
+    /// Time zones are not intended to be instanced by users, they are created by the SQTimeZoneFactory class.
+    /// </remarks>
+    /// <param name="strId">[IN] The region Id in the IANA/Olson time zone database.</param>
     /// <param name="strName">[IN] The abbreviated name of the time zone to be added to timestamps.</param>
     /// <param name="timeZoneOffset">[IN] The offset to be applied to UTC time in order to get local time.</param>
     /// <param name="bIsTimeZoneOffsetNegative">[IN] Indicates whether the time zone offset is negative or positive. 
@@ -179,7 +179,7 @@ public:
     /// <param name="dstInformation">[IN] Information about the DST period that may affect the final offset.</param>
     /// <param name="bHasDstOffset">[IN] Indicates whether the time zone is affected by the DST or not. True if it is 
     /// affected, False otherwise.</param>
-	QTimeZone(const string_q &strId, const string_q &strName, 
+    QTimeZone(const string_q &strId, const string_q &strName, 
               const QTimeSpan &timeZoneOffset, const bool bIsTimeZoneOffsetNegative, 
               const QDstInformation &dstInformation, const bool bHasDstOffset);
 
@@ -189,15 +189,15 @@ private:
     QTimeZone(const QTimeZone &timeZone);
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
-	/// Given a date and a time, it calculates the final offset to be applied to the UTC time in order to get
+    /// Given a date and a time, it calculates the final offset to be applied to the UTC time in order to get
     /// the local time that corresponds to the time zone.
-	/// </summary>
-	/// <param name="dateTime">[IN] The date and time for which to calculate the offset. Its time zone does not affect the result. 
+    /// </summary>
+    /// <param name="dateTime">[IN] The date and time for which to calculate the offset. Its time zone does not affect the result. 
     /// It must not be undefined.</param>
     /// <param name="offset">[OUT] The final offset to apply to the UTC time.</param>
     /// <param name="bIsNegative">[OUT] The sign of the offset. True if it is negative, False otherwise.</param>
@@ -210,8 +210,8 @@ private:
     QTimeZone& operator=(const QTimeZone &timeZone);
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
@@ -263,8 +263,8 @@ public:
     const bool HasDstOffset() const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

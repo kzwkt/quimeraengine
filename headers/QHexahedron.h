@@ -73,19 +73,19 @@ public:
     {
     }
 
-	/// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
-	QHexahedron(const QHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
+    QHexahedron(const QHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
     {
     }
 
-	/// <summary>
-	/// Base type constructor.
-	/// </summary>
-	/// <param name="hexahedron">[IN] The hexahedron in which we want resident hexahedron to be based.</param>
-	QHexahedron(const QBaseHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="hexahedron">[IN] The hexahedron in which we want resident hexahedron to be based.</param>
+    QHexahedron(const QBaseHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
     {
     }
 
@@ -142,8 +142,8 @@ public:
     /// to coordinate axis.
     /// </summary>
     /// <returns>
-	/// A "unit cube".
-	/// </returns>
+    /// A "unit cube".
+    /// </returns>
     static const QHexahedron<VectorType>& GetUnitCube()
     {
         static const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
@@ -171,163 +171,163 @@ public:
     // ---------------
 public:
 
-	/// <summary>
-	/// Assignation operator.
-	/// </summary>
-	/// <param name="hexahedron">[IN] The hexahedron to be copied from.</param>
-	/// <returns>
-	/// A reference to the modified hexahedron.
-	/// </returns>
+    /// <summary>
+    /// Assignation operator.
+    /// </summary>
+    /// <param name="hexahedron">[IN] The hexahedron to be copied from.</param>
+    /// <returns>
+    /// A reference to the modified hexahedron.
+    /// </returns>
     QHexahedron& operator=(const QBaseHexahedron<VectorType>& hexahedron)
     {
         QBaseHexahedron<VectorType>::operator=(hexahedron);
         return *this;
     }
 
-	/// <summary>
-	/// This method applies to the resident hexahedron the rotation defined by the provided quaternion
-	/// around the coordinate axis centre.
-	/// </summary>
-	/// <param name="qRotation">[IN] Quaternion which contais the rotation to be applied.</param>
+    /// <summary>
+    /// This method applies to the resident hexahedron the rotation defined by the provided quaternion
+    /// around the coordinate axis centre.
+    /// </summary>
+    /// <param name="qRotation">[IN] Quaternion which contais the rotation to be applied.</param>
     /// <returns>
-	/// The rotated hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Rotate(const QQuaternion &qRotation) const
-	{
+    /// The rotated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Rotate(const QQuaternion &qRotation) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
         SQPoint::Rotate(qRotation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method transforms the resident hexahedron by applying the rotation contained in the provided quaternion
-	/// around a pivot point (which acts as center of rotation).
-	/// </summary>
-	/// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
-	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-    /// <returns>
-	/// The rotated hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method performs a translation of the resident hexahedron given by the provided vector.
-	/// </summary>
-	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
-    /// <returns>
-	/// The translated hexahedron.
-	/// </returns>
-    QHexahedron<VectorType> Translate(const QBaseVector3 &vTranslation) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Translate(vTranslation, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method performs a translation of the resident hexahedron given by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
-	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
-	/// <param name="fTranslationZ">[IN] The amount of translation to be applied in Z direction.</param>
-    /// <returns>
-	/// The translated hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method scales the resident hexahedron by the scale contained in the provided vector.
-	/// </summary>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
-    /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Scale(const QBaseVector3 &vScale) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Scale(vScale, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method scales the resident hexahedron by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
-	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="fScaleZ">[IN] The scale to be applied in Z direction.</param>
-    /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method scales the resident hexahedron by the scale contained in the provided vector,
-	/// acting the other provided vector as pivot of scale.
-	/// </summary>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-    /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method scales the resident hexahedron by the provided amounts for every axis,
-	/// acting the provided vector as pivot of scale.
-	/// </summary>
-	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
-	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="fScaleZ">[IN] The scale to be applied in Z direction.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-    /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// This method store in the output parameter the six planes which defines the hexahedron.
-	/// </summary>
+    /// This method transforms the resident hexahedron by applying the rotation contained in the provided quaternion
+    /// around a pivot point (which acts as center of rotation).
+    /// </summary>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+    /// <returns>
+    /// The rotated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method performs a translation of the resident hexahedron given by the provided vector.
+    /// </summary>
+    /// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
+    /// <returns>
+    /// The translated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Translate(const QBaseVector3 &vTranslation) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Translate(vTranslation, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method performs a translation of the resident hexahedron given by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+    /// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+    /// <param name="fTranslationZ">[IN] The amount of translation to be applied in Z direction.</param>
+    /// <returns>
+    /// The translated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method scales the resident hexahedron by the scale contained in the provided vector.
+    /// </summary>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+    /// <returns>
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Scale(const QBaseVector3 &vScale) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Scale(vScale, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method scales the resident hexahedron by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] The scale to be applied in Z direction.</param>
+    /// <returns>
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method scales the resident hexahedron by the scale contained in the provided vector,
+    /// acting the other provided vector as pivot of scale.
+    /// </summary>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+    /// <returns>
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method scales the resident hexahedron by the provided amounts for every axis,
+    /// acting the provided vector as pivot of scale.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] The scale to be applied in Z direction.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+    /// <returns>
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method store in the output parameter the six planes which defines the hexahedron.
+    /// </summary>
     /// <remarks>
     /// The six planes are:<br/>
-	/// <br/>
+    /// <br/>
     /// <ul>
-	/// <li>plane A, B, C -> ABCD face, stored in element 0 of the array</li>
-	/// <li>plane E, F, G -> EFGH face, stored in element 1 of the array</li>
+    /// <li>plane A, B, C -> ABCD face, stored in element 0 of the array</li>
+    /// <li>plane E, F, G -> EFGH face, stored in element 1 of the array</li>
     /// <li>plane A, E, F -> AEFD face, stored in element 2 of the array</li>
     /// <li>plane A, B, H -> ABHE face, stored in element 3 of the array</li>
     /// <li>plane B, C, G -> BCGH face, stored in element 4 of the array</li>
     /// <li>plane C, D, F -> CDFG face, stored in element 5 of the array</li>
     /// </ul>
-	/// All returned planes are normalized.<br/>
+    /// All returned planes are normalized.<br/>
     /// Vertices of every face must be coplanar to obtain correct results.<br/>
     /// If two or more vertices of the hexahedron coincide, the result is undefined.
-	/// </remarks>
-	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements. If the pointer
+    /// </remarks>
+    /// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements. If the pointer
     /// is null, the behavior is undefined.</param>
     void GetPlanes(QPlane *arPlanes) const
     {
@@ -343,18 +343,18 @@ public:
     }
 
     /// <summary>
-	/// Checks if a point is inside or outside resident hexahedron.
-	/// </summary>
+    /// Checks if a point is inside or outside resident hexahedron.
+    /// </summary>
     /// <remarks>
-	/// Points in the surface of the hexahedron are considered inside it. The hexahedron is supposed to be convex; 
+    /// Points in the surface of the hexahedron are considered inside it. The hexahedron is supposed to be convex; 
     /// otherwise, the result is undefined.<br/>
     /// Vertices of every face must be coplanar to obtain correct results.<br/>
     /// If two or more vertices of the hexahedron coincide, the result is undefined.
-	/// </remarks>
-	/// <param name="vPoint">[IN] Point which is being checked.</param>
-	/// <returns>
-	/// True if the point is inside hexahedron, false otherwise.
-	/// </returns>
+    /// </remarks>
+    /// <param name="vPoint">[IN] Point which is being checked.</param>
+    /// <returns>
+    /// True if the point is inside hexahedron, false otherwise.
+    /// </returns>
     bool Contains(const VectorType &vPoint) const
     {
         return ( PointsInSameSideOfPlane(vPoint, this->E, this->A, this->B, this->C) &&
@@ -427,183 +427,183 @@ public:
     }
 
     /// <summary>
-	/// This method applies to the resident hexahedron the rotation defined by the provided rotation matrix
-	/// around the coordinate axis centre.
-	/// </summary>
-	/// <param name="rotation">[IN] Rotation matrix which contais the rotation to be applied.</param>
+    /// This method applies to the resident hexahedron the rotation defined by the provided rotation matrix
+    /// around the coordinate axis centre.
+    /// </summary>
+    /// <param name="rotation">[IN] Rotation matrix which contais the rotation to be applied.</param>
     /// <returns>
-	/// The rotated hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
-	{
+    /// The rotated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
         SQPoint::Rotate(rotation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
-	/// <summary>
-	/// This method transforms the resident hexahedron by applying the rotation contained in the
-	/// provided rotation matrix around a pivot point (which acts as center of rotation).
-	/// </summary>
-	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
-	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+    /// <summary>
+    /// This method transforms the resident hexahedron by applying the rotation contained in the
+    /// provided rotation matrix around a pivot point (which acts as center of rotation).
+    /// </summary>
+    /// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <returns>
-	/// The rotated hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
-	{
+    /// The rotated hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
-	/// <summary>
-	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
-	/// </summary>
-	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
+    /// <summary>
+    /// This method performs a translation of the resident hexahedron given by the provided translation matrix.
+    /// </summary>
+    /// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-	/// The translated hexahedron.
-	/// </returns>
+    /// The translated hexahedron.
+    /// </returns>
     QHexahedron<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
-	{
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
-	/// <summary>
-	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
-	/// </summary>
-	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
+    /// <summary>
+    /// This method performs a translation of the resident hexahedron given by the provided translation matrix.
+    /// </summary>
+    /// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-	/// The translated hexahedron.
-	/// </returns>
+    /// The translated hexahedron.
+    /// </returns>
     QHexahedron<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
-	{
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident hexahedron by the scale contained in the provided scale matrix.
-	/// </summary>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
+    /// This method scales the resident hexahedron by the scale contained in the provided scale matrix.
+    /// </summary>
+    /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
     /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Scale(const QScalingMatrix3x3 &scale) const
-	{
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Scale(const QScalingMatrix3x3 &scale) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Scale(scale, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::Scale(scale, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
-
-	/// <summary>
-	/// This method scales the resident hexahedron by the scale contained in the provided matrix,
-	/// acting the provided vector as pivot of scale.
-	/// </summary>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-    /// <returns>
-	/// The scaled hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
-	{
-        QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
-        return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// This method transforms the resident hexahedron applying the provided transformation matrix.
-	/// </summary>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// This method scales the resident hexahedron by the scale contained in the provided matrix,
+    /// acting the provided vector as pivot of scale.
+    /// </summary>
+    /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-	/// The transformed hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
-	{
+    /// The scaled hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// This method transforms the resident hexahedron applying the provided transformation matrix.
-	/// </summary>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// This method transforms the resident hexahedron applying the provided transformation matrix.
+    /// </summary>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
-	/// The transformed hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
-	{
+    /// The transformed hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// This method transforms the resident hexahedron applying the provided space conversion matrix.
-	/// </summary>
-	/// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
+    /// This method transforms the resident hexahedron applying the provided transformation matrix.
+    /// </summary>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
-	/// The converted hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
-	{
+    /// The transformed hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::Transform(spaceConversion, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
-	/// <summary>
-	/// This method transforms the resident hexahedron applying the provided transformation matrix,
-	/// acting the provided vector as pivot of transformation.
-	/// </summary>
+    /// <summary>
+    /// This method transforms the resident hexahedron applying the provided space conversion matrix.
+    /// </summary>
+    /// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
+    /// <returns>
+    /// The converted hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+    {
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Transform(spaceConversion, rcast_q(&auxHexahedron, VectorType*), 8);
+        return auxHexahedron;
+    }
+
+    /// <summary>
+    /// This method transforms the resident hexahedron applying the provided transformation matrix,
+    /// acting the provided vector as pivot of transformation.
+    /// </summary>
     /// <remarks>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
     /// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>
-	/// The transformed hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
-	{
+    /// The transformed hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
-	/// <summary>
-	/// This method transforms the resident hexahedron applying the provided transformation matrix,
-	/// acting the provided vector as pivot of transformation.
-	/// </summary>
+    /// <summary>
+    /// This method transforms the resident hexahedron applying the provided transformation matrix,
+    /// acting the provided vector as pivot of transformation.
+    /// </summary>
     /// <remarks>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
     /// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>
-	/// A reference to the transformed hexahedron.
-	/// </returns>
-	QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
-	{
+    /// A reference to the transformed hexahedron.
+    /// </returns>
+    QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+    {
         QHexahedron<VectorType> auxHexahedron = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
-	}
+    }
 
     /// <summary>
-	/// Checks if resident hexahedron intersects a given hexahedron.
-	/// </summary>
+    /// Checks if resident hexahedron intersects a given hexahedron.
+    /// </summary>
     /// <remarks>
     /// If two or more vertices of an hexahedron concide (which would be a malformed hexahedron), the result is undefined.
     /// </remarks>
-	/// <param name="hexahedron">[IN] Hexahedron which intersections with resident hexahedron will be checked.</param>
-	/// <returns>
-	/// A boolean value that indicates whether the hexahedron intersect or not.<br/>
+    /// <param name="hexahedron">[IN] Hexahedron which intersections with resident hexahedron will be checked.</param>
+    /// <returns>
+    /// A boolean value that indicates whether the hexahedron intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The hexahedrons intersect, including the following cases:
@@ -615,9 +615,9 @@ public:
     ///
     /// <b>False</b><br/>
     /// The hexahedrons do not intersect.
-	/// </returns>
-	bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
-	{
+    /// </returns>
+    bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
+    {
         // If all the vertices of the hexahedron coincide, it might be an erroneous figure
         QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
                   this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->H ||
@@ -634,7 +634,7 @@ public:
                   hexahedron.F != hexahedron.G || hexahedron.F != hexahedron.H ||
                   hexahedron.G != hexahedron.H, "All the vertices of the input hexahedron coincide, it might be an erroneous figure");
 
-	    return ( this->Contains(hexahedron.A) || this->Contains(hexahedron.B) || this->Contains(hexahedron.C) || this->Contains(hexahedron.D) ||
+        return ( this->Contains(hexahedron.A) || this->Contains(hexahedron.B) || this->Contains(hexahedron.C) || this->Contains(hexahedron.D) ||
                  this->Contains(hexahedron.E) || this->Contains(hexahedron.F) || this->Contains(hexahedron.G) || this->Contains(hexahedron.H) ||
                  QLineSegment3D<VectorType>(this->A, this->B).Intersection(hexahedron) ||
                  QLineSegment3D<VectorType>(this->B, this->C).Intersection(hexahedron) ||
@@ -648,16 +648,16 @@ public:
                  QLineSegment3D<VectorType>(this->B, this->H).Intersection(hexahedron) ||
                  QLineSegment3D<VectorType>(this->C, this->G).Intersection(hexahedron) ||
                  QLineSegment3D<VectorType>(this->D, this->F).Intersection(hexahedron) );
-	}
+    }
 
     /// <summary>
-	/// Projects resident hexahedron over a given plane, storing the resultant hexahedron in the provided one.
-	/// </summary>
-	/// <param name="plane">[IN] Plane where project resident hexahedron to. It must be normalized to obtain a correct result.
+    /// Projects resident hexahedron over a given plane, storing the resultant hexahedron in the provided one.
+    /// </summary>
+    /// <param name="plane">[IN] Plane where project resident hexahedron to. It must be normalized to obtain a correct result.
     /// If it is null, the behavior is undefined.</param>
     /// <returns>
-	/// The projected hexahedron.
-	/// </returns>
+    /// The projected hexahedron.
+    /// </returns>
     QHexahedron<VectorType> ProjectToPlane(const QPlane &plane) const
     {
         // If all the vertices of the hexahedron coincide, it might be an erroneous figure

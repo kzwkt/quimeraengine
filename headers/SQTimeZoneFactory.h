@@ -57,16 +57,16 @@ class QTimeZone;
 class QE_LAYER_TOOLS_SYMBOLS SQTimeZoneFactory
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	// Hidden
-	SQTimeZoneFactory();
+    // Hidden
+    SQTimeZoneFactory();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -94,8 +94,8 @@ private:
     static bool Initialize(const char* szSource, boost::local_time::tz_database &database);
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

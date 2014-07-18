@@ -52,32 +52,32 @@ namespace Memory
 class QE_LAYER_COMMON_SYMBOLS QAlignment
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
+    /// <summary>
     /// Constructor from a value.
     /// </summary>
     /// <param name="uAlignment">[IN] Unsigned integer value to define alignment. It MUST be a power of 2.</param>
     explicit QAlignment(const pointer_uint_q &uAlignment);
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Conversion operator to unsigned integer.
-	/// </summary>
-	/// <returns>
-	/// The alignment converted into an unsigned integer value.
-	/// </returns>
+    /// <summary>
+    /// Conversion operator to unsigned integer.
+    /// </summary>
+    /// <returns>
+    /// The alignment converted into an unsigned integer value.
+    /// </returns>
     operator unsigned int() const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 protected:
 
     /// <summary>

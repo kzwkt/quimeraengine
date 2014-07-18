@@ -50,14 +50,14 @@ namespace Core
 /// </remarks>
 class QE_LAYER_SYSTEM_SYMBOLS QObject
 {
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 protected:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QObject();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QObject();
 
 private:
 
@@ -68,28 +68,28 @@ private:
     QObject& operator=(const QObject &);
 
 
-	// DESTRUCTOR
-	// ---------------
-public:
-
-	/// <summary>
-	/// Destructor.
-	/// </summary>		
-	virtual ~QObject();
-
-
-	// METHODS
-	// ---------------
+    // DESTRUCTOR
+    // ---------------
 public:
 
     /// <summary>
-	/// Casts the object to a different QObject-derived class.
-	/// </summary>
+    /// Destructor.
+    /// </summary>        
+    virtual ~QObject();
+
+
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Casts the object to a different QObject-derived class.
+    /// </summary>
     /// <remarks>
-	/// Only castings to classes that are either ascendants or descendants are allowed. Castings to
+    /// Only castings to classes that are either ascendants or descendants are allowed. Castings to
     /// void* are not allowed either.<br/>
     /// Use the Is method if your intention is to check whether an object is or inherits from a class.
-	/// </remarks>
+    /// </remarks>
     /// <typeparam name="DestinationT">The destination type (not a pointer to it).</typeparam>
     /// <returns>
     /// A pointer to the casted object. If the casting was not possible, it returns null.
@@ -103,13 +103,13 @@ public:
     }
 
     /// <summary>
-	/// Casts the object to a different QObject-derived class when object is constant.
-	/// </summary>
+    /// Casts the object to a different QObject-derived class when object is constant.
+    /// </summary>
     /// <remarks>
-	/// Only castings to classes that are either ancestors or descendents are allowed. Castings to
+    /// Only castings to classes that are either ancestors or descendents are allowed. Castings to
     /// void* are not allowed either.<br/>
     /// Use the Is method if your intention is to check whether an object is or inherits from a class.
-	/// </remarks>
+    /// </remarks>
     /// <typeparam name="DestinationT">The destination type (not a pointer to it).</typeparam>
     /// <returns>
     /// A constant pointer to the casted constant object. If the casting was not possible, it returns null.
@@ -123,8 +123,8 @@ public:
     }
 
     /// <summary>
-	/// Checks whether the object is an instance of a given class or any of its descendent.
-	/// </summary>
+    /// Checks whether the object is an instance of a given class or any of its descendent.
+    /// </summary>
     /// <typeparam name="T">The type which may or may not match the object's type or one of its ancestors.</typeparam>
     /// <returns>
     /// True if the object is an instance of the class or any of its ancestors; False otherwise.
@@ -138,11 +138,11 @@ public:
 protected:
 
     /// <summary>
-	/// Checks whether the object is an instance of a given class or any of its descendent.
-	/// </summary>
+    /// Checks whether the object is an instance of a given class or any of its descendent.
+    /// </summary>
     /// <remarks>
-	/// It is called from the Is method and must be overriden in every derived class.
-	/// </remarks>
+    /// It is called from the Is method and must be overriden in every derived class.
+    /// </remarks>
     /// <param name="pType">[IN] The type which may or may not match the object's type or one of its ancestors.</param>
     /// <returns>
     /// True if the object is an instance of the class or any of its ancestors; False otherwise.
@@ -150,32 +150,32 @@ protected:
     virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const=0;
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
-	/// Gets information about the data type of the class.
-	/// </summary>
+    /// Gets information about the data type of the class.
+    /// </summary>
     /// <returns>
     /// An instance of QType which holds the information about the class and is unique during the application's lifecycle.
     /// </returns>
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass();
 
     /// <summary>
-	/// Gets information about the data type of the object.
-	/// </summary>
+    /// Gets information about the data type of the object.
+    /// </summary>
     /// <remarks>
-	/// This method must be overriden in every derived class.
-	/// </remarks>
+    /// This method must be overriden in every derived class.
+    /// </remarks>
     /// <returns>
     /// An instance of QType which holds the information about the class of the object and is unique during the application's lifecycle.
     /// </returns>
     virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const=0;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

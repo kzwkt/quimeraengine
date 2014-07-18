@@ -43,12 +43,12 @@ namespace Math
 {
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QBaseVector3::QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0)
@@ -57,9 +57,9 @@ QBaseVector3::QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0)
 
 QBaseVector3::QBaseVector3(const QBaseVector3 &vVector)
 {
-	this->x = vVector.x;
-	this->y = vVector.y;
-	this->z = vVector.z;
+    this->x = vVector.x;
+    this->y = vVector.y;
+    this->z = vVector.z;
 }
 
 QBaseVector3::QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) :
@@ -73,32 +73,32 @@ QBaseVector3::QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll
 
 QBaseVector3::QBaseVector3(const float_q* arValues)
 {
-	// Null pointer checkout
-	QE_ASSERT(arValues != null_q, "The input array must not be null");
+    // Null pointer checkout
+    QE_ASSERT(arValues != null_q, "The input array must not be null");
 
-	// Assignments
-	this->x = arValues[0];
-	this->y = arValues[1];
-	this->z = arValues[2];
+    // Assignments
+    this->x = arValues[0];
+    this->y = arValues[1];
+    this->z = arValues[2];
 }
 
 QBaseVector3::QBaseVector3(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
-	float_q fAux;
+    float_q fAux;
 
-	SQVF32::Unpack(value, this->x, this->y, this->z, fAux);
+    SQVF32::Unpack(value, this->x, this->y, this->z, fAux);
 }
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 bool QBaseVector3::operator==(const QBaseVector3 &vVector) const

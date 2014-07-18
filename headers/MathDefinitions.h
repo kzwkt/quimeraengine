@@ -77,9 +77,9 @@ namespace Math
 #endif
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-	#define fmod_q(fX, fY) fmodf(fX, fY) // To improve the compatibility, we prefer fmodf to fmod overloaded version
+    #define fmod_q(fX, fY) fmodf(fX, fY) // To improve the compatibility, we prefer fmodf to fmod overloaded version
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-	#define fmod_q(fX, fY) fmod(fX, fY)
+    #define fmod_q(fX, fY) fmod(fX, fY)
 #endif
 
 // --------------------------------------------------------------------------------------------------------

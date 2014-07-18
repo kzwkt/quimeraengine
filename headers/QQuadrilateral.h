@@ -56,8 +56,8 @@ class QLineSegment2D;
 class QE_LAYER_TOOLS_SYMBOLS QQuadrilateral : public QBaseQuadrilateral
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
@@ -65,17 +65,17 @@ public:
     /// </summary>
     QQuadrilateral();
 
-	/// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
-	QQuadrilateral(const QQuadrilateral &quad);
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
+    QQuadrilateral(const QQuadrilateral &quad);
 
-	/// <summary>
-	/// Base type constructor.
-	/// </summary>
-	/// <param name="quad">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
-	QQuadrilateral(const QBaseQuadrilateral &quad);
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="quad">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
+    QQuadrilateral(const QBaseQuadrilateral &quad);
 
     /// <summary>
     /// Constructor from four 2D vectors.
@@ -138,7 +138,7 @@ public:
     /// </remarks>
     /// <param name="quad">[IN] The quadrilateral we want to check the intersection with resident one.</param>
     /// <returns>
-	/// A boolean value that indicates whether the quadrilaterals intersect or not.<br/>
+    /// A boolean value that indicates whether the quadrilaterals intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The quadrilaterals intersect, including the following cases:
@@ -150,7 +150,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The quadrilaterals do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
@@ -229,113 +229,113 @@ public:
     /// </returns>
     float_q GetAngleD() const;
 
-	/// <summary>
-	/// This method applies to the resident quadrilateral the rotation defined by the provided angle
-	/// around the coordinate axis centre.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+    /// <summary>
+    /// This method applies to the resident quadrilateral the rotation defined by the provided angle
+    /// around the coordinate axis centre.
+    /// </summary>
+    /// <param name="fRotationAngle">[IN] The angle of rotation.</param>
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-	QQuadrilateral Rotate(const float_q &fRotationAngle) const;
+    QQuadrilateral Rotate(const float_q &fRotationAngle) const;
 
-	/// <summary>
-	/// This method performs a translation of the resident quadrilateral given by the provided vector.
-	/// </summary>
-	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
+    /// <summary>
+    /// This method performs a translation of the resident quadrilateral given by the provided vector.
+    /// </summary>
+    /// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
     /// <returns>
     /// The translated quadrilateral.
     /// </returns>
     QQuadrilateral Translate(const QBaseVector2 &vTranslation) const;
 
-	/// <summary>
-	/// This method performs a translation of the resident quadrilateral given by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
-	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+    /// <summary>
+    /// This method performs a translation of the resident quadrilateral given by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+    /// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
     /// <returns>
     /// The translated quadrilateral.
     /// </returns>
-	QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
-	/// <summary>
-	/// This method scales the resident quadrilateral by the scale contained in the provided vector.
-	/// </summary>
-	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+    /// <summary>
+    /// This method scales the resident quadrilateral by the scale contained in the provided vector.
+    /// </summary>
+    /// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	QQuadrilateral Scale(const QBaseVector2 &vScale) const;
+    QQuadrilateral Scale(const QBaseVector2 &vScale) const;
 
-	/// <summary>
-	/// This method scales the resident quadrilateral by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
-	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+    /// <summary>
+    /// This method scales the resident quadrilateral by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const;
+    QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const;
 
-	/// <summary>
-	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.
+    /// <summary>
+    /// Receives a transformation matrix and applies the transformations to the resident quadrilateral.
     /// </summary>
     /// <remarks>
-	/// The transformation pivot is the origin of coordinates.
-	/// </remarks>
-	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+    /// The transformation pivot is the origin of coordinates.
+    /// </remarks>
+    /// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
     /// <returns>
     /// The transformed quadrilateral.
     /// </returns>
-	QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const;
+    QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const;
 
-	/// <summary>
-	/// This method transforms the 2D quadrilateral by rotating an amount defined by a rotation angle
-	/// around a pivot point (as center of rotation).
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+    /// <summary>
+    /// This method transforms the 2D quadrilateral by rotating an amount defined by a rotation angle
+    /// around a pivot point (as center of rotation).
+    /// </summary>
+    /// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+    /// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-	QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
+    QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
 
-	/// <summary>
-	/// This method scales the resident quadrilateral by the scale contained in the provided vector,
-	/// acting the provided vector as pivot of scale.
-	/// </summary>
-	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+    /// <summary>
+    /// This method scales the resident quadrilateral by the scale contained in the provided vector,
+    /// acting the provided vector as pivot of scale.
+    /// </summary>
+    /// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
+    QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
 
-	/// <summary>
-	/// This method scales the resident quadrilateral by the provided amounts for every axis,
-	/// acting the provided vector as pivot of scale.
-	/// </summary>
-	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
-	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+    /// <summary>
+    /// This method scales the resident quadrilateral by the provided amounts for every axis,
+    /// acting the provided vector as pivot of scale.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+    /// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
+    QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
 
-	/// <summary>
-	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident quadrilateral.
+    /// <summary>
+    /// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
+    /// to the resident quadrilateral.
     /// </summary>
     /// <remarks>
-	/// The transformation pivot is the vector received as parameter.
-	/// </remarks>
-	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
+    /// The transformation pivot is the vector received as parameter.
+    /// </remarks>
+    /// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+    /// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
     /// <returns>
     /// The transformed quadrilateral.
     /// </returns>
-	QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
+    QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// Converts quadrilateral into a string.
@@ -353,17 +353,17 @@ public:
 protected:
 
     /// <summary>
-	/// Calculates if two points are in the same side of a line segment.
+    /// Calculates if two points are in the same side of a line segment.
     /// </summary>
     /// <remarks>
-	/// Used to know if a quadrilateral is complex, and to check if a point is inside a triangle.
+    /// Used to know if a quadrilateral is complex, and to check if a point is inside a triangle.
     /// In 2D case, it may be more efficient than the baricentric method.
     /// It is bassed on the orientation of the two tringles compossed by
     /// each point of the two we want to check and the end points of the line. If both triangles have
     /// the same orientation, both points are in the same side of the line.
-	/// </remarks>
-	/// <param name="vPoint1">[IN] One of the points to be checked.</param>
-	/// <param name="vPoint2">[IN] One of the points to be checked..</param>
+    /// </remarks>
+    /// <param name="vPoint1">[IN] One of the points to be checked.</param>
+    /// <param name="vPoint2">[IN] One of the points to be checked..</param>
     /// <param name="vLine1">[IN] A point that belongs to the line that divides de two-dimensional space in two parts.</param>
     /// <param name="vLine2">[IN] Another point that belongs to the line that divides de two-dimensional space in two parts.</param>
     /// <returns>
@@ -373,10 +373,10 @@ protected:
                                 const QBaseVector2 &vLine1, const QBaseVector2 &vLine2) const;
 
     /// <summary>
-	/// Checks if the angle formed by three contiguous vertices is a reflex angle (> 180º or Pi radians).
+    /// Checks if the angle formed by three contiguous vertices is a reflex angle (> 180º or Pi radians).
     /// </summary>
-	/// <param name="vAngleVertex">[IN] The angle's peak.</param>
-	/// <param name="vContiguousVertex1">[IN] An adjacent vertex that forms one side of the angle.</param>
+    /// <param name="vAngleVertex">[IN] The angle's peak.</param>
+    /// <param name="vContiguousVertex1">[IN] An adjacent vertex that forms one side of the angle.</param>
     /// <param name="vContiguousVertex2">[IN] The other adjacent vertex that forms the other side of the angle.</param>
     /// <param name="vOppositeVertex">[IN] The peak of the opposite angle in the quadrilateral.</param>
     /// <returns>

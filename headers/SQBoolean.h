@@ -47,26 +47,26 @@ namespace DataTypes
 /// </summary>
 class QE_LAYER_COMMON_SYMBOLS SQBoolean
 {
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	// Default constructor (hidden).
+    // Default constructor (hidden).
     SQBoolean();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Converts an input boolean type to an output string type.
-	/// </summary>
+    /// <summary>
+    /// Converts an input boolean type to an output string type.
+    /// </summary>
     /// <param name="bValue">[IN] The boolean value to be converted.</param>
-	/// <returns>
-	/// The strings "true" or "false".
-	/// </returns>
-	static string_q ToString(const bool& bValue);
+    /// <returns>
+    /// The strings "true" or "false".
+    /// </returns>
+    static string_q ToString(const bool& bValue);
 };
 
 

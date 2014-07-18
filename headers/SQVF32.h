@@ -51,18 +51,18 @@ namespace DataTypes
 class QE_LAYER_COMMON_SYMBOLS SQVF32
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	/// <summary>
-	/// Default constructor (hidden).
-	/// </summary>
-	SQVF32();
+    /// <summary>
+    /// Default constructor (hidden).
+    /// </summary>
+    SQVF32();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
     // [TODO] Thund: Review this doc.
     /// <summary>

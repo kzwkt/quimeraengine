@@ -50,12 +50,12 @@ namespace Math
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QQuaternion::QQuaternion() : QBaseQuaternion()
@@ -91,10 +91,10 @@ QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotatio
     const float_q sy = sin_q(HALF_ANGLE_Y_RAD);
     const float_q sz = sin_q(HALF_ANGLE_Z_RAD);
 
-	this->w =  cy * cx * cz + sy * sx * sz;
-	this->x =  cy * sx * cz + sy * cx * sz;
-	this->y = -cy * sx * sz + sy * cx * cz;
-	this->z = -sy * sx * cz + cy * cx * sz;
+    this->w =  cy * cx * cz + sy * sx * sz;
+    this->x =  cy * sx * cz + sy * cx * sz;
+    this->y = -cy * sx * sz + sy * cx * cz;
+    this->z = -sy * sx * cz + cy * cx * sz;
 }
 
 QQuaternion::QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
@@ -112,7 +112,7 @@ QQuaternion::QQuaternion(const vf32_q &value) : QBaseQuaternion(value)
 
 QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
 {
-	// Calculates half angle
+    // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
         const float_q& HALF_ANGLE_RAD = SQAngle::DegreesToRadians(fRotationAngle) * SQFloat::_0_5;
@@ -120,20 +120,20 @@ QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRota
         const float_q& HALF_ANGLE_RAD = fRotationAngle * SQFloat::_0_5;
     #endif
 
-	const float_q &fSin = sin_q(HALF_ANGLE_RAD);
+    const float_q &fSin = sin_q(HALF_ANGLE_RAD);
 
-	// Please note the axis has to be normalized...
+    // Please note the axis has to be normalized...
 
-	this->x = vRotationAxis.x * fSin;
-	this->y = vRotationAxis.y * fSin;
-	this->z = vRotationAxis.z * fSin;
+    this->x = vRotationAxis.x * fSin;
+    this->y = vRotationAxis.y * fSin;
+    this->z = vRotationAxis.z * fSin;
 
-	this->w = cos_q(HALF_ANGLE_RAD);
+    this->w = cos_q(HALF_ANGLE_RAD);
 }
 
 QQuaternion::QQuaternion(const QBaseVector4 &vRotationAxis, const float_q &fRotationAngle)
 {
-	// Calculates half angle
+    // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
         const float_q& HALF_ANGLE_RAD = SQAngle::DegreesToRadians(fRotationAngle) * SQFloat::_0_5;
@@ -141,15 +141,15 @@ QQuaternion::QQuaternion(const QBaseVector4 &vRotationAxis, const float_q &fRota
         const float_q& HALF_ANGLE_RAD = fRotationAngle * SQFloat::_0_5;
     #endif
 
-	const float_q &fSin = sin_q(HALF_ANGLE_RAD);
+    const float_q &fSin = sin_q(HALF_ANGLE_RAD);
 
-	// Please note the axis has to be normalized...
+    // Please note the axis has to be normalized...
 
-	this->x = vRotationAxis.x * fSin;
-	this->y = vRotationAxis.y * fSin;
-	this->z = vRotationAxis.z * fSin;
+    this->x = vRotationAxis.x * fSin;
+    this->y = vRotationAxis.y * fSin;
+    this->z = vRotationAxis.z * fSin;
 
-	this->w = cos_q(HALF_ANGLE_RAD);
+    this->w = cos_q(HALF_ANGLE_RAD);
 }
 
 QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x3> &transformation)
@@ -176,12 +176,12 @@ void QQuaternion::QQuaternionImp(const QTransformationMatrix<MatrixType> &transf
 }
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QQuaternion QQuaternion::operator+(const QBaseQuaternion &qQuat) const
@@ -202,10 +202,10 @@ QQuaternion QQuaternion::operator-(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator*(const QBaseQuaternion &qQuat) const
 {
-    return QQuaternion( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
-                        qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
-                        qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
-                        qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );	   // W
+    return QQuaternion( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,       // Vx
+                        qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,       // Vy
+                        qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,       // Vz
+                        qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );       // W
 }
 
 QQuaternion QQuaternion::operator*(const float_q &fScalar) const
@@ -273,9 +273,9 @@ QQuaternion& QQuaternion::operator-=(const QBaseQuaternion &qQuat)
 
 QQuaternion& QQuaternion::operator*=(const QBaseQuaternion &qQuat)
 {
-    QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
-                            qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
-                            qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
+    QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,       // Vx
+                            qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,       // Vy
+                            qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,       // Vz
                             qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
     this->x = resQuat.x;
     this->y = resQuat.y;
@@ -297,20 +297,20 @@ QQuaternion& QQuaternion::operator*=(const float_q fScalar)
 
 QQuaternion& QQuaternion::operator*=(const QBaseVector3 &vVector)
 {
-	QQuaternion qAux(vVector.x, vVector.y, vVector.z, SQFloat::_0);
+    QQuaternion qAux(vVector.x, vVector.y, vVector.z, SQFloat::_0);
 
-	*this *= qAux;
+    *this *= qAux;
 
-	return *this;
+    return *this;
 }
 
 QQuaternion& QQuaternion::operator*=(const QBaseVector4 &vVector)
 {
-	QQuaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
+    QQuaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
 
-	*this *= qAux;
+    *this *= qAux;
 
-	return *this;
+    return *this;
 }
 
 QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
@@ -351,7 +351,7 @@ QQuaternion& QQuaternion::operator=(const QBaseQuaternion &qQuat)
 
 QQuaternion QQuaternion::operator-() const
 {
-	return QQuaternion(-this->x, -this->y, -this->z, -this->w);
+    return QQuaternion(-this->x, -this->y, -this->z, -this->w);
 }
 
 QQuaternion QQuaternion::Normalize() const
@@ -377,7 +377,7 @@ QQuaternion QQuaternion::Invert() const
 
 QQuaternion QQuaternion::UnitInvert() const
 {
-	return this->Conjugate();
+    return this->Conjugate();
 }
 
 void QQuaternion::ResetToZero()
@@ -582,32 +582,32 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAng
 
     QE_ASSERT( !SQFloat::IsNaN(ACOS_W), "The variable \"ACOS_W\" is NAN" );
 
-	fRotationAngle = SQFloat::_2 * ACOS_W;
+    fRotationAngle = SQFloat::_2 * ACOS_W;
 
-	// Singularity 1: Angle = 0 -> we choose arbitrary axis.
-	if (SQFloat::IsZero(fRotationAngle))
-	{
-		vRotationAxis.x = SQFloat::_1;
-		vRotationAxis.y = SQFloat::_0;
-		vRotationAxis.z = SQFloat::_0;
-	}
-	// Singularity 2: Angle = PI -> we calculate axis.
-	else if ( SQFloat::AreEqual(fRotationAngle, SQAngle::_Pi) )
-	{
-		vRotationAxis.x = this->x;
-		vRotationAxis.y = this->y;
-		vRotationAxis.z = this->z;
-	}
-	else
-	{
-		const float_q &fInvSin = SQFloat::_1 / sin_q(ACOS_W);
+    // Singularity 1: Angle = 0 -> we choose arbitrary axis.
+    if (SQFloat::IsZero(fRotationAngle))
+    {
+        vRotationAxis.x = SQFloat::_1;
+        vRotationAxis.y = SQFloat::_0;
+        vRotationAxis.z = SQFloat::_0;
+    }
+    // Singularity 2: Angle = PI -> we calculate axis.
+    else if ( SQFloat::AreEqual(fRotationAngle, SQAngle::_Pi) )
+    {
+        vRotationAxis.x = this->x;
+        vRotationAxis.y = this->y;
+        vRotationAxis.z = this->z;
+    }
+    else
+    {
+        const float_q &fInvSin = SQFloat::_1 / sin_q(ACOS_W);
 
-		vRotationAxis.x = this->x*fInvSin;
-		vRotationAxis.y = this->y*fInvSin;
-		vRotationAxis.z = this->z*fInvSin;
-	}
+        vRotationAxis.x = this->x*fInvSin;
+        vRotationAxis.y = this->y*fInvSin;
+        vRotationAxis.z = this->z*fInvSin;
+    }
 
-	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
         fRotationAngle = SQAngle::RadiansToDegrees(fRotationAngle);
     #endif
@@ -651,12 +651,12 @@ string_q QQuaternion::ToString() const
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 const QQuaternion& QQuaternion::GetIdentity()

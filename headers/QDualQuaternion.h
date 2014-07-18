@@ -80,13 +80,13 @@ public:
     friend QDualQuaternion QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     QDualQuaternion();
 
     /// <summary>
@@ -278,8 +278,8 @@ public:
     static const QDualQuaternion& GetIdentity();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>

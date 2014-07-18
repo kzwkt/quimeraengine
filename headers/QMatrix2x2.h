@@ -96,7 +96,7 @@ public:
     /// <param name="matrix">[IN] The 2x2 base matrix in which we want the resident matrix to be based.</param>
     QMatrix2x2(const QBaseMatrix2x2 &matrix);
 
-	/// <summary>
+    /// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
     /// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>

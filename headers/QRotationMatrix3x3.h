@@ -61,13 +61,13 @@ QRotationMatrix3x3 operator*(const float_q &fScalar, const QRotationMatrix3x3 &m
 class QE_LAYER_TOOLS_SYMBOLS QRotationMatrix3x3 : public QMatrix3x3
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor. It's initialized to identity matrix.
-	/// </summary>
+    /// <summary>
+    /// Default constructor. It's initialized to identity matrix.
+    /// </summary>
     QRotationMatrix3x3();
 
     /// <summary>
@@ -105,21 +105,21 @@ public:
     /// <param name="fRotationAngleZ">[IN] Rotation angle about Z global axis.</param>
     QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ);
 
-	/// <summary>
-	/// Constructor from an angle and a spin axis defined by a vector.
+    /// <summary>
+    /// Constructor from an angle and a spin axis defined by a vector.
     /// </summary>
     /// <remarks>
     /// It's computed as follows:
-	///
-	/// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
-	/// \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} \cdot \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} +
-	/// \begin{bmatrix} 0 & e_z & -e_y \\ -e_z & 0 & e_x \\ e_y & -e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
-	///
-	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
-	/// </remarks>
-	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
+    ///
+    /// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
+    /// \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} \cdot \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} +
+    /// \begin{bmatrix} 0 & e_z & -e_y \\ -e_z & 0 & e_x \\ e_y & -e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
+    ///
+    /// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
+    /// </remarks>
+    /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
-	/// <remarks>
+    /// <remarks>
     /// The axis vector must be normalized to construct the rotation matrix properly.
     /// </remarks>
     QRotationMatrix3x3(const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis);
@@ -140,7 +140,7 @@ public:
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>
@@ -157,11 +157,11 @@ public:
     static const QRotationMatrix3x3& GetIdentity();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
     /// </summary>
     /// <remarks>
@@ -171,9 +171,9 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-	QRotationMatrix3x3 operator*(const QRotationMatrix3x3 &matrix) const;
+    QRotationMatrix3x3 operator*(const QRotationMatrix3x3 &matrix) const;
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 3x3 scale matrix by the current matrix.
     /// </summary>
     /// <remarks>
@@ -183,9 +183,9 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QScalingMatrix3x3 &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QScalingMatrix3x3 &matrix) const;
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
     /// </summary>
     /// <remarks>
@@ -195,7 +195,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -207,9 +207,9 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
+    QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
     /// </summary>
     /// <remarks>
@@ -219,7 +219,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -231,7 +231,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
+    QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
     /// Assignation operator. Assigns the provided matrix to the resident matrix.
@@ -253,7 +253,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-	QRotationMatrix3x3& operator*=(const QRotationMatrix3x3 &matrix);
+    QRotationMatrix3x3& operator*=(const QRotationMatrix3x3 &matrix);
 
     /// <summary>
     /// Inverts the matrix.
@@ -300,14 +300,14 @@ public:
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
     void GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const;
 
-	/// <summary>
+    /// <summary>
     /// Calculates the determinant of the matrix. Since this is a rotation matrix, which is
-	/// a special orthogonal matrix, its determinant is 1.
+    /// a special orthogonal matrix, its determinant is 1.
     /// </summary>
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant() const;
+    float_q GetDeterminant() const;
 
 private:
 
