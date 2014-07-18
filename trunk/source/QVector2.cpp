@@ -84,129 +84,129 @@ QVector2::QVector2(const vf32_q value) : QBaseVector2 (value)
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QVector2 QVector2::operator-() const
 {
-	return QVector2(-this->x, -this->y);
+    return QVector2(-this->x, -this->y);
 }
 
 QVector2 QVector2::operator+(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x + vVector.x, this->y + vVector.y);
+    return QVector2(this->x + vVector.x, this->y + vVector.y);
 }
 
 QVector2 QVector2::operator-(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x - vVector.x, this->y - vVector.y);
+    return QVector2(this->x - vVector.x, this->y - vVector.y);
 }
 
 QVector2 QVector2::operator*(const float_q &fScalar) const
 {
-	return QVector2(this->x * fScalar, this->y * fScalar);
+    return QVector2(this->x * fScalar, this->y * fScalar);
 }
 
 QVector2 QVector2::operator*(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x * vVector.x, this->y * vVector.y);
+    return QVector2(this->x * vVector.x, this->y * vVector.y);
 }
 
 QVector2 QVector2::operator*(const QBaseMatrix2x2 &matrix) const
 {
-	return QVector2(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0],
+    return QVector2(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0],
                     this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1]);
 }
 
 QVector2 QVector2::operator/(const float_q &fScalar) const
 {
-	// Checkout to avoid division by 0
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    // Checkout to avoid division by 0
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
-	const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &fDivisor = SQFloat::_1/fScalar;
 
-	return QVector2(this->x * fDivisor, this->y * fDivisor);
+    return QVector2(this->x * fDivisor, this->y * fDivisor);
 }
 
 QVector2 QVector2::operator/(const QBaseVector2 &vVector) const
 {
-	// Checkout to avoid division by 0
+    // Checkout to avoid division by 0
     QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null");
 
-	return QVector2(this->x / vVector.x, this->y / vVector.y);
+    return QVector2(this->x / vVector.x, this->y / vVector.y);
 }
 
 QVector2& QVector2::operator+=(const QBaseVector2 &vVector)
 {
-	this->x += vVector.x;
-	this->y += vVector.y;
+    this->x += vVector.x;
+    this->y += vVector.y;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator-=(const QBaseVector2 &vVector)
 {
-	this->x -= vVector.x;
-	this->y -= vVector.y;
+    this->x -= vVector.x;
+    this->y -= vVector.y;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator*=(const float_q fScalar)
 {
-	this->x *= fScalar;
-	this->y *= fScalar;
+    this->x *= fScalar;
+    this->y *= fScalar;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator*=(const QBaseMatrix2x2 &matrix)
 {
-	float_q fValueX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0];
-	float_q fValueY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1];
+    float_q fValueX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0];
+    float_q fValueY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1];
 
-	this->x = fValueX;
-	this->y = fValueY;
+    this->x = fValueX;
+    this->y = fValueY;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator*=(const QBaseVector2 &vVector)
 {
-	this->x *= vVector.x;
-	this->y *= vVector.y;
+    this->x *= vVector.x;
+    this->y *= vVector.y;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator/=(const float_q &fScalar)
 {
-	// Checkout to avoid division by 0
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must no equal zero");
+    // Checkout to avoid division by 0
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must no equal zero");
 
-	const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &fDivisor = SQFloat::_1/fScalar;
 
-	this->x *= fDivisor;
-	this->y *= fDivisor;
+    this->x *= fDivisor;
+    this->y *= fDivisor;
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator/=(const QBaseVector2 &vVector)
 {
-	// Checkout to avoid division by 0
-	QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null");
+    // Checkout to avoid division by 0
+    QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null");
 
-	this->x /= vVector.x;
-	this->y /= vVector.y;
+    this->x /= vVector.x;
+    this->y /= vVector.y;
 
 
-	return *this;
+    return *this;
 }
 
 QVector2& QVector2::operator=(const QBaseVector2 &vVector)
@@ -218,12 +218,12 @@ QVector2& QVector2::operator=(const QBaseVector2 &vVector)
 // Left float product
 QVector2 operator*(const float_q &fScalar, const QVector2 &vVector)
 {
-	return QVector2(vVector.x * fScalar, vVector.y * fScalar);
+    return QVector2(vVector.x * fScalar, vVector.y * fScalar);
 }
 
 float_q QVector2::GetLength() const
 {
-	return hypot_q(this->x, this->y);
+    return hypot_q(this->x, this->y);
 }
 
 float_q QVector2::GetSquaredLength() const
@@ -238,41 +238,41 @@ QVector2 QVector2::GetPerpendicular() const
 
 QVector2 QVector2::Normalize() const
 {
-	// Gets vector length
-	const float_q fLength = this->GetLength();
+    // Gets vector length
+    const float_q fLength = this->GetLength();
 
-	// Checkout to avoid division by 0
-	QE_ASSERT(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
+    // Checkout to avoid division by 0
+    QE_ASSERT(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
 
-	//Normalize
+    //Normalize
     return QVector2(this->x / fLength, this->y / fLength);
 }
 
 void QVector2::ResetToOne()
 {
-	this->x = SQFloat::_1;
-	this->y = SQFloat::_1;
+    this->x = SQFloat::_1;
+    this->y = SQFloat::_1;
 }
 
 void QVector2::ResetToZero()
 {
-	this->x = SQFloat::_0;
-	this->y = SQFloat::_0;
+    this->x = SQFloat::_0;
+    this->y = SQFloat::_0;
 }
 
 bool QVector2::IsZero() const
 {
-	return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
+    return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
 }
 
 bool QVector2::IsVectorOfOnes() const
 {
-	return SQFloat::AreEqual(this->x, SQFloat::_1) && SQFloat::AreEqual(this->y, SQFloat::_1);
+    return SQFloat::AreEqual(this->x, SQFloat::_1) && SQFloat::AreEqual(this->y, SQFloat::_1);
 }
 
 float_q QVector2::DotProduct(const QVector2 &vVector) const
 {
-	return this->x * vVector.x + this->y * vVector.y;
+    return this->x * vVector.x + this->y * vVector.y;
 }
 
 float_q QVector2::AngleBetween(const QVector2 &vVector) const
@@ -295,7 +295,7 @@ float_q QVector2::AngleBetween(const QVector2 &vVector) const
 
     QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" );
 
-	// At this stage we have the angle stored in fAngle expressed in RADIANS.
+    // At this stage we have the angle stored in fAngle expressed in RADIANS.
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -313,14 +313,14 @@ QVector2 QVector2::Lerp(const float_q &fProportion, const QBaseVector2 &vVector)
 
 float_q QVector2::Distance(const QVector2 &vVector) const
 {
-	return hypot_q(this->x-vVector.x, this->y-vVector.y);
+    return hypot_q(this->x-vVector.x, this->y-vVector.y);
 }
 
 string_q QVector2::ToString() const
 {
-	return string_q("V2(") + SQFloat::ToString(this->x) +
-		       QE_L(",")   + SQFloat::ToString(this->y) +
-		       QE_L(")");
+    return string_q("V2(") + SQFloat::ToString(this->x) +
+               QE_L(",")   + SQFloat::ToString(this->y) +
+               QE_L(")");
 }
 
 QVector2 QVector2::Transform(const QTransformationMatrix3x3 &matrix) const
@@ -331,62 +331,62 @@ QVector2 QVector2::Transform(const QTransformationMatrix3x3 &matrix) const
 
 QVector2 QVector2::Transform(const float_q &fRotationAngle) const
 {
-	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
-	#else
-		float_q fAngleRad = fRotationAngle;
-	#endif
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
+    #else
+        float_q fAngleRad = fRotationAngle;
+    #endif
 
-	const float_q fCosAngle = cos_q(fAngleRad);
-	const float_q fSinAngle = sin_q(fAngleRad);
+    const float_q fCosAngle = cos_q(fAngleRad);
+    const float_q fSinAngle = sin_q(fAngleRad);
 
     return QVector2(this->x * fCosAngle - this->y * fSinAngle, this->y * fCosAngle + this->x * fSinAngle);
 }
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 const QVector2& QVector2::GetNullVector()
 {
-	static const QVector2 NULLVECTOR(SQFloat::_0,  SQFloat::_0);
-	return NULLVECTOR;
+    static const QVector2 NULLVECTOR(SQFloat::_0,  SQFloat::_0);
+    return NULLVECTOR;
 }
 
 const QVector2& QVector2::GetVectorOfOnes()
 {
-	static const QVector2 VECTOROFONES(SQFloat::_1,  SQFloat::_1);
-	return VECTOROFONES;
+    static const QVector2 VECTOROFONES(SQFloat::_1,  SQFloat::_1);
+    return VECTOROFONES;
 }
 
 const QVector2& QVector2::GetUnitVectorX()
 {
-	static const QVector2 UNITVECTORX(SQFloat::_1,  SQFloat::_0);
-	return UNITVECTORX;
+    static const QVector2 UNITVECTORX(SQFloat::_1,  SQFloat::_0);
+    return UNITVECTORX;
 }
 
 const QVector2& QVector2::GetUnitVectorY()
 {
-	static const QVector2 UNITVECTORY(SQFloat::_0,  SQFloat::_1);
-	return UNITVECTORY;
+    static const QVector2 UNITVECTORY(SQFloat::_0,  SQFloat::_1);
+    return UNITVECTORY;
 }
 
 const QVector2& QVector2::GetUnitVectorInvX()
 {
-	static const QVector2 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0);
-	return UNITVECTORINVX;
+    static const QVector2 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0);
+    return UNITVECTORINVX;
 }
 
 const QVector2& QVector2::GetUnitVectorInvY()
 {
-	static const QVector2 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1);
-	return UNITVECTORINVY;
+    static const QVector2 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1);
+    return UNITVECTORINVY;
 }
 
 } //namespace Math

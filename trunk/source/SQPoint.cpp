@@ -48,12 +48,12 @@ namespace Math
 {
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 void SQPoint::Translate(const QBaseVector2 &vTranslation, QVector2* arPoints, const unsigned int& uElements)
@@ -72,7 +72,7 @@ void SQPoint::Translate(const float_q &fTranslationX, const float_q &fTranslatio
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i].x += fTranslationX;
         arPoints[i].y += fTranslationY;
@@ -217,10 +217,10 @@ void SQPoint::Rotate(const QQuaternion &qRotation, QVector3* arPoints, const uns
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
-	{
-	    SQPoint::Rotate(qRotation, arPoints[i]);
-	}
+    for(unsigned int i = 0; i < uElements; ++i)
+    {
+        SQPoint::Rotate(qRotation, arPoints[i]);
+    }
 }
 
 void SQPoint::Rotate(const QQuaternion &qRotation, QVector4* arPoints, const unsigned int &uElements)
@@ -228,10 +228,10 @@ void SQPoint::Rotate(const QQuaternion &qRotation, QVector4* arPoints, const uns
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
-	{
-	    SQPoint::Rotate(qRotation, arPoints[i]);
-	}
+    for(unsigned int i = 0; i < uElements; ++i)
+    {
+        SQPoint::Rotate(qRotation, arPoints[i]);
+    }
 }
 
 void SQPoint::Rotate(const QRotationMatrix3x3 &rotation, QVector3* arPoints, const unsigned int &uElements)
@@ -239,10 +239,10 @@ void SQPoint::Rotate(const QRotationMatrix3x3 &rotation, QVector3* arPoints, con
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
-	{
-	    SQPoint::Rotate(rotation, arPoints[i]);
-	}
+    for(unsigned int i = 0; i < uElements; ++i)
+    {
+        SQPoint::Rotate(rotation, arPoints[i]);
+    }
 }
 
 void SQPoint::Rotate(const QRotationMatrix3x3 &rotation, QVector4* arPoints, const unsigned int &uElements)
@@ -251,9 +251,9 @@ void SQPoint::Rotate(const QRotationMatrix3x3 &rotation, QVector4* arPoints, con
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
     for(unsigned int i = 0; i < uElements; ++i)
-	{
-	    SQPoint::Rotate(rotation, arPoints[i]);
-	}
+    {
+        SQPoint::Rotate(rotation, arPoints[i]);
+    }
 }
 
 void SQPoint::Scale(const QBaseVector3 &vScale, QVector3* arPoints, const unsigned int &uElements)
@@ -408,7 +408,7 @@ void SQPoint::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, con
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -424,7 +424,7 @@ void SQPoint::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPi
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -439,7 +439,7 @@ void SQPoint::TransformWithPivot(const QTransformationMatrix3x3 &transformation,
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -454,7 +454,7 @@ void SQPoint::RotateWithPivot(const QQuaternion &qRotation, const QBaseVector3 &
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -469,7 +469,7 @@ void SQPoint::RotateWithPivot(const QQuaternion &qRotation, const QBaseVector4 &
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -484,7 +484,7 @@ void SQPoint::RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVec
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -499,7 +499,7 @@ void SQPoint::RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVec
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -514,7 +514,7 @@ void SQPoint::ScaleWithPivot(const QBaseVector3& vScale, const QBaseVector3 &vPi
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -529,7 +529,7 @@ void SQPoint::ScaleWithPivot(const QBaseVector3 &vScale, const QBaseVector4 &vPi
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -545,7 +545,7 @@ void SQPoint::ScaleWithPivot(const float_q &fScaleX, const float_q  fScaleY, con
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -561,7 +561,7 @@ void SQPoint::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, con
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -576,7 +576,7 @@ void SQPoint::ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector3 
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -591,7 +591,7 @@ void SQPoint::ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector4 
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -607,7 +607,7 @@ void SQPoint::TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transf
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -623,7 +623,7 @@ void SQPoint::TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transf
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i].x -= vPivot.x;
         arPoints[i].y -= vPivot.y;
@@ -643,7 +643,7 @@ void SQPoint::TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transf
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i] -= vPivot;
 
@@ -659,7 +659,7 @@ void SQPoint::TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transf
     // Checks that the point array is not null
     QE_ASSERT( arPoints != null_q, "Input array must not be null" );
 
-	for(unsigned int i = 0; i < uElements; ++i)
+    for(unsigned int i = 0; i < uElements; ++i)
     {
         arPoints[i].x -= vPivot.x;
         arPoints[i].y -= vPivot.y;

@@ -50,12 +50,12 @@ namespace Math
 {
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
    
 QRotationMatrix3x3::QRotationMatrix3x3()
@@ -181,12 +181,12 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qRotation)
 }
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 // Binary operators
@@ -361,17 +361,17 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
         const float_q &HALF_SQRT_2 = sqrt_q(SQFloat::_2) * SQFloat::_0_5;
 
         const float_q &XX = (this->ij[0][0] + SQFloat::_1) * SQFloat::_0_5;
-		const float_q &YY = (this->ij[1][1] + SQFloat::_1) * SQFloat::_0_5;
-		const float_q &ZZ = (this->ij[2][2] + SQFloat::_1) * SQFloat::_0_5;
+        const float_q &YY = (this->ij[1][1] + SQFloat::_1) * SQFloat::_0_5;
+        const float_q &ZZ = (this->ij[2][2] + SQFloat::_1) * SQFloat::_0_5;
 
         if( SQFloat::IsGreaterThan(XX, YY) && SQFloat::IsGreaterThan(XX, ZZ) ) // m[0][0] is the largest diagonal term
         {
-			if (SQFloat::IsZero(XX))
+            if (SQFloat::IsZero(XX))
             {
-				vRotationAxis.x = SQFloat::_0;
-				vRotationAxis.y = HALF_SQRT_2;
-				vRotationAxis.z = HALF_SQRT_2;
-			}
+                vRotationAxis.x = SQFloat::_0;
+                vRotationAxis.y = HALF_SQRT_2;
+                vRotationAxis.z = HALF_SQRT_2;
+            }
             else
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(XX, SQFloat::_0), "The variable \"XX\" must be greater than zero (matrix element [0,0] is negative, maybe)" );
@@ -380,56 +380,56 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 
                 const float_q &INV_X = SQFloat::_1 / vRotationAxis.x;
                 const float_q &XY = (this->ij[0][1] + this->ij[1][0]) * SQFloat::_0_25;
-		        const float_q &XZ = (this->ij[0][2] + this->ij[2][0]) * SQFloat::_0_25;
+                const float_q &XZ = (this->ij[0][2] + this->ij[2][0]) * SQFloat::_0_25;
 
                 vRotationAxis.y = XY * INV_X;
-				vRotationAxis.z = XZ * INV_X;
-			}
-		}
+                vRotationAxis.z = XZ * INV_X;
+            }
+        }
         else if( SQFloat::IsGreaterThan(YY, ZZ) ) // m[1][1] is the largest diagonal term
         {
-			if (SQFloat::IsZero(YY))
+            if (SQFloat::IsZero(YY))
             {
-				vRotationAxis.x = HALF_SQRT_2;
-				vRotationAxis.y = SQFloat::_0;
-				vRotationAxis.z = HALF_SQRT_2;
-			}
+                vRotationAxis.x = HALF_SQRT_2;
+                vRotationAxis.y = SQFloat::_0;
+                vRotationAxis.z = HALF_SQRT_2;
+            }
             else
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(YY, SQFloat::_0), "The variable \"YY\" must be greater than zero (matrix element [1,1] is negative, maybe)" );
 
-				vRotationAxis.y = sqrt_q(YY);
+                vRotationAxis.y = sqrt_q(YY);
 
                 const float_q &INV_Y = SQFloat::_1 / vRotationAxis.y;
                 const float_q &XY = (this->ij[0][1] + this->ij[1][0]) * SQFloat::_0_25;
-		        const float_q &YZ = (this->ij[1][2] + this->ij[2][1]) * SQFloat::_0_25;
+                const float_q &YZ = (this->ij[1][2] + this->ij[2][1]) * SQFloat::_0_25;
 
                 vRotationAxis.x = XY * INV_Y;
-				vRotationAxis.z = YZ * INV_Y;
-			}
-		}
+                vRotationAxis.z = YZ * INV_Y;
+            }
+        }
         else // m[2][2] is the largest diagonal term so base result on this
         {
-			if(SQFloat::IsZero(ZZ))
+            if(SQFloat::IsZero(ZZ))
             {
-				vRotationAxis.x = HALF_SQRT_2;
-				vRotationAxis.y = HALF_SQRT_2;
-				vRotationAxis.z = SQFloat::_0;
-			}
+                vRotationAxis.x = HALF_SQRT_2;
+                vRotationAxis.y = HALF_SQRT_2;
+                vRotationAxis.z = SQFloat::_0;
+            }
             else
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(ZZ, SQFloat::_0), "The variable \"ZZ\" must be greater than zero (matrix element [2,2] is negative, maybe)" );
 
-				vRotationAxis.z = sqrt_q(ZZ);
+                vRotationAxis.z = sqrt_q(ZZ);
 
                 const float_q &INV_Z = SQFloat::_1 / vRotationAxis.z;
                 const float_q &XZ = (this->ij[0][2] + this->ij[2][0]) * SQFloat::_0_25;
-		        const float_q &YZ = (this->ij[1][2] + this->ij[2][1]) * SQFloat::_0_25;
+                const float_q &YZ = (this->ij[1][2] + this->ij[2][1]) * SQFloat::_0_25;
 
-				vRotationAxis.x = XZ * INV_Z;
-				vRotationAxis.y = YZ * INV_Z;
-			}
-		}
+                vRotationAxis.x = XZ * INV_Z;
+                vRotationAxis.y = YZ * INV_Z;
+            }
+        }
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // Since angles are specified in radians, we convert it to degrees
@@ -453,7 +453,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 
 float_q QRotationMatrix3x3::GetDeterminant() const
 {
-	return SQFloat::_1;
+    return SQFloat::_1;
 }
 
 template <class MatrixType>
@@ -506,12 +506,12 @@ QTransformationMatrix<MatrixType> QRotationMatrix3x3::ProductOperatorImp(const Q
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 const QRotationMatrix3x3& QRotationMatrix3x3::GetIdentity()

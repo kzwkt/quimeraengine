@@ -158,8 +158,8 @@ public:
     /// Turns the hand convention into opposite rules.
     /// </summary>
     /// <remarks>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br/>
-	/// To do that, we simply invert rotation (by trasposing its submatrix).
+    /// Remember that Quimera Engine works with left-hand convention by default.<br/>
+    /// To do that, we simply invert rotation (by trasposing its submatrix).
     /// </remarks>
     /// <returns>
     /// The switched matrix.

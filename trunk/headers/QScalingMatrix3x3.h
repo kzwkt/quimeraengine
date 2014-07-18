@@ -66,13 +66,13 @@ QScalingMatrix3x3 operator*(const float_q &fScalar, const QScalingMatrix3x3 &mat
 class QE_LAYER_TOOLS_SYMBOLS QScalingMatrix3x3 : public QMatrix3x3
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor. It's initialized to identity matrix.
-	/// </summary>
+    /// <summary>
+    /// Default constructor. It's initialized to identity matrix.
+    /// </summary>
     QScalingMatrix3x3();
 
     /// <summary>
@@ -108,7 +108,7 @@ public:
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>
@@ -125,8 +125,8 @@ public:
     static const QScalingMatrix3x3& GetIdentity();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     // Binary operators
@@ -141,7 +141,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-	QScalingMatrix3x3 operator*(const QScalingMatrix3x3 &matrix) const;
+    QScalingMatrix3x3 operator*(const QScalingMatrix3x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
@@ -153,9 +153,9 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QRotationMatrix3x3 &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QRotationMatrix3x3 &matrix) const;
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
     /// </summary>
     /// <remarks>
@@ -165,7 +165,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -177,7 +177,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
+    QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
@@ -189,7 +189,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
+    QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -201,7 +201,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
+    QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
     /// Assignation operator. Assigns the provided matrix to the resident matrix.
@@ -261,7 +261,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant() const;
+    float_q GetDeterminant() const;
 
 private:
 

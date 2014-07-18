@@ -84,7 +84,7 @@ public:
 
 
         // CONSTRUCTORS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -109,7 +109,7 @@ public:
 
 
         // METHODS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -289,7 +289,7 @@ public:
         bool IsValid() const;
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
     protected:
 
         /// <summary>
@@ -325,7 +325,7 @@ public:
     class QE_LAYER_COMMON_SYMBOLS QCharIterator : public QStringUnicode::QConstCharIterator
     {
         // CONSTRUCTORS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -342,7 +342,7 @@ public:
 
 
         // METHODS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -419,12 +419,12 @@ public:
 
 
     // CONSTANTS
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>
-	/// Value to be used when the length of a string is unknown but can be calculated by checking for a null terminator.
-	/// </summary>
+    /// Value to be used when the length of a string is unknown but can be calculated by checking for a null terminator.
+    /// </summary>
     static const int LENGTH_NULL_TERMINATED;
 
     /// <summary>
@@ -443,14 +443,14 @@ public:
     static const int PATTERN_NOT_FOUND;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QStringUnicode();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QStringUnicode();
 
     /// <summary>
     /// Constructor that makes a copy of another string.
@@ -507,8 +507,8 @@ public:
     QStringUnicode(const QCharUnicode &character);
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -975,8 +975,8 @@ private:
     static const icu::Collator* GetCollator(const EQComparisonType &eComparisonType);
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
@@ -1004,8 +1004,8 @@ public:
     static const QStringUnicode& GetEmpty();
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

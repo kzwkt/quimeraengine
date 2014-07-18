@@ -69,14 +69,14 @@ template <class MatrixType>
 class QTranslationMatrix : public MatrixType
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QTranslationMatrix()
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QTranslationMatrix()
     {
         this->ResetToIdentity();
     }
@@ -144,7 +144,7 @@ public:
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>
@@ -168,7 +168,7 @@ public:
 
 
     // METHODS
-	// ---------------
+    // ---------------
 public:
 
     // Binary operators
@@ -214,7 +214,7 @@ public:
         return ProductOperatorImp(matrix);
     }
 
-	/// <summary>
+    /// <summary>
     /// Multiplies a 3x3 scale matrix by the current matrix.
     /// </summary>
     /// <remarks>
@@ -435,7 +435,7 @@ public:
         vTranslation.w = SQFloat::_0;
     }
 
-	/// <summary>
+    /// <summary>
     /// Calculates the determinant of the matrix.
     /// </summary>
     /// <remarks>
@@ -445,10 +445,10 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant() const
-	{
-		return SQFloat::_1;
-	}
+    float_q GetDeterminant() const
+    {
+        return SQFloat::_1;
+    }
 
 private:
 

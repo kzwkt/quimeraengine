@@ -49,20 +49,20 @@ namespace Math
 class QE_LAYER_TOOLS_SYMBOLS QBaseQuaternion
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
-	/// Default constructor.
-	/// </summary>
+    /// Default constructor.
+    /// </summary>
     QBaseQuaternion();
 
     /// <summary>
-	/// Copy constructor. Copies attributes from given quaternion.
-	/// </summary>
-	/// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
-	QBaseQuaternion(const QBaseQuaternion &qQuat);
+    /// Copy constructor. Copies attributes from given quaternion.
+    /// </summary>
+    /// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
+    QBaseQuaternion(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
@@ -91,8 +91,8 @@ public:
     explicit QBaseQuaternion(const vf32_q &value);
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -114,29 +114,29 @@ public:
     bool operator!=(const QBaseQuaternion &qQuat) const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 public:
 
-	/// <summary>
-	/// Quaternion's x component.
-	/// </summary>
-	float_q x;
+    /// <summary>
+    /// Quaternion's x component.
+    /// </summary>
+    float_q x;
 
-	/// <summary>
-	/// Quaternion's y component.
-	/// </summary>
-	float_q y;
+    /// <summary>
+    /// Quaternion's y component.
+    /// </summary>
+    float_q y;
 
-	/// <summary>
-	/// Quaternion's z component.
-	/// </summary>
-	float_q z;
+    /// <summary>
+    /// Quaternion's z component.
+    /// </summary>
+    float_q z;
 
-	/// <summary>
-	/// Quaternion's w component.
-	/// </summary>
-	float_q w;
+    /// <summary>
+    /// Quaternion's w component.
+    /// </summary>
+    float_q w;
 };
 
 } //namespace Math

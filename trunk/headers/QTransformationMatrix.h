@@ -771,7 +771,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Remember that Quimera Engine works with left-hand convention by default.
-	/// To do that, we invert both rotation (by trasposing it) and z translation component.<br/>
+    /// To do that, we invert both rotation (by trasposing it) and z translation component.<br/>
     /// If the matrix was built using a null scale, the result is undefined.
     /// </remarks>
     /// <returns>

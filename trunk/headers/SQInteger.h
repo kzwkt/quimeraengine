@@ -114,16 +114,16 @@ public:
     static const i64_q MaxNegativeI64_Q;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	// Default constructor (hidden).
-	SQInteger();
+    // Default constructor (hidden).
+    SQInteger();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>

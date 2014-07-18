@@ -89,31 +89,31 @@ private:
     /// </summary>
     static const u64_q MAXIMUM_VALUE;
 
-	// CONSTRUCTORS
- 	// ---------------
+    // CONSTRUCTORS
+     // ---------------
 public:
 
     /// <summary>
-	/// Default constructor.
-	/// </summary>
+    /// Default constructor.
+    /// </summary>
     inline QTimeSpan() : m_uTimeSpan(0)
     {
     }
 
     /// <summary>
-	/// Constructor that receives a value containing a time span.
-	/// </summary>
-	/// <param name="uTimeValue">[IN] Value containing a time span in hundreds of nanoseconds.</param>
+    /// Constructor that receives a value containing a time span.
+    /// </summary>
+    /// <param name="uTimeValue">[IN] Value containing a time span in hundreds of nanoseconds.</param>
     explicit inline QTimeSpan(const u64_q &uTimeValue) : m_uTimeSpan(uTimeValue)
     {
     }
 
     /// <summary>
-	/// Constructor from different units of time.
-	/// </summary>
+    /// Constructor from different units of time.
+    /// </summary>
     /// <remarks>
     /// If the number of days, hours, etc. exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible.
-	/// </remarks>
+    /// </remarks>
     /// <param name="uDays">[IN] Number of days.</param>
     /// <param name="uHours">[IN] Number of hours.</param>
     /// <param name="uMinutes">[IN] Number of minutes.</param>
@@ -130,9 +130,9 @@ public:
               const u64_q uHundredsNanoseconds);
 
     /// <summary>
-	/// Copy constructor. Copies the content of the given time span.
-	/// </summary>
-	/// <param name="timeSpan">[IN] Time span instance that will be used to copy from.</param>
+    /// Copy constructor. Copies the content of the given time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance that will be used to copy from.</param>
     QTimeSpan(const QTimeSpan& timeSpan);
 
 
@@ -327,7 +327,7 @@ public:
     Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const;
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>

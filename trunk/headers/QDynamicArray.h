@@ -62,8 +62,8 @@ class QDynamicArray : public QFixedArray<T, AllocatorT, ComparatorT>
     using QFixedArray<T, AllocatorT, ComparatorT>::m_uLast;
     
 
-   	// CONSTANTS
-	// ---------------
+       // CONSTANTS
+    // ---------------
 private:
 
     /// <summary>
@@ -72,25 +72,25 @@ private:
     static float REALLOCATION_FACTOR;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     /// <remarks>
     /// The initial capacity depends on the value of the default initial capacity of the class.
     /// </remarks>
-	QDynamicArray()
+    QDynamicArray()
     {
         if(sm_uDefaultCapacity > QFixedArray<T, AllocatorT, ComparatorT>::DEFAULT_CAPACITY)
             this->Reserve(sm_uDefaultCapacity);
     }
 
     /// <summary>
-	/// Constructor that receives the initial capacity.
-	/// </summary>
+    /// Constructor that receives the initial capacity.
+    /// </summary>
     /// <param name="uInitialCapacity">[IN] The number of elements for which to reserve memory, the initial capacity. If it equals zero, the 
     /// default capacity will be used instead.</param>
     explicit QDynamicArray(const pointer_uint_q uInitialCapacity)
@@ -107,8 +107,8 @@ public:
     }
     
     /// <summary>
-	/// Copy constructor that receives a fixed array.
-	/// </summary>
+    /// Copy constructor that receives a fixed array.
+    /// </summary>
     /// <remarks>
     /// The copy constructor of every new element is called, from first to last.<br/>
     /// The capacity of the resultant array will be just the necessary to store the amount of elements of the input array.
@@ -131,8 +131,8 @@ public:
     }
 
     /// <summary>
-	/// Copy constructor that receives dynamic array.
-	/// </summary>
+    /// Copy constructor that receives dynamic array.
+    /// </summary>
     /// <remarks>
     /// The copy constructor of every new element is called, from first to last.<br/>
     /// The capacity of the resultant array will be just the necessary to store the amount of elements of the input array.
@@ -156,17 +156,17 @@ public:
     }
 
 
-	// DESTRUCTOR
-	// ---------------
+    // DESTRUCTOR
+    // ---------------
 public:
 
-	/// <summary>
-	/// Destructor.
-	/// </summary>
+    /// <summary>
+    /// Destructor.
+    /// </summary>
     /// <remarks>
     /// The destructor of every element is called, from first to last.
     /// </remarks>
-	~QDynamicArray()
+    ~QDynamicArray()
     {
         // The destructor of every element is called
         for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
@@ -174,13 +174,13 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
-	/// Assignment operator that copies a fixed array.
-	/// </summary>
+    /// Assignment operator that copies a fixed array.
+    /// </summary>
     /// <remarks>
     /// If the input array has less elements than the resident array, the destructor of the last elements (the difference) 
     /// will be called.<br/>
@@ -232,8 +232,8 @@ public:
     }
     
     /// <summary>
-	/// Assignment operator that copies a dynamic array.
-	/// </summary>
+    /// Assignment operator that copies a dynamic array.
+    /// </summary>
     /// <remarks>
     /// If the input array has less elements than the resident array, the destructor of the last elements (the difference) 
     /// will be called.<br/>
@@ -314,13 +314,13 @@ private:
     }
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 protected:
 
     /// <summary>

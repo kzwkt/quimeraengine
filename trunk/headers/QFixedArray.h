@@ -66,14 +66,14 @@ template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QP
 class QFixedArray
 {
     // TYPEDEFS
-	// --------------
+    // --------------
 protected:
 
     typedef QFixedArray<T, AllocatorT, ComparatorT> TFixedArray;
 
 
     // INTERNAL CLASSES
-	// -----------------
+    // -----------------
 public:
 
     /// <summary>
@@ -87,7 +87,7 @@ public:
     class QArrayIterator
     {
         // CONSTRUCTORS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -110,7 +110,7 @@ public:
 
 
         // METHODS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -566,7 +566,7 @@ public:
 
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
     private:
 
         /// <summary>
@@ -582,34 +582,34 @@ public:
     }; // QArrayIterator
 
 
-   	// CONSTANTS
-	// ---------------
+       // CONSTANTS
+    // ---------------
 protected:
 
-	/// <summary>
-	/// Constant to symbolize the end of the sequence near the last element.
-	/// </summary>
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the last element.
+    /// </summary>
     static const pointer_uint_q END_POSITION_FORWARD = -1;
 
-	/// <summary>
-	/// Constant to symbolize the end of the sequence near the first element.
-	/// </summary>
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the first element.
+    /// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
     
-	/// <summary>
-	/// The default capacity for an array when it is not specified by the user.
-	/// </summary>
+    /// <summary>
+    /// The default capacity for an array when it is not specified by the user.
+    /// </summary>
     static const pointer_uint_q DEFAULT_CAPACITY = 1;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
 public:
 
-	/// <summary>
-	/// Constructs a fixed array passing the number of elements to store and their initial value.
-	/// </summary>
+    /// <summary>
+    /// Constructs a fixed array passing the number of elements to store and their initial value.
+    /// </summary>
     /// <remarks>
     /// The copy constructor is called for every element of the array.
     /// </remarks>
@@ -630,9 +630,9 @@ public:
         }
     }
 
-	/// <summary>
-	/// Constructor that receives an existing array and its size.
-	/// </summary>
+    /// <summary>
+    /// Constructor that receives an existing array and its size.
+    /// </summary>
     /// <remarks>
     /// The copy constructor is called for every element of the array.
     /// </remarks>
@@ -654,8 +654,8 @@ public:
     }
 
     /// <summary>
-	/// Copy constructor. Creates a fixed array from another.
-	/// </summary>
+    /// Copy constructor. Creates a fixed array from another.
+    /// </summary>
     /// <remarks>
     /// The copy constructor is called for every element of the array.
     /// </remarks>
@@ -675,10 +675,10 @@ public:
 
 protected:
 
-	/// <summary>
-	/// Constructs an empty and invalid fixed array. It's responsability of the derived classes to initialize it properly.
-	/// </summary>
-	QFixedArray() :
+    /// <summary>
+    /// Constructs an empty and invalid fixed array. It's responsability of the derived classes to initialize it properly.
+    /// </summary>
+    QFixedArray() :
         m_uFirst(END_POSITION_BACKWARD),
         m_uLast(END_POSITION_FORWARD),
         m_allocator(QFixedArray::DEFAULT_CAPACITY * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
@@ -687,27 +687,27 @@ protected:
 
 
     // DESTRUCTOR
-	// ---------------
+    // ---------------
 public:
-	/// <summary>
-	/// Destructor.
-	/// </summary>
+    /// <summary>
+    /// Destructor.
+    /// </summary>
     /// <remarks>
     /// The destructor is called for every element of the array.
     /// </remarks>
-	~QFixedArray()
+    ~QFixedArray()
     {
         for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); ++uIndex)
             this->GetValue(uIndex).~T();
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
-  	/// <summary>
-	/// Defines the assignment operator which makes a copy of the passed fixed array.
-	/// </summary>
+      /// <summary>
+    /// Defines the assignment operator which makes a copy of the passed fixed array.
+    /// </summary>
     /// <remarks>
     /// If the size of the destination array is less than the size of the origin array, it will copy
     /// only the first elements that fit in the destination array. The exceeding elements are not copied and
@@ -866,11 +866,11 @@ private:
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 public:
-   	/// <summary>
-	/// Returns a constant pointer to the allocator.
-	/// </summary>
+       /// <summary>
+    /// Returns a constant pointer to the allocator.
+    /// </summary>
     /// <returns>
     /// Constant pointer to the allocator.
     /// </returns>
@@ -913,30 +913,30 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 
 protected:
 
     /// <summary>
-	/// The Comparator.
-	/// </summary>
+    /// The Comparator.
+    /// </summary>
     ComparatorT m_comparator;
 
     /// <summary>
-	/// Index of the first element in the sequence. If the index points to an invalid position its value is the
+    /// Index of the first element in the sequence. If the index points to an invalid position its value is the
     /// END_POSITION_BACKWARD constant.
-	/// </summary>
+    /// </summary>
     pointer_uint_q m_uFirst;
 
-   	/// <summary>
-	/// Index of the last element in the sequence. If the index points to an invalid position its value is the
+       /// <summary>
+    /// Index of the last element in the sequence. If the index points to an invalid position its value is the
     /// END_POSITION_FORWARD constant.
-	/// </summary>
+    /// </summary>
     pointer_uint_q m_uLast;
     
-	/// <summary>
-	/// The allocator which stores the array elements.
-	/// </summary>
+    /// <summary>
+    /// The allocator which stores the array elements.
+    /// </summary>
     AllocatorT m_allocator;
 
 };

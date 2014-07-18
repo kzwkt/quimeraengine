@@ -58,24 +58,24 @@ namespace DataTypes
 class QE_LAYER_COMMON_SYMBOLS QType
 {
 
-	// CONSTRUCTORS
-	// ---------------
-public:
-
-	/// <summary>
-	/// Constructor that receives the type's information.
-	/// </summary>
-    /// <param name="strName">The unqualified name of the type.</param>
-	explicit QType(const string_q &strName);
-
-
-	// METHODS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
-	/// Equality operator that checks if two instances are the same or not.
-	/// </summary>
+    /// Constructor that receives the type's information.
+    /// </summary>
+    /// <param name="strName">The unqualified name of the type.</param>
+    explicit QType(const string_q &strName);
+
+
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator that checks if two instances are the same or not.
+    /// </summary>
     /// <param name="type">The other instance to compare to.</param>
     /// <returns>
     /// True if both instances are equal (same memory address); False otherwise.
@@ -83,8 +83,8 @@ public:
     bool operator==(const QType &type) const;
 
     /// <summary>
-	/// Inequality operator that checks if two instances are different or not.
-	/// </summary>
+    /// Inequality operator that checks if two instances are different or not.
+    /// </summary>
     /// <param name="type">The other instance to compare to.</param>
     /// <returns>
     /// True if instances are not equal (different memory address); False otherwise.
@@ -92,8 +92,8 @@ public:
     bool operator!=(const QType &type) const;
     
     /// <summary>
-	/// Obtains the type information of a given basic C++ type.
-	/// </summary>
+    /// Obtains the type information of a given basic C++ type.
+    /// </summary>
     /// <typeparam name="T">The type whose information is to be obtained.</typeparam>
     /// <returns>
     /// The type information. The same instance will be returned always for each type, they are stored statically.
@@ -108,13 +108,13 @@ public:
     }
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
-	/// Gets the unqualified name of the type.
-	/// </summary>
+    /// Gets the unqualified name of the type.
+    /// </summary>
     /// <returns>
     /// The unqualified name of the type.
     /// </returns>
@@ -122,8 +122,8 @@ public:
 
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>
@@ -222,7 +222,7 @@ QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Com
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::u16_q>();
-	
+    
 /// <summary>
 /// Obtains the type information of a given basic C++ type.
 /// </summary>
@@ -232,7 +232,7 @@ QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Com
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::i16_q>();
-	
+    
 /// <summary>
 /// Obtains the type information of a given basic C++ type.
 /// </summary>
@@ -292,7 +292,7 @@ QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Com
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::f64_q>();
-	
+    
 /// <summary>
 /// Obtains the type information of a given basic C++ type.
 /// </summary>
@@ -302,7 +302,7 @@ QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Com
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::vf32_q>();
-	
+    
 
 } //namespace DataTypes
 } //namespace Common

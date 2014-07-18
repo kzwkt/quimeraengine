@@ -85,8 +85,8 @@ public:
     typedef std::pair<string_q, EQTextEncoding::EnumType> TNameValuePair;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
@@ -124,8 +124,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -335,7 +335,7 @@ private:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>

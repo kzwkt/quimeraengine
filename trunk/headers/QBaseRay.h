@@ -55,34 +55,34 @@ template<class VectorTypeOrigin, class VectorTypeDirection>
 class QBaseRay
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0)
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0)
     {
     }
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-	QBaseRay(const QBaseRay &ray) : Origin(ray.Origin), Direction(ray.Direction)
-	{
-	}
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
+    QBaseRay(const QBaseRay &ray) : Origin(ray.Origin), Direction(ray.Direction)
+    {
+    }
 
-	/// <summary>
-	/// Constructor from a point and a vector.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Constructor from a point and a vector.
+    /// </summary>
+    /// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
     /// <param name="vOrigin">[IN] Point where the vector is located.</param>
-	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
-	QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
+    /// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
+    QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
                         Origin(vOrigin), Direction(vDirection)
     {
     }
@@ -122,19 +122,19 @@ public:
         return !(*this == ray);
     }
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 public:
 
-	/// <summary>
-	/// Point where the vector is located.
-	/// </summary>
-	VectorTypeOrigin Origin;
+    /// <summary>
+    /// Point where the vector is located.
+    /// </summary>
+    VectorTypeOrigin Origin;
 
-	/// <summary>
-	/// Vector which defines the direction of the ray.
-	/// </summary>
-	VectorTypeDirection Direction;
+    /// <summary>
+    /// Vector which defines the direction of the ray.
+    /// </summary>
+    VectorTypeDirection Direction;
 
 };
 

@@ -71,24 +71,24 @@ public:
     using QRay<VectorType, QVector3>::IntersectionPoint;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QRay3D()
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QRay3D()
     {
     }
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="ray">[IN] The 3D ray from which we want to create a copy in the resident 3D ray.</param>
-	QRay3D(const QRay3D<VectorType> &ray) : QRay<VectorType, QVector3>(ray)
-	{
-	}
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="ray">[IN] The 3D ray from which we want to create a copy in the resident 3D ray.</param>
+    QRay3D(const QRay3D<VectorType> &ray) : QRay<VectorType, QVector3>(ray)
+    {
+    }
 
     /// <summary>
     /// Base type constructor.
@@ -116,9 +116,9 @@ public:
 public:
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is null.
+    /// </summary>
+    /// <returns>
     /// The null ray.
     /// </returns>
     static const QRay3D<VectorType>& GetNullRay()
@@ -128,9 +128,9 @@ public:
     }
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
+    /// </summary>
+    /// <returns>
     /// A ray that points to X direction.
     /// </returns>
     static const QRay3D<VectorType>& GetRayX()
@@ -140,9 +140,9 @@ public:
     }
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
+    /// </summary>
+    /// <returns>
     /// A ray that points to Y direction.
     /// </returns>
     static const QRay3D<VectorType>& GetRayY()
@@ -152,9 +152,9 @@ public:
     }
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is in Z growing direction.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is in Z growing direction.
+    /// </summary>
+    /// <returns>
     /// A ray that points to Z direction.
     /// </returns>
     static const QRay3D<VectorType>& GetRayZ()
@@ -164,8 +164,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -208,7 +208,7 @@ public:
     /// </remarks>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
     /// <returns>
-	/// A boolean value that indicates whether the rays intersect or not.<br/>
+    /// A boolean value that indicates whether the rays intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The rays intersect, including the following cases:
@@ -221,7 +221,7 @@ public:
     /// 
     /// <b>False</b><br/>
     /// The rays do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QRay3D<VectorType> &ray) const
     {
         // Direction vector of rays should not be null
@@ -270,8 +270,8 @@ public:
     }
 
     /// <summary>
-	/// Checks if the ray and the provided line segment intersects.
-	/// </summary>
+    /// Checks if the ray and the provided line segment intersects.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// How it is calculated:<br/>
@@ -296,9 +296,9 @@ public:
     /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
-	/// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
-	/// <returns>
-	/// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
+    /// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
+    /// <returns>
+    /// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the line segment intersect, including the following cases:
@@ -310,7 +310,7 @@ public:
     /// 
     /// <b>False</b><br/>
     /// The ray and the line segment do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseLineSegment<VectorType> &segment) const
     {
         // Direction vector belonging to the ray cannot be null and the length of the segment should be greater than zero (either or both of this rules may have failed)
@@ -385,7 +385,7 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident ray. If the plane is null, the result is undefined.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the plane intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the plane intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the plane intersect, including the following cases:
@@ -397,7 +397,7 @@ public:
     /// The ray and the plane do not intersect.
     /// - The ray is parallel to the plane and is not contained in it.
     /// - The origin of the ray belongs to one side of the space divided by the plane and does not point to the other side.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBasePlane &plane) const
     {
         // The plane shouldn't be null
@@ -427,7 +427,7 @@ public:
     /// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the triangle intersect, including the following cases:
@@ -441,7 +441,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the triangle do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
         // Vertices of the triangle must not coincide
@@ -481,7 +481,7 @@ public:
     /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with the ray. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the hexahedron intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the hexahedron intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the hexahedron intersect, including the following cases:
@@ -496,7 +496,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the hexahedron do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The direction vector of the ray mustn't be null
@@ -513,11 +513,11 @@ public:
 
 
     /// <summary>
-	/// Computes the intersection point between resident and provided ray.
-	/// </summary>
+    /// Computes the intersection point between resident and provided ray.
+    /// </summary>
     /// <remarks>
-	/// If there's no intersection point or there are infinite,
-	/// the output parameter used for storing that point won't be modified.<br/>
+    /// If there's no intersection point or there are infinite,
+    /// the output parameter used for storing that point won't be modified.<br/>
     /// <br/>
     /// If the rays intesect, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
@@ -539,10 +539,10 @@ public:
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-	/// </remarks>
-	/// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
-	/// <returns>
+    /// </remarks>
+    /// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
+    /// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -650,8 +650,8 @@ public:
     }
     
     /// <summary>
-	/// Computes the intersection point between the ray and provided line segment, if it exists.
-	/// </summary>
+    /// Computes the intersection point between the ray and provided line segment, if it exists.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// If there's no intersection point, the output parameters won't be modified.<br/>
@@ -677,10 +677,10 @@ public:
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-	/// </remarks>
-	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The closest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// </remarks>
+    /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
+    /// <param name="vIntersection">[OUT] The closest intersection point to the ray's origin.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -820,8 +820,8 @@ public:
     }
     
     /// <summary>
-	/// Computes the intersection point between resident ray and provided line segment, if it exists.
-	/// </summary>
+    /// Computes the intersection point between resident ray and provided line segment, if it exists.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// If there's no intersection point, the output parameters won't be modified.<br/>
@@ -847,11 +847,11 @@ public:
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-	/// </remarks>
-	/// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] The closest intersection point to the ray's origin.</param>
+    /// </remarks>
+    /// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
+    /// <param name="vIntersection1">[OUT] The closest intersection point to the ray's origin.</param>
     /// <param name="vIntersection2">[OUT] The furthest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -1090,17 +1090,17 @@ public:
         }
     }
 
-	/// <summary>
-	/// Computes the intersection points between the ray and provided triangle.
-	/// </summary>
+    /// <summary>
+    /// Computes the intersection points between the ray and provided triangle.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameter won't be modified.
-	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// If there's no intersection point, the output parameter won't be modified.
+    /// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -1128,18 +1128,18 @@ public:
         return this->IntersectionPoint(triangle, vIntersection, vAux);
     }
 
-	/// <summary>
-	/// Computes the intersection point between the ray and provided triangle.
-	/// </summary>
+    /// <summary>
+    /// Computes the intersection point between the ray and provided triangle.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.
-	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
+    /// If there's no intersection point, the output parameters won't be modified.
+    /// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin.</param>
-	/// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin.</param>
+    /// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -1481,17 +1481,17 @@ public:
     }
 
     /// <summary>
-	/// Computes the intersection point between the ray and provided hexahedron.
-	/// </summary>
+    /// Computes the intersection point between the ray and provided hexahedron.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// The hexahedron must be convex for the operation to return correct results.<br/>
-	/// If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
-	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
+    /// If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
+    /// </remarks>
+    /// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -1512,25 +1512,25 @@ public:
     /// - The origin of the ray belongs to an edge of the hexahedron and the ray points to the hexahedron.
     /// - The origin of the ray coincides with a vertex of the hexahedron and the ray points to the hexahedron.
     /// </returns>
-	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
-	{
-	    VectorType vAux;
-	    return this->IntersectionPoint(hexahedron, vIntersection, vAux);
-	}
+    EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
+    {
+        VectorType vAux;
+        return this->IntersectionPoint(hexahedron, vIntersection, vAux);
+    }
 
     /// <summary>
-	/// Computes the intersection points between the ray and provided hexahedron.
-	/// </summary>
+    /// Computes the intersection points between the ray and provided hexahedron.
+    /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// The hexahedron must be convex for the operation to return correct results.<br/>
-	/// If there are no intersection point, the output parameters used for storing the intersection points will not be modified.
+    /// If there are no intersection point, the output parameters used for storing the intersection points will not be modified.
     /// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
+    /// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin.</param>
     /// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin.</param>
-	/// <returns>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -1551,8 +1551,8 @@ public:
     /// - The origin of the ray belongs to an edge of the hexahedron and the ray points to the hexahedron.
     /// - The origin of the ray coincides with a vertex of the hexahedron and the ray points to the hexahedron.
     /// </returns>
-	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
-	{
+    EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
+    {
         VectorType vAuxPoint, vAux1, vAux2;
         bool bPreviousInt = false;
 
@@ -1860,348 +1860,348 @@ public:
     }
 
     /// <summary>
-	/// This method rotates the resident ray applying the rotation contained in the provided quaternion
-	/// around the coordinate axis centre.
-	/// </summary>
-	/// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
+    /// This method rotates the resident ray applying the rotation contained in the provided quaternion
+    /// around the coordinate axis centre.
+    /// </summary>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay3D<VectorType> Rotate(const QQuaternion &qRotation) const
-	{
+    QRay3D<VectorType> Rotate(const QQuaternion &qRotation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Rotate(qRotation, &auxRay.Origin, 1);
         SQPoint::Rotate(qRotation, &auxRay.Direction, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method rotates the resident ray applying the rotation contained in the provided quaternion
-	/// around the point provided as pivot.
-	/// </summary>
-	/// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
-	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
+    /// This method rotates the resident ray applying the rotation contained in the provided quaternion
+    /// around the point provided as pivot.
+    /// </summary>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] Point which acts as pivot.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
-	{
+    QRay3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::RotateWithPivot(qRotation, vPivot, &auxRay.Origin, 1);
         SQPoint::Rotate(qRotation, &auxRay.Direction, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method translates the resident ray by the translation contained in the provided vector.
-	/// </summary>
-	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
+    /// This method translates the resident ray by the translation contained in the provided vector.
+    /// </summary>
+    /// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
-	{
+    QRay3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(vTranslation, &auxRay.Origin, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method translates the resident ray by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
-	/// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
-	/// <param name="fTranslationZ">[IN] Amount of translation in Z direction.</param>
+    /// This method translates the resident ray by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
+    /// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
+    /// <param name="fTranslationZ">[IN] Amount of translation in Z direction.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
-	{
+    QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided vector.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay3D<VectorType> Scale(const QBaseVector3 &vScale) const
-	{
+    QRay3D<VectorType> Scale(const QBaseVector3 &vScale) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(vScale, &auxRay.Origin, 1);
         SQPoint::Scale(vScale, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis.
-	/// </summary>
+    /// This method scales the resident ray by the amounts provided for every axis.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
-	{
+    QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Origin, 1);
         SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector from
-	/// the provided point that acts as pivot.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided vector from
+    /// the provided point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+    /// </remarks>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
-	{
+    QRay3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
         SQPoint::Scale(vScale, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis from
-	/// the provided point that acts as pivot.
-	/// </summary>
+    /// This method scales the resident ray by the amounts provided for every axis from
+    /// the provided point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+    /// </remarks>
+    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
-	{
+    QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, &auxRay.Origin, 1);
         SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method rotates the resident ray applying the rotation contained in the provided matrix
-	/// around the coordinate axis centre.
-	/// </summary>
-	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
+    /// This method rotates the resident ray applying the rotation contained in the provided matrix
+    /// around the coordinate axis centre.
+    /// </summary>
+    /// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
-	{
+    QRay3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Rotate(rotation, &auxRay.Origin, 1);
         SQPoint::Rotate(rotation, &auxRay.Direction, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method translates the resident ray by the translation contained in the provided matrix.
-	/// </summary>
-	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
+    /// This method translates the resident ray by the translation contained in the provided matrix.
+    /// </summary>
+    /// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
-	{
+    QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(translation, &auxRay.Origin, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method translates the resident ray by the translation contained in the provided matrix.
-	/// </summary>
-	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
+    /// This method translates the resident ray by the translation contained in the provided matrix.
+    /// </summary>
+    /// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
-	{
+    QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(translation, &auxRay.Origin, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided matrix.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided matrix.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="scale">[IN] Matrix which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
-	{
+    QRay3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(scale, &auxRay.Origin, 1);
         SQPoint::Scale(scale, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method applies to the resident ray the transformation contained in the provided matrix.
-	/// </summary>
+    /// This method applies to the resident ray the transformation contained in the provided matrix.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+    QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
         return this->TransformImp(transformation);
-	}
+    }
 
     /// <summary>
-	/// This method applies to the resident ray the transformation contained in the provided matrix.
-	/// </summary>
+    /// This method applies to the resident ray the transformation contained in the provided matrix.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+    QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
         return this->TransformImp(transformation);
-	}
+    }
 
-	/// <summary>
-	/// This method applies to the resident ray the transformation contained in the provided matrix.
-	/// </summary>
+    /// <summary>
+    /// This method applies to the resident ray the transformation contained in the provided matrix.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="spaceConversion">[IN] Matrix which contains the transformation to be applied.</param>
+    /// Resultant ray is normalized after this operation.
+    /// </remarks>
+    /// <param name="spaceConversion">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
-	{
+    QRay3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+    {
         return QRay3D<VectorType>(this->Origin.Transform(spaceConversion), 
                                   this->Direction.Transform(spaceConversion));
-	}
+    }
 
     /// <summary>
-	/// This method rotates the resident ray applying the rotation contained in the provided matrix
-	/// around a given point that acts as pivot of rotation.
-	/// </summary>
-	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
-	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
+    /// This method rotates the resident ray applying the rotation contained in the provided matrix
+    /// around a given point that acts as pivot of rotation.
+    /// </summary>
+    /// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] Point which acts as pivot.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
-	{
+    QRay3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::RotateWithPivot(rotation, vPivot, &auxRay.Origin, 1);
         SQPoint::Rotate(rotation, &auxRay.Direction, 1);
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided matrix from
-	/// a given point that acts as pivot.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided matrix from
+    /// a given point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+    /// </remarks>
+    /// <param name="scale">[IN] Matrix which contains the scale to be applied. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
-	{
+    QRay3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);
         SQPoint::Scale(scale, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
-	}
+    }
 
     /// <summary>
-	/// This method applies the transformation contained in the provided matrix using
-	/// a given point as pivot of transformation.
-	/// </summary>
+    /// This method applies the transformation contained in the provided matrix using
+    /// a given point as pivot of transformation.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
-	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+    /// </remarks>
+    /// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+    QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
     {
         return this->TransformWithPivotImp(transformation, vPivot);
-	}
+    }
 
     /// <summary>
-	/// This method applies the transformation contained in the provided matrix using
-	/// a given point as pivot of transformation.
-	/// </summary>
+    /// This method applies the transformation contained in the provided matrix using
+    /// a given point as pivot of transformation.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
-	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+    /// </remarks>
+    /// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+    QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
     {
         return this->TransformWithPivotImp(transformation, vPivot);
-	}
+    }
 
 protected:
 
     /// <summary>
-	/// Checks if the ray contains a given point.
-	/// </summary>
+    /// Checks if the ray contains a given point.
+    /// </summary>
     /// <remarks>
-	/// Ray must be normalized for the operation to return a correct result.
-	/// </remarks>
-	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// Ray must be normalized for the operation to return a correct result.
+    /// </remarks>
+    /// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
     /// True if the point belongs to the ray; False otherwise.
     /// </returns>
@@ -2224,10 +2224,10 @@ protected:
     }
 
     /// <summary>
-	/// Checks if a triangle contains a given point.
-	/// </summary>
+    /// Checks if a triangle contains a given point.
+    /// </summary>
     /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
-	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
     /// True if the point belongs to the triangle; False otherwise.
     /// </returns>
@@ -2263,13 +2263,13 @@ protected:
     }
 
     /// <summary>
-	/// Calculates if a point is inside the quadrilateral provided by four vertices.
-	/// </summary>
+    /// Calculates if a point is inside the quadrilateral provided by four vertices.
+    /// </summary>
     /// <remarks>
-	/// The quadrilateral is suppossed to be convex and not complex.
-	/// </remarks>
+    /// The quadrilateral is suppossed to be convex and not complex.
+    /// </remarks>
     /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
-	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
     /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
     /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
     /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
@@ -2336,8 +2336,8 @@ protected:
 
     /// <summary>
     /// Checks if the ray intersects with a quadrilateral given by its four vertices.
-	/// </summary>
-	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// </summary>
+    /// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
     /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
     /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
     /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
@@ -2363,8 +2363,8 @@ protected:
 
     /// <summary>
     /// Calculates the intersection point between a quadrilateral given by its four vertices and the resident ray.
-	/// </summary>
-	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// </summary>
+    /// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
     /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
     /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
     /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
@@ -2778,19 +2778,19 @@ protected:
 private:
 
     /// <summary>
-	/// This method applies to the resident ray the transformation contained in the provided matrix.
-	/// </summary>
+    /// This method applies to the resident ray the transformation contained in the provided matrix.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
+    /// Resultant ray is normalized after this operation.
+    /// </remarks>
     /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	template <class MatrixType>
-	QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
-	{
+    template <class MatrixType>
+    QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Transform(transformation, &auxRay.Origin, 1);
 
@@ -2801,24 +2801,24 @@ private:
                                     this->Direction.x * transformation.ij[0][2] + this->Direction.y * transformation.ij[1][2] + this->Direction.z * transformation.ij[2][2])
                                     .Normalize();
         return auxRay;
-	}
+    }
 
     /// <summary>
-	/// This method applies to the resident ray the transformation contained in the provided matrix using
-	/// a given point as pivot of transformation.
-	/// </summary>
+    /// This method applies to the resident ray the transformation contained in the provided matrix using
+    /// a given point as pivot of transformation.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
+    /// Resultant ray is normalized after this operation.
+    /// </remarks>
     /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+    /// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	template <class MatrixType>
-	QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
-	{
+    template <class MatrixType>
+    QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
+    {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
 
@@ -2829,7 +2829,7 @@ private:
                                     this->Direction.x * transformation.ij[0][2] + this->Direction.y * transformation.ij[1][2] + this->Direction.z * transformation.ij[2][2])
                                     .Normalize();
         return auxRay;
-	}
+    }
 };
 
 

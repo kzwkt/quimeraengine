@@ -81,8 +81,8 @@ public:
     typedef std::pair<string_q, EQIterationDirection::EnumType> TNameValuePair;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
@@ -120,8 +120,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -330,7 +330,7 @@ private:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>

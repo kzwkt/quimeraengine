@@ -132,18 +132,18 @@ public:
     static const float_q RadiansPerDegree;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	// <summary>
-	// Default constructor (hidden).
-	// </summary>
-	SQAngle();
+    // <summary>
+    // Default constructor (hidden).
+    // </summary>
+    SQAngle();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>

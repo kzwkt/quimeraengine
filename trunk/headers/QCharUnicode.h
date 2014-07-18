@@ -53,15 +53,15 @@ typedef u32_q codepoint_q; // A code point, which is represented by a 32 bits un
 class QE_LAYER_COMMON_SYMBOLS QCharUnicode
 {
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
     /// Constructor that receives a Unicode code point.
     /// </summary>
     /// <param name="codepoint">[IN] A code point that represents the character in the Unicode code space.</param>
-	QCharUnicode(const codepoint_q &codepoint);
+    QCharUnicode(const codepoint_q &codepoint);
 
     /// <summary>
     /// Constructor that makes a copy of another character.
@@ -70,8 +70,8 @@ public:
     QCharUnicode(const QCharUnicode &character);
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -102,8 +102,8 @@ public:
     bool operator!=(const QCharUnicode &character) const;
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
@@ -115,8 +115,8 @@ public:
     codepoint_q GetCodePoint() const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

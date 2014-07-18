@@ -46,12 +46,12 @@ namespace Math
 {
     
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QLineSegment2D::QLineSegment2D()
@@ -72,12 +72,12 @@ QLineSegment2D::QLineSegment2D(const QVector2& vA, const QVector2& vB) : QLineSe
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QLineSegment2D& QLineSegment2D::operator=(const QBaseLineSegment<QVector2> &segment)
@@ -94,9 +94,9 @@ bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) cons
     // The vertices of the triangle shouldn't coincide
     QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "The vertices of the triangle shouldn't coincide");
 
-	// Just checking if the segment instersects with any edge of the triangle.
+    // Just checking if the segment instersects with any edge of the triangle.
 
-	if ( this->Intersection(QLineSegment2D(triangle.A, triangle.B)) ||
+    if ( this->Intersection(QLineSegment2D(triangle.A, triangle.B)) ||
          this->Intersection(QLineSegment2D(triangle.B, triangle.C)) ||
          this->Intersection(QLineSegment2D(triangle.C, triangle.A)) )
         return true;
@@ -116,7 +116,7 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
               quad.B != quad.C && quad.B != quad.D &&
               quad.C != quad.D, "The vertices of the quadrilateral shouldn't coincide");
 
-	if ( this->Intersection(QLineSegment2D(quad.A, quad.B)) ||
+    if ( this->Intersection(QLineSegment2D(quad.A, quad.B)) ||
          this->Intersection(QLineSegment2D(quad.B, quad.C)) ||
          this->Intersection(QLineSegment2D(quad.C, quad.D)) ||
          this->Intersection(QLineSegment2D(quad.D, quad.A)))
@@ -137,70 +137,70 @@ QLineSegment2D QLineSegment2D::Rotate(const float_q &fRotationAngle) const
 QLineSegment2D QLineSegment2D::Translate(const QBaseVector2 &vTranslation) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::Scale(const QBaseVector2 &vScale) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::Scale(vScale, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::Scale(vScale, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::Scale(const float_q &fScaleX, const float_q &fScaleY) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::Transform(const QTransformationMatrix3x3 &transformation) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::Transform(transformation, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::Transform(transformation, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 QLineSegment2D QLineSegment2D::TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
-	SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
     return auxLineSegment;
 }
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
 {
-	QBaseVector2 vAux;
-	return this->IntersectionPoint(triangle, vIntersection, vAux);
+    QBaseVector2 vAux;
+    return this->IntersectionPoint(triangle, vIntersection, vAux);
 }
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
@@ -1840,8 +1840,8 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
 {
-	QBaseVector2 vAux;
-	return this->IntersectionPoint(quad, vIntersection, vAux);
+    QBaseVector2 vAux;
+    return this->IntersectionPoint(quad, vIntersection, vAux);
 }
 
 bool QLineSegment2D::PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const
@@ -1866,31 +1866,31 @@ bool QLineSegment2D::PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 
 
 bool QLineSegment2D::PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const
 {
-	return ( PointsInSameSideOfLine(vPoint, quad.C, quad.A, quad.B) &&
+    return ( PointsInSameSideOfLine(vPoint, quad.C, quad.A, quad.B) &&
                 PointsInSameSideOfLine(vPoint, quad.A, quad.B, quad.C) &&
                 PointsInSameSideOfLine(vPoint, quad.A, quad.C, quad.D) &&
                 PointsInSameSideOfLine(vPoint, quad.C, quad.D, quad.A) );
 }
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 const QLineSegment2D& QLineSegment2D::GetUnitLine()
 {
-	static const QLineSegment2D UNITLINE(QVector2::GetNullVector(), QVector2::GetUnitVectorX());
-	return UNITLINE;
+    static const QLineSegment2D UNITLINE(QVector2::GetNullVector(), QVector2::GetUnitVectorX());
+    return UNITLINE;
 }
 
 const QLineSegment2D& QLineSegment2D::GetLineZero()
 {
-	static const QLineSegment2D LINEZERO(QVector2::GetNullVector(), QVector2::GetNullVector());
-	return LINEZERO;
+    static const QLineSegment2D LINEZERO(QVector2::GetNullVector(), QVector2::GetNullVector());
+    return LINEZERO;
 }
 
 

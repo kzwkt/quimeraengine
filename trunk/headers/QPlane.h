@@ -71,8 +71,8 @@ class QMatrix4x4;
 /// </remarks>
 class QE_LAYER_TOOLS_SYMBOLS QPlane : public QBasePlane
 {
-	// FRIENDS
-	// ---------------
+    // FRIENDS
+    // ---------------
 public:
 
     /// <summary>
@@ -89,20 +89,20 @@ public:
     friend QPlane QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QPlane &plane);
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
     QPlane();
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
-	QPlane(const QPlane &plane);
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
+    QPlane(const QPlane &plane);
 
     /// <summary>
     /// Base type constructor.
@@ -110,80 +110,80 @@ public:
     /// <param name="plane">The plane on which we base the resident plane.</param>
     QPlane(const QBasePlane &plane);
 
-	/// <summary>
-	/// Constructor from a floating point value for each coefficient.
-	/// </summary>
-	/// <param name="fA">[IN] Floating point value for a coefficient.</param>
-	/// <param name="fB">[IN] Floating point value for b coefficient.</param>
-	/// <param name="fC">[IN] Floating point value for c coefficient.</param>
-	/// <param name="fD">[IN] Floating point value for independent term d.</param>
+    /// <summary>
+    /// Constructor from a floating point value for each coefficient.
+    /// </summary>
+    /// <param name="fA">[IN] Floating point value for a coefficient.</param>
+    /// <param name="fB">[IN] Floating point value for b coefficient.</param>
+    /// <param name="fC">[IN] Floating point value for c coefficient.</param>
+    /// <param name="fD">[IN] Floating point value for independent term d.</param>
     QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD);
 
-	/// <summary>
-	/// Constructor from a floating point value for all coefficients.
-	/// </summary>
-	/// <param name="fValueAll">[IN] Floating point value for all the coefficients.</param>
-	explicit QPlane(const float_q &fValueAll);
+    /// <summary>
+    /// Constructor from a floating point value for all coefficients.
+    /// </summary>
+    /// <param name="fValueAll">[IN] Floating point value for all the coefficients.</param>
+    explicit QPlane(const float_q &fValueAll);
 
     /// <summary>
-	/// Constructor from a pointer to an array of floating point values.
-	/// </summary>
-	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// Constructor from a pointer to an array of floating point values.
+    /// </summary>
+    /// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
     /// is undefined.</param>
     explicit QPlane(float_q* arValues);
 
-	/// <summary>
-	/// Constructor from a 4x32 packed float value.
-	/// </summary>
-	/// <param name="value">[IN] 4x32 packed float containing the four components.</param>
-	/// <remarks>
-	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
-	/// 3rd value (c coefficient), 4th value (d independent term).
-	/// </remarks>
+    /// <summary>
+    /// Constructor from a 4x32 packed float value.
+    /// </summary>
+    /// <param name="value">[IN] 4x32 packed float containing the four components.</param>
+    /// <remarks>
+    /// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
+    /// 3rd value (c coefficient), 4th value (d independent term).
+    /// </remarks>
     explicit QPlane(const vf32_q value);
 
     /// <summary>
-	/// Constructor from three points.
-	/// </summary>
+    /// Constructor from three points.
+    /// </summary>
     /// <remarks>
     /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br/>
     /// The three points shouldn't be collinear and shouldn't coincide; otherwise, the result is undefined.
     /// </remarks>
-	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
-	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
-	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
+    /// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
+    /// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
+    /// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     QPlane(const QVector3 &vPoint1, const QVector3 &vPoint2, const QVector3 &vPoint3);
 
     /// <summary>
-	/// Constructor from three points.
-	/// </summary>
+    /// Constructor from three points.
+    /// </summary>
     /// <remarks>
     /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br/>
     /// The three points shouldn't be collinear and shouldn't coincide; otherwise, the result is undefined.
     /// </remarks>
-	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
-	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
-	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
+    /// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
+    /// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
+    /// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     QPlane(const QVector4 &vPoint1, const QVector4 &vPoint2, const QVector4 &vPoint3);
 
 private:
 
-	/// <summary>
-	/// Constructor from three points.
-	/// </summary>
+    /// <summary>
+    /// Constructor from three points.
+    /// </summary>
     /// <remarks>
     /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.
     /// </remarks>
     /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
-	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
-	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
-	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
+    /// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
+    /// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
+    /// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     template <class VectorType>
     void QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, const VectorType &vPoint3);
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>
@@ -220,7 +220,7 @@ public:
 
 
     // METHODS
-	// ---------------
+    // ---------------
 public:
 
     /// <summary>

@@ -93,7 +93,7 @@ public:
     /// <param name="vH">[IN] Vector to define vertex H.</param>
     QBaseHexahedron(const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
                     const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
-							    A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH)
+                                A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH)
     {
     }
 

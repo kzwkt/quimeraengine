@@ -82,8 +82,8 @@ protected:
     /// </remarks>
     class QNode
     {
-	    // CONSTRUCTORS
-	    // ---------------
+        // CONSTRUCTORS
+        // ---------------
 
     public:
 
@@ -104,7 +104,7 @@ protected:
 
 
         // PROPERTIES
-	    // ---------------
+        // ---------------
 
     public:
 
@@ -190,7 +190,7 @@ protected:
 
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
 
     private:
 
@@ -217,27 +217,27 @@ protected:
     };
 
 
-   	// CONSTANTS
-	// ---------------
+       // CONSTANTS
+    // ---------------
 
     /// <summary>
     /// Number of elements for which to reserve memory by default.
     /// </summary>
     static pointer_uint_q sm_uDefaultCapacity;
 
-	/// <summary>
-	/// Constant to symbolize the absence of a node or the end of the sequence when the tree is traversed.
-	/// </summary>
+    /// <summary>
+    /// Constant to symbolize the absence of a node or the end of the sequence when the tree is traversed.
+    /// </summary>
     static const pointer_uint_q END_POSITION_FORWARD = -1;
 
-	/// <summary>
-	/// The maximum number of child nodes per node.
-	/// </summary>
+    /// <summary>
+    /// The maximum number of child nodes per node.
+    /// </summary>
     const pointer_uint_q MAX_CHILDREN;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
 public:
 
@@ -277,7 +277,7 @@ public:
 protected:
 
     // DESTRUCTOR
-	// ---------------
+    // ---------------
 
 public:
 
@@ -295,8 +295,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -488,13 +488,13 @@ private:
 
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
 public:
 
-   	/// <summary>
-	/// Gets the element allocator.
-	/// </summary>
+       /// <summary>
+    /// Gets the element allocator.
+    /// </summary>
     /// <returns>
     /// The element allocator.
     /// </returns>
@@ -504,9 +504,9 @@ public:
     }
 
     /// <summary>
-	/// Gets the capacity of the tree, which means the number of elements that can be added before they are reallocated
+    /// Gets the capacity of the tree, which means the number of elements that can be added before they are reallocated
     /// another part of memory.
-	/// </summary>
+    /// </summary>
     /// <returns>
     /// The capacity of the tree.
     /// </returns>
@@ -516,8 +516,8 @@ public:
     }
 
     /// <summary>
-	/// Gets the number of elements added to the tree.
-	/// </summary>
+    /// Gets the number of elements added to the tree.
+    /// </summary>
     /// <returns>
     /// The number of elements in the tree.
     /// </returns>
@@ -527,8 +527,8 @@ public:
     }
 
     /// <summary>
-	/// Indicates whether the tree is empty or not.
-	/// </summary>
+    /// Indicates whether the tree is empty or not.
+    /// </summary>
     /// <returns>
     /// True if the tree is empty; False otherwise.
     /// </returns>
@@ -539,28 +539,28 @@ public:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 
 protected:
 
-	/// <summary>
-	/// The allocator which stores the tree elements.
-	/// </summary>
+    /// <summary>
+    /// The allocator which stores the tree elements.
+    /// </summary>
     AllocatorT m_elementAllocator;
 
-  	/// <summary>
-	/// The allocator which stores the tree nodes for internal operations.
-	/// </summary>
+      /// <summary>
+    /// The allocator which stores the tree nodes for internal operations.
+    /// </summary>
     AllocatorT m_nodeAllocator;
 
     /// <summary>
-	/// The position of the root node in the internal buffer.
-	/// </summary>
+    /// The position of the root node in the internal buffer.
+    /// </summary>
     pointer_uint_q m_uRoot;
     
     /// <summary>
-	/// The comparator used to compare elements.
-	/// </summary>
+    /// The comparator used to compare elements.
+    /// </summary>
     ComparatorT m_comparator;
 
 };

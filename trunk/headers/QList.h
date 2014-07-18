@@ -73,8 +73,8 @@ protected:
     /// </summary>
     class QLink
     {
-	    // CONSTRUCTORS
-	    // ---------------
+        // CONSTRUCTORS
+        // ---------------
 
     public:
 
@@ -92,7 +92,7 @@ protected:
 
 
         // PROPERTIES
-	    // ---------------
+        // ---------------
 
         /// <summary>
         /// Returns the index of the next element in the list.
@@ -137,7 +137,7 @@ protected:
     public:
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
 
     protected:
 
@@ -166,7 +166,7 @@ public:
     class QListIterator
     {
         // CONSTRUCTORS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -190,7 +190,7 @@ public:
 
 
         // METHODS
-	    // ---------------
+        // ---------------
     public:
 
         /// <summary>
@@ -623,7 +623,7 @@ public:
 
 
         // ATTRIBUTES
-	    // ---------------
+        // ---------------
     private:
 
         /// <summary>
@@ -639,8 +639,8 @@ public:
     }; // QListIterator
 
 
-   	// CONSTANTS
-	// ---------------
+       // CONSTANTS
+    // ---------------
 protected:
 
     /// <summary>
@@ -648,18 +648,18 @@ protected:
     /// </summary>
     static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
 
-	/// <summary>
-	/// Constant to symbolize the end of the sequence near the last element.
-	/// </summary>
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the last element.
+    /// </summary>
     static const pointer_uint_q END_POSITION_FORWARD = -1;
 
-	/// <summary>
-	/// Constant to symbolize the end of the sequence near the first element.
-	/// </summary>
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the first element.
+    /// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 
 public:
 
@@ -729,7 +729,7 @@ public:
 protected:
 
     // DESTRUCTOR
-	// ---------------
+    // ---------------
 
 public:
 
@@ -766,8 +766,8 @@ public:
         }
     }
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -992,13 +992,13 @@ public:
 private:
 
     // PROPERTIES
-	// ---------------
+    // ---------------
 
 public:
 
-   	/// <summary>
-	/// Returns a constant pointer to the element allocator.
-	/// </summary>
+       /// <summary>
+    /// Returns a constant pointer to the element allocator.
+    /// </summary>
     /// <returns>
     /// Constant pointer to the element allocator.
     /// </returns>
@@ -1041,33 +1041,33 @@ public:
     }
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 
 protected:
 
     /// <summary>
-	/// The comparator used to compare elements.
-	/// </summary>
+    /// The comparator used to compare elements.
+    /// </summary>
     ComparatorT m_comparator;
 
     /// <summary>
-	/// Index of the first element in the sequence. If there is no first element, its value is END_POSITION_BACKWARD constant.
-	/// </summary>
+    /// Index of the first element in the sequence. If there is no first element, its value is END_POSITION_BACKWARD constant.
+    /// </summary>
     pointer_uint_q m_uFirst;
 
-   	/// <summary>
-	/// Index of the last element in the sequence. If there is no last element, its value is END_POSITION_FORWARD constant.
-	/// </summary>
+       /// <summary>
+    /// Index of the last element in the sequence. If there is no last element, its value is END_POSITION_FORWARD constant.
+    /// </summary>
     pointer_uint_q m_uLast;
 
-	/// <summary>
-	/// The allocator which stores the list elements.
-	/// </summary>
+    /// <summary>
+    /// The allocator which stores the list elements.
+    /// </summary>
     AllocatorT m_elementAllocator;
 
-  	/// <summary>
-	/// The allocator which stores the double linked list for internals.
-	/// </summary>
+      /// <summary>
+    /// The allocator which stores the double linked list for internals.
+    /// </summary>
     AllocatorT m_linkAllocator;
 };
 

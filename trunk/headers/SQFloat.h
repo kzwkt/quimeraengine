@@ -139,16 +139,16 @@ public:
 
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 private:
 
-	// Default constructor (hidden).
+    // Default constructor (hidden).
     SQFloat();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -477,19 +477,19 @@ public:
     /// </returns>
     static float_q Truncate(const float_q &fValue);
 
-	/// <summary>
-	/// This method clamps the input value to lie within the range [Min..Max].
-	/// </summary>
+    /// <summary>
+    /// This method clamps the input value to lie within the range [Min..Max].
+    /// </summary>
     /// <remarks>
     /// No tolerance is used for this operation.
     /// </remarks>
-	/// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
-	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
-	/// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
+    /// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
+    /// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
+    /// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
     /// <returns>
     /// The clamped value.
     /// </returns>
-	static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax);
+    static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax);
 
     /// <summary>
     /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.

@@ -42,12 +42,12 @@ namespace Math
 {
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QBaseVector4::QBaseVector4() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0)
@@ -56,10 +56,10 @@ QBaseVector4::QBaseVector4() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w
 
 QBaseVector4::QBaseVector4(const QBaseVector4 &vVector)
 {
-	this->x = vVector.x;
-	this->y = vVector.y;
-	this->z = vVector.z;
-	this->w = vVector.w;
+    this->x = vVector.x;
+    this->y = vVector.y;
+    this->z = vVector.z;
+    this->w = vVector.w;
 }
 
 QBaseVector4::QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
@@ -73,14 +73,14 @@ QBaseVector4::QBaseVector4(const float_q &fValueAll) : x(fValueAll), y(fValueAll
 
 QBaseVector4::QBaseVector4(const float_q* arValues)
 {
-	// Null pointer checkout
-	QE_ASSERT(arValues != null_q, "Input array must not be null");
+    // Null pointer checkout
+    QE_ASSERT(arValues != null_q, "Input array must not be null");
 
-	// Assignments
-	x = arValues[0];
-	y = arValues[1];
-	z = arValues[2];
-	w = arValues[3];
+    // Assignments
+    x = arValues[0];
+    y = arValues[1];
+    z = arValues[2];
+    w = arValues[3];
 }
 
 QBaseVector4::QBaseVector4(const vf32_q &value)
@@ -92,12 +92,12 @@ QBaseVector4::QBaseVector4(const vf32_q &value)
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 bool QBaseVector4::operator==(const QBaseVector4 &vVector) const

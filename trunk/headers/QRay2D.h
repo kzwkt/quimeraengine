@@ -68,20 +68,20 @@ public:
     using QRay<QVector2, QVector2>::IntersectionPoint;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor.
-	/// </summary>
-	QRay2D();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QRay2D();
 
     /// <summary>
-	/// Copy constructor.
-	/// </summary>
-	/// <param name="ray">[IN] The 2D ray from which we want to create a copy in the resident 2D ray.</param>
-	QRay2D(const QRay2D &ray);
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="ray">[IN] The 2D ray from which we want to create a copy in the resident 2D ray.</param>
+    QRay2D(const QRay2D &ray);
 
     /// <summary>
     /// Base type constructor.
@@ -105,32 +105,32 @@ public:
 public:
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is null.
+    /// </summary>
+    /// <returns>
     /// The null ray.
     /// </returns>
     static const QRay2D& GetNullRay();
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
+    /// </summary>
+    /// <returns>
     /// A ray that points to X direction.
     /// </returns>
     static const QRay2D& GetRayX();
 
     /// <summary>
-	/// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
-	/// </summary>
-	/// <returns>
+    /// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
+    /// </summary>
+    /// <returns>
     /// A ray that points to Y direction.
     /// </returns>
     static const QRay2D& GetRayY();
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -164,7 +164,7 @@ public:
     /// </remarks>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
     /// <returns>
-	/// A boolean value that indicates whether the rays intersect or not.<br/>
+    /// A boolean value that indicates whether the rays intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The rays intersect, including the following cases:
@@ -177,7 +177,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The rays do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QRay2D &ray) const;
 
     /// <summary>
@@ -189,7 +189,7 @@ public:
     /// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the triangle intersect, including the following cases:
@@ -201,7 +201,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the triangle do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseTriangle<QVector2> &triangle) const;
 
     /// <summary>
@@ -213,7 +213,7 @@ public:
     /// <param name="quad">[IN] The quadrilateral whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the quadrilateral intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the quadrilateral intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the quadrilateral intersect, including the following cases:
@@ -226,15 +226,15 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the quadrilateral do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
-	/// <summary>
-	/// Computes the intersection point between resident and provided ray.
-	/// </summary>
+    /// <summary>
+    /// Computes the intersection point between resident and provided ray.
+    /// </summary>
     /// <remarks>
-	/// If there are not intersection points or if there are infinite,
-	/// the output parameter used for storing that point won't be modified.<br/>
+    /// If there are not intersection points or if there are infinite,
+    /// the output parameter used for storing that point won't be modified.<br/>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
     /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$<br/>
@@ -250,10 +250,10 @@ public:
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
     /// ensure that the ray's direction is being followed.<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-	/// </remarks>
-	/// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
-	/// <returns>
+    /// </remarks>
+    /// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
+    /// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -276,17 +276,17 @@ public:
     /// </returns>
     EQIntersections IntersectionPoint(const QRay2D &ray, QBaseVector2 &vIntersection) const;
     
-	/// <summary>
-	/// Computes the intersection point between the ray and provided triangle.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Computes the intersection point between the ray and provided triangle.
+    /// </summary>
+    /// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-	/// If there's no intersection point, the output parameter won't be modified.
-	/// </remarks>
+    /// If there's no intersection point, the output parameter won't be modified.
+    /// </remarks>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
-	/// <returns>
+    /// <param name="vIntersection">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -309,18 +309,18 @@ public:
     /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const;
 
-	/// <summary>
-	/// Computes the intersection point between the ray and provided triangle.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Computes the intersection point between the ray and provided triangle.
+    /// </summary>
+    /// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.
-	/// </remarks>
+    /// If there's no intersection point, the output parameters won't be modified.
+    /// </remarks>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
-	/// <param name="vIntersection2">[OUT] Furthest intersection point to ray's origin point, if it exists.</param>
-	/// <returns>
+    /// <param name="vIntersection1">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
+    /// <param name="vIntersection2">[OUT] Furthest intersection point to ray's origin point, if it exists.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -343,17 +343,17 @@ public:
     /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
-	/// <summary>
-	/// Computes the intersection point between the ray and provided quadrilateral.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Computes the intersection point between the ray and provided quadrilateral.
+    /// </summary>
+    /// <remarks>
     /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameter won't be modified.
-	/// </remarks>
-	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// If there's no intersection point, the output parameter won't be modified.
+    /// </remarks>
+    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-	/// <returns>
+    /// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -376,18 +376,18 @@ public:
     /// </returns>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const;
 
-	/// <summary>
-	/// Computes the intersection point between the ray and provided quadrilateral.
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Computes the intersection point between the ray and provided quadrilateral.
+    /// </summary>
+    /// <remarks>
     /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.
-	/// </remarks>
+    /// If there's no intersection point, the output parameters won't be modified.
+    /// </remarks>
     /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-	/// <param name="vIntersection2">[OUT] Furthest intersection point to ray origin point, if it exists.</param>
-	/// <returns>
+    /// <param name="vIntersection1">[OUT] Closest intersection point to ray origin point, if it exists.</param>
+    /// <param name="vIntersection2">[OUT] Furthest intersection point to ray origin point, if it exists.</param>
+    /// <returns>
     /// An enumerated value that indicates how many intersections were found:<br/>
     /// <br/>
     /// <b>None</b><br/>
@@ -418,7 +418,7 @@ public:
     /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
     /// <returns>
-	/// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
+    /// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
     /// <br/>
     /// <b>True</b><br/>
     /// The ray and the line segment intersect, including the following cases:
@@ -430,7 +430,7 @@ public:
     ///
     /// <b>False</b><br/>
     /// The ray and the line segment do not intersect.
-	/// </returns>
+    /// </returns>
     bool Intersection(const QBaseLineSegment<QVector2> &segment) const;
 
     /// <summary>
@@ -493,205 +493,205 @@ public:
     EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
     /// <summary>
-	/// Computes a ray that is the result of resident ray reflection on the line segment provided.
-	/// </summary>
+    /// Computes a ray that is the result of resident ray reflection on the line segment provided.
+    /// </summary>
     /// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.<br/>
-	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	/// reflected ray is the resident ray itself.<br/>
-	/// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
-	/// and its direction verifies that the incident angle and the reflected angle are equals.
-	/// </remarks>
-	/// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
-	/// <param name="ray">[OUT] The reflected ray.</param>
+    /// Ray direction must be normalized to obtain a correct result.<br/>
+    /// If there's no intersection point between ray and line segment, or are both coincident or parallel,
+    /// reflected ray is the resident ray itself.<br/>
+    /// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
+    /// and its direction verifies that the incident angle and the reflected angle are equals.
+    /// </remarks>
+    /// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
+    /// <param name="ray">[OUT] The reflected ray.</param>
     void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const;
 
     /// <summary>
-	/// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
-	/// </summary>
+    /// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
+    /// </summary>
     /// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.<br/>
-	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	/// reflected ray is the resident ray itself.<br/>
-	/// If there's one intersection point between them, then the reflected ray direction verifies
-	/// that the incident angle and the reflected angle are equals.
-	/// </remarks>
-	/// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
-	/// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
+    /// Ray direction must be normalized to obtain a correct result.<br/>
+    /// If there's no intersection point between ray and line segment, or are both coincident or parallel,
+    /// reflected ray is the resident ray itself.<br/>
+    /// If there's one intersection point between them, then the reflected ray direction verifies
+    /// that the incident angle and the reflected angle are equals.
+    /// </remarks>
+    /// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
+    /// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
     void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const;
 
     /// <summary>
-	/// Applies the transformation given by the matrix provided to resident ray.
-	/// </summary>
+    /// Applies the transformation given by the matrix provided to resident ray.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.<br/>
-	/// All transformations affect both the origin and the direction of the ray except translations,
-	/// that only affect the origin point.
-	/// </remarks>
-	/// <param name="transformation">[IN] The transformation matrix to be applied. If it is null, the result is undefined.</param>
+    /// All transformations affect both the origin and the direction of the ray except translations,
+    /// that only affect the origin point.
+    /// </remarks>
+    /// <param name="transformation">[IN] The transformation matrix to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay2D Transform(const QTransformationMatrix3x3 &transformation) const;
+    QRay2D Transform(const QTransformationMatrix3x3 &transformation) const;
 
     /// <summary>
-	/// This method rotates the resident ray the provided angle around the coordinate axis centre.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
+    /// This method rotates the resident ray the provided angle around the coordinate axis centre.
+    /// </summary>
+    /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay2D Rotate(const float_q &fRotationAngle) const;
+    QRay2D Rotate(const float_q &fRotationAngle) const;
 
     /// <summary>
-	/// This method rotates the resident ray the provided angle around the point provided as pivot.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
+    /// This method rotates the resident ray the provided angle around the point provided as pivot.
+    /// </summary>
+    /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
+    /// <param name="vPivot">[IN] Point which acts as pivot.</param>
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	QRay2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
+    QRay2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
 
     /// <summary>
-	/// This method translates the resident ray by the translation contained in the provided vector.
-	/// </summary>
-	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
+    /// This method translates the resident ray by the translation contained in the provided vector.
+    /// </summary>
+    /// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay2D Translate(const QBaseVector2 &vTranslation) const;
+    QRay2D Translate(const QBaseVector2 &vTranslation) const;
 
     /// <summary>
-	/// This method translates the resident ray by the provided amounts for every axis.
-	/// </summary>
-	/// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
-	/// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
+    /// This method translates the resident ray by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
+    /// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
     /// <returns>
     /// The translated ray.
     /// </returns>
-	QRay2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QRay2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided vector.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay2D Scale(const QBaseVector2 &vScale) const;
+    QRay2D Scale(const QBaseVector2 &vScale) const;
 
     /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis.
-	/// </summary>
+    /// This method scales the resident ray by the amounts provided for every axis.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// </remarks>
+    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay2D Scale(const float_q &vScaleX, const float_q &vScaleY) const;
+    QRay2D Scale(const float_q &vScaleX, const float_q &vScaleY) const;
 
     /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector from
-	/// the provided point that acts as pivot.
-	/// </summary>
+    /// This method scales the resident ray by the scale contained in the provided vector from
+    /// the provided point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+    /// </remarks>
+    /// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
+    QRay2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
 
     /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis from
-	/// the provided point that acts as pivot.
-	/// </summary>
+    /// This method scales the resident ray by the amounts provided for every axis from
+    /// the provided point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+    /// </remarks>
+    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	QRay2D ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot) const;
+    QRay2D ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot) const;
 
     /// <summary>
-	/// This method applies the transformation contained in the provided transformation matrix from
-	/// the provided point that acts as pivot.
-	/// </summary>
+    /// This method applies the transformation contained in the provided transformation matrix from
+    /// the provided point that acts as pivot.
+    /// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br/>
+    /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
-	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+    /// </remarks>
+    /// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	QRay2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
+    QRay2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
 protected:
     
     /// <summary>
-	/// Checks if the resident ray contains a given point.
-	/// </summary>
-	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// Checks if the resident ray contains a given point.
+    /// </summary>
+    /// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
     /// True if the point belongs to the ray; False otherwise.
     /// </returns>
     bool Contains(const QVector2 &vPoint) const;
 
-	// [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
+    // [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
 
     /// <summary>
-	/// Checks if a point is inside a triangle.
-	/// </summary>
-	/// <param name="triangle">[IN] The triangle that may contain or not the point.</param>
-	/// <param name="vPoint">[IN] The point that may be inside or not of the triangle.</param>
+    /// Checks if a point is inside a triangle.
+    /// </summary>
+    /// <param name="triangle">[IN] The triangle that may contain or not the point.</param>
+    /// <param name="vPoint">[IN] The point that may be inside or not of the triangle.</param>
     /// <returns>
     /// True if the point belongs to the triangle; False otherwise.
     /// </returns>
-	bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const;
+    bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const;
 
     /// <summary>
-	/// Check if two points are in the same side of a line.
-	/// </summary>
-	/// <param name="vP1">[IN] One of the points to be checked.</param>
-	/// <param name="vP2">[IN] One of the points to be checked.</param>
+    /// Check if two points are in the same side of a line.
+    /// </summary>
+    /// <param name="vP1">[IN] One of the points to be checked.</param>
+    /// <param name="vP2">[IN] One of the points to be checked.</param>
     /// <param name="vLine1">[IN] A point that belongs to the line that divides the two-dimensional space in to two parts.</param>
     /// <param name="vLine2">[IN] Another point that belongs to the line that divides the two-dimensional space in to two parts.</param>
     /// <returns>
     /// True if the two points belong to the same side of the space divided by the line; False otherwise.
     /// </returns>
-	bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const;
+    bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const;
 
-	// [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
+    // [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
 
     /// <summary>
-	/// Checks if a point is inside a quadrilateral.
-	/// </summary>
-	/// <param name="quad">[IN] The quadrilateral that may contain or not the point.</param>
-	/// <param name="vPoint">[IN] The point that may be inside or not of the quadrilateral.</param>
+    /// Checks if a point is inside a quadrilateral.
+    /// </summary>
+    /// <param name="quad">[IN] The quadrilateral that may contain or not the point.</param>
+    /// <param name="vPoint">[IN] The point that may be inside or not of the quadrilateral.</param>
     /// <returns>
     /// True if the point belongs to the quadrilateral; False otherwise.
     /// </returns>
-	bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const;
+    bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const;
 };
 
 } //namespace Math

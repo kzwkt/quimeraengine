@@ -63,73 +63,73 @@ class QTimeZone;
 class QE_LAYER_TOOLS_SYMBOLS QDateTime
 {
     // CONSTANTS
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
-	/// The central value representable by a 64 bits unsigned integer.
-	/// </summary>
+    /// The central value representable by a 64 bits unsigned integer.
+    /// </summary>
     static const u64_q HALF_VALUE;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per microsecond.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per microsecond.
+    /// </summary>
     static const u64_q HNS_PER_MICROSECOND;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per millisecond.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per millisecond.
+    /// </summary>
     static const u64_q HNS_PER_MILLISECOND;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per second.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per second.
+    /// </summary>
     static const u64_q HNS_PER_SECOND;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per minute.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per minute.
+    /// </summary>
     static const u64_q HNS_PER_MINUTE;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per hour.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per hour.
+    /// </summary>
     static const u64_q HNS_PER_HOUR;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per day.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per day.
+    /// </summary>
     static const u64_q HNS_PER_DAY;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per year.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per year.
+    /// </summary>
     static const u64_q HNS_PER_YEAR;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per leap year.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per leap year.
+    /// </summary>
     static const u64_q HNS_PER_LEAPYEAR;
 
     /// <summary>
-	/// The amount of hundreds of nanoseconds per four consecutive years, taking into account the leap year.
-	/// </summary>
+    /// The amount of hundreds of nanoseconds per four consecutive years, taking into account the leap year.
+    /// </summary>
     static const u64_q HNS_PER_4_CONSECUTIVE_YEARS;
 
     /// <summary>
-	/// The internal value for the instant stored in an undefined date/time object.
-	/// </summary>
+    /// The internal value for the instant stored in an undefined date/time object.
+    /// </summary>
     static const QTimeSpan UNDEFINED_VALUE;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-	/// <summary>
-	/// Default constructor. Instances are undefined by default.
-	/// </summary>
-	QDateTime();
+    /// <summary>
+    /// Default constructor. Instances are undefined by default.
+    /// </summary>
+    QDateTime();
 
     /// <summary>
     /// Copy constructor. Date and time are copied as well as the time zone information.
@@ -254,8 +254,8 @@ public:
     QDateTime(const string_q &strTimestamp);
     
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -607,8 +607,8 @@ private:
     void SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const;
 
 
-	// PROPERTIES
-	// ---------------
+    // PROPERTIES
+    // ---------------
 public:
 
     /// <summary>
@@ -761,8 +761,8 @@ public:
     bool IsUndefined() const;
 
 
-	// ATTRIBUTES
-	// ---------------
+    // ATTRIBUTES
+    // ---------------
 private:
 
     /// <summary>

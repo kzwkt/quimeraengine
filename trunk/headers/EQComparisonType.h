@@ -82,8 +82,8 @@ public:
     typedef std::pair<string_q, EQComparisonType::EnumType> TNameValuePair;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
@@ -121,8 +121,8 @@ public:
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -331,7 +331,7 @@ private:
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>

@@ -44,12 +44,12 @@ namespace Math
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 QBasePlane::QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQFloat::_0)
@@ -58,10 +58,10 @@ QBasePlane::QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQF
 
 QBasePlane::QBasePlane(const QBasePlane &plane)
 {
-	this->a = plane.a;
-	this->b = plane.b;
-	this->c = plane.c;
-	this->d = plane.d;
+    this->a = plane.a;
+    this->b = plane.b;
+    this->c = plane.c;
+    this->d = plane.d;
 }
 
 QBasePlane::QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD) :
@@ -75,31 +75,31 @@ QBasePlane::QBasePlane(const float_q &fValueAll) : a(fValueAll), b(fValueAll), c
 
 QBasePlane::QBasePlane(const float_q* arValues)
 {
-	// Null pointer checkout
-	QE_ASSERT(arValues != null_q, "The input array must not be null");
+    // Null pointer checkout
+    QE_ASSERT(arValues != null_q, "The input array must not be null");
 
-	// Assignments
-	this->a = arValues[0];
-	this->b = arValues[1];
-	this->c = arValues[2];
-	this->d = arValues[3];
+    // Assignments
+    this->a = arValues[0];
+    this->b = arValues[1];
+    this->c = arValues[2];
+    this->d = arValues[3];
 }
 
 QBasePlane::QBasePlane(const vf32_q &value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
-	SQVF32::Unpack(value, this->a, this->b, this->c, this->d);
+    SQVF32::Unpack(value, this->a, this->b, this->c, this->d);
 }
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
 bool QBasePlane::operator==(const QBasePlane &plane) const

@@ -60,8 +60,8 @@ public:
     /// <param name="leftOperand">[IN] First operand to compare.</param>
     /// <param name="rightOperand">[IN] Second operand to compare.</param>
     /// <returns>
-	/// Compare returns -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
-	/// </returns>
+    /// Compare returns -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
+    /// </returns>
     Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand) const
     {
         // Variables representing the three return values
