@@ -72,7 +72,7 @@ public:
 
 	/// <summary>
 	/// Destructor.
-	/// </summary>		
+	/// </summary>
 	virtual ~ClassName();
 
 

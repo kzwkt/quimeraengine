@@ -49,10 +49,11 @@ namespace Containers
 {
 
 /// <summary>
-/// Class that represents a contiguous sequence of elements that can be arbitrarly accessed using a zero-based
+/// Represents a contiguous sequence of elements that can be arbitrarly accessed using a zero-based
 /// index. Its size is defined when it is constructed and cannot be changed afterwards.
 /// </summary>
 /// <remarks>
+/// Elements are assured to be placed contiguously in memory.<br/>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
@@ -664,7 +665,7 @@ public:
             m_uLast(fixedArray.m_uLast),
             m_allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
-        for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1; ++uIndex)
+        for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1U; ++uIndex)
         {
             // Constructs a T object over the buffer returned by the allocator and initializes it with
             // the value of the origin element in the corresponding array position.
