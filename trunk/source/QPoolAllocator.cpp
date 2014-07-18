@@ -358,10 +358,10 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
         m_ppNextFreeBlock = ppNext;
 
         // Frees remaining blocks from destination redoing the rest of the list.
-        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1; ++uIndex )
+        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1U; ++uIndex )
         {
-            *ppNext = (void*)((void**)ppNext + 1);
-            ppNext = (void**)*ppNext;
+            *ppNext = (void*)(ppNext + 1U);
+            ++ppNext;
         }
 
         *ppNext = null_q;
@@ -369,13 +369,13 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
     else
     {
         // Copy free blocks pointers list from source to destination
-        void **ppLastFreeBlock = m_ppNextFreeBlock;
+        void** ppLastFreeBlock = m_ppNextFreeBlock;
 
         while( null_q != *ppLastFreeBlock )
         {
             // Index of the next free block in the source = *ppLastFreeBlock - m_ppFreeBlocks
-            *(ppNewFreeBlockList + ((void**)ppLastFreeBlock - m_ppFreeBlocks)) =
-                                    ppNewFreeBlockList + ((void**)*ppLastFreeBlock - m_ppFreeBlocks);
+            pointer_uint_q uLastFreeBlockPosition = (void**)ppLastFreeBlock - m_ppFreeBlocks;
+            *(ppNewFreeBlockList + uLastFreeBlockPosition) = m_ppFreeBlocks + uLastFreeBlockPosition;
 
             // ppLastFreeBlock will contain the pointer to last free block in the list or null if there are no free blocks
             // when exits from the while loop.
@@ -390,19 +390,19 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
         // Links copied free blocks list from source to remaining free blocks from destination.
 
         // ppNext = first free block of remaining free blocks.
-        ppLastFreeBlock = ppNewFreeBlockList + m_uBlocksCount;
+        void** ppNext = ppNewFreeBlockList + m_uBlocksCount;
 
         // Links two lists.
-        *(ppNewFreeBlockList + (ppLastFreeBlock - ppNewFreeBlockList)) = ppLastFreeBlock;
+        *(ppNewFreeBlockList + (ppLastFreeBlock - m_ppFreeBlocks)) = ppNext;
 
         // Frees the rest of blocks from destination redoing the rest of the list.
-        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1; ++uIndex )
+        for( pointer_uint_q uIndex = m_uBlocksCount; uIndex < uNewBlocksCount - 1U; ++uIndex )
         {
-            *ppLastFreeBlock = (void*)((void**)ppLastFreeBlock + 1);
-            ppLastFreeBlock = (void**)*ppLastFreeBlock;
+            *ppNext = (void*)(ppNext + 1U);
+            ++ppNext;
         }
 
-        *ppLastFreeBlock = null_q;
+        *ppNext = null_q;
     }
 
     // Updates some additional fields
