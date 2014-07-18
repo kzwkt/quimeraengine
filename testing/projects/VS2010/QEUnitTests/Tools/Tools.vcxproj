@@ -14,6 +14,7 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp" />
@@ -38,6 +39,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDynamicArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp" />

@@ -192,6 +192,7 @@
     <File Name="../../../../source/EQIterationDirection.cpp"/>
     <File Name="../../../../source/EQTreeTraversalOrder.cpp"/>
     <File Name="../../../../headers/QNTree.h"/>
+    <File Name="../../../../headers/QDynamicArray.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="QEUnitTests" Database="">
-  <Project Name="Common" Path="Common/Common.project" Active="Yes"/>
-  <Project Name="Tools" Path="Tools/Tools.project" Active="No"/>
+  <Project Name="Common" Path="Common/Common.project" Active="No"/>
+  <Project Name="Tools" Path="Tools/Tools.project" Active="Yes"/>
   <Project Name="System" Path="System/System.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="yes">
