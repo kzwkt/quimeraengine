@@ -34,7 +34,8 @@
 #include "QAlignment.h"
 #include "QComparatorDefault.h"
 #include "AllocationOperators.h"
-
+#include "EQTreeTraversalOrder.h"
+#include "EQIterationDirection.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
@@ -59,7 +60,7 @@ namespace Containers
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
-/// <typeparam name="T"> The type of the list elements.</typeparam>
+/// <typeparam name="T"> The type of the tree elements.</typeparam>
 /// <typeparam name="AllocatorT"> The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
 /// <typeparam name="ComparatorT"> The comparator. The default type is QComparatorDefault.</typeparam>
 template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
@@ -215,18 +216,820 @@ protected:
         pointer_uint_q m_uFirstChild;
 
     };
+    
+public:
+
+    /// <summary>
+    /// Iterator that steps once per element of an n-ary tree, in a concrete order. Since the traversal order may vary, the meaning of the words
+    /// "last", "first" and "next", used in the documentation of this class, can be different depending on such order.
+    /// </summary>
+    /// <remarks>
+    /// Once an interator have been bound to a tree, it cannot point to another tree ever.<br/>
+    /// Iterators can be invalid, this means, they may not point to an existing position of the tree.<br/>
+    /// The position before the first element or after the last one (end positions) are considered as valid positions.
+    /// </remarks>
+    class QNTreeIterator
+    {
+        // CONSTRUCTORS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Constructor that receives the tree to iterate through, the position to physically point to and the traversal order. This constructor is intended 
+        /// to be used internally, use GetConstIterator and GetIterator methods instead.
+        /// </summary>
+        /// <remarks>
+        /// If the tree is empty, it will point to the end position (forward iteration).
+        /// </remarks>
+        /// <param name="pTree">[IN] The tree to iterate through. It must not be null.</param>
+        /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of tree elements, but the physical.
+        /// It must be lower than the capacity of the tree.</param>
+        /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+        QNTreeIterator(const QNTree* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : m_pTree(pTree), 
+                                                                                                                           m_uPosition(uPosition), 
+                                                                                                                           m_eTraversalOrder(eTraversalOrder)
+        {
+            QE_ASSERT(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
+            QE_ASSERT(pTree->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the tree");
+
+            if(pTree == null_q || pTree->GetCapacity() <= uPosition || pTree->IsEmpty())
+                m_uPosition = QNTree::END_POSITION_FORWARD;
+        }
 
 
-       // CONSTANTS
+        // METHODS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Assignment operator that moves the iterator to the same position of other iterator. The traversal order is also copied.
+        /// </summary>
+        /// <param name="iterator">[IN] Iterator whose position will be copied. It must point to the same tree as the resident iterator.</param>
+        /// <returns>
+        /// A reference to the resident iterator.
+        /// </returns>
+        QNTreeIterator& operator=(const QNTreeIterator &iterator)
+        {
+            QE_ASSERT(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
+
+            if(m_pTree == iterator.m_pTree)
+            {
+                m_uPosition = iterator.m_uPosition;
+                m_eTraversalOrder = iterator.m_eTraversalOrder;
+            }
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Indirection operator that returns a reference to the tree element the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A reference to the tree element the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        T& operator*() const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the tree element");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
+
+            return *(((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition);
+        }
+
+        /// <summary>
+        /// Dereferencing operator that returns a pointer to the tree element the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A pointer to the tree element the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        T* operator->() const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the tree element");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
+
+            return ((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition;
+        }
+
+        /// <summary>
+        /// Post-increment operator that makes the iterator step forward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QNTreeIterator operator++(int)
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+
+            QNTreeIterator iteratorCopy = *this;
+
+            if(m_uPosition != QNTree::END_POSITION_FORWARD)
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        //          1
+                        //         /|\
+                        //        / | \
+                        //       2  5  6
+                        //      / \     \
+                        //     /   \     \
+                        //    3     4     7
+
+                        if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+                        {
+                            QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
+
+                            if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
+                            {
+                                // The current node has no children
+
+                                if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
+                                {
+                                    // This node has no more brothers
+
+                                    // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
+                                    QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+
+                                    while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
+                                          (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
+                                    {
+                                        // Visits current node's parent
+                                        pNode = pBasePointer + pNode->GetParent();
+                                    }
+
+                                    if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
+                                    {
+                                        // It reached the root node, all the nodes have been visited
+                                        m_uPosition = QNTree::END_POSITION_FORWARD;
+                                    }
+                                    else
+                                    {
+                                        // It finds an ascendant whose brothers haven't been visited yet
+                                        m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
+                                    }
+                                }
+                                else // pNode->GetNext() == QNTree::END_POSITION_FORWARD
+                                {
+                                    // The next brother is visited
+                                    m_uPosition = pNode->GetNext();
+                                }
+                            }
+                            else // pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD
+                            {
+                                // The first child of the current node is visited
+                                m_uPosition = pNode->GetFirstChild();
+                            }
+                        }
+                        else // m_uPosition != QNTree::END_POSITION_BACKWARD
+                        {
+                            if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
+                            {
+                                this->MoveFirst();
+                            }
+                            else
+                            {
+                                // The tree is empty
+                                m_uPosition = QNTree::END_POSITION_FORWARD;
+                            }
+                        }
+                    }
+                }
+            } // if(m_uPosition != QNTree::END_POSITION_FORWARD)
+
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Post-decrement operator that makes the iterator step backward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QNTreeIterator operator--(int)
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+
+            QNTreeIterator iteratorCopy = *this;
+
+            if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        //          7
+                        //         /|\
+                        //        / | \
+                        //       6  3  2
+                        //      / \     \
+                        //     /   \     \
+                        //    5     4     1
+
+                        if(m_uPosition != QNTree::END_POSITION_FORWARD)
+                        {
+                            QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
+
+                            if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
+                            {
+                                // The current node has no previous brother
+
+                                if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
+                                {
+                                    // The current node has no parent so it is the root, all the nodes have been visited
+                                    m_uPosition = QNTree::END_POSITION_BACKWARD;
+                                }
+                                else
+                                {
+                                    // The current node's parent is visited
+                                    m_uPosition = pNode->Parent();
+                                }
+                            }
+                            else
+                            {
+                                // The current node has a previous brother
+                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                                pNode = pBasePointer + pNode->GetPrevious();
+
+                                // Searches for the last child of the deepest descendant
+                                while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                                {
+                                    pNode = pBasePointer + pNode->GetFirstChild();
+
+                                    while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                                    {
+                                        pNode = pBasePointer + pNode->GetNext();
+                                    }
+                                }
+
+                                m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
+                            }
+                        }
+                        else // m_uPosition == QNTree::END_POSITION_FORWARD
+                        {
+                            if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
+                            {
+                                this->MoveLast();
+                            }
+                            else
+                            {
+                                // The tree is empty
+                                m_uPosition = QNTree::END_POSITION_BACKWARD;
+                            }
+                        }
+                    }
+                }
+            } // if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Pre-increment operator that makes the iterator step forward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QNTreeIterator& operator++()
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+
+            if(m_uPosition != QNTree::END_POSITION_FORWARD)
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        //          1
+                        //         /|\
+                        //        / | \
+                        //       2  5  6
+                        //      / \     \
+                        //     /   \     \
+                        //    3     4     7
+
+                        if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+                        {
+                            QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
+
+                            if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
+                            {
+                                // The current node has no children
+
+                                if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
+                                {
+                                    // This node has no more brothers
+                                    // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
+                                    QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+
+                                    while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
+                                          (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
+                                    {
+                                        // Visits current node's parent
+                                        pNode = pBasePointer + pNode->GetParent();
+                                    }
+
+                                    if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
+                                    {
+                                        // It reached the root node, all the nodes have been visited
+                                        m_uPosition = QNTree::END_POSITION_FORWARD;
+                                    }
+                                    else // pNode->GetParent()->GetNext() != QNTree::END_POSITION_FORWARD
+                                    {
+                                        // It finds an ascendant whose brothers haven't been visited yet
+                                        m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
+                                    }
+                                }
+                                else
+                                {
+                                    // The next brother is visited
+                                    m_uPosition = pNode->GetNext();
+                                }
+                            }
+                            else
+                            {
+                                // The first child of the current node is visited
+                                m_uPosition = pNode->GetFirstChild();
+                            }
+                        }
+                        else // m_uPosition == QNTree::END_POSITION_BACKWARD
+                        {
+                            if(m_pTree->IsEmpty())
+                            {
+                                m_uPosition = QNTree::END_POSITION_FORWARD;
+                            }
+                            else
+                            {
+                                this->MoveFirst();
+                            }
+                        }
+                    }
+                }
+            } // if(m_uPosition != QNTree::END_POSITION_FORWARD)
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Pre-decrement operator that makes the iterator step backward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QNTreeIterator& operator--()
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+
+            if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        //          7
+                        //         /|\
+                        //        / | \
+                        //       6  3  2
+                        //      / \     \
+                        //     /   \     \
+                        //    5     4     1
+
+                        if(m_uPosition != QNTree::END_POSITION_FORWARD)
+                        {
+                            QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
+
+                            if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
+                            {
+                                // The current node has no previous brother
+
+                                if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
+                                {
+                                    // The current node has no parent so it is the root, all the nodes have been visited
+                                    m_uPosition = QNTree::END_POSITION_BACKWARD;
+                                }
+                                else
+                                {
+                                    // The current node's parent is visited
+                                    m_uPosition = pNode->Parent();
+                                }
+                            }
+                            else
+                            {
+                                // The current node has a previous brother
+                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                                pNode = pBasePointer + pNode->GetPrevious();
+
+                                // Searches for the last child of the deepest descendant
+                                while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                                {
+                                    pNode = pBasePointer + pNode->GetFirstChild();
+
+                                    while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                                    {
+                                        pNode = pBasePointer + pNode->GetNext();
+                                    }
+                                }
+
+                                m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
+                            }
+                        }
+                        else // m_uPosition == QNTree::END_POSITION_FORWARD
+                        {
+                            if(m_pTree->IsEmpty())
+                            {
+                                // The tree is empty
+                                m_uPosition = QNTree::END_POSITION_BACKWARD;
+                            }
+                            else
+                            {
+                                this->MoveLast();
+                            }
+                        }
+                    }
+                }
+            } // if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Equality operator that checks if both iterators are the same.
+        /// </summary>
+        /// <remarks>
+        /// An iterator must point to the same position of the same tree to be considered equal.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if they are pointing to the same position of the same tree; False otherwise.
+        /// </returns>
+        bool operator==(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            return m_uPosition == iterator.m_uPosition && m_pTree == iterator.m_pTree;
+        }
+
+        /// <summary>
+        /// Inequality operator that checks if both iterators are different.
+        /// </summary>
+        /// <remarks>
+        /// An iterator that points to a different position or to a different tree is considered distinct.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if they are pointing to the a different position or a different tree; False otherwise.
+        /// </returns>
+        bool operator!=(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            return m_uPosition != iterator.m_uPosition || m_pTree != iterator.m_pTree;
+        }
+
+        /// <summary>
+        /// Greater than operator that checks whether resident iterator points to a more posterior position than the input iterator.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different trees or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more posterior position than the input iterator; False otherwise.
+        /// </returns>
+        bool operator>(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            bool bResult = false;
+
+            if(m_pTree == iterator.m_pTree &&
+               iterator.m_uPosition != m_uPosition &&
+               iterator.m_uPosition != QNTree::END_POSITION_FORWARD &&
+               m_uPosition != QNTree::END_POSITION_BACKWARD)
+            {
+                QNTree::QNTreeIterator iteratorFromThis = *this;
+
+                // One iterator is moved forward till it either reaches the position of the input iterator or the end position
+                while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
+                    ++iteratorFromThis;
+
+                // If the iterator does not equal the input iterator, input iterator is greater than resident one
+                bResult = iterator.m_uPosition != iteratorFromThis.m_uPosition;
+            }
+
+            return bResult;
+        }
+
+        /// <summary>
+        /// Lower than operator that checks whether resident iterator points to a more anterior position than the input iterator.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different trees or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more anterior position than the input iterator; False otherwise.
+        /// </returns>
+        bool operator<(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            bool bResult = false;
+
+            if(m_pTree == iterator.m_pTree &&
+               iterator.m_uPosition != m_uPosition &&
+               iterator.m_uPosition != QNTree::END_POSITION_BACKWARD &&
+               m_uPosition != QNTree::END_POSITION_FORWARD)
+            {
+                QNTree::QNTreeIterator iteratorFromThis = *this;
+
+                // One iterator is moved forward till it either reaches the position of the input iterator or the end position
+                while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
+                    ++iteratorFromThis;
+
+                // If the iterator equals the input iterator, input iterator is greater than resident one
+                bResult = iterator.m_uPosition == iteratorFromThis.m_uPosition;
+            }
+
+            return bResult;
+        }
+
+        /// <summary>
+        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the
+        /// input iterator or to the same position.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different trees or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more posterior position than the input iterator or to the same position; False otherwise.
+        /// </returns>
+        bool operator>=(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            bool bResult = false;
+
+            if(m_pTree == iterator.m_pTree)
+            {
+                if(m_uPosition == iterator.m_uPosition)
+                    bResult = true;
+                else
+                {
+                    QNTree::QNTreeIterator iteratorFromThis = *this;
+
+                    // One iterator is moved forward till it either reaches the position of the input iterator or the end position
+                    while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
+                        ++iteratorFromThis;
+
+                    // If the iterator does not equal the input iterator, input iterator is greater than resident one
+                    bResult = iterator.m_uPosition != iteratorFromThis.m_uPosition;
+                }
+            }
+
+            return bResult;
+        }
+
+        /// <summary>
+        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input
+        /// iterator or to the same position.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different trees or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more anterior position than the input iterator or to the same position; False otherwise.
+        /// </returns>
+        bool operator<=(const QNTreeIterator &iterator) const
+        {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+
+            bool bResult = false;
+
+            if(m_pTree == iterator.m_pTree)
+            {
+                if(m_uPosition == iterator.m_uPosition)
+                    bResult = true;
+                else
+                {
+                    QNTree::QNTreeIterator iteratorFromThis = *this;
+
+                    // One iterator is moved forward till it either reaches the position of the input iterator or the end position
+                    while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
+                        ++iteratorFromThis;
+
+                    // If the iterator equals the input iterator, input iterator is greater than resident one
+                    bResult = iterator.m_uPosition == iteratorFromThis.m_uPosition;
+                }
+            }
+
+            return bResult;
+        }
+
+        /// <summary>
+        /// Indicates whether the iterator is pointing to one of the ends of the tree.
+        /// </summary>
+        /// <remarks>
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
+        /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
+        /// An invalid iterator is not considered as an end position.
+        /// </remarks>
+        /// <returns>
+        /// True if the iterator is pointing to an end position; False otherwise.
+        /// </returns>
+        bool IsEnd() const
+        {
+            return m_uPosition == QNTree::END_POSITION_BACKWARD || m_uPosition == QNTree::END_POSITION_FORWARD;
+        }
+
+        /// <summary>
+        /// Indicates whether the iterator is pointing to one of the ends of the tree, distinguishing which of them.
+        /// </summary>
+        /// <remarks>
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
+        /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
+        /// An invalid iterator is not considered as an end position.
+        /// </remarks>
+        /// <param name="eIterationDirection">[IN] The iteration direction used to identify which of the end positions is checked.</param>
+        /// <returns>
+        /// True if the iterator is pointing to the position after the last element when iterating forward or if it is
+        /// pointing to the position immediately before the first position when iterating backward; False otherwise.
+        /// </returns>
+        bool IsEnd(const EQIterationDirection &eIterationDirection) const
+        {
+            return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QNTree::END_POSITION_BACKWARD) ||
+                   (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QNTree::END_POSITION_FORWARD);
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the first position.
+        /// </summary>
+        /// <remarks>
+        /// If the tree is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveFirst()
+        {
+            if(m_pTree->IsEmpty())
+            {
+                m_uPosition = QNTree::END_POSITION_FORWARD;
+            }
+            else
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        // In this order, the first node will be always the root
+                        m_uPosition = m_pTree->m_uRoot;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the last position.
+        /// </summary>
+        /// <remarks>
+        /// If the tree is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveLast()
+        {
+            if(m_pTree->IsEmpty())
+            {
+                m_uPosition = QNTree::END_POSITION_FORWARD;
+            }
+            else
+            {
+                switch(m_eTraversalOrder)
+                {
+                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    {
+                        // The current node has a previous brother
+                        QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                        QNTree::QNode* pNode = pBasePointer + m_pTree->m_uRoot;
+
+                        // Searches for the last child of the deepest descendant
+                        while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                        {
+                            pNode = pBasePointer + pNode->GetFirstChild();
+
+                            while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                            {
+                                pNode = pBasePointer + pNode->GetNext();
+                            }
+                        }
+
+                        m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the iterator is valid or not.
+        /// </summary>
+        /// <remarks>
+        /// An iterator is considered invalid when it points to an unexisting position (a tree may have been shortened while the iterator
+        /// was pointing to its last position). If the tree to iterate have been destroyed, there is no way for the iterator to realize that so
+        /// its behavior is undefined and this method will not detect that situation.<br/>
+        /// The position before the first element or after the last one (end positions) are considered as valid positions.
+        /// </remarks>
+        /// <returns>
+        /// True if the iterator is valid; False otherwise.
+        /// </returns>
+        bool IsValid() const
+        {
+            return m_pTree != null_q && 
+                   (m_uPosition < m_pTree->m_nodeAllocator.GetPoolSize() / sizeof(QNode) ||
+                    m_uPosition == QNTree::END_POSITION_BACKWARD ||
+                    m_uPosition == QNTree::END_POSITION_FORWARD);
+        }
+
+
+        // ATTRIBUTES
+	    // ---------------
+    protected:
+
+        /// <summary>
+        /// The tree the iterator points to.
+        /// </summary>
+        const QNTree* m_pTree;
+
+        /// <summary>
+        /// The current iteration position regarding the base position of the buffer (zero). It is zero-based.
+        /// </summary>
+        pointer_uint_q m_uPosition;
+
+        /// <summary>
+        /// The order in which elements will be visited.
+        /// </summary>
+        const EQTreeTraversalOrder m_eTraversalOrder;
+
+    }; // QNTreeIterator
+
+
+   	// CONSTANTS
     // ---------------
 
     /// <summary>
     /// Number of elements for which to reserve memory by default.
     /// </summary>
     static pointer_uint_q sm_uDefaultCapacity;
+    
+	/// <summary>
+	/// Constant to symbolize the end of the sequence when the tree is traversed backward.
+	/// </summary>
+    static const pointer_uint_q END_POSITION_BACKWARD = -2;
 
     /// <summary>
-    /// Constant to symbolize the absence of a node or the end of the sequence when the tree is traversed.
+    /// Constant to symbolize the absence of a node or the end of the sequence when the tree is traversed forward.
     /// </summary>
     static const pointer_uint_q END_POSITION_FORWARD = -1;
 

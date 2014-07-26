@@ -225,6 +225,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIterator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -282,6 +285,9 @@
       <Filter>Tests\Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIteratorMock.h">
       <Filter>Tests\Containers</Filter>
     </ClInclude>
   </ItemGroup>
