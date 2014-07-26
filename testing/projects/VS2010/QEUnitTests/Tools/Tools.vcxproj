@@ -52,6 +52,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTree_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIteratorMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />

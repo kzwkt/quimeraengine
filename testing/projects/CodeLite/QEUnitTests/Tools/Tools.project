@@ -90,6 +90,8 @@
       <File Name="../../../../tests/unit/testmodule_tools/QNTreeWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/CallCounter.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QDynamicArray_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTreeIteratorMock.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
