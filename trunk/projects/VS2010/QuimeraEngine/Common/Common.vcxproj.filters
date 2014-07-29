@@ -61,6 +61,8 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
     <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
+    <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
+    <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -109,5 +111,6 @@
     <ClCompile Include="..\..\..\..\source\QCharIterator.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
   </ItemGroup>
 </Project>

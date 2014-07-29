@@ -75,6 +75,7 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="../../../../source/Assertions.cpp"/>
+    <File Name="../../../../source/SQInternalLogger.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="../../../../headers/Assertions.h"/>
@@ -84,6 +85,8 @@
     <File Name="../../../../headers/ExternalDefinitions.h"/>
     <File Name="../../../../headers/InternalDefinitions.h"/>
     <File Name="../../../../headers/QDelegate.h"/>
+    <File Name="../../../../headers/LoggingUtilities.h"/>
+    <File Name="../../../../headers/SQInternalLogger.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/CrossPlatformBasicTypes.h"/>
