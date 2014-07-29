@@ -24,37 +24,28 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "Assertions.h"
+#ifndef __LOGGINGUTILITIES__
+#define __LOGGINGUTILITIES__
 
-#include "LoggingUtilities.h"
-
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Common::SQInternalLogger;
+#include "SQInternalLogger.h"
 
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |           FUNCTIONS         |               ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-
-#ifdef QE_COMPILER_GCC
-
-void QE_ASSERT_FAILED()
+namespace Kinesis
 {
-    asm("int $3"); // This sentence makes GDB to stop at the failing line and continue the execution later
-}
-
-#endif
-
-
-void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, const string_q &strErrorMessage)
+namespace QuimeraEngine
 {
-    QE_LOG(QE_L("!! QE ASSERTION FAILED !!: "));
-    QE_LOG(QE_L(strErrorMessage));
-    QE_LOG(QE_L("\n"));
-}
+namespace Common
+{
+
+// --------------------------------------------------------------------------------------------------------
+// This macro calls the internal logger to send text to the configured channel. To change the log function
+// that will be called by the internal logger, use the SetLogFunction method.
+// --------------------------------------------------------------------------------------------------------
+#define QE_LOG(strMessage) SQInternalLogger::Log(strMessage)
+
+
+} //namespace Common
+} //namespace QuimeraEngine
+} //namespace Kinesis
+
+#endif // __LOGGINGUTILITIES__

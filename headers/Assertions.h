@@ -33,36 +33,11 @@
 #endif
 
 #include "DataTypesDefinitions.h"
-#include "CommonDefinitions.h"
-#include "EQTextEncoding.h"
-
-// Depending on the compiler, a different function is used to print the error message to the console
-#if   defined(QE_COMPILER_MSVC)
-    #define NOMINMAX // This definition is necessary to bypass the min and max macros defined in Windows headers
-    #include "windows.h"
-
-    #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-        // [TODO] Thund: Change this to use either LE or BE depending on the machine
-        #define QE_CONSOLE_PRINT(strMessage)                                                                                               \
-                {                                                                                                                          \
-                    Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode _strOutMsg(strMessage);                                      \
-                    unsigned int _uOutSize = 0;                                                                                            \
-                    Kinesis::QuimeraEngine::Common::DataTypes::i8_q* _szOutMsg =                                                           \
-                                      _strOutMsg.ToBytes(Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding::E_UTF16LE, _uOutSize); \
-                    ::OutputDebugStringW((wchar_t*)_szOutMsg);                                                                             \
-                    delete[] _szOutMsg;                                                                                                    \
-                }
-                
-    #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
-        #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringA(strMessage)
-    #endif
-
-#elif defined(QE_COMPILER_GCC)
-    #include <iostream>
-    #define QE_CONSOLE_PRINT(strMessage) std::cout << strMessage
-#endif
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+    QE_LAYER_COMMON_SYMBOLS void QE_TRACE_FAILED_ASSERT(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strExpression, 
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
@@ -71,9 +46,7 @@
                 {                                                               \
                     if(!(expression))                                           \
                     {                                                           \
-                        QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
-                        QE_CONSOLE_PRINT(strErrorMessage);                      \
-                        QE_CONSOLE_PRINT(QE_L("\n"));                           \
+                        QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);   \
                         throw new std::exception();                             \
                     }                                                           \
                 }
@@ -91,9 +64,7 @@
                              {                                                              \
                                  if(!(expression))                                          \
                                  {                                                          \
-                                     QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: ")); \
-                                     QE_CONSOLE_PRINT(QE_L(strErrorMessage));               \
-                                     QE_CONSOLE_PRINT(QE_L("\n"));                          \
+                                     QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);  \
                                      QE_ASSERT_FAILED();                                    \
                                  }                                                          \
                              }
@@ -104,9 +75,7 @@
                     {                                                               \
                         if(!(expression))                                           \
                         {                                                           \
-                            QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
-                            QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
-                            QE_CONSOLE_PRINT(QE_L("\n"));                           \
+                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);   \
                             assert(expression);                                     \
                         }                                                           \
                     }

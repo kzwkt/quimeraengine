@@ -104,6 +104,7 @@
     <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
     <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
     <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
+    <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
     <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +133,7 @@
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
     <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
