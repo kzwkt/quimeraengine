@@ -4,6 +4,12 @@
     <Filter Include="Core">
       <UniqueIdentifier>{7f6352d6-11ce-46b4-b8fb-71a54617e3ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{5c3d08c1-41de-4f23-8e4f-782bc2528628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing\Workarounds">
+      <UniqueIdentifier>{d0977b75-25bc-48db-aeba-1c7fdb2350ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -13,10 +19,19 @@
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h">
+      <Filter>Timing\Workarounds</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
+      <Filter>Timing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
