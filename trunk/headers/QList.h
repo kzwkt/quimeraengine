@@ -223,7 +223,7 @@ public:
 
             QE_ASSERT(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return *(((T*)m_pList->m_pElementAllocator->GetPointer()) + m_uPosition);
+            return *(((T*)m_pList->m_elementAllocator.GetPointer()) + m_uPosition);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ public:
 
             QE_ASSERT(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return ((T*)m_pList->m_pElementAllocator->GetPointer()) + m_uPosition;
+            return ((T*)m_pList->m_elementAllocator.GetPointer()) + m_uPosition;
         }
 
         /// <summary>
@@ -616,7 +616,7 @@ public:
         bool IsValid() const
         {
             return m_pList != null_q && 
-                   (m_uPosition < m_linkAllocator.GetPoolSize() / sizeof(QList::QLink) ||
+                   (m_uPosition < m_pList->m_linkAllocator.GetPoolSize() / sizeof(QList::QLink) ||
                     m_uPosition == QList::END_POSITION_BACKWARD ||
                     m_uPosition == QList::END_POSITION_FORWARD);
         }
@@ -687,17 +687,15 @@ public:
         QE_ASSERT( uInitialCapacity > 0, "Initial capacity must be greater than zero" );
     }
 
-    // [TODO] rdelasheras. Uncomment when iterators exists.
-/*
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <remarks>
-    /// The copy constructor is called for every element of the list.
+    /// The copy constructor of every element is called.
     /// </remarks>
-    /// <param name="list"> [IN] Origin list to copy.</param>
-    QList(const QList& list) : m_elementAllocator(list.m_elementAllocator.GetPoolSize() / sizeof(T), sizeof(T), QAlignment(alignof_q(T))), // [TODO] rdelasheras. Use GetCapacity when it exists.
-                               m_linkAllocator(list.m_linkAllocator.GetPoolSize() / sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+    /// <param name="list">[IN] Source list to copy.</param>
+    QList(const QList& list) : m_elementAllocator(list.m_elementAllocator.GetPoolSize(), sizeof(T), QAlignment(alignof_q(T))),
+                               m_linkAllocator(list.m_linkAllocator.GetPoolSize(), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
     {
         if(list.m_uFirst == QList::END_POSITION_BACKWARD)
         {
@@ -706,26 +704,22 @@ public:
         }
         else
         {
-            // [TODO] rdelasheras. Uncomment when iterators exists.
-            list.m_linkAllocator.CopyTo(*m_linkAllocator);
-            list.m_elementAllocator.CopyTo(*m_elementAllocator);
+            list.m_linkAllocator.CopyTo(m_linkAllocator);
+            list.m_elementAllocator.CopyTo(m_elementAllocator);
 
             m_uFirst = list.m_uFirst;
             m_uLast = list.m_uLast;
 
-            QListIterator iteratorOrigin = QListIterator(&list);
-            QListIterator iteratorDestination = QListIterator(this);
+            QList::QListIterator iteratorOrigin = list.GetFirst();
+            QList::QListIterator iteratorDestination = this->GetFirst();
 
-            for(iteratorOrigin.MoveFirst(), iteratorDestination.MoveFirst();
-                !iteratorOrigin.IsEnd();
-                ++iteratorOrigin, ++iteratorDestination)
+            for(; !iteratorOrigin.IsEnd(); ++iteratorOrigin, ++iteratorDestination)
             {
-                iteratorDestination->T(*iteratorOrigin);
+                new(&(*iteratorDestination)) T(*iteratorOrigin);
             }
-
         }
     }
-    */
+    
 protected:
 
     // DESTRUCTOR
@@ -782,8 +776,6 @@ public:
     /// </returns>
     QList& operator= (const QList& list)
     {
-        // [TODO] rdelasheras. Uncomment when GetCount and iterators exist.
-        /*
         if(this != &list)
         {
             if(list.GetCount() == this->GetCount())
@@ -836,7 +828,7 @@ public:
                         pLinkOrigin = (QList::QLink*)list.m_linkAllocator.GetPointer() + uIndexOrigin * sizeof(QList::QLink);
                         uIndexOrigin = pLinkOrigin->GetNext();
 
-                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
+                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndexDestination * sizeof(QList::QLink);
                         uIndexDestination = pLinkDestination->GetNext();
                     }
                     uFirstIndexToDestroy = uIndexDestination;
@@ -903,7 +895,7 @@ public:
                 }
             }
         }
-        */
+        
         return *this;
     }
 
@@ -988,15 +980,81 @@ public:
         // [TODO] raul. If so a remark must be added in the documentation.
         return this->GetValue(uIndex);
     }
+    
+    /// <summary>
+    /// Gets an iterator that points to a given position in the list.
+    /// </summary>
+    /// <param name="uIndex">[IN] Position in the list, starting at zero, to which the iterator will point. If it is out of bounds, the returned iterator will point 
+    /// to the end position.</param>
+    /// <returns>
+    /// An iterator that points to the position of the element.
+    /// </returns>
+    QList::QListIterator GetIterator(const pointer_uint_q uIndex) const 
+    {
+        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the list's size" );
 
-private:
+        QList::QListIterator iterator(this, m_uFirst);
+
+        if(!this->IsEmpty())
+            for(pointer_uint_q i = 0; i < uIndex; ++i)
+                ++iterator;
+
+        return iterator;
+    }
+
+    /// <summary>
+    /// Gets an iterator that points to the first position in the list.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the position of the first element. If the list is empty, the iterator will point to the end position.
+    /// </returns>
+    QList::QListIterator GetFirst() const
+    {
+        QE_ASSERT( !this->IsEmpty(), "The list is empty, there is no first position." );
+
+        return QList::QListIterator(this, m_uFirst);
+        
+    }
+
+    /// <summary>
+    /// Gets an iterator that points to the last position in the list.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the position of the last element. If the list is empty, the iterator will point to the end position.
+    /// </returns>
+    QList::QListIterator GetLast() const
+    {
+        QE_ASSERT( !this->IsEmpty(), "The list is empty, there is no last position." );
+
+        return QList::QListIterator(this, m_uLast);
+    }
+    
+    /// <summary>
+    /// Increases the capacity of the list, reserving memory for more elements.
+    /// </summary>
+    /// <remarks>
+    /// This operation implies a reallocation, which means:<br/>
+    /// - Iterators pointing to elements of this list may become invalid.<br/>
+    /// - Any pointer to elements of this list will be pointing to garbage.
+    /// </remarks>
+    /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
+    /// current capacity or nothing will happen.</param>
+    void Reserve(const pointer_uint_q uNumberOfElements)
+    {
+        if(uNumberOfElements > this->GetCapacity())
+        {
+            m_elementAllocator.Reallocate(uNumberOfElements * sizeof(T));
+            m_linkAllocator.Reallocate(uNumberOfElements * sizeof(QList::QLink));
+        }
+    }
+
 
     // PROPERTIES
     // ---------------
 
 public:
 
-       /// <summary>
+    /// <summary>
     /// Returns a constant pointer to the element allocator.
     /// </summary>
     /// <returns>
