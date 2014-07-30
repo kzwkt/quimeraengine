@@ -79,6 +79,10 @@
       <File Name="../../../../tests/unit/testmodule_system/QObject_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QObjectTestClasses.h"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Timing">
+      <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZoneWhiteBox.h"/>
+      <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZone_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
@@ -418,7 +422,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -mwindows" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../../3rdparty/Boost/include"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
@@ -426,7 +430,7 @@
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
-      <Linker Options="-m32" Required="yes">
+      <Linker Options="-m32 -mwindows" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
         <LibraryPath Value="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
         <LibraryPath Value="../../../../../bin/MinGW/$(ConfigurationName)"/>

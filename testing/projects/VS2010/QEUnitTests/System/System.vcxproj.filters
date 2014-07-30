@@ -10,6 +10,9 @@
     <Filter Include="Tests\Core">
       <UniqueIdentifier>{e5bb93da-60c2-49c4-be84-54e53ee2dfd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Timing">
+      <UniqueIdentifier>{5de9b162-9c75-4dbe-880b-7fbe7693bf24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -26,6 +29,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp">
       <Filter>Tests\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp">
+      <Filter>Tests\Timing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h">
       <Filter>Tests\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h">
+      <Filter>Tests\Timing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

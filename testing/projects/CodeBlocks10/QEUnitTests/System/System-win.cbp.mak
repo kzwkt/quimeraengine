@@ -22,7 +22,7 @@ LDFLAGS_DEBUGWIN32SHAREDRTSTATIC =
 OBJDIR_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)trunk\\testing\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic
 DEP_DEBUGWIN32SHAREDRTSTATIC = 
 OUT_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)trunk\\testing\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic\\Unit_TestModule_System.exe
-OBJ_DEBUGWIN32SHAREDRTSTATIC =  $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\TestModule_System.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o
+OBJ_DEBUGWIN32SHAREDRTSTATIC =  $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\TestModule_System.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o
 
 # DebugWin32SharedrtDynamic
 INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit -I$(MAKEPATH)trunk/3rdparty/ICU/include
@@ -35,7 +35,7 @@ LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)trunk\\testing\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
 OUT_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)trunk\\testing\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic\\Unit_TestModule_System.exe
-OBJ_DEBUGWIN32SHAREDRTDYNAMIC =  $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\TestModule_System.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o
+OBJ_DEBUGWIN32SHAREDRTDYNAMIC =  $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\TestModule_System.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o
 
 all: debugwin32sharedrtstatic debugwin32sharedrtdynamic
 
@@ -75,6 +75,9 @@ $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSi
 
 $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o
+
+$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o
 
 clean_debugwin32sharedrtstatic: 
 
@@ -116,6 +119,9 @@ $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QS
 
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QObject_Test.o
+
+$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_system\\QLocalTimeZone_Test.o
 
 clean_debugwin32sharedrtdynamic: 
 
