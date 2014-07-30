@@ -56,9 +56,8 @@ QTEST_CASE ( Constructor1_ChecksIfConstructorWithoutParametersInitializesMembers
     QListWhiteBox<u64_q> list;
 
     // [Verification]
-    pointer_uint_q uFirst = list.GetFirst();
-    pointer_uint_q uLast  = list.GetLast();
-    const QPoolAllocator* pElementsAllocator = list.GetAllocator();
+    pointer_uint_q uFirst = list.GetFirstPosition();
+    pointer_uint_q uLast  = list.GetLastPosition();
 
     pointer_uint_q uInitialCapacity = list.GetCapacity();
 
@@ -82,9 +81,8 @@ QTEST_CASE ( Constructor2_ChecksIfConstructorInitializesMembersCorrectly_Test )
     QListWhiteBox<u64_q> list( INITIAL_CAPACITY );
 
     // [Verification]
-    pointer_uint_q uFirst = list.GetFirst();
-    pointer_uint_q uLast  = list.GetLast();
-    const QPoolAllocator* pElementsAllocator = list.GetAllocator();
+    pointer_uint_q uFirst = list.GetFirstPosition();
+    pointer_uint_q uLast  = list.GetLastPosition();
 
     pointer_uint_q uInitialCapacity = list.GetCapacity();
 
@@ -124,8 +122,6 @@ QTEST_CASE ( Constructor2_AssertionFailedWhenPassingZeroElementsAsInitialCapacit
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 
-// [TODO] rdelasheras. Uncomment when copy constructor exists.
-/*
 /// <summary>
 /// Checks if copy constructor initializes correctly when passing a list with zero elements.
 /// </summary>
@@ -140,15 +136,13 @@ QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingALis
     QListWhiteBox<u64_q> listDestination = QListWhiteBox<u64_q>(listOrigin);
 
     // [Verification]
-    pointer_uint_q uFirst = listDestination.GetFirst();
-    pointer_uint_q uLast  = listDestination.GetLast();
-    const QPoolAllocator* pElementsAllocator = listDestination.GetAllocator();
-    const QPoolAllocator* pLinkAllocator = listDestination.GetLinkAllocator();
+    pointer_uint_q uFirst = listDestination.GetFirstPosition();
+    pointer_uint_q uLast  = listDestination.GetLastPosition();
 
     BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
     BOOST_CHECK_EQUAL( uLast, EXPECTED_END_POSITION_FORWARD );
 }
-*/
+
 // [TODO] rdelasheras. Uncomment the test when methods to Add and Get elements from a list exist.
 /*
 /// <summary>
@@ -898,6 +892,392 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailedWhenPassingAnIndexBiggerThanN
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 */
+
+/// <sumary>
+/// Checks that the expected iterator is returned when using a common list and a common index.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonListAndPosition_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const pointer_uint_q INPUT_INDEX = 1;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetFirst();
+    ++EXPECTED_ITERATOR;
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);*/
+}
+
+/// <sumary>
+/// Checks that the first position is returned when using a common list and the index equals zero.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonListAndZeroIndex_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const pointer_uint_q INPUT_INDEX = 0;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetFirst();
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);*/
+}
+
+/// <sumary>
+/// Checks that the last position is returned when using a common list and the last index.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonListAndLastIndex_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const pointer_uint_q INPUT_INDEX = NUMBER_OF_ELEMENTS - 1U;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetLast();
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the list is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenListIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QList<int> list = QList<int>();
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.GetIterator(INPUT_INDEX);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const bool ASSERTION_FAILED = true;
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = NUMBER_OF_ELEMENTS;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.GetIterator(OUT_OF_BOUNDS_INDEX);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the list is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenListIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QList<int> list = QList<int>();
+    const bool ITERATOR_POINTS_END_POSITION = true;
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const bool ITERATOR_POINTS_END_POSITION = true;
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = NUMBER_OF_ELEMENTS;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetIterator(OUT_OF_BOUNDS_INDEX);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);*/
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the first position is returned when using a common list.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnsTheFirstPositionWhenUsingCommonList_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    QList<int>::QListIterator EXPECTED_ITERATOR(&list, 0);
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetFirst();
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the list is empty.
+/// </sumary>
+QTEST_CASE( GetFirst_AssertionFailsWhenListIsEmpty_Test )
+{
+    // [Preparation]
+    QList<int> list = QList<int>();
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.GetFirst();
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the list is empty.
+/// </sumary>
+QTEST_CASE( GetFirst_IteratorPointsToEndPositionWhenListIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QList<int> list = QList<int>();
+    const bool ITERATOR_POINTS_END_POSITION = true;
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetFirst();
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the last position is returned when using a common list.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnsTheLastPositionWhenUsingCommonList_Test )
+{/* [TODO] Thund: Uncomment when method Add is implemented
+    // [Preparation]
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
+
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    QList<int>::QListIterator EXPECTED_ITERATOR(&list, NUMBER_OF_ELEMENTS - 1U);
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetLast();
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the list is empty.
+/// </sumary>
+QTEST_CASE( GetLast_AssertionFailsWhenListIsEmpty_Test )
+{
+    // [Preparation]
+    QList<int> list = QList<int>();
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.GetLast();
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the list is empty.
+/// </sumary>
+QTEST_CASE( GetLast_IteratorPointsToEndPositionWhenListIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QList<int> list = QList<int>();
+    const bool ITERATOR_POINTS_END_POSITION = true;
+
+    // [Execution]
+    QList<int>::QListIterator it = list.GetLast();
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the capacity is correctly increased.
+/// </summary>
+QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CAPACITY = 4U;
+    QList<int> list(1U);
+
+    // [Execution]
+    list.Reserve(EXPECTED_CAPACITY);
+
+    // [Verification]
+    pointer_uint_q uStoredCapacity = list.GetCapacity();
+
+    BOOST_CHECK_EQUAL(uStoredCapacity, EXPECTED_CAPACITY);
+}
+
+/// <summary>
+/// Checks that elements are correctly reallocated.
+/// </summary>
+QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
+{/* [TODO] Thund: Uncomment when Add is implemented
+    // [Preparation]
+    const bool ELEMENTS_ARE_THE_SAME = true;
+    const pointer_uint_q INPUT_CAPACITY = 20U;
+    QList<int> list(3U);
+    const pointer_uint_q NUMBER_OF_ELEMENTS = 3;
+    
+    for(pointer_uint_q i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        list.Add(i);
+
+    // [Execution]
+    list.Reserve(INPUT_CAPACITY); // A reallocation occurs
+
+    // [Verification]
+    bool bElementsAreTheSame = true;
+
+    for(pointer_uint_q i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+        bElementsAreTheSame = bElementsAreTheSame && (list[i] == i);
+
+    BOOST_CHECK_EQUAL(bElementsAreTheSame, ELEMENTS_ARE_THE_SAME);*/
+}
+
+/// <summary>
+/// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than currently reserved.
+/// </summary>
+QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
+{/* [TODO] Thund: Uncomment when Add is implemented
+    // [Preparation]
+    const bool ELEMENTS_ARE_THE_SAME = true;
+    const pointer_uint_q INPUT_CAPACITY = 1U;
+    const pointer_uint_q EXPECTED_CAPACITY = 3U;
+    QList<int> list(EXPECTED_CAPACITY);
+    
+    for(pointer_uint_q i = 0; i < EXPECTED_CAPACITY; ++i)
+        list.Add(i);
+
+    const int* ORIGINAL_FIRST_ELEMENT_ADDRESS = &list[0];
+
+    // [Execution]
+    list.Reserve(INPUT_CAPACITY);
+
+    // [Verification]
+    pointer_uint_q uCapacity = list.GetCapacity();
+    int* pFirstElementAddress = &list[0];
+
+    BOOST_CHECK_EQUAL(pFirstElementAddress, ORIGINAL_FIRST_ELEMENT_ADDRESS);
+    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);*/
+}
 
 // [TODO] raul. Uncomment the test when method Add exists.
 /*

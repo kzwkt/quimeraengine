@@ -74,19 +74,19 @@ public:
 public:
 
     // Necessary for testing
-    pointer_uint_q GetFirst() const
+    pointer_uint_q GetFirstPosition() const
     {
         return m_uFirst;
     }
 
     // Necessary for testing
-    pointer_uint_q GetLast() const
+    pointer_uint_q GetLastPosition() const
     {
         return m_uLast;
     }
 
     // Necessary for testing
-    AllocatorT* GetLinkAllocator() const
+    const AllocatorT* GetLinkAllocator() const
     {
         return &m_linkAllocator;
     }
