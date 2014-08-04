@@ -989,7 +989,7 @@ public:
     /// <returns>
     /// An iterator that points to the position of the element.
     /// </returns>
-    QList::QListIterator GetIterator(const pointer_uint_q uIndex) const 
+    QListIterator GetIterator(const pointer_uint_q uIndex) const 
     {
         QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the list's size" );
 
@@ -1008,7 +1008,7 @@ public:
     /// <returns>
     /// An iterator that points to the position of the first element. If the list is empty, the iterator will point to the end position.
     /// </returns>
-    QList::QListIterator GetFirst() const
+    QListIterator GetFirst() const
     {
         QE_ASSERT( !this->IsEmpty(), "The list is empty, there is no first position." );
 
@@ -1022,7 +1022,7 @@ public:
     /// <returns>
     /// An iterator that points to the position of the last element. If the list is empty, the iterator will point to the end position.
     /// </returns>
-    QList::QListIterator GetLast() const
+    QListIterator GetLast() const
     {
         QE_ASSERT( !this->IsEmpty(), "The list is empty, there is no last position." );
 
