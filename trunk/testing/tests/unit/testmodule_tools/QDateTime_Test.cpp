@@ -1691,7 +1691,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
     const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
     const u64_q MAX_HOUR        = QDateTime::GetMaxDateTime().GetHour();
-    const u64_q MAX_MAXUTE      = QDateTime::GetMaxDateTime().GetMinute();
+    const u64_q MAX_MINUTE      = QDateTime::GetMaxDateTime().GetMinute();
     const u64_q MAX_SECOND      = QDateTime::GetMaxDateTime().GetSecond();
     const u64_q MAX_MILLISECOND = QDateTime::GetMaxDateTime().GetMillisecond();
     const u64_q MAX_MICROSECOND = QDateTime::GetMaxDateTime().GetMicrosecond();
@@ -1700,7 +1700,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
 
 	// [Execution]
     QDateTime dateTime(scast_q(MAX_YEAR, i32_q), MAX_MONTH, MAX_DAY,
-                       MAX_HOUR, MAX_MAXUTE, MAX_SECOND,
+                       MAX_HOUR, MAX_MINUTE, MAX_SECOND,
                        MAX_MILLISECOND, MAX_MICROSECOND, MAX_HNS,
                        EXPECTED_TIMEZONE);
 
@@ -1709,7 +1709,7 @@ QTEST_CASE ( Constructor3_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetMonth(), MAX_MONTH);
     BOOST_CHECK_EQUAL(dateTime.GetDay(), MAX_DAY);
     BOOST_CHECK_EQUAL(dateTime.GetHour(), MAX_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MAXUTE);
+    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MINUTE);
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MAX_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MAX_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_MICROSECOND);
@@ -2708,7 +2708,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     const u64_q MAX_MONTH       = QDateTime::GetMaxDateTime().GetMonth();
     const u64_q MAX_DAY         = QDateTime::GetMaxDateTime().GetDay();
     const u64_q MAX_HOUR        = 0;
-    const u64_q MAX_MAXUTE      = 0;
+    const u64_q MAX_MINUTE      = 0;
     const u64_q MAX_SECOND      = 0;
     const u64_q MAX_MILLISECOND = 0;
     const u64_q MAX_MICROSECOND = 0;
@@ -2724,7 +2724,7 @@ QTEST_CASE ( Constructor4_IsCorrectlyConstructedWhenUsingMaximumDateAndTime_Test
     BOOST_CHECK_EQUAL(dateTime.GetMonth(), MAX_MONTH);
     BOOST_CHECK_EQUAL(dateTime.GetDay(), MAX_DAY);
     BOOST_CHECK_EQUAL(dateTime.GetHour(), MAX_HOUR);
-    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MAXUTE);
+    BOOST_CHECK_EQUAL(dateTime.GetMinute(), MAX_MINUTE);
     BOOST_CHECK_EQUAL(dateTime.GetSecond(), MAX_SECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMillisecond(), MAX_MILLISECOND);
     BOOST_CHECK_EQUAL(dateTime.GetMicrosecond(), MAX_MICROSECOND);
@@ -6458,7 +6458,7 @@ QTEST_CASE ( IsLeapYear_ReturnsTrueWhenYearIsLeapYear_Test )
 QTEST_CASE ( IsLeapYear_ReturnsFalseWhenYearIsNotLeapYear_Test )
 {
     // [Preparation]
-    const i32_q NONLEAP_YEAR = 2;
+    const i32_q NONLEAP_YEAR = 100;
     const u64_q COMMON_MONTH = 1;
     const u64_q COMMON_DAY   = 2;
     const QDateTime ORIGINAL_DATETIME(NONLEAP_YEAR, COMMON_MONTH, COMMON_DAY);
@@ -6881,6 +6881,326 @@ QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 }
 
 /// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1996;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1996;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 1, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1999;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1999;
+    const QDateTime SOURCE_DATETIME(EXPECTED_YEAR, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 3;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 4;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 5;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 2000;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 1, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetYear_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_YEAR = 1;
+    const QDateTime SOURCE_DATETIME(-scast_q(EXPECTED_YEAR, int), 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uYear = SOURCE_DATETIME.GetYear();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, EXPECTED_YEAR);
+}
+
+/// <summary>
 /// Checks that it is local time.
 /// </summary>
 QTEST_CASE ( GetYear_IsLocalTime_Test )
@@ -7255,7 +7575,7 @@ QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLea
 QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_MONTH = 2;
+    const unsigned int EXPECTED_MONTH = 9;
     const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
 
 	// [Execution]
@@ -7271,11 +7591,331 @@ QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
 QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_MONTH = 11;
+    const unsigned int EXPECTED_MONTH = 4;
     const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
 
 	// [Execution]
     unsigned int uMonth = MAXIMUM_NEGATIVE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(1996, EXPECTED_MONTH, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(1996, EXPECTED_MONTH, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(2000, EXPECTED_MONTH, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(2000, EXPECTED_MONTH, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(2000, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(2000, EXPECTED_MONTH, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(1999, EXPECTED_MONTH, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(1999, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-3, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-4, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-5, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-2000, EXPECTED_MONTH, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-2000, EXPECTED_MONTH, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-2000, EXPECTED_MONTH, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 1;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMonth_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MONTH = 12;
+    const QDateTime SOURCE_DATETIME(-1, EXPECTED_MONTH, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMonth = SOURCE_DATETIME.GetMonth();
 
     // [Verification]
     BOOST_CHECK_EQUAL(uMonth, EXPECTED_MONTH);
@@ -7657,7 +8297,7 @@ QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapY
 QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_DAY = 8;
+    const unsigned int EXPECTED_DAY = 14;
     const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
 
 	// [Execution]
@@ -7673,11 +8313,331 @@ QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
 QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_DAY = 23;
+    const unsigned int EXPECTED_DAY = 18;
     const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
 
 	// [Execution]
     unsigned int uDay = MAXIMUM_NEGATIVE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(1996, 1, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(1996, 12, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(2000, 12, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(2000, 1, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(2000, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(2000, 1, EXPECTED_DAY, 12, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(1999, 12, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(1999, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-4, 1, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 2;
+    const QDateTime SOURCE_DATETIME(-4, 1, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-3, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-4, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-5, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-2000, 12, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-2000, 12,EXPECTED_DAY, 0, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-2000, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 1;
+    const QDateTime SOURCE_DATETIME(-1, 1, EXPECTED_DAY, 23, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 2;
+    const QDateTime SOURCE_DATETIME(-1, 1, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 30;
+    const QDateTime SOURCE_DATETIME(-1, 12, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetDay_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_DAY = 31;
+    const QDateTime SOURCE_DATETIME(-1, 12, EXPECTED_DAY, 0, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uDay = SOURCE_DATETIME.GetDay();
 
     // [Verification]
     BOOST_CHECK_EQUAL(uDay, EXPECTED_DAY);
@@ -8086,6 +9046,326 @@ QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 }
 
 /// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 12;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, EXPECTED_HOUR, 0, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 23;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, EXPECTED_HOUR, 59, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHour_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HOUR = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, EXPECTED_HOUR, 0, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uHour = SOURCE_DATETIME.GetHour();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, EXPECTED_HOUR);
+}
+
+/// <summary>
 /// Checks that it is local time.
 /// </summary>
 QTEST_CASE ( GetHour_IsLocalTime_Test )
@@ -8482,6 +9762,326 @@ QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 
 	// [Execution]
     unsigned int uMinute = MAXIMUM_NEGATIVE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, EXPECTED_MINUTE, 0, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 59;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, EXPECTED_MINUTE, 59, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMinute_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MINUTE = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, EXPECTED_MINUTE, 0, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMinute = SOURCE_DATETIME.GetMinute();
 
     // [Verification]
     BOOST_CHECK_EQUAL(uMinute, EXPECTED_MINUTE);
@@ -8889,6 +10489,326 @@ QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
     BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
 }
 
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, EXPECTED_SECOND, 0, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 59;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, EXPECTED_SECOND, 999, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetSecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_SECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, EXPECTED_SECOND, 0, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uSecond = SOURCE_DATETIME.GetSecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSecond, EXPECTED_SECOND);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -9264,6 +11184,326 @@ QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test
 
 	// [Execution]
     unsigned int uMillisecond = MAXIMUM_NEGATIVE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, EXPECTED_MILLISECOND, 0, 1, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 999;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, EXPECTED_MILLISECOND, 999, 9, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMillisecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MILLISECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, EXPECTED_MILLISECOND, 0, 0, null_q);
+
+	// [Execution]
+    unsigned int uMillisecond = SOURCE_DATETIME.GetMillisecond();
 
     // [Verification]
     BOOST_CHECK_EQUAL(uMillisecond, EXPECTED_MILLISECOND);
@@ -9649,6 +11889,326 @@ QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test
     BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
 }
 
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 1, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, EXPECTED_MICROSECOND, 1, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 999;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, EXPECTED_MICROSECOND, 9, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetMicrosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_MICROSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, EXPECTED_MICROSECOND, 0, null_q);
+
+	// [Execution]
+    unsigned int uMicrosecond = SOURCE_DATETIME.GetMicrosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicrosecond, EXPECTED_MICROSECOND);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -9683,14 +12243,14 @@ QTEST_CASE ( GetMicrosecond_AssertionFailsWhenDateIsUndefined_Test )
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9699,14 +12259,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLe
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9715,14 +12275,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLe
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9731,14 +12291,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveLe
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9747,14 +12307,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstNegativeLe
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9763,14 +12323,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstPositiveDa
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9779,14 +12339,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfF
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9795,14 +12355,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsPositiveAndMul
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9811,14 +12371,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenYearIsNegativeAndMul
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9827,14 +12387,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYea
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9843,14 +12403,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYea
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9859,14 +12419,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingPositiveLeapYea
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9875,14 +12435,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingNegativeLeapYea
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 9;
-    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9891,14 +12451,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastNegativeIns
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 9;
-    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9907,14 +12467,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFi
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9923,14 +12483,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfP
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9939,14 +12499,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfN
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9955,14 +12515,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfF
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 0;
-    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9971,14 +12531,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingFirstInstantOfF
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 9;
-    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -9987,14 +12547,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFi
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 9;
-    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_NANOSECOND, null_q);
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
 
 	// [Execution]
-    unsigned int uNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -10003,14 +12563,14 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingLastInstantOfFi
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 7;
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 7;
     const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
 
 	// [Execution]
-    unsigned int uNanosecond = MAXIMUM_POSITIVE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = MAXIMUM_POSITIVE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 /// <summary>
@@ -10019,14 +12579,334 @@ QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingMaximumDateAndT
 QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
 {
     // [Preparation]
-    const unsigned int EXPECTED_NANOSECOND = 3;
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 3;
     const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
 
 	// [Execution]
-    unsigned int uNanosecond = MAXIMUM_NEGATIVE_DATETIME.GetHundredOfNanosecond();
+    unsigned int uHundredOfNanosecond = MAXIMUM_NEGATIVE_DATETIME.GetHundredOfNanosecond();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(uNanosecond, EXPECTED_NANOSECOND);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 1;
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 1;
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 9;
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, 999, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( GetHundredOfNanosecond_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_HUNDREDOFNANOSECOND = 0;
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, 0, EXPECTED_HUNDREDOFNANOSECOND, null_q);
+
+	// [Execution]
+    unsigned int uHundredOfNanosecond = SOURCE_DATETIME.GetHundredOfNanosecond();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, EXPECTED_HUNDREDOFNANOSECOND);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -10085,7 +12965,7 @@ QTEST_CASE ( GetUtc_ReturnsSameDateTimeWithDifferentTimeZone_Test )
 QTEST_CASE ( GetMaxDateTime_ReturnsExpectedValue_Test )
 {
     // [Preparation]
-    const QDateTime EXPECTED_DATETIME(29228, 2, 8, 2, 48, 5, 477, 580, 7, null_q);
+    const QDateTime EXPECTED_DATETIME(29228, 9, 14, 2, 48, 5, 477, 580, 7, null_q);
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
@@ -10103,7 +12983,7 @@ QTEST_CASE ( GetMaxDateTime_ReturnsExpectedValue_Test )
 QTEST_CASE ( GetMinDateTime_ReturnsExpectedValue_Test )
 {
     // [Preparation]
-    const QDateTime EXPECTED_DATETIME(-29228, 11, 23, 21, 11, 54, 522, 419, 3, null_q);
+    const QDateTime EXPECTED_DATETIME(-29228, 4, 18, 21, 11, 54, 522, 419, 3, null_q);
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
