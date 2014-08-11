@@ -55,7 +55,7 @@ class QTimeZone;
 /// Date and time are stored together but this class can also be used to represent either the date only or the time only. When
 /// it is used to represent the time only, the first day of the Anno Domini will be used; this is just a convention and
 /// has no relevance. When it is used to store only dates, the time will be zero.<br/>
-/// The range of time that can be represented is from 29228-11-23 21:11:54.5224193 B.C. to 29228-02-08 02:48:05.4775807 A. D., with
+/// The range of time that can be represented is from 29228-4-18 21:11:54.5224193 B.C. to 29228-09-14 02:48:05.4775807 A.D., with
 /// a resolution of 100 nanoseconds.<br/>
 /// Instances are undefined by default until they are assigned a value.<br/>
 /// This class is not immutable, although only the assignment operator can modify an instance once it is created.
@@ -112,11 +112,6 @@ private:
     static const u64_q HNS_PER_LEAPYEAR;
 
     /// <summary>
-    /// The amount of hundreds of nanoseconds per four consecutive years, taking into account the leap year.
-    /// </summary>
-    static const u64_q HNS_PER_4_CONSECUTIVE_YEARS;
-
-    /// <summary>
     /// The internal value for the instant stored in an undefined date/time object.
     /// </summary>
     static const QTimeSpan UNDEFINED_VALUE;
@@ -164,7 +159,7 @@ public:
               const u64_q uHour, const u64_q uMinute, const u64_q uSecond, 
               const u64_q uMillisecond, const u64_q uMicrosecond, const u64_q uHundredsOfNanosecond, 
               const QTimeZone* pTimeZone = null_q);
-
+    
     /// <summary>
     /// Constructor that receives a date, in local time, plus the time zone information. The time will be set to 00:00:00.0.
     /// </summary>
@@ -174,9 +169,9 @@ public:
     /// If the input date is posterior to the maximum positive date, then the maximum positive value will be used instead.<br/>
     /// If the input date is prior to the maximum negative date, then the maximum negative value will be used instead.<br/>
     /// If arguments are not valid, the result is undefined.<br/>
-    /// There is a special case regarding the farthest negative date; it cannot be 29228/11/23 because it is anterior
+    /// There is a special case regarding the farthest negative date; it cannot be 29228-04-18 because it is anterior
     /// to the maximum negative date, which starts at 21:11:54.5224193. Therefore, the maximum negative date allowed through this
-    /// constructor is 29228/11/24.
+    /// constructor is 29228-04-19.
     /// </remarks>
     /// <param name="nYear">[IN] The year, which may be positive (A.D.) or negative (B.C). The year must be prior to 29229
     /// and posterior to -29229. Zero is not a valid year.</param>
@@ -248,6 +243,7 @@ public:
     /// No whitespaces are allowed.<br/>
     /// Any letter in the timestamp must be uppercase (for example: "T" or "Z").<br/>
     /// Fractions of second are optional but, when they appear, they must be 7-numbers long at most.<br/>
+    /// Remember that, in ISO-8601 timestamps, negative years start at year -0000 unlike positive dates which start at year +0001.<br/>
     /// More information at http://en.wikipedia.org/wiki/ISO_8601 .
     /// </remarks>
     /// <param name="strTimestamp">[IN] A valid timestamp compound of a date, a time or both. It must not be empty nor contain whitespaces.</param>
@@ -443,6 +439,7 @@ public:
     /// The year (Y) will be formed by 5 numbers only if it is greater than 9999. The fraction of second will not be included if
     /// the current millisecond, microsecond and hundred of nanosecond equal zero; besides, the amount of decimal numbers will depend
     /// on the value of the mentioned time parts.<br/>
+    /// Remember that, in ISO-8601 timestamps, negative years start at year -0000 unlike positive dates which start at year +0001.<br/>
     /// Undefined date/times cannot be represented as valid timestamps.
     /// </remarks>
     /// <returns>
@@ -614,9 +611,10 @@ public:
     /// <summary>
     /// Calculates whether the year is a leap year or not.
     /// </summary>
-    /// <summary>
+    /// <remarks>
+    /// Leap years are those divisible by 4 but not by 100, unless they are divisible by 400.<br/>
     /// The year is calculated using the local time.
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// True if it is a leap year; False otherwise.
     /// </returns>
@@ -715,7 +713,7 @@ public:
     QDateTime GetUtc() const;
     
     /// <summary>
-    /// Gets the maximum positive date and time that can be represented (29228-02-08 02:48:05.4775807 A. D.), in UTC.
+    /// Gets the maximum positive date and time that can be represented (29228-09-14 02:48:05.4775807 A.D.), in UTC.
     /// </summary>
     /// <returns>
     /// The maximum positive date and time.
@@ -723,7 +721,7 @@ public:
     static const QDateTime& GetMaxDateTime();
     
     /// <summary>
-    /// Gets the maximum negative date and time that can be represented (29228-11-23 21:11:54.5224193 B.C.), in UTC.
+    /// Gets the maximum negative date and time that can be represented (29228-04-18 21:11:54.5224193 B.C.), in UTC.
     /// </summary>
     /// <returns>
     /// The maximum negative date and time.
