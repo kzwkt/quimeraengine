@@ -63,6 +63,9 @@
     <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
     <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
     <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -112,5 +115,8 @@
       <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLinearAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

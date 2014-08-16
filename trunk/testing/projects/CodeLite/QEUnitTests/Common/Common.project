@@ -92,6 +92,7 @@
       <File Name="../../../../tests/unit/testmodule_common/QAlignment_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/QPoolAllocatorWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_common/QPoolAllocator_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_common/QLinearAllocator_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="General">
       <File Name="../../../../tests/unit/testmodule_common/EQEnumeration_Test.cpp"/>

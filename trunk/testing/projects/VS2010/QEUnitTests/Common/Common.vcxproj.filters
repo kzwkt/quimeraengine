@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharIterator_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QLinearAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

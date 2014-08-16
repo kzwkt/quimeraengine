@@ -43,11 +43,11 @@ QTEST_CASE ( <FuncName>_<TestDescription>_Test )
 {
     // [Preparation]
 
-	// [Execution]
+    // [Execution]
     
     // [Verification]
 
-	// [Cleaning]
+    // [Cleaning]
 }
 
 // End - Test Suite: ClassToTest
