@@ -29,6 +29,7 @@
 
 #include "ToolsDefinitions.h"
 #include "QFixedArray.h"
+#include <cstring>
 
 
 namespace Kinesis
@@ -153,24 +154,6 @@ public:
         if(m_uLast != QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD)
             for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
                 new(m_allocator.Allocate()) T(arInputArray[uIndex]);
-    }
-
-
-    // DESTRUCTOR
-    // ---------------
-public:
-
-    /// <summary>
-    /// Destructor.
-    /// </summary>
-    /// <remarks>
-    /// The destructor of every element is called, from first to last.
-    /// </remarks>
-    ~QDynamicArray()
-    {
-        // The destructor of every element is called
-        for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
-            this->GetValue(uIndex).~T();
     }
 
 
@@ -300,6 +283,259 @@ public:
             m_allocator.Reallocate(uNumberOfElements * sizeof(T));
     }
 
+    /// <summary>
+    /// Copies an element to the end of the array.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    void Add(const T &newElement)
+    {
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+        
+        if(this->IsEmpty())
+            m_uFirst = m_uLast = 0;
+        else
+            ++m_uLast;
+
+        new(m_allocator.Allocate()) T(newElement);
+    }
+    
+    /// <summary>
+    /// Copies an element to a concrete position of the array.
+    /// </summary>
+    /// <remarks>
+    /// An insertion produces the movement of all the subsequent elements in the array one position forward, which will affect the content pointed 
+    /// to by any existing iterator or pointer.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.<br/>
+    /// Use Add method to insert elements at the end.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    /// <param name="position">[IN] The position where the new element will be placed. It should not be an end position; if it is, 
+    /// the element will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// array; otherwise, the behavior is undefined.</param>
+    void Insert(const T &newElement, const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
+    {
+        QE_ASSERT(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+
+        // Gets the position of the iterator
+        pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
+
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+
+        if(this->IsEmpty())
+        {
+            m_uFirst = m_uLast = 0;
+            new(m_allocator.Allocate()) T(newElement);
+        }
+        else if(uIndex > m_uLast)
+        {
+            ++m_uLast;
+            new(m_allocator.Allocate()) T(newElement);
+        }
+        else
+        {
+            // Increases the allocated space
+            ++m_uLast;
+            m_allocator.Allocate();
+            
+            // Moves all the contiguous elements 1 position forward
+            void* pBuffer = m_allocator.GetPointer();
+            memcpy((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
+                   (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
+                   (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+                   
+            // Calls the copy constructor using the position where the element is inserted
+            new((void*)((T*)pBuffer + uIndex)) T(newElement);
+        }
+    }
+    
+    /// <summary>
+    /// Copies an element to a concrete position of the array.
+    /// </summary>
+    /// <remarks>
+    /// An insertion produces the movement of all the subsequent elements in the array one position forward, which will affect the content pointed 
+    /// to by any existing iterator or pointer.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.<br/>
+    /// Use Add method to insert elements at the end.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    /// <param name="uIndex">[IN] The index (zero-based) where the new element will be placed. It should be lower than the number of elements of the array; if it is not, 
+    /// the element will be inserted at the end by default.</param>
+    void Insert(const T &newElement, const pointer_uint_q uIndex)
+    {
+        QE_ASSERT(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
+
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+
+        if(this->IsEmpty())
+        {
+            m_uFirst = m_uLast = 0;
+            new(m_allocator.Allocate()) T(newElement);
+        }
+        else if(uIndex > m_uLast)
+        {
+            ++m_uLast;
+            new(m_allocator.Allocate()) T(newElement);
+        }
+        else
+        {
+            // Increases the allocated space
+            ++m_uLast;
+            m_allocator.Allocate();
+
+            // Moves all the contiguous elements 1 position forward
+            void* pBuffer = m_allocator.GetPointer();
+            memcpy((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
+                   (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
+                   (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+
+            // Calls the copy constructor using the position where the element is inserted
+            new((void*)((T*)pBuffer + uIndex)) T(newElement);
+        }
+    }
+    
+    /// <summary>
+    /// Deletes an element placed at a concrete position in the array.
+    /// </summary>
+    /// <remarks>
+    /// A removal produces the movement of all the subsequent elements in the array one position backward, which will affect the content pointed 
+    /// to by any existing iterator or pointer.<br/>
+    /// The destructor of the element will be called.
+    /// </remarks>
+    /// <param name="position">[IN] The position of the element to be deleted. It should not be an end position; if it is, 
+    /// nothing will be done. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// array; otherwise, the behavior is undefined.</param>
+    void Remove(const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
+    {
+        QE_ASSERT(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT(!this->IsEmpty(), "The array is empty, there is nothing to remove");
+        QE_ASSERT(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+
+        // Gets the position of the iterator
+        pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
+
+        if(!this->IsEmpty() && uIndex <= m_uLast)
+        {
+            if(this->GetCount() == 1U)
+            {
+                // The container is emptied
+                ((T*)m_allocator.GetPointer())->~T();
+                m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
+                m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+                m_allocator.Clear();
+            }
+            else
+            {
+                // Calls the destructor using the position where the element is removed
+                void* pBuffer = m_allocator.GetPointer();
+                ((T*)pBuffer + uIndex)->~T();
+
+                // Moves all the contiguous elements 1 position backward
+                memcpy((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
+                       (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                       (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
+
+                // Decreases the allocated space
+                m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));
+                --m_uLast;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Deletes an element placed at a concrete position in the array.
+    /// </summary>
+    /// <remarks>
+    /// A removal produces the movement of all the subsequent elements in the array one position backward, which will affect the content pointed 
+    /// to by any existing iterator or pointer.<br/>
+    /// The destructor of the element will be called.
+    /// </remarks>
+    /// <param name="uIndex">[IN] The index (zero-based) of the element to be deleted. It should be lower than the number of elements of the array; if it is not, 
+    /// nothing will happen.</param>
+    void Remove(const pointer_uint_q uIndex)
+    {
+        QE_ASSERT(!this->IsEmpty(), "The array is empty, there is nothing to remove");
+        QE_ASSERT(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
+
+        if(!this->IsEmpty() && uIndex <= m_uLast)
+        {
+            if(this->GetCount() == 1U)
+            {
+                // The container is emptied
+                ((T*)m_allocator.GetPointer())->~T();
+                m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
+                m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+                m_allocator.Clear();
+            }
+            else
+            {
+                // Calls the destructor using the position where the element is removed
+                void* pBuffer = m_allocator.GetPointer();
+                ((T*)pBuffer + uIndex)->~T();
+
+                // Moves all the contiguous elements 1 position backward
+                memcpy((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
+                       (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                       (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
+
+                // Decreases the allocated space
+                m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));
+                --m_uLast;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Removes all the elements of the array.
+    /// </summary>
+    /// <remarks>
+    /// This operation will make any existing iterator or pointer invalid.<br/>
+    /// The destructor of every element will be called.
+    /// </remarks>
+    void Clear()
+    {
+        if(!this->IsEmpty())
+        {
+            void* pBuffer = m_allocator.GetPointer();
+
+            // Calls every destructor, from first to last
+            for(pointer_uint_q uIndex = m_uFirst; uIndex <= m_uLast; ++uIndex)
+                ((T*)pBuffer + uIndex)->~T();
+
+            m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
+            m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+
+            m_allocator.Clear();
+        }
+    }
+    
+    /// <summary>
+    /// Performs a shallow copy of the contents of the array to another array.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the destination array is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
+    /// No constructors will be called during this operation.
+    /// </remarks>
+    /// <param name="arDestinationArray">[IN/OUT] The destination array to which the contents will be copied.</param>
+    void Clone(QDynamicArray &arDestinationArray) const
+    {
+        if(arDestinationArray.GetCapacity() < this->GetCapacity())
+            arDestinationArray.Reserve(this->GetCapacity());
+
+        this->m_allocator.CopyTo(arDestinationArray.m_allocator);
+        arDestinationArray.m_uFirst = m_uFirst;
+        arDestinationArray.m_uLast = m_uLast;
+    }
+    
 private:
 
     /// <summary>

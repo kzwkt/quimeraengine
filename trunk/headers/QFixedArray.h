@@ -123,6 +123,7 @@ public:
         QArrayIterator& operator=(const QArrayIterator &iterator)
         {
             QE_ASSERT(m_pArray == iterator.m_pArray, "The input iterator points to a different array");
+            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
 
             if(m_pArray == iterator.m_pArray)
                 m_uPosition = iterator.m_uPosition;
@@ -413,6 +414,8 @@ public:
         /// </returns>
         bool IsEnd() const
         {
+            QE_ASSERT(this->IsValid(), "The input iterator is not valid");
+
             return m_uPosition == QFixedArray::END_POSITION_BACKWARD || m_uPosition == QFixedArray::END_POSITION_FORWARD;
         }
 
@@ -431,6 +434,8 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
+            QE_ASSERT(this->IsValid(), "The input iterator is not valid");
+
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
                    (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QFixedArray::END_POSITION_FORWARD);
         }
@@ -443,6 +448,8 @@ public:
         /// </remarks>
         void MoveFirst()
         {
+            QE_ASSERT(!m_pArray->IsEmpty(), "The array is empty, there is no first position");
+
             m_uPosition = m_pArray->m_uFirst == QFixedArray::END_POSITION_BACKWARD ? QFixedArray::END_POSITION_FORWARD : m_pArray->m_uFirst;
         }
 
@@ -454,6 +461,8 @@ public:
         /// </remarks>
         void MoveLast()
         {
+            QE_ASSERT(!m_pArray->IsEmpty(), "The array is empty, there is no last position");
+
             m_uPosition = m_pArray->m_uLast;
         }
         

@@ -557,6 +557,8 @@ public:
         /// </returns>
         bool IsEnd() const
         {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+
             return m_uPosition == QList::END_POSITION_BACKWARD || m_uPosition == QList::END_POSITION_FORWARD;
         }
 
@@ -575,6 +577,8 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
+            QE_ASSERT(this->IsValid(), "The iterator is not valid");
+
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QList::END_POSITION_BACKWARD) ||
                    (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QList::END_POSITION_FORWARD);
         }
@@ -909,11 +913,13 @@ public:
     /// than the resident list's capacity, it will be increased.</param>
     void Clone(QList &destinationList) const
     {
-        if ( destinationList.GetCapacity() < this->GetCapacity())
-            // Uncomment when reserve method is implemented
+        // Uncomment when reserve method is implemented
+        //if ( destinationList.GetCapacity() < this->GetCapacity())
             // destinationList.Reserve(this->GetCapacity());
         m_elementAllocator->CopyTo(*destinationList.m_elementAllocator);
         m_linkAllocator->CopyTo(*destinationList.m_linkAllocator);
+        destinationList.m_uFirst = m_uFirst;
+        destinationList.m_uLast = m_uLast;
     }
 
     /// <summary>

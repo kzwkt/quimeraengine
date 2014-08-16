@@ -53,6 +53,7 @@ class QE_LAYER_COMMON_SYMBOLS QPoolAllocator
     // CONSTRUCTORS
     // ---------------
 public:
+
     /// <summary>
     /// Constructs a pool allocator passing the pool size, block size and memory alignment.
     /// </summary>
@@ -99,17 +100,21 @@ private:
     // Disabled.
     QPoolAllocator(const QPoolAllocator &);
     
+
     // DESTRUCTOR
     // ---------------
 public:
+
     /// <summary>
     /// Destructor. It will free memory chunk allocated for the pool if no buffer was supplied in constructor. 
     /// </summary>        
     ~QPoolAllocator();
 
+
     // METHODS
     // ---------------
 public:
+
     /// <summary>
     /// Allocates a block in the pool and returns its address.
     /// </summary>
@@ -238,6 +243,7 @@ public:
     /// The memory alignment.
     /// </returns>        
     QAlignment GetAlignment() const;
+
 
     // ATTRIBUTES
     // ---------------
