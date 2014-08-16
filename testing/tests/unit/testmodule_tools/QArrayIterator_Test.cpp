@@ -31,10 +31,12 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QFixedArray.h"
+#include "QDynamicArray.h"
 
 #include "EQIterationDirection.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
 
 /// <summary>
 /// Small structure used in operator* and operator-> tests.
@@ -67,26 +69,6 @@ QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonArray_Test 
     
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);
-}
-
-/// <summary>
-/// Checks that the iterator points to the end position (forward iteration) when using an empty array.
-/// </summary>
-QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_Test )
-{
-    /*[TODO] Thund: Uncomment when QDynamicArray exists
-    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
-
-    // [Preparation]
-    const QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    const bool IS_END = true;
-
-	// [Execution]
-    QDynamicArray<int>::QArrayIterator iterator(SOURCE_ARRAY, 0);
-
-    // [Verification]
-    bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
-    BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);*/
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -146,6 +128,25 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCount_Test
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
+/// Checks that the iterator points to the end position (forward iteration) when using an empty array.
+/// </summary>
+QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyArray_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const QDynamicArray<int> SOURCE_ARRAY(1U);
+    const bool IS_END = true;
+
+	// [Execution]
+    QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
+
+    // [Verification]
+    bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEndIterationForward, IS_END);
+}
+
+/// <summary>
 /// Checks that the iterator points to the end position (forward iteration) when using an invalid position.
 /// </summary>
 QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosition_Test )
@@ -194,9 +195,11 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
 /// </summary>
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
 {
-    /* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(1);
+    SOURCE_ARRAY.Add(2);
+    SOURCE_ARRAY.Add(3);
     QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -215,7 +218,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -302,9 +305,11 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 /// </summary>
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
 {
-    /* [TODO] Thund: Uncomment when QDynamicArray exists
     // [Preparation]
-    QDynamicArray<TestStructure> SOURCE_ARRAY(10, TestStructure(0));
+    QDynamicArray<TestStructure> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(TestStructure(0));
+    SOURCE_ARRAY.Add(TestStructure(0));
+    SOURCE_ARRAY.Add(TestStructure(0));
     QFixedArray<TestStructure>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -323,7 +328,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -434,9 +439,12 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -455,7 +463,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -560,9 +568,12 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -581,7 +592,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -686,9 +697,12 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -707,7 +721,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -812,9 +826,12 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -833,7 +850,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -910,21 +927,24 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 /// Checks that input iterator is copied when resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     QFixedArray<int>::QArrayIterator VALID_ITERATOR(&SOURCE_ARRAY, 0);
 
 	// [Execution]
-    QDynamicArray<int>::QDynamicIterator iterator = INVALID_ITERATOR;
+    QDynamicArray<int>::QArrayIterator iterator = INVALID_ITERATOR;
     iterator = VALID_ITERATOR;
 
     // [Verification]
     BOOST_CHECK(iterator.IsValid());
-    BOOST_CHECK(iterator == VALID_ITERATOR);*/
+    BOOST_CHECK(iterator == VALID_ITERATOR);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -933,10 +953,13 @@ QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIterat
 /// Checks that an assertion fails when the input iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QDynamicArray INVALID_ITERATOR(&SOURCE_ARRAY, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -946,7 +969,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator = INVALID_ITERATOR;
     }
     catch(...)
@@ -955,7 +978,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -993,10 +1016,13 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 /// Checks that the iterator is copied when it is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
 
@@ -1005,7 +1031,7 @@ QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test
     iterator = INVALID_ITERATOR;
 
     // [Verification]
-    BOOST_CHECK(iterator == INVALID_ITERATOR);*/
+    BOOST_CHECK(iterator == INVALID_ITERATOR);
 }
 
 /// <summary>
@@ -1074,9 +1100,12 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -1109,7 +1138,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1208,9 +1237,12 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(10, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -1221,7 +1253,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator != INVALID_ITERATOR;
     }
     catch(...)
@@ -1233,7 +1265,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR != iterator;
     }
     catch(...)
@@ -1243,7 +1275,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1342,9 +1374,12 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -1377,7 +1412,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1477,10 +1512,13 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1490,7 +1528,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator < INVALID_ITERATOR;
     }
     catch(...)
@@ -1502,7 +1540,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR < iterator;
     }
     catch(...)
@@ -1512,7 +1550,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1631,9 +1669,12 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -1644,7 +1685,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator >= INVALID_ITERATOR;
     }
     catch(...)
@@ -1656,7 +1697,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     try
     {
-        QFixedArray<int>::QArrayIterator iterator(SOURCE_ARRAY);
+        QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         INVALID_ITERATOR >= iterator;
     }
     catch(...)
@@ -1666,7 +1707,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1784,10 +1825,13 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1819,7 +1863,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1940,10 +1984,13 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
     const bool ASSERTION_FAILED = true;
@@ -1961,7 +2008,7 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1970,10 +2017,13 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
 /// Checks that it returns False when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY;
     const bool EXPECTED_RESULT = false;
@@ -1982,7 +2032,7 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
     bool bResult = INVALID_ITERATOR.IsEnd();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -2058,11 +2108,14 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -2081,7 +2134,7 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2090,12 +2143,15 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
 /// Checks that it returns False when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY;
     const bool EXPECTED_RESULT = false;
@@ -2104,7 +2160,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
     bool bResult = INVALID_ITERATOR.IsEnd(EQIterationDirection::E_Backward);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -2134,11 +2190,14 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmpty_Test )
 /// Checks that the iterator points to the first position even when it was not valid.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIteratorWasNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_FIRST(SOURCE_ARRAY);
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QDynamicArray<int>::QArrayIterator ITERATOR_FIRST(&SOURCE_ARRAY, 0);
+    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
 
@@ -2147,7 +2206,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIterat
     iterator.MoveFirst();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 /// <summary>
@@ -2176,10 +2235,12 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenArrayIsNotEmptyAndIterat
 /// Checks that an assertion fails when the array is empty.
 /// </summary>
 QTEST_CASE ( MoveFirst_AssertionFailsWhenArrayIsEmpty_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
-    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY);
+    EMPTY_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
+    EMPTY_ARRAY.Remove(0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -2196,7 +2257,7 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenArrayIsEmpty_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2205,19 +2266,19 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenArrayIsEmpty_Test )
 /// Checks that the iterator points to the end position when the array is empty.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenArrayIsEmpty_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
-    QFixedArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY);
+    QFixedArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]
     ITERATOR.MoveFirst();
 
     // [Verification]
-    BOOST_CHECK(ITERATOR == END_ITERATOR);*/
+    BOOST_CHECK(ITERATOR == END_ITERATOR);
 }
 
 #endif
@@ -2246,13 +2307,15 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmpty_Test )
 /// Checks that the iterator points to the last position even when it was not valid.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIteratorWasNotValid_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator ITERATOR_LAST(&SOURCE_ARRAY, 0);
     ++ITERATOR_LAST;
-    ++ITERATOR_LAST;
-    QDynamicArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
+    QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     ++INVALID_ITERATOR;
     ++INVALID_ITERATOR;
     SOURCE_ARRAY.Remove(0);
@@ -2262,7 +2325,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIterator
     iterator.MoveLast();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
@@ -2293,10 +2356,12 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenArrayIsNotEmptyAndIterator
 /// Checks that an assertion fails when the array is empty.
 /// </summary>
 QTEST_CASE ( MoveLast_AssertionFailsWhenArrayIsEmpty_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
-    QDynamicArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY);
+    EMPTY_ARRAY.Add(0);
+    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
+    EMPTY_ARRAY.Remove(0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -2313,7 +2378,7 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenArrayIsEmpty_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2322,19 +2387,19 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenArrayIsEmpty_Test )
 /// Checks that the iterator points to the end position when the array is empty.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenArrayIsEmpty_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
-    QDynamicArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY);
+    QFixedArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY);
+    QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]
     ITERATOR.MoveLast();
 
     // [Verification]
-    BOOST_CHECK(ITERATOR == END_ITERATOR);*/
+    BOOST_CHECK(ITERATOR == END_ITERATOR);
 }
 
 #endif
@@ -2452,14 +2517,16 @@ QTEST_CASE ( MoveForward_CommonIteratorPointsToForwardEndWhenStartsFromBackwardE
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
-/* [TODO] Thund: Uncomment when QDynamicArray exists
 /// <summary>
 /// Checks that an assertion fails when the iterator is invalid.
 /// </summary>
 QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     const int INCREMENT = 1;
     const bool ASSERTION_FAILED = true;
     QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
@@ -2481,7 +2548,7 @@ QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorIsNotValid_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
-*/
+
 
 /// <summary>
 /// Checks that an assertion fails when the iterator points to forward end position.
@@ -2627,14 +2694,16 @@ QTEST_CASE ( MoveBackward_CommonIteratorPointsToBackwardEndWhenStartsFromForward
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
-/* [TODO] Thund: Uncomment when QDynamicArray exists
 /// <summary>
 /// Checks that an assertion fails when the iterator is invalid.
 /// </summary>
 QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     const int DECREMENT = 1;
     const bool ASSERTION_FAILED = true;
     QDynamicArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
@@ -2656,7 +2725,6 @@ QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorIsNotValid_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
-*/
 
 /// <summary>
 /// Checks that an assertion fails when the iterator is pointing to the backward end position.
@@ -2710,9 +2778,12 @@ QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 /// Checks that it returns False when the iterator points to an out of bounds position.
 /// </summary>
 QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
-{/* [TODO] Thund: Uncomment when QDynamicArray exists
+{
     // [Preparation]
-    QDynamicArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3U);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
+    SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QArrayIterator ITERATOR(&SOURCE_ARRAY, 0);
     ITERATOR.MoveLast();
     SOURCE_ARRAY.Remove(0);
@@ -2722,7 +2793,7 @@ QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
     bool bResult = ITERATOR.IsValid();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 // End - Test Suite: QArrayIterator
