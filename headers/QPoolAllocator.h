@@ -56,8 +56,8 @@ public:
     /// <summary>
     /// Constructs a pool allocator passing the pool size, block size and memory alignment.
     /// </summary>
-       /// <remarks>
-    /// Pre-allocates uSize bytes plus a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br\>
+    /// <remarks>
+    /// Pre-allocates uSize bytes plus a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br/>
     /// Invalid values of the parameters may cause an unexpected behaviour.
     /// </remarks>
     /// <param name="uSize">[IN] Size of the pool, in bytes. It must be greater than zero.</param>
@@ -68,8 +68,8 @@ public:
     /// <summary>
     /// Constructs a pool allocator passing the pool size, block size and memory address of a valid buffer to be used by the pool.
     /// </summary>
-       /// <remarks>
-    /// It uses a pointer to a buffer to allocate blocks but it will also allocate a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br />
+    /// <remarks>
+    /// It uses a pointer to a buffer to allocate blocks but it will also allocate a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br/>
     /// Destructor will not free the buffer passed to be used by the pool.
     /// Invalid values of the parameters may cause an unexpected behaviour.
     /// </remarks>
@@ -81,9 +81,10 @@ public:
     /// <summary>
     /// Constructs a pool allocator passing the pool size, blocks size, memory address of a valid buffer to be used by the pool and the alignment.
     /// </summary>
-       /// <remarks>
-    /// It uses passed buffer to allocate blocks but it will also allocate a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br />
-    /// The buffer may not start exactly at the memory address passed as parameter due to the alignment adjustment.<br />
+    /// <remarks>
+    /// It uses the passed buffer to allocate blocks but it will also allocate a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br/>
+    /// The buffer may not start exactly at the memory address passed as parameter due to the alignment adjustment. This will cause that the size may not be 
+    /// exactly what was passed as parameter.<br/>
     /// Destructor will not free the buffer passed for the pool.
     /// Invalid values of the parameters may cause an unexpected behaviour.
     /// </remarks>
@@ -96,9 +97,6 @@ public:
 private:
 
     // Disabled.
-    QPoolAllocator(); 
-
-    // Disabled.
     QPoolAllocator(const QPoolAllocator &);
     
     // DESTRUCTOR
@@ -106,7 +104,6 @@ private:
 public:
     /// <summary>
     /// Destructor. It will free memory chunk allocated for the pool if no buffer was supplied in constructor. 
-    /// It also will free memory reserved for internals.
     /// </summary>        
     ~QPoolAllocator();
 
@@ -132,7 +129,7 @@ public:
     /// </summary>        
     void Clear();
 
-       /// <summary>
+    /// <summary>
     /// Copies raw data in allocated blocks into destination pool allocator passed by parameter.
     /// </summary>    
     /// <remarks>
@@ -140,15 +137,14 @@ public:
     /// The block size of the destination pool allocator must be equal than the source block size.<br />
     /// If the amount of blocks of the destination pool is greater than source pool's, exceeding blocks will be appended to the list of free blocks.
     /// </remarks>
-    /// <param name="poolAllocator">[IN/OUT] Pointer to a block previously allocated with the corresponding class method. 
-    /// Other values may cause an unexpected behaviour.</param>
+    /// <param name="poolAllocator">[IN/OUT] The destination allocator.</param>
     void CopyTo(QPoolAllocator &poolAllocator) const;
 
     /// <summary>
     /// Moves the allocated data to a bigger memory block at a different memory address.
     /// </summary>    
     /// <remarks>
-    /// The new address will be resolved by the system.
+    /// The new address will be resolved by the system. The internal buffer's memory address will be adjusted to the same alignment.
     /// </remarks>
     /// <param name="uNewSize">[IN] The new size of the pool, in bytes. It must be greater than the current size of the pool; otherwise, no action 
     /// will be performed.</param>
@@ -156,7 +152,10 @@ public:
 
     /// <summary>
     /// Moves the allocated data to a bigger memory block at a different memory address.
-    /// </summary>    
+    /// </summary>
+    /// <remarks>
+    /// The buffer's memory address will be adjusted to the same alignment so, if it is not already aligned, there will be some memory loss.
+    /// </remarks>
     /// <param name="uNewSize">[IN] The new size of the pool, in bytes. It must be greater than the current size of the pool; otherwise, no action 
     /// will be performed.</param>
     /// <param name="pNewLocation">[IN] The new memory address where the new block will be reserved. It must not be null, or no reallocation will be done.</param>
@@ -195,20 +194,20 @@ public:
     /// Returns the size of the buffer reserved to allocate blocks (passed to the constructors as pool's size parameter)
     /// plus the size of the chunk reserved for internals.
     /// </summary>    
-      /// <returns>
+    /// <returns>
     /// The size of the buffer reserved to allocate blocks plus the size of the chunk reserved for internals.
     /// </returns>    
     pointer_uint_q GetTotalSize() const;
 
-       /// <summary>
+    /// <summary>
     /// Returns the size of the buffer reserved to allocate blocks (passed to the constructors as pool's size parameter).
     /// </summary>    
-      /// <returns>
+    /// <returns>
     /// The size of the buffer reserved to allocate blocks.
     /// </returns>    
     pointer_uint_q GetPoolSize() const;
 
-       /// <summary>
+    /// <summary>
     /// Returns if there are free blocks to allocate.
     /// </summary>        
     /// <returns>
@@ -216,26 +215,26 @@ public:
     /// </returns>
     bool CanAllocate() const;
 
-       /// <summary>
+    /// <summary>
     /// Returns the bytes sum of current allocated blocks.
     /// </summary>        
-       /// <returns>
+    /// <returns>
     /// The bytes sum of current allocated blocks.
     /// </returns>        
     pointer_uint_q GetAllocatedBytes() const;
 
-       /// <summary>
+    /// <summary>
     /// Returns a pointer to the first block of the entire chunk of memory.
     /// </summary>        
-       /// <returns>
+    /// <returns>
     /// A pointer to the first block of the entire chunk of memory.
     /// </returns>        
     void* GetPointer() const;
 
-       /// <summary>
+    /// <summary>
     /// Returns the memory alignment.
     /// </summary>        
-      /// <returns>
+    /// <returns>
     /// The memory alignment.
     /// </returns>        
     QAlignment GetAlignment() const;
@@ -243,7 +242,7 @@ public:
     // ATTRIBUTES
     // ---------------
 protected:
-      /// <summary>
+    /// <summary>
     /// Pointer to the chunk containing pointers to the free blocks of the pool.
     /// </summary>        
     void** m_ppFreeBlocks;
@@ -253,7 +252,7 @@ protected:
     /// </summary>        
     void** m_ppNextFreeBlock;
 
-       /// <summary>
+    /// <summary>
     /// Pointer to the first block in the pool.
     /// </summary>    
     /// <remarks>

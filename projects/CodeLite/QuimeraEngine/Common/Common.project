@@ -121,6 +121,8 @@
     <File Name="../../../../source/AllocationOperators.cpp"/>
     <File Name="../../../../source/QAlignment.cpp"/>
     <File Name="../../../../source/QPoolAllocator.cpp"/>
+    <File Name="../../../../headers/QLinearAllocator.h"/>
+    <File Name="../../../../source/QLinearAllocator.cpp"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

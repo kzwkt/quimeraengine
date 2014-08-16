@@ -198,13 +198,15 @@ public:
     /// </returns>
     bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
+        // [TODO] Thund: This method is easy to optimize.
+
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
         QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius), 
                    "The direction vector shouldn't be null and the radius of the orb shouldn't equal zero" );
 
         // The direction vector must be normalized
         QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
-
+        
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
         VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
 

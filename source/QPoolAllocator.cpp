@@ -123,8 +123,9 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
 
     m_pAllocatedMemory = (void**)((pointer_uint_q)pBuffer + uAdjustment);
     m_pFirst = m_pAllocatedMemory;
+    m_uPoolSize -= uAdjustment; // Some free space is lost
 
-    m_uBlocksCount = (m_uPoolSize - uAdjustment) / uBlockSize;
+    m_uBlocksCount = m_uPoolSize / uBlockSize;
 
     this->AllocateFreeBlocksList();
 }
@@ -201,6 +202,7 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
     QE_ASSERT(m_uBlocksCount <= poolAllocator.m_uBlocksCount, "Blocks count of destination pool allocator must be greater or equal than the source pool allocator" );
     QE_ASSERT(m_uPoolSize <= poolAllocator.m_uPoolSize, "Chunk size for allocations must be greater or equal in the destination pool allocator than in the source pool allocator" );
     QE_ASSERT(m_uBlockSize == poolAllocator.m_uBlockSize, "Block sizes of origin and destination pool allocators must be equals");
+    QE_ASSERT(poolAllocator.m_uAlignment == m_uAlignment, "The alignment of the input allocator is different from the resident allocator's.");
 
     if(null_q == m_ppNextFreeBlock)
     {
