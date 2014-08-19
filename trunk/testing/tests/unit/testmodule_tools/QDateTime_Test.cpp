@@ -875,7 +875,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 
     try
     {
-        QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY,
+        QDateTime dateTime(-MIN_YEAR, MIN_MONTH, MIN_DAY,
                            MIN_HOUR, MIN_MINUTE, MIN_SECOND,
                            MIN_MILLISECOND, MIN_MICROSECOND, MIN_HNS_MINUS_ONE,
                            NULL_TIMEZONE);
