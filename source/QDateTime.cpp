@@ -249,13 +249,13 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
     // Adjustment required to store the day 1 (Gregorian calendar) as day zero (decimal system)
     static const u64_q DAY_ZERO_ADJUSTMENT = 1ULL;
 
-    // These constants represent the maximum date (+29228-02-08 02:48:05.477.580.7) and the minimum date (-29228-11-23 21:11:54.522.419.3)
+    // These constants represent the maximum date (+29228-09-14 02:48:05.477.580.7) and the minimum date (-29228-04-18 21:11:54.522.419.3)
     static const i32_q MAX_DATE_YEAR        = 29228;
     static const u64_q MAX_DATE_MONTH       = 9ULL;
     static const u64_q MAX_DATE_DAY         = 14ULL;
     static const i32_q MIN_DATE_YEAR        = -29228;
     static const u64_q MIN_DATE_MONTH       = 4ULL;
-    static const u64_q MIN_DATE_DAY         = 18ULL; // IMPORTANT: It cannot be 23 because the time would be 00:00:00, which is anterior to 21:11:54
+    static const u64_q MIN_DATE_DAY         = 19ULL; // IMPORTANT: It cannot be 18 because the time would be 00:00:00, which is anterior to 21:11:54
 
     // These constants represent the maximum values for every part of the date and time
     static const u64_q MAX_MONTH       = 12ULL;
