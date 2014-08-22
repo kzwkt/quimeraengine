@@ -2088,7 +2088,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
 
     try
     {
-        QDateTime dateTime(MIN_YEAR, MIN_MONTH, MIN_DAY_MINUS_ONE,
+        QDateTime dateTime(-MIN_YEAR, MIN_MONTH, MIN_DAY_MINUS_ONE,
                            NULL_TIMEZONE);
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
