@@ -11,10 +11,10 @@
     <WorkspaceConfiguration Name="DebugLinux32SharedrtStatic" Selected="no">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="no">
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="yes">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtDynamic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="no">
+    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="yes">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugMac32SharedrtStatic"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="DebugMac32SharedrtDynamic" Selected="yes">

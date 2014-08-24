@@ -111,8 +111,10 @@
     <VirtualDirectory Name="Workarounds">
       <File Name="../../../../headers/Workarounds/WinBase_Workarounds.h"/>
     </VirtualDirectory>
+    <File Name="../../../../headers/QDateTimeNow.h"/>
+    <File Name="../../../../source/QDateTimeNow.cpp"/>
   </VirtualDirectory>
-  <Settings Type="Static Library">
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -142,6 +144,7 @@
         <Library Value="icui18n"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
+        <Library Value="rt"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngine$(ProjectName).so" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>

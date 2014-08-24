@@ -24,14 +24,28 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QLOCALTIMEZONEWHITEBOX__
-#define __QLOCALTIMEZONEWHITEBOX__
+#ifndef __QDATETIMENOW__
+#define __QDATETIMENOW__
 
-#include "QLocalTimeZone.h"
+#include "SystemDefinitions.h"
 
+#include "QDateTime.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-
+// Forward declarations
+// ---------------------
+namespace Kinesis
+{
+    namespace QuimeraEngine
+    {
+        namespace Tools
+        {
+            namespace Time
+            {
+                class QTimeZone;
+            }
+        }
+    }
+}
 
 namespace Kinesis
 {
@@ -41,42 +55,61 @@ namespace System
 {
 namespace Timing
 {
-namespace Test
-{
 
 /// <summary>
-/// Exposes the protected methods of the QLocalTimeZone to perform white-box tests.
+/// Represents the system date and time (including time zone and DST) at the moment it is instanced.
 /// </summary>
-class QLocalTimeZoneWhiteBox : public QLocalTimeZone
+/// <remarks>
+/// It is immutable, an instance cannot be modified.<br/>
+/// It is wall-clock time, not monotonic, so it is affected by time zone and DST delays besides operating system settings.<br/>
+/// The resolution of the clock depends on the operating system, being it between several microseconds and 100 nanoseconds.
+/// </remarks>
+class QE_LAYER_SYSTEM_SYMBOLS QDateTimeNow : public Kinesis::QuimeraEngine::Tools::Time::QDateTime
 {
 
-    // METHODS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
-#ifdef QE_OS_WINDOWS
+    /// <summary>
+    /// Default constructor that gets the system date and time along with the system time zone.
+    /// </summary>
+    QDateTimeNow();
 
-    // Exposed method
-    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZoneOnWindows()
-    {
-        return QLocalTimeZone::GetCurrentTimeZone();
-    }
+    /// <summary>
+    /// Constructor that gets the system date and time and receives the time zone to be applied.
+    /// </summary>
+    /// <param name="pTimeZone">The time zone to apply to the system time. If it is null, the time will be UTC.</param>
+    QDateTimeNow(const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* pTimeZone);
 
-    // Exposed method
-    static const string_q GetWindowsEquivalentTimeZoneId(const string_q &strTimeZoneKeyName)
-    {
-        return QLocalTimeZone::GetWindowsEquivalentTimeZoneId(strTimeZoneKeyName);
-    }
+private:
 
-#endif
+    // Hidden, not allowed
+    QDateTimeNow(const QDateTimeNow &);
+
+
+    // METHODS
+    // ---------------
+private:
+
+    // Hidden, not allowed
+    QDateTimeNow operator=(const QDateTimeNow &);
+
+protected:
+
+    /// <summary>
+    /// Gets the system date and time as UTC from the current operating system.
+    /// </summary>
+    /// <returns>
+    /// The system date and time.
+    /// </returns>
+    static QDateTime GetSystemUtcDateTime();
 
 };
 
-} //namespace Test
 } //namespace Timing
 } //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-
-#endif // __QLOCALTIMEZONEWHITEBOX__
+#endif // __QDATETIMENOW__

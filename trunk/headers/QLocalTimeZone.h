@@ -91,16 +91,16 @@ public:
     // METHODS
 	// ---------------
 protected:
-
-#ifdef QE_OS_WINDOWS
-
+    
     /// <summary>
     /// The current time zone is obtained from the operative system.
     /// </summary>
     /// <returns>
 	/// The equivalent QTimeZone instance. If there was any problem when finding out the time zone, a null pointer will be returned.
 	/// </returns>
-    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZoneOnWindows();
+    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZone();
+
+#ifdef QE_OS_WINDOWS
 
     /// <summary>
     /// Gets the time zone Id of the IANA/Olson database from a Windows time zone key name.
@@ -113,26 +113,6 @@ protected:
 	/// The equivalent time zone ID. If there is no equivalence, it returns an empty string.
 	/// </returns>
     static const string_q GetWindowsEquivalentTimeZoneId(const string_q &strTimeZoneKeyName);
-	
-#elif defined(QE_OS_LINUX)
-
-    /// <summary>
-    /// The current time zone is obtained from the operative system.
-    /// </summary>
-    /// <returns>
-	/// The equivalent QTimeZone instance. If there was any problem when finding out the time zone, a null pointer will be returned.
-	/// </returns>
-    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZoneOnLinux();
-		
-#elif defined(QE_OS_MAC)
-
-    /// <summary>
-    /// The current time zone is obtained from the operative system.
-    /// </summary>
-    /// <returns>
-	/// The equivalent QTimeZone instance. If there was any problem when finding out the time zone, a null pointer will be returned.
-	/// </returns>
-    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZoneOnMac();
 	
 #endif
 

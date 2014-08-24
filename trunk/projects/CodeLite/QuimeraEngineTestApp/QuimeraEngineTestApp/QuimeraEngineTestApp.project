@@ -156,6 +156,7 @@
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
+        <Library Value="rt"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -419,4 +420,10 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="DebugLinux32SharedrtDynamic"/>
+  <Dependencies Name="DebugLinux32SharedrtStatic"/>
+  <Dependencies Name="DebugMac32SharedrtDynamic"/>
+  <Dependencies Name="DebugMac32SharedrtStatic"/>
+  <Dependencies Name="DebugWin32SharedrtDynamic"/>
+  <Dependencies Name="DebugWin32SharedrtStatic"/>
 </CodeLite_Project>

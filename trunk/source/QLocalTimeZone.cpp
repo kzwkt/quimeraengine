@@ -190,22 +190,7 @@ const std::map<string_q, string_q> QLocalTimeZone::WINDOWS_TZID_MAPPINGS (
 
 QLocalTimeZone::QLocalTimeZone()
 {
-
-#if   defined(QE_OS_WINDOWS)
-
-    m_pTimeZone = QLocalTimeZone::GetCurrentTimeZoneOnWindows();
-
-#elif defined(QE_OS_LINUX)
-
-    m_pTimeZone = QLocalTimeZone::GetCurrentTimeZoneOnLinux();
-
-#elif defined(QE_OS_MAC)
-
-    m_pTimeZone = QLocalTimeZone::GetCurrentTimeZoneOnMac();
-
-#endif
-
-    
+    m_pTimeZone = QLocalTimeZone::GetCurrentTimeZone();
 }
 
 //##################=======================================================##################
@@ -219,7 +204,7 @@ QLocalTimeZone::QLocalTimeZone()
 
 #ifdef QE_OS_WINDOWS
 
-const QTimeZone* QLocalTimeZone::GetCurrentTimeZoneOnWindows()
+const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -261,7 +246,7 @@ const string_q QLocalTimeZone::GetWindowsEquivalentTimeZoneId(const string_q &st
 
 #elif defined(QE_OS_LINUX)
 
-const QTimeZone* QLocalTimeZone::GetCurrentTimeZoneOnLinux()
+const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
     
@@ -301,7 +286,7 @@ const QTimeZone* QLocalTimeZone::GetCurrentTimeZoneOnLinux()
 
 #elif defined(QE_OS_MAC)
 
-const QTimeZone* QLocalTimeZone::GetCurrentTimeZoneOnMac()
+const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
 {
     // [TODO] Thund: It is possible that localtime is not a link but a file. If this fails in the future,
     //               add the code to handle that situation (use S_ISLINK, lstat, etc.)
