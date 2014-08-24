@@ -159,6 +159,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QObject.cpp" />
   </ItemGroup>

@@ -82,6 +82,7 @@
     <VirtualDirectory Name="Timing">
       <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZoneWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZone_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QDateTimeNow_Test.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
@@ -194,6 +195,7 @@
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
+        <Library Value="rt"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>

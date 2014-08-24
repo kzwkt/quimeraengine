@@ -24,59 +24,81 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QLOCALTIMEZONEWHITEBOX__
-#define __QLOCALTIMEZONEWHITEBOX__
+#include <boost/test/auto_unit_test.hpp>
+#include <boost/test/unit_test_log.hpp>
+using namespace boost::unit_test;
 
-#include "QLocalTimeZone.h"
+#include "../../testsystem/TestingExternalDefinitions.h"
+
+#include "QDateTimeNow.h"
+
+#include "QTimeZone.h"
+#include "SQTimeZoneFactory.h"
+
+using Kinesis::QuimeraEngine::System::Timing::QDateTimeNow;
+using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 
 
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+QTEST_SUITE_BEGIN( QDateTimeNow_TestSuite )
+    
+/// <summary>
+/// Checks that it creates a valid date and time.
+/// </summary>
+QTEST_CASE ( Constructor1_CreatesValidDateTime_Test )
+{
+    // [Preparation]
+    const bool IS_NOT_UNDEFINED = true;
 
+	// [Execution]
+    QDateTimeNow now;
+    
+    // [Verification]
+    bool IsNotUndefined = !now.IsUndefined();
 
-namespace Kinesis
-{
-namespace QuimeraEngine
-{
-namespace System
-{
-namespace Timing
-{
-namespace Test
-{
+    BOOST_CHECK_EQUAL(IsNotUndefined, IS_NOT_UNDEFINED);
+}
 
 /// <summary>
-/// Exposes the protected methods of the QLocalTimeZone to perform white-box tests.
+/// Checks that it creates a valid date and time when the input time zone is null.
 /// </summary>
-class QLocalTimeZoneWhiteBox : public QLocalTimeZone
+QTEST_CASE ( Constructor2_CreatesValidDateTimeWhenTimeZoneIsNull_Test )
 {
+    // [Preparation]
+    const bool IS_NOT_UNDEFINED = true;
+    const QTimeZone* NULL_TIMEZONE = null_q;
 
-    // METHODS
-	// ---------------
-public:
+	// [Execution]
+    QDateTimeNow now(NULL_TIMEZONE);
+    
+    // [Verification]
+    bool IsNotUndefined = !now.IsUndefined();
+    const QTimeZone* pTimeZone = now.GetTimeZone();
 
-#ifdef QE_OS_WINDOWS
+    BOOST_CHECK_EQUAL(IsNotUndefined, IS_NOT_UNDEFINED);
+    BOOST_CHECK_EQUAL(pTimeZone, NULL_TIMEZONE);
+}
 
-    // Exposed method
-    static const Kinesis::QuimeraEngine::Tools::Time::QTimeZone* GetCurrentTimeZoneOnWindows()
-    {
-        return QLocalTimeZone::GetCurrentTimeZone();
-    }
+/// <summary>
+/// Checks that it creates a valid date and time when the input time is not null.
+/// </summary>
+QTEST_CASE ( Constructor2_CreatesValidDateTimeWhenTimeZoneIsNotNull_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
 
-    // Exposed method
-    static const string_q GetWindowsEquivalentTimeZoneId(const string_q &strTimeZoneKeyName)
-    {
-        return QLocalTimeZone::GetWindowsEquivalentTimeZoneId(strTimeZoneKeyName);
-    }
+    // [Preparation]
+    const bool IS_NOT_UNDEFINED = true;
+    const QTimeZone* TIMEZONE = SQTimeZoneFactory::GetTimeZoneById("Europe/London");
 
-#endif
+	// [Execution]
+    QDateTimeNow now(TIMEZONE);
+    
+    // [Verification]
+    bool IsNotUndefined = !now.IsUndefined();
+    const QTimeZone* pTimeZone = now.GetTimeZone();
 
-};
+    BOOST_CHECK_EQUAL(IsNotUndefined, IS_NOT_UNDEFINED);
+    BOOST_CHECK_EQUAL(pTimeZone, TIMEZONE);
+}
 
-} //namespace Test
-} //namespace Timing
-} //namespace System
-} //namespace QuimeraEngine
-} //namespace Kinesis
-
-
-#endif // __QLOCALTIMEZONEWHITEBOX__
+// End - Test Suite: QDateTimeNow
+QTEST_SUITE_END()

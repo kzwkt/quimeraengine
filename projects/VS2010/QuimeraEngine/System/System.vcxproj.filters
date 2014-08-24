@@ -25,12 +25,18 @@
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h">
       <Filter>Timing\Workarounds</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp">
       <Filter>Timing</Filter>
     </ClCompile>
   </ItemGroup>
