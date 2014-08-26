@@ -93,6 +93,12 @@
       <File Name="../../../../tests/unit/testmodule_common/QPoolAllocatorWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_common/QPoolAllocator_Test.cpp" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_common/QLinearAllocator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QAlignmentMocked.h"/>
+      <File Name="../../../../tests/unit/testmodule_common/QBlockHeader_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QMark_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QMarkMocked.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QStackAllocator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QStackAllocatorWhiteBox.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="General">
       <File Name="../../../../tests/unit/testmodule_common/EQEnumeration_Test.cpp"/>

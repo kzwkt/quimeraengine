@@ -1,1 +1,422 @@
 # depslib dependency file v1.0
+1404855532 source:d:\dev_projects\quimeraengine_paratarea409\trunk\source\qobject.cpp
+	"QObject.h"
+
+1404855536 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\qobject.h
+	"SystemDefinitions.h"
+	"QType.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\systemdefinitions.h
+	"InternalDefinitions.h"
+
+1404855536 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\internaldefinitions.h
+	"ExternalDefinitions.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\externaldefinitions.h
+	"Configuration.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\configuration.h
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\qtype.h
+	"CommonDefinitions.h"
+	"DataTypesDefinitions.h"
+	"Assertions.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\commondefinitions.h
+	"InternalDefinitions.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\datatypesdefinitions.h
+	"CrossPlatformBasicTypes.h"
+	<string>
+	"QCharUnicode.h"
+	"QStringUnicode.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\crossplatformbasictypes.h
+	"InternalDefinitions.h"
+	<xmmintrin.h>
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\qcharunicode.h
+	"CommonDefinitions.h"
+	"CrossPlatformBasicTypes.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\qstringunicode.h
+	"CommonDefinitions.h"
+	<unicode/unistr.h>
+	<unicode/schriter.h>
+	<unicode/normalizer2.h>
+	<unicode/coll.h>
+	<unicode/stsearch.h>
+	<unicode/numfmt.h>
+	"QCharUnicode.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unistr.h
+	"unicode/utypes.h"
+	"unicode/rep.h"
+	"unicode/std_string.h"
+	"unicode/stringpiece.h"
+	"unicode/bytestream.h"
+	"unicode/ucasemap.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utypes.h
+	"unicode/umachine.h"
+	"unicode/uversion.h"
+	"unicode/uconfig.h"
+	<float.h>
+	"unicode/utf.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\umachine.h
+	"unicode/ptypes.h"
+	<stddef.h>
+	"unicode/urename.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ptypes.h
+	<stddef.h>
+	"unicode/platform.h"
+	<stdint.h>
+	<features.h>
+	<inttypes.h>
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\platform.h
+	"unicode/uconfig.h"
+	"unicode/uvernum.h"
+	<android/api-level.h>
+	<TargetConditionals.h>
+	<sys/isa_defs.h>
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uconfig.h
+	"uconfig_local.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uvernum.h
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\urename.h
+	"unicode/uconfig.h"
+	"unicode/umachine.h"
+	"unicode/uvernum.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uversion.h
+	"unicode/umachine.h"
+	"unicode/uvernum.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utf.h
+	"unicode/umachine.h"
+	"unicode/utf8.h"
+	"unicode/utf16.h"
+	"unicode/utf_old.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utf8.h
+	"unicode/umachine.h"
+	"unicode/utf.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utf16.h
+	"unicode/umachine.h"
+	"unicode/utf.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utf_old.h
+	"unicode/utf.h"
+	"unicode/utf8.h"
+	"unicode/utf16.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\rep.h
+	"unicode/uobject.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uobject.h
+	"unicode/utypes.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\std_string.h
+	"unicode/utypes.h"
+	<string>
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\stringpiece.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/std_string.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\bytestream.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/std_string.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ucasemap.h
+	"unicode/utypes.h"
+	"unicode/ustring.h"
+	"unicode/localpointer.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ustring.h
+	"unicode/utypes.h"
+	"unicode/putil.h"
+	"unicode/uiter.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\putil.h
+	"unicode/utypes.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uiter.h
+	"unicode/utypes.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\localpointer.h
+	"unicode/utypes.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\schriter.h
+	"unicode/utypes.h"
+	"unicode/chariter.h"
+	"unicode/uchriter.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\chariter.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uchriter.h
+	"unicode/utypes.h"
+	"unicode/chariter.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\normalizer2.h
+	"unicode/utypes.h"
+	"unicode/uniset.h"
+	"unicode/unistr.h"
+	"unicode/unorm2.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uniset.h
+	"unicode/unifilt.h"
+	"unicode/unistr.h"
+	"unicode/uset.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unifilt.h
+	"unicode/unifunct.h"
+	"unicode/unimatch.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unifunct.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unimatch.h
+	"unicode/utypes.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uset.h
+	"unicode/utypes.h"
+	"unicode/uchar.h"
+	"unicode/localpointer.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uchar.h
+	"unicode/utypes.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unorm2.h
+	"unicode/utypes.h"
+	"unicode/localpointer.h"
+	"unicode/uset.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\coll.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/ucol.h"
+	"unicode/normlzr.h"
+	"unicode/locid.h"
+	"unicode/uniset.h"
+	"unicode/umisc.h"
+	"unicode/uiter.h"
+	"unicode/stringpiece.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ucol.h
+	"unicode/utypes.h"
+	"unicode/unorm.h"
+	"unicode/localpointer.h"
+	"unicode/parseerr.h"
+	"unicode/uloc.h"
+	"unicode/uset.h"
+	"unicode/uscript.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unorm.h
+	"unicode/utypes.h"
+	"unicode/uiter.h"
+	"unicode/unorm2.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\parseerr.h
+	"unicode/utypes.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uloc.h
+	"unicode/utypes.h"
+	"unicode/uenum.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uenum.h
+	"unicode/utypes.h"
+	"unicode/localpointer.h"
+	"unicode/strenum.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\strenum.h
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uscript.h
+	"unicode/utypes.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\normlzr.h
+	"unicode/utypes.h"
+	"unicode/chariter.h"
+	"unicode/normalizer2.h"
+	"unicode/unistr.h"
+	"unicode/unorm.h"
+	"unicode/uobject.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\locid.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+	"unicode/putil.h"
+	"unicode/uloc.h"
+	"unicode/strenum.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\umisc.h
+	"unicode/utypes.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\stsearch.h
+	"unicode/utypes.h"
+	"unicode/tblcoll.h"
+	"unicode/coleitr.h"
+	"unicode/search.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\tblcoll.h
+	"unicode/utypes.h"
+	"unicode/coll.h"
+	"unicode/ucol.h"
+	"unicode/sortkey.h"
+	"unicode/normlzr.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\sortkey.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+	"unicode/coll.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\coleitr.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/tblcoll.h"
+	"unicode/ucoleitr.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ucoleitr.h
+	"unicode/utypes.h"
+	"unicode/ucol.h"
+
+1400685722 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\search.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+	"unicode/chariter.h"
+	"unicode/brkiter.h"
+	"unicode/usearch.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\brkiter.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/unistr.h"
+	"unicode/chariter.h"
+	"unicode/locid.h"
+	"unicode/ubrk.h"
+	"unicode/strenum.h"
+	"unicode/utext.h"
+	"unicode/umisc.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\ubrk.h
+	"unicode/utypes.h"
+	"unicode/uloc.h"
+	"unicode/utext.h"
+	"unicode/localpointer.h"
+	"unicode/parseerr.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\utext.h
+	"unicode/utypes.h"
+	"unicode/uchar.h"
+	"unicode/localpointer.h"
+	"unicode/rep.h"
+	"unicode/unistr.h"
+	"unicode/chariter.h"
+
+1400685724 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\usearch.h
+	"unicode/utypes.h"
+	"unicode/localpointer.h"
+	"unicode/ucol.h"
+	"unicode/ucoleitr.h"
+	"unicode/ubrk.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\numfmt.h
+	"unicode/utypes.h"
+	"unicode/unistr.h"
+	"unicode/format.h"
+	"unicode/unum.h"
+	"unicode/locid.h"
+	"unicode/stringpiece.h"
+	"unicode/curramt.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\format.h
+	"unicode/utypes.h"
+	"unicode/unistr.h"
+	"unicode/fmtable.h"
+	"unicode/fieldpos.h"
+	"unicode/fpositer.h"
+	"unicode/parsepos.h"
+	"unicode/parseerr.h"
+	"unicode/locid.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\fmtable.h
+	"unicode/utypes.h"
+	"unicode/unistr.h"
+	"unicode/stringpiece.h"
+	"unicode/uformattable.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\uformattable.h
+	"unicode/utypes.h"
+	"unicode/localpointer.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\fieldpos.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\fpositer.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+	"unicode/fieldpos.h"
+	"unicode/umisc.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\parsepos.h
+	"unicode/utypes.h"
+	"unicode/uobject.h"
+
+1400685723 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\unum.h
+	"unicode/utypes.h"
+	"unicode/localpointer.h"
+	"unicode/uloc.h"
+	"unicode/umisc.h"
+	"unicode/parseerr.h"
+	"unicode/uformattable.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\curramt.h
+	"unicode/utypes.h"
+	"unicode/measure.h"
+	"unicode/currunit.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\measure.h
+	"unicode/utypes.h"
+	"unicode/fmtable.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\currunit.h
+	"unicode/utypes.h"
+	"unicode/measunit.h"
+
+1400685721 d:\dev_projects\quimeraengine_paratarea409\trunk\3rdparty\icu\include\unicode\measunit.h
+	"unicode/utypes.h"
+	"unicode/fmtable.h"
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\assertions.h
+	"DataTypesDefinitions.h"
+	"CommonDefinitions.h"
+	"EQTextEncoding.h"
+	"windows.h"
+	<iostream>
+	<exception>
+	<assert.h>
+
+1404855535 d:\dev_projects\quimeraengine_paratarea409\trunk\headers\eqtextencoding.h
+	<map>
+	<vector>
+	"DataTypesDefinitions.h"
+	"CommonDefinitions.h"
+

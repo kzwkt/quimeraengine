@@ -75,6 +75,18 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QLinearAllocator_Test.cpp">
       <Filter>Tests\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBlockHeader_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMark_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMarkMocked.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -121,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\FunctionsForQDelegateTests.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QAlignmentMocked.h">
+      <Filter>Tests\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocatorWhiteBox.h">
+      <Filter>Tests\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

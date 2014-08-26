@@ -168,6 +168,9 @@
 		<Unit filename="../../../../headers/QPoolAllocator.h">
 			<Option virtualFolder="Memory/" />
 		</Unit>
+		<Unit filename="../../../../headers/QStackAllocator.h">
+			<Option virtualFolder="Memory/" />
+		</Unit>
 		<Unit filename="../../../../headers/QStringUnicode.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
@@ -211,7 +214,13 @@
 		<Unit filename="../../../../source/QConstCharIterator.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../source/QMark.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
 		<Unit filename="../../../../source/QPoolAllocator.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QStackAllocator.cpp">
 			<Option virtualFolder="Memory/" />
 		</Unit>
 		<Unit filename="../../../../source/QStringUnicode.cpp">
