@@ -66,6 +66,9 @@
     <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStackAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -116,6 +119,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
     <ClCompile Include="..\..\..\..\source\QLinearAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QMark.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStackAllocator.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>

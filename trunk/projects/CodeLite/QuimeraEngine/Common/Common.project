@@ -123,6 +123,9 @@
     <File Name="../../../../source/QPoolAllocator.cpp"/>
     <File Name="../../../../headers/QLinearAllocator.h"/>
     <File Name="../../../../source/QLinearAllocator.cpp"/>
+    <File Name="../../../../headers/QStackAllocator.h"/>
+    <File Name="../../../../source/QMark.cpp"/>
+    <File Name="../../../../source/QStackAllocator.cpp"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

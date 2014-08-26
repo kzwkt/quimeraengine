@@ -17,12 +17,16 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBlockHeader_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QConstCharIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QDelegate_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QLinearAllocator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMarkMocked.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMark_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QType_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQBoolean_Test.cpp" />
@@ -44,7 +48,9 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\CommonTestDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\EQEnumerationMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\FunctionsForQDelegateTests.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QAlignmentMocked.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocatorWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocatorWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeCollationTestData.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeNormalizationTestData.h" />
   </ItemGroup>

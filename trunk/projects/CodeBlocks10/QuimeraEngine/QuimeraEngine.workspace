@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CodeBlocks_workspace_file>
-	<Workspace title="QuimeraEngine">
-		<Project filename="Common/Common.cbp" />
-		<Project filename="Tools/Tools.cbp">
-			<Depends filename="Common/Common.cbp" />
-		</Project>
-		<Project filename="System/System.cbp" active="1">
-			<Depends filename="Tools/Tools.cbp" />
-			<Depends filename="Common/Common.cbp" />
-		</Project>
-		<Project filename="Core/Core.cbp" />
-	</Workspace>
+  <Workspace title="QuimeraEngine">
+    <Project filename="Common/Common.cbp"/>
+    <Project filename="Tools/Tools.cbp">
+      <Depends filename="Common/Common.cbp"/>
+    </Project>
+    <Project filename="System/System.cbp" active="1">
+      <Depends filename="Tools/Tools.cbp"/>
+      <Depends filename="Common/Common.cbp"/>
+    </Project>
+    <Project filename="Core/Core.cbp"/>
+  </Workspace>
 </CodeBlocks_workspace_file>

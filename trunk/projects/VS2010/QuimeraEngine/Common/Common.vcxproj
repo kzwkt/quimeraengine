@@ -110,6 +110,7 @@
     <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
     <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h" />
     <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h" />
+    <ClInclude Include="..\..\..\..\headers\QStackAllocator.h" />
     <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QType.h" />
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
@@ -129,7 +130,9 @@
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />
     <ClCompile Include="..\..\..\..\source\QLinearAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMark.cpp" />
     <ClCompile Include="..\..\..\..\source\QPoolAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStackAllocator.cpp" />
     <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\QType.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
