@@ -126,6 +126,7 @@
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBlockHeader.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharIterator.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />

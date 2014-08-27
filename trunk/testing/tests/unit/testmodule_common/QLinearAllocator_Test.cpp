@@ -330,8 +330,6 @@ QTEST_CASE ( Constructor3_SizeIsAffectedByAlignmentAdjustment_Test )
     QLinearAllocator allocator(INPUT_SIZE, INPUT_ADDRESS, INPUT_ALIGNMENT);
 
     // [Verification]
-    void* pBuffer = allocator.GetPointer();
-    pointer_uint_q uAdjustment = INPUT_ALIGNMENT - ((pointer_uint_q)pBuffer & (INPUT_ALIGNMENT - 1U));
     pointer_uint_q uSize = allocator.GetSize();
 
     BOOST_CHECK_EQUAL(uSize, EXPECTED_SIZE);
@@ -1445,6 +1443,38 @@ QTEST_CASE ( CanAllocate1_ReturnsFalseWhenThereIsNotEnoughFreeSpace_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when input size is zero.
+/// </summary>
+QTEST_CASE ( CanAllocate1_AssertionFailsWhenInputSizeIsZero_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 0;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QLinearAllocator allocator(4U, INPUT_ALIGNMENT);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        allocator.CanAllocate(INPUT_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
 /// <summary>
 /// Checks that it returns True when input size is zero.
 /// </summary>
@@ -1462,6 +1492,8 @@ QTEST_CASE ( CanAllocate1_ReturnsTrueWhenInputSizeIsZero_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
+
+#endif
 
 /// <summary>
 /// Checks that it returns True when there is enough free space in the buffer.
@@ -1501,7 +1533,7 @@ QTEST_CASE ( CanAllocate2_ReturnsFalseWhenThereIsNotEnoughFreeSpace_Test )
 }
 
 /// <summary>
-/// Checks that it returns Fase when there is not enough free space in the buffer due to the alignment adjustment.
+/// Checks that it returns False when there is not enough free space in the buffer due to the alignment adjustment.
 /// </summary>
 QTEST_CASE ( CanAllocate2_ReturnsFalseWhenThereIsNotEnoughFreeSpaceDueToAlignmentAdjustment_Test )
 {
@@ -1518,6 +1550,38 @@ QTEST_CASE ( CanAllocate2_ReturnsFalseWhenThereIsNotEnoughFreeSpaceDueToAlignmen
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when input size is zero.
+/// </summary>
+QTEST_CASE ( CanAllocate1_AssertionFailsWhenInputSizeIsZero_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 0;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QLinearAllocator allocator(4U, INPUT_ALIGNMENT);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        allocator.CanAllocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
 /// Checks that it returns True when input size is zero.
@@ -1536,6 +1600,8 @@ QTEST_CASE ( CanAllocate2_ReturnsTrueWhenInputSizeIsZero_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
+
+#endif
 
 /// <summary>
 /// Checks that it returns the expected value after performing some allocations.

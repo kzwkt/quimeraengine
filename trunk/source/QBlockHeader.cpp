@@ -47,26 +47,37 @@ namespace Memory
 //##################													   ##################
 //##################=======================================================##################
 
-QStackAllocator::QMark::QMark(void* pMemAddress) : m_pMemoryAddress(pMemAddress)
+QStackAllocator::QBlockHeader::QBlockHeader(const pointer_uint_q uSize, const pointer_uint_q uAlignmentOffset, const pointer_uint_q uPreviousBlockHeaderBackOffset ) :
+                                                                                        m_uSize(uSize),
+                                                                                        m_uAlignmentOffset(uAlignmentOffset),
+                                                                                        m_uPreviousHeaderBackOffset(uPreviousBlockHeaderBackOffset)
 {
-     QE_ASSERT(null_q != pMemAddress, "The given memory address for the mark cannot be null.");
+    QE_ASSERT(uSize > 0, "The given size for the memory block cannot be zero.");
 }
 
-
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
-void* QStackAllocator::QMark::GetMemoryAddress() const
+pointer_uint_q QStackAllocator::QBlockHeader::GetAllocatedBlockSize() const
 {
-    return m_pMemoryAddress;
+    return m_uSize;
 }
 
+pointer_uint_q QStackAllocator::QBlockHeader::GetAlignmentOffset() const
+{
+    return m_uAlignmentOffset;
+}
+
+pointer_uint_q QStackAllocator::QBlockHeader::GetPreviousHeaderBackOffset() const
+{
+    return m_uPreviousHeaderBackOffset;
+}
 
 } //namespace Memory
 } //namespace Common

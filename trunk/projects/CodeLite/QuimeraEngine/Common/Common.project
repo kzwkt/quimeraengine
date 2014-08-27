@@ -126,6 +126,7 @@
     <File Name="../../../../headers/QStackAllocator.h"/>
     <File Name="../../../../source/QMark.cpp"/>
     <File Name="../../../../source/QStackAllocator.cpp"/>
+    <File Name="../../../../source/QBlockHeader.cpp"/>
   </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>

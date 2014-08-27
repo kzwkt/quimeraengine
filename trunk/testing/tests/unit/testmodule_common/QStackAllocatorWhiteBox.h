@@ -80,7 +80,8 @@ public:
     public:
 
         explicit inline QMarkMocked(void* pMemAddress) : QMark(pMemAddress)
-        { }
+        {
+        }
 
 
         // METHODS
@@ -128,13 +129,6 @@ public:
 	// ---------------
 
 public:
-    
-    QAlignment operator =(const QAlignmentMocked& mocked)
-    {
-        pointer_uint_q uValue = mocked;
-        QAlignment align(uValue);
-        return align;
-    }
 
     // Exposed member.
     void* GetpBase() const
@@ -179,8 +173,12 @@ public:
     // Sabotages a StackAllocator correctly created as if it was not be created properly.
     void SabotageStackAllocator()
     {
-        QStackAllocator::Finalize();
-        this->Finalize();
+        QStackAllocator::Clear();
+
+        if(QStackAllocator::m_bDeletePreallocatedBlock)
+            operator delete(QStackAllocator::m_pBase, QStackAllocator::m_alignment);
+
+        QStackAllocator::ClearAttributes();
     }
 
     // This method returns the starting address of the allocated memory block placed at the top of the stack.
