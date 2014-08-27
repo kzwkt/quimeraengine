@@ -230,11 +230,15 @@ void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize, void* pNewLocat
 
 bool QLinearAllocator::CanAllocate(const pointer_uint_q uSize) const
 {
+    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+
     return m_uSize - this->GetAllocatedBytes() >= uSize;
 }
 
 bool QLinearAllocator::CanAllocate(const pointer_uint_q uSize, const QAlignment &alignment) const
 {
+    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+
     pointer_uint_q uAdjustment = alignment - ((pointer_uint_q)m_pTop & (alignment - 1U));
 
     if(uAdjustment == alignment)

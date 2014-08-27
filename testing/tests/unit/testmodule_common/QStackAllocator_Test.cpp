@@ -78,7 +78,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenPreallocationSizeIsZero_Test )
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that the creation of the stack allocator, creating the preallocated memory block<br/>
+/// Checks that the creation of the stack allocator, creating the preallocated memory block
 /// and setting the internal state of the stack as "empty", is correctly made.
 /// </summary>
 QTEST_CASE ( Constructor1_ChecksThatPreallocationIsCorrectlyMade_Test )
@@ -115,7 +115,7 @@ QTEST_CASE ( Constructor1_ChecksThatPreallocationIsCorrectlyMade_Test )
     // Allocation has been made correctly when:
     //
     //     Stack Base is not null now
-    // AND Stack Stop points to the same direction that Stack Base (because the stack is empty for now)
+    // AND Stack top points to the same direction that Stack Base (because the stack is empty for now)
     // AND the size of the preallocated memory block is greater than zero now
     // AND the amount of allocated bytes for memory blocks is zero (because the stack is empty for now).
 
@@ -206,7 +206,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that the creation of the stack allocator, creating the preallocated memory block and setting the internal state<br/>
+/// Checks that the creation of the stack allocator, creating the preallocated memory block and setting the internal state
 /// of the stack as "empty", is correctly made.
 /// </summary>
 QTEST_CASE ( Constructor2_PreallocationIsCorrectlyMade_Test )
@@ -277,7 +277,7 @@ QTEST_CASE ( Constructor2_PreallocationIsCorrectlyMade_Test )
     // Allocation has been made correctly when:
     //
     //     Stack Base is not null now
-    // AND Stack Stop points to the same direction that Stack Base (because the stack is empty for now)
+    // AND Stack top points to the same direction that Stack Base (because the stack is empty for now)
     // AND the size of the preallocated memory block is greater than zero now
     // AND the amount of allocated bytes for memory blocks is zero (because the stack is empty for now).
 
@@ -378,12 +378,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenPreallocationSizeIsZero_Test )
 
 
     // [Cleaning]
-
-    if (null_q != NON_NULL_ADDRESS)
-    {
-        operator delete( NON_NULL_ADDRESS, QAlignment(VALID_ALIGNMENT_VALUE) );
-        NON_NULL_ADDRESS = null_q;
-    };
+    operator delete( NON_NULL_ADDRESS, QAlignment(VALID_ALIGNMENT_VALUE) );
 }
 
 /// <summary>
@@ -433,7 +428,7 @@ QTEST_CASE ( Constructor3_StackBasePointsToSameAddressThatThePassedPreallocatedM
 
     // [Execution]
 
-    pPreallocatedBlock = new (PREALLOCATION_ALIGMENT) u8_q[VALID_PREALLOCATION_SIZE];
+    pPreallocatedBlock = operator new(VALID_PREALLOCATION_SIZE, PREALLOCATION_ALIGMENT);
     QStackAllocatorWhiteBox  stackAllocatorWhiteBox( VALID_PREALLOCATION_SIZE, pPreallocatedBlock);
 
     pPreallocatedBase  = stackAllocatorWhiteBox.GetpBase();
@@ -444,11 +439,7 @@ QTEST_CASE ( Constructor3_StackBasePointsToSameAddressThatThePassedPreallocatedM
 
 
     // [Cleaning]
-    if (null_q != pPreallocatedBlock)
-    {
-        operator delete( pPreallocatedBlock, PREALLOCATION_ALIGMENT );
-        pPreallocatedBlock = null_q;
-    }
+    operator delete( pPreallocatedBlock, PREALLOCATION_ALIGMENT );
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -486,12 +477,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPreallocationSizeIsZero_Test )
 
 
 	// [Cleaning]
-
-    if (null_q != NON_NULL_ADDRESS)
-    {
-        operator delete( NON_NULL_ADDRESS, PREALLOCATION_ALIGNMENT );
-        NON_NULL_ADDRESS = null_q;
-    }
+    operator delete( NON_NULL_ADDRESS, PREALLOCATION_ALIGNMENT );
 }
 
 /// <summary>
@@ -559,12 +545,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test 
 
 
     // [Cleaning]
-
-    if (null_q != NON_NULL_ADDRESS)
-    {
-        operator delete( NON_NULL_ADDRESS, QAlignment(VALID_ALIGNMENT_VALUE) );
-        NON_NULL_ADDRESS = null_q;
-    }
+    operator delete( NON_NULL_ADDRESS, QAlignment(VALID_ALIGNMENT_VALUE) );
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -668,10 +649,113 @@ QTEST_CASE ( Constructor4_StackBasePointsToSameAddressThatThePassedPreallocatedM
     }
 }
 
+/// <summary>
+/// Checks that the start position of the buffer is adjusted to the alignment.
+/// </summary>
+QTEST_CASE ( Constructor4_BufferIsAdjustedToAlignment_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 8U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    void* pInputBuffer = operator new(8U, INPUT_ALIGNMENT);
+    void* INPUT_ADDRESS = (void*)((pointer_uint_q)pInputBuffer + 2U);
+    void* EXPECTED_ADDRESS = (void*)((pointer_uint_q)pInputBuffer + 4U); // The start address should be moved to this address so it is aligned to 4 bytes
+
+    // [Execution]
+    QStackAllocator allocator(INPUT_SIZE, INPUT_ADDRESS, INPUT_ALIGNMENT);
+
+    // [Verification]
+    void* pBuffer = allocator.GetMark().GetMemoryAddress();
+    pointer_uint_q uAdjustment = INPUT_ALIGNMENT - ((pointer_uint_q)pBuffer & (INPUT_ALIGNMENT - 1U));
+
+    BOOST_CHECK_EQUAL(pBuffer, EXPECTED_ADDRESS);
+    BOOST_CHECK_EQUAL(uAdjustment, INPUT_ALIGNMENT);
+    
+    // [Cleaning]
+    operator delete(pInputBuffer, INPUT_ALIGNMENT);
+}
+
+/// <summary>
+/// Checks that the size is affected by the alignment adjustment (memory loss).
+/// </summary>
+QTEST_CASE ( Constructor4_SizeIsAffectedByAlignmentAdjustment_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 32U - 2U; // The input address starts 2 positions later
+    const pointer_uint_q EXPECTED_SIZE = 28U; // The input address starts 2 positions later, so next multiple of 4 is 2 position later than that
+    const QAlignment INPUT_ALIGNMENT(4U);
+    void* pInputBuffer = operator new(32U, INPUT_ALIGNMENT);
+    void* INPUT_ADDRESS = (void*)((pointer_uint_q)pInputBuffer + 2U);
+
+    // [Execution]
+    QStackAllocator allocator(INPUT_SIZE, INPUT_ADDRESS, INPUT_ALIGNMENT);
+
+    // [Verification]
+    pointer_uint_q uSize = allocator.GetSize();
+
+    BOOST_CHECK_EQUAL(uSize, EXPECTED_SIZE);
+    
+    // [Cleaning]
+    operator delete(pInputBuffer, INPUT_ALIGNMENT);
+}
+
+/// <summary>
+/// Checks that a valid memory address is returned when using a common input size and an empty allocator.
+/// </summary>
+QTEST_CASE ( Allocate1_ReturnsValidAddressWhenUsingCommonSizeAndAllocatorIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const void* NULL_POINTER = null_q;
+    QStackAllocator allocator(16U, QAlignment(4U));
+
+    // [Execution]
+    void* pAllocatedMemory = allocator.Allocate(INPUT_SIZE);
+
+    // [Verification]
+    BOOST_CHECK_NE(pAllocatedMemory, NULL_POINTER);
+}
+
+/// <summary>
+/// Checks that a valid memory address is returned when using a common input size and a non-empty allocator.
+/// </summary>
+QTEST_CASE ( Allocate1_ReturnsValidAddressWhenUsingCommonSizeAndAllocatorIsNotEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const void* NULL_POINTER = null_q;
+    QStackAllocator allocator(32U, QAlignment(4U));
+    allocator.Allocate(INPUT_SIZE);
+
+    // [Execution]
+    void* pAllocatedMemory = allocator.Allocate(INPUT_SIZE);
+
+    // [Verification]
+    BOOST_CHECK_NE(pAllocatedMemory, NULL_POINTER);
+}
+
+/// <summary>
+/// Checks that the allocated bytes increase on every allocation.
+/// </summary>
+QTEST_CASE ( Allocate1_AllocatedBytesGrow_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 6U;
+    QStackAllocator allocator(32U, QAlignment(4U));
+    const pointer_uint_q ALLOCATED_BYTES_BEFORE = allocator.GetAllocatedBytes();
+
+    // [Execution]
+    allocator.Allocate(INPUT_SIZE);
+
+    // [Verification]
+    pointer_uint_q uAllocatedBytesAfter = allocator.GetAllocatedBytes();
+    BOOST_CHECK(uAllocatedBytesAfter > ALLOCATED_BYTES_BEFORE);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when trying an allocation and the size of the passed memory block to allocate is zero;<br/>
+/// Checks that an assertion fails when trying an allocation and the size of the passed memory block to allocate is zero;
 /// the alignment value for the memory block to allocate is assumed as the default one.
 /// </summary>
 QTEST_CASE (Allocate1_AssertionFailsWhenBlockSizeIsZero_Test)
@@ -700,9 +784,6 @@ QTEST_CASE (Allocate1_AssertionFailsWhenBlockSizeIsZero_Test)
     bool                   bAssertionFailedIn04                  = false;
     bool                   bAssertionFailedIn05                  = false;
 
-    pointer_uint_q         u                                     = 0;
-
-
 	// [Execution]
 
     QStackAllocator stackAllocator01( VALID_PREALLOCATION_SIZE );
@@ -711,7 +792,7 @@ QTEST_CASE (Allocate1_AssertionFailsWhenBlockSizeIsZero_Test)
     QStackAllocator stackAllocator04( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
     QStackAllocator stackAllocator05( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
 
-    for (u = 1; u <= AMOUNT_CASES; ++u)
+    for (pointer_uint_q u = 1; u <= AMOUNT_CASES; ++u)
     {
         try
         {
@@ -775,10 +856,90 @@ QTEST_CASE (Allocate1_AssertionFailsWhenBlockSizeIsZero_Test)
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
+/// <summary>
+/// Checks that a valid memory address is returned when using a common input size and an empty allocator.
+/// </summary>
+QTEST_CASE ( Allocate2_ReturnsValidAddressWhenUsingCommonSizeAndAllocatorIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    const void* NULL_POINTER = null_q;
+    QStackAllocator allocator(16U, QAlignment(4U));
+
+    // [Execution]
+    void* pAllocatedMemory = allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+
+    // [Verification]
+    BOOST_CHECK_NE(pAllocatedMemory, NULL_POINTER);
+}
+
+/// <summary>
+/// Checks that a valid memory address is returned when using a common input size and a non-empty allocator.
+/// </summary>
+QTEST_CASE ( Allocate2_ReturnsValidAddressWhenUsingCommonSizeAndAllocatorIsNotEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    const void* NULL_POINTER = null_q;
+    QStackAllocator allocator(32U, QAlignment(4U));
+    allocator.Allocate(INPUT_SIZE);
+
+    // [Execution]
+    void* pAllocatedMemory = allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+
+    // [Verification]
+    BOOST_CHECK_NE(pAllocatedMemory, NULL_POINTER);
+}
+
+/// <summary>
+/// Checks that the allocated bytes increase on every allocation.
+/// </summary>
+QTEST_CASE ( Allocate2_AllocatedBytesGrow_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    const pointer_uint_q ALLOCATED_BYTES_BEFORE = allocator.GetAllocatedBytes();
+
+    // [Execution]
+    allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+
+    // [Verification]
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+    BOOST_CHECK(uAllocatedBytes > ALLOCATED_BYTES_BEFORE);
+}
+
+/// <summary>
+/// Checks that alignment adjustments count as allocated space.
+/// </summary>
+QTEST_CASE ( Allocate2_AlignmentAdjustmentAffectsTheAllocatedBytes_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator1(32U, QAlignment(4U));
+    QStackAllocator allocator2(32U, QAlignment(4U));
+    allocator1.Allocate(2U);
+    allocator2.Allocate(4U);
+
+    // [Execution]
+    allocator1.Allocate(INPUT_SIZE, INPUT_ALIGNMENT); // 2-bytes adjustment applied
+    allocator2.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+
+    // [Verification]
+    // Checks that, even if the amount of bytes allocated is different, the occupied space is the same
+    pointer_uint_q uAllocatedBytes1 = allocator1.GetAllocatedBytes();
+    pointer_uint_q uAllocatedBytes2 = allocator2.GetAllocatedBytes();
+    BOOST_CHECK_EQUAL(uAllocatedBytes1, uAllocatedBytes2);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when trying an allocation and the size of the passed memory block to allocate is zero;<br/>
+/// Checks that an assertion fails when trying an allocation and the size of the passed memory block to allocate is zero;
 /// the alignment value for the memory block to allocate is specified.
 /// </summary>
 QTEST_CASE (Allocate2_AssertionFailsWhenBlockSizeIsZero_Test)
@@ -1051,7 +1212,7 @@ QTEST_CASE (Allocate2_AssertionFailsWhenBlockSizeIsZero_Test)
 }
 
 /// <summary>
-/// Checks that an assertion fails when trying an allocation and the passed alignment value for the memory block<br/>
+/// Checks that an assertion fails when trying an allocation and the passed alignment value for the memory block
 /// to allocate is not a power of two.
 /// </summary>
 QTEST_CASE (Allocate2_AssertionFailsWhenAlignmentValueForBlockToAllocateIsNotAPowerOfTwo_Test)
@@ -1156,10 +1317,70 @@ QTEST_CASE (Allocate2_AssertionFailsWhenAlignmentValueForBlockToAllocateIsNotAPo
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
+/// <summary>
+/// Checks if a deallocation of a block allows it to be allocated again.
+/// </summary>
+QTEST_CASE( Deallocate1_DeallocationOfABlockAllowsItToBeAllocatedAgain_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    void* pAllocatedMemoryBefore = allocator.Allocate(INPUT_SIZE);
+    
+    // [Execution]
+    allocator.Deallocate();
+
+    // [Verification]
+    void* AllocatedMemoryAfter = allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    BOOST_CHECK_EQUAL(pAllocatedMemoryBefore, AllocatedMemoryAfter);
+}
+
+/// <summary>
+/// Checks that the allocated bytes decrease on every allocation.
+/// </summary>
+QTEST_CASE ( Deallocate1_AllocatedBytesDecrease_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    const pointer_uint_q ALLOCATED_BYTES_BEFORE = allocator.GetAllocatedBytes();
+
+    // [Execution]
+    allocator.Deallocate();
+
+    // [Verification]
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+    BOOST_CHECK(uAllocatedBytes < ALLOCATED_BYTES_BEFORE);
+}
+
+/// <summary>
+/// Checks that deallocations work as expected when some previous allocations where adjusted to the alignment.
+/// </summary>
+QTEST_CASE ( Deallocate1_DeallocationsWorkWellWhenSomeAllocationsWhereAdjustedToAlignment_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    allocator.Allocate(2U);
+    void* pTopBeforeDeallocation = allocator.GetMark().GetMemoryAddress();
+    allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT); // 2-bytes adjustment applied
+
+    // [Execution]
+    allocator.Deallocate();
+
+    // [Verification]
+    void* pTopAfterDeallocation = allocator.GetMark().GetMemoryAddress();
+    BOOST_CHECK_EQUAL(pTopBeforeDeallocation, pTopAfterDeallocation);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address- is null.<br/>
+/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address- is null.
 /// The alignment value for the block which it is pretending to be deallocated is the default one.
 /// </summary>
 QTEST_CASE(Deallocate1_AssertionFailsWhenPassedMarkIsNull_Test)
@@ -1275,7 +1496,7 @@ QTEST_CASE(Deallocate1_AssertionFailsWhenPassedMarkIsNull_Test)
 }
 
 /// <summary>
-/// Checks that an assertion fails when a deallocation occurs and the stack is empty.<br/>
+/// Checks that an assertion fails when a deallocation occurs and the stack is empty.
 /// The alignment value for the block which it is pretending to be deallocated is the default one.
 /// </summary>
 QTEST_CASE(Deallocate1_AssertionFailsWhenDeallocationOccursAndStackIsEmpty_Test)
@@ -1386,10 +1607,73 @@ QTEST_CASE(Deallocate1_AssertionFailsWhenDeallocationOccursAndStackIsEmpty_Test)
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
+/// <summary>
+/// Checks if a deallocation of the stack until the base allows to allocate blocks later.
+/// </summary>
+QTEST_CASE( Deallocate2_DeallocationTillTheBaseAllowsFurtherAllocations_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    QStackAllocator::QMark baseMark = allocator.GetMark();
+    void* pAllocatedMemoryBefore = allocator.Allocate(INPUT_SIZE);
+    
+    // [Execution]
+    allocator.Deallocate(baseMark);
+
+    // [Verification]
+    void* AllocatedMemoryAfter = allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    BOOST_CHECK_EQUAL(pAllocatedMemoryBefore, AllocatedMemoryAfter);
+}
+
+/// <summary>
+/// Checks that the allocated bytes decrease on every allocation.
+/// </summary>
+QTEST_CASE ( Deallocate2_AllocatedBytesDecrease_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, QAlignment(4U));
+    QStackAllocator::QMark baseMark = allocator.GetMark();
+    allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    const pointer_uint_q ALLOCATED_BYTES_BEFORE = allocator.GetAllocatedBytes();
+
+    // [Execution]
+    allocator.Deallocate(baseMark);
+
+    // [Verification]
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+    BOOST_CHECK(uAllocatedBytes < ALLOCATED_BYTES_BEFORE);
+}
+
+/// <summary>
+/// Checks if a deallocation of the stack until some address in the middle allows to allocate blocks later.
+/// </summary>
+QTEST_CASE( Deallocate2_DeallocationTillMiddleAllowsFurtherAllocations_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 4U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(80U, QAlignment(4U));
+    allocator.Allocate(INPUT_SIZE);
+    QStackAllocator::QMark mark = allocator.GetMark();
+    void* pAllocatedMemoryBefore = allocator.Allocate(INPUT_SIZE);
+    allocator.Allocate(INPUT_SIZE);
+    
+    // [Execution]
+    allocator.Deallocate(mark);
+
+    // [Verification]
+    void* AllocatedMemoryAfter = allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT);
+    BOOST_CHECK_EQUAL(pAllocatedMemoryBefore, AllocatedMemoryAfter);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address- is null.<br/>
+/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address- is null.
 /// The alignment value for the block which it is pretending to be deallocated is specified.
 /// </summary>
 QTEST_CASE(Deallocate2_AssertionFailsWhenPassedMarkIsNull_Test)
@@ -1706,7 +1990,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenPassedMarkIsNull_Test)
 }
 
 /// <summary>
-/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address-<br/>
+/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address-
 /// is lesser than the stack base of the stack allocator.
 /// </summary>
 QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsLesserThanStackBase_Test)
@@ -2089,7 +2373,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsLesserThanStackBase_Test)
 }
 
 /// <summary>
-/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address-<br/>
+/// Checks that an assertion fails when the passed mark -for rolling the stack top back to a certain address-
 /// is greater than the current stack top of the stack allocator.
 /// </summary>
 QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsGreaterThanStackTop_Test)
@@ -2741,10 +3025,47 @@ QTEST_CASE (Clear_NothingHappensWhenTheStackIsEmptyTest)
     BOOST_CHECK_EQUAL(bNothingChangedIn05, EXPECTED_VALUE);
 }
 
+/// <summary>
+/// Checks that all the memory blocks are deallocated.
+/// </summary>
+QTEST_CASE ( Clear_EntireAllocatorIsEmptied_Test )
+{
+    // [Preparation]
+    QStackAllocator allocator(32U, QAlignment(4U));
+    allocator.Allocate(4U);
+    allocator.Allocate(4U);
+    const pointer_uint_q EXPECTED_ALLOCATED_BYTES = 0;
+
+    // [Execution]
+    allocator.Clear();
+
+    // [Verification]
+    pointer_uint_q uAllocatedBytes = allocator.GetAllocatedBytes();
+    BOOST_CHECK_EQUAL(uAllocatedBytes, EXPECTED_ALLOCATED_BYTES);
+}
+
+/// <summary>
+/// Checks that new allocations start at the beginning of the internal buffer after it has been cleared.
+/// </summary>
+QTEST_CASE ( Clear_AllocationsStartAtBeginningOfBufferAfterClearing_Test )
+{
+    // [Preparation]
+    QStackAllocator allocator(32U, QAlignment(4U));
+    const void* EXPECTED_FIRST_POSITION = allocator.Allocate(4U);
+    allocator.Allocate(4U);
+
+    // [Execution]
+    allocator.Clear();
+    
+    // [Verification]
+    void* pAllocationPosition = allocator.Allocate(4U);
+    BOOST_CHECK_EQUAL(pAllocationPosition, EXPECTED_FIRST_POSITION);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the sum of the sizes of all allocated memory blocks into stack allocator<br/>
+/// Checks that an assertion fails when the sum of the sizes of all allocated memory blocks into stack allocator
 /// is greater than the preallocated block size.
 /// </summary>
 QTEST_CASE(GetSize_AssertionFailsWhenSizeOfAllAllocatedMemoryBlocksIsGreaterThanPreallocatedBlockSize_Test)
@@ -3152,7 +3473,7 @@ QTEST_CASE(GetSize_AssertionFailsWhenSizeOfAllAllocatedMemoryBlocksIsGreaterThan
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the specified size for the intended memory block to be allocated is zero.<br/>
+/// Checks that an assertion fails when the specified size for the intended memory block to be allocated is zero.
 /// The alignment value for the intended memory block to be allocated is the default one.
 /// </summary>
 QTEST_CASE (CanAllocate1_AssertionFailsWhenSizeIsZero_Test)
@@ -3260,7 +3581,7 @@ QTEST_CASE (CanAllocate1_AssertionFailsWhenSizeIsZero_Test)
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when the specified size for the intended memory block to be allocated is zero.<br/>
+/// Checks that it returns False when the specified size for the intended memory block to be allocated is zero.
 /// The alignment value for the intended memory block to be allocated is the default one.
 /// </summary>
 QTEST_CASE (CanAllocate1_ReturnsFalseWhenSizeIsZero_Test)
@@ -3309,8 +3630,8 @@ QTEST_CASE (CanAllocate1_ReturnsFalseWhenSizeIsZero_Test)
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that it returns False when there is not enough space to allocate a memory block whose specified size<br/>
-/// is too big for the current free space in the stack.<br/>
+/// Checks that it returns False when there is not enough space to allocate a memory block whose specified size
+/// is too big for the current free space in the stack.
 /// The alignment value for the intended memory block to be allocated is the default one.
 /// </summary>
 QTEST_CASE (CanAllocate1_ReturnsFalseWhenThereIsNotEnoughSpaceToAllocateAMemoryBlock_Test)
@@ -3367,7 +3688,7 @@ QTEST_CASE (CanAllocate1_ReturnsFalseWhenThereIsNotEnoughSpaceToAllocateAMemoryB
 }
 
 /// <summary>
-/// Checks that it returns True when there is enough free space yet to allocate a memory block.<br/>
+/// Checks that it returns True when there is enough free space yet to allocate a memory block.
 /// The alignment value for the intended memory block to be allocated is the default one.
 /// </summary>
 QTEST_CASE (CanAllocate1_ReturnsTrueWhenThereIsEnoughSpaceYetToAllocateAMemoryBlock_Test)
@@ -3427,7 +3748,7 @@ QTEST_CASE (CanAllocate1_ReturnsTrueWhenThereIsEnoughSpaceYetToAllocateAMemoryBl
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks than a assertion fails when the specified size for the intended memory block to be allocated is zero.<br/>
+/// Checks than a assertion fails when the specified size for the intended memory block to be allocated is zero.
 /// The alignment value for the intended memory block to be allocated is specified.
 /// </summary>
 QTEST_CASE (CanAllocate2_AssertionFailsWhenSizeIsZero_Test)
@@ -3678,7 +3999,7 @@ QTEST_CASE (CanAllocate2_AssertionFailsWhenSizeIsZero_Test)
 }
 
 /// <summary>
-/// Checks than an assertion inside CanAllocate fails when the specified alignment value<br/>
+/// Checks than an assertion inside CanAllocate fails when the specified alignment value
 /// for the intended memory block to be allocated is not a power of two.
 /// </summary>
 QTEST_CASE (CanAllocate2_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test)
@@ -3938,7 +4259,7 @@ QTEST_CASE (CanAllocate2_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test)
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that ir returns False when the specified size for the intended memory block to be allocated is zero.<br/>
+/// Checks that ir returns False when the specified size for the intended memory block to be allocated is zero.
 /// The alignment value for the intended memory block to be allocated is specified.
 /// </summary>
 QTEST_CASE (CanAllocate2_ReturnsFalseWhenSizeIsZero_Test)
@@ -4052,8 +4373,8 @@ QTEST_CASE (CanAllocate2_ReturnsFalseWhenSizeIsZero_Test)
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that it returns False when there is not enough space to allocate a memory block whose specified size<br/>
-/// is too big for the current free space in the stack.<br/>
+/// Checks that it returns False when there is not enough space to allocate a memory block whose specified size
+/// is too big for the current free space in the stack.
 /// The alignment value for the intended memory block to be allocated is specified.
 /// </summary>
 QTEST_CASE (CanAllocate2_ReturnsFalseWhenThereIsNotEnoughSpaceToAllocateAMemoryBlock_Test)
@@ -4191,7 +4512,7 @@ QTEST_CASE (CanAllocate2_ReturnsFalseWhenThereIsNotEnoughSpaceToAllocateAMemoryB
 }
 
 /// <summary>
-/// Checks that it returns True when there is enough free space yet to allocate a memory block.<br/>
+/// Checks that it returns True when there is enough free space yet to allocate a memory block.
 /// The alignment value for the intended memory block to be allocated is specified.
 /// </summary>
 QTEST_CASE (CanAllocate2_ReturnsTrueWhenThereIsEnoughSpaceYetToAllocateAMemoryBlock_Test)
@@ -4328,10 +4649,29 @@ QTEST_CASE (CanAllocate2_ReturnsTrueWhenThereIsEnoughSpaceYetToAllocateAMemoryBl
     BOOST_CHECK_EQUAL(bCouldAllocateAgainIn20, EXPECTED_VALUE);
 }
 
+/// <summary>
+/// Checks that it returns False when there is not enough free space in the buffer due to the alignment adjustment.
+/// </summary>
+QTEST_CASE ( CanAllocate2_ReturnsFalseWhenThereIsNotEnoughFreeSpaceDueToAlignmentAdjustment_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_SIZE = 6U;
+    const QAlignment INPUT_ALIGNMENT(4U);
+    QStackAllocator allocator(32U, INPUT_ALIGNMENT);
+    allocator.Allocate(2U);
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = allocator.CanAllocate(INPUT_SIZE, INPUT_ALIGNMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the sum of the sizes of all allocated memory blocks<br/>
+/// Checks that an assertion fails when the sum of the sizes of all allocated memory blocks
 /// into stack allocator is greater than the preallocated block size.
 /// </summary>
 QTEST_CASE(GetAllocatedBytes_AssertionFailsWhenSizeOfAllAllocatedMemoryBlocksIsGreaterThanPreallocatedBlockSize_Test)
@@ -4849,7 +5189,7 @@ QTEST_CASE(CopyTo_AssertionFailsWhenSizeOfInputAllocatorIsZero_Test)
 }
 
 /// <summary>
-/// Checks that an assertion fails when the size of the input allocator has a preallocated size lower than<br/>
+/// Checks that an assertion fails when the size of the input allocator has a preallocated size lower than
 /// the size of the resident one.
 /// </summary>
 QTEST_CASE(CopyTo_AssertionFailsWhenSizeOfInputAllocatorIsLowerThanSizeOfTheResidentOne_Test)
@@ -4959,7 +5299,7 @@ QTEST_CASE(CopyTo_TheStackAllocatorIsCorrectlyCopied_Test)
     // [Execution]
 
     QStackAllocatorWhiteBox    stackAllocatorWhiteBoxResident(VALID_PREALLOCATION_SIZE_LESSER, PREALLOCATION_ALIGMENT01);
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBoxPassed(VALID_PREALLOCATION_SIZE_GREATER,  PREALLOCATION_ALIGMENT02);
+    QStackAllocatorWhiteBox    stackAllocatorWhiteBoxPassed(VALID_PREALLOCATION_SIZE_GREATER,  PREALLOCATION_ALIGMENT01);
 
     // Provisional allocations.
     stackAllocatorWhiteBoxResident.Allocate(VALID_ALLOCATION_SIZE_LESSER01, ALLOCATION_ALIGMENT01);
@@ -5040,8 +5380,13 @@ QTEST_CASE(CopyTo_TheStackAllocatorIsCorrectlyCopied_Test)
     if ( uAlignmentValueAfterCopy == stackAllocatorWhiteBoxResident.GetAlignmentValue() )
         bSamePreallocationAlignmentValueInBoth = true;
 
-    BOOST_CHECK_EQUAL( bSamePreallocationSizeBeforeAndAfterCopy, EXPECTED_VALUE );    
-    BOOST_CHECK_EQUAL( bSameStackBaseBeforeAndAfterCopy,         EXPECTED_VALUE ); 
+    bool bAreEqual = memcmp(stackAllocatorWhiteBoxResident.GetpBase(), 
+                            stackAllocatorWhiteBoxPassed.GetpBase(), 
+                            stackAllocatorWhiteBoxResident.GetSize()) == 0;
+
+    BOOST_CHECK( bAreEqual );
+    BOOST_CHECK_EQUAL( bSamePreallocationSizeBeforeAndAfterCopy, EXPECTED_VALUE );
+    BOOST_CHECK_EQUAL( bSameStackBaseBeforeAndAfterCopy,         EXPECTED_VALUE );
     BOOST_CHECK_EQUAL( bSameAllocationBytesInBoth,               EXPECTED_VALUE );
     BOOST_CHECK_EQUAL( bSamePreallocationAlignmentValueInBoth,   EXPECTED_VALUE );
     BOOST_CHECK_EQUAL( bSameBlockHeadersInBoth,                  EXPECTED_VALUE );
@@ -5384,44 +5729,43 @@ QTEST_CASE (Preallocate_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test)
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
-/// <summary>
-/// Checks that it is possible to preallocate a memory block of 1Gb.
-/// </summary>
-QTEST_CASE (Preallocate_ItIsPossibleToAllocate1GbOfMemory_Test)
-{
-    // [Preparation]
-
-    const bool                 EXPECTED_RESULT                            = true;
-
-    const pointer_uint_q       VALID_PREALLOCATION_SIZE_SMALL             = 32;
-    const pointer_uint_q       VALID_PREALLOCATION_SIZE_1GB               = 1073741824;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE        = 1;
-
-    void*                      pPreallocated                              = null_q;
-    bool                       bPreallocated                              = false;
-
-
-    // [Execution]
-    
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBox( VALID_PREALLOCATION_SIZE_SMALL, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
-
-    // Preallocated block will NOT be modified for calling to this method.
-    pPreallocated = stackAllocatorWhiteBox.PreallocatePublic( VALID_PREALLOCATION_SIZE_1GB, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
-
-    if (null_q != pPreallocated)
-        bPreallocated = true;
-
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bPreallocated, EXPECTED_RESULT);
-
-
-    // [Cleaning]
-    if (null_q != pPreallocated)
-    {
-        operator delete[]( pPreallocated, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
-    }
-}
+// The following test is kept here but commented out. The reason is that although it is an interesting test, it may fail randomly due to memory
+// shortage. Besides, it is not a test that applies only to this class but to any attempt of allocating heap memory.
+///// <summary>
+///// Checks that it is possible to preallocate a memory block of 1Gb.
+///// </summary>
+//QTEST_CASE (Preallocate_ItIsPossibleToAllocate1GbOfMemory_Test)
+//{
+//    // [Preparation]
+//
+//    const bool                 EXPECTED_RESULT                            = true;
+//
+//    const pointer_uint_q       VALID_PREALLOCATION_SIZE_SMALL             = 32;
+//    const pointer_uint_q       VALID_PREALLOCATION_SIZE_1GB               = 1073741824;
+//    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE        = 1;
+//
+//    void*                      pPreallocated                              = null_q;
+//    bool                       bPreallocated                              = false;
+//
+//
+//    // [Execution]
+//    
+//    QStackAllocatorWhiteBox    stackAllocatorWhiteBox( VALID_PREALLOCATION_SIZE_SMALL, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
+//
+//    // Preallocated block will NOT be modified for calling to this method.
+//    pPreallocated = stackAllocatorWhiteBox.PreallocatePublic( VALID_PREALLOCATION_SIZE_1GB, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
+//
+//    if (null_q != pPreallocated)
+//        bPreallocated = true;
+//
+//
+//    // [Verification]
+//    BOOST_CHECK_EQUAL(bPreallocated, EXPECTED_RESULT);
+//
+//
+//    // [Cleaning]
+//    operator delete( pPreallocated, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE) );
+//}
 
 // End - Test Suite: QStackAllocator_TestSuite
 QTEST_SUITE_END()
