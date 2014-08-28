@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
+    <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />

@@ -22,7 +22,7 @@ LDFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtStatic
 DEP_DEBUGLINUX32SHAREDRTSTATIC = 
 OUT_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic/Unit_TestModule_System.sh
-OBJ_DEBUGLINUX32SHAREDRTSTATIC =  $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/TestModule_System.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QObject_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QLocalTimeZone_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o
+OBJ_DEBUGLINUX32SHAREDRTSTATIC =  $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/TestModule_System.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QObject_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QLocalTimeZone_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o
 
 #DebugLinux32SharedrtDynamic
 INC_DEBUGLINUX32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit -I$(MAKEPATH)trunk/3rdparty/ICU/include
@@ -35,7 +35,7 @@ LDFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtDynamic
 DEP_DEBUGLINUX32SHAREDRTDYNAMIC = 
 OUT_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic/Unit_TestModule_System.sh
-OBJ_DEBUGLINUX32SHAREDRTDYNAMIC =  $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/TestModule_System.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QObject_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QLocalTimeZone_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o
+OBJ_DEBUGLINUX32SHAREDRTDYNAMIC =  $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/TestModule_System.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QObject_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QLocalTimeZone_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o
 
 
 all: debuglinux32sharedrtstatic debuglinux32sharedrtdynamic
@@ -82,6 +82,9 @@ $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmo
 
 $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o
+
+$(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o
 
 clean_debuglinux32sharedrtstatic: 
 	rm -f $(OBJ_DEBUGLINUX32SHAREDRTSTATIC) $(OUT_DEBUGLINUX32SHAREDRTSTATIC)
@@ -133,6 +136,9 @@ $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testm
 
 $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC) $(INC_DEBUGLINUX32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDateTimeNow_Test.o
+
+$(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC) $(INC_DEBUGLINUX32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QMemoryStream_Test.o
 
 clean_debuglinux32sharedrtdynamic: 
 	rm -f $(OBJ_DEBUGLINUX32SHAREDRTDYNAMIC) $(OUT_DEBUGLINUX32SHAREDRTDYNAMIC)

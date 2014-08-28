@@ -13,6 +13,9 @@
     <Filter Include="Tests\Timing">
       <UniqueIdentifier>{5de9b162-9c75-4dbe-880b-7fbe7693bf24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\IO">
+      <UniqueIdentifier>{b96c6f39-5466-43c5-ac48-2a87c8ea3ff6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp">
       <Filter>Tests\Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp">
+      <Filter>Tests\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

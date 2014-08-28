@@ -84,6 +84,9 @@
       <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZone_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QDateTimeNow_Test.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="IO">
+      <File Name="../../../../tests/unit/testmodule_system/QMemoryStream_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
