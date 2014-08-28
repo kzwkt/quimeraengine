@@ -6029,6 +6029,205 @@ QTEST_CASE ( Append_AppendingEmptyStringTakesNoEffect_Test )
 }
 
 /// <summary>
+/// Checks that an empty string is returned when the resident string is empty.
+/// </summary>
+QTEST_CASE ( Split_ReturnsOneEmptyStringWhenResidentStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = QStringUnicode::GetEmpty();
+    const unsigned int EXPECTED_SIZE = 1U;
+    const QStringUnicode EXPECTED_STRING = QStringUnicode::GetEmpty();
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that two empty strings are returned when the resident string contains only 1 separator.
+/// </summary>
+QTEST_CASE ( Split_ReturnsTwoEmptyStringsWhenResidentStringIsCompoundOfOnlyOneSeparator_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "/";
+    const unsigned int EXPECTED_SIZE = 2U;
+    const QStringUnicode EXPECTED_STRING = QStringUnicode::GetEmpty();
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that several empty strings are returned when the resident string contains more than 1 separator only.
+/// </summary>
+QTEST_CASE ( Split_ReturnsSeveralEmptyStringsWhenResidentStringIsCompoundOfMoreThanOneSeparatorOnly_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "///";
+    const unsigned int EXPECTED_SIZE = 4U;
+    const QStringUnicode EXPECTED_STRING = QStringUnicode::GetEmpty();
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING);
+    BOOST_CHECK(arStringParts[2] == EXPECTED_STRING);
+    BOOST_CHECK(arStringParts[3] == EXPECTED_STRING);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns the value of a part that is surrounded by separators, when they are placed at the beginning and at the end of the string.
+/// </summary>
+QTEST_CASE ( Split_ReturnsTheValueOfPartSurroundedBySeparatorsWhenTheyArePlacedAtBeginningAndEnd_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "/123/";
+    const unsigned int EXPECTED_SIZE = 3U;
+    const QStringUnicode EXPECTED_STRING_NON_EMPTY = "123";
+    const QStringUnicode EXPECTED_STRING_EMPTY = QStringUnicode::GetEmpty();
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING_EMPTY);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING_NON_EMPTY);
+    BOOST_CHECK(arStringParts[2] == EXPECTED_STRING_EMPTY);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns the value of one part when there are not separators in the string.
+/// </summary>
+QTEST_CASE ( Split_ReturnsTheValueOfOnePartWhenThereAreNotSeparatorsInString_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "123";
+    const unsigned int EXPECTED_SIZE = 1U;
+    const QStringUnicode EXPECTED_STRING_NON_EMPTY = "123";
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING_NON_EMPTY);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns every part of a common string divided by separators.
+/// </summary>
+QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparators_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "123/456/789";
+    const unsigned int EXPECTED_SIZE = 3U;
+    const QStringUnicode EXPECTED_STRING1 = "123";
+    const QStringUnicode EXPECTED_STRING2 = "456";
+    const QStringUnicode EXPECTED_STRING3 = "789";
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING1);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING2);
+    BOOST_CHECK(arStringParts[2] == EXPECTED_STRING3);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns every part of a common string divided by separators whose length is greater than one.
+/// </summary>
+QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparatorsOfLengthGreaterThanOne_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "123-/-456-/-789";
+    const unsigned int EXPECTED_SIZE = 3U;
+    const QStringUnicode EXPECTED_STRING1 = "123";
+    const QStringUnicode EXPECTED_STRING2 = "456";
+    const QStringUnicode EXPECTED_STRING3 = "789";
+    const QStringUnicode SEPARATOR = "-/-";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING1);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING2);
+    BOOST_CHECK(arStringParts[2] == EXPECTED_STRING3);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns the entire string when the seperator is empty.
+/// </summary>
+QTEST_CASE ( Split_ReturnsEntireStringWhenSeparatorIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode ORIGINAL_STRING = "123/456/789";
+    const unsigned int EXPECTED_SIZE = 1U;
+    const QStringUnicode EXPECTED_STRING = ORIGINAL_STRING;
+    const QStringUnicode SEPARATOR = QStringUnicode::GetEmpty();
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
 /// Checks that a common number is correctly parsed.
 /// </summary>
 QTEST_CASE ( ToInteger_CommonNumberIsParsed_Test )
