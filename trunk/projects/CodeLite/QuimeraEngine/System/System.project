@@ -406,4 +406,7 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="IO">
+    <File Name="../../../../headers/QMemoryStream.h"/>
+  </VirtualDirectory>
 </CodeLite_Project>

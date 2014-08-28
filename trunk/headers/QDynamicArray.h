@@ -63,7 +63,7 @@ class QDynamicArray : public QFixedArray<T, AllocatorT, ComparatorT>
     using QFixedArray<T, AllocatorT, ComparatorT>::m_uLast;
     
 
-       // CONSTANTS
+    // CONSTANTS
     // ---------------
 private:
 

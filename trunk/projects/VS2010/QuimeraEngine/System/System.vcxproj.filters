@@ -10,6 +10,9 @@
     <Filter Include="Timing\Workarounds">
       <UniqueIdentifier>{d0977b75-25bc-48db-aeba-1c7fdb2350ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{727a4e0b-0afe-4a4d-9f21-85fb894ea330}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -27,6 +30,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h">
       <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QMemoryStream.h">
+      <Filter>IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
