@@ -532,5 +532,97 @@ QTEST_CASE_TEMPLATE ( ToString_ZeroIsCorrectlyConverted_Test, TQTemplateTypes )
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that the length of the string depends on the size of the integer type when the value is zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( ToStringHexadecimal_TheLengthOfStringDependsOnTypeSizeWhenValueIsZero_Test, TQTemplateUnsignedTypes )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+
+    // [Preparation]
+    T INPUT = 0;
+    pointer_uint_q EXPECTED_LENGTH = sizeof(T) * 2U; // 2 letters per byte
+
+	// [Execution]
+    string_q strResult = SQInteger::ToStringHexadecimal(INPUT);
+
+    // [Verification]
+    pointer_uint_q uLength = strResult.GetLength();
+    BOOST_CHECK_EQUAL(uLength, EXPECTED_LENGTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 1 byte.
+/// </summary>
+QTEST_CASE ( ToStringHexadecimal_ItReturnsExpectedValueWhenUsingOneByte_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+    // [Preparation]
+    u8_q INPUT = 0x0F;
+    string_q EXPECTED_STRING = "0F";
+
+	// [Execution]
+    string_q strResult = SQInteger::ToStringHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 2 bytes.
+/// </summary>
+QTEST_CASE ( ToStringHexadecimal_ItReturnsExpectedValueWhenUsingTwoBytes_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+    // [Preparation]
+    u16_q INPUT = 0x01EF;
+    string_q EXPECTED_STRING = "01EF";
+
+	// [Execution]
+    string_q strResult = SQInteger::ToStringHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 4 bytes.
+/// </summary>
+QTEST_CASE ( ToStringHexadecimal_ItReturnsExpectedValueWhenUsingFourBytes_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+    // [Preparation]
+    u32_q INPUT = 0x0123CDEF;
+    string_q EXPECTED_STRING = "0123CDEF";
+
+	// [Execution]
+    string_q strResult = SQInteger::ToStringHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 8 bytes.
+/// </summary>
+QTEST_CASE ( ToStringHexadecimal_ItReturnsExpectedValueWhenUsingEightBytes_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+    // [Preparation]
+    u64_q INPUT = 0x0123456789ABCDEF;
+    string_q EXPECTED_STRING = "0123456789ABCDEF";
+
+	// [Execution]
+    string_q strResult = SQInteger::ToStringHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
 // End - Test Suite: SQInteger
 QTEST_SUITE_END()
