@@ -857,6 +857,23 @@ public:
     /// </remarks>
     /// <param name="strStringToAppend">[IN] The string to be appended.</param>
     void Append(const QStringUnicode &strStringToAppend);
+    
+    /// <summary>
+    /// Splits the string, searching for another string that acts as separator and storing every part in an output array.
+    /// </summary>
+    /// <remarks>
+    /// Separators are not included in the resultant array.<br/>
+    /// If the string is empty, it will return an array with one empty string.<br/>
+    /// If there are no characters between two separators, it will be considered a part anyway, although the string will be empty.<br/>
+    /// Binary case-sensitive comparison is performed to find matches of the separator in the string.
+    /// </remarks>
+    /// <param name="strSeparator">[IN] The string that will act as separator. If it is empty, the string will not be split and will be returned as is.</param>
+    /// <param name="uReturnedArrayLength">[OUT] The number of strings in the output array after the operation. It will never equal zero.</param>
+    /// <returns>
+    /// Array compound of the parts in which the string is divided by the separators. The user is in charge of deleting the array manually. Its size is
+    /// given through the output parameter.
+    /// </returns>
+    QStringUnicode* Split(const QStringUnicode &strSeparator, unsigned int &uReturnedArrayLength) const;
 
     /// <summary>
     /// Parses the complete string, which represents an integer number.

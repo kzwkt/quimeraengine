@@ -817,6 +817,61 @@ void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
     m_strString.append(strStringToAppend.m_strString);
 }
 
+QStringUnicode* QStringUnicode::Split(const QStringUnicode &strSeparator, unsigned int &uReturnedArrayLength) const
+{
+    QStringUnicode* arParts = null_q;
+    unsigned int uNumberOfParts = 0;
+
+    if(this->IsEmpty())
+    {
+        // Returns an empty string
+        arParts = new QStringUnicode[1];
+    }
+    else
+    {
+        unsigned int uLastFound = 0;
+
+        // Separations are counted before the array of strings is created
+        while(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
+        {
+            ++uNumberOfParts;
+
+            uLastFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
+
+            if(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
+                ++uLastFound;
+        }
+
+        // Creates the output array of strings
+        arParts = new QStringUnicode[uNumberOfParts];
+
+        // Extracts every part, searching for separators and getting the text in between, if any
+
+        uLastFound = 0;
+        const unsigned int SEPARATOR_LENGTH = strSeparator.GetLength();
+        unsigned int uCurrentFound = 0;
+        --uNumberOfParts; // 1 substracted because the loop uses all the parts but the last one
+
+        // Parses all the parts but the last one
+        for(unsigned int iPart = 0; iPart < uNumberOfParts; ++iPart)
+        {
+            uCurrentFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
+
+            if(uLastFound != uCurrentFound)
+                arParts[iPart] = this->Substring(uLastFound, uCurrentFound - 1U);
+
+            if(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
+                uLastFound = uCurrentFound + SEPARATOR_LENGTH;
+        }
+
+        // Then the last part
+        arParts[uNumberOfParts] = this->Substring(uLastFound);
+    }
+
+    uReturnedArrayLength = uNumberOfParts + 1U;
+    return arParts;
+}
+
 i64_q QStringUnicode::ToInteger() const
 {
     const icu::NumberFormat* pFormatter = QStringUnicode::GetIntegerFormatter();
