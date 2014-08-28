@@ -214,6 +214,57 @@ public:
         return output.str().c_str();
     }
 
+    /// <summary>
+    /// Converts an unsigned integer number to its hexadecimal representation as a string.
+    /// </summary>
+    /// <typeparam name="IntegerType">The unsigned integral type passed as argument.</typeparam>
+    /// <param name="uValue">[IN] The value whose bytes are to be printed.</param>
+    /// <returns>
+    /// The string that contains the hexadecimal representation of the integer.
+    /// </returns>
+    template<typename IntegerType>
+    static string_q ToStringHexadecimal(const IntegerType uValue)
+    {
+        static const u8_q ASCII_FIRST_NUMBER = 48U;
+        static const u8_q ASCII_FIRST_CAPITAL_LETTER = 65U;
+
+        string_q strResult;
+        const u8_q* arBytes = rcast_q(&uValue, const u8_q*);
+        u8_q uCurrentByteHalf = 0;
+        char_q correspondingChar(0);
+
+        // Every half of every byte in the input variable is parsed and transformed to its textual hexadecimal representation
+#if QE_CONFIG_MACHINEENDIANESS_DEFAULT == QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN
+        pointer_uint_q uIndexCorrection = 1U;
+
+        for(pointer_uint_q uMemOffset = sizeof(IntegerType); uMemOffset > 0; --uMemOffset)
+        {
+#else
+        pointer_uint_q uIndexCorrection = 0;
+
+        for(pointer_uint_q uMemOffset = 0; uMemOffset < sizeof(IntegerType); ++uMemOffset)
+        {
+#endif
+            // Gets the first half of the byte
+            uCurrentByteHalf = arBytes[uMemOffset - uIndexCorrection] >> 4U;
+
+            // Writes the corresponding character for the first half
+            correspondingChar = uCurrentByteHalf > 9U ? char_q(ASCII_FIRST_CAPITAL_LETTER + uCurrentByteHalf - 0x0A) : // It's a letter
+                                                        char_q(ASCII_FIRST_NUMBER + uCurrentByteHalf);                 // It's a number
+            strResult.Append(correspondingChar);
+
+            // Gets the second half of the byte
+            uCurrentByteHalf = arBytes[uMemOffset - uIndexCorrection] & 0x0F;
+
+            // Writes the corresponding character for the second half
+            correspondingChar = uCurrentByteHalf > 9U ? char_q(ASCII_FIRST_CAPITAL_LETTER + uCurrentByteHalf - 0x0A) : // It's a letter
+                                                        char_q(ASCII_FIRST_NUMBER + uCurrentByteHalf);                 // It's a number
+            strResult.Append(correspondingChar);
+        }
+
+        return strResult;
+    }
+
 };
 
 // SPECIALIZATIONS
