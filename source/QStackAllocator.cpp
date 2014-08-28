@@ -291,24 +291,7 @@ void QStackAllocator::Deallocate(const QStackAllocator::QMark& mark)
 
         // Auxiar variables that stores, on each case, casted addresses.
         pointer_uint_q uAddress = 0;
-    /*
-        do
-        {
-            uAcumDecrementOfAllocatedBytes += (  scast_q(m_pPrevious, QBlockHeader*)->GetAllocatedBlockSize() 
-                                               + scast_q(m_pPrevious, QBlockHeader*)->GetAlignmentOffset()
-                                               + sizeof(QBlockHeader)
-                                              );
 
-            uOffset                = scast_q(m_pPrevious, QBlockHeader*)->GetPreviousHeaderBackOffset();
-            uAddress               = rcast_q(m_pPrevious, pointer_uint_q);
-    
-            pResultingBackAddress  = rcast_q( (uAddress - uOffset), void* );
-            m_pPrevious            = pResultingBackAddress;
-
-            uAddress               = rcast_q(m_pPrevious, pointer_uint_q);
-        
-        } while( (uAddress + uOffset) > rcast_q(pMarkAddress, pointer_uint_q) );
-   */
         uAcumDecrementOfAllocatedBytes = rcast_q(m_pTop, pointer_uint_q) - rcast_q(mark.GetMemoryAddress(), pointer_uint_q);
         QBlockHeader* pMarkBlockHeader = scast_q(mark.GetMemoryAddress(), QBlockHeader*);
         pointer_uint_q uMarkPreviousBlockAddress = rcast_q(mark.GetMemoryAddress(), pointer_uint_q) - pMarkBlockHeader->GetPreviousHeaderBackOffset();
@@ -411,21 +394,6 @@ void QStackAllocator::CopyTo(QStackAllocator& stackAllocator) const
         stackAllocator.m_pTop       = rcast_q(uAddressTemp, void*);
 
         // STEP 5) Set the new state for the passed stack allocator, part 4/4: Updating its m_pPrevious pointer.
-        /*pointer_uint_q uTempAllocBytes = 0;
-        stackAllocator.m_pPrevious     = stackAllocator.m_pBase;
-        void* pPreviousAddressRes      = stackAllocator.m_pBase;
-        
-        do
-        {
-            stackAllocator.m_pPrevious    = pPreviousAddressRes;
-            pointer_uint_q uMemBlockSize  = scast_q(stackAllocator.m_pPrevious, QBlockHeader*)->GetAllocatedBlockSize();
-            pointer_uint_q uOffset        = scast_q(stackAllocator.m_pPrevious, QBlockHeader*)->GetAlignmentOffset();
-            pointer_uint_q uAddress       = rcast_q(stackAllocator.m_pPrevious, pointer_uint_q);
-            pPreviousAddressRes           = rcast_q( (uAddress + sizeof(QBlockHeader) + uOffset + uMemBlockSize), void*);
-            uTempAllocBytes              += (sizeof(QBlockHeader) + uOffset + uMemBlockSize);
-
-        } while(pPreviousAddressRes < stackAllocator.m_pTop);
-        */
         pointer_uint_q uBytesFromPreviousToBase = rcast_q(m_pPrevious, pointer_uint_q) - rcast_q(m_pBase, pointer_uint_q);
         stackAllocator.m_pPrevious = (void*)( (pointer_uint_q)stackAllocator.m_pBase + uBytesFromPreviousToBase );
     }
