@@ -13,6 +13,9 @@
     <Filter Include="IO">
       <UniqueIdentifier>{727a4e0b-0afe-4a4d-9f21-85fb894ea330}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{4c8c61c4-20d7-4622-9bd6-b72a860134b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -34,6 +37,9 @@
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp">
       <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp">
+      <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

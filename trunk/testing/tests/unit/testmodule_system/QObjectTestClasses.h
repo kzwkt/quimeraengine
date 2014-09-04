@@ -63,6 +63,11 @@ namespace Test
 class QObjectMockA : public virtual QObject
 {
     QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QObjectMockA);
+    
+    virtual Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const
+    {
+        return "QObjectMockA";
+    }
 };
 
 
@@ -81,6 +86,11 @@ QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockA);
 class QObjectMockB : public virtual QObject
 {
 	QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QObjectMockB);
+    
+    virtual Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const
+    {
+        return "QObjectMockB";
+    }
 };
 
 
@@ -119,6 +129,11 @@ QE_RTTI_SUPPORT_TYPE_DEFINITION(QObjectMockInterface);
 class QObjectMockDerivedA : public QObjectMockInterface, public QObjectMockA
 {
     QE_RTTI_SUPPORT_DERIVED_FROM_2_CLASSES(QObjectMockDerivedA, QObjectMockInterface, QObjectMockA);
+
+    virtual Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const
+    {
+        return "QObjectMockDerivedA";
+    }
 };
 
 

@@ -46,6 +46,8 @@ namespace DataTypes
 //##################                                                       ##################
 //##################=======================================================##################
 
+const QType* QType::TYPE_INSTANCE_BOOL = new QType("bool");
+
 const QType* QType::TYPE_INSTANCE_U8 = new QType("u8_q");
 
 const QType* QType::TYPE_INSTANCE_I8 = new QType("i8_q");
@@ -100,6 +102,12 @@ bool QType::operator==(const QType &type) const
 bool QType::operator!=(const QType &type) const
 {
     return this != &type;
+}
+
+template<>
+const QType* QType::FindType<bool>()
+{
+    return TYPE_INSTANCE_BOOL;
 }
 
 template<>

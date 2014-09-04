@@ -134,6 +134,14 @@ public:
     {
         return this->OverrideIs(T::GetTypeClass());
     }
+    
+    /// <summary>
+    /// Obtains a string that represents the state of the object or its name.
+    /// </summary>
+    /// <returns>
+    /// A string that represents the state of the object or its name.
+    /// </returns>
+    virtual Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const=0;
 
 protected:
 

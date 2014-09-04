@@ -18,6 +18,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp" />
   </ItemGroup>
   <ItemGroup>
