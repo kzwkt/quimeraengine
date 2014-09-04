@@ -409,4 +409,8 @@
   <VirtualDirectory Name="IO">
     <File Name="../../../../headers/QMemoryStream.h"/>
   </VirtualDirectory>
+  <VirtualDirectory Name="DataTypes">
+    <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
+    <File Name="../../../../source/SQAnyTypeToStringConverter.cpp"/>
+  </VirtualDirectory>
 </CodeLite_Project>

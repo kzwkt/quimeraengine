@@ -16,6 +16,9 @@
     <Filter Include="Tests\IO">
       <UniqueIdentifier>{b96c6f39-5466-43c5-ac48-2a87c8ea3ff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\DataTypes">
+      <UniqueIdentifier>{357548f6-cb19-4f7a-80e6-08cc893b5352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp">
       <Filter>Tests\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

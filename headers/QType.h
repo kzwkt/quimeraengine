@@ -102,9 +102,9 @@ public:
     static const QType* FindType()
     {
        // This method will give an error always since it will be called 
-       // with non basic data type.
-       QE_ASSERT(false, "Type is not a basic data type");
-       return null_q ;
+       // with non basic data type. See template specializations below.
+       QE_ASSERT(false, "Error!: The type used as template parameter is not a basic data type.");
+       return null_q;
     }
 
 
@@ -130,6 +130,11 @@ private:
     /// The unqualified name of the type.
     /// </summary>
     const string_q m_strName;
+    
+    /// <summary>
+    /// QType instance for boolean type.
+    /// </summary>
+    static const QType* TYPE_INSTANCE_BOOL;
 
     /// <summary>
     /// QType instance for unsigned 8-bits integer type.
@@ -192,6 +197,16 @@ private:
 
 // SPECIALIZATIONS
 // ---------------
+
+/// <summary>
+/// Obtains the type information of a given basic C++ type.
+/// </summary>
+/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <returns>
+/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<bool>();
 
 /// <summary>
 /// Obtains the type information of a given basic C++ type.

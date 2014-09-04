@@ -164,6 +164,7 @@
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
   </ItemGroup>
@@ -171,6 +172,7 @@
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QObject.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
