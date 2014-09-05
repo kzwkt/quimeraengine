@@ -102,6 +102,16 @@ namespace Configuration
 #define QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS 0x2
 
 #define QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT QE_CONFIG_ASSERTSBEHAVIOR_ENABLED // [Configurable]
+    
+// --------------------------------------------------------------------------------------------------------
+// Asserts tracing behavior: Specifies whether failed assertions will be traced or not.
+//
+// How to use it: Write a behavior value as the default definition.
+// --------------------------------------------------------------------------------------------------------
+#define QE_CONFIG_ASSERTSTRACING_DISABLED 0x0
+#define QE_CONFIG_ASSERTSTRACING_ENABLED  0x1
+
+#define QE_CONFIG_ASSERTSTRACING_DEFAULT QE_CONFIG_ASSERTSTRACING_ENABLED // [Configurable]
 
 
 }//namespace Configuration
