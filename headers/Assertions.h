@@ -54,13 +54,16 @@
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
         // TODO [Thund]: Create an special exception class for this
-        #define QE_ASSERT(expression, strErrorMessage)                                              \
-                {                                                                                   \
-                    if(!(expression))                                                               \
-                    {                                                                               \
-                        QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);   \
-                        throw new std::exception();                                                 \
-                    }                                                                               \
+        #define QE_ASSERT(expression, strErrorMessage)                                                \
+                {                                                                                     \
+                    if(!(expression))                                                                 \
+                    {                                                                                 \
+                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)      \
+                        {                                                                             \
+                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__); \
+                        }                                                                             \
+                        throw new std::exception();                                                   \
+                    }                                                                                 \
                 }
     #else
 
@@ -72,24 +75,30 @@
             /// </summary>
             QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-            #define QE_ASSERT(expression, strErrorMessage)                                                      \
-                             {                                                                                  \
-                                 if(!(expression))                                                              \
-                                 {                                                                              \
-                                     QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);  \
-                                     QE_ASSERT_FAILED();                                                        \
-                                 }                                                                              \
+            #define QE_ASSERT(expression, strErrorMessage)                                                          \
+                             {                                                                                      \
+                                 if(!(expression))                                                                  \
+                                 {                                                                                  \
+                                     if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)       \
+                                     {                                                                              \
+                                         QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);  \
+                                     }                                                                              \
+                                     QE_ASSERT_FAILED();                                                            \
+                                 }                                                                                  \
                              }
         #else
             #include <assert.h>
 
-            #define QE_ASSERT(expression, strErrorMessage)                                              \
-                    {                                                                                   \
-                        if(!(expression))                                                               \
-                        {                                                                               \
-                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);   \
-                            assert(expression);                                                         \
-                        }                                                                               \
+            #define QE_ASSERT(expression, strErrorMessage)                                                \
+                    {                                                                                     \
+                        if(!(expression))                                                                 \
+                        {                                                                                 \
+                            if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)      \
+                            {                                                                             \
+                                QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__); \
+                            }                                                                             \
+                            assert(expression);                                                           \
+                        }                                                                                 \
                     }
         #endif
     #endif
