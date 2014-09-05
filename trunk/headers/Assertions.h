@@ -36,19 +36,31 @@
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
+    /// <summary>
+	/// Traces a failed assertion, providing some useful debugging information.
+	/// </summary>
+    /// <remarks>
+	/// It uses the internal logger to send the information to the configured output channel.
+	/// </remarks>
+    /// <param name="strExpression">[IN] The expression which evaluates to false.</param>
+    /// <param name="strErrorMessage">[IN] The error message provided by the user in the assertion.</param>
+    /// <param name="nLineNumber">[IN] The number of the line of code where the failed assertion is.</param>
+    /// <param name="strFileName">[IN] The file name of the source code file where the assertion failed.</param>
     QE_LAYER_COMMON_SYMBOLS void QE_TRACE_FAILED_ASSERT(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strExpression, 
-                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage);
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage,
+                                                        const int nLineNumber, 
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
         // TODO [Thund]: Create an special exception class for this
-        #define QE_ASSERT(expression, strErrorMessage)                          \
-                {                                                               \
-                    if(!(expression))                                           \
-                    {                                                           \
-                        QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);   \
-                        throw new std::exception();                             \
-                    }                                                           \
+        #define QE_ASSERT(expression, strErrorMessage)                                              \
+                {                                                                                   \
+                    if(!(expression))                                                               \
+                    {                                                                               \
+                        QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);   \
+                        throw new std::exception();                                                 \
+                    }                                                                               \
                 }
     #else
 
@@ -60,24 +72,24 @@
             /// </summary>
             QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-            #define QE_ASSERT(expression, strErrorMessage)                                  \
-                             {                                                              \
-                                 if(!(expression))                                          \
-                                 {                                                          \
-                                     QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);  \
-                                     QE_ASSERT_FAILED();                                    \
-                                 }                                                          \
+            #define QE_ASSERT(expression, strErrorMessage)                                                      \
+                             {                                                                                  \
+                                 if(!(expression))                                                              \
+                                 {                                                                              \
+                                     QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);  \
+                                     QE_ASSERT_FAILED();                                                        \
+                                 }                                                                              \
                              }
         #else
             #include <assert.h>
 
-            #define QE_ASSERT(expression, strErrorMessage)                          \
-                    {                                                               \
-                        if(!(expression))                                           \
-                        {                                                           \
-                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage);   \
-                            assert(expression);                                     \
-                        }                                                           \
+            #define QE_ASSERT(expression, strErrorMessage)                                              \
+                    {                                                                                   \
+                        if(!(expression))                                                               \
+                        {                                                                               \
+                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);   \
+                            assert(expression);                                                         \
+                        }                                                                               \
                     }
         #endif
     #endif

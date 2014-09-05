@@ -27,9 +27,11 @@
 #include "Assertions.h"
 
 #include "LoggingUtilities.h"
+#include "SQInteger.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::SQInternalLogger;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
 
 //##################=======================================================##################
@@ -52,9 +54,17 @@ void QE_ASSERT_FAILED()
 #endif
 
 
-void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, const string_q &strErrorMessage)
+void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, const string_q &strErrorMessage, const int nLineNumber, const string_q &strFileName)
 {
-    QE_LOG(QE_L("!! QE ASSERTION FAILED !!: "));
-    QE_LOG(QE_L(strErrorMessage));
-    QE_LOG(QE_L("\n"));
+    string_q strLogText("!! QE ASSERTION FAILED !! : \"");
+    strLogText.Append(strErrorMessage);
+    strLogText.Append(string_q("\" at "));
+    strLogText.Append(strFileName);
+    strLogText.Append(" (");
+    strLogText.Append(SQInteger::ToString(nLineNumber));
+    strLogText.Append(") [");
+    strLogText.Append(strExpression);
+    strLogText.Append("]");
+    strLogText.Append(string_q("\n"));
+    QE_LOG(strLogText);
 }
