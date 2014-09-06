@@ -129,7 +129,7 @@ QMatrix2x2 QMatrix2x2::operator*(const QBaseMatrix2x2 &matrix) const
 QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 {
 
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -193,7 +193,7 @@ QMatrix2x2& QMatrix2x2::operator*=(const QBaseMatrix2x2 &matrix)
 
 QMatrix2x2& QMatrix2x2::operator/=(const float_q &fScalar)
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 

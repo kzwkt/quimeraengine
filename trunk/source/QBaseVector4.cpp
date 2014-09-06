@@ -74,7 +74,7 @@ QBaseVector4::QBaseVector4(const float_q &fValueAll) : x(fValueAll), y(fValueAll
 QBaseVector4::QBaseVector4(const float_q* arValues)
 {
     // Null pointer checkout
-    QE_ASSERT(arValues != null_q, "Input array must not be null");
+    QE_ASSERT_ERROR(arValues != null_q, "Input array must not be null");
 
     // Assignments
     x = arValues[0];

@@ -516,7 +516,7 @@ public:
     QTransformationMatrix<MatrixType> Invert() const
     {
         // The results will be wrong when the determinant equals zero
-        QE_ASSERT( this->GetDeterminant() != SQFloat::_0, "Matrices whose determinant equals zero do not have inverse, this will produce a division by zero" );
+        QE_ASSERT_WARNING( this->GetDeterminant() != SQFloat::_0, "Matrices whose determinant equals zero do not have inverse, this will produce a division by zero" );
 
         // Gets the inverse of the Determinant.
         const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
@@ -782,7 +782,7 @@ public:
         QVector3 vScale;
         this->GetScale(vScale);
 
-        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0, "The scale must not be null, this will produce a division by zero");
+        QE_ASSERT_WARNING(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0, "The scale must not be null, this will produce a division by zero");
 
         QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 
@@ -829,7 +829,7 @@ protected:
         QVector3 vScale;
         this->GetScale(vScale);
 
-        QE_ASSERT( !vScale.IsZero(), "The scale must not be null, this will produce a division by zero" );
+        QE_ASSERT_WARNING( !vScale.IsZero(), "The scale must not be null, this will produce a division by zero" );
 
         QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 

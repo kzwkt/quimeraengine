@@ -72,7 +72,7 @@ QBaseVector2::QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll
 QBaseVector2::QBaseVector2(const float_q* arValues)
 {
     // Null pointer checkout
-    QE_ASSERT(arValues != null_q, "The input array must not be null");
+    QE_ASSERT_ERROR(arValues != null_q, "The input array must not be null");
 
     // Assignments
     x = arValues[0];

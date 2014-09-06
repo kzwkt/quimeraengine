@@ -33,6 +33,7 @@
 #endif
 
 #include "DataTypesDefinitions.h"
+#include "EQAssertionType.h"
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
@@ -46,24 +47,26 @@
     /// <param name="strErrorMessage">[IN] The error message provided by the user in the assertion.</param>
     /// <param name="nLineNumber">[IN] The number of the line of code where the failed assertion is.</param>
     /// <param name="strFileName">[IN] The file name of the source code file where the assertion failed.</param>
+    /// <param name="uAssertionType">[IN] The type of assertion, depending its purpose.</param>
     QE_LAYER_COMMON_SYMBOLS void QE_TRACE_FAILED_ASSERT(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strExpression, 
                                                         const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage,
                                                         const int nLineNumber, 
-                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName);
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName,
+                                                        const Kinesis::QuimeraEngine::Common::EQAssertionType &eAssertionType);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
         // TODO [Thund]: Create an special exception class for this
-        #define QE_ASSERT(expression, strErrorMessage)                                                \
-                {                                                                                     \
-                    if(!(expression))                                                                 \
-                    {                                                                                 \
-                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)      \
-                        {                                                                             \
-                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__); \
-                        }                                                                             \
-                        throw new std::exception();                                                   \
-                    }                                                                                 \
+        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
+                {                                                                                                     \
+                    if(!(expression))                                                                                 \
+                    {                                                                                                 \
+                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                      \
+                        {                                                                                             \
+                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType); \
+                        }                                                                                             \
+                        throw new std::exception();                                                                   \
+                    }                                                                                                 \
                 }
     #else
 
@@ -75,38 +78,43 @@
             /// </summary>
             QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-            #define QE_ASSERT(expression, strErrorMessage)                                                          \
-                             {                                                                                      \
-                                 if(!(expression))                                                                  \
-                                 {                                                                                  \
-                                     if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)       \
-                                     {                                                                              \
-                                         QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);  \
-                                     }                                                                              \
-                                     QE_ASSERT_FAILED();                                                            \
-                                 }                                                                                  \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                          \
+                             {                                                                                                      \
+                                 if(!(expression))                                                                                  \
+                                 {                                                                                                  \
+                                     if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                       \
+                                     {                                                                                              \
+                                         QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);  \
+                                     }                                                                                              \
+                                     QE_ASSERT_FAILED();                                                                            \
+                                 }                                                                                                  \
                              }
         #else
             #include <assert.h>
 
-            #define QE_ASSERT(expression, strErrorMessage)                                                \
-                    {                                                                                     \
-                        if(!(expression))                                                                 \
-                        {                                                                                 \
-                            if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)      \
-                            {                                                                             \
-                                QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__); \
-                            }                                                                             \
-                            assert(expression);                                                           \
-                        }                                                                                 \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
+                    {                                                                                                     \
+                        if(!(expression))                                                                                 \
+                        {                                                                                                 \
+                            if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                      \
+                            {                                                                                             \
+                                QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType); \
+                            }                                                                                             \
+                            assert(expression);                                                                           \
+                        }                                                                                                 \
                     }
         #endif
     #endif
 
 #else
 
-    #define QE_ASSERT(expression, strErrorMessage) ;
+    #define QE_ASSERT(expression, strErrorMessage, eAssertionType) ;
 
 #endif
+
+// A macro definition for every type of assertion
+#define QE_ASSERT_DEPRECATED(expression, strErrorMessage) QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Deprecation)
+#define QE_ASSERT_WARNING(expression, strErrorMessage)    QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Warning)
+#define QE_ASSERT_ERROR(expression, strErrorMessage)      QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Error)
 
 #endif // __ASSERTIONS__

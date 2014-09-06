@@ -71,12 +71,12 @@ QBaseQuaternion::QBaseQuaternion(const float_q &fValueX, const float_q &fValueY,
 QBaseQuaternion::QBaseQuaternion(const float_q* arValues)
 {
     // [REVIEW] Thund: Should we put these constants in another place?
-    const int QE_X_INDEX_IN_FLOATTYPE_ARRAY = 0;
-    const int QE_Y_INDEX_IN_FLOATTYPE_ARRAY = 1;
-    const int QE_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
-    const int QE_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
+    static const int QE_X_INDEX_IN_FLOATTYPE_ARRAY = 0;
+    static const int QE_Y_INDEX_IN_FLOATTYPE_ARRAY = 1;
+    static const int QE_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
+    static const int QE_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
 
-    QE_ASSERT(arValues != null_q, "Input array must not be null");
+    QE_ASSERT_ERROR(arValues != null_q, "Input array must not be null");
 
     this->x = arValues[QE_X_INDEX_IN_FLOATTYPE_ARRAY];
     this->y = arValues[QE_Y_INDEX_IN_FLOATTYPE_ARRAY];

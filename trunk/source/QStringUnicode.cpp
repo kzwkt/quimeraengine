@@ -102,9 +102,9 @@ QStringUnicode::QStringUnicode(const i8_q* arBytes,
                                const EQTextEncoding &eEncoding)
 {
     // Only ASCII and ISO 8859-1 encodings can be used along with null-terminated strings' length calculation
-    QE_ASSERT(((eEncoding == EQTextEncoding::E_ASCII || eEncoding == EQTextEncoding::E_ISO88591) &&
-              nLength == QStringUnicode::LENGTH_NULL_TERMINATED) ||
-              nLength != QStringUnicode::LENGTH_NULL_TERMINATED, "Only ASCII and ISO 8859-1 encodings can be used along with null-terminated strings' length calculation");
+    QE_ASSERT_ERROR(((eEncoding == EQTextEncoding::E_ASCII || eEncoding == EQTextEncoding::E_ISO88591) &&
+                    nLength == QStringUnicode::LENGTH_NULL_TERMINATED) ||
+                    nLength != QStringUnicode::LENGTH_NULL_TERMINATED, "Only ASCII and ISO 8859-1 encodings can be used along with null-terminated strings' length calculation");
 
     UErrorCode errorCode = U_ZERO_ERROR;
     UConverter* pConverter = QStringUnicode::GetConverter(eEncoding);
@@ -181,10 +181,10 @@ QStringUnicode QStringUnicode::operator+(const QStringUnicode &strString) const
 QCharUnicode QStringUnicode::operator[](const unsigned int uIndex) const
 {
     // It is not possible to retrieve any character if the string is empty
-    QE_ASSERT(!this->IsEmpty(), "It is not possible to retrieve any character if the string is empty");
+    QE_ASSERT_ERROR(!this->IsEmpty(), "It is not possible to retrieve any character if the string is empty");
 
     // Index out of bounds: The index must be lower than the length of the string
-    QE_ASSERT(!this->IsEmpty() && uIndex < this->GetLength(), "Index out of bounds: The index must be lower than the length of the string");
+    QE_ASSERT_ERROR(!this->IsEmpty() && uIndex < this->GetLength(), "Index out of bounds: The index must be lower than the length of the string");
 
     QCharUnicode charUnicode = m_strString.char32At(uIndex);
     return charUnicode;
@@ -201,7 +201,7 @@ QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition) cons
 QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const
 {
     // The start position index must be lower or equal than the last position index
-    QE_ASSERT(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
+    QE_ASSERT_ERROR(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
 
     QStringUnicode strResult;
     m_strString.extract(uStartPosition, uLastPosition - uStartPosition + 1, strResult.m_strString);
@@ -224,7 +224,7 @@ QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterato
 QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterator& startPosition, const QStringUnicode::QConstCharIterator& lastPosition) const
 {
     // The start position index must be lower or equal than the last position index
-    QE_ASSERT(startPosition <= lastPosition, "The start position must be prior or equal to the last position.");
+    QE_ASSERT_ERROR(startPosition <= lastPosition, "The start position must be prior or equal to the last position.");
 
     QStringUnicode strResult;
     int32_t nStartPosition = 0;
@@ -447,14 +447,14 @@ void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
     UErrorCode eErrorCode = U_ZERO_ERROR;
     
     UBool bIsNormalized = pNormalizer->isNormalized(m_strString, eErrorCode); // [TODO] Thund: Change this by a call to this->IsNormalized when implemented
-    QE_ASSERT(U_SUCCESS(eErrorCode), "An error occurred when checking if the string was normalized"); // And this also.
+    QE_ASSERT_ERROR(U_SUCCESS(eErrorCode), "An error occurred when checking if the string was normalized"); // And this also.
 
     if(!bIsNormalized && U_SUCCESS(eErrorCode) != FALSE)
     {
         icu::UnicodeString strNormalized;
         pNormalizer->normalize(m_strString, strNormalized, eErrorCode);
 
-        QE_ASSERT(U_SUCCESS(eErrorCode), "An error occurred when normalizing the string");
+        QE_ASSERT_ERROR(U_SUCCESS(eErrorCode), "An error occurred when normalizing the string");
 
         if(U_SUCCESS(eErrorCode) != FALSE)
             m_strString = strNormalized;
@@ -476,11 +476,11 @@ const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm
         break;
     case EQNormalizationForm::E_KC:
     case EQNormalizationForm::E_KD:
-        QE_ASSERT(false, "Normalization forms KC and KD are not supported currently");
+        QE_ASSERT_ERROR(false, "Normalization forms KC and KD are not supported currently");
         break;
     }
 
-    QE_ASSERT(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
+    QE_ASSERT_ERROR(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
 
     return pNormalizer;
 }
@@ -511,7 +511,7 @@ int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComp
         break;
     case EQComparisonType::E_CompatibilityCaseInsensitive:
     case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
         break;
     }
 
@@ -527,21 +527,21 @@ const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eCompar
     static icu::Collator* CANONICAL_CASESENSITIVE_COLLATOR = icu::Collator::createInstance(icu::Locale::getEnglish(), errorCode);
     static icu::Collator* CANONICAL_CASEINSENSITIVE_COLLATOR = icu::Collator::createInstance(icu::Locale::getEnglish(), errorCode);
 
-    QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when getting the collator");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when getting the collator");
 
     if(!bInitialized)
     {
         CANONICAL_CASESENSITIVE_COLLATOR->setStrength(icu::Collator::TERTIARY);
         CANONICAL_CASESENSITIVE_COLLATOR->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
         CANONICAL_CASESENSITIVE_COLLATOR->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
 
         CANONICAL_CASEINSENSITIVE_COLLATOR->setStrength(icu::Collator::SECONDARY); // Secondary: No tertiary checking, no case comparison
         CANONICAL_CASEINSENSITIVE_COLLATOR->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
         CANONICAL_CASEINSENSITIVE_COLLATOR->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute");
 
         bInitialized = true;
     }
@@ -558,10 +558,10 @@ const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eCompar
         break;
     case EQComparisonType::E_CompatibilityCaseInsensitive:
     case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
         break;
     default:
-        QE_ASSERT(false, "Invalid comparison type");
+        QE_ASSERT_ERROR(false, "Invalid comparison type");
     }
 
     return pCollator;
@@ -593,12 +593,12 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
             // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
             icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
 
-            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
             QStringUnicode::ConfigureSearch(eComparisonType, search);
             nPosition = search.next(errorCode);
             
-            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
         }
 
         if(nPosition == USEARCH_DONE)
@@ -616,32 +616,32 @@ void QStringUnicode::ConfigureSearch(const EQComparisonType &eComparisonType, ic
     {
     case EQComparisonType::E_CanonicalCaseInsensitive:
         search.setAttribute(USEARCH_CANONICAL_MATCH, USEARCH_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
         search.setAttribute(USEARCH_OVERLAP, USEARCH_OFF, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
         search.getCollator()->setStrength(icu::Collator::SECONDARY); // Secondary: No tertiary checking, no case comparison
         search.getCollator()->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
         search.getCollator()->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_ALTERNATE_HANDLING)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_ALTERNATE_HANDLING)");
         break;
     case EQComparisonType::E_CanonicalCaseSensitive:
         search.setAttribute(USEARCH_CANONICAL_MATCH, USEARCH_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_CANONICAL_MATCH)");
         search.setAttribute(USEARCH_OVERLAP, USEARCH_OFF, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (USEARCH_OVERLAP)");
         search.getCollator()->setStrength(icu::Collator::TERTIARY); // Tertiary: Case comparison
         search.getCollator()->setAttribute(UCOL_NORMALIZATION_MODE, UCOL_ON, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NORMALIZATION_MODE)");
         search.getCollator()->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NON_IGNORABLE)");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NON_IGNORABLE)");
         break;
     case EQComparisonType::E_CompatibilityCaseInsensitive:
     case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT(false, "Compatibility comparisons are not supported yet");
+        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
         break;
     default:
-        QE_ASSERT(false, "Invalid comparison type");
+        QE_ASSERT_ERROR(false, "Invalid comparison type");
     }
 }
 
@@ -670,15 +670,15 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
 
             // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
             icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
-            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
             search.setOffset(scast_q(uStart, int32_t), errorCode);
-            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
 
             QStringUnicode::ConfigureSearch(eComparisonType, search);
             nPosition = search.next(errorCode);
 
-            QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
         }
 
         if(nPosition == USEARCH_DONE)
@@ -718,12 +718,12 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
 
 QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const QStringUnicode::QConstCharIterator &startPosition) const
 {
-    QE_ASSERT(!startPosition.IsEnd(), "The start position is out of bounds, it cannot be used to search for the pattern.");
-    QE_ASSERT(startPosition.IsValid(), "The input iterator is not valid, it cannot be used to search for the pattern.");
+    QE_ASSERT_ERROR(!startPosition.IsEnd(), "The start position is out of bounds, it cannot be used to search for the pattern.");
+    QE_ASSERT_ERROR(startPosition.IsValid(), "The input iterator is not valid, it cannot be used to search for the pattern.");
 
     QCharIterator resultIterator = this->GetCharIterator();
 
-    if(this->GetLength() > 0)
+    if(!this->IsEmpty())
     {
         int nPatternPosition = this->IndexOf(strPattern, eComparisonType, startPosition.m_iterator.getIndex());
 
@@ -786,7 +786,7 @@ void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, 
     // Creates the search object
     UErrorCode errorCode = U_ZERO_ERROR;
     icu::StringSearch search(strSearchedPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
-    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
     QStringUnicode::ConfigureSearch(eComparisonType, search);
 
@@ -797,7 +797,7 @@ void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, 
     const int32_t REPLACEMENT_LENGTH = scast_q(strReplacement.GetLength(), int32_t);
     const int32_t REPLACEMENT_LENGTH_DIFFERENCE = REPLACEMENT_LENGTH - PATTERN_LENGTH;
 
-    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
 
     while(nPosition != USEARCH_DONE)
     {
@@ -808,7 +808,7 @@ void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, 
         nAccumulatedOffset += REPLACEMENT_LENGTH_DIFFERENCE;
 
         nPosition = search.next(errorCode);
-        QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+        QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
     }
 }
 
@@ -889,9 +889,9 @@ i64_q QStringUnicode::ToInteger() const
     
     i64_q nResult = formattable.getInt64(errorCodeGetting);
 
-    QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult != 0LL, "The string cannot be converted to an integer number");
-    QE_ASSERT(U_SUCCESS(errorCodeParsing) || nResult == 0LL, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
-    QE_ASSERT(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCodeParsing) || nResult != 0LL, "The string cannot be converted to an integer number");
+    QE_ASSERT_WARNING(U_SUCCESS(errorCodeParsing) || nResult == 0LL, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
 
     return nResult;
 }
@@ -918,7 +918,7 @@ bool  QStringUnicode::ToBoolean() const
         bResult = this->CompareTo(BOOLEAN_STRING_TRUE, EQComparisonType::E_BinaryCaseInsensitive) == 0;
         
         // If it's false and the string does not match the "false" word, then it has not got a valid value
-        QE_ASSERT(bResult == true || (this->CompareTo(BOOLEAN_STRING_FALSE, EQComparisonType::E_BinaryCaseInsensitive) == 0), "The string cannot be converted to a boolean value");
+        QE_ASSERT_ERROR(bResult == true || (this->CompareTo(BOOLEAN_STRING_FALSE, EQComparisonType::E_BinaryCaseInsensitive) == 0), "The string cannot be converted to a boolean value");
     }
     else
     {
@@ -929,12 +929,13 @@ bool  QStringUnicode::ToBoolean() const
                   *this == BOOLEAN_STRING_TRUE_ABBREVIATED4;
 
         // If it's false and the string does not match any of the abbreviations, then it has not got a valid value
-        QE_ASSERT(bResult == true                            || 
-                  *this == BOOLEAN_STRING_FALSE_NUMERIC      ||                   *this == BOOLEAN_STRING_FALSE_ABBREVIATED1 || 
-                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED2 ||
-                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED3 ||
-                  *this == BOOLEAN_STRING_FALSE_ABBREVIATED4, 
-                  "The string cannot be converted to a boolean value");
+        QE_ASSERT_ERROR(bResult == true                            || 
+                        *this == BOOLEAN_STRING_FALSE_NUMERIC      ||
+                        *this == BOOLEAN_STRING_FALSE_ABBREVIATED1 || 
+                        *this == BOOLEAN_STRING_FALSE_ABBREVIATED2 ||
+                        *this == BOOLEAN_STRING_FALSE_ABBREVIATED3 ||
+                        *this == BOOLEAN_STRING_FALSE_ABBREVIATED4, 
+                        "The string cannot be converted to a boolean value");
     }
 
     return bResult;
@@ -956,11 +957,11 @@ f64_q QStringUnicode::ToFloat() const
     f64_q fResult = formattable.getDouble(errorCodeGetting);
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-    QE_ASSERT(fResult != POSITIVE_INFINITE && fResult != NEGATIVE_INFINITE, "The result is infinite, maybe the string contains a too big number");
+    QE_ASSERT_WARNING(fResult != POSITIVE_INFINITE && fResult != NEGATIVE_INFINITE, "The result is infinite, maybe the string contains a too big number");
 #endif
-    QE_ASSERT(U_SUCCESS(errorCodeParsing) || fResult != 0.0, "The string cannot be converted to a floating point number");
-    QE_ASSERT(U_SUCCESS(errorCodeParsing) || fResult == 0.0, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
-    QE_ASSERT(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCodeParsing) || fResult != 0.0, "The string cannot be converted to a floating point number");
+    QE_ASSERT_WARNING(U_SUCCESS(errorCodeParsing) || fResult == 0.0, "The number contained in the string is too big, it will be shrinked to the maximum value the type can represent");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCodeGetting), "An unexpected error occurred when getting the value from the formattable object");
 
     return fResult;
 }
@@ -970,7 +971,7 @@ const icu::NumberFormat* QStringUnicode::GetIntegerFormatter()
     static UErrorCode errorCode = U_ZERO_ERROR;
     static icu::NumberFormat* pNumberFormatter = icu::NumberFormat::createInstance(icu::Locale::getEnglish(), UNUM_DECIMAL, errorCode);
     pNumberFormatter->setParseIntegerOnly(TRUE);
-    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
     return pNumberFormatter;
 }
 
@@ -978,7 +979,7 @@ const icu::NumberFormat* QStringUnicode::GetFloatFormatter()
 {
     static UErrorCode errorCode = U_ZERO_ERROR;
     static const icu::NumberFormat* pNumberFormatter = icu::DecimalFormat::createInstance(icu::Locale::getEnglish(), UNUM_SCIENTIFIC, errorCode);
-    QE_ASSERT(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
+    QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error ocurred when creating an ICU number formatter");
     return pNumberFormatter;
 }
 

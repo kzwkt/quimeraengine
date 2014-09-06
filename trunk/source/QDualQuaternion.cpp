@@ -87,7 +87,7 @@ QDualQuaternion::QDualQuaternion(const QBaseVector4 &vTranslation, const QBaseQu
 
 QDualQuaternion::QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual)
 {
-    QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q, "Input arrays must not be null");
+    QE_ASSERT_ERROR(arValuesReal != null_q && arValuesDual != null_q, "Input arrays must not be null");
 
     this->r = QQuaternion(arValuesReal[0], arValuesReal[1], arValuesReal[2], arValuesReal[3]);
     this->d = QQuaternion(arValuesDual[0], arValuesDual[1], arValuesDual[2], arValuesDual[3]);
@@ -172,7 +172,7 @@ QDualQuaternion QDualQuaternion::operator*(const QBaseVector4 &vVector) const
 
 QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "The input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "The input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -216,7 +216,7 @@ QDualQuaternion& QDualQuaternion::operator*=(const float_q fScalar)
 QDualQuaternion& QDualQuaternion::operator/=(const float_q &fScalar)
 {
     // Checkout to avoid division by zero.
-    QE_ASSERT(fScalar != SQFloat::_0, "The input array must not be null");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "The input array must not be null");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -289,7 +289,7 @@ QDualQuaternion QDualQuaternion::Lerp(const float_q &fProportion, const QDualQua
     QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat;
     float_q fLength = auxDualQuat.GetNonDualLength();
 
-    QE_ASSERT(fLength != SQFloat::_0, "A zero length will produce a division by zero");
+    QE_ASSERT_WARNING(fLength != SQFloat::_0, "A zero length will produce a division by zero");
 
     return auxDualQuat / fLength;
 }

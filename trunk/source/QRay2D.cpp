@@ -89,7 +89,7 @@ QRay2D& QRay2D::operator=(const QBaseRay<QVector2, QVector2> &ray)
 bool QRay2D::Intersection(const QRay2D &ray) const
 {
     // Direction vector of rays should not be null
-    QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero(), "Direction vector of rays should not be null" );
+    QE_ASSERT_WARNING( !ray.Direction.IsZero() && !this->Direction.IsZero(), "Direction vector of rays should not be null" );
 
     const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
@@ -117,12 +117,12 @@ bool QRay2D::Intersection(const QRay2D &ray) const
 bool QRay2D::Intersection(const QBaseTriangle<QVector2> &triangle) const
 {
     // Vertices of the triangle must not coincide
-    QE_ASSERT( triangle.A != triangle.B && 
+    QE_ASSERT_WARNING( triangle.A != triangle.B && 
                triangle.B != triangle.C &&
                triangle.C != triangle.A, "Vertices of the triangle must not coincide" );
 
     // The direction vector of the ray shouldn't be null
-    QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
+    QE_ASSERT_WARNING( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
     return ( this->Intersection(QBaseLineSegment<QVector2>(triangle.A, triangle.B)) ||
              this->Intersection(QBaseLineSegment<QVector2>(triangle.B, triangle.C)) ||
@@ -138,7 +138,7 @@ bool QRay2D::Intersection(const QBaseQuadrilateral &quad) const
 EQIntersections QRay2D::IntersectionPoint(const QRay2D &ray, QBaseVector2 &vIntersection) const
 {
     // Direction vector of rays should not be null
-    QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero(), "Direction vector of rays should not be null" );
+    QE_ASSERT_WARNING( !ray.Direction.IsZero() && !this->Direction.IsZero(), "Direction vector of rays should not be null" );
 
     const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
@@ -208,12 +208,12 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangl
 EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
 {
     // Vertices of the triangle must not coincide
-    QE_ASSERT( triangle.A != triangle.B && 
+    QE_ASSERT_WARNING( triangle.A != triangle.B && 
                triangle.B != triangle.C &&
                triangle.C != triangle.A, "Vertices of the triangle must not coincide" );
 
     // The direction vector of the ray shouldn't be null
-    QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
+    QE_ASSERT_WARNING( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
     QVector2 vAux;
 
@@ -312,7 +312,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangl
             else if (this->IntersectionPoint(QBaseLineSegment<QVector2>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
                 vIntersection1 = vAux;
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                QE_ASSERT_WARNING(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
             return EQIntersections::E_One;
         }
@@ -430,7 +430,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangl
                 }
             }
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, there is ONE intersection and is not a vertex
+                QE_ASSERT_WARNING(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, there is ONE intersection and is not a vertex
         }
 
         if (bPrevInt)
@@ -654,7 +654,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
             else if (this->IntersectionPoint(QBaseLineSegment<QVector2>(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 vIntersection1 = vAux;
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                QE_ASSERT_WARNING(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
             return EQIntersections::E_One;
         }
@@ -817,7 +817,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
                 }
             }
             else // Its the first intersection found
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong
+                QE_ASSERT_WARNING(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong
         }
 
         if (bPrevInt)
@@ -833,7 +833,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
 bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
 {
     // Direction vector of ray should not be null and the length of the segment should be greater than zero
-    QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
+    QE_ASSERT_WARNING( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
 
     QVector2 vAux(segment.B - segment.A);
 
@@ -868,7 +868,7 @@ bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
 EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const
 {
     // Direction vector of ray should not be null and the length of the segment should be greater than zero
-    QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
+    QE_ASSERT_WARNING( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
 
     QVector2 vAux(segment.B - segment.A);
 
@@ -952,7 +952,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segm
 EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
 {
     // Direction vector of ray should not be null and the length of the segment should be greater than zero
-    QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
+    QE_ASSERT_WARNING( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector of ray should not be null and the length of the segment should be greater than zero" );
 
     QVector2 vAux(segment.B - segment.A);
 
@@ -1042,10 +1042,10 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segm
 void QRay2D::Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const
 {
     // The direction vector of the ray must not be null
-    QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray must not be null" );
+    QE_ASSERT_WARNING( !this->Direction.IsZero(), "The direction vector of the ray must not be null" );
 
     // The endpoints of the line segment shouldn't coincide
-    QE_ASSERT( segment.A != segment.B, "The endpoints of the line segment must not coincide" );
+    QE_ASSERT_WARNING( segment.A != segment.B, "The endpoints of the line segment must not coincide" );
 
     // Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
 
@@ -1079,10 +1079,10 @@ void QRay2D::Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVec
 void QRay2D::Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const
 {
     // The direction vector of the ray must not be null
-    QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray must not be null" );
+    QE_ASSERT_WARNING( !this->Direction.IsZero(), "The direction vector of the ray must not be null" );
 
     // The endpoints of the line segment shouldn't coincide
-    QE_ASSERT( segment.A != segment.B, "The endpoints of the line segment must not coincide" );
+    QE_ASSERT_WARNING( segment.A != segment.B, "The endpoints of the line segment must not coincide" );
 
     // Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
 

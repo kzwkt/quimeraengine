@@ -123,18 +123,18 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
     static const u64_q MAX_HNS         = 9ULL;
 
     // Checks for invalid inputs
-    QE_ASSERT(nYear != 0, "The year zero does not exist");
-    QE_ASSERT(uMonth <= MAX_MONTH, "The value of the month is greater than the maximum allowed, it must be in the range [1, 12]");
-    QE_ASSERT(uMonth != 0, "The value of the month lower than the minimum allowed, it must be in the range [1, 12]");
-    QE_ASSERT(uDay <= MAX_DAY, "The value of the day is greater than the maximum allowed, it must be in the range [1, 31]");
-    QE_ASSERT(uDay != 0, "The value of the day is lower than the minimum allowed, it must be in the range [1, 31]");
-    QE_ASSERT(uDay <= QDateTime::GetDaysInMonth(scast_q(uMonth, unsigned int), nYear), "The value of the day is not valid for the provided month in the provided year");
-    QE_ASSERT(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
-    QE_ASSERT(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
-    QE_ASSERT(uMicrosecond <= MAX_MICROSECOND, "The value of the microseconds is not valid, it must be in the range [0, 999]");
-    QE_ASSERT(uHundredsOfNanosecond <= MAX_HNS, "The value of the hundreds of nanoseconds is not valid, it must be in the range [0, 9]");
+    QE_ASSERT_ERROR(nYear != 0, "The year zero does not exist");
+    QE_ASSERT_ERROR(uMonth <= MAX_MONTH, "The value of the month is greater than the maximum allowed, it must be in the range [1, 12]");
+    QE_ASSERT_ERROR(uMonth != 0, "The value of the month lower than the minimum allowed, it must be in the range [1, 12]");
+    QE_ASSERT_ERROR(uDay <= MAX_DAY, "The value of the day is greater than the maximum allowed, it must be in the range [1, 31]");
+    QE_ASSERT_ERROR(uDay != 0, "The value of the day is lower than the minimum allowed, it must be in the range [1, 31]");
+    QE_ASSERT_ERROR(uDay <= QDateTime::GetDaysInMonth(scast_q(uMonth, unsigned int), nYear), "The value of the day is not valid for the provided month in the provided year");
+    QE_ASSERT_ERROR(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
+    QE_ASSERT_ERROR(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
+    QE_ASSERT_ERROR(uMicrosecond <= MAX_MICROSECOND, "The value of the microseconds is not valid, it must be in the range [0, 999]");
+    QE_ASSERT_ERROR(uHundredsOfNanosecond <= MAX_HNS, "The value of the hundreds of nanoseconds is not valid, it must be in the range [0, 9]");
 
     // Checks for representable limits
     const bool INPUT_IS_OUT_OF_POSITIVE_LIMIT = nYear > MAX_DATE_YEAR                                                         ||
@@ -157,8 +157,8 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
                                                 (uMillisecond == MIN_DATE_MILLISECOND && (uMicrosecond < MIN_DATE_MICROSECOND ||
                                                 (uMicrosecond == MIN_DATE_MICROSECOND && (uHundredsOfNanosecond < MIN_DATE_HNS))))))))))))))));
 
-    QE_ASSERT(!INPUT_IS_OUT_OF_POSITIVE_LIMIT, "The input date and time is posterior to the maximum value that can be represented by this type");
-    QE_ASSERT(!INPUT_IS_OUT_OF_NEGATIVE_LIMIT, "The input date and time is anterior to the minimum value that can be represented by this type");
+    QE_ASSERT_WARNING(!INPUT_IS_OUT_OF_POSITIVE_LIMIT, "The input date and time is posterior to the maximum value that can be represented by this type");
+    QE_ASSERT_WARNING(!INPUT_IS_OUT_OF_NEGATIVE_LIMIT, "The input date and time is anterior to the minimum value that can be represented by this type");
 
     if(INPUT_IS_OUT_OF_POSITIVE_LIMIT)
     {
@@ -262,12 +262,12 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
     static const u64_q MAX_DAY         = 31ULL;
 
     // Checks for invalid inputs
-    QE_ASSERT(nYear != 0, "The year zero does not exist");
-    QE_ASSERT(uMonth <= MAX_MONTH, "The value of the month is greater than the maximum allowed, it must be in the range [1, 12]");
-    QE_ASSERT(uMonth != 0, "The value of the month lower than the minimum allowed, it must be in the range [1, 12]");
-    QE_ASSERT(uDay <= MAX_DAY, "The value of the day is greater than the maximum allowed, it must be in the range [1, 31]");
-    QE_ASSERT(uDay != 0, "The value of the day is lower than the minimum allowed, it must be in the range [1, 31]");
-    QE_ASSERT(uDay <= QDateTime::GetDaysInMonth(scast_q(uMonth, unsigned int), nYear), "The value of the day is not valid for the provided month in the provided year");
+    QE_ASSERT_ERROR(nYear != 0, "The year zero does not exist");
+    QE_ASSERT_ERROR(uMonth <= MAX_MONTH, "The value of the month is greater than the maximum allowed, it must be in the range [1, 12]");
+    QE_ASSERT_ERROR(uMonth != 0, "The value of the month lower than the minimum allowed, it must be in the range [1, 12]");
+    QE_ASSERT_ERROR(uDay <= MAX_DAY, "The value of the day is greater than the maximum allowed, it must be in the range [1, 31]");
+    QE_ASSERT_ERROR(uDay != 0, "The value of the day is lower than the minimum allowed, it must be in the range [1, 31]");
+    QE_ASSERT_ERROR(uDay <= QDateTime::GetDaysInMonth(scast_q(uMonth, unsigned int), nYear), "The value of the day is not valid for the provided month in the provided year");
 
     // Checks for representable limits
     const bool INPUT_IS_OUT_OF_POSITIVE_LIMIT = nYear > MAX_DATE_YEAR                                                         ||
@@ -278,8 +278,8 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
                                                 (nYear   ==      MIN_DATE_YEAR   && (uMonth       < MIN_DATE_MONTH            ||
                                                 (uMonth  ==      MIN_DATE_MONTH  && (uDay         < MIN_DATE_DAY))));
 
-    QE_ASSERT(!INPUT_IS_OUT_OF_POSITIVE_LIMIT, "The input date and time is posterior to the maximum value that can be represented by this type");
-    QE_ASSERT(!INPUT_IS_OUT_OF_NEGATIVE_LIMIT, "The input date and time is anterior to the minimum value that can be represented by this type");
+    QE_ASSERT_WARNING(!INPUT_IS_OUT_OF_POSITIVE_LIMIT, "The input date and time is posterior to the maximum value that can be represented by this type");
+    QE_ASSERT_WARNING(!INPUT_IS_OUT_OF_NEGATIVE_LIMIT, "The input date and time is anterior to the minimum value that can be represented by this type");
 
     if(INPUT_IS_OUT_OF_POSITIVE_LIMIT)
     {
@@ -371,12 +371,12 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
     static const u64_q MAX_HNS         = 9ULL;
 
     // Checks for invalid inputs
-    QE_ASSERT(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
-    QE_ASSERT(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
-    QE_ASSERT(uMicrosecond <= MAX_MICROSECOND, "The value of the microseconds is not valid, it must be in the range [0, 999]");
-    QE_ASSERT(uHundredsOfNanosecond <= MAX_HNS, "The value of the hundreds of nanoseconds is not valid, it must be in the range [0, 9]");
+    QE_ASSERT_ERROR(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
+    QE_ASSERT_ERROR(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
+    QE_ASSERT_ERROR(uMicrosecond <= MAX_MICROSECOND, "The value of the microseconds is not valid, it must be in the range [0, 999]");
+    QE_ASSERT_ERROR(uHundredsOfNanosecond <= MAX_HNS, "The value of the hundreds of nanoseconds is not valid, it must be in the range [0, 9]");
 
 
     // All the input values are converted to hundreds of nanoseconds (hns)
@@ -407,10 +407,10 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
     static const u64_q MAX_MILLISECOND = 999ULL;
 
     // Checks for invalid inputs
-    QE_ASSERT(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
-    QE_ASSERT(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
-    QE_ASSERT(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
+    QE_ASSERT_ERROR(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
+    QE_ASSERT_ERROR(uMinute <= MAX_MINUTE, "The value of the minute is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uSecond <= MAX_SECOND, "The value of the second is not valid, it must be in the range [0, 59]");
+    QE_ASSERT_ERROR(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
 
     // All the input values are converted to hundreds of nanoseconds (hns)
     const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::HNS_PER_MILLISECOND;
@@ -441,8 +441,8 @@ QDateTime::QDateTime(const string_q &strTimestamp)
     static const char_q POSITIVE_SIGN = '+';
     static const char_q NEGATIVE_SIGN = '-';
 
-    QE_ASSERT(!strTimestamp.IsEmpty(), "The input timestamp must not be empty.");
-    QE_ASSERT(strTimestamp.IndexOf(" ", EQComparisonType::E_BinaryCaseSensitive) == string_q::PATTERN_NOT_FOUND, "The input timestamp must not contain whitespaces.");
+    QE_ASSERT_ERROR(!strTimestamp.IsEmpty(), "The input timestamp must not be empty.");
+    QE_ASSERT_ERROR(strTimestamp.IndexOf(" ", EQComparisonType::E_BinaryCaseSensitive) == string_q::PATTERN_NOT_FOUND, "The input timestamp must not contain whitespaces.");
 
     i32_q nYear, nOffsetHours;
     u32_q uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, uOffsetMinutes;
@@ -538,9 +538,9 @@ QDateTime& QDateTime::operator=(const QDateTime& dateTime)
 
 QDateTime& QDateTime::operator+=(const QTimeSpan &timeToAdd)
 {
-    QE_ASSERT(!this->IsUndefined(), "The date/time is undefined, the time span cannot be added");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "The date/time is undefined, the time span cannot be added");
 
-    QE_ASSERT(QDateTime::GetMaxDateTime().m_instant - m_instant >= timeToAdd, "The result of adding that time span exceeds the maximum date, the result will be set to the maximum date allowed");
+    QE_ASSERT_WARNING(QDateTime::GetMaxDateTime().m_instant - m_instant >= timeToAdd, "The result of adding that time span exceeds the maximum date, the result will be set to the maximum date allowed");
 
     // Note: It assumes that the QTimeSpan class already prevents from overflow
     if(*this != QDateTime::GetUndefinedDate())
@@ -551,11 +551,11 @@ QDateTime& QDateTime::operator+=(const QTimeSpan &timeToAdd)
 
 QDateTime& QDateTime::operator-=(const QTimeSpan &timeToSubtract)
 {
-    QE_ASSERT(!this->IsUndefined(), "The date/time is undefined, the time span cannot be subtracted");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "The date/time is undefined, the time span cannot be subtracted");
 
     if(*this != QDateTime::GetUndefinedDate())
     {
-        QE_ASSERT(m_instant > timeToSubtract, "The result of subtracting that time span exceeds the minimum date, the result will be set to the minimum date allowed");
+        QE_ASSERT_WARNING(m_instant > timeToSubtract, "The result of subtracting that time span exceeds the minimum date, the result will be set to the minimum date allowed");
 
         if(m_instant <= timeToSubtract)
             m_instant = QDateTime::GetMinDateTime().m_instant;
@@ -584,7 +584,7 @@ QDateTime QDateTime::operator-(const QTimeSpan &timeToSubtract) const
 
 QTimeSpan QDateTime::operator-(const QDateTime &dateTime) const
 {
-    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to calculate the difference between undefined dates");
+    QE_ASSERT_ERROR(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to calculate the difference between undefined dates");
 
     if(this->IsUndefined() || dateTime.IsUndefined())
     {
@@ -613,7 +613,7 @@ bool QDateTime::operator!=(const QDateTime &dateTime) const
 
 bool QDateTime::operator<(const QDateTime &dateTime) const
 {
-    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+    QE_ASSERT_ERROR(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
     return this->IsUndefined() || dateTime.IsUndefined() ?
@@ -623,7 +623,7 @@ bool QDateTime::operator<(const QDateTime &dateTime) const
 
 bool QDateTime::operator>(const QDateTime &dateTime) const
 {
-    QE_ASSERT(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+    QE_ASSERT_ERROR(!this->IsUndefined() && !dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
     return this->IsUndefined() || dateTime.IsUndefined() ?
@@ -633,7 +633,7 @@ bool QDateTime::operator>(const QDateTime &dateTime) const
 
 bool QDateTime::operator<=(const QDateTime &dateTime) const
 {
-    QE_ASSERT(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+    QE_ASSERT_ERROR(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
     return (!this->IsUndefined() && dateTime.IsUndefined()) || (this->IsUndefined() && !dateTime.IsUndefined()) ? // If only one operand is undefined
@@ -643,7 +643,7 @@ bool QDateTime::operator<=(const QDateTime &dateTime) const
 
 bool QDateTime::operator>=(const QDateTime &dateTime) const
 {
-    QE_ASSERT(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
+    QE_ASSERT_ERROR(this->IsUndefined() == dateTime.IsUndefined(), "It is not possible to compare undefined dates");
 
     // Other members are not checked
     return (!this->IsUndefined() && dateTime.IsUndefined()) || (this->IsUndefined() && !dateTime.IsUndefined()) ? // If only one operand is undefined
@@ -657,8 +657,8 @@ unsigned int QDateTime::GetDaysInMonth(const unsigned int uMonth, const int nYea
     static const unsigned int MAXIMUM_MONTH_INDEX = 12;
     static const unsigned int DAYS_IN_MONTH[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-    QE_ASSERT(uMonth != 0, "The month index must be greater than 0");
-    QE_ASSERT(uMonth <= MAXIMUM_MONTH_INDEX, "The month index must be lower than 13");
+    QE_ASSERT_ERROR(uMonth != 0, "The month index must be greater than 0");
+    QE_ASSERT_ERROR(uMonth <= MAXIMUM_MONTH_INDEX, "The month index must be lower than 13");
 
     unsigned int uDays = 0;
 
@@ -692,7 +692,7 @@ string_q QDateTime::ToString() const
     static const string_q ZULU_TIME = "Z";
     static const string_q ZERO_STRING = "0";
 
-    QE_ASSERT(!this->IsUndefined(), "Undefined date/times cannot be represented as string");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined date/times cannot be represented as string");
 
     string_q strTimestamp;
     if(this->IsNegative())
@@ -1420,7 +1420,7 @@ void QDateTime::ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOf
 
 bool QDateTime::IsLeapYear() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent either normal years or leap years");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent either normal years or leap years");
 
     const unsigned int THIS_YEAR = this->GetYear();
 
@@ -1434,7 +1434,7 @@ const QTimeZone* QDateTime::GetTimeZone() const
 
 unsigned int QDateTime::GetYear() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent years");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent years");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -1561,7 +1561,7 @@ unsigned int QDateTime::GetYear() const
 
 unsigned int QDateTime::GetMonth() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent months");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent months");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -1724,7 +1724,7 @@ unsigned int QDateTime::GetMonth() const
 
 unsigned int QDateTime::GetDay() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent days");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent days");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -1887,7 +1887,7 @@ unsigned int QDateTime::GetDay() const
 
 unsigned int QDateTime::GetHour() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent hours");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent hours");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2051,7 +2051,7 @@ unsigned int QDateTime::GetHour() const
 
 unsigned int QDateTime::GetMinute() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent minutes");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent minutes");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2216,7 +2216,7 @@ unsigned int QDateTime::GetMinute() const
 
 unsigned int QDateTime::GetSecond() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent seconds");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent seconds");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2382,7 +2382,7 @@ unsigned int QDateTime::GetSecond() const
 
 unsigned int QDateTime::GetMillisecond() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent milliseconds");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent milliseconds");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2549,7 +2549,7 @@ unsigned int QDateTime::GetMillisecond() const
 
 unsigned int QDateTime::GetMicrosecond() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent microseconds");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent microseconds");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2717,7 +2717,7 @@ unsigned int QDateTime::GetMicrosecond() const
 
 unsigned int QDateTime::GetHundredOfNanosecond() const
 {
-    QE_ASSERT(!this->IsUndefined(), "Undefined dates cannot represent nanoseconds");
+    QE_ASSERT_ERROR(!this->IsUndefined(), "Undefined dates cannot represent nanoseconds");
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
@@ -2906,7 +2906,7 @@ bool QDateTime::IsPositive() const
 
     if(this->IsUndefined())
     {
-        QE_ASSERT(false, "The date is undefined, it cannot be positive");
+        QE_ASSERT_ERROR(false, "The date is undefined, it cannot be positive");
     }
     else if(m_pTimeZone == null_q)
     {
@@ -2929,7 +2929,7 @@ bool QDateTime::IsNegative() const
 
     if(this->IsUndefined())
     {
-        QE_ASSERT(false, "The date is undefined, it cannot be negative");
+        QE_ASSERT_ERROR(false, "The date is undefined, it cannot be negative");
     }
     else if(m_pTimeZone == null_q)
     {

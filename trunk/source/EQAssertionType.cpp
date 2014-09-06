@@ -24,10 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-
-#include "QAlignment.h"
-
-#include "Assertions.h"
+#include "EQAssertionType.h"
 
 
 namespace Kinesis
@@ -36,43 +33,20 @@ namespace QuimeraEngine
 {
 namespace Common
 {
-namespace Memory
-{
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |       CONSTRUCTORS         |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
+EQAssertionType::TNameValuePair EQAssertionType::sm_arValueName[] =
+    {
+        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Deprecation"), EQAssertionType::E_Deprecation),
+        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Warning"),     EQAssertionType::E_Warning),
+        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Error"),       EQAssertionType::E_Error),
+    };
 
-QAlignment::QAlignment(const pointer_uint_q &uAlignment)
-{
-    // Checking first if the alignment value is a power of 2.
-    QE_ASSERT_WARNING( !(0 == uAlignment) && !(uAlignment & (uAlignment - 1)) , "The input alignment value must be a power of 2");
+EQAssertionType::TNameValueMap EQAssertionType::sm_mapValueName(
+        EQAssertionType::sm_arValueName ,
+        &EQAssertionType::sm_arValueName[0] + sizeof(EQAssertionType::sm_arValueName) / sizeof(EQAssertionType::sm_arValueName[0])
+    );
 
-    m_uAlignment = uAlignment;
-}
-
-
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |           METHODS          |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-QAlignment::operator unsigned int() const
-{
-    return m_uAlignment;
-}
-
-
-} //namespace Memory
 } //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
+

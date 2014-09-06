@@ -24,30 +24,36 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __EQENUMERATION__
-#define __EQENUMERATION__
+#ifndef __EQASSERTIONTYPE__
+#define __EQASSERTIONTYPE__
 
 #include <map>
 #include <vector>
 
-#include "Assertions.h"
 #include "DataTypesDefinitions.h"
+#include "CommonDefinitions.h"
+
+#ifdef QE_COMPILER_MSVC
+    // This warning appears when instancing a template to create a data member and that template instance is not exported.
+    // In this case, it is not important since the data member is not accessible.
+    #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+#endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Test
+namespace Common
 {
 
 /// <summary>
-/// Mocked-up enumeration to test the EQEnumeration template in which are based all the enumeration
-/// classes in Quimera Engine.
+/// The type of assertion.
 /// </summary>
-class EQEnumerationMock
+class QE_LAYER_COMMON_SYMBOLS EQAssertionType
 {
     // ENUMERATIONS
     // ---------------
@@ -58,9 +64,9 @@ public:
     /// </summary>
     enum EnumType
     {
-        E_Value1 = QE_ENUMERATION_MIN_VALUE ,/*!< Mocked value 1 */
-        E_Value2,/*!< Mocked value 1 */
-        E_Value3,/*!< Mocked value 1 */
+        E_Deprecation = QE_ENUMERATION_MIN_VALUE, /*!< This type of assertion indicates that the code being executed has been deprecated. */
+        E_Warning,                                /*!< This type of assertion warns the developer about a rare execution case or a result or input value that probably is not intended. */
+        E_Error,                                  /*!< This type of assertion warns the developer about a serious error, something that has failed or may make the application crash eventually. */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
@@ -69,19 +75,19 @@ public:
     // ---------------
 public:
 
-    typedef std::map<string_q, EQEnumerationMock::EnumType> TNameValueMap;
-    typedef std::pair<string_q, EQEnumerationMock::EnumType> TNameValuePair;
+    typedef std::map<string_q, EQAssertionType::EnumType> TNameValueMap;
+    typedef std::pair<string_q, EQAssertionType::EnumType> TNameValuePair;
 
 
-	// CONSTRUCTORS
-	// ---------------
+    // CONSTRUCTORS
+    // ---------------
 public:
 
     /// <summary>
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQEnumerationMock(const EQEnumerationMock::EnumType &eValue) : m_value(eValue)
+    inline EQAssertionType(const EQAssertionType::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -89,8 +95,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    template<typename IntegerType>
-    inline EQEnumerationMock(const IntegerType &nValue) : m_value(scast_q(nValue, const EQEnumerationMock::EnumType))
+    inline EQAssertionType(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQAssertionType::EnumType))
     {
     }
 
@@ -99,7 +104,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
-    inline EQEnumerationMock(const string_q &strValueName)
+    inline explicit EQAssertionType(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -108,13 +113,13 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQEnumerationMock(const EQEnumerationMock &eValue) : m_value(eValue.m_value)
+    inline EQAssertionType(const EQAssertionType &eValue) : m_value(eValue.m_value)
     {
     }
 
 
-	// METHODS
-	// ---------------
+    // METHODS
+    // ---------------
 public:
 
     /// <summary>
@@ -124,10 +129,9 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    template<typename IntegerType>
-    inline EQEnumerationMock& operator=(const IntegerType &nValue)
+    inline EQAssertionType& operator=(const enum_int_q &nValue)
     {
-        m_value = scast_q(nValue, const EQEnumerationMock::EnumType);
+        m_value = scast_q(nValue, const EQAssertionType::EnumType);
         return *this;
     }
 
@@ -138,12 +142,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumerationMock& operator=(const string_q &strValueName)
+    inline EQAssertionType& operator=(const string_q &strValueName)
     {
-        if(EQEnumerationMock::sm_mapValueName.find(strValueName) != EQEnumerationMock::sm_mapValueName.end())
+        if(EQAssertionType::sm_mapValueName.find(strValueName) != EQAssertionType::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = EQEnumerationMock::_NotEnumValue;
+            m_value = EQAssertionType::_NotEnumValue;
 
         return *this;
     }
@@ -155,7 +159,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumerationMock& operator=(const EQEnumerationMock::EnumType &eValue)
+    inline EQAssertionType& operator=(const EQAssertionType::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -168,12 +172,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumerationMock& operator=(const EQEnumerationMock &eValue)
+    inline EQAssertionType& operator=(const EQAssertionType &eValue)
     {
         m_value = eValue.m_value;
         return *this;
     }
-
+    
     /// <summary>
     /// Equality operator that receives another enumeration.
     /// </summary>
@@ -181,7 +185,7 @@ public:
     /// <returns>
     /// True if it equals the enumeration value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumerationMock &eValue) const
+    bool operator==(const EQAssertionType &eValue) const
     {
         return m_value == eValue.m_value;
     }
@@ -196,7 +200,7 @@ public:
     /// </returns>
     inline bool operator==(const string_q &strValueName) const
     {
-        if(EQEnumerationMock::sm_mapValueName.find(strValueName) != EQEnumerationMock::sm_mapValueName.end())
+        if(EQAssertionType::sm_mapValueName.find(strValueName) != EQAssertionType::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -209,10 +213,9 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    template<typename IntegerType>
-    inline bool operator==(const IntegerType &nValue) const
+    inline bool operator==(const enum_int_q &nValue) const
     {
-        return m_value == scast_q(nValue, const EQEnumerationMock::EnumType);
+        return m_value == scast_q(nValue, const EQAssertionType::EnumType);
     }
 
     /// <summary>
@@ -222,11 +225,11 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumerationMock::EnumType &eValue) const
+    bool operator==(const EQAssertionType::EnumType &eValue) const
     {
         return m_value == eValue;
     }
-
+    
     /// <summary>
     /// Retrieves a list of all the values of the enumeration.
     /// </summary>
@@ -240,13 +243,14 @@ public:
         // If it's not been initialized yet...
         if(arValues.empty())
         {
-            const size_t ENUM_ARRAY_COUNT = EQEnumerationMock::sm_mapValueName.size();
+            const size_t ENUM_ARRAY_COUNT = EQAssertionType::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
-            QE_ASSERT_ERROR(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
+            // Commented to avoid a mutual inclusion with assertions
+            //QE_ASSERT_ERROR(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
-                arValues.push_back(EQEnumerationMock::sm_arValueName[i].second);
+                arValues.push_back(EQAssertionType::sm_arValueName[i].second);
         }
 
         return arValues;
@@ -258,32 +262,31 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQEnumerationMock::EnumType() const
+    inline operator EQAssertionType::EnumType() const
     {
         return m_value;
-    }
-
-    /// <summary>
-    /// Casting operator that converts the enumerated type value into its corresponding integer number.
-    /// </summary>
-    /// <returns>
-    /// The integer number which corresponds to the contained enumeration value.
-    /// </returns>
-    template<typename IntegerType>
-    operator IntegerType() const
-    {
-        return scast_q(m_value, IntegerType);
     }
     
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
     /// <returns>
-    /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
+    /// The contained enumeration value name. If the enumeration value is not valid, then returns an empty string.
     /// </returns>
     operator const string_q() const
     {
-        return ConvertToString(m_value, EQEnumerationMock::sm_mapValueName);
+        return ConvertToString(m_value, EQAssertionType::sm_mapValueName);
+    }
+    
+    /// <summary>
+    /// Converts the enumerated type value into its corresponding integer number.
+    /// </summary>
+    /// <returns>
+    /// The integer number which corresponds to the contained enumeration value.
+    /// </returns>
+    enum_int_q ToInteger() const
+    {
+        return scast_q(m_value, enum_int_q);
     }
 
     /// <summary>
@@ -294,7 +297,7 @@ public:
     /// </returns>
     const string_q ToString() const
     {
-        return ConvertToString(m_value, EQEnumerationMock::sm_mapValueName);
+        return ConvertToString(m_value, EQAssertionType::sm_mapValueName);
     }
 
 private:
@@ -307,7 +310,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQEnumerationMock::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQAssertionType::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -318,12 +321,15 @@ private:
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
-            { static const string_q EMPTY_STRING; return EMPTY_STRING; }// [TODO] Thund: This must be replaced by a QString constant.
+        {
+            static const string_q EMPTY_STRING;
+            return EMPTY_STRING;
+        }
     }
 
 
     // ATTRIBUTES
-	// ---------------
+    // ---------------
 private:
 
     /// <summary>
@@ -339,30 +345,12 @@ private:
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    EQEnumerationMock::EnumType m_value;
+    EQAssertionType::EnumType m_value;
 
 };
 
-
-// CONSTANTS INITIALIZATION
-// ----------------------------
-
-EQEnumerationMock::TNameValuePair EQEnumerationMock::sm_arValueName[] =
-    {
-        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value1"),    EQEnumerationMock::E_Value1),
-        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value2"),    EQEnumerationMock::E_Value2),
-        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value3"),    EQEnumerationMock::E_Value3),
-    };
-
-EQEnumerationMock::TNameValueMap EQEnumerationMock::sm_mapValueName(
-        EQEnumerationMock::sm_arValueName ,
-        &EQEnumerationMock::sm_arValueName[0] + sizeof(EQEnumerationMock::sm_arValueName) / sizeof(EQEnumerationMock::sm_arValueName[0])
-    );
-
-
-
-} //namespace Test
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __EQENUMERATION__
+#endif // __EQASSERTIONTYPE__

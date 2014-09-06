@@ -78,7 +78,7 @@ void QTimeZone::CalculateOffset(const QDateTime &dateTime, QTimeSpan &offset, bo
     // Boost can only process dates prior to the year 10.000
     static const QDateTime MAXIMUM_DATETIME_WITH_DST = QDateTime(10000, 1, 1) - QTimeSpan(1);
 
-    QE_ASSERT(dateTime != QDateTime::GetUndefinedDate(), "The input date is undefined");
+    QE_ASSERT_ERROR(dateTime != QDateTime::GetUndefinedDate(), "The input date is undefined");
 
     QTimeSpan dstOffset(0);
 

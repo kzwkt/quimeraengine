@@ -197,7 +197,7 @@ QBaseMatrix4x3 QMatrix4x4::operator*(const QBaseMatrix4x3 &matrix) const
 QMatrix4x4 QMatrix4x4::operator/(const float_q &fScalar) const
 {
 
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -308,7 +308,7 @@ QMatrix4x4& QMatrix4x4::operator*=(const float_q fScalar)
 
 QMatrix4x4& QMatrix4x4::operator/=(const float_q &fScalar)
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -480,7 +480,7 @@ QMatrix4x4 QMatrix4x4::Invert() const
     // Based on http://www.cg.info.hiroshima-cu.ac.jp/~miyazaki/knowledge/teche23.html
 
     // The results will be wrong when the determinant equals zero
-    QE_ASSERT( this->GetDeterminant() != SQFloat::_0, "Matrices whose determinant equals zero do not have inverse" );
+    QE_ASSERT_WARNING( this->GetDeterminant() != SQFloat::_0, "Matrices whose determinant equals zero do not have inverse" );
 
     // Gets the inverse of the Determinant.
     const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();

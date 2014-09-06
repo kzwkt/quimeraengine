@@ -80,7 +80,7 @@ public:
     QMemoryStream(const pointer_uint_q uCapacity) : m_buffer(uCapacity, Kinesis::QuimeraEngine::Common::Memory::QAlignment(1U)),
                                                     m_uPositionPointer(0)
     {
-        QE_ASSERT(uCapacity != 0, "The buffer capacity cannot be zero.");
+        QE_ASSERT_ERROR(uCapacity != 0, "The buffer capacity cannot be zero.");
     }
     
     /// <summary>
@@ -96,8 +96,8 @@ public:
     QMemoryStream(const void* pBuffer, const pointer_uint_q uBufferSize) : m_buffer(uBufferSize, Kinesis::QuimeraEngine::Common::Memory::QAlignment(1U)),
                                                                            m_uPositionPointer(0)
     {
-        QE_ASSERT(pBuffer != null_q, "The buffer cannot be null.");
-        QE_ASSERT(uBufferSize != 0, "The buffer size cannot be zero.");
+        QE_ASSERT_ERROR(pBuffer != null_q, "The buffer cannot be null.");
+        QE_ASSERT_ERROR(uBufferSize != 0, "The buffer size cannot be zero.");
 
         void* pAllocation = m_buffer.Allocate(uBufferSize);
         memcpy(pAllocation, pBuffer, uBufferSize);
@@ -145,8 +145,8 @@ public:
     /// <param name="uOutputSize">[IN] The number of bytes to be read. It must not equal zero.</param>
     void Read(void* pOutput, const pointer_uint_q uOutputOffset, const pointer_uint_q uOutputSize)
     {
-        QE_ASSERT(uOutputSize > 0, "The output size must not equal zero.");
-        QE_ASSERT(pOutput != null_q, "The output buffer cannot be null.");
+        QE_ASSERT_ERROR(uOutputSize > 0, "The output size must not equal zero.");
+        QE_ASSERT_ERROR(pOutput != null_q, "The output buffer cannot be null.");
 
         using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 
@@ -158,7 +158,7 @@ public:
         const pointer_uint_q FUTURE_POSITION_POINTER = m_uPositionPointer + uOutputSize;
         const pointer_uint_q BUFFER_SIZE = m_buffer.GetAllocatedBytes();
 
-        QE_ASSERT(FUTURE_POSITION_POINTER <= BUFFER_SIZE, "Warning: Attempting to read from outside of the buffer.");
+        QE_ASSERT_WARNING(FUTURE_POSITION_POINTER <= BUFFER_SIZE, "Attempting to read from outside of the buffer.");
 
         m_uPositionPointer = FUTURE_POSITION_POINTER > BUFFER_SIZE ? 
                                                                     BUFFER_SIZE : 
@@ -178,8 +178,8 @@ public:
     /// <param name="uInputSize">[IN] The number of bytes to be written. It must not equal zero.</param>
     void Write(const void* pInput, const pointer_uint_q uInputOffset, const pointer_uint_q uInputSize)
     {
-        QE_ASSERT(uInputSize > 0, "The input size must not equal zero.");
-        QE_ASSERT(pInput != null_q, "The input buffer cannot be null.");
+        QE_ASSERT_ERROR(uInputSize > 0, "The input size must not equal zero.");
+        QE_ASSERT_ERROR(pInput != null_q, "The input buffer cannot be null.");
 
         using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 
@@ -225,8 +225,8 @@ public:
     {
         static const pointer_uint_q BATCH_SIZE = 4096; // This is an arbitrary value, it should be tuned to improve performance
 
-        QE_ASSERT(uSourceOffset < this->GetLength(), "The offset of the source stream is out of bounds.");
-        QE_ASSERT(uDestinationOffset <= destinationStream.GetLength(), "The offset of the destination stream is out of bounds.");
+        QE_ASSERT_ERROR(uSourceOffset < this->GetLength(), "The offset of the source stream is out of bounds.");
+        QE_ASSERT_ERROR(uDestinationOffset <= destinationStream.GetLength(), "The offset of the destination stream is out of bounds.");
 
         // If offsets point to valid positions
         if(uSourceOffset < this->GetLength() && uDestinationOffset <= destinationStream.GetLength())
@@ -260,7 +260,7 @@ public:
     /// <param name="uAmount">[IN] The number of bytes to move back the internal pointer's position. If it is already at the first position, it does nothing.</param>
     void MoveBackward(const pointer_uint_q uAmount)
     {
-        QE_ASSERT(uAmount <= m_uPositionPointer, "It is not possible to move backward, it would be out of bounds.");
+        QE_ASSERT_WARNING(uAmount <= m_uPositionPointer, "It is not possible to move backward, it would be out of bounds.");
 
         if(uAmount <= m_uPositionPointer)
             m_uPositionPointer -= uAmount;
@@ -272,7 +272,7 @@ public:
     /// <param name="uAmount">[IN] The number of bytes to move forward the internal pointer's position. If it is already at the latest position, it does nothing.</param>
     void MoveForward(const pointer_uint_q uAmount)
     {
-        QE_ASSERT(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes(), "It is not possible to move forward, it would be out of bounds.");
+        QE_ASSERT_WARNING(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes(), "It is not possible to move forward, it would be out of bounds.");
 
         if(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes())
             m_uPositionPointer += uAmount;
@@ -325,7 +325,7 @@ public:
     /// or it will not be set.</param>
     void SetPosition(const pointer_uint_q uPosition)
     {
-        QE_ASSERT(uPosition <= m_buffer.GetAllocatedBytes(), "The input position is invalid, it is out of bounds.");
+        QE_ASSERT_ERROR(uPosition <= m_buffer.GetAllocatedBytes(), "The input position is invalid, it is out of bounds.");
 
         if(uPosition <= m_buffer.GetAllocatedBytes())
             m_uPositionPointer = uPosition;

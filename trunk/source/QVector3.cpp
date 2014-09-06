@@ -150,7 +150,7 @@ QBaseVector4 QVector3::operator*(const QBaseMatrix3x4 &matrix) const
 QVector3 QVector3::operator/(const float_q &fScalar) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING (fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -160,7 +160,7 @@ QVector3 QVector3::operator/(const float_q &fScalar) const
 QVector3 QVector3::operator/(const QBaseVector3 &vVector) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0, "Input vector must not be null");
+    QE_ASSERT_WARNING (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0, "Input vector must not be null");
 
     return QVector3(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z);
 }
@@ -222,7 +222,7 @@ QVector3 operator*(const float_q &fScalar, const QVector3 &vVector)
 QVector3& QVector3::operator/=(const float_q &fScalar)
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
+    QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1 / fScalar;
 
@@ -236,7 +236,7 @@ QVector3& QVector3::operator/=(const float_q &fScalar)
 QVector3& QVector3::operator/=(const QBaseVector3 &vVector)
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0, "Input vector must not be null");
+    QE_ASSERT_WARNING(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0, "Input vector must not be null");
 
     this->x /= vVector.x;
     this->y /= vVector.y;
@@ -272,7 +272,7 @@ QVector3 QVector3::Normalize() const
     float_q fLength = this->GetLength();
 
     // Checkout to avoid division by 0
-    QE_ASSERT(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
+    QE_ASSERT_WARNING(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
 
     //Normalize
     return QVector3(this->x / fLength, this->y / fLength, this->z / fLength);
@@ -313,7 +313,7 @@ float_q QVector3::AngleBetween(const QVector3 &vVector) const
     float_q fLength = sqrt_q(this->GetSquaredLength() * vVector.GetSquaredLength());
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLength != SQFloat::_0, "Vectors must not be null, this will cause a division by zero");
+    QE_ASSERT_WARNING(fLength != SQFloat::_0, "Vectors must not be null, this will cause a division by zero");
 
     float_q fDot = this->DotProduct(vVector)/fLength;
 
@@ -325,7 +325,7 @@ float_q QVector3::AngleBetween(const QVector3 &vVector) const
 
     float_q fAngle = acos_q(fDot);
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" );
+    QE_ASSERT_WARNING( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" );
     
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees

@@ -200,10 +200,10 @@ public:
     bool Intersection(const QBasePlane &plane) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         // The plane shouldn't be null
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane shouldn't be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane shouldn't be null" );
 
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
 
@@ -244,10 +244,10 @@ public:
     bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         // Vertices of the triangle should not coincide
-        QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "Vertices of the triangle should not coincide");
+        QE_ASSERT_WARNING(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "Vertices of the triangle should not coincide");
 
         // Calculates if segment intersects with the plane defined by the triangle.
 
@@ -277,7 +277,7 @@ public:
                 return PointInsideTriangle(triangle, this->A);
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT2\" and \"DOT1\" should not be equal (maybe line endpoints coincide)");
+        QE_ASSERT_WARNING(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT2\" and \"DOT1\" should not be equal (maybe line endpoints coincide)");
 
         // The point which satisfies both line and plane equations.
         VectorType vAux = this->A + (this->B - this->A) * DOT2/(DOT2 - DOT1);
@@ -313,7 +313,7 @@ public:
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         // Checks if there is an intersection with any face.
         if (QuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
@@ -357,10 +357,10 @@ public:
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         // The plane shouldn't be null
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane shouldn't be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane shouldn't be null" );
 
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -395,7 +395,7 @@ public:
 
             const float_q &DENOM = DIST_A - DIST_B;
 
-            QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
+            QE_ASSERT_WARNING(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
             vIntersection = this->A + DIST_A * (this->B - this->A) / DENOM;
 
@@ -489,10 +489,10 @@ public:
     EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         // Vertices of the triangle should not coincide
-        QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "Vertices of the triangle should not coincide");
+        QE_ASSERT_WARNING(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "Vertices of the triangle should not coincide");
 
         // Plane equation
         QPlane auxP(triangle.A, triangle.B, triangle.C);
@@ -1116,7 +1116,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
+        QE_ASSERT_WARNING(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -1159,7 +1159,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         VectorType vAuxPoint, vAux;
         bool bPreviousInt = false;
@@ -1350,7 +1350,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
+        QE_ASSERT_WARNING(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -1394,7 +1394,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // The length of the segment should be greater than zero
-        QE_ASSERT(this->A != this->B, "The length of the segment should be greater than zero");
+        QE_ASSERT_WARNING(this->A != this->B, "The length of the segment should be greater than zero");
 
         VectorType vAuxPoint, vAux1, vAux2;
         bool bPreviousInt = false;
@@ -1627,7 +1627,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
+        QE_ASSERT_WARNING(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -1645,7 +1645,7 @@ public:
     /// </returns>
     float_q MaxDistance(const QPlane &plane) const
     {
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null" );
 
         const float_q &DIST_A = plane.PointDistance(this->A);
         const float_q &DIST_B = plane.PointDistance(this->B);
@@ -1666,7 +1666,7 @@ public:
     /// </returns>
     float_q MinDistance(const QPlane &plane) const
     {
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null" );
 
         // [TODO] Thund: This has to be optimized, maybe with an additional constructor in QVector4
         const float_q PLANE_POINT_COMPONENTS[] = {plane.a * -plane.d, plane.b * -plane.d, plane.c * -plane.d, SQFloat::_0};
@@ -1698,7 +1698,7 @@ public:
     QLineSegment3D<VectorType> ProjectToPlane(const QPlane &plane) const
     {
         // The plane must not be null
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane must not be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane must not be null" );
 
         return QLineSegment3D<VectorType>(plane.PointProjection(this->A),
                                           plane.PointProjection(this->B));
@@ -1729,7 +1729,7 @@ public:
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
         // The plane must not be null
-        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane must not be null" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane must not be null" );
 
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -2058,7 +2058,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
+        QE_ASSERT_WARNING(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2103,7 +2103,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
+        QE_ASSERT_WARNING(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2127,7 +2127,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(DENOM2 != SQFloat::_0, "The variable \"DENOM2\" must not equal zero, this will cause a division by zero");
+        QE_ASSERT_WARNING(DENOM2 != SQFloat::_0, "The variable \"DENOM2\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
@@ -2245,7 +2245,7 @@ protected:
                 return false;
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT1\" and \"DOT2\" must not be equal (maybe segment endpoints coincide), this will cause a division by zero");
+        QE_ASSERT_WARNING(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT1\" and \"DOT2\" must not be equal (maybe segment endpoints coincide), this will cause a division by zero");
 
         // The point which satisfies both line and plane equations.
         VectorTypeParam vAux = segment.A + (segment.B - segment.A) * DOT2/(DOT2 - DOT1);
@@ -3373,7 +3373,7 @@ protected:
         }
 
         // Something was wrong, this line should be never reached
-        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
+        QE_ASSERT_WARNING(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }

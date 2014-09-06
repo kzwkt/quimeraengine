@@ -206,7 +206,7 @@ public:
     bool Intersection(const QBaseLineSegment<VectorType> &segment) const
     {
         // The endpoints of a segment should not coincide
-        QE_ASSERT(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
+        QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         // if MinDistance is 0          --> there's intersection, return true
         // else                          --> return false
@@ -239,7 +239,7 @@ public:
     bool Intersection(const QBaseOrb<VectorType> &orb) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
-        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The end points of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
+        QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The end points of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
 
         // An intersection between the segment and the orb is considered if the minimum
         // distance between "the whole segment" and the center of the orb (this is, the
@@ -282,7 +282,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
      {
         // The endpoints of a segment should not coincide
-        QE_ASSERT(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
+        QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         // Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
@@ -697,7 +697,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
      {
         // The endpoints of a segment should not coincide
-        QE_ASSERT(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
+        QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         // Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
@@ -1141,7 +1141,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
-        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
+        QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
 
         // We reduce line segment and orb to origin, in order to simplify orb equation, and we calculate
         // the new point A and vector B-A, to compute intersection as with a ray
@@ -1165,7 +1165,7 @@ public:
             return EQIntersections::E_None;
         else if (SQFloat::IsZero(D)) // D = b^2 - 4ac = 0 => 1 intersection
         {
-            QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
+            QE_ASSERT_WARNING(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
 
             const float_q &t = -(b*SQFloat::_0_5 / a);
 
@@ -1206,7 +1206,7 @@ public:
         }
         else // D = b^2 - 4ac > 0 => 2 intersections
         {
-            QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
+            QE_ASSERT_WARNING(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
 
             const float_q &fAux1 = sqrt_q(D);
             const float_q &fAux2 = SQFloat::_0_5 / a;
@@ -1287,7 +1287,7 @@ public:
     EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
-        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
+        QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
 
         VectorType vAux;
         return this->IntersectionPoint(orb, vIntersection, vAux);
@@ -1312,7 +1312,7 @@ public:
         // Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
         // The endpoints of a segment should not coincide
-        QE_ASSERT(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
+        QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
         this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
@@ -1334,7 +1334,7 @@ public:
     float_q MinDistance(const VectorType &vPoint) const
     {
         // The endpoints of a segment should not coincide
-        QE_ASSERT(this->A != this->B, "The endpoints of a segment should not coincide");
+        QE_ASSERT_WARNING(this->A != this->B, "The endpoints of a segment should not coincide");
 
         if (A != B)
         {
@@ -1365,7 +1365,7 @@ public:
                 else
                 {
                     // Checkout to avoid division by 0
-                    QE_ASSERT (fDotProductv1v1 != SQFloat::_0, "The variable \"fDotProductv1v1\" should not equal zero, this will produce a division by zero");
+                    QE_ASSERT_WARNING (fDotProductv1v1 != SQFloat::_0, "The variable \"fDotProductv1v1\" should not equal zero, this will produce a division by zero");
 
                     return ((A + ((fDotProductv1v2 / fDotProductv1v1) * v1)) - vPoint).GetLength();
                 }
@@ -1529,7 +1529,7 @@ protected:
                 // fSFactor1 = 0 --> fSFactor2 = (((fDotProdv1v2 * fSFactor1) + fDotProdv2vTails) / fSqrLengthv2) = (fDotProdv2vTails / fSqrLengthv2)
 
                 // Checkout to avoid division by 0
-                QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
+                QE_ASSERT_WARNING(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
                 fSFactor2 = SQFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), SQFloat::_0, SQFloat::_1);
             }
@@ -1543,7 +1543,7 @@ protected:
                     // fSFactor2 = 0 --> fSFactor1 = (((fDotProdv1v2 * fSFactor2) - fDotProdv1vTails) / fSqrLengthv1) = (-fDotProdv1vTails / fSqrLengthv1)
 
                     // Checkout to avoid division by 0
-                    QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
+                    QE_ASSERT_WARNING(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
                     fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
@@ -1586,7 +1586,7 @@ protected:
                         fSFactor2 = SQFloat::_0;
 
                         // Checkout to avoid division by 0
-                        QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
+                        QE_ASSERT_WARNING(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
                         fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
                     }
@@ -1595,7 +1595,7 @@ protected:
                         fSFactor2 = SQFloat::_1;
 
                         // Checkout to avoid division by 0
-                        QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
+                        QE_ASSERT_WARNING(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
                         fSFactor1 = SQFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
@@ -1603,7 +1603,7 @@ protected:
                     else // fNom in range [0..1]
                     {
                         // Checkout to avoid division by 0
-                        QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
+                        QE_ASSERT_WARNING(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
                         fSFactor2 = fNom / fSqrLengthv2;
                     };

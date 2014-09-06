@@ -49,7 +49,7 @@ namespace Memory
 
 QStackAllocator::QMark::QMark(void* pMemAddress) : m_pMemoryAddress(pMemAddress)
 {
-     QE_ASSERT(null_q != pMemAddress, "The given memory address for the mark cannot be null.");
+     QE_ASSERT_ERROR(null_q != pMemAddress, "The given memory address for the mark cannot be null.");
 }
 
 

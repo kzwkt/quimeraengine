@@ -249,8 +249,8 @@ public:
                                                                                                                            m_uPosition(uPosition), 
                                                                                                                            m_eTraversalOrder(eTraversalOrder)
         {
-            QE_ASSERT(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
-            QE_ASSERT(pTree->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the tree");
+            QE_ASSERT_ERROR(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
+            QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the tree");
 
             if(pTree == null_q || pTree->GetCapacity() <= uPosition || pTree->IsEmpty())
                 m_uPosition = QNTree::END_POSITION_FORWARD;
@@ -270,7 +270,7 @@ public:
         /// </returns>
         QNTreeIterator& operator=(const QNTreeIterator &iterator)
         {
-            QE_ASSERT(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
 
             if(m_pTree == iterator.m_pTree)
             {
@@ -290,9 +290,9 @@ public:
         /// </returns>
         T& operator*() const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the tree element");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the tree element");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
+            QE_ASSERT_ERROR(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
             return *(((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition);
         }
@@ -306,9 +306,9 @@ public:
         /// </returns>
         T* operator->() const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the tree element");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the tree element");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
+            QE_ASSERT_ERROR(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
             return ((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition;
         }
@@ -326,9 +326,9 @@ public:
         /// </returns>
         QNTreeIterator operator++(int)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_WARNING(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
             QNTreeIterator iteratorCopy = *this;
 
@@ -423,9 +423,9 @@ public:
         /// </returns>
         QNTreeIterator operator--(int)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_WARNING(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
             QNTreeIterator iteratorCopy = *this;
 
@@ -513,9 +513,9 @@ public:
         /// </returns>
         QNTreeIterator& operator++()
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_WARNING(m_uPosition != QNTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
             if(m_uPosition != QNTree::END_POSITION_FORWARD)
             {
@@ -605,9 +605,9 @@ public:
         /// </returns>
         QNTreeIterator& operator--()
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_WARNING(m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
             if(m_uPosition != QNTree::END_POSITION_BACKWARD)
             {
@@ -693,9 +693,9 @@ public:
         /// </returns>
         bool operator==(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             return m_uPosition == iterator.m_uPosition && m_pTree == iterator.m_pTree;
         }
@@ -712,9 +712,9 @@ public:
         /// </returns>
         bool operator!=(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             return m_uPosition != iterator.m_uPosition || m_pTree != iterator.m_pTree;
         }
@@ -732,9 +732,9 @@ public:
         /// </returns>
         bool operator>(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             bool bResult = false;
 
@@ -769,9 +769,9 @@ public:
         /// </returns>
         bool operator<(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             bool bResult = false;
 
@@ -807,9 +807,9 @@ public:
         /// </returns>
         bool operator>=(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             bool bResult = false;
 
@@ -847,9 +847,9 @@ public:
         /// </returns>
         bool operator<=(const QNTreeIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pTree == iterator.m_pTree, "Iterators point to different trees");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "Iterators point to different trees");
 
             bool bResult = false;
 
@@ -1056,7 +1056,7 @@ public:
                                                     m_nodeAllocator(QNTree::sm_uDefaultCapacity * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
                                                     m_uRoot(QNTree::END_POSITION_FORWARD)
     {
-        QE_ASSERT(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
+        QE_ASSERT_ERROR(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
     }
 
     /// <summary>
@@ -1073,8 +1073,8 @@ public:
                                                             m_nodeAllocator(uInitialCapacity * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
                                                             m_uRoot(QNTree::END_POSITION_FORWARD)
     {
-        QE_ASSERT(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
-        QE_ASSERT(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
+        QE_ASSERT_ERROR(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
+        QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
     }
 
 protected:

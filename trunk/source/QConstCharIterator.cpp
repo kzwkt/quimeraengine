@@ -89,10 +89,10 @@ QStringUnicode::QConstCharIterator::QConstCharIterator(const QStringUnicode &str
 QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator++(int)
 {
     // It is not possible to move an invalid iterator forward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator forward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
 
     QConstCharIterator previousState(*this);
 
@@ -108,10 +108,10 @@ QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator+
 QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator--(int)
 {
     // It is not possible to move an invalid iterator backward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator backward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
 
     QConstCharIterator previousState(*this);
 
@@ -126,10 +126,10 @@ QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator-
 QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator++()
 {
     // It is not possible to move an invalid iterator forward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator forward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
     if(m_bIsBeforeFirst)
@@ -143,10 +143,10 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
 QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator--()
 {
     // It is not possible to move an invalid iterator backward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator backward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
 
     if(m_iterator.getIndex() == 0)
         m_bIsBeforeFirst = true;
@@ -159,10 +159,10 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
 QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator=(const QStringUnicode::QConstCharIterator &iterator)
 {
     // The iterator should not be assigned to an invalid iterator
-    QE_ASSERT(iterator.IsValid(), "The iterator should not be assigned to an invalid iterator");
+    QE_ASSERT_ERROR(iterator.IsValid(), "The iterator should not be assigned to an invalid iterator");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_WARNING(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     if(&iterator != this && m_pString == iterator.m_pString)
     {
@@ -176,10 +176,10 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
 bool QStringUnicode::QConstCharIterator::operator==(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     return ( (m_iterator == iterator.m_iterator) == TRUE ) &&
            m_pString == iterator.m_pString &&
@@ -189,10 +189,10 @@ bool QStringUnicode::QConstCharIterator::operator==(const QConstCharIterator &it
 bool QStringUnicode::QConstCharIterator::operator!=(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     return ( (m_iterator != iterator.m_iterator) == TRUE ) ||
            m_pString != iterator.m_pString ||
@@ -202,10 +202,10 @@ bool QStringUnicode::QConstCharIterator::operator!=(const QConstCharIterator &it
 bool QStringUnicode::QConstCharIterator::operator>(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     return (m_iterator.getIndex() > iterator.m_iterator.getIndex() ||
             (!m_bIsBeforeFirst && iterator.m_bIsBeforeFirst) ) &&
@@ -216,10 +216,10 @@ bool QStringUnicode::QConstCharIterator::operator>(const QConstCharIterator &ite
 bool QStringUnicode::QConstCharIterator::operator<(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     return (m_iterator.getIndex() < iterator.m_iterator.getIndex() ||
             (m_bIsBeforeFirst && !iterator.m_bIsBeforeFirst) ) &&
@@ -229,10 +229,10 @@ bool QStringUnicode::QConstCharIterator::operator<(const QConstCharIterator &ite
 bool QStringUnicode::QConstCharIterator::operator>=(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     const int32_t& nResidentPosition = m_iterator.getIndex();
     const int32_t& nInputPosition = iterator.m_iterator.getIndex();
@@ -246,10 +246,10 @@ bool QStringUnicode::QConstCharIterator::operator>=(const QConstCharIterator &it
 bool QStringUnicode::QConstCharIterator::operator<=(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
-    QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
+    QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
     const int32_t& nResidentPosition = m_iterator.getIndex();
     const int32_t& nInputPosition = iterator.m_iterator.getIndex();
@@ -263,7 +263,7 @@ bool QStringUnicode::QConstCharIterator::operator<=(const QConstCharIterator &it
 bool QStringUnicode::QConstCharIterator::IsEnd() const
 {
     // The iterator must be valid to get a correct result
-    QE_ASSERT(this->IsValid(), "The iterator must be valid to get a correct result");
+    QE_ASSERT_ERROR(this->IsValid(), "The iterator must be valid to get a correct result");
 
     return m_bIsBeforeFirst || m_iterator.getIndex() == m_iterator.endIndex();
 }
@@ -271,10 +271,10 @@ bool QStringUnicode::QConstCharIterator::IsEnd() const
 QCharUnicode QStringUnicode::QConstCharIterator::GetChar() const
 {
     // It is not possible to get the character refered to by an invalid iterator
-    QE_ASSERT(this->IsValid(), "It is not possible to get the character refered to by an invalid iterator");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to get the character refered to by an invalid iterator");
 
     // It is not possible to get the character of an end position
-    QE_ASSERT(!this->IsEnd(), "It is not possible to get the character of an end position");
+    QE_ASSERT_ERROR(!this->IsEnd(), "It is not possible to get the character of an end position");
 
     static const UChar32 NON_CHARACTER = 0xFFFF; // U+FFFF, the same returned by the current32() method when the iterator points to the end position
 
@@ -286,7 +286,7 @@ QCharUnicode QStringUnicode::QConstCharIterator::GetChar() const
 void QStringUnicode::QConstCharIterator::MoveFirst()
 {
     // It is not possible to go to the first position of an empty string
-    QE_ASSERT(m_pString->GetLength() > 0, "It is not possible to go to the first position of an empty string");
+    QE_ASSERT_WARNING(m_pString->GetLength() > 0, "It is not possible to go to the first position of an empty string");
 
     m_bIsBeforeFirst = false;
 
@@ -296,7 +296,7 @@ void QStringUnicode::QConstCharIterator::MoveFirst()
 void QStringUnicode::QConstCharIterator::MoveLast()
 {
     // It is not possible to go to the last position of an empty string
-    QE_ASSERT(m_pString->GetLength() > 0, "It is not possible to go to the last position of an empty string");
+    QE_ASSERT_WARNING(m_pString->GetLength() > 0, "It is not possible to go to the last position of an empty string");
 
     m_bIsBeforeFirst = false;
 

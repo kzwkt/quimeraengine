@@ -32,12 +32,13 @@
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::SQInternalLogger;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+using Kinesis::QuimeraEngine::Common::EQAssertionType;
 
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |           FUNCTIONS         |               ##################
+//##################            |           FUNCTIONS        |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
@@ -54,9 +55,28 @@ void QE_ASSERT_FAILED()
 #endif
 
 
-void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, const string_q &strErrorMessage, const int nLineNumber, const string_q &strFileName)
+void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, 
+                            const string_q &strErrorMessage, 
+                            const int nLineNumber, 
+                            const string_q &strFileName,
+                            const EQAssertionType &eAssertionType)
 {
-    string_q strLogText("!! QE ASSERTION FAILED !! : \"");
+    string_q strLogText("!! ");
+    
+    switch(eAssertionType)
+    {
+        case EQAssertionType::E_Deprecation:
+            strLogText.Append("[Deprecated]");
+            break;
+        case EQAssertionType::E_Warning:
+            strLogText.Append("[Warning]");
+            break;
+        case EQAssertionType::E_Error:
+            strLogText.Append("[Error]");
+            break;
+    }
+
+    strLogText.Append(" QE ASSERTION FAILED !! : \"");
     strLogText.Append(strErrorMessage);
     strLogText.Append(string_q("\" at "));
     strLogText.Append(strFileName);

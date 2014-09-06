@@ -79,10 +79,10 @@ QStringUnicode::QCharIterator::QCharIterator(const QCharIterator &iterator) : QC
 QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator++(int)
 {
     // It is not possible to move an invalid iterator forward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator forward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
 
     QCharIterator previousState(*this);
 
@@ -98,10 +98,10 @@ QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator++(int)
 QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator--(int)
 {
     // It is not possible to move an invalid iterator backward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator backward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
 
     QCharIterator previousState(*this);
 
@@ -116,10 +116,10 @@ QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator--(int)
 QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator++()
 {
     // It is not possible to move an invalid iterator forward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator forward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
     if(m_bIsBeforeFirst)
@@ -133,10 +133,10 @@ QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator++()
 QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator--()
 {
     // It is not possible to move an invalid iterator backward
-    QE_ASSERT(this->IsValid(), "It is not possible to move an invalid iterator backward");
+    QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
 
     if(m_iterator.getIndex() == 0)
         m_bIsBeforeFirst = true;
@@ -154,8 +154,8 @@ QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator=(const QS
 
 void QStringUnicode::QCharIterator::SetChar(const QCharUnicode &newCharacter)
 {
-    QE_ASSERT(this->IsValid(), "The iterator is not valid, the character cannot be set.");
-    QE_ASSERT(!this->IsEnd(), "It is not possible to set the character when the iterator points to an end position.");
+    QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, the character cannot be set.");
+    QE_ASSERT_ERROR(!this->IsEnd(), "It is not possible to set the character when the iterator points to an end position.");
     
     if(!this->IsEnd())
     {

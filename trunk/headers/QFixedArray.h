@@ -101,8 +101,8 @@ public:
         /// <param name="uPosition">[IN] The position the iterator will point to. It must be lower than the number of elements in the array.</param>
         QArrayIterator(const QFixedArray* pArray, const unsigned int uPosition) : m_pArray(pArray), m_uPosition(uPosition)
         {
-            QE_ASSERT(pArray != null_q, "Invalid argument: The pointer to the array cannot be null");
-            QE_ASSERT(pArray->GetCount() > uPosition, "Invalid argument: The position must be lower than the number of elements in the array");
+            QE_ASSERT_ERROR(pArray != null_q, "Invalid argument: The pointer to the array cannot be null");
+            QE_ASSERT_WARNING(pArray->GetCount() > uPosition, "Invalid argument: The position must be lower than the number of elements in the array");
 
             if(pArray == null_q || pArray->GetCount() <= uPosition)
                 m_uPosition = QFixedArray::END_POSITION_FORWARD;
@@ -122,8 +122,8 @@ public:
         /// </returns>
         QArrayIterator& operator=(const QArrayIterator &iterator)
         {
-            QE_ASSERT(m_pArray == iterator.m_pArray, "The input iterator points to a different array");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "The input iterator points to a different array");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
 
             if(m_pArray == iterator.m_pArray)
                 m_uPosition = iterator.m_uPosition;
@@ -140,9 +140,9 @@ public:
         /// </returns>
         T& operator*() const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the array element");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return *(((T*)m_pArray->m_allocator.GetPointer()) + m_uPosition);
         }
@@ -156,9 +156,9 @@ public:
         /// </returns>
         T* operator->() const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the array element");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the array element");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return ((T*)m_pArray->m_allocator.GetPointer()) + m_uPosition;
         }
@@ -176,9 +176,9 @@ public:
         /// </returns>
         QArrayIterator operator++(int)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
             QArrayIterator iteratorCopy = *this;
 
@@ -205,9 +205,9 @@ public:
         /// </returns>
         QArrayIterator operator--(int)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
             QArrayIterator iteratorCopy = *this;
 
@@ -233,9 +233,9 @@ public:
         /// </returns>
         QArrayIterator& operator++()
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
             if(m_uPosition == m_pArray->m_uLast)
                 m_uPosition = QFixedArray::END_POSITION_FORWARD;
@@ -259,9 +259,9 @@ public:
         /// </returns>
         QArrayIterator& operator--()
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
             if(m_uPosition == m_pArray->m_uFirst)
                 m_uPosition = QFixedArray::END_POSITION_BACKWARD;
@@ -285,9 +285,9 @@ public:
         /// </returns>
         bool operator==(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return m_uPosition == iterator.m_uPosition && m_pArray == iterator.m_pArray;
         }
@@ -304,9 +304,9 @@ public:
         /// </returns>
         bool operator!=(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return m_uPosition != iterator.m_uPosition || m_pArray != iterator.m_pArray;
         }
@@ -323,9 +323,9 @@ public:
         /// </returns>
         bool operator>(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return ((m_uPosition == QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition != QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition != QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
@@ -345,9 +345,9 @@ public:
         /// </returns>
         bool operator<(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return ((m_uPosition != QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition == QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition == QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition != QFixedArray::END_POSITION_BACKWARD) ||
@@ -368,9 +368,9 @@ public:
         /// </returns>
         bool operator>=(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return ((m_uPosition == QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition != QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition != QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
@@ -391,9 +391,9 @@ public:
         /// </returns>
         bool operator<=(const QArrayIterator &iterator) const
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid");
-            QE_ASSERT(iterator.IsValid(), "The input iterator is not valid");
-            QE_ASSERT(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pArray == iterator.m_pArray, "Iterators point to different arrays");
 
             return ((m_uPosition != QFixedArray::END_POSITION_FORWARD  && iterator.m_uPosition == QFixedArray::END_POSITION_FORWARD)  ||
                     (m_uPosition == QFixedArray::END_POSITION_BACKWARD && iterator.m_uPosition != QFixedArray::END_POSITION_BACKWARD) ||
@@ -414,7 +414,7 @@ public:
         /// </returns>
         bool IsEnd() const
         {
-            QE_ASSERT(this->IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
             return m_uPosition == QFixedArray::END_POSITION_BACKWARD || m_uPosition == QFixedArray::END_POSITION_FORWARD;
         }
@@ -434,7 +434,7 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
-            QE_ASSERT(this->IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
                    (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QFixedArray::END_POSITION_FORWARD);
@@ -448,7 +448,7 @@ public:
         /// </remarks>
         void MoveFirst()
         {
-            QE_ASSERT(!m_pArray->IsEmpty(), "The array is empty, there is no first position");
+            QE_ASSERT_WARNING(!m_pArray->IsEmpty(), "The array is empty, there is no first position");
 
             m_uPosition = m_pArray->m_uFirst == QFixedArray::END_POSITION_BACKWARD ? QFixedArray::END_POSITION_FORWARD : m_pArray->m_uFirst;
         }
@@ -461,7 +461,7 @@ public:
         /// </remarks>
         void MoveLast()
         {
-            QE_ASSERT(!m_pArray->IsEmpty(), "The array is empty, there is no last position");
+            QE_ASSERT_WARNING(!m_pArray->IsEmpty(), "The array is empty, there is no last position");
 
             m_uPosition = m_pArray->m_uLast;
         }
@@ -481,9 +481,9 @@ public:
         /// </returns>
         QArrayIterator& MoveForward(const pointer_uint_q uIncrement)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
             if(uIncrement != 0)
             {
@@ -525,9 +525,9 @@ public:
         /// </returns>
         QArrayIterator& MoveBackward(const pointer_uint_q uDecrement)
         {
-            QE_ASSERT(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
-            QE_ASSERT(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
             if(uDecrement != 0)
             {
@@ -629,8 +629,8 @@ public:
             m_uLast(uCount - 1),
             m_allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
-        QE_ASSERT( uCount > 0, "Zero elements array is not allowed." );
-        QE_ASSERT( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
+        QE_ASSERT_ERROR( uCount > 0, "Zero elements array is not allowed." );
+        QE_ASSERT_ERROR( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
 
         for(pointer_uint_q uIndex = 0; uIndex < uCount; uIndex++)
         {
@@ -652,8 +652,8 @@ public:
             m_uLast(uNumberOfElements - 1),
             m_allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
-        QE_ASSERT( pArray != null_q, "The argument pArray is null." );
-        QE_ASSERT( uNumberOfElements > 0, "Zero elements array is not allowed." );
+        QE_ASSERT_ERROR( pArray != null_q, "The argument pArray is null." );
+        QE_ASSERT_ERROR( uNumberOfElements > 0, "Zero elements array is not allowed." );
 
         for(pointer_uint_q uIndex = 0; uIndex < uNumberOfElements; ++uIndex)
         {
@@ -768,7 +768,7 @@ public:
     /// </returns>
     T& GetValue(const pointer_uint_q uIndex) const
     {
-        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
         return *((T*)m_allocator.GetPointer() + uIndex);
     }
 
@@ -778,7 +778,7 @@ public:
     /// <param name="destinationArray"> [IN/OUT] Destination array where to copy the array elements. The capacity of the two arrays has to be equal.</param>
     void Clone(QFixedArray &destinationArray) const
     {
-        QE_ASSERT( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal" );
+        QE_ASSERT_ERROR( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal" );
         m_allocator.CopyTo(destinationArray.m_allocator);
     }
 
@@ -792,7 +792,7 @@ public:
     /// <param name="value">[IN] Value to copy in the array.</param>
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
-        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
         *((T*)m_allocator.GetPointer() + uIndex) = value;
     }
 
@@ -806,7 +806,7 @@ public:
     /// </returns>
     QArrayIterator GetIterator(const pointer_uint_q uIndex) const 
     {
-        QE_ASSERT( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
 
         return QFixedArray::QArrayIterator(this, uIndex);
     }
@@ -819,7 +819,7 @@ public:
     /// </returns>
     QArrayIterator GetFirst() const
     {
-        QE_ASSERT( !this->IsEmpty(), "The array is empty, there is no first position." );
+        QE_ASSERT_WARNING( !this->IsEmpty(), "The array is empty, there is no first position." );
 
         return QFixedArray::QArrayIterator(this, m_uFirst);
         
@@ -833,7 +833,7 @@ public:
     /// </returns>
     QArrayIterator GetLast() const
     {
-        QE_ASSERT( !this->IsEmpty(), "The array is empty, there is no last position." );
+        QE_ASSERT_WARNING( !this->IsEmpty(), "The array is empty, there is no last position." );
 
         return QFixedArray::QArrayIterator(this, m_uLast);
     }

@@ -101,7 +101,7 @@ public:
     QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
     {
         // Checkout to ensure pointers are not null.
-        QE_ASSERT( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) , "Input values must not be null");
+        QE_ASSERT_ERROR( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) , "Input values must not be null");
 
         A = VectorType(arValuesA);
         B = VectorType(arValuesB);

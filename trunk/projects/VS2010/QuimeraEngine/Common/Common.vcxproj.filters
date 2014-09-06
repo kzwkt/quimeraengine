@@ -69,6 +69,7 @@
     <ClInclude Include="..\..\..\..\headers\QStackAllocator.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -130,5 +131,6 @@
     <ClCompile Include="..\..\..\..\source\QBlockHeader.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
   </ItemGroup>
 </Project>

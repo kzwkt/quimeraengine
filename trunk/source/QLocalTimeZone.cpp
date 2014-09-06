@@ -237,7 +237,7 @@ const string_q QLocalTimeZone::GetWindowsEquivalentTimeZoneId(const string_q &st
     }
     else
     {
-        QE_ASSERT(false, "The Windows time zone key has no known equivalence");
+        QE_ASSERT_WARNING(false, "The Windows time zone key has no known equivalence");
         strEquivalentId = string_q::GetEmpty();
     }
 
@@ -278,7 +278,7 @@ const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
     }
     else
     {
-        QE_ASSERT(false, "The time zone could not be retrieved from the operative system configuration file");
+        QE_ASSERT_ERROR(false, "The time zone could not be retrieved from the operative system configuration file");
     }
     
 	return pTimeZone;

@@ -76,7 +76,7 @@ QBasePlane::QBasePlane(const float_q &fValueAll) : a(fValueAll), b(fValueAll), c
 QBasePlane::QBasePlane(const float_q* arValues)
 {
     // Null pointer checkout
-    QE_ASSERT(arValues != null_q, "The input array must not be null");
+    QE_ASSERT_ERROR(arValues != null_q, "The input array must not be null");
 
     // Assignments
     this->a = arValues[0];
