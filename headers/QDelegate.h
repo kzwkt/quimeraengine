@@ -160,7 +160,7 @@ public:
     /// </returns>
     ReturnValueT operator() () const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))();
     }
 
@@ -321,7 +321,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1);
     }
 
@@ -487,7 +487,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2);
     }
 
@@ -659,7 +659,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3);
     }
 
@@ -840,7 +840,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4);
     }
 
@@ -1030,7 +1030,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5);
     }
 
@@ -1226,7 +1226,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6);
     }
 
@@ -1429,7 +1429,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7);
     }
 
@@ -1639,7 +1639,7 @@ public:
     /// </returns>
     ReturnValueT operator() (Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7, Param8T p8) const
     {
-        QE_ASSERT(!this->IsNull(), "The delegate is null, calling to the function will fail");
+        QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7, p8);
     }
 

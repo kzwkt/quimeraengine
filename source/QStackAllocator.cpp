@@ -71,12 +71,12 @@ QStackAllocator::QStackAllocator(const pointer_uint_q uPreallocationSize) : m_al
 
     this->ClearAttributes();
 
-    QE_ASSERT(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
+    QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
 
     QAlignment alignDefault(ALIGNMENT_VALUE_DEFAULT);
 
     m_pBase = this->Preallocate(uPreallocationSize, alignDefault);
-    QE_ASSERT(null_q != m_pBase, "Error during preallocation, stack base remains as null.");
+    QE_ASSERT_ERROR(null_q != m_pBase, "Error during preallocation, stack base remains as null.");
 
     m_pTop  = m_pPrevious = m_pBase;
     m_uSize = uPreallocationSize;
@@ -91,11 +91,10 @@ QStackAllocator::QStackAllocator(const pointer_uint_q uPreallocationSize, const 
 
     pointer_uint_q uAlignment = alignment;
 
-    QE_ASSERT(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
-    QE_ASSERT( !(0 == uAlignment) && !(uAlignment & (uAlignment - 1U)) , "The given alignment value for preallocation must be a power of two.");
+    QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
 
     m_pBase = this->Preallocate(uPreallocationSize, alignment);
-    QE_ASSERT(null_q != m_pBase, "Error during preallocation, stack base remains as null.");
+    QE_ASSERT_ERROR(null_q != m_pBase, "Error during preallocation, stack base remains as null.");
 
     m_pTop  = m_pPrevious = m_pBase;
     m_uSize = uPreallocationSize;
@@ -109,8 +108,8 @@ QStackAllocator::QStackAllocator(const pointer_uint_q uPreallocationSize, void* 
 
     this->ClearAttributes();
 
-    QE_ASSERT(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
-    QE_ASSERT(null_q != pMemAddress, "The input pointer to a preallocated memory block cannot be null.");
+    QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
+    QE_ASSERT_ERROR(null_q != pMemAddress, "The input pointer to a preallocated memory block cannot be null.");
 
     // VERY IMPORTANT: there is no way to prove pMemAddress points to the start of a real allocated memory block.
     m_pBase = pMemAddress;
@@ -128,8 +127,8 @@ QStackAllocator::QStackAllocator(const pointer_uint_q uPreallocationSize, void* 
 
     pointer_uint_q uAlignment = alignment;
 
-    QE_ASSERT(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
-    QE_ASSERT(null_q != pMemAddress, "The input pointer to a preallocated memory block cannot be null.");
+    QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
+    QE_ASSERT_ERROR(null_q != pMemAddress, "The input pointer to a preallocated memory block cannot be null.");
 
     // VERY IMPORTANT: there is no way to prove pMemAddress points to the start of a real allocated memory block.
     m_pBase = pMemAddress;
@@ -177,12 +176,12 @@ QStackAllocator::~QStackAllocator()
 
 void* QStackAllocator::Preallocate(const pointer_uint_q uPreallocationSize, const QAlignment& alignment)
 {
-    QE_ASSERT(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
+    QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
 
     // If something goes wrong (and the block cannot be allocated) a null pointer is returned.
     void* pPreallocatedRes = operator new(uPreallocationSize, alignment);
 
-    QE_ASSERT(null_q != pPreallocatedRes, "Error: couldn't preallocate the asked memory block.");
+    QE_ASSERT_ERROR(null_q != pPreallocatedRes, "It couldn't preallocate the asked memory block.");
 
     return pPreallocatedRes;
 }
@@ -194,8 +193,8 @@ void* QStackAllocator::Allocate(const pointer_uint_q uSize)
 
 void* QStackAllocator::Allocate(const pointer_uint_q uSize, const QAlignment& alignment)
 {
-    QE_ASSERT(uSize > 0, "The given size for the memory block to allocate cannot be zero.");
-    QE_ASSERT(this->CanAllocate(uSize, alignment), "Error: allocation cannot be accomplished, currently there's not enough space to allocate a memory block with such size.");
+    QE_ASSERT_ERROR(uSize > 0, "The given size for the memory block to allocate cannot be zero.");
+    QE_ASSERT_WARNING(this->CanAllocate(uSize, alignment), "Allocation cannot be accomplished, currently there's not enough space to allocate a memory block with such size.");
 
     void* pAllocBlock = null_q;
 
@@ -233,7 +232,7 @@ void* QStackAllocator::Allocate(const pointer_uint_q uSize, const QAlignment& al
 
 void QStackAllocator::Deallocate()
 {
-    QE_ASSERT(this->GetAllocatedBytes() > 0, "Error trying to deallocate: stack allocator is empty.");
+    QE_ASSERT_WARNING(this->GetAllocatedBytes() > 0, "Error trying to deallocate: stack allocator is empty.");
     
     if(this->GetAllocatedBytes() > 0)
     {
@@ -265,13 +264,13 @@ void QStackAllocator::Deallocate()
 
 void QStackAllocator::Deallocate(const QStackAllocator::QMark& mark)
 {
-    QE_ASSERT(this->GetAllocatedBytes() > 0, "Error trying to deallocate: stack allocator is empty.");
+    QE_ASSERT_WARNING(this->GetAllocatedBytes() > 0, "Error trying to deallocate: stack allocator is empty.");
 
     void* pMarkAddress = mark.GetMemoryAddress();
 
-    QE_ASSERT(null_q != pMarkAddress,  "The given mark address cannot be null.");
-    QE_ASSERT(pMarkAddress >= m_pBase, "Error: mark out of range --> lesser than stack base.");
-    QE_ASSERT(pMarkAddress <= m_pTop,  "Error: mark out of range --> greater than current stack top.");
+    QE_ASSERT_ERROR(null_q != pMarkAddress,  "The given mark address cannot be null.");
+    QE_ASSERT_ERROR(pMarkAddress >= m_pBase, "Error: mark out of range --> lesser than stack base.");
+    QE_ASSERT_ERROR(pMarkAddress <= m_pTop,  "Error: mark out of range --> greater than current stack top.");
     
     if(this->GetAllocatedBytes() > 0 && pMarkAddress >= m_pBase && pMarkAddress < m_pTop)
     {
@@ -319,13 +318,13 @@ void QStackAllocator::Clear()
 
 pointer_uint_q QStackAllocator::GetSize() const
 {
-    QE_ASSERT(m_uAllocatedBytes <= m_uSize, "Error: the amount of allocated bytes is greater than the size of the preallocated memory block.");
+    QE_ASSERT_ERROR(m_uAllocatedBytes <= m_uSize, "The amount of allocated bytes is greater than the size of the preallocated memory block.");
     return m_uSize;
 }
 
 bool QStackAllocator::CanAllocate(const pointer_uint_q uSize) const
 {
-    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+    QE_ASSERT_WARNING(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
 
     // Free space in the preallocated block...: m_uSize - m_uAllocatedBytes
     // Space occupied by the new block........:   uSize + sizeof(QBlockHeader)  <-- there's no misaligned bytes since the default alignment is 1.
@@ -338,9 +337,8 @@ bool QStackAllocator::CanAllocate(const pointer_uint_q uSize) const
 
 bool QStackAllocator::CanAllocate(const pointer_uint_q uSize, const QAlignment& alignment) const
 {
-    QE_ASSERT(uSize > 0, "The given size for the memory block to be allocated cannot be zero.");
+    QE_ASSERT_WARNING(uSize > 0, "The given size for the memory block to be allocated cannot be zero.");
     pointer_uint_q uAlignment = alignment;
-    QE_ASSERT( !(0 == uAlignment) && !(uAlignment & (uAlignment - 1)) , "The given alignment value must be a power of two.");
 
     // Free space in the preallocated block...: m_uSize - m_uAllocatedBytes
     // Space occupied by the new block........:   uSize + sizeof(QBlockHeader) + OffsetToAlign(NewBlock)
@@ -354,15 +352,15 @@ bool QStackAllocator::CanAllocate(const pointer_uint_q uSize, const QAlignment& 
 
 pointer_uint_q QStackAllocator::GetAllocatedBytes() const
 {
-    QE_ASSERT(m_uAllocatedBytes <= m_uSize, "Error: the amount of allocated bytes is greater than the size of the preallocated memory block.");
+    QE_ASSERT_ERROR(m_uAllocatedBytes <= m_uSize, "Error: the amount of allocated bytes is greater than the size of the preallocated memory block.");
     return m_uAllocatedBytes;
 }
 
 void QStackAllocator::CopyTo(QStackAllocator& stackAllocator) const
 {
-    QE_ASSERT( (this->GetSize() > 0) && (stackAllocator.GetSize() > 0), "Error on copying of stack allocators: the size of any stack allocators cannot be zero.");
-    QE_ASSERT(this->GetSize() <= stackAllocator.GetSize(), "Error on copying of stack allocators: the size of the passed stack allocator cannot be lower than the size of the resident one.");
-    QE_ASSERT(m_alignment == stackAllocator.m_alignment, "Error on copying of stack allocators: the alignment of both allocators must be the same.");
+    QE_ASSERT_ERROR( (this->GetSize() > 0) && (stackAllocator.GetSize() > 0), "Error on copying of stack allocators: the size of any stack allocators cannot be zero.");
+    QE_ASSERT_WARNING(this->GetSize() <= stackAllocator.GetSize(), "Error on copying of stack allocators: the size of the passed stack allocator cannot be lower than the size of the resident one.");
+    QE_ASSERT_WARNING(m_alignment == stackAllocator.m_alignment, "Error on copying of stack allocators: the alignment of both allocators must be the same.");
 
     if(this->GetSize() <= stackAllocator.GetSize() && m_alignment == stackAllocator.m_alignment)
     {
@@ -401,7 +399,7 @@ void QStackAllocator::CopyTo(QStackAllocator& stackAllocator) const
 
 QStackAllocator::QMark QStackAllocator::GetMark() const
 {
-    QE_ASSERT(null_q != m_pTop, "Error on retrieving a mark: stack top is null.");
+    QE_ASSERT_ERROR(null_q != m_pTop, "Error on retrieving a mark: stack top is null.");
     return QMark(m_pTop);
 }
 

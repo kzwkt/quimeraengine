@@ -144,7 +144,7 @@ public:
         std::fstream fileStream;
         fileStream.open(strFilePath.ToBytes(EQTextEncoding::E_ISO88591, uLength));
 
-        QE_ASSERT(fileStream.is_open(), "The Normalization test file was not found");
+        QE_ASSERT_ERROR(fileStream.is_open(), "The Normalization test file was not found");
 
         if(fileStream.is_open())
         {

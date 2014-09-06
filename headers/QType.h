@@ -103,7 +103,7 @@ public:
     {
        // This method will give an error always since it will be called 
        // with non basic data type. See template specializations below.
-       QE_ASSERT(false, "Error!: The type used as template parameter is not a basic data type.");
+       QE_ASSERT_ERROR(false, "Error!: The type used as template parameter is not a basic data type.");
        return null_q;
     }
 

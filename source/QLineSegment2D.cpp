@@ -89,10 +89,10 @@ QLineSegment2D& QLineSegment2D::operator=(const QBaseLineSegment<QVector2> &segm
 bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) const
 {
     // The endpoints of the line shouldn't coincide
-    QE_ASSERT(this->A != this->B, "The endpoints of the line shouldn't coincide");
+    QE_ASSERT_WARNING(this->A != this->B, "The endpoints of the line shouldn't coincide");
 
     // The vertices of the triangle shouldn't coincide
-    QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "The vertices of the triangle shouldn't coincide");
+    QE_ASSERT_WARNING(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "The vertices of the triangle shouldn't coincide");
 
     // Just checking if the segment instersects with any edge of the triangle.
 
@@ -109,10 +109,10 @@ bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) cons
 bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
 {
     // The endpoints of the line shouldn't coincide
-    QE_ASSERT(this->A != this->B, "The endpoints of the line shouldn't coincide");
+    QE_ASSERT_WARNING(this->A != this->B, "The endpoints of the line shouldn't coincide");
 
     // The vertices of the quadrilateral shouldn't coincide
-    QE_ASSERT(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
+    QE_ASSERT_WARNING(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
               quad.B != quad.C && quad.B != quad.D &&
               quad.C != quad.D, "The vertices of the quadrilateral shouldn't coincide");
 
@@ -206,10 +206,10 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2> 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
     // The endpoints of the line shouldn't coincide
-    QE_ASSERT(this->A != this->B, "The endpoints of the line shouldn't coincide");
+    QE_ASSERT_WARNING(this->A != this->B, "The endpoints of the line shouldn't coincide");
 
     // The vertices of the triangle shouldn't coincide
-    QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "The vertices of the triangle shouldn't coincide");
+    QE_ASSERT_WARNING(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A, "The vertices of the triangle shouldn't coincide");
 
     const bool &A_IS_INSIDE = PointInsideTriangle(triangle, this->A);
     const bool &B_IS_INSIDE = PointInsideTriangle(triangle, this->B);
@@ -510,7 +510,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                                                                                                   // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two edges, never only one.
+                QE_ASSERT_WARNING(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two edges, never only one.
         }
         else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of triangle
         {
@@ -539,7 +539,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                                                                                                    // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two, never only one.
+                QE_ASSERT_WARNING(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two, never only one.
         }
 
         // Line segment don't intersects triangle
@@ -676,7 +676,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 else if ((value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                                                                                                    // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
+                    QE_ASSERT_WARNING(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -825,7 +825,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 else if ((value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                                                                                                    // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
+                    QE_ASSERT_WARNING(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -837,10 +837,10 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
     // The endpoints of the line shouldn't coincide
-    QE_ASSERT(this->A != this->B, "The endpoints of the line shouldn't coincide");
+    QE_ASSERT_WARNING(this->A != this->B, "The endpoints of the line shouldn't coincide");
 
     // The vertices of the quadrilateral shouldn't coincide
-    QE_ASSERT(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
+    QE_ASSERT_WARNING(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
               quad.B != quad.C && quad.B != quad.D &&
               quad.C != quad.D, "The vertices of the quadrilateral shouldn't coincide");
 
@@ -1833,7 +1833,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
     }
 
     // Something went wrong, this line should never be reached
-    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");
+    QE_ASSERT_WARNING(false, "Something really wrong is happening, this code branch should never be reached");
 
     return EQIntersections::E_None;
 }

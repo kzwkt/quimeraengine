@@ -332,7 +332,7 @@ public:
     void GetPlanes(QPlane *arPlanes) const
     {
         // The parameter shouldn't be null
-        QE_ASSERT(arPlanes != null_q, "Input array must not be null");
+        QE_ASSERT_ERROR(arPlanes != null_q, "Input array must not be null");
 
         arPlanes[0] = QPlane(this->A, this->D, this->C); // ABCD face
         arPlanes[1] = QPlane(this->E, this->H, this->G); // EFGH face
@@ -390,7 +390,7 @@ public:
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
         // If all the vertices of the hexahedron coincide, it might be an erroneous figure
-        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
+        QE_ASSERT_WARNING(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
                   this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->G || this->B != this->H ||
                   this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->G || this->C != this->H ||
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->G || this->D != this->H ||
@@ -399,7 +399,7 @@ public:
                   this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
 
         // The plane must not be null
-        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane should not be null");
+        QE_ASSERT_WARNING(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane should not be null");
 
         const float_q& DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q& DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -619,14 +619,14 @@ public:
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // If all the vertices of the hexahedron coincide, it might be an erroneous figure
-        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
+        QE_ASSERT_WARNING(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
                   this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->H ||
                   this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->H ||
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
                   this->E != this->F || this->E != this->G || this->E != this->H ||
                   this->F != this->G || this->F != this->H ||
                   this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
-        QE_ASSERT(hexahedron.A != hexahedron.B || hexahedron.A != hexahedron.C || hexahedron.A != hexahedron.D || hexahedron.A != hexahedron.E || hexahedron.A != hexahedron.F || hexahedron.A != hexahedron.G || hexahedron.A != hexahedron.H ||
+        QE_ASSERT_WARNING(hexahedron.A != hexahedron.B || hexahedron.A != hexahedron.C || hexahedron.A != hexahedron.D || hexahedron.A != hexahedron.E || hexahedron.A != hexahedron.F || hexahedron.A != hexahedron.G || hexahedron.A != hexahedron.H ||
                   hexahedron.B != hexahedron.C || hexahedron.B != hexahedron.D || hexahedron.B != hexahedron.E || hexahedron.B != hexahedron.F || hexahedron.B != hexahedron.G || hexahedron.B != hexahedron.H ||
                   hexahedron.C != hexahedron.D || hexahedron.C != hexahedron.E || hexahedron.C != hexahedron.F || hexahedron.C != hexahedron.G || hexahedron.C != hexahedron.H ||
                   hexahedron.D != hexahedron.E || hexahedron.D != hexahedron.F || hexahedron.D != hexahedron.G || hexahedron.D != hexahedron.H ||
@@ -661,7 +661,7 @@ public:
     QHexahedron<VectorType> ProjectToPlane(const QPlane &plane) const
     {
         // If all the vertices of the hexahedron coincide, it might be an erroneous figure
-        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->H ||
+        QE_ASSERT_WARNING(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->H ||
                   this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->H ||
                   this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->H ||
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
@@ -670,7 +670,7 @@ public:
                   this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
 
         // The plane must not be null
-        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null");
+        QE_ASSERT_WARNING(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null");
 
         return QHexahedron<VectorType>(plane.PointProjection(this->A),
                                        plane.PointProjection(this->B),

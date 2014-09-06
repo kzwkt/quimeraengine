@@ -154,7 +154,7 @@ public:
     bool Contains(const VectorType &vPoint) const
     {
         // If the radius of the orb equals zero, it doesn't exist
-        QE_ASSERT( SQFloat::IsNotZero(this->Radius), "The radius of the orb must not equal zero to exist" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(this->Radius), "The radius of the orb must not equal zero to exist" );
 
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
@@ -185,7 +185,7 @@ public:
     bool Intersection(const QBaseOrb<VectorType> &orb) const
     {
         // If the radius of the orb equals zero, it doesn't exist
-        QE_ASSERT( SQFloat::IsNotZero(this->Radius) && SQFloat::IsNotZero(orb.Radius), "The radius of the orbs must not equal zero to exist" );
+        QE_ASSERT_WARNING( SQFloat::IsNotZero(this->Radius) && SQFloat::IsNotZero(orb.Radius), "The radius of the orbs must not equal zero to exist" );
 
         // An intersection between the two orbs is considered if the minimum squared distance
         // between their center points is lower or equals the square sum of their radius.

@@ -99,6 +99,7 @@
     <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
+    <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
     <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />
     <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
     <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp" />
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />

@@ -68,11 +68,11 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uAlignment(alignment),
             m_bNeedDestroyMemoryChunk(true)
 {
-    QE_ASSERT( 0 != uSize, "Size cannot be zero"  );
-    QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
+    QE_ASSERT_ERROR( 0 != uSize, "Size cannot be zero"  );
+    QE_ASSERT_ERROR( 0 != uBlockSize, "Block size cannot be zero" );
 
     m_pAllocatedMemory = operator new(m_uPoolSize, alignment);
-    QE_ASSERT( null_q != m_pAllocatedMemory, "Pointer to allocated memory is null" );
+    QE_ASSERT_ERROR( null_q != m_pAllocatedMemory, "Pointer to allocated memory is null" );
 
     m_pFirst = m_pAllocatedMemory;
 
@@ -88,9 +88,9 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uAlignment(QAlignment(sizeof(void**))),
             m_bNeedDestroyMemoryChunk(false)
 {
-    QE_ASSERT( 0 != uSize, "Size cannot be zero" );
-    QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
-    QE_ASSERT( 0 != pBuffer, "Pointer to buffer cannot be null" );
+    QE_ASSERT_ERROR( 0 != uSize, "Size cannot be zero" );
+    QE_ASSERT_ERROR( 0 != uBlockSize, "Block size cannot be zero" );
+    QE_ASSERT_ERROR( 0 != pBuffer, "Pointer to buffer cannot be null" );
 
     // Calculates needed memory address offset (adjustment) for the chunk starts at multiple of alignment
     pointer_uint_q uAdjustment = m_uAlignment - ((pointer_uint_q)pBuffer & (m_uAlignment - 1));
@@ -112,9 +112,9 @@ QPoolAllocator::QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q 
             m_uAlignment(alignment),
             m_bNeedDestroyMemoryChunk(false)
 {
-    QE_ASSERT( 0 != uSize, "Size cannot be zero" );
-    QE_ASSERT( 0 != uBlockSize, "Block size cannot be zero" );
-    QE_ASSERT( 0 != pBuffer, "Pointer to buffer cannot be null" );
+    QE_ASSERT_ERROR( 0 != uSize, "Size cannot be zero" );
+    QE_ASSERT_ERROR( 0 != uBlockSize, "Block size cannot be zero" );
+    QE_ASSERT_ERROR( 0 != pBuffer, "Pointer to buffer cannot be null" );
 
     pointer_uint_q uAdjustment = alignment - ((pointer_uint_q)pBuffer & (alignment - 1));
 
@@ -176,8 +176,8 @@ void* QPoolAllocator::Allocate()
 
 void QPoolAllocator::Deallocate(const void* pBlock)
 {
-    QE_ASSERT( null_q != pBlock, "Pointer to block to deallocate cannot be null" );
-    QE_ASSERT( (pointer_uint_q)pBlock >= (pointer_uint_q)m_pAllocatedMemory && (pointer_uint_q)pBlock <= ((pointer_uint_q)m_pAllocatedMemory + m_uSize), "Pointer to block to deallocate must be an address provided by this pool allocator" );
+    QE_ASSERT_ERROR( null_q != pBlock, "Pointer to block to deallocate cannot be null" );
+    QE_ASSERT_ERROR( (pointer_uint_q)pBlock >= (pointer_uint_q)m_pAllocatedMemory && (pointer_uint_q)pBlock <= ((pointer_uint_q)m_pAllocatedMemory + m_uSize), "Pointer to block to deallocate must be an address provided by this pool allocator" );
 
     m_uAllocatedBytes -= m_uBlockSize;
 
@@ -199,10 +199,10 @@ void QPoolAllocator::Clear()
 
 void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
 {
-    QE_ASSERT(m_uBlocksCount <= poolAllocator.m_uBlocksCount, "Blocks count of destination pool allocator must be greater or equal than the source pool allocator" );
-    QE_ASSERT(m_uPoolSize <= poolAllocator.m_uPoolSize, "Chunk size for allocations must be greater or equal in the destination pool allocator than in the source pool allocator" );
-    QE_ASSERT(m_uBlockSize == poolAllocator.m_uBlockSize, "Block sizes of origin and destination pool allocators must be equals");
-    QE_ASSERT(poolAllocator.m_uAlignment == m_uAlignment, "The alignment of the input allocator is different from the resident allocator's.");
+    QE_ASSERT_ERROR(m_uBlocksCount <= poolAllocator.m_uBlocksCount, "Blocks count of destination pool allocator must be greater or equal than the source pool allocator" );
+    QE_ASSERT_ERROR(m_uPoolSize <= poolAllocator.m_uPoolSize, "Chunk size for allocations must be greater or equal in the destination pool allocator than in the source pool allocator" );
+    QE_ASSERT_ERROR(m_uBlockSize == poolAllocator.m_uBlockSize, "Block sizes of origin and destination pool allocators must be equal");
+    QE_ASSERT_WARNING(poolAllocator.m_uAlignment == m_uAlignment, "The alignment of the input allocator is different from the resident allocator's.");
 
     if(null_q == m_ppNextFreeBlock)
     {
@@ -280,7 +280,7 @@ void QPoolAllocator::CopyTo(QPoolAllocator &poolAllocator) const
 
 void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize)
 {
-    QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
+    QE_ASSERT_WARNING(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
 
     if(uNewSize > m_uPoolSize)
     {
@@ -294,8 +294,8 @@ void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize)
 
 void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize, const void* pNewLocation)
 {
-    QE_ASSERT(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
-    QE_ASSERT(pNewLocation != null_q, "The input new location cannot be null.");
+    QE_ASSERT_WARNING(uNewSize > m_uPoolSize, "The new size must be greater than the current size of the pool.");
+    QE_ASSERT_ERROR(pNewLocation != null_q, "The input new location cannot be null.");
 
     if(uNewSize > m_uPoolSize && pNewLocation != null_q)
     {
@@ -312,7 +312,7 @@ void QPoolAllocator::Reallocate(const pointer_uint_q uNewSize, const void* pNewL
 void QPoolAllocator::AllocateFreeBlocksList()
 {
     m_ppFreeBlocks = (void**) operator new(m_uBlocksCount * sizeof(void**));
-    QE_ASSERT( null_q != m_ppFreeBlocks, "Pointer to allocated memory for internals is null" );
+    QE_ASSERT_ERROR( null_q != m_ppFreeBlocks, "Pointer to allocated memory for internals is null" );
 
     m_ppNextFreeBlock = m_ppFreeBlocks;
     m_uSize = m_uPoolSize + m_uBlocksCount * sizeof(void**);
@@ -340,7 +340,7 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
 {
     pointer_uint_q uNewBlocksCount = uNewSize / m_uBlockSize;
 
-    QE_ASSERT( null_q != pNewLocation, "Pointer to allocated memory is null" );
+    QE_ASSERT_ERROR( null_q != pNewLocation, "Pointer to allocated memory is null" );
 
     memcpy(pNewLocation, m_pFirst, m_uBlockSize * m_uBlocksCount);
 
@@ -348,7 +348,7 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
     // -----------------------------------
     void** ppNewFreeBlockList = (void**) operator new(uNewBlocksCount * sizeof(void**));
 
-    QE_ASSERT( null_q != ppNewFreeBlockList, "Pointer to allocated memory for internals is null" );
+    QE_ASSERT_ERROR( null_q != ppNewFreeBlockList, "Pointer to allocated memory for internals is null" );
 
     if(null_q == m_ppNextFreeBlock) // No free blocks in source.
     {

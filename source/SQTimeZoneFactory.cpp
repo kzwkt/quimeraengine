@@ -89,7 +89,7 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
         boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId);
 #endif
 
-        QE_ASSERT(pTimeZone != null_q, "The provided ID does not match any time zone available");
+        QE_ASSERT_ERROR(pTimeZone != null_q, "The provided ID does not match any time zone available");
         
         // Copies the time zone information
         if(pTimeZone != null_q)
@@ -135,7 +135,7 @@ bool SQTimeZoneFactory::Initialize(const char* szSource, boost::local_time::tz_d
     catch(const boost::local_time::bad_field_count &)
     {
         const bool EXCEPTION_LOADING_TIMEZONE_DATABASE = false;
-        QE_ASSERT(EXCEPTION_LOADING_TIMEZONE_DATABASE, "A boost::local_time::bad_field_count exception was thrown when loading the time zone database from the stream");
+        QE_ASSERT_ERROR(EXCEPTION_LOADING_TIMEZONE_DATABASE, "A boost::local_time::bad_field_count exception was thrown when loading the time zone database from the stream");
     }
 
     return bResult;

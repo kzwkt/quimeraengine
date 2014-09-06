@@ -52,7 +52,7 @@ QStackAllocator::QBlockHeader::QBlockHeader(const pointer_uint_q uSize, const po
                                                                                         m_uAlignmentOffset(uAlignmentOffset),
                                                                                         m_uPreviousHeaderBackOffset(uPreviousBlockHeaderBackOffset)
 {
-    QE_ASSERT(uSize > 0, "The given size for the memory block cannot be zero.");
+    QE_ASSERT_ERROR(uSize > 0, "The given size for the memory block cannot be zero.");
 }
 
 //##################=======================================================##################

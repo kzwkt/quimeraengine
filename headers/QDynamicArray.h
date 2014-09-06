@@ -96,7 +96,7 @@ public:
     /// default capacity will be used instead.</param>
     explicit QDynamicArray(const pointer_uint_q uInitialCapacity)
     {
-        QE_ASSERT(uInitialCapacity > 0, "The initial capacity cannot be zero, it must be, at least, one.");
+        QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity cannot be zero, it must be, at least, one.");
 
         pointer_uint_q uCapacity = uInitialCapacity;
 
@@ -320,8 +320,8 @@ public:
     /// array; otherwise, the behavior is undefined.</param>
     void Insert(const T &newElement, const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
     {
-        QE_ASSERT(position.IsValid(), "The input iterator is not valid");
-        QE_ASSERT(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
 
         // Gets the position of the iterator
         pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
@@ -371,7 +371,7 @@ public:
     /// the element will be inserted at the end by default.</param>
     void Insert(const T &newElement, const pointer_uint_q uIndex)
     {
-        QE_ASSERT(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
+        QE_ASSERT_WARNING(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
 
         if(this->GetCount() == this->GetCapacity())
             this->ReallocateByFactor(this->GetCapacity() + 1U);
@@ -416,9 +416,9 @@ public:
     /// array; otherwise, the behavior is undefined.</param>
     void Remove(const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
     {
-        QE_ASSERT(position.IsValid(), "The input iterator is not valid");
-        QE_ASSERT(!this->IsEmpty(), "The array is empty, there is nothing to remove");
-        QE_ASSERT(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT_WARNING(!this->IsEmpty(), "The array is empty, there is nothing to remove");
+        QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
 
         // Gets the position of the iterator
         pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
@@ -463,8 +463,8 @@ public:
     /// nothing will happen.</param>
     void Remove(const pointer_uint_q uIndex)
     {
-        QE_ASSERT(!this->IsEmpty(), "The array is empty, there is nothing to remove");
-        QE_ASSERT(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
+        QE_ASSERT_WARNING(!this->IsEmpty(), "The array is empty, there is nothing to remove");
+        QE_ASSERT_WARNING(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
 
         if(!this->IsEmpty() && uIndex <= m_uLast)
         {

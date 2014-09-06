@@ -93,7 +93,7 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
                                    uHundredsNanoseconds <= MAXIMUM_VALUE);
 
     // Assertion to verify that we will not get overflow while calculating the time span
-    QE_ASSERT(bNotGreaterThanMaxValue == true, "Parameters must be lower than maximum values");
+    QE_ASSERT_WARNING(bNotGreaterThanMaxValue == true, "Parameters must be lower than maximum values");
 
     // To avoid overflow if it happens return max value allowed
     if (!bNotGreaterThanMaxValue)
@@ -117,7 +117,7 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
                                   uHoursToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds)) &&
                                   uDaysToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds + uHoursToHundreds));
 
-        QE_ASSERT(bNotGreaterThanMaxValue == true, "The converted values must be low enough to avoid overflow");
+        QE_ASSERT_WARNING(bNotGreaterThanMaxValue == true, "The converted values must be low enough to avoid overflow");
 
         // To avoid overflow if it happens return max value allowed
         if (!bNotGreaterThanMaxValue)
@@ -165,7 +165,7 @@ QTimeSpan& QTimeSpan::operator+= (const QTimeSpan& timeSpan)
 {
     bool bNotGreaterThanMaxValue = ((QTimeSpan::MAXIMUM_VALUE  - this->m_uTimeSpan) >= timeSpan.m_uTimeSpan);
     // Assertion to verify that we will not get overflow while calculating the time span
-    QE_ASSERT(bNotGreaterThanMaxValue == true, "The addition of the two timespan objects can not be higher than maximum value");
+    QE_ASSERT_WARNING(bNotGreaterThanMaxValue == true, "The addition of the two timespan objects can not be higher than maximum value");
 
     if (bNotGreaterThanMaxValue)
     {

@@ -52,7 +52,7 @@ QTimeZone::QDstInformation::QDstInformation(boost::local_time::time_zone_ptr pTi
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
-    QE_ASSERT(pTimeZone != boost::local_time::time_zone_ptr((boost::local_time::time_zone_ptr::element_type*) null_q), "Input time zone data must not be null");
+    QE_ASSERT_ERROR(pTimeZone != boost::local_time::time_zone_ptr((boost::local_time::time_zone_ptr::element_type*) null_q), "Input time zone data must not be null");
 
     if(pTimeZone->has_dst())
     {
@@ -89,7 +89,7 @@ QTimeZone::QDstInformation::QDstInformation(boost::local_time::time_zone_ptr pTi
 
 QDateTime QTimeZone::QDstInformation::GetStartInYear(const int nYear) const
 {
-    QE_ASSERT(nYear != 0, "The input year cannot be zero");
+    QE_ASSERT_ERROR(nYear != 0, "The input year cannot be zero");
 
     if(m_pTimeZone->has_dst() && nYear != 0)
     {
@@ -111,7 +111,7 @@ QDateTime QTimeZone::QDstInformation::GetStartInYear(const int nYear) const
 
 QDateTime QTimeZone::QDstInformation::GetEndInYear(const int nYear) const
 {
-    QE_ASSERT(nYear != 0, "The input year cannot be zero");
+    QE_ASSERT_ERROR(nYear != 0, "The input year cannot be zero");
 
     if(m_pTimeZone->has_dst() && nYear != 0)
     {

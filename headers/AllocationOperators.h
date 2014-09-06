@@ -145,11 +145,11 @@ inline
 void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
-    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+    QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+    QE_ASSERT_ERROR(p != null_q, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -171,11 +171,11 @@ inline
 void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
-    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+    QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+    QE_ASSERT_ERROR(p != null_q, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -196,11 +196,11 @@ inline
 void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
-    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+    QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+    QE_ASSERT_ERROR(p != null_q, "Fatal error: No memory could be allocated");
 
     return p;
 }
@@ -222,11 +222,11 @@ inline
 void* operator new[](const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
-    QE_ASSERT(uSize != 0, "The size of the block to allocate must be greater than zero");
+    QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
     void* p = malloc(uSize);
 
-    QE_ASSERT(p != null_q, "Fatal error: No memory could be allocated");
+    QE_ASSERT_ERROR(p != null_q, "Fatal error: No memory could be allocated");
 
     return p;
 }

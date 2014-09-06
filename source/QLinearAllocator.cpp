@@ -64,7 +64,7 @@ QLinearAllocator::QLinearAllocator(const pointer_uint_q uSize, const QAlignment 
                                                                  m_bUsesExternalBuffer(false),
                                                                  m_uAlignment(alignment)
 {
-    QE_ASSERT(uSize > 0, "The size of the buffer cannot be zero.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the buffer cannot be zero.");
 
     m_pBase = ::operator new(uSize, alignment);
     m_pTop = m_pBase;
@@ -76,8 +76,8 @@ QLinearAllocator::QLinearAllocator(const pointer_uint_q uSize, void* pBuffer) : 
                                                                                 m_bUsesExternalBuffer(true),
                                                                                 m_uAlignment(1U)
 {
-    QE_ASSERT(uSize > 0, "The size of the buffer cannot be zero.");
-    QE_ASSERT(pBuffer != null_q, "The pointer to the external buffer cannot be null.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the buffer cannot be zero.");
+    QE_ASSERT_ERROR(pBuffer != null_q, "The pointer to the external buffer cannot be null.");
 }
     
 QLinearAllocator::QLinearAllocator(const pointer_uint_q uSize, void* pBuffer, const QAlignment &alignment) : 
@@ -87,8 +87,8 @@ QLinearAllocator::QLinearAllocator(const pointer_uint_q uSize, void* pBuffer, co
                                                                                 m_bUsesExternalBuffer(true),
                                                                                 m_uAlignment(alignment)
 {
-    QE_ASSERT(uSize > 0, "The size of the buffer cannot be zero.");
-    QE_ASSERT(pBuffer != null_q, "The pointer to the external buffer cannot be null.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the buffer cannot be zero.");
+    QE_ASSERT_ERROR(pBuffer != null_q, "The pointer to the external buffer cannot be null.");
 
     pointer_uint_q uAdjustment = m_uAlignment - ((pointer_uint_q)m_pBase & (m_uAlignment - 1U));
 
@@ -128,8 +128,8 @@ QLinearAllocator::~QLinearAllocator()
 
 void* QLinearAllocator::Allocate(const pointer_uint_q uSize)
 {
-    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
-    QE_ASSERT(this->CanAllocate(uSize), "The size of the memory block to be allocated does not fit in the available free space.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+    QE_ASSERT_WARNING(this->CanAllocate(uSize), "The size of the memory block to be allocated does not fit in the available free space.");
 
     void* pAllocatedMemory = null_q;
     
@@ -144,8 +144,8 @@ void* QLinearAllocator::Allocate(const pointer_uint_q uSize)
 
 void* QLinearAllocator::Allocate(const pointer_uint_q uSize, const QAlignment &alignment)
 {
-    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
-    QE_ASSERT(this->CanAllocate(uSize, alignment), "The size of the memory block to be allocated (plus the alignment adjustment) does not fit in the available free space.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+    QE_ASSERT_WARNING(this->CanAllocate(uSize, alignment), "The size of the memory block to be allocated (plus the alignment adjustment) does not fit in the available free space.");
 
     void* pAllocatedMemory = null_q;
 
@@ -170,8 +170,8 @@ void QLinearAllocator::Clear()
 
 void QLinearAllocator::CopyTo(QLinearAllocator &destination) const
 {
-    QE_ASSERT(destination.GetSize() >= this->GetAllocatedBytes(), "The input allocator's size must be greater than or equal to the size of the allocated bytes in the resident allocator.");
-    QE_ASSERT(destination.m_uAlignment == m_uAlignment, "The alignment of the input allocator is different from the resident allocator's.");
+    QE_ASSERT_ERROR(destination.GetSize() >= this->GetAllocatedBytes(), "The input allocator's size must be greater than or equal to the size of the allocated bytes in the resident allocator.");
+    QE_ASSERT_WARNING(destination.m_uAlignment == m_uAlignment, "The alignment of the input allocator is different from the resident allocator's.");
 
     const pointer_uint_q BYTES_TO_COPY = this->GetAllocatedBytes();
 
@@ -182,8 +182,8 @@ void QLinearAllocator::CopyTo(QLinearAllocator &destination) const
 
 void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize)
 {
-    QE_ASSERT(!m_bUsesExternalBuffer, "This allocator uses an external buffer so internal reallocation is not possible");
-    QE_ASSERT(uNewSize > m_uSize, "The new size must be greater than the current size");
+    QE_ASSERT_ERROR(!m_bUsesExternalBuffer, "This allocator uses an external buffer so internal reallocation is not possible");
+    QE_ASSERT_WARNING(uNewSize > m_uSize, "The new size must be greater than the current size");
 
     if(uNewSize > m_uSize)
     {
@@ -200,9 +200,9 @@ void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize)
 
 void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize, void* pNewLocation)
 {
-    QE_ASSERT(m_bUsesExternalBuffer, "This allocator uses an internal buffer so external reallocation is not possible");
-    QE_ASSERT(pNewLocation != null_q, "The pointer to the new buffer cannot be null");
-    QE_ASSERT(uNewSize > m_uSize, "The new size must be greater than the current size");
+    QE_ASSERT_ERROR(m_bUsesExternalBuffer, "This allocator uses an internal buffer so external reallocation is not possible");
+    QE_ASSERT_ERROR(pNewLocation != null_q, "The pointer to the new buffer cannot be null");
+    QE_ASSERT_WARNING(uNewSize > m_uSize, "The new size must be greater than the current size");
 
     if(uNewSize > m_uSize)
     {
@@ -212,7 +212,7 @@ void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize, void* pNewLocat
             uAdjustment = 0;
 
         const pointer_uint_q ADJUSTED_SIZE = uNewSize - uAdjustment;
-        QE_ASSERT(ADJUSTED_SIZE > m_uSize, "Due to the alignment adjustment, there is not enough space in the new buffer to allocate the data to be moved");
+        QE_ASSERT_WARNING(ADJUSTED_SIZE > m_uSize, "Due to the alignment adjustment, there is not enough space in the new buffer to allocate the data to be moved");
 
         if(ADJUSTED_SIZE > m_uSize)
         {
@@ -230,14 +230,14 @@ void QLinearAllocator::Reallocate(const pointer_uint_q uNewSize, void* pNewLocat
 
 bool QLinearAllocator::CanAllocate(const pointer_uint_q uSize) const
 {
-    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
 
     return m_uSize - this->GetAllocatedBytes() >= uSize;
 }
 
 bool QLinearAllocator::CanAllocate(const pointer_uint_q uSize, const QAlignment &alignment) const
 {
-    QE_ASSERT(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
+    QE_ASSERT_ERROR(uSize > 0, "The size of the memory block to be allocated cannot be zero.");
 
     pointer_uint_q uAdjustment = alignment - ((pointer_uint_q)m_pTop & (alignment - 1U));
 
