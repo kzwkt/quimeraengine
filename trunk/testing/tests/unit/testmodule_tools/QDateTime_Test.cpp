@@ -42,6 +42,99 @@ using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 QTEST_SUITE_BEGIN( QDateTime_TestSuite )
 
 /// <summary>
+/// This method has been created to improve some tests' maintainability. Concretely, this method performs tests for Decompose.
+/// </summary>
+void CheckDecompose_UtilityMethod(const QDateTime &dateTimeToTest, const unsigned int uExpectedYear, const unsigned int uExpectedMonth, const unsigned int uExpectedDay, 
+                                                                   const unsigned int uExpectedHour, const unsigned int uExpectedMinute, const unsigned int uExpectedSecond, 
+                                                                   const unsigned int uExpectedMillisecond, const unsigned int uExpectedMicrosecond, const unsigned int uExpectedHundredOfNanosecond)
+{
+    unsigned int uYear = 0;
+    unsigned int uMonth = 0;
+    unsigned int uDay = 0;
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+    unsigned int uMillisecond = 0;
+    unsigned int uMicrosecond = 0;
+    unsigned int uHundredOfNanosecond = 0;
+
+	// [Execution]
+    dateTimeToTest.Decompose(uYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, uExpectedYear);
+    BOOST_CHECK_EQUAL(uMonth, uExpectedMonth);
+    BOOST_CHECK_EQUAL(uDay, uExpectedDay);
+    BOOST_CHECK_EQUAL(uHour, uExpectedHour);
+    BOOST_CHECK_EQUAL(uMinute, uExpectedMinute);
+    BOOST_CHECK_EQUAL(uSecond, uExpectedSecond);
+    BOOST_CHECK_EQUAL(uMillisecond, uExpectedMillisecond);
+    BOOST_CHECK_EQUAL(uMicrosecond, uExpectedMicrosecond);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, uExpectedHundredOfNanosecond);
+}
+
+/// <summary>
+/// This method has been created to improve some tests' maintainability. Concretely, this method performs tests for DecomposeDate.
+/// </summary>
+void CheckDecomposeDate_UtilityMethod(const QDateTime &dateTimeToTest, const unsigned int uExpectedYear, const unsigned int uExpectedMonth, const unsigned int uExpectedDay)
+{
+    unsigned int uYear = 0;
+    unsigned int uMonth = 0;
+    unsigned int uDay = 0;
+
+	// [Execution]
+    dateTimeToTest.DecomposeDate(uYear, uMonth, uDay);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uYear, uExpectedYear);
+    BOOST_CHECK_EQUAL(uMonth, uExpectedMonth);
+    BOOST_CHECK_EQUAL(uDay, uExpectedDay);
+}
+
+/// <summary>
+/// This method has been created to improve some tests' maintainability. Concretely, this method performs tests for DecomposeTime1.
+/// </summary>
+void CheckDecomposeTime1_UtilityMethod(const QDateTime &dateTimeToTest, const unsigned int uExpectedHour, const unsigned int uExpectedMinute, const unsigned int uExpectedSecond)
+{
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+
+	// [Execution]
+    dateTimeToTest.DecomposeTime(uHour, uMinute, uSecond);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, uExpectedHour);
+    BOOST_CHECK_EQUAL(uMinute, uExpectedMinute);
+    BOOST_CHECK_EQUAL(uSecond, uExpectedSecond);
+}
+
+/// <summary>
+/// This method has been created to improve some tests' maintainability. Concretely, this method performs tests for DecomposeTime2.
+/// </summary>
+void CheckDecomposeTime2_UtilityMethod(const QDateTime &dateTimeToTest, const unsigned int uExpectedHour, const unsigned int uExpectedMinute, const unsigned int uExpectedSecond, 
+                                                                        const unsigned int uExpectedMillisecond, const unsigned int uExpectedMicrosecond, const unsigned int uExpectedHundredOfNanosecond)
+{
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+    unsigned int uMillisecond = 0;
+    unsigned int uMicrosecond = 0;
+    unsigned int uHundredOfNanosecond = 0;
+
+	// [Execution]
+    dateTimeToTest.DecomposeTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHour, uExpectedHour);
+    BOOST_CHECK_EQUAL(uMinute, uExpectedMinute);
+    BOOST_CHECK_EQUAL(uSecond, uExpectedSecond);
+    BOOST_CHECK_EQUAL(uMillisecond, uExpectedMillisecond);
+    BOOST_CHECK_EQUAL(uMicrosecond, uExpectedMicrosecond);
+    BOOST_CHECK_EQUAL(uHundredOfNanosecond, uExpectedHundredOfNanosecond);
+}
+
+/// <summary>
 /// Checks that the default value is an undefined date.
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValueIsUndefined_Test )
@@ -6432,6 +6525,1989 @@ QTEST_CASE ( ToString_NegativeOffsetAreCorrectlyAppended_Test )
     // [Verification]
     BOOST_CHECK(strTimestamp == EXPECTED_RESULT);
 }
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 5, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 5, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 2, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 2, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 25, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 25, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 20, 2, 29, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 20, 2, 29, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecompose_UtilityMethod(SOURCE_DATETIME, 20, 2, 28, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 20, 2, 28, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 12, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 12, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	CheckDecompose_UtilityMethod(MAXIMUM_POSITIVE_DATETIME, 29228, 9, 14, 2, 48, 5, 477, 580, 7);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	CheckDecompose_UtilityMethod(MAXIMUM_NEGATIVE_DATETIME, 29228, 4, 18, 21, 11, 54, 522, 419, 3);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1996, 1, 1, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1996, 12, 31, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1, 12, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1999, 12, 31, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1999, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 1, 1, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 1, 2, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 3, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 4, 1, 1, 0, 0, 0, 0, 0, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 5, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31, 0, 0, 0, 0, 0, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 1, 1, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 1, 2, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 12, 30, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( Decompose_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecompose_UtilityMethod(SOURCE_DATETIME, 1, 12, 31, 0, 0, 0, 0, 0, 0);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( Decompose_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+    unsigned int uYear = 0;
+    unsigned int uMonth = 0;
+    unsigned int uDay = 0;
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+    unsigned int uMillisecond = 0;
+    unsigned int uMicrosecond = 0;
+    unsigned int uHundredOfNanosecond = 0;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.Decompose(uYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 5, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 5, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 2, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 2, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 25, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 25, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 20, 2, 29);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 20, 2, 29);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 20, 2, 28);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 20, 2, 28);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 12, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 12, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	CheckDecomposeDate_UtilityMethod(MAXIMUM_POSITIVE_DATETIME, 29228, 9, 14);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	CheckDecomposeDate_UtilityMethod(MAXIMUM_NEGATIVE_DATETIME, 29228, 4, 18);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1996, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1996, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1999, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1999, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 1, 2);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 3, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 4, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 5, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 12, 31);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 2000, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 1, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 1, 2);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 12, 30);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeDate_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeDate_UtilityMethod(SOURCE_DATETIME, 1, 12, 31);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( DecomposeDate_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+    unsigned int uYear = 0;
+    unsigned int uMonth = 0;
+    unsigned int uDay = 0;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.DecomposeDate(uYear, uMonth, uDay);
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	CheckDecomposeTime1_UtilityMethod(MAXIMUM_POSITIVE_DATETIME, 2, 48, 5);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	CheckDecomposeTime1_UtilityMethod(MAXIMUM_NEGATIVE_DATETIME, 21, 11, 54);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 12, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 23, 59, 59);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime1_UtilityMethod(SOURCE_DATETIME, 0, 0, 0);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( DecomposeTime1_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.DecomposeTime(uHour, uMinute, uSecond);
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-05-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearAfter29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 5, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstPositiveLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0004-02-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstNegativeLeapYearBefore29FebruaryWithZeroTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 2, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is 0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstPositiveDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input date and time is -0001-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is positive and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenYearIsPositiveAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input year is negative and multiple of 5.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenYearIsNegativeAndMultipleOfFive_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-25, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 29th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs29February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 29, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a positive leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingPositiveLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+    CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a negative leap year and the day 28th of February.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingNegativeLeapYearAndDayIs28February_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-20, 2, 28, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingLastNegativeInstant_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0001-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstInstantOfPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0012-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstInstantOfNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-12, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.0.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingFirstInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingLastInstantOfFirstPositiveLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingLastInstantOfFirstNegativeLeapYear_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the maximum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingMaximumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_POSITIVE_DATETIME = QDateTime::GetMaxDateTime();
+
+	CheckDecomposeTime2_UtilityMethod(MAXIMUM_POSITIVE_DATETIME, 2, 48, 5, 477, 580, 7);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is the minimum date and time allowed.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingMinimumDateAndTime_Test )
+{
+    // [Preparation]
+    const QDateTime MAXIMUM_NEGATIVE_DATETIME = QDateTime::GetMinDateTime();
+
+	CheckDecomposeTime2_UtilityMethod(MAXIMUM_NEGATIVE_DATETIME, 21, 11, 54, 522, 419, 3);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase19960101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1996-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase19961231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1996, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase20001231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase20000101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 2000-01-01 12:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase20000101T120000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(2000, 1, 1, 12, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 12, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase19991231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is 1999-12-31 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCase19991231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(1999, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-02 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00040102T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 2, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0003-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00030101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-3, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0004-01-01 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00040101T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-4, 1, 1, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0005-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00051231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-5, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 23:59:59.999.999.9..
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-12-31 00:00:00.000.000.1.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative20001231T0000000000001_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 12, 31, 0, 0, 0, 0, 0, 1, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 1);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -2000-01-01 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative20000101T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-2000, 1, 1, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-01 23:59:59.999.999.9.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00010101T2359599999999_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 1, 23, 59, 59, 999, 999, 9, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 23, 59, 59, 999, 999, 9);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-01-02 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00010102T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 1, 2, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-30 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00011230T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 30, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when input is -0001-12-31 00:00:00.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_ReturnsExpectedValueWhenUsingCornerCaseNegative00011231T000000_Test )
+{
+    // [Preparation]
+    const QDateTime SOURCE_DATETIME(-1, 12, 31, 0, 0, 0, 0, 0, 0, null_q);
+
+	CheckDecomposeTime2_UtilityMethod(SOURCE_DATETIME, 0, 0, 0, 0, 0, 0);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the date/time is undefined.
+/// </summary>
+QTEST_CASE ( DecomposeTime2_AssertionFailsWhenDateIsUndefined_Test )
+{
+    const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
+    const bool ASSERTION_FAILED = true;
+
+    unsigned int uHour = 0;
+    unsigned int uMinute = 0;
+    unsigned int uSecond = 0;
+    unsigned int uMillisecond = 0;
+    unsigned int uMicrosecond = 0;
+    unsigned int uHundredOfNanosecond = 0;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        UNDEFINED_DATETIME.DecomposeTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+    }
+    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
 
 /// <summary>
 /// Checks that it returns True when the year is a leap year.

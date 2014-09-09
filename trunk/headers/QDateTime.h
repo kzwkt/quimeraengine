@@ -446,6 +446,62 @@ public:
     /// A valid timestamp compound of the date and the time, including a time fraction and the time offset, if any.
     /// </returns>
     string_q ToString() const;
+    
+    /// <summary>
+    /// Gets all the components of the date and the time, in local time.
+    /// </summary>
+    /// <remarks>
+    /// If the date/time is undefined, then all the values will be undefined too.
+    /// </remarks>
+    /// <param name="uYear">[OUT] The absolute value of the year. To know whether it is a negative or positive year, call IsPositive or IsNegative.</param>
+    /// <param name="uMonth">[OUT] The value of the month, being 1 the value that represents January and 12 for December.</param>
+    /// <param name="uDay">[OUT] The value of the day, from 1 to 31.</param>
+    /// <param name="uHour">[OUT] The value of the hour, from 0 to 23.</param>
+    /// <param name="uMinute">[OUT] The value of the minute, from 0 to 59.</param>
+    /// <param name="uSecond">[OUT] The value of the second, from 0 to 59.</param>
+    /// <param name="uMillisecond">[OUT] The value of the millisecond, from 0 to 999.</param>
+    /// <param name="uMicrosecond">[OUT] The value of the microsecond, from 0 to 999.</param>
+    /// <param name="uHundredOfNanosecond">[OUT] The number of hundreds of nanoseconds, from 0 to 9.</param>
+    void Decompose(unsigned int &uYear, unsigned int &uMonth,  unsigned int &uDay, 
+                   unsigned int &uHour, unsigned int &uMinute, unsigned int &uSecond, 
+                   unsigned int &uMillisecond, unsigned int &uMicrosecond, unsigned int &uHundredOfNanosecond) const;
+    
+    /// <summary>
+    /// Gets all the components of the date, in local time.
+    /// </summary>
+    /// <remarks>
+    /// If the date/time is undefined, then all the values will be undefined too.
+    /// </remarks>
+    /// <param name="uYear">[OUT] The absolute value of the year. To know whether it is a negative or positive year, call IsPositive or IsNegative.</param>
+    /// <param name="uMonth">[OUT] The value of the month, being 1 the value that represents January and 12 for December.</param>
+    /// <param name="uDay">[OUT] The value of the day, from 1 to 31.</param>
+    void DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigned int &uDay) const;
+    
+    /// <summary>
+    /// Gets the hour, the minute and the second, in local time.
+    /// </summary>
+    /// <remarks>
+    /// If the date/time is undefined, then all the values will be undefined too.
+    /// </remarks>
+    /// <param name="uHour">[OUT] The value of the hour, from 0 to 23.</param>
+    /// <param name="uMinute">[OUT] The value of the minute, from 0 to 59.</param>
+    /// <param name="uSecond">[OUT] The value of the second, from 0 to 59.</param>
+    void DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsigned int &uSecond) const;
+    
+    /// <summary>
+    /// Gets all the components of the time, in local time.
+    /// </summary>
+    /// <remarks>
+    /// If the date/time is undefined, then all the values will be undefined too.
+    /// </remarks>
+    /// <param name="uHour">[OUT] The value of the hour, from 0 to 23.</param>
+    /// <param name="uMinute">[OUT] The value of the minute, from 0 to 59.</param>
+    /// <param name="uSecond">[OUT] The value of the second, from 0 to 59.</param>
+    /// <param name="uMillisecond">[OUT] The value of the millisecond, from 0 to 999.</param>
+    /// <param name="uMicrosecond">[OUT] The value of the microsecond, from 0 to 999.</param>
+    /// <param name="uHundredOfNanosecond">[OUT] The number of hundreds of nanoseconds, from 0 to 9.</param>
+    void DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsigned int &uSecond, 
+                       unsigned int &uMillisecond, unsigned int &uMicrosecond, unsigned int &uHundredOfNanosecond) const;
 
 private:
 
@@ -632,7 +688,8 @@ public:
     /// Gets the year, in local time.
     /// </summary>
     /// <remarks>
-    /// To know whether it is a negative or positive year, call IsPositive or IsNegative.
+    /// To know whether it is a negative or positive year, call IsPositive or IsNegative.<br/>
+    /// Call this method if you only need to know the year; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </remarks>
     /// <returns>
     /// The absolute value of the year. If the date is undefined, the result is undefined too.
@@ -643,7 +700,8 @@ public:
     /// Gets the month, in local time.
     /// </summary>
     /// <returns>
-    /// The value of the month, being 1 the value that represents January and 12 for December. If the date is undefined, the result is undefined too.
+    /// The value of the month, being 1 the value that represents January and 12 for December. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the month; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetMonth() const;
 
@@ -651,7 +709,8 @@ public:
     /// Gets the day, in local time.
     /// </summary>
     /// <returns>
-    /// The value of the day, from 1 to 31, taking into account leap years. If the date is undefined, the result is undefined too.
+    /// The value of the day, from 1 to 31, taking into account leap years. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the day; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetDay() const;
 
@@ -659,7 +718,8 @@ public:
     /// Gets the hour, in local time.
     /// </summary>
     /// <returns>
-    /// The value of the hour, from 0 to 23. If the date is undefined, the result is undefined too.
+    /// The value of the hour, from 0 to 23. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the hour; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetHour() const;
 
@@ -667,7 +727,8 @@ public:
     /// Gets the minute, in local time.
     /// </summary>
     /// <returns>
-    /// The value of the minute, from 0 to 59. If the date is undefined, the result is undefined too.
+    /// The value of the minute, from 0 to 59. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the minute; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetMinute() const;
 
@@ -675,7 +736,8 @@ public:
     /// Gets the second, in local time.
     /// </summary>
     /// <returns>
-    /// The value of the second, from 0 to 59. If the date is undefined, the result is undefined too.
+    /// The value of the second, from 0 to 59. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the second; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetSecond() const;
     
@@ -683,7 +745,8 @@ public:
     /// Gets the millisecond.
     /// </summary>
     /// <returns>
-    /// The value of the millisecond, from 0 to 999. If the date is undefined, the result is undefined too.
+    /// The value of the millisecond, from 0 to 999. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the millisecond; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetMillisecond() const;
     
@@ -691,7 +754,8 @@ public:
     /// Gets the microsecond.
     /// </summary>
     /// <returns>
-    /// The value of the microsecond, from 0 to 999. If the date is undefined, the result is undefined too.
+    /// The value of the microsecond, from 0 to 999. If the date is undefined, the result is undefined too.<br/>
+    /// Call this method if you only need to know the microsecond; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetMicrosecond() const;
     
@@ -700,7 +764,8 @@ public:
     /// </summary>
     /// <returns>
     /// The number of hundreds of nanoseconds, from 0 to 9. If the date is undefined, 
-    /// the result is undefined too.
+    /// the result is undefined too.<br/>
+    /// Call this method if you only need to know the hundreds of nanosecond; otherwise, consider calling Decompose method or its variations since the cost is similar.
     /// </returns>
     unsigned int GetHundredOfNanosecond() const;
 
