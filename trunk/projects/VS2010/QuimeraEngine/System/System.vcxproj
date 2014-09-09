@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
+    <ClInclude Include="..\..\..\..\headers\QUri.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QObject.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
+    <ClCompile Include="..\..\..\..\source\QUri.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -86,6 +86,8 @@
     </VirtualDirectory>
     <VirtualDirectory Name="IO">
       <File Name="../../../../tests/unit/testmodule_system/QMemoryStream_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QUri_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QUriWhiteBox.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">

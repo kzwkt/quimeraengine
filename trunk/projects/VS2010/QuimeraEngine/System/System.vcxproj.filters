@@ -16,6 +16,9 @@
     <Filter Include="DataTypes">
       <UniqueIdentifier>{4c8c61c4-20d7-4622-9bd6-b72a860134b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{562c444d-ac35-4fa5-9a34-f500fca2b890}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -40,6 +43,9 @@
     <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QUri.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -53,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp">
       <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QUri.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
