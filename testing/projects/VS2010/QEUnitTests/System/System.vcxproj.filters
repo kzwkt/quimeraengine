@@ -48,6 +48,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp">
+      <Filter>Tests\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h">
       <Filter>Tests\Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QUriWhiteBox.h">
+      <Filter>Tests\IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -408,6 +408,8 @@
   </Settings>
   <VirtualDirectory Name="IO">
     <File Name="../../../../headers/QMemoryStream.h"/>
+    <File Name="../../../../headers/QUri.h"/>
+    <File Name="../../../../source/QUri.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
