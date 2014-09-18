@@ -209,6 +209,38 @@ QTEST_CASE ( Constructor1_SchemeAndPathAreWhatExpectedWhenInputContainsSchemeAnd
 }
 
 /// <summary>
+/// Checks that the path iswhat expected when the input URI contains an empty path and a query.
+/// </summary>
+QTEST_CASE ( Constructor1_PathIsWhatExpectedWhenInputContainsEmptyPathAndQuery_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://host?query";
+    const string_q EXPECTED_PATH_VALUE = string_q::GetEmpty();
+
+    // [Execution]
+    QUri uri(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK(uri.GetPath() == EXPECTED_PATH_VALUE);
+}
+
+/// <summary>
+/// Checks that the path iswhat expected when the input URI contains an empty path and a fragment.
+/// </summary>
+QTEST_CASE ( Constructor1_PathIsWhatExpectedWhenInputContainsEmptyPathAndFragment_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://host#fragment";
+    const string_q EXPECTED_PATH_VALUE = string_q::GetEmpty();
+
+    // [Execution]
+    QUri uri(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK(uri.GetPath() == EXPECTED_PATH_VALUE);
+}
+
+/// <summary>
 /// Checks that the host has the expected value when the authority is formed only by a host.
 /// </summary>
 QTEST_CASE ( Constructor1_HostIsWhatExpectedWhenAuthorityIsFormedOnlyByHost_Test )
@@ -368,13 +400,13 @@ QTEST_CASE ( Constructor1_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhichStart
 }
 
 /// <summary>
-/// Checks that the path does not include the initial dot segment when it starts with one dot.
+/// Checks that the path includes the initial dot segment when it starts with one dot.
 /// </summary>
-QTEST_CASE ( Constructor1_PathDoesNotIncludeDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
+QTEST_CASE ( Constructor1_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING = "./segment1/segment2";
-    const string_q EXPECTED_PATH_VALUE = "segment1/segment2";
+    const string_q EXPECTED_PATH_VALUE = "./segment1/segment2";
 
     // [Execution]
     QUri uri(INPUT_STRING);
@@ -575,7 +607,7 @@ QTEST_CASE ( Constructor1_PathQueryAndFragmentAreNotLowercased_Test )
 }
 
 /// <summary>
-/// Checks that the path, the query and the fragment are not lowercased.
+/// Checks that all dot segments that appear in the middle of the path are removed.
 /// </summary>
 QTEST_CASE ( Constructor1_DotSegmentsAreRemoved_Test )
 {
@@ -939,16 +971,16 @@ QTEST_CASE ( AssignmentOperator2_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhi
 }
 
 /// <summary>
-/// Checks that the path does not include the initial dot segment when it starts with one dot.
+/// Checks that the path includes the initial dot segment when it starts with one dot.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathDoesNotIncludeDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
+QTEST_CASE ( AssignmentOperator2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
     QUri uri(INPUT_STRING1);
     const string_q INPUT_STRING2 = "./segment1/segment2";
     const QUri ORIGINAL_URI(INPUT_STRING2);
-    const string_q EXPECTED_PATH_VALUE = "segment1/segment2";
+    const string_q EXPECTED_PATH_VALUE = "./segment1/segment2";
 
     // [Execution]
     uri = ORIGINAL_URI;
@@ -1557,6 +1589,1298 @@ QTEST_CASE ( InequalityOperator_ReturnsTrueWhenFragmentIsDifferent_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+// Note: The following tests of the Resolve method have been extracted mostly from the RFC 3986, section 5.4.
+//       Since there are lot of different combinations, it was not practical to name them one by one so a generic naming is used.
+
+/// <summary>
+/// Checks that it behaves as expected for the case #001.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase001_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g";
+    const string_q EXPECTED_URI = "http://a/b/c/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #002.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase002_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "./g";
+    const string_q EXPECTED_URI = "http://a/b/c/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #003.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase003_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g/";
+    const string_q EXPECTED_URI = "http://a/b/c/g/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #004.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase004_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "/g";
+    const string_q EXPECTED_URI = "http://a/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #005.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase005_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "//g";
+    const string_q EXPECTED_URI = "http://g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #006.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase006_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "?y";
+    const string_q EXPECTED_URI = "http://a/b/c/d;p?y";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #007.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase007_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g?y";
+    const string_q EXPECTED_URI = "http://a/b/c/g?y";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #008.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase008_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "#s";
+    const string_q EXPECTED_URI = "http://a/b/c/d;p?q#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #009.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase009_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g#s";
+    const string_q EXPECTED_URI = "http://a/b/c/g#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #010.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase010_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g?y#s";
+    const string_q EXPECTED_URI = "http://a/b/c/g?y#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #011.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase011_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = ";x";
+    const string_q EXPECTED_URI = "http://a/b/c/;x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #012.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase012_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g;x";
+    const string_q EXPECTED_URI = "http://a/b/c/g;x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #013.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase013_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g;x?y#s";
+    const string_q EXPECTED_URI = "http://a/b/c/g;x?y#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+// Note: Empty URIs are not allowed
+/// <summary>
+/// Checks that it behaves as expected for the case #014.
+/// </summary>
+//QTEST_CASE ( Resolve_NormalCase014_Test )
+//{
+//    // [Preparation]
+//    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+//    const string_q RELATIVE_URI = "";
+//    const string_q EXPECTED_URI = "http://a/b/c/d;p?q";
+//    QUri absoluteUri(ABSOLUTE_URI);
+//    QUri relativeUri(RELATIVE_URI);
+//    const QUri EXPECTED_RESULT(EXPECTED_URI);
+//
+//    // [Execution]
+//    absoluteUri.Resolve(relativeUri);
+//    
+//    // [Verification]
+//    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+//}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #015.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase015_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = ".";
+    const string_q EXPECTED_URI = "http://a/b/c/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #016.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase016_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "./";
+    const string_q EXPECTED_URI = "http://a/b/c/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #017.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase017_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "..";
+    const string_q EXPECTED_URI = "http://a/b/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #018.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase018_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../";
+    const string_q EXPECTED_URI = "http://a/b/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #019.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase019_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../g";
+    const string_q EXPECTED_URI = "http://a/b/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #020.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase020_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../..";
+    const string_q EXPECTED_URI = "http://a/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #021.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase021_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../../";
+    const string_q EXPECTED_URI = "http://a/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the case #022.
+/// </summary>
+QTEST_CASE ( Resolve_NormalCase022_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../../g";
+    const string_q EXPECTED_URI = "http://a/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #002.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase002_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "../../../g";
+    const string_q EXPECTED_URI = "http://a/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #003.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase003_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "/./g";
+    const string_q EXPECTED_URI = "http://a/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #004.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase004_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "/../g";
+    const string_q EXPECTED_URI = "http://a/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #005.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase005_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g.";
+    const string_q EXPECTED_URI = "http://a/b/c/g.";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #006.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase006_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = ".g";
+    const string_q EXPECTED_URI = "http://a/b/c/.g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #007.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase007_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g..";
+    const string_q EXPECTED_URI = "http://a/b/c/g..";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #008.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase008_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "..g";
+    const string_q EXPECTED_URI = "http://a/b/c/..g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #009.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase009_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "./../g";
+    const string_q EXPECTED_URI = "http://a/b/g";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #010.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase010_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "./g/.";
+    const string_q EXPECTED_URI = "http://a/b/c/g/";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #011.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase011_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g/./h";
+    const string_q EXPECTED_URI = "http://a/b/c/g/h";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #012.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase012_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g/../h";
+    const string_q EXPECTED_URI = "http://a/b/c/h";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #013.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase013_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g;x=1/./y";
+    const string_q EXPECTED_URI = "http://a/b/c/g;x=1/y";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #014.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase014_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g;x=1/../y";
+    const string_q EXPECTED_URI = "http://a/b/c/y";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #015.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase015_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g?y/./x";
+    const string_q EXPECTED_URI = "http://a/b/c/g?y/./x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #016.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase016_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g?y/../x";
+    const string_q EXPECTED_URI = "http://a/b/c/g?y/../x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #017.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase017_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g#s/./x";
+    const string_q EXPECTED_URI = "http://a/b/c/g#s/./x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the abnormal case #018.
+/// </summary>
+QTEST_CASE ( Resolve_AbnormalCase018_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q";
+    const string_q RELATIVE_URI = "g#s/../x";
+    const string_q EXPECTED_URI = "http://a/b/c/g#s/../x";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the extra case #001.
+/// </summary>
+QTEST_CASE ( Resolve_ExtraCase001_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p?q#f";
+    const string_q RELATIVE_URI = "g?y#s";
+    const string_q EXPECTED_URI = "http://a/b/c/g?y#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it behaves as expected for the extra case #002.
+/// </summary>
+QTEST_CASE ( Resolve_ExtraCase002_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p#f";
+    const string_q RELATIVE_URI = "#s";
+    const string_q EXPECTED_URI = "http://a/b/c/d;p#s";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri relativeUri(RELATIVE_URI);
+    const QUri EXPECTED_RESULT(EXPECTED_URI);
+
+    // [Execution]
+    absoluteUri.Resolve(relativeUri);
+    
+    // [Verification]
+    BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails whent he input URI is not relative.
+/// </summary>
+QTEST_CASE ( Resolve_AssertionFailsWhenInputUriIsNotRelative_Test )
+{
+    // [Preparation]
+    const string_q ABSOLUTE_URI = "http://a/b/c/d;p#f";
+    const string_q INPUT_URI = "http://z/x/7";
+    QUri absoluteUri(ABSOLUTE_URI);
+    QUri inputUri(INPUT_URI);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        absoluteUri.Resolve(inputUri);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails whent he resident URI is not absolute.
+/// </summary>
+QTEST_CASE ( Resolve_AssertionFailsWhenResident6UriIsNotAbsolute_Test )
+{
+    // [Preparation]
+    const string_q RELATIVE_URI = "a/b/c/d;p#f";
+    const string_q INPUT_URI = "z/x/7";
+    QUri relativeUri(RELATIVE_URI);
+    QUri inputUri(INPUT_URI);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        relativeUri.Resolve(inputUri);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the string has the expected value when the URI only contains a scheme.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsSchemeOnly_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme:";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI only contains a scheme and the authority.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsSchemeAndAuthorityOnly_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://authority";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI contains the scheme, the authority and the path.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsSchemeAuthorityAndPath_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://authority/path";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI contains an IPv6 as host and a port.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsIPv6AndPort_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://[fe80::4cf7:6fe6:453f:8129]:port/pat:h";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI contains the scheme, the authority, the path and the query.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsSchemeAuthorityPathAndQuery_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://authority/path?query";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI contains the scheme and the path only.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenInputContainsSchemeAndPathOnly_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme:/pathsegment1/pathsegment2";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string is what expected when the URI contains an empty path and a query.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsEmptyPathAndQuery_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://host?query";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string is what expected when the URI contains an empty path and a fragment.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriContainsEmptyPathAndFragment_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://host#fragment";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the authority is formed only by a host.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenAuthorityIsFormedOnlyByHost_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://authority/path";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the authority is formed only by a host and the user information.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoAndHost_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//userinfo@host";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the authority is formed only by a host, the port and the user information.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoHostAndPort_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//userinfo@host:port";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the authority is formed only by a host and the port.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenAuthorityIsFormedOnlyByHostAndPort_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//host:port";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI is formed only by the authority and the path.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriIsFormedOnlyByAuthorityAndPath_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//userinfo@host:port/path";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI is formed only by the authority and the query.
+/// </summary>
+QTEST_CASE ( ToStringStringIsWhatExpectedWhenUriIsFormedOnlyByAuthorityAndQuery_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//userinfo@host:port?query";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI is formed only by the authority and the fragment.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriIsFormedOnlyByAuthorityAndFragment_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "//userinfo@host:port#fragment";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path does not start with a slash when it does not start with a slash in the input string.
+/// </summary>
+QTEST_CASE ( ToString_PathDoesNotStartWithSlashWhenUriIsFormedOnlyByPathWhichDoesNotStartWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "segment1/segment2";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path starts with a slash when it starts with a slash in the input string.
+/// </summary>
+QTEST_CASE ( ToString_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhichStartsWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "/segment1/segment2";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path includes the initial dot segment when it starts with one dot.
+/// </summary>
+QTEST_CASE ( ToString_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "./segment1/segment2";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path does not include the initial dot segment when it starts with two dots.
+/// </summary>
+QTEST_CASE ( ToString_PathDoesNotIncludeDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithTwoDots_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "../segment1/segment2";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI is formed only by the path and the query.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriIsFormedOnlyByPathAndQuery_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "path1/path2?query=value";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the string has the expected value when the URI is formed only by the path and the fragment.
+/// </summary>
+QTEST_CASE ( ToString_StringIsWhatExpectedWhenUriIsFormedOnlyByPathAndFragment_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "path1/path2#fragment";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path is empty and starts with a slash when the URI only contains a single slash.
+/// </summary>
+QTEST_CASE ( ToString_PathIsEmptyAndStartsWithSlashWhenUriContainsOnlyOneSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "/";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that all dot segments that appear in the middle of the path are removed.
+/// </summary>
+QTEST_CASE ( ToString_DotSegmentsAreRemoved_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "scheme://userinfo@authority/path1/./path2/../path3";
+    const string_q EXPECTED_VALUE = "scheme://userinfo@authority/path1/path3";
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the path contains one segment when the URI does not contain any separator.
+/// </summary>
+QTEST_CASE ( ToString_ThePathContainsOneSegmentWhenTheUriDoesNotContainAnySeparator_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = "schemeauthoritypath";
+    const string_q EXPECTED_VALUE = INPUT_STRING;
+    QUri uri(INPUT_STRING);
+
+    // [Execution]
+    string_q strResult = uri.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_VALUE);
+}
+
 /// <summary>
 /// Checks that question marks ("?") and slashes ("/") are encoded.
 /// </summary>
@@ -2021,9 +3345,9 @@ QTEST_CASE ( CreateIntegerFromHexadecimalString_AssertionFailsWhenInputStringLen
 #endif
 
 /// <summary>
-/// Checks that single dot segments are removed when they appear the first.
+/// Checks that single dot segments are not removed when they appear the first.
 /// </summary>
-QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreRemovedWhenTheyAppearTheFirst_Test )
+QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreNotRemovedWhenTheyAppearTheFirst_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
 
@@ -2039,12 +3363,8 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreRemovedWhenTheyAppearTheFirst
     QUriWhiteBox::RemoveDotSegments(inputArrayWithSingleDot);
     
     // [Verification]
-    bool bSingleDotSegmentWasRemoved = inputArrayWithSingleDot[0] != SINGLE_DOT;
-
-    for(QDynamicArray<string_q>::QArrayIterator it = inputArrayWithSingleDot.GetFirst(); !it.IsEnd(); ++it)
-        bSingleDotSegmentWasRemoved = bSingleDotSegmentWasRemoved && *it != SINGLE_DOT;
-
-    BOOST_CHECK(bSingleDotSegmentWasRemoved);
+    bool bSingleDotSegmentWasNotRemoved = inputArrayWithSingleDot[0] == SINGLE_DOT;
+    BOOST_CHECK(bSingleDotSegmentWasNotRemoved);
 }
 
 /// <summary>
@@ -2218,8 +3538,7 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreJustRemoved_Test )
     // [Preparation]
     const string_q SINGLE_DOT(".");
 
-    QDynamicArray<string_q> inputArrayWithSingleDot(5);
-    inputArrayWithSingleDot.Add(SINGLE_DOT);
+    QDynamicArray<string_q> inputArrayWithSingleDot(4);
     inputArrayWithSingleDot.Add("path1");
     inputArrayWithSingleDot.Add(SINGLE_DOT);
     inputArrayWithSingleDot.Add("path2");
@@ -2345,6 +3664,133 @@ QTEST_CASE ( RemoveDotSegments_NothingHappensWhenArrayContainsOnlyAnEmptyString_
  
     // [Verification]
     BOOST_CHECK(arEmptyArray[0].IsEmpty());
+}
+
+/// <summary>
+/// Checks that single dot segments are not removed when the path only contains one single dot segment.
+/// </summary>
+QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathOnlyContainsOneSingleDotSegment_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const string_q SINGLE_DOT(".");
+
+    QDynamicArray<string_q> EXPECTED_ARRAY(1);
+    EXPECTED_ARRAY.Add(string_q::GetEmpty());
+    
+    QDynamicArray<string_q> inputArrayWithDots(2);
+    inputArrayWithDots.Add(SINGLE_DOT);
+
+    // [Execution]
+    QUriWhiteBox::RemoveDotSegments(inputArrayWithDots);
+ 
+    // [Verification]
+    bool bSegmentIsNotEmpty = !inputArrayWithDots[0].IsEmpty();
+    BOOST_CHECK(bSegmentIsNotEmpty);
+}
+
+/// <summary>
+/// Checks that single dot segments are not removed when the path starts with one single dot segment followed by a double dot segment.
+/// </summary>
+QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathStartsWithOneSingleDotSegmentFollowedByDoubleDotSegment_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const string_q SINGLE_DOT(".");
+    const string_q DOUBLE_DOT("..");
+
+    QDynamicArray<string_q> EXPECTED_ARRAY(2);
+    EXPECTED_ARRAY.Add(SINGLE_DOT);
+    EXPECTED_ARRAY.Add(DOUBLE_DOT);
+    EXPECTED_ARRAY.Add("path1");
+
+    QDynamicArray<string_q> inputArrayWithDots(3);
+    inputArrayWithDots.Add(SINGLE_DOT);
+    inputArrayWithDots.Add(DOUBLE_DOT);
+    inputArrayWithDots.Add("path1");
+
+    // [Execution]
+    QUriWhiteBox::RemoveDotSegments(inputArrayWithDots);
+ 
+    // [Verification]
+    bool bResultantArrayIsWhatExpected = true;
+
+    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+
+    for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
+        bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
+    
+    BOOST_CHECK(bResultantArrayIsWhatExpected);
+}
+
+/// <summary>
+/// Checks that dot segments are removed when the path starts with a common segment followed by one single dot segment followed by a double dot segment.
+/// </summary>
+QTEST_CASE ( RemoveDotSegments_DotSegmentsAreRemovedWhenPathStartsWithACommonSegmentFollowedByOneSingleDotSegmentFollowedByDoubleDotSegment_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const string_q SINGLE_DOT(".");
+    const string_q DOUBLE_DOT("..");
+
+    QDynamicArray<string_q> EXPECTED_ARRAY(1);
+    EXPECTED_ARRAY.Add("path2");
+
+    QDynamicArray<string_q> inputArrayWithDots(4);
+    inputArrayWithDots.Add("path1");
+    inputArrayWithDots.Add(SINGLE_DOT);
+    inputArrayWithDots.Add(DOUBLE_DOT);
+    inputArrayWithDots.Add("path2");
+
+    // [Execution]
+    QUriWhiteBox::RemoveDotSegments(inputArrayWithDots);
+ 
+    // [Verification]
+    bool bResultantArrayIsWhatExpected = true;
+
+    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+
+    for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
+        bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
+    
+    BOOST_CHECK(bResultantArrayIsWhatExpected);
+}
+
+/// <summary>
+/// Checks that double dot segment is not removed when it appears in the middle of two slashes.
+/// </summary>
+QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentIsNotRemovedWhenItAppearsFirstBetweenTwoSlashes_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const string_q DOUBLE_DOT("..");
+
+    QDynamicArray<string_q> EXPECTED_ARRAY(3);
+    EXPECTED_ARRAY.Add(string_q::GetEmpty());
+    EXPECTED_ARRAY.Add(DOUBLE_DOT);
+    EXPECTED_ARRAY.Add(string_q::GetEmpty());
+
+    QDynamicArray<string_q> inputArrayWithDots(EXPECTED_ARRAY);
+
+    // [Execution]
+    QUriWhiteBox::RemoveDotSegments(inputArrayWithDots);
+ 
+    // [Verification]
+    bool bResultantArrayIsWhatExpected = true;
+
+    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+
+    for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
+        bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
+    
+    BOOST_CHECK(bResultantArrayIsWhatExpected);
 }
 
 /// <summary>
@@ -2532,6 +3978,762 @@ QTEST_CASE ( IsRelative_ReturnsFalseWhenSchemeIsPresent_Test )
     
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetAuthority_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("authority");
+    QUri uri("scheme://xxx/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined.
+/// </summary>
+QTEST_CASE ( SetAuthority_TheValueIsCorrectlyStoredWhenAuthorityWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("authority");
+    QUri uri("scheme:/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined and the path does not start with a slash.
+/// </summary>
+QTEST_CASE ( SetAuthority_TheValueIsCorrectlyStoredWhenAuthorityWasNotDefinedAndPathDoesNotStartWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("authority");
+    QUri uri("path?query#fragment");
+    const string_q EXPECTED_STRING("//authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetAuthority_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("authority");
+    QUri uri("scheme://xxx/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the authority is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetAuthority_TheAuthorityIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:/path?query#fragment");
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetFragment_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("fragment");
+    QUri uri("scheme://authority/path?query#fff");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetFragment(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the fragment was not defined.
+/// </summary>
+QTEST_CASE ( SetFragment_TheValueIsCorrectlyStoredWhenFragmentWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("fragment");
+    QUri uri("scheme://authority/path?query");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetFragment(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetFragment_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("fragment");
+    QUri uri("scheme://authority/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetFragment(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the fragment is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetFragment_TheFragmentIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query");
+
+    // [Execution]
+    uri.SetFragment(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetHost_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("host");
+    QUri uri("scheme://userinfo@xxx:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@host:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetHost(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined.
+/// </summary>
+QTEST_CASE ( SetHost_TheValueIsCorrectlyStoredWhenAuthorityWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("host");
+    QUri uri("scheme:/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://host/path?query#fragment");
+
+    // [Execution]
+    uri.SetHost(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetHost_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("host");
+    QUri uri("scheme://authority/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetHost(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the authority is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetHost_TheFullAuthorityIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://userinfo@authority:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:/path?query#fragment");
+
+    // [Execution]
+    uri.SetHost(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined and the path does not start with a slash.
+/// </summary>
+QTEST_CASE ( SetHost_TheValueIsCorrectlyStoredWhenAuthorityWasNotDefinedAndPathDoesNotStartWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("host");
+    QUri uri("path?query#fragment");
+    const string_q EXPECTED_STRING("//host/path?query#fragment");
+
+    // [Execution]
+    uri.SetAuthority(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("path");
+    QUri uri("scheme://userinfo@host:port?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@host:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the scheme and the authority are not defined.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStoredWhenAuthorityAndSchemeAreNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("path");
+    QUri uri("?query#fragment");
+    const string_q EXPECTED_STRING("path?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the scheme and the authority are not defined and the input path begins with dot segments.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStoredWhenAuthorityAndSchemeAreNotDefinedAndInputPathBeginsWithDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("../path1/path2");
+    QUri uri(".");
+    const string_q EXPECTED_STRING("../path1/path2");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the scheme is defined and the input path begins with dot segments.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStoredWhenSchemeIsDefinedAndInputPathBeginsWithDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("../path1/path2");
+    QUri uri("scheme://userinfo@host:port/path1?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@host:port/path1/path2?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the scheme is not defined and the input path begins with dot segments.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStoredWhenSchemeIsNotDefinedAndInputPathBeginsWithDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("../path1/path2");
+    QUri uri("//userinfo@host:port/path1?query#fragment");
+    const string_q EXPECTED_STRING("//userinfo@host:port/../path1/path2?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the scheme and the authority is defined and the input path begins with a slash.
+/// </summary>
+QTEST_CASE ( SetPath_TheValueIsCorrectlyStoredWhenAuthorityIsDefinedAndInputPathBeginsWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("/path2");
+    QUri uri("scheme://userinfo@host:port/path1?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@host:port/path2?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that a dot segment is added to the path when the scheme is not defined and the first segment of the path contains a colon.
+/// </summary>
+QTEST_CASE ( SetPath_DotSegmentIsAddedToPathWhenSchemeIsNotDefinedAndFirstSegmentContainsColon_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("path:/path2");
+    QUri uri("path?query#fragment");
+    const string_q EXPECTED_STRING("./path:/path2?query#fragment");
+
+    // [Execution]
+    uri.SetPath(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetQuery_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("query");
+    QUri uri("scheme://authority/path?qqq#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetQuery(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the query was not defined.
+/// </summary>
+QTEST_CASE ( SetQuery_TheValueIsCorrectlyStoredWhenQueryWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("query");
+    QUri uri("scheme://authority/path#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetQuery(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetQuery_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("query");
+    QUri uri("scheme://authority/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetQuery(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the fragment is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetQuery_TheQueryIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path#fragment");
+
+    // [Execution]
+    uri.SetQuery(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetPort_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("port");
+    QUri uri("scheme://authority:ppp/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetPort(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the port was not defined.
+/// </summary>
+QTEST_CASE ( SetPort_TheValueIsCorrectlyStoredWhenPortWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("port");
+    QUri uri("scheme://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetPort(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetPort_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("port");
+    QUri uri("scheme://authority/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetPort(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the port is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetPort_ThePortIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://authority:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetPort(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the port is not set when the authority is not defined.
+/// </summary>
+QTEST_CASE ( SetPort_ThePortIsNotSetWhenAuthorityIsNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("port");
+    QUri uri("scheme:path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:path?query#fragment");
+
+    // [Execution]
+    uri.SetPort(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetScheme_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("scheme");
+    QUri uri("sss://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined.
+/// </summary>
+QTEST_CASE ( SetScheme_TheValueIsCorrectlyStoredWhenSchemeWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("scheme");
+    QUri uri("//authority/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined and the path does not start with a slash.
+/// </summary>
+QTEST_CASE ( SetScheme_TheValueIsCorrectlyStoredWhenSchemeWasNotDefinedAndPathDoesNotStartWithSlash_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("scheme");
+    QUri uri("path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:path?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the authority was not defined and the path starts with dot segments.
+/// </summary>
+QTEST_CASE ( SetScheme_TheValueIsCorrectlyStoredWhenSchemeWasNotDefinedAndPathStartsWithDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("scheme");
+    QUri uri("./../../path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:path?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetScheme_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("authority");
+    QUri uri("scheme://xxx/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the authority is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetScheme_TheSchemeIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://authority/path?query#fragment");
+    const string_q EXPECTED_STRING("//authority/path?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that a dot segment is added to the path when the scheme is not defined and the first segment of the path contains a colon.
+/// </summary>
+QTEST_CASE ( SetScheme_DotSegmentIsAddedToPathWhenSchemeIsNotDefinedAndFirstSegmentContainsColon_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme:path:/path2?query#fragment");
+    const string_q EXPECTED_STRING("./path:/path2?query#fragment");
+
+    // [Execution]
+    uri.SetScheme(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored.
+/// </summary>
+QTEST_CASE ( SetUserInfo_TheValueIsCorrectlyStored_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("userinfo");
+    QUri uri("scheme://uuuu@authority:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@authority:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetUserInfo(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the value is correctly stored when the user information was not defined.
+/// </summary>
+QTEST_CASE ( SetUserInfo_TheValueIsCorrectlyStoredWhenUserInfoWasNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("userinfo");
+    QUri uri("scheme://authority:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://userinfo@authority:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetUserInfo(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the original string is emptied.
+/// </summary>
+QTEST_CASE ( SetUserInfo_OriginalStringIsEmptied_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("userinfo");
+    QUri uri("scheme://authority:port/path?query#fragment");
+    const bool ORIGINAL_STRING_IS_EMPTY = true;
+
+    // [Execution]
+    uri.SetUserInfo(INPUT_STRING);
+    
+    // [Verification]
+    bool bOriginalStringWasEmptied = uri.GetOriginalString().IsEmpty();
+    BOOST_CHECK_EQUAL(bOriginalStringWasEmptied, ORIGINAL_STRING_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the user information is undefined when input string is empty.
+/// </summary>
+QTEST_CASE ( SetUserInfo_TheUserInfoIsUndefinedWhenInputStringIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    QUri uri("scheme://userinfo@authority:port/path?query#fragment");
+    const string_q EXPECTED_STRING("scheme://authority:port/path?query#fragment");
+
+    // [Execution]
+    uri.SetUserInfo(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that the user information is not set when the authority is not defined.
+/// </summary>
+QTEST_CASE ( SetUserInfo_TheUserInfoIsNotSetWhenAuthorityIsNotDefined_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("userinfo");
+    QUri uri("scheme:path?query#fragment");
+    const string_q EXPECTED_STRING("scheme:path?query#fragment");
+
+    // [Execution]
+    uri.SetUserInfo(INPUT_STRING);
+    
+    // [Verification]
+    string_q strFullUri(uri.ToString());
+    BOOST_CHECK(strFullUri == EXPECTED_STRING);
 }
 
 // End - Test Suite: QUri
