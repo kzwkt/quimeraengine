@@ -62,6 +62,15 @@ namespace Containers
 template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
 class QList
 {
+    // CONSTANTS
+    // ---------------
+private:
+
+    /// <summary>
+    /// The reallocation factor to be applied to calculate the new capacity on every reallocation. It must be greater than or equal to 1.
+    /// </summary>
+    static float REALLOCATION_FACTOR;
+
 
     // INTERNAL CLASSES
     // -----------------
@@ -82,11 +91,12 @@ protected:
         /// Constructor with the positions in the allocated memory chunk to the previous and next elements,
         /// passed by parameter.
         /// </summary>
-        /// <param name="uPrevious"> [IN] Position of the previous element.</param>
-        /// <param name="uNext"> [IN] Position of the next element.</param>
+        /// <param name="uPrevious">[IN] Position of the previous element.</param>
+        /// <param name="uNext">[IN] Position of the next element.</param>
         QLink(const pointer_uint_q uPrevious, const pointer_uint_q uNext) :
-                m_uPrevious(uPrevious),
-                m_uNext(uNext)
+                m_uNext(uNext),
+                m_uPrevious(uPrevious)
+                
         {
         }
 
@@ -119,7 +129,7 @@ protected:
         /// <summary>
         /// Sets the index of the next element in the list.
         /// </summary>
-        /// <param name="uNext"> [IN] The index of the next element in the list. If there is no next element, you must pass QList::END_POSITION_FORWARD constant.</param>
+        /// <param name="uNext">[IN] The index of the next element in the list. If there is no next element, you must pass QList::END_POSITION_FORWARD constant.</param>
         void SetNext(const pointer_uint_q uNext)
         {
             m_uNext = uNext;
@@ -128,7 +138,7 @@ protected:
         /// <summary>
         /// Sets the index of the previous element in the list.
         /// </summary>
-        /// <param name="uPrevious"> [IN] The index of the previous element in the list. If there is no previous element, you must pass QList::END_POSITION_BACKWARD constant.</param>
+        /// <param name="uPrevious">[IN] The index of the previous element in the list. If there is no previous element, you must pass QList::END_POSITION_BACKWARD constant.</param>
         void SetPrevious(const pointer_uint_q uPrevious)
         {
             m_uPrevious = uPrevious;
@@ -182,10 +192,14 @@ public:
         QListIterator(const QList* pList, const unsigned int uPosition) : m_pList(pList), m_uPosition(uPosition)
         {
             QE_ASSERT_ERROR(pList != null_q, "Invalid argument: The pointer to the list cannot be null");
-            QE_ASSERT_WARNING(pList->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the list");
+            QE_ASSERT_WARNING(pList->GetCapacity() > uPosition || 
+                              uPosition == QList::END_POSITION_BACKWARD || 
+                              uPosition == QList::END_POSITION_FORWARD, "Invalid argument: The position must be lower than the capacity of the list");
 
-            if(pList == null_q || pList->GetCapacity() <= uPosition || pList->IsEmpty())
-                m_uPosition = QList::END_POSITION_FORWARD;
+            if(pList == null_q || 
+               (pList->GetCapacity() <= uPosition && uPosition != QList::END_POSITION_BACKWARD && uPosition != QList::END_POSITION_FORWARD) || 
+               pList->IsEmpty())
+                   m_uPosition = QList::END_POSITION_FORWARD;
         }
 
 
@@ -681,7 +695,7 @@ public:
     /// <summary>
     /// Constructor that reserves space to store the number of elements passed by parameter.
     /// </summary>
-    /// <param name="uInitialCapacity"> [IN] Number of elements for wich to reserve space. It must be greater than zero.</param>
+    /// <param name="uInitialCapacity">[IN] Number of elements for wich to reserve space. It must be greater than zero.</param>
     QList(const pointer_uint_q uInitialCapacity) :
             m_uFirst(QList::END_POSITION_BACKWARD),
             m_uLast(QList::END_POSITION_FORWARD),
@@ -739,28 +753,11 @@ public:
     /// </remarks>
     ~QList()
     {
-        if(m_uFirst != QList::END_POSITION_BACKWARD)
+        if(!this->IsEmpty())
         {
             // Iterates the list in an orderly manner, calling the destructor for each element.
-            pointer_uint_q uIndex = m_uFirst;
-            pointer_uint_q uNextIndex;
-            QList::QLink* pLink = null_q;
-            T* pElement = null_q;
-            bool bDestroyed = false;
-
-            while(!bDestroyed)
-            {
-                pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
-                uNextIndex = pLink->GetNext();
-
-                pElement = (T*)m_elementAllocator.GetPointer() + uIndex * sizeof(T);
-                pElement->~T();
-
-                if(uIndex == m_uLast)
-                    bDestroyed = true;
-                else
-                    uIndex = uNextIndex;
-            }
+            for(QList::QListIterator it = this->GetFirst(); !it.IsEnd(); ++it)
+                (*it).~T();
         }
     }
 
@@ -784,15 +781,11 @@ public:
         {
             if(list.GetCount() == this->GetCount())
             {
-                QListIterator iteratorOrigin = QListIterator(&list);
-                QListIterator iteratorDestination = QListIterator(this);
+                QListIterator iteratorOrigin = list.GetFirst();
+                QListIterator iteratorDestination = this->GetFirst();
 
-                for(iteratorOrigin.MoveFirst(), iteratorDestination.MoveFirst();
-                    !iteratorOrigin.IsEnd();
-                    ++iteratorOrigin, ++iteratorDestination)
-                {
+                for(; !iteratorOrigin.IsEnd(); ++iteratorOrigin, ++iteratorDestination)
                     *iteratorDestination = *iteratorOrigin;
-                }
             }
             else if(list.GetCount() < this->GetCount())
             {
@@ -821,18 +814,18 @@ public:
 
                     while(!bCopied)
                     {
-                        pElementOrigin = (T*)list.m_elementAllocator.GetPointer() + uIndexOrigin * sizeof(T);
-                        pElementDestination = (T*)m_elementAllocator.GetPointer() + uIndexDestination * sizeof(T);
+                        pElementOrigin = (T*)list.m_elementAllocator.GetPointer() + uIndexOrigin;
+                        pElementDestination = (T*)m_elementAllocator.GetPointer() + uIndexDestination;
 
                         *pElementDestination = *pElementOrigin;
 
                         bCopied = (uIndexOrigin == list.m_uLast);
                         m_uLast = uIndexDestination;
 
-                        pLinkOrigin = (QList::QLink*)list.m_linkAllocator.GetPointer() + uIndexOrigin * sizeof(QList::QLink);
+                        pLinkOrigin = (QList::QLink*)list.m_linkAllocator.GetPointer() + uIndexOrigin;
                         uIndexOrigin = pLinkOrigin->GetNext();
 
-                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndexDestination * sizeof(QList::QLink);
+                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndexDestination;
                         uIndexDestination = pLinkDestination->GetNext();
                     }
                     uFirstIndexToDestroy = uIndexDestination;
@@ -847,11 +840,11 @@ public:
 
                 while(!bDestroyed && uIndex != QList::END_POSITION_FORWARD)
                 {
-                    QList::QLink* pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex * sizeof(QList::QLink);
+                    QList::QLink* pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex;
                     uNextIndex = pLink->GetNext();
                     m_linkAllocator.Deallocate(pLink);
 
-                    T* pElement = (T*)m_elementAllocator.GetPointer() + uIndex * sizeof(T);
+                    T* pElement = (T*)m_elementAllocator.GetPointer() + uIndex;
                     pElement->~T();
                     m_elementAllocator.Deallocate(pElement);
 
@@ -861,34 +854,17 @@ public:
             }
             else
             {
+                // Increases the capacity of the destination, if necessary
                 if(list.GetCapacity() > this->GetCapacity())
-                {
-                    AllocatorT *pOldElementAllocator = m_elementAllocator;
-                    AllocatorT *pOldLinkAllocator = m_linkAllocator;
+                    this->Reserve(list.GetCapacity());
 
-                    // Creates new allocators
-
-                    m_elementAllocator.Reallocate(list.GetCapacity() * sizeof(T));
-                    m_linkAllocator.Reallocate(list.GetCapacity() * sizeof(QList::QLink));
-
-                    pOldElementAllocator->CopyTo(*m_linkAllocator);
-                    pOldLinkAllocator->CopyTo(*m_elementAllocator);
-
-                    delete pOldElementAllocator;
-                    delete pOldLinkAllocator;
-                }
-
-                QListIterator iteratorOrigin = QListIterator(&list);
-                QListIterator iteratorDestination = QListIterator(this);
+                QListIterator iteratorOrigin = list.GetFirst();
+                QListIterator iteratorDestination = this->GetFirst();
 
                 // Copies as many elements as it has the destination list.
 
-                for(iteratorOrigin.MoveFirst(), iteratorDestination.MoveFirst();
-                    !iteratorDestination.IsEnd();
-                    ++iteratorOrigin, ++iteratorDestination)
-                {
+                for(; !iteratorDestination.IsEnd(); ++iteratorOrigin, ++iteratorDestination)
                     *iteratorDestination = *iteratorOrigin;
-                }
 
                 // Adds the rest of elements if needed.
 
@@ -914,10 +890,11 @@ public:
     void Clone(QList &destinationList) const
     {
         // Uncomment when reserve method is implemented
-        //if ( destinationList.GetCapacity() < this->GetCapacity())
-            // destinationList.Reserve(this->GetCapacity());
-        m_elementAllocator->CopyTo(*destinationList.m_elementAllocator);
-        m_linkAllocator->CopyTo(*destinationList.m_linkAllocator);
+        if(destinationList.GetCapacity() < this->GetCapacity())
+            destinationList.Reserve(this->GetCapacity());
+
+        m_elementAllocator.CopyTo(destinationList.m_elementAllocator);
+        m_linkAllocator.CopyTo(destinationList.m_linkAllocator);
         destinationList.m_uFirst = m_uFirst;
         destinationList.m_uLast = m_uLast;
     }
@@ -925,58 +902,32 @@ public:
     /// <summary>
     /// Returns a reference to the element stored in the passed position.
     /// </summary>
-    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the list's size. Note that indexes are zero-based.</param>
+    /// <param name="uIndex">[IN] Position of the element to access. It must be less than the list's size. Note that indexes are zero-based.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
     /// </returns>
     T& GetValue(const pointer_uint_q uIndex) const
     {
-        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements.
-        // [TODO] raul. If so a remark must be added in the documentation.
-
         QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the list's size" );
-        QList::QListIterator iterator = QList::QListIterator(this, 0); // [TODO] Thund: Replace with QList::GetIterator when it exists
-        pointer_uint_q uCurrentIndex = 0;
-
-        for(iterator.MoveFirst(); !iterator.IsEnd(); ++iterator, ++uCurrentIndex)
-        {
-            if (uCurrentIndex == uIndex)
-                break;
-        }
-        return (*iterator);
-
-        T t;
-        return t; // [TODO] Thund: Remove this line when the above block is uncommented
+        
+        return *this->GetIterator(uIndex);
     }
 
     /// <summary>
     /// Sets the value in the index passed as parameter.
     /// </summary>
-    /// <param name="uIndex"> [IN] Position of the element to set. It must be less than the list's size. Note that indexes are zero-based.</param>
+    /// <param name="uIndex">[IN] Position of the element to set. It must be less than the list's size. Note that indexes are zero-based.</param>
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
-        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements.
-        // [TODO] raul. If so a remark must be added in the documentation.
-
         QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the list's size" );
-        QList::QListIterator iterator = QList::QListIterator(this, 0); // [TODO] Thund: Replace with QList::GetIterator when it exists
-        pointer_uint_q uCurrentIndex = 0;
-        iterator.MoveFirst();
-
-        while ( (uCurrentIndex <= uIndex) && (!iterator.IsEnd()) )
-        {
-            if (uCurrentIndex == uIndex)
-                *iterator = value;
-            ++iterator;
-            ++uCurrentIndex;
-        }
-
+        
+        *this->GetIterator(uIndex) = value;
     }
 
     /// <summary>
     /// Returns a reference to the element stored in the passed position. Indexes are zero-based.
     /// </summary>
-    /// <param name="uIndex"> [IN] Position of the element to access. It must be less than the list's size.</param>
+    /// <param name="uIndex">[IN] Position of the element to access. It must be less than the list's size.</param>
     /// <returns>
     /// A reference to the element stored in the passed position.
     /// </returns>
@@ -1052,6 +1003,398 @@ public:
             m_elementAllocator.Reallocate(uNumberOfElements * sizeof(T));
             m_linkAllocator.Reallocate(uNumberOfElements * sizeof(QList::QLink));
         }
+    }
+
+    /// <summary>
+    /// Copies an element to the end of the list.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    void Add(const T &newElement)
+    {
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+        
+        pointer_uint_q uNewLinkPrevious = m_uLast;
+
+        if(this->IsEmpty())
+        {
+            // If the list is empty, there is no previous link
+            uNewLinkPrevious = QList::END_POSITION_BACKWARD;
+        }
+
+        // Creates the new link
+        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+        QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, QList::END_POSITION_FORWARD);
+
+        if(uNewLinkPrevious != QList::END_POSITION_BACKWARD)
+        {
+            // Makes the last link point to the new link
+            QList::QLink* pLastLink = pBasePointer + m_uLast;
+            pLastLink->SetNext(pNewLastLink - pBasePointer);
+            m_uLast = pNewLastLink - pBasePointer;
+        }
+        else
+        {
+            m_uFirst = m_uLast = 0;
+        }
+
+        // Copies the new element
+        new(m_elementAllocator.Allocate()) T(newElement);
+    }
+    
+    /// <summary>
+    /// Copies an element to a concrete position of the list and returns an iterator that points to it.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.<br/>
+    /// Use Add method to insert elements at the end.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    /// <param name="position">[IN] The position where the new element will be placed. It should not be an end position; if it is, 
+    /// the element will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// list; otherwise, the behavior is undefined.</param>
+    /// <returns>
+    /// An iterator that points to the just inserted element.
+    /// </returns>
+    QListIterator Insert(const T &newElement, const typename QList::QListIterator &position)
+    {
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+
+        // Gets the position of the iterator
+        pointer_uint_q uIndex = &(*position) - (T*)m_elementAllocator.GetPointer();
+        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+
+        pointer_uint_q uNewLinkNext = 0;
+        pointer_uint_q uNewLinkPrevious = 0;
+
+        QList::QLink* pNextLink = null_q;
+        QList::QLink* pPreviousLink = null_q;
+
+        // Calculates what's the next link and what's the previous one
+        if(this->IsEmpty())
+        {
+            // If the list is empty, there is no previous link nor next link
+            uNewLinkPrevious = QList::END_POSITION_BACKWARD;
+            uNewLinkNext = QList::END_POSITION_FORWARD;
+        }
+        else if(position.IsEnd(EQIterationDirection::E_Forward))
+        {
+            // Adding at the end
+            pPreviousLink = pBasePointer + m_uLast;
+            uNewLinkPrevious = m_uLast;
+            uNewLinkNext = QList::END_POSITION_FORWARD;
+        }
+        else if(uIndex == m_uFirst)
+        {
+            // Adding at the beginning
+            pNextLink = pBasePointer + m_uFirst;
+            uNewLinkPrevious = QList::END_POSITION_BACKWARD;
+            uNewLinkNext = m_uFirst;
+        }
+        else
+        {
+            // Adding somewhere in the middle
+            pNextLink = pBasePointer + uIndex;
+            uNewLinkPrevious = pNextLink->GetPrevious();
+            uNewLinkNext = uIndex;
+            pPreviousLink = pBasePointer + uNewLinkPrevious;
+        }
+
+        // Creates the new link
+        QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, uNewLinkNext);
+        pointer_uint_q uNewLinkPosition = pNewLastLink - pBasePointer;
+
+        if(pNextLink)
+        {
+            // Makes the next link point to the new link
+            pNextLink->SetPrevious(uNewLinkPosition);
+        }
+        else
+        {
+            // The element was inserted at the end
+            m_uLast = uNewLinkPosition;
+        }
+        
+        if(pPreviousLink)
+        {
+            // Makes the next link point to the new link
+            pPreviousLink->SetNext(uNewLinkPosition);
+        }
+        else
+        {
+            // The element was inserted at the beginning
+            m_uFirst = uNewLinkPosition;
+        }
+
+        // Copies the new element
+        new(m_elementAllocator.Allocate()) T(newElement);
+
+        return QList::QListIterator(this, uNewLinkPosition);
+    }
+    
+    /// <summary>
+    /// Copies an element to a concrete position of the list.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// The copy constructor of the element will be called.<br/>
+    /// Use Add method to insert elements at the end.
+    /// </remarks>
+    /// <param name="newElement">[IN] The element to be copied.</param>
+    /// <param name="uIndex">[IN] The index (zero-based) where the new element will be placed. It should be lower than the number of elements of the list; if it is not, 
+    /// the element will be inserted at the end by default.</param>
+    void Insert(const T &newElement, const pointer_uint_q uPosition)
+    {
+        QE_ASSERT_WARNING(!this->IsEmpty() && uPosition < this->GetCount(), "The input iterator is out of bounds");
+        
+        if(this->GetCount() == this->GetCapacity())
+            this->ReallocateByFactor(this->GetCapacity() + 1U);
+
+        pointer_uint_q uNewLinkNext = 0;
+        pointer_uint_q uNewLinkPrevious = 0;
+
+        QList::QLink* pNextLink = null_q;
+        QList::QLink* pPreviousLink = null_q;
+
+        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+
+        // Gets the physical position of the link at the given ordinal position
+        pointer_uint_q uIndex = &this->GetValue(uPosition) - (T*)m_elementAllocator.GetPointer();
+
+        // Calculates what's the next link and what's the previous one
+        if(this->IsEmpty())
+        {
+            // If the list is empty, there is no previous link
+            uNewLinkPrevious = QList::END_POSITION_BACKWARD;
+            uNewLinkNext = QList::END_POSITION_FORWARD;
+        }
+        else if(uIndex >= this->GetCount())
+        {
+            // Adding at the end
+            pPreviousLink = pBasePointer + m_uLast;
+            uNewLinkPrevious = m_uLast;
+            uNewLinkNext = QList::END_POSITION_FORWARD;
+        }
+        else if(uIndex == m_uFirst)
+        {
+            // Adding at the beginning
+            pNextLink = pBasePointer + m_uFirst;
+            uNewLinkPrevious = QList::END_POSITION_BACKWARD;
+            uNewLinkNext = m_uFirst;
+        }
+        else
+        {
+            // Adding somewhere in the middle
+            pNextLink = pBasePointer + uIndex;
+            uNewLinkPrevious = pNextLink->GetPrevious();
+            uNewLinkNext = uIndex;
+            pPreviousLink = pBasePointer + uNewLinkPrevious;
+        }
+
+        // Creates the new link
+        QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, uNewLinkNext);
+        pointer_uint_q uNewLinkPosition = pNewLastLink - pBasePointer;
+
+        if(pNextLink)
+        {
+            // Makes the next link point to the new link
+            pNextLink->SetPrevious(uNewLinkPosition);
+        }
+        else
+        {
+            // The element was inserted at the end
+            m_uLast = uNewLinkPosition;
+        }
+        
+        if(pPreviousLink)
+        {
+            // Makes the next link point to the new link
+            pPreviousLink->SetNext(uNewLinkPosition);
+        }
+        else
+        {
+            // The element was inserted at the beginning
+            m_uFirst = uNewLinkPosition;
+        }
+
+        // Copies the new element
+        new(m_elementAllocator.Allocate()) T(newElement);
+    }
+    
+    /// <summary>
+    /// Deletes an element placed at a concrete position in the list and returns an iterator that points to the next position.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of the element will be called.
+    /// </remarks>
+    /// <param name="position">[IN] The position of the element to be deleted. It should not be an end position; if it is, 
+    /// nothing will be done. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// list; otherwise, the behavior is undefined.</param>
+    /// <returns>
+    /// An iterator that points to the ordinal position that was occupied by the just removed element. If there was not another element next, 
+    /// the iterator will point to the end position.
+    /// </returns>
+    QListIterator Remove(const typename QList::QListIterator position)
+    {
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
+        QE_ASSERT_WARNING(!this->IsEmpty(), "The list is empty, there is nothing to remove");
+        QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
+
+        pointer_uint_q uNext = QList::END_POSITION_FORWARD;
+        pointer_uint_q uPrevious = QList::END_POSITION_BACKWARD;
+
+        if(!this->IsEmpty() && !position.IsEnd())
+        {
+            // Gets the position of the iterator
+            pointer_uint_q uIndex = &(*position) - (T*)m_elementAllocator.GetPointer();
+            QList::QLink* pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+            QList::QLink* pLinkToRemove = pLinkBasePointer + uIndex;
+            T* pElementToRemove = &(*position);
+
+            uNext = pLinkToRemove->GetNext();
+            uPrevious = pLinkToRemove->GetPrevious();
+
+            if(uNext != QList::END_POSITION_FORWARD)
+            {
+                // If there is next link
+                QList::QLink* pNextLink = pLinkBasePointer + uNext;
+                pNextLink->SetPrevious(uPrevious);
+            }
+            else if(uPrevious != QList::END_POSITION_BACKWARD)
+            {
+                // If this link was the last one, and there is a previous link, the last link in the list will be the previous link
+                m_uLast = uPrevious;
+            }
+            else
+            {
+                // If this link was the only one in the list the first and the last position are end positions
+                m_uFirst = QList::END_POSITION_BACKWARD;
+                m_uLast = QList::END_POSITION_FORWARD;
+            }
+
+            if(uPrevious != QList::END_POSITION_BACKWARD)
+            {
+                QList::QLink* pPreviousLink = pLinkBasePointer + uPrevious;
+                pPreviousLink->SetNext(uNext);
+            }
+            else if(uNext != QList::END_POSITION_FORWARD)
+            {
+                // If this link was the first one, and there is a next link, the first link in the list will be the next link
+                m_uFirst = uNext;
+            }
+
+            pElementToRemove->~T();
+            m_linkAllocator.Deallocate(pLinkToRemove);
+            m_elementAllocator.Deallocate(pElementToRemove);
+        }
+
+        return QList::QListIterator(this, uNext);
+    }
+    
+    /// <summary>
+    /// Deletes an element placed at a concrete position in the list.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of the element will be called.
+    /// </remarks>
+    /// <param name="uIndex">[IN] The index (zero-based) of the element to be deleted. It should be lower than the number of elements of the list; if it is not, 
+    /// nothing will happen.</param>
+    void Remove(const pointer_uint_q uPosition)
+    {
+        QE_ASSERT_WARNING(!this->IsEmpty(), "The list is empty, there is nothing to remove");
+        QE_ASSERT_WARNING(!this->IsEmpty() && uPosition < this->GetCount(), "The input iterator is out of bounds");
+
+        if(!this->IsEmpty() && uPosition < this->GetCount())
+        {
+            // Gets the position of the iterator
+            T* pElementToRemove = &this->GetValue(uPosition);
+            pointer_uint_q uIndex = pElementToRemove - (T*)m_elementAllocator.GetPointer();
+
+            QList::QLink* pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+            QList::QLink* pLinkToRemove = pLinkBasePointer + uIndex;
+
+            pointer_uint_q uNext = pLinkToRemove->GetNext();
+            pointer_uint_q uPrevious = pLinkToRemove->GetPrevious();
+            
+            if(uNext != QList::END_POSITION_FORWARD)
+            {
+                // If there is next link
+                QList::QLink* pNextLink = pLinkBasePointer + uNext;
+                pNextLink->SetPrevious(uPrevious);
+            }
+            else if(uPrevious != QList::END_POSITION_BACKWARD)
+            {
+                // If this link was the last one, and there is a previous link, the last link in the list will be the previous link
+                m_uLast = uPrevious;
+            }
+            else
+            {
+                // If this link was the only one in the list the first and the last position are end positions
+                m_uFirst = QList::END_POSITION_BACKWARD;
+                m_uLast = QList::END_POSITION_FORWARD;
+            }
+
+            if(uPrevious != QList::END_POSITION_BACKWARD)
+            {
+                QList::QLink* pPreviousLink = pLinkBasePointer + uPrevious;
+                pPreviousLink->SetNext(uNext);
+            }
+            else if(uNext != QList::END_POSITION_FORWARD)
+            {
+                // If this link was the first one, and there is a next link, the first link in the list will be the next link
+                m_uFirst = uNext;
+            }
+
+            pElementToRemove->~T();
+            m_linkAllocator.Deallocate(pLinkToRemove);
+            m_elementAllocator.Deallocate(pElementToRemove);
+        }
+    }
+    
+    /// <summary>
+    /// Removes all the elements of the list.
+    /// </summary>
+    /// <remarks>
+    /// This operation will make any existing iterator or pointer invalid.<br/>
+    /// The destructor of every element will be called.
+    /// </remarks>
+    void Clear()
+    {
+        if(!this->IsEmpty())
+        {
+            // Calls every destructor, from first to last
+            for(QList::QListIterator it = this->GetFirst(); !it.IsEnd(); ++it)
+                (*it).~T();
+
+            m_uFirst = QList::END_POSITION_BACKWARD;
+            m_uLast = QList::END_POSITION_FORWARD;
+
+            m_elementAllocator.Clear();
+            m_linkAllocator.Clear();
+        }
+    }
+
+    
+private:
+
+    /// <summary>
+    /// Increases the capacity of the list, reserving memory for more elements than necessary, depending on the reallocation factor.
+    /// </summary>
+    /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
+    /// current capacity or nothing will happen.</param>
+    void ReallocateByFactor(const pointer_uint_q uNumberOfElements)
+    {
+        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QList::REALLOCATION_FACTOR, pointer_uint_q);
+        this->Reserve(FINAL_CAPACITY);
     }
 
 
@@ -1134,6 +1477,13 @@ protected:
     /// </summary>
     AllocatorT m_linkAllocator;
 };
+
+
+// ATTRIBUTE INITIALIZATION
+// ----------------------------
+template<class T, class AllocatorT, class ComparatorT>
+float QList<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
+
 
 } //namespace Containers
 } //namespace Tools
