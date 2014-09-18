@@ -41,7 +41,7 @@ namespace Common
 // This macro calls the internal logger to send text to the configured channel. To change the log function
 // that will be called by the internal logger, use the SetLogFunction method.
 // --------------------------------------------------------------------------------------------------------
-#define QE_LOG(strMessage) SQInternalLogger::Log(strMessage)
+#define QE_LOG(strMessage) Kinesis::QuimeraEngine::Common::SQInternalLogger::Log(strMessage)
 
 
 } //namespace Common

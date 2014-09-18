@@ -193,6 +193,142 @@ bool QUri::operator!=(const QUri &uri) const
            m_definedComponents != uri.m_definedComponents;
 }
 
+void QUri::Resolve(const QUri &relativeUri)
+{
+    QE_ASSERT_ERROR(relativeUri.IsRelative(), "The input URI must be relative.");
+    QE_ASSERT_ERROR(!this->IsRelative(), "The URI must be absolute to serve as a base URI.");
+
+    // This class considers as a relative URI anyone that has no scheme. Therefore, the scheme is not checked but ignored.
+
+    if(QUri::FLAG_AUTHORITY_IS_DEFINED & relativeUri.m_definedComponents)
+    {
+        m_strHost     = relativeUri.m_strHost;
+        m_strPort     = relativeUri.m_strPort;
+        m_strUserInfo = relativeUri.m_strUserInfo;
+        m_strQuery    = relativeUri.m_strQuery;
+        m_arPathSegments    = relativeUri.m_arPathSegments;
+        m_definedComponents = relativeUri.m_definedComponents | QUri::FLAG_SCHEME_IS_DEFINED; // The relative URI does not have scheme
+    }
+    else
+    {
+        if(relativeUri.GetPath().IsEmpty())
+        {
+            // Uses the base path
+
+            if(QUri::FLAG_QUERY_IS_DEFINED & relativeUri.m_definedComponents)
+            {
+                m_strQuery = relativeUri.m_strQuery;
+                m_definedComponents |= QUri::FLAG_QUERY_IS_DEFINED;
+            }
+            // If not, it uses the base query
+        }
+        else
+        {
+            // If the relative URI starts with a slash ("/")
+            if(relativeUri.m_arPathSegments[0].IsEmpty() && relativeUri.m_arPathSegments.GetCount() > 1U)
+            {
+                m_arPathSegments = relativeUri.m_arPathSegments;
+            }
+            else
+            {
+                // Merges the paths
+
+                // The last segment will be replaced with the first segment of the relative URI
+                m_arPathSegments.Remove(m_arPathSegments.GetCount() - 1U); 
+
+                for(QDynamicArray<string_q>::QArrayIterator itRelativeSegment = relativeUri.m_arPathSegments.GetFirst(); !itRelativeSegment.IsEnd(); ++itRelativeSegment)
+                    m_arPathSegments.Add(*itRelativeSegment);
+
+                QUri::RemoveDotSegments(m_arPathSegments);
+
+            }
+            
+            // Removes the starting dot segments
+            QUri::RemoveFirstDotSegments(m_arPathSegments);
+
+            // Uses the query of the relative URI or none
+            if(QUri::FLAG_QUERY_IS_DEFINED & relativeUri.m_definedComponents)
+            {
+                m_strQuery = relativeUri.m_strQuery;
+                m_definedComponents |= QUri::FLAG_QUERY_IS_DEFINED;
+            }
+            else
+            {
+                m_strQuery = string_q::GetEmpty();
+                m_definedComponents &= ~QUri::FLAG_QUERY_IS_DEFINED;
+            }
+        }
+
+        // Uses the base authority
+    }
+
+    // Uses the base scheme
+    
+    // Uses the fragment of the relative URI or none
+    if(QUri::FLAG_FRAGMENT_IS_DEFINED & relativeUri.m_definedComponents)
+    {
+        m_strFragment = relativeUri.m_strFragment;
+        m_definedComponents |= QUri::FLAG_FRAGMENT_IS_DEFINED;
+    }
+    else
+    {
+        m_strFragment = string_q::GetEmpty();
+        m_definedComponents &= ~QUri::FLAG_FRAGMENT_IS_DEFINED;
+    }
+
+    // The original string is reset
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+string_q QUri::ToString() const
+{
+    string_q strUri;
+
+    if(QUri::FLAG_SCHEME_IS_DEFINED & m_definedComponents)
+    {
+        strUri.Append(m_strScheme);
+        strUri.Append(QUri::CHAR_COLON);
+    }
+
+    if(QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents)
+    {
+        strUri.Append(QUri::DOUBLE_SLASH);
+
+        if(QUri::FLAG_USERINFO_IS_DEFINED & m_definedComponents)
+        {
+            strUri.Append(m_strUserInfo);
+            strUri.Append(QUri::CHAR_AT_SIGN);
+        }
+
+        if(QUri::FLAG_HOST_IS_DEFINED & m_definedComponents)
+        {
+            strUri.Append(m_strHost);
+        }
+
+        if(QUri::FLAG_PORT_IS_DEFINED & m_definedComponents)
+        {
+            strUri.Append(QUri::CHAR_COLON);
+            strUri.Append(m_strPort);
+        }
+    }
+
+    strUri.Append(this->GetPath());
+    
+    if(QUri::FLAG_QUERY_IS_DEFINED & m_definedComponents)
+    {
+        strUri.Append(QUri::CHAR_QUESTION_MARK);
+        strUri.Append(m_strQuery);
+    }
+
+    if(QUri::FLAG_FRAGMENT_IS_DEFINED & m_definedComponents)
+    {
+        strUri.Append(QUri::CHAR_NUMBER_SIGN);
+        strUri.Append(m_strFragment);
+    }
+
+    return strUri;
+}
+
 void QUri::EncodePathSegment(const string_q &strInput, string_q &strOutput)
 {
     static const bool IS_PATH_SEGMENT = true;
@@ -371,14 +507,14 @@ void QUri::DecomposeUri(const string_q &strInputUri)
 
         this->DecomposeAuthority(strInputUri, nAuthorityStartPosition, nPathStartPosition, nQueryStartPosition, nFragmentStartPosition, m_definedComponents);
     }
-    else
+    else if(nSchemeEndPosition != string_q::PATTERN_NOT_FOUND && 
+            nSchemeEndPosition != strInputUri.GetLength() - 1U)
     {
-        nPathStartPosition = strInputUri.IndexOf(QUri::CHAR_SLASH, EQComparisonType::E_BinaryCaseSensitive);
+        // The authority is not defined, the scheme is defined and is not alone
+        nPathStartPosition = nSchemeEndPosition + 1U;
     }
 
     // Decomposes de path
-    if(nPathStartPosition == string_q::PATTERN_NOT_FOUND)
-        nPathStartPosition = 0;
 
     // If there is no scheme nor authority, the first part must be the first segment of the path (in a relative-path reference)
     if(!((QUri::FLAG_SCHEME_IS_DEFINED | QUri::FLAG_AUTHORITY_IS_DEFINED) & m_definedComponents))
@@ -487,29 +623,35 @@ void QUri::DecomposePath(const string_q &strInputUri,
                          const int nQueryStartPosition, 
                          const int nFragmentStartPosition)
 {
+    // Note: When the path starts with a slash, an empty segment is added at the start; 
+    //       when the path ends with a slash, an empty segment is added at the end
+
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
     static char_q SLASH = '/';
 
-    int nPathEndPosition = 0;
+    if(nPathStartPosition != string_q::PATTERN_NOT_FOUND)
+    {
+        int nPathEndPosition = 0;
 
-    if(nQueryStartPosition != string_q::PATTERN_NOT_FOUND)
-        nPathEndPosition = nQueryStartPosition - 1U;
-    else if(nFragmentStartPosition != string_q::PATTERN_NOT_FOUND)
-        nPathEndPosition = nFragmentStartPosition - 1U;
-    else
-        nPathEndPosition = strInputUri.GetLength() - 1U;
+        if(nQueryStartPosition != string_q::PATTERN_NOT_FOUND)
+            nPathEndPosition = nQueryStartPosition - 1U;
+        else if(nFragmentStartPosition != string_q::PATTERN_NOT_FOUND)
+            nPathEndPosition = nFragmentStartPosition - 1U;
+        else
+            nPathEndPosition = strInputUri.GetLength() - 1U;
 
-    string_q strPath(strInputUri.Substring(nPathStartPosition, nPathEndPosition));
+        string_q strPath(strInputUri.Substring(nPathStartPosition, nPathEndPosition));
 
-    unsigned int uSegments = 0;
-    string_q* arSegments = strPath.Split(QUri::CHAR_SLASH, uSegments);
+        unsigned int uSegments = 0;
+        string_q* arSegments = strPath.Split(QUri::CHAR_SLASH, uSegments);
 
-    m_arPathSegments.Clear();
+        m_arPathSegments.Clear();
 
-    for(unsigned int i = 0; i < uSegments; ++i)
-        m_arPathSegments.Add(arSegments[i]);
+        for(unsigned int i = 0; i < uSegments; ++i)
+            m_arPathSegments.Add(arSegments[i]);
 
-    delete[] arSegments;
+        delete[] arSegments;
+    }
 }
 
 void QUri::RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
@@ -518,22 +660,34 @@ void QUri::RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamic
 
     while(i < arPathSegments.GetCount())
     {
-        if(arPathSegments[i] == QUri::SINGLE_DOT_SEGMENT)
+        if(arPathSegments[i] == QUri::SINGLE_DOT_SEGMENT && i > 0)
         {
-            // Removes "."
-            arPathSegments.Remove(i);
+            // If the dot segment appears the first, it is not removed
+            // If the dot segment appears the last, it is replaced by an empty string
+            if(i == arPathSegments.GetCount() - 1U)
+                arPathSegments[i] = string_q::GetEmpty();
+            else
+                arPathSegments.Remove(i);
         }
-        else if(i > 0 && arPathSegments[i] == QUri::DOUBLE_DOT_SEGMENT && arPathSegments[i-1U] != QUri::DOUBLE_DOT_SEGMENT)
+        else if(i > 0                                            && 
+                arPathSegments[i] == QUri::DOUBLE_DOT_SEGMENT    && 
+                arPathSegments[i-1U] != QUri::DOUBLE_DOT_SEGMENT && 
+                arPathSegments[i-1U] != QUri::SINGLE_DOT_SEGMENT && 
+                !arPathSegments[i-1U].IsEmpty())
         {
             // The dot segments formed by 2 dots that appear at the beginning of relative URIs must not be removed
-            // Two dot segments must not remove previous dot segments
+            // Two dot segments must not remove previous dot segments nor empty segments
 
             // Removes ".."
             arPathSegments.Remove(i);
 
-            // And the previous segment
-            arPathSegments.Remove(i - 1U);
+            // If the previous segment is now the last one, it is replaced with an empty segment
+            // If not, it is removed
             --i;
+            if(i == arPathSegments.GetCount() - 1U)
+                arPathSegments[i] = string_q::GetEmpty();
+            else
+                arPathSegments.Remove(i);
         }
         else
         {
@@ -545,15 +699,19 @@ void QUri::RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamic
 
 void QUri::Normalize()
 {
-    if(QUri::FLAG_SCHEME_IS_DEFINED & m_definedComponents)
-        m_strScheme = m_strScheme.ToLowerCase();
-
+    this->NormalizeScheme();
     this->NormalizeUserInfo();
     this->NormalizeHost();
     this->NormalizePort();
     this->NormalizePath();
     this->NormalizeQuery();
     this->NormalizeFragment();
+}
+
+void QUri::NormalizeScheme()
+{
+    if(QUri::FLAG_SCHEME_IS_DEFINED & m_definedComponents)
+        m_strScheme = m_strScheme.ToLowerCase();
 }
 
 void QUri::NormalizeUserInfo()
@@ -661,6 +819,22 @@ bool QUri::IsEncodable(const char_q &character, const bool bIsPathSegment)
            character != QUri::CHAR_SEMICOLON[0];
 }
 
+void QUri::RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
+{
+    pointer_uint_q uAbsoluteSegment = 0;
+
+    // If the first segment is empty, it must be ignored
+    if(!arPathSegments.IsEmpty() && arPathSegments[0].IsEmpty())
+        ++uAbsoluteSegment;
+
+    // While the segment is a dot segment, remove it
+    while(uAbsoluteSegment < arPathSegments.GetCount() && 
+            (arPathSegments[uAbsoluteSegment] == QUri::DOUBLE_DOT_SEGMENT || arPathSegments[uAbsoluteSegment] == QUri::SINGLE_DOT_SEGMENT))
+    {
+        arPathSegments.Remove(uAbsoluteSegment);
+    }
+}
+
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -717,8 +891,9 @@ string_q QUri::GetPath() const
         QDynamicArray<string_q>::QArrayIterator it = m_arPathSegments.GetFirst();
         QDynamicArray<string_q>::QArrayIterator itLast = m_arPathSegments.GetLast();
 
-        // If it is an absolute URI or it begins with an empty segment, adds a slash at the beginning
-        if(!this->IsRelative() || it->IsEmpty())
+        // If the authority is defined or the path begins with an empty segment, adds a slash at the beginning
+        if((QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents) || 
+           (it->IsEmpty() && m_arPathSegments.GetCount() > 1U))
         {
             strPath.Append(QUri::CHAR_SLASH);
             strPath.Append(*it);
@@ -772,6 +947,196 @@ bool QUri::IsRelative() const
     return !(m_definedComponents & QUri::FLAG_SCHEME_IS_DEFINED);
 }
 
+void QUri::SetAuthority(const string_q &strAuthority)
+{
+    if(strAuthority.IsEmpty())
+    {
+        m_definedComponents &= ~(QUri::FLAG_AUTHORITY_IS_DEFINED | QUri::FLAG_USERINFO_IS_DEFINED | QUri::FLAG_HOST_IS_DEFINED | QUri::FLAG_PORT_IS_DEFINED);
+        m_strHost = string_q::GetEmpty();
+        m_strUserInfo = string_q::GetEmpty();
+        m_strPort = string_q::GetEmpty();
+    }
+    else
+    {
+        m_definedComponents |= QUri::FLAG_AUTHORITY_IS_DEFINED | QUri::FLAG_HOST_IS_DEFINED;
+        this->DecomposeAuthority(QUri::DOUBLE_SLASH + strAuthority, 0, string_q::PATTERN_NOT_FOUND, string_q::PATTERN_NOT_FOUND, string_q::PATTERN_NOT_FOUND, m_definedComponents);
+        this->NormalizeUserInfo();
+        this->NormalizeHost();
+        this->NormalizePort();
+
+        // If the path does not start with a slash
+        if(!m_arPathSegments.IsEmpty() && m_arPathSegments[0] != string_q::GetEmpty())
+        {
+            // Adds an empty segment at the beginning, which means adding a starting slash
+            m_arPathSegments.Insert(string_q::GetEmpty(), 0);
+        }
+    }
+
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+void QUri::SetFragment(const string_q &strFragment)
+{
+    if(strFragment.IsEmpty())
+    {
+        m_definedComponents &= ~QUri::FLAG_FRAGMENT_IS_DEFINED;
+        m_strFragment = string_q::GetEmpty();
+    }
+    else
+    {
+        m_definedComponents |= QUri::FLAG_FRAGMENT_IS_DEFINED;
+        m_strFragment = strFragment;
+        this->NormalizeFragment();
+    }
+
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+void QUri::SetHost(const string_q &strHost)
+{
+    if(strHost.IsEmpty())
+    {
+        // The entire authority will be undefined
+        this->SetAuthority(strHost);
+    }
+    else
+    {
+        // If the host was already defined, it takes the new value
+        if(m_definedComponents & QUri::FLAG_HOST_IS_DEFINED)
+        {
+            m_strHost = strHost;
+            this->NormalizeHost();
+            m_strOriginalString = string_q::GetEmpty();
+        }
+        else
+        {
+            // If not, the authority is defined using the new value
+            this->SetAuthority(strHost);
+        }
+    }
+}
+
+void QUri::SetPath(const string_q &strPath)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    string_q strAdjustedInput = strPath;
+
+    if(strAdjustedInput.IsEmpty())
+    {
+        if(QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents)
+            strAdjustedInput = QUri::CHAR_SLASH;
+        else
+            strAdjustedInput = QUri::SINGLE_DOT_SEGMENT;
+    }
+    else if((QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents) && strAdjustedInput[0] != QUri::CHAR_SLASH[0])
+    {
+        // The authority is defined and the input path does not start with a slash ("/"), a slash is added at the start
+        strAdjustedInput = QUri::CHAR_SLASH + strAdjustedInput;
+    }
+
+    this->DecomposePath(strAdjustedInput, 0, string_q::PATTERN_NOT_FOUND, string_q::PATTERN_NOT_FOUND);
+    this->NormalizePath();
+
+    if(!this->IsRelative())
+    {
+        QUri::RemoveFirstDotSegments(m_arPathSegments);
+    }
+    else if(!m_arPathSegments.IsEmpty() && m_arPathSegments[0].Contains(QUri::CHAR_COLON, EQComparisonType::E_BinaryCaseSensitive))
+    {
+        // The path cannot start with a segment that contains a colon when there is no scheme
+        // A starting single dot segment is added ("./")
+        m_arPathSegments.Insert(QUri::SINGLE_DOT_SEGMENT, 0);
+    }
+
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+void QUri::SetQuery(const string_q &strQuery)
+{
+    if(strQuery.IsEmpty())
+    {
+        m_definedComponents &= ~QUri::FLAG_QUERY_IS_DEFINED;
+        m_strQuery = string_q::GetEmpty();
+    }
+    else
+    {
+        m_definedComponents |= QUri::FLAG_QUERY_IS_DEFINED;
+        m_strQuery = strQuery;
+        this->NormalizeQuery();
+    }
+
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+void QUri::SetPort(const string_q &strPort)
+{
+    if(QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents)
+    {
+        if(strPort.IsEmpty())
+        {
+            m_definedComponents &= ~QUri::FLAG_PORT_IS_DEFINED;
+            m_strPort = string_q::GetEmpty();
+        }
+        else
+        {
+            m_definedComponents |= QUri::FLAG_PORT_IS_DEFINED;
+            m_strPort = strPort;
+            this->NormalizePort();
+        }
+
+        m_strOriginalString = string_q::GetEmpty();
+    }
+}
+
+void QUri::SetScheme(const string_q &strScheme)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    if(strScheme.IsEmpty())
+    {
+        m_definedComponents &= ~QUri::FLAG_SCHEME_IS_DEFINED;
+        m_strScheme = string_q::GetEmpty();
+
+        // The path cannot start with a segment that contains a colon when there is no scheme
+        if(!m_arPathSegments.IsEmpty() && m_arPathSegments[0].Contains(QUri::CHAR_COLON, EQComparisonType::E_BinaryCaseSensitive))
+        {
+            // A starting single dot segment is added ("./")
+            m_arPathSegments.Insert(QUri::SINGLE_DOT_SEGMENT, 0);
+        }
+    }
+    else
+    {
+        m_definedComponents |= QUri::FLAG_SCHEME_IS_DEFINED;
+        m_strScheme = strScheme;
+        this->NormalizeScheme();
+
+        // The path may need to be adjusted if it begins with dot segments
+        QUri::RemoveFirstDotSegments(m_arPathSegments);
+    }
+
+    m_strOriginalString = string_q::GetEmpty();
+}
+
+void QUri::SetUserInfo(const string_q &strUserInfo)
+{
+    if(QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents)
+    {
+        if(strUserInfo.IsEmpty())
+        {
+            m_definedComponents &= ~QUri::FLAG_USERINFO_IS_DEFINED;
+            m_strUserInfo = string_q::GetEmpty();
+        }
+        else
+        {
+            m_definedComponents |= QUri::FLAG_USERINFO_IS_DEFINED;
+            m_strUserInfo = strUserInfo;
+            this->NormalizeUserInfo();
+        }
+
+        m_strOriginalString = string_q::GetEmpty();
+    }
+}
 
 } //namespace IO
 } //namespace System

@@ -296,7 +296,32 @@ public:
     /// True if URIs are not equivalent; False otherwise.
     /// </returns>
     bool operator!=(const QUri &uri) const;
-        
+    
+    /// <summary>
+    /// Resolves a reference URI against an absolute URI and stores the target URI.
+    /// </summary>
+    /// <remarks>
+    /// The process is described in the RFC 3986, section 5.<br/>
+    /// The resident URI must be absolute.<br/>
+    /// Example:<br/>
+    /// - Absolute URI / base URI: "http://a/b/c/d?q#f"<br/>
+    /// - Relative reference URI: "./../g?y"<br/>
+    /// - Resultant target URI: "http://a/b/g?y"
+    /// </remarks>
+    /// <param name="relativeUri">[IN] The relative reference URI.</param>
+    void Resolve(const QUri &relativeUri);
+
+    /// <summary>
+    /// Gets the full normalized URI as a string.
+    /// </summary>
+    /// <remarks>
+    /// The process is described in the RFC 3986, section 5.3.
+    /// </remarks>
+    /// <returns>
+    /// A string that contains the full normalized URI.
+    /// </returns>
+    string_q ToString() const;
+
     /// <summary>
     /// Encodes a character sequence so some characters are "percent-encoded", following certain rules for path segments.
     /// </summary>
@@ -437,7 +462,7 @@ protected:
     /// <remarks>
     /// This process is described in the RFC 3986, section 5.2.4. Every segment that consists in only one or two dots is removed.
     /// Besides, in the second case, the previous segment is removed too, unless it is the first segment. As an exception to this rule,
-    /// consecutive dot segments formed by two dots that appear at the beginning of relative URIs will not be removed.
+    /// consecutive dot segments that appear at the beginning of relative URIs will not be removed.
     /// </remarks>
     /// <param name="arPathSegments">[IN/OUT] The path segments which may or may not be removed.</param>
     static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments);
@@ -514,6 +539,14 @@ protected:
     virtual void NormalizeFragment();
 
 private:
+    
+    /// <summary>
+    /// Normalizes the scheme.
+    /// </summary>
+    /// <remarks>
+    /// This implementation only lowercases the entire component.
+    /// </remarks>
+    void NormalizeScheme();
 
     /// <summary>
     /// Encodes a character sequence so some characters are "percent-encoded", following certain rules depending on whether it is
@@ -556,6 +589,12 @@ private:
     /// True if the character should be percent-encoded; False otherwise.
     /// </returns>
     static bool IsEncodable(const Kinesis::QuimeraEngine::Common::DataTypes::char_q &character, const bool bIsPathSegment);
+    
+    /// <summary>
+    /// Removes the dot segments ("." and "..") at the beginning of the path.
+    /// </summary>
+    /// <param name="arPathSegments">[IN/OUT] The path segments which may or may not be removed.</param>
+    static void RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments);
 
 
     // PROPERTIES
@@ -590,8 +629,8 @@ public:
     /// Gets the path component of the URI.
     /// </summary>
     /// <returns>
-    /// The full path component. If it is a relative URI, the initial separator ("/") will be included if it started with a separator. If it is an absolute URI, 
-    /// it will include the initial separator. It will not include a separator at the end.
+    /// The full path component. If it is a relative URI, the initial separator ("/") will be included if it started with a separator. If the authority component is defined, 
+    /// the path will include the initial separator. It will not include a separator at the end if it did not have one.
     /// </returns>
     string_q GetPath() const;
     
@@ -630,6 +669,9 @@ public:
     /// <summary>
     /// Gets the string that was provided originally to form the URI.
     /// </summary>
+    /// <remarks>
+    /// This string will be reset (set to empty) if any component of the URI is changed after its creation.
+    /// </remarks>
     /// <returns>
     /// The original URI, without modifications.
     /// </returns>
@@ -650,6 +692,93 @@ public:
     /// True if the URI is a relative reference; False if it is an absolute URI.
     /// </returns>
     bool IsRelative() const;
+    
+    /// <summary>
+    /// Sets the authority component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If the path is not empty and does not start with a slash ("/"), a slash will be added at the beginning.<br/>
+    /// The component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strAuthority">[IN] The new authority. It must not contain the initial separator ("//"). It may contain the user information, 
+    /// the host, the port or none of them (empty).</param>
+    void SetAuthority(const string_q &strAuthority);
+
+    /// <summary>
+    /// Sets the fragment component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// The component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strFragment">[IN] The new fragment. It must not contain the initial separator ("#"). It can be empty.</param>
+    void SetFragment(const string_q &strFragment);
+    
+    /// <summary>
+    /// Sets the host sub-component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If the path is not empty and does not start with a slash ("/"), a slash will be added at the beginning.<br/>
+    /// The sub-component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strHost">[IN] The new host. It can be empty; in this case, the entire authority will be undefined.</param>
+    void SetHost(const string_q &strHost);
+    
+    /// <summary>
+    /// Sets the path component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If the scheme is not defined and the first segment of the input path contains a colon (":"), a dot segment will be added at the start ("./").<br/>
+    /// The component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strPath">[IN] The new path. It can be empty; in such case, it will be considered as ".".</param>
+    void SetPath(const string_q &strPath);
+    
+    /// <summary>
+    /// Sets the query component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// The sub-component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="&strQuery">[IN] The new query. It can be empty.</param>
+    void SetQuery(const string_q &strQuery);
+    
+    /// <summary>
+    /// Sets the port sub-component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If the authority is not already defined, the value will not be set.<br/>
+    /// The sub-component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strPort">[IN] The new port. It can be empty.</param>
+    void SetPort(const string_q &strPort);
+
+    /// <summary>
+    /// Sets the scheme component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If there was not a defined scheme and the first segment of the path contains a colon (":"), a dot segment will be added at the start ("./").<br/>
+    /// The sub-component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strScheme">[IN] The new scheme. It can be empty.</param>
+    void SetScheme(const string_q &strScheme);
+    
+    /// <summary>
+    /// Sets the user information sub-component of the URI.
+    /// </summary>
+    /// <remarks>
+    /// If the authority is not already defined, the value will not be set.<br/>
+    /// The sub-component will be normalized.<br/>
+    /// The original string (see GetOriginalString method) will be reset since it will not match the modified URI.
+    /// </remarks>
+    /// <param name="strUserInfo">[IN] The new user information. It can be empty.</param>
+    void SetUserInfo(const string_q &strUserInfo);
 
 
     // ATTRIBUTES
