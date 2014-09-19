@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseTriangle.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector2.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h" />
     <ClInclude Include="..\..\..\..\headers\QCircle.h" />
     <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
