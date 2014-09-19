@@ -34,6 +34,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTree_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ArrayElementMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ListElementMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h" />

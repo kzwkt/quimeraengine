@@ -206,6 +206,9 @@
     <ClInclude Include="..\..\..\..\headers\QDynamicArray.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">

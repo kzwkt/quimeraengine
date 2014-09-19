@@ -1092,7 +1092,7 @@ public:
     /// </remarks>
     ~QNTree()
     {
-        /* [TODO] Thund: Uncomment when the iterator and GetFirst exists
+        /* [TODO] Thund: Uncomment when GetFirst exists
         for(QNTree::QNTreeIterator it = this->GetFirst(); !it.IsEnd(); ++it)
             it->~T();*/
     }
@@ -1101,84 +1101,7 @@ public:
     // METHODS
     // ---------------
 public:
-
-    /// <summary>
-    /// Shrinks the capacity of the tree so it uses only the necessary amount of memory to store the existing elements.
-    /// </summary>
-    /// <remarks>
-    /// In case the tree has allocated as many elements as its capacity indicates, nothing will happen.<br/>
-    /// This operation implies a reallocation, which means:<br/>
-    /// - Iterators pointing to elements of this tree may become invalid.<br/>
-    /// - Any pointer to elements of this tree will be pointing to garbage.
-    /// </remarks>
-    void Shrink()
-    {/* [TODO] Thund: Uncomment when QNTreeIterator is implemented
-        // If the pool is full, it cannot be shrunk
-        if(m_elementAllocator.CanAllocate())
-        {
-            const pointer_uint_q NUMBER_OF_BLOCKS = this->GetCapacity();
-            u8_q* arOccupiedBlocks = new u8_q[NUMBER_OF_BLOCKS];
-
-            // Marks all the block positions occupied by an element
-            pointer_uint_q uElementPosition = 0;
-
-            for(QNTree::QNTreeIterator it = this->GetFirst(); !it.IsEnd(); ++it)
-            {
-                uElementPosition = (T*)m_elementAllocator.GetPointer() - &(*it);
-                arOccupiedBlocks[uElementPosition] = 1;
-            }
-
-            // Marks all the free blocks as allocated in the allocator so they can be used in the following loop
-            while(m_elementAllocator.CanAllocate())
-            {
-                m_elementAllocator.Allocate();
-                m_nodeAllocator.Allocate();
-            }
-
-            // Uses the marks to move elements from latest blocks to free blocks in lower positions
-            pointer_uint_q uPositionOfLastBlockToBeMoved = 0;
-            bool bBlockToBeMovedSelected = false;
-
-            for(pointer_uint_q i = NUMBER_OF_BLOCKS - 1; i >= 0; --i)
-            {
-                // <------------------ i
-                // _____________________
-                // | x |   | x | x |   |
-                // |___|___|___|___|___|
-                //       ^_______|
-
-                if(arOccupiedBlocks[i] == 0 && bBlockToBeMovedSelected) // If this block is free and there is a block to be moved already selected
-                {
-                    // Copies the occupied block to the free block
-                    T* pOccupiedBlock = ((T*)m_elementAllocator.GetPointer() + uPositionOfLastBlockToBeMoved);
-                    T* pFreeBlock     = ((T*)m_elementAllocator.GetPointer() + i);
-                    memcpy(pFreeBlock, pOccupiedBlock, sizeof(T));
-
-                    QNTree::QNode* pOccupiedNodeBlock = ((QNTree::QNode*)m_nodeAllocator.GetPointer() + uPositionOfLastBlockToBeMoved);
-                    QNTree::QNode* pFreeNodeBlock     = ((QNTree::QNode*)m_nodeAllocator.GetPointer() + i);
-                    memcpy(pFreeNodeBlock, pOccupiedNodeBlock, sizeof(T));
-
-                    // Updates the positions of the node and the related nodes
-                    this->UpdateNodesPositions(pFreeNodeBlock);
-
-                    bBlockToBeMovedSelected = false;
-                }
-                else if(!bBlockToBeMovedSelected) // If this block is occupied and the block to be moved has not been selected
-                {
-                    uPositionOfLastBlockToBeMoved = i;
-                    bBlockToBeMovedSelected = true;
-                }
-            }
-
-            // Frees the list
-            delete[] arOccupiedBlocks;
-
-            // Reallocates
-            m_elementAllocator.Shrink(m_elementAllocator.GetAllocatedBytes());
-            m_nodeAllocator.Shrink(m_nodeAllocator.GetAllocatedBytes());
-        }*/
-    }
-
+    
     /// <summary>
     /// Increases the capacity of the tree, reserving memory for more elements.
     /// </summary>
@@ -1295,7 +1218,7 @@ private:
 
 public:
 
-       /// <summary>
+    /// <summary>
     /// Gets the element allocator.
     /// </summary>
     /// <returns>
@@ -1307,7 +1230,7 @@ public:
     }
 
     /// <summary>
-    /// Gets the capacity of the tree, which means the number of elements that can be added before they are reallocated
+    /// Gets the capacity of the tree, which means the number of elements that can be added before they are reallocated to
     /// another part of memory.
     /// </summary>
     /// <returns>

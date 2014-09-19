@@ -50,11 +50,18 @@ class CallCounter
 
 public:
 
+    /// <summary>
+    /// Default constructor. Increases the constructor call count.
+    /// </summary>
     CallCounter()
     {
         CallCounter::sm_uConstructorCalls++;
     }
 
+    /// <summary>
+    /// Copy constructor. Increases the copy constructor call count.
+    /// </summary>
+    /// <param name="">Another instance. Not used.</param>
     CallCounter(const CallCounter&)
     {
         CallCounter::sm_uCopyConstructorCalls++;
@@ -65,6 +72,9 @@ public:
 
 public:
 
+    /// <summary>
+    /// Destructor. Increases the destructor call count.
+    /// </summary>
     ~CallCounter()
     {
         CallCounter::sm_uDestructorCalls++;
@@ -75,19 +85,50 @@ public:
 	// ---------------
 
 public:
-
+    
+    /// <summary>
+    /// Assignment operator. Increments assignment call count.
+    /// </summary>
+    /// <param name="">Another instance. Not used.</param>
     CallCounter& operator=(const CallCounter&)
     {
         CallCounter::sm_uAssignmentCalls++;
         return *this;
     }
 
+    /// <summary>
+    /// Sets all counters to zero.
+    /// </summary>
     static void ResetCounters()
     {
         CallCounter::sm_uConstructorCalls = 0;
         CallCounter::sm_uDestructorCalls = 0;
         CallCounter::sm_uCopyConstructorCalls = 0;
         CallCounter::sm_uAssignmentCalls = 0;
+    }
+    
+    /// <summary>
+    /// Greater than operator. Included to be able to use this type inside containers with QComparatorDefault.
+    /// </summary>
+    /// <param name="instance">Another instance.</param>
+    /// <returns>
+    /// A boolean value with no meaning.
+    /// </returns>
+    bool operator>(const CallCounter &instance)
+    {
+        return this > &instance;
+    }
+    
+    /// <summary>
+    /// Equality operator. Included to be able to use this type inside containers with QComparatorDefault.
+    /// </summary>
+    /// <param name="instance">Another instance. Not used.</param>
+    /// <returns>
+    /// A boolean value with no meaning.
+    /// </returns>
+    bool operator==(const CallCounter &instance)
+    {
+        return this == &instance;
     }
 
 
@@ -96,21 +137,45 @@ public:
 
 public:
 
+    /// <summary>
+    /// Gets the constructor call count.
+    /// </summary>
+    /// <returns>
+    /// The number of times the constructor has been called.
+    /// </returns>
     static unsigned int GetConstructorCallsCount()
     {
         return CallCounter::sm_uConstructorCalls;
     }
-
+    
+    /// <summary>
+    /// Gets the copy constructor call count.
+    /// </summary>
+    /// <returns>
+    /// The number of times the copy constructor has been called.
+    /// </returns>
     static unsigned int GetCopyConstructorCallsCount()
     {
         return CallCounter::sm_uCopyConstructorCalls;
     }
-
+    
+    /// <summary>
+    /// Gets the destructor call count.
+    /// </summary>
+    /// <returns>
+    /// The number of times the destructor has been called.
+    /// </returns>
     static unsigned int GetDestructorCallsCount()
     {
         return CallCounter::sm_uDestructorCalls;
     }
-
+    
+    /// <summary>
+    /// Gets the assignment call count.
+    /// </summary>
+    /// <returns>
+    /// The number of times the assignment operator has been called.
+    /// </returns>
     static unsigned int GetAssignmentCallsCount()
     {
         return CallCounter::sm_uAssignmentCalls;
@@ -121,9 +186,24 @@ public:
 
 private:
 
+    /// <returns>
+    /// The number of times the constructor has been called.
+    /// </returns>
     static unsigned int sm_uConstructorCalls;
+
+    /// <returns>
+    /// The number of times the copy constructor has been called.
+    /// </returns>
     static unsigned int sm_uCopyConstructorCalls;
+
+    /// <returns>
+    /// The number of times the destructor has been called.
+    /// </returns>
     static unsigned int sm_uDestructorCalls;
+
+    /// <returns>
+    /// The number of times the assignment operator has been called.
+    /// </returns>
     static unsigned int sm_uAssignmentCalls;
 
 };
