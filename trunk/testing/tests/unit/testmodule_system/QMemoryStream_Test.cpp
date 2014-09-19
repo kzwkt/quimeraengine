@@ -1046,7 +1046,6 @@ QTEST_CASE ( SetPosition_AssertionFailsWhenTheInputPositionIsOutOfBounds_Test )
 {
     // [Preparation]
     const bool ASSERTION_FAILED = true;
-    const pointer_uint_q ORIGINAL_POSITION = 0;
     const pointer_uint_q NEW_POSITION = 5U;
     const u32_q CONTENT = 0;
     QMemoryStream<> stream(&CONTENT, sizeof(CONTENT));
