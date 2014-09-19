@@ -48,27 +48,29 @@ namespace DataTypes
 
 const QType* QType::TYPE_INSTANCE_BOOL = new QType("bool");
 
-const QType* QType::TYPE_INSTANCE_U8 = new QType("u8_q");
+const QType* QType::TYPE_INSTANCE_U8 = new QType("u8");
 
-const QType* QType::TYPE_INSTANCE_I8 = new QType("i8_q");
+const QType* QType::TYPE_INSTANCE_I8 = new QType("i8");
 
-const QType* QType::TYPE_INSTANCE_U16 = new QType("u16_q");
+const QType* QType::TYPE_INSTANCE_U16 = new QType("u16");
 
-const QType* QType::TYPE_INSTANCE_I16 = new QType("i16_q");
+const QType* QType::TYPE_INSTANCE_I16 = new QType("i16");
 
-const QType* QType::TYPE_INSTANCE_U32 = new QType("u32_q");
+const QType* QType::TYPE_INSTANCE_U32 = new QType("u32");
 
-const QType* QType::TYPE_INSTANCE_I32 = new QType("i32_q");
+const QType* QType::TYPE_INSTANCE_I32 = new QType("i32");
 
-const QType* QType::TYPE_INSTANCE_U64 = new QType("u64_q");
+const QType* QType::TYPE_INSTANCE_U64 = new QType("u64");
 
-const QType* QType::TYPE_INSTANCE_I64 = new QType("i64_q");
+const QType* QType::TYPE_INSTANCE_I64 = new QType("i64");
 
-const QType* QType::TYPE_INSTANCE_F32 = new QType("f32_q");
+const QType* QType::TYPE_INSTANCE_F32 = new QType("f32");
 
-const QType* QType::TYPE_INSTANCE_F64 = new QType("f64_q");
+const QType* QType::TYPE_INSTANCE_F64 = new QType("f64");
 
-const QType* QType::TYPE_INSTANCE_VF32 = new QType("vf32_q");
+const QType* QType::TYPE_INSTANCE_VF32 = new QType("vf32");
+
+const QType* QType::TYPE_INSTANCE_STRING = new QType("string");
 
 
 //##################=======================================================##################
@@ -174,6 +176,12 @@ template<>
 const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::vf32_q>()
 {
     return TYPE_INSTANCE_VF32;
+}
+
+template<>
+const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::string_q>()
+{
+    return TYPE_INSTANCE_STRING;
 }
 
 //##################=======================================================##################

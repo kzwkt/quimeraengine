@@ -92,11 +92,12 @@ public:
     bool operator!=(const QType &type) const;
     
     /// <summary>
-    /// Obtains the type information of a given basic C++ type.
+    /// Obtains the type information of a given basic data type or string.
     /// </summary>
-    /// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+    /// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+    /// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
     /// <returns>
-    /// The type information. The same instance will be returned always for each type, they are stored statically.
+    /// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
     /// </returns>
     template<class T>
     static const QType* FindType()
@@ -191,6 +192,10 @@ private:
     /// </summary>
     static const QType* TYPE_INSTANCE_VF32;
     
+    /// <summary>
+    /// QType instance for strings type.
+    /// </summary>
+    static const QType* TYPE_INSTANCE_STRING;
 
 };
 
@@ -199,124 +204,147 @@ private:
 // ---------------
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<bool>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::u8_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::i8_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::u16_q>();
     
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::i16_q>();
     
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::u32_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::i32_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::u64_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::i64_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::f32_q>();
 
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::f64_q>();
     
 /// <summary>
-/// Obtains the type information of a given basic C++ type.
+/// Obtains the type information of a given basic data type or string.
 /// </summary>
-/// <typeparam name="T">The type whose information is to be obtained.</typeparam>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
 /// <returns>
-/// The type information. The same instance will be returned always for each type, they are stored statically.
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
 /// </returns>
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::vf32_q>();
+    
+/// <summary>
+/// Obtains the type information of a given basic data type or string.
+/// </summary>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
+/// <returns>
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::string_q>();
     
 
 } //namespace DataTypes

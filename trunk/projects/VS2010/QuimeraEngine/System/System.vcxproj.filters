@@ -49,6 +49,9 @@
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQTypeExtensions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QUri.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp">
+      <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

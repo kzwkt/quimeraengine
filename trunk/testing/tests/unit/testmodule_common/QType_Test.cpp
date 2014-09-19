@@ -185,9 +185,7 @@ QTEST_CASE ( GetName_NotNecessaryToTest_Test )
 QTEST_CASE ( FindType_Returns8BitsUnsignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "u8_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "u8";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<u8_q>();
@@ -203,9 +201,7 @@ QTEST_CASE ( FindType_Returns8BitsUnsignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns8BitsSignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "i8_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "i8";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<i8_q>();
@@ -221,9 +217,7 @@ QTEST_CASE ( FindType_Returns8BitsSignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns16BitsUnsignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "u16_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "u16";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<u16_q>();
@@ -239,9 +233,7 @@ QTEST_CASE ( FindType_Returns16BitsUnsignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns16BitsSignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "i16_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "i16";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<i16_q>();
@@ -257,9 +249,7 @@ QTEST_CASE ( FindType_Returns16BitsSignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns32BitsUnsignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "u32_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "u32";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<u32_q>();
@@ -275,9 +265,7 @@ QTEST_CASE ( FindType_Returns32BitsUnsignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns32BitsSignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "i32_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "i32";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<i32_q>();
@@ -293,9 +281,7 @@ QTEST_CASE ( FindType_Returns32BitsSignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns64BitsUnsignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "u64_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "u64";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<u64_q>();
@@ -311,9 +297,7 @@ QTEST_CASE ( FindType_Returns64BitsUnsignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns64BitsSignedIntegerType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "i64_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "i64";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<i64_q>();
@@ -329,9 +313,7 @@ QTEST_CASE ( FindType_Returns64BitsSignedIntegerType_Test )
 QTEST_CASE ( FindType_Returns32BitsFloatingPointType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "f32_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "f32";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<f32_q>();
@@ -347,9 +329,7 @@ QTEST_CASE ( FindType_Returns32BitsFloatingPointType_Test )
 QTEST_CASE ( FindType_Returns64BitsFloatingPointType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "f64_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "f64";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<f64_q>();
@@ -365,12 +345,26 @@ QTEST_CASE ( FindType_Returns64BitsFloatingPointType_Test )
 QTEST_CASE ( FindType_Returns4x32BitsPackedFloatingPointType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_TYPE = "vf32_q";
-    QType QTYPE_INSTANCE(EXPECTED_TYPE);
-
+    const string_q EXPECTED_TYPE = "vf32";
 
 	// [Execution]
     const QType* pQTypePointer = QType::FindType<vf32_q>();
+    string_q strType = pQTypePointer->GetName();
+    
+    // [Verification]
+    BOOST_CHECK(strType == EXPECTED_TYPE);
+}
+
+/// <summary>
+/// Checks that it returns the right type name when calling FindType.
+/// </summary>
+QTEST_CASE ( FindType_ReturnsStringType_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_TYPE = "string";
+
+	// [Execution]
+    const QType* pQTypePointer = QType::FindType<string_q>();
     string_q strType = pQTypePointer->GetName();
     
     // [Verification]
@@ -384,20 +378,19 @@ QTEST_CASE ( FindType_Returns4x32BitsPackedFloatingPointType_Test )
 QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
 {
     // [Preparation]
-    const string_q WRONG_TYPE = "string_q";
-    QType QTYPE_INSTANCE(WRONG_TYPE);
-    const QType* NULL_POINTER = 0;
+    struct NonBasicType
+    {
+    };
 
+    const QType* NULL_POINTER = null_q;
 
 	// [Execution]
-    const QType* pQTypePointer = QType::FindType<std::string>();
+    const QType* pQTypePointer = QType::FindType<NonBasicType>();
     
     // [Verification]
     BOOST_CHECK(pQTypePointer == NULL_POINTER);
 }
-#endif
-
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Assertion failed when passing zero elements as initial capacity.
@@ -405,9 +398,11 @@ QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
 QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
 {
     // [Preparation]
-    const string_q WRONG_TYPE = "string";
-    QType QTYPE_INSTANCE(WRONG_TYPE);
-    const QType* NULL_POINTER = 0;
+    struct NonBasicType
+    {
+    };
+
+    const QType* NULL_POINTER = null_q;
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -415,7 +410,7 @@ QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
 
     try
     {
-        const QType* pQTypePointer = QType::FindType<std::string>();
+        const QType* pQTypePointer = QType::FindType<NonBasicType>();
     }
     catch(...)
     {
