@@ -51,6 +51,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp">
       <Filter>Tests\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp">
+      <Filter>Tests\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

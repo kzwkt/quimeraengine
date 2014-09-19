@@ -410,6 +410,7 @@
     <File Name="../../../../headers/QMemoryStream.h"/>
     <File Name="../../../../headers/QUri.h"/>
     <File Name="../../../../source/QUri.cpp"/>
+    <File Name="../../../../headers/QBinaryStreamReader.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>

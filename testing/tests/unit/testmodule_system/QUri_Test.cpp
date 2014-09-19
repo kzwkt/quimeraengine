@@ -659,7 +659,7 @@ QTEST_CASE ( Constructor2_TheUriIsCorrectlyCopied_Test )
 /// <summary>
 /// Checks that the URI is correctly copied.
 /// </summary>
-QTEST_CASE ( AssignmentOperator1_TheUriIsCorrectlyCopied_Test )
+QTEST_CASE ( OperatorAssignment1_TheUriIsCorrectlyCopied_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -678,7 +678,7 @@ QTEST_CASE ( AssignmentOperator1_TheUriIsCorrectlyCopied_Test )
 /// <summary>
 /// Checks that the scheme has the expected value when the input string only contains a scheme.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeIsWhatExpectedWhenInputContainsSchemeOnly_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeIsWhatExpectedWhenInputContainsSchemeOnly_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -697,7 +697,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeIsWhatExpectedWhenInputContainsSchemeOnly
 /// <summary>
 /// Checks that the scheme and the authority have the expected value when the input string only contains a scheme and the authority.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreWhatExpectedWhenInputContainsSchemeAndAuthorityOnly_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAndAuthorityAreWhatExpectedWhenInputContainsSchemeAndAuthorityOnly_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -718,7 +718,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreWhatExpectedWhenInputConta
 /// <summary>
 /// Checks that the scheme, the authority and the path have the expected value when the input string contains the scheme, the authority and the path.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAuthorityAndPathAreWhatExpectedWhenInputContainsSchemeAuthorityAndPath_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAuthorityAndPathAreWhatExpectedWhenInputContainsSchemeAuthorityAndPath_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -741,7 +741,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAuthorityAndPathAreWhatExpectedWhenInputC
 /// <summary>
 /// Checks that the scheme, the authority, the path and the query have the expected value when the input string contains the scheme, the authority, the path and the query.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAuthorityPathAndQueryAreWhatExpectedWhenInputContainsSchemeAuthorityPathAndQuery_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAuthorityPathAndQueryAreWhatExpectedWhenInputContainsSchemeAuthorityPathAndQuery_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -766,7 +766,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAuthorityPathAndQueryAreWhatExpectedWhenI
 /// <summary>
 /// Checks that the scheme and the path have the expected value when the input string contains the scheme and the path only.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAndPathAreWhatExpectedWhenInputContainsSchemeAndPathOnly_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAndPathAreWhatExpectedWhenInputContainsSchemeAndPathOnly_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -787,7 +787,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAndPathAreWhatExpectedWhenInputContainsSc
 /// <summary>
 /// Checks that the host has the expected value when the authority is formed only by a host.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_HostIsWhatExpectedWhenAuthorityIsFormedOnlyByHost_Test )
+QTEST_CASE ( OperatorAssignment2_HostIsWhatExpectedWhenAuthorityIsFormedOnlyByHost_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -806,7 +806,7 @@ QTEST_CASE ( AssignmentOperator2_HostIsWhatExpectedWhenAuthorityIsFormedOnlyByHo
 /// <summary>
 /// Checks that the user information and the host have the expected value when the authority is formed only by a host and the user information.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_UserInfoAndHostAreWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoAndHost_Test )
+QTEST_CASE ( OperatorAssignment2_UserInfoAndHostAreWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoAndHost_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -827,7 +827,7 @@ QTEST_CASE ( AssignmentOperator2_UserInfoAndHostAreWhatExpectedWhenAuthorityIsFo
 /// <summary>
 /// Checks that the user information, the port and the host have the expected value when the authority is formed only by a host, the port and the user information.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_UserInfoHostAndPortAreWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoHostAndPort_Test )
+QTEST_CASE ( OperatorAssignment2_UserInfoHostAndPortAreWhatExpectedWhenAuthorityIsFormedOnlyByUserInfoHostAndPort_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -850,7 +850,7 @@ QTEST_CASE ( AssignmentOperator2_UserInfoHostAndPortAreWhatExpectedWhenAuthority
 /// <summary>
 /// Checks that the port and the host have the expected value when the authority is formed only by a host and the port.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_HostAndPortAreWhatExpectedWhenAuthorityIsFormedOnlyByHostAndPort_Test )
+QTEST_CASE ( OperatorAssignment2_HostAndPortAreWhatExpectedWhenAuthorityIsFormedOnlyByHostAndPort_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -871,7 +871,7 @@ QTEST_CASE ( AssignmentOperator2_HostAndPortAreWhatExpectedWhenAuthorityIsFormed
 /// <summary>
 /// Checks that the authority and the path have the expected value when the URI is formed only by the authority and the path.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_AuthorityAndPathAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndPath_Test )
+QTEST_CASE ( OperatorAssignment2_AuthorityAndPathAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndPath_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -892,7 +892,7 @@ QTEST_CASE ( AssignmentOperator2_AuthorityAndPathAreWhatExpectedWhenUriIsFormedO
 /// <summary>
 /// Checks that the authority and the query have the expected value when the URI is formed only by the authority and the query.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_AuthorityAndQueryAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndQuery_Test )
+QTEST_CASE ( OperatorAssignment2_AuthorityAndQueryAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndQuery_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -913,7 +913,7 @@ QTEST_CASE ( AssignmentOperator2_AuthorityAndQueryAreWhatExpectedWhenUriIsFormed
 /// <summary>
 /// Checks that the authority and the fragment have the expected value when the URI is formed only by the authority and the fragment.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_AuthorityAndFragmentAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndFragment_Test )
+QTEST_CASE ( OperatorAssignment2_AuthorityAndFragmentAreWhatExpectedWhenUriIsFormedOnlyByAuthorityAndFragment_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -935,7 +935,7 @@ QTEST_CASE ( AssignmentOperator2_AuthorityAndFragmentAreWhatExpectedWhenUriIsFor
 /// <summary>
 /// Checks that the path does not start with a slash when it does not start with a slash in the input string.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathDoesNotStartWithSlashWhenUriIsFormedOnlyByPathWhichDoesNotStartWithSlash_Test )
+QTEST_CASE ( OperatorAssignment2_PathDoesNotStartWithSlashWhenUriIsFormedOnlyByPathWhichDoesNotStartWithSlash_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -954,7 +954,7 @@ QTEST_CASE ( AssignmentOperator2_PathDoesNotStartWithSlashWhenUriIsFormedOnlyByP
 /// <summary>
 /// Checks that the path starts with a slash when it starts with a slash in the input string.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhichStartsWithSlash_Test )
+QTEST_CASE ( OperatorAssignment2_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhichStartsWithSlash_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -973,7 +973,7 @@ QTEST_CASE ( AssignmentOperator2_PathStartsWithSlashWhenUriIsFormedOnlyByPathWhi
 /// <summary>
 /// Checks that the path includes the initial dot segment when it starts with one dot.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
+QTEST_CASE ( OperatorAssignment2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithOneDot_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -992,7 +992,7 @@ QTEST_CASE ( AssignmentOperator2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPath
 /// <summary>
 /// Checks that the path includes the initial dot segment when it starts with two dots.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithTwoDots_Test )
+QTEST_CASE ( OperatorAssignment2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPathWhichStartsWithTwoDots_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1011,7 +1011,7 @@ QTEST_CASE ( AssignmentOperator2_PathIncludesDotSegmentWhenUriIsFormedOnlyByPath
 /// <summary>
 /// Checks that the path and the query have the expected value when the URI is formed only by the path and the query.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathAndQueryAreWhatExpectedWhenUriIsFormedOnlyByPathAndQuery_Test )
+QTEST_CASE ( OperatorAssignment2_PathAndQueryAreWhatExpectedWhenUriIsFormedOnlyByPathAndQuery_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1032,7 +1032,7 @@ QTEST_CASE ( AssignmentOperator2_PathAndQueryAreWhatExpectedWhenUriIsFormedOnlyB
 /// <summary>
 /// Checks that the path and the fragment have the expected value when the URI is formed only by the path and the fragment.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathAndFragmentAreWhatExpectedWhenUriIsFormedOnlyByPathAndFragment_Test )
+QTEST_CASE ( OperatorAssignment2_PathAndFragmentAreWhatExpectedWhenUriIsFormedOnlyByPathAndFragment_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1053,7 +1053,7 @@ QTEST_CASE ( AssignmentOperator2_PathAndFragmentAreWhatExpectedWhenUriIsFormedOn
 /// <summary>
 /// Checks that the path is empty and starts with a slash when the URI only contains a single slash.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathIsEmptyAndStartsWithSlashWhenUriContainsOnlyOneSlash_Test )
+QTEST_CASE ( OperatorAssignment2_PathIsEmptyAndStartsWithSlashWhenUriContainsOnlyOneSlash_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1072,7 +1072,7 @@ QTEST_CASE ( AssignmentOperator2_PathIsEmptyAndStartsWithSlashWhenUriContainsOnl
 /// <summary>
 /// Checks that the path, the query and the fragment are encoded.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathQueryAndFragmentAreEncoded_Test )
+QTEST_CASE ( OperatorAssignment2_PathQueryAndFragmentAreEncoded_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 
@@ -1100,7 +1100,7 @@ QTEST_CASE ( AssignmentOperator2_PathQueryAndFragmentAreEncoded_Test )
 /// <summary>
 /// Checks that the question mark ("?") and the slash ("/") are allowed in both the query and the fragment.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_QuestionMarkAndSlashAreAllowedInQueryAndFragment_Test )
+QTEST_CASE ( OperatorAssignment2_QuestionMarkAndSlashAreAllowedInQueryAndFragment_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1121,7 +1121,7 @@ QTEST_CASE ( AssignmentOperator2_QuestionMarkAndSlashAreAllowedInQueryAndFragmen
 /// <summary>
 /// Checks that the path, the query and the fragment are encoded.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_InputCharactersThatShouldNotBeEncodedAreDecoded_Test )
+QTEST_CASE ( OperatorAssignment2_InputCharactersThatShouldNotBeEncodedAreDecoded_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1145,7 +1145,7 @@ QTEST_CASE ( AssignmentOperator2_InputCharactersThatShouldNotBeEncodedAreDecoded
 /// <summary>
 /// Checks that the scheme and the authority are lowercased.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreLowercased_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAndAuthorityAreLowercased_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1167,7 +1167,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreLowercased_Test )
 /// <summary>
 /// Checks that the scheme and the authority are not encoded.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreNotEncoded_Test )
+QTEST_CASE ( OperatorAssignment2_SchemeAndAuthorityAreNotEncoded_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1189,7 +1189,7 @@ QTEST_CASE ( AssignmentOperator2_SchemeAndAuthorityAreNotEncoded_Test )
 /// <summary>
 /// Checks that the path, the query and the fragment are not lowercased.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_PathQueryAndFragmentAreNotLowercased_Test )
+QTEST_CASE ( OperatorAssignment2_PathQueryAndFragmentAreNotLowercased_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1213,7 +1213,7 @@ QTEST_CASE ( AssignmentOperator2_PathQueryAndFragmentAreNotLowercased_Test )
 /// <summary>
 /// Checks that the path, the query and the fragment are not lowercased.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_DotSegmentsAreRemoved_Test )
+QTEST_CASE ( OperatorAssignment2_DotSegmentsAreRemoved_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -1233,7 +1233,7 @@ QTEST_CASE ( AssignmentOperator2_DotSegmentsAreRemoved_Test )
 /// <summary>
 /// Checks that the path contains one segment when the URI does not contain any separator.
 /// </summary>
-QTEST_CASE ( AssignmentOperator2_ThePathContainsOneSegmentWhenTheUriDoesNotContainAnySeparator_Test )
+QTEST_CASE ( OperatorAssignment2_ThePathContainsOneSegmentWhenTheUriDoesNotContainAnySeparator_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING1 = "xxx";
@@ -3944,6 +3944,54 @@ QTEST_CASE ( GetPath_EndsWithSlashWhenLastSegmentIsEmpty_Test )
     
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetHost_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetUserInfo_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetQuery_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetFragment_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetPort_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
+}
+
+/// <summary>
+/// It is not necessary to test this method since it is just a getter.
+/// </summary>
+QTEST_CASE ( GetScheme_NotNecessaryToTest_Test )
+{
+    BOOST_MESSAGE("It is not necessary to test this method since it is just a getter");
 }
 
 /// <summary>
