@@ -34,8 +34,8 @@ using namespace boost::unit_test;
 #include "SQAnyTypeToStringConverter.h"
 
 #include "QType.h"
-#include "RTTIDefinitions.h"
 #include "EQComparisonType.h"
+#include "QDerivedFromObject.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -51,25 +51,14 @@ using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
 using Kinesis::QuimeraEngine::Core::QObject;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
 using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+using Kinesis::QuimeraEngine::Common::DataTypes::Test::QDerivedFromObject;
 
-// Class used in tests
-class QDerivedFromObject : public virtual QObject
+// This struct is used as example of "unknown type", not a QObject, not a basic type, not a string_q.
+struct UnknownType
 {
-    QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QDerivedFromObject);
-
-public:
-
-    virtual string_q ToString() const
-    {
-        static const string_q STRING_REPRESENTATION = "QDerivedFromObject";
-        return STRING_REPRESENTATION;
-    }
 };
-
-QE_RTTI_SUPPORT_TYPE_DEFINITION(QDerivedFromObject);
-
-
-
+    
+    
 QTEST_SUITE_BEGIN( SQAnyTypeToStringConverter_TestSuite )
     
 /// <summary>
@@ -270,13 +259,8 @@ QTEST_CASE ( Convert1_ObjectIsCorrectlyConvertedToStringWhenUsingString_Test )
 QTEST_CASE ( Convert1_ObjectIsCorrectlyConvertedToStringWhenUsingNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = "<Unknown>";
-    const UnknownType OBJECT = {0};
+    const UnknownType OBJECT;
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(OBJECT);
@@ -519,13 +503,8 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToString
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Unknown>";
-    UnknownType OBJECT = {0};
+    UnknownType OBJECT;
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(&OBJECT);
@@ -619,11 +598,6 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToSt
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = "<Null>";
     UnknownType* pObject = null_q;
 
@@ -714,13 +688,8 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Unknown>";
-    UnknownType OBJECT = {0};
+    UnknownType OBJECT;
     UnknownType* pObject = &OBJECT;
 
     // [Execution]
@@ -799,6 +768,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // Checks that the result starts with 0x and ends with <Null>
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -817,6 +787,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -825,11 +796,6 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Null>";
     UnknownType* pObject = null_q;
     UnknownType** ppObject = &pObject;
@@ -840,6 +806,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -858,6 +825,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -876,6 +844,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -1112,13 +1081,8 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToString
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Unknown>";
-    const UnknownType OBJECT = {0};
+    const UnknownType OBJECT = UnknownType();
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(&OBJECT);
@@ -1212,11 +1176,6 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToSt
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = "<Null>";
     const UnknownType* pObject = null_q;
 
@@ -1307,13 +1266,8 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Unknown>";
-    const UnknownType OBJECT = {0};
+    const UnknownType OBJECT = UnknownType();
     const UnknownType* pObject = &OBJECT;
 
     // [Execution]
@@ -1392,6 +1346,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // Checks that the result starts with 0x and ends with <Null>
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -1410,6 +1365,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -1418,11 +1374,6 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    struct UnknownType
-    {
-        int x;
-    };
-
     const string_q EXPECTED_RESULT = " <Null>";
     const UnknownType* pObject = null_q;
     const UnknownType** ppObject = &pObject;
@@ -1433,6 +1384,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -1451,6 +1403,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 /// <summary>
@@ -1469,6 +1422,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
     // [Verification]
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    BOOST_CHECK(bIsCorrectlyConverted);
 }
 
 // End - Test Suite: SQAnyTypeToStringConverter

@@ -90,6 +90,12 @@
       <File Name="../../../../tests/unit/testmodule_system/QUriWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamReader_Test.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="DataTypes">
+      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.h"/>
+      <File Name="../../../../tests/unit/testmodule_system/SQAnyTypeToStringConverter_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/SQTypeExtensions_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>

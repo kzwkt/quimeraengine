@@ -16,11 +16,13 @@
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +35,7 @@
     <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QUriWhiteBox.h" />
