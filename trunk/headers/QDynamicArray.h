@@ -347,9 +347,9 @@ public:
             
             // Moves all the contiguous elements 1 position forward
             void* pBuffer = m_allocator.GetPointer();
-            memcpy((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
-                   (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
-                   (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+            memmove((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
+                    (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
+                    (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
                    
             // Calls the copy constructor using the position where the element is inserted
             new((void*)((T*)pBuffer + uIndex)) T(newElement);
@@ -394,9 +394,9 @@ public:
 
             // Moves all the contiguous elements 1 position forward
             void* pBuffer = m_allocator.GetPointer();
-            memcpy((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
-                   (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
-                   (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+            memmove((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
+                    (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
+                    (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
 
             // Calls the copy constructor using the position where the element is inserted
             new((void*)((T*)pBuffer + uIndex)) T(newElement);
@@ -440,9 +440,9 @@ public:
                 ((T*)pBuffer + uIndex)->~T();
 
                 // Moves all the contiguous elements 1 position backward
-                memcpy((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
-                       (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
-                       (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
+                memmove((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
+                        (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                        (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
 
                 // Decreases the allocated space
                 m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));
@@ -483,9 +483,9 @@ public:
                 ((T*)pBuffer + uIndex)->~T();
 
                 // Moves all the contiguous elements 1 position backward
-                memcpy((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
-                       (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
-                       (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
+                memmove((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
+                        (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                        (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
 
                 // Decreases the allocated space
                 m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));

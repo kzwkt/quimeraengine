@@ -1834,7 +1834,7 @@ QTEST_CASE ( Remove1_DestructorOfElementIsCalled_Test )
 QTEST_CASE ( Remove1_ReturnedIteratorPointsNextWhenElementWasNotTheLastOne_Test )
 {
     // [Preparation]
-    const pointer_uint_q EXPECTED_ELEMENT = 1;
+    const int EXPECTED_ELEMENT = 1;
     QList<int> arCommonList(3U);
     arCommonList.Add(0);
     arCommonList.Add(EXPECTED_ELEMENT);
