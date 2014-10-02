@@ -105,18 +105,6 @@ QUri::QUri(const string_q &strUri) : m_strOriginalString(strUri),
     this->Normalize();
 }
 
-QUri::QUri(const QUri &uri) : m_strHost(uri.m_strHost),
-                              m_strFragment(uri.m_strFragment),
-                              m_strQuery(uri.m_strQuery),
-                              m_strScheme(uri.m_strScheme),
-                              m_strUserInfo(uri.m_strUserInfo),
-                              m_strPort(uri.m_strPort),
-                              m_strOriginalString(uri.m_strOriginalString),
-                              m_arPathSegments(uri.m_arPathSegments),
-                              m_definedComponents(uri.m_definedComponents)
-{
-}
-
 
 //##################=======================================================##################
 //##################             ____________________________              ##################

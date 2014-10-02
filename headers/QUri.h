@@ -54,7 +54,9 @@ namespace IO
 /// URIs can be either absolute, describing exactly how to find the resource, or relative, acting as a reference that depends on 
 /// another URI (a base URI, which is absolute); in order to get the target URI, the relative URI has to be resolved against the base URI.<br/>
 /// Although two strings are not exactly the same, the URIs they contain may be equivalent. In order to compare two URIs, they have to be normalized.
-/// Every instance of this class is guaranteed to be normalized; although this is a slow process, it allows the rest of operations to be much faster.
+/// Every instance of this class is guaranteed to be normalized; although this is a slow process, it allows the rest of operations to be much faster.<br/>
+/// <br/>
+/// For more information about URIs, read: http://www.ietf.org/rfc/rfc3986.txt .
 /// </remarks>
 class QE_LAYER_SYSTEM_SYMBOLS QUri
 {
@@ -231,15 +233,6 @@ public:
     /// <param name="strUri">[IN] A string that contains a URI. The URI may be absolute or relative, it may define every component 
     /// or not and may not be normalized. Remember that absolute URIs must define the scheme. No validation is performed. Empty strings are not allowed.</param>
     explicit QUri(const string_q &strUri);
-    
-    /// <summary>
-    /// Copy constructor that performs an exact copy of other URI.
-    /// </summary>
-    /// <remarks>
-    /// Every component is copied as is, no additional processing is performed.
-    /// </remarks>
-    /// <param name="uri">[IN] The other URI to be copied.</param>
-    QUri(const QUri &uri);
 
 
     // METHODS
@@ -326,7 +319,7 @@ public:
     /// Encodes a character sequence so some characters are "percent-encoded", following certain rules for path segments.
     /// </summary>
     /// <remarks>
-    /// Characters that are not: unreserved, a subdelimiter, a colon (":") or an at sign("@") are encoded.<br/>
+    /// Characters that are not unreserved, a subdelimiter, a colon (":") or an at sign("@") are encoded.<br/>
     /// The encoding algorithm is described in the RFC 3986, section 2.1. For every character that must be encoded:<br/>
     /// - It is encoded as UTF-8.<br/>
     /// - Every code unit is transformed to hexadecimal (upper-case).<br/>
@@ -341,7 +334,7 @@ public:
     /// Encodes a character sequence so some characters are "percent-encoded", following certain rules for queries and fragments.
     /// </summary>
     /// <remarks>
-    /// Characters that are not: unreserved, a subdelimiter, a colon (":"), an at sign("@"), a slash ("/") or a question mark ("?") are encoded.<br/>
+    /// Characters that are not unreserved, a subdelimiter, a colon (":"), an at sign("@"), a slash ("/") or a question mark ("?") are encoded.<br/>
     /// The encoding algorithm is described in the RFC 3986, section 2.1. For every character that must be encoded:<br/>
     /// - It is encoded as UTF-8.<br/>
     /// - Every code unit is transformed to hexadecimal (upper-case).<br/>

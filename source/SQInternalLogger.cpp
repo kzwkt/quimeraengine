@@ -75,6 +75,14 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
     
+    #if defined(QE_OS_WINDOWS)
+        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF16LE;
+    #elif defined(QE_OS_LINUX)
+        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF32LE;
+    #elif defined(QE_OS_MAC)
+        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF32LE;
+    #endif
+    
     // Depending on the compiler, a different function is used to print the error message to the console
     
     #if defined(QE_COMPILER_MSVC)
@@ -82,7 +90,7 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
             
             QStringUnicode strOutMsg(strMessage);
             unsigned int uOutSize = 0;
-            i8_q* szOutMsg = strOutMsg.ToBytes(EQTextEncoding::E_UTF16LE, uOutSize);
+            i8_q* szOutMsg = strOutMsg.ToBytes(OS_WCHAR_ENCODING, uOutSize);
             ::OutputDebugStringW(rcast_q(szOutMsg, wchar_t*));
             delete[] szOutMsg;
                 
@@ -93,9 +101,9 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #elif defined(QE_COMPILER_GCC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
             
-            QStringUnicode strOutMsg(strMessage);
+             QStringUnicode strOutMsg(strMessage);
             unsigned int uOutSize = 0;
-            i8_q* szOutMsg = strOutMsg.ToBytes(EQTextEncoding::E_UTF16LE, uOutSize); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+            i8_q* szOutMsg = strOutMsg.ToBytes(OS_WCHAR_ENCODING, uOutSize); // [TODO] Thund: Change this to use either LE or BE depending on the machine
             std::wcout << rcast_q(szOutMsg, wchar_t*);
             delete[] szOutMsg;
                 

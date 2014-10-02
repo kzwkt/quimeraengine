@@ -598,7 +598,7 @@ protected:
     /// <summary>
     /// Constant to symbolize the end of the sequence near the last element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_FORWARD = -1;
+    static const pointer_uint_q END_POSITION_FORWARD;
 
     /// <summary>
     /// Constant to symbolize the end of the sequence near the first element.
@@ -949,6 +949,13 @@ protected:
     AllocatorT m_allocator;
 
 };
+
+
+// ATTRIBUTE INITIALIZATION
+// ----------------------------
+// Note: This definition was moved here from the interior of the class because compilation failed when using GCC compiler, the reason is not yet clear
+template<class T, class AllocatorT, class ComparatorT>
+const pointer_uint_q QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -1;
 
 
 } //namespace Containers
