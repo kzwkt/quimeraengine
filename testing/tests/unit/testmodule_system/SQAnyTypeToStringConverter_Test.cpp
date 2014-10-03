@@ -260,7 +260,7 @@ QTEST_CASE ( Convert1_ObjectIsCorrectlyConvertedToStringWhenUsingNonBasicDataTyp
 {
     // [Preparation]
     const string_q EXPECTED_RESULT = "<Unknown>";
-    const UnknownType OBJECT;
+    const UnknownType OBJECT = UnknownType();
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(OBJECT);
