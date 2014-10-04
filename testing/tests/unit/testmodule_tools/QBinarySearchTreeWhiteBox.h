@@ -53,7 +53,7 @@ class QBinarySearchTreeWhiteBox : public QBinarySearchTree<T, AllocatorT, Compar
 {
 public:
 
-    using QBinarySearchTree<T, AllocatorT, ComparatorT>::QBinaryNode;
+    using typename QBinarySearchTree<T, AllocatorT, ComparatorT>::QBinaryNode;
 
 
 	// CONSTRUCTORS
