@@ -53,7 +53,7 @@ class QNTreeWhiteBox : public QNTree<T, AllocatorT>
 {
 public:
 
-    using QNTree<T, AllocatorT>::QNode;
+    using typename QNTree<T, AllocatorT>::QNode;
 
 
 	// CONSTRUCTORS
