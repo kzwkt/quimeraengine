@@ -88,9 +88,8 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #if defined(QE_COMPILER_MSVC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
             
-            QStringUnicode strOutMsg(strMessage);
             unsigned int uOutSize = 0;
-            i8_q* szOutMsg = strOutMsg.ToBytes(OS_WCHAR_ENCODING, uOutSize);
+            i8_q* szOutMsg = strMessage.ToBytes(OS_WCHAR_ENCODING, uOutSize);
             ::OutputDebugStringW(rcast_q(szOutMsg, wchar_t*));
             delete[] szOutMsg;
                 
@@ -101,14 +100,15 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #elif defined(QE_COMPILER_GCC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
             
-             QStringUnicode strOutMsg(strMessage);
             unsigned int uOutSize = 0;
-            i8_q* szOutMsg = strOutMsg.ToBytes(OS_WCHAR_ENCODING, uOutSize); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+            i8_q* szOutMsg = strMessage.ToBytes(OS_WCHAR_ENCODING, uOutSize); // [TODO] Thund: Change this to use either LE or BE depending on the machine
             std::wcout << rcast_q(szOutMsg, wchar_t*);
+            std::wcout.flush();
             delete[] szOutMsg;
                 
         #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
             std::cout << strMessage;
+            std::cout.flush();
         #endif
         
     #endif
