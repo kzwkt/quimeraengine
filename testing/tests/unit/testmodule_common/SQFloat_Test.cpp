@@ -1427,14 +1427,14 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = -12345678901234.0f;
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
         string_q EXPECTED_RESULT = QE_L("-1.2345679e+13");
     #else
         string_q EXPECTED_RESULT = QE_L("-1.2345679e+013");
     #endif
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q NUMBER = -1234567890123456789123456789.0;
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
         string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+27");
     #else
         string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
@@ -1458,14 +1458,14 @@ QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = -0.0000000012345678901234f;
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
         string_q EXPECTED_RESULT = QE_L("-1.23456789e-09");
     #else
         string_q EXPECTED_RESULT = QE_L("-1.23456789e-009");
     #endif
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q NUMBER = -0.000000001234567890123412345678901234;
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
         string_q EXPECTED_RESULT = QE_L("-1.2345678901234124e-09");
     #else
         string_q EXPECTED_RESULT = QE_L("-1.2345678901234124e-009");
