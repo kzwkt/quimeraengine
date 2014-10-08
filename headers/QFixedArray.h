@@ -591,7 +591,7 @@ public:
     }; // QArrayIterator
 
 
-       // CONSTANTS
+    // CONSTANTS
     // ---------------
 protected:
 
@@ -836,6 +836,154 @@ public:
         QE_ASSERT_WARNING( !this->IsEmpty(), "The array is empty, there is no last position." );
 
         return QFixedArray::QArrayIterator(this, m_uLast);
+    }
+    
+    /// <summary>
+    /// Gets a range of elements from the array.
+    /// </summary>
+    /// <remarks>
+    /// The array must not be empty. The copy constructor of every element of the sub-array will be called.
+    /// </remarks>
+    /// <param name="uFirst">[IN] The index (zero-based) of the first element of the range. It must be lower than the number of elements of the array. 
+    /// It must be lower than or equal to the index of the last element.</param>
+    /// <param name="uLast">[IN] The index (zero-based) of the last element of the range. It must be lower than the number of elements of the array. 
+    /// It must be greater than or equal to the index of the first element.</param>
+    /// <returns>
+    /// The sub-array that contains the entire range [first, last].
+    /// </returns>
+    QFixedArray GetRange(const pointer_uint_q uFirst, const pointer_uint_q uLast) const
+    {
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The array is empty, it is not possible to get any range of elements.");
+        QE_ASSERT_ERROR(uFirst < this->GetCount(), "The first index is out of bounds.");
+        QE_ASSERT_ERROR(uLast < this->GetCount(), "The last index is out of bounds.");
+        QE_ASSERT_ERROR(uFirst <= uLast, "The first index must be lower than or equal to the last index.");
+
+        return QFixedArray(scast_q(m_allocator.GetPointer(), T*) + uFirst, uLast - uFirst + 1U);
+    }
+    
+    /// <summary>
+    /// Gets a range of elements from the array.
+    /// </summary>
+    /// <remarks>
+    /// The array must not be empty. The copy constructor of every element of the sub-array will be called.
+    /// </remarks>
+    /// <param name="first">[IN] The position of the first element of the range. It must not be an end position. 
+    /// It must be prior to the position of the last element.</param>
+    /// <param name="last">[IN] The position of the last element of the range. It must not be an end position. 
+    /// It must be posterior to the position of the first element.</param>
+    /// <returns>
+    /// The sub-array that contains the entire range [first, last].
+    /// </returns>
+    QFixedArray GetRange(const typename QFixedArray::QArrayIterator first, const typename QFixedArray::QArrayIterator last) const
+    {
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The array is empty, it is not possible to get any range of elements.");
+        QE_ASSERT_ERROR(!first.IsEnd(), "The first position is an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The last position is an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The first position is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The last position is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first index must be lower than or equal to the last index.");
+
+        return QFixedArray(&*first, &*last - &*first + 1U);
+    }
+    
+    /// <summary>
+    /// Swaps two elements of the array.
+    /// </summary>
+    /// <remarks>
+    /// The array must not be empty.<br/>
+    /// No assignment operator nor copy constructors are called during this operation.
+    /// </remarks>
+    /// <param name="uElementA">[IN] The index (zero-based) of an element. It must be lower than the number of elements of the array.</param>
+    /// <param name="uElementB">[IN] The index (zero-based) of the other element. It must be lower than the number of elements of the array.</param>
+    void Swap(const pointer_uint_q uElementA, const pointer_uint_q uElementB)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+
+        QE_ASSERT_ERROR(uElementA < this->GetCount(), "The first index is out of bounds.");
+        QE_ASSERT_ERROR(uElementB < this->GetCount(), "The last index is out of bounds.");
+        QE_ASSERT_WARNING(uElementA != uElementB, "Both elements are the same.");
+
+        u8_q arBytes[sizeof(T)];
+        memcpy(arBytes, &this->GetValue(uElementA), sizeof(T));
+        memcpy(&this->GetValue(uElementA), &this->GetValue(uElementB), sizeof(T));
+        memcpy(&this->GetValue(uElementB), arBytes, sizeof(T));
+    }
+    
+    /// <summary>
+    /// Swaps two elements of the array.
+    /// </summary>
+    /// <remarks>
+    /// The array must not be empty.<br/>
+    /// No assignment operator nor copy constructors are called during this operation.
+    /// </remarks>
+    /// <param name="elementA">[IN] The position of an element. It must not be an end position.</param>
+    /// <param name="elementB">[IN] The position of the other element. It must not be an end position.</param>
+    void Swap(const typename QFixedArray::QArrayIterator elementA, const typename QFixedArray::QArrayIterator elementB)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+
+        QE_ASSERT_ERROR(!elementA.IsEnd(), "The element A position is an end position.");
+        QE_ASSERT_ERROR(!elementB.IsEnd(), "The element B position is an end position.");
+        QE_ASSERT_ERROR(elementA.IsValid(), "The element A's position is not valid.");
+        QE_ASSERT_ERROR(elementB.IsValid(), "The element B's position is not valid.");
+        QE_ASSERT_WARNING(elementA != elementB, "Both elements are the same.");
+
+        u8_q arBytes[sizeof(T)];
+        memcpy(arBytes, &*elementA, sizeof(T));
+        memcpy(&*elementA, &*elementB, sizeof(T));
+        memcpy(&*elementB, arBytes, sizeof(T));
+    }
+    
+    /// <summary>
+    /// Equality operator that checks whether two arrays are equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other array. Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="array">[IN] The array to compare to.</param>
+    /// <returns>
+    /// True if all the elements of both arrays are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QFixedArray &array) const
+    {
+        bool bAreEqual = true;
+
+        // If they are not the same instance
+        if(this != &array)
+        {
+            // If they have the same number of elements
+            if(m_uLast == array.m_uLast)
+            {
+                QFixedArray::QArrayIterator itThis = this->GetFirst();
+                QFixedArray::QArrayIterator itInput = array.GetFirst();
+
+                while(bAreEqual && !itThis.IsEnd())
+                {
+                    bAreEqual = bAreEqual && m_comparator.Compare(*itThis, *itInput) == 0;
+                    ++itThis;
+                    ++itInput;
+                }
+            }
+            else
+                bAreEqual = false;
+        }
+
+        return bAreEqual;
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two arrays are not equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other array. Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="array">[IN] The array to compare to.</param>
+    /// <returns>
+    /// True if not all the elements of both arrays are equal; False otherwise.
+    /// </returns>
+    bool operator!=(const QFixedArray &array) const
+    {
+        return !this->operator==(array);
     }
 
 private:
