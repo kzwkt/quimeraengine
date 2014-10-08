@@ -55,7 +55,7 @@ class QComparatorDefault
 public:
 
     /// <summary>
-    /// Method to compare two elements.
+    /// Compares two elements.
     /// </summary>
     /// <param name="leftOperand">[IN] First operand to compare.</param>
     /// <param name="rightOperand">[IN] Second operand to compare.</param>
@@ -64,17 +64,19 @@ public:
     /// </returns>
     Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand) const
     {
-        // Variables representing the three return values
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftLowerThanRight = -1;
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftGreaterThanRight = 1;
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nLeftEqualsToRight = 0;
+        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nResult = nLeftGreaterThanRight;
+        // Variables representing the three return values
+        static const i8_q LEFT_IS_LOWER_THAN_RIGHT = -1;
+        static const i8_q LEFT_IS_GREATER_THAN_RIGHT = 1;
+        static const i8_q ARE_EQUAL = 0;
+
+        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nResult = LEFT_IS_GREATER_THAN_RIGHT;
 
         if (leftOperand < rightOperand)
-            nResult = nLeftLowerThanRight;
+            nResult = LEFT_IS_LOWER_THAN_RIGHT;
         else if (leftOperand == rightOperand)
-            nResult = nLeftEqualsToRight;
+            nResult = ARE_EQUAL;
 
         return nResult;
     }

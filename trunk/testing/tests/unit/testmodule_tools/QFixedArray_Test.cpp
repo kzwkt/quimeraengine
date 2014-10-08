@@ -880,6 +880,761 @@ QTEST_CASE( GetLast_ReturnsIteratorToForwardEndPositionInTheArrayWhenArrayIsEmpt
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses the entire array.
+/// </sumary>
+QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeIsTheEntireArray_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q FIRST_POSITION = 0;
+    const pointer_uint_q LAST_POSITION = sizeof(arValues) / sizeof(u32_q) - 1U;
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = true;
+
+    for(pointer_uint_q i = 0; i < arResult.GetCapacity(); ++i)
+        bArrayIsWhatExpected = bArrayIsWhatExpected && arResult[i] == EXPECTED_RESULT[i];
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+}
+
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses just one element.
+/// </sumary>
+QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeIsOnlyOneElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    u32_q arExpectedValues[] = {3U};
+    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const pointer_uint_q FIRST_POSITION = 3U;
+    const pointer_uint_q LAST_POSITION = FIRST_POSITION;
+    const pointer_uint_q EXPECTED_COUNT = 1U;
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = arResult[0] == EXPECTED_RESULT[0];
+    pointer_uint_q uCount = arResult.GetCount();
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses a common subarray.
+/// </sumary>
+QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeEnclosesCommonSubarray_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    u32_q arExpectedValues[] = {2U, 3U, 4U};
+    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const pointer_uint_q FIRST_POSITION = 2U;
+    const pointer_uint_q LAST_POSITION = 4U;
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = true;
+
+    for(pointer_uint_q i = 0; i < arResult.GetCapacity(); ++i)
+        bArrayIsWhatExpected = bArrayIsWhatExpected && arResult[i] == EXPECTED_RESULT[i];
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when positions are out of bounds.
+/// </sumary>
+QTEST_CASE( GetRange1_AssertionFailsWhenPositionsAreOutOfBounds_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q FIRST_POSITION = sizeof(arValues) / sizeof(u32_q);
+    const pointer_uint_q LAST_POSITION = FIRST_POSITION;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the first position is greater than the last position.
+/// </sumary>
+QTEST_CASE( GetRange1_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q LAST_POSITION = 0;
+    const pointer_uint_q FIRST_POSITION = LAST_POSITION + 1U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses the entire array.
+/// </sumary>
+QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeIsTheEntireArray_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetFirst();
+    const QFixedArray<u32_q>::QArrayIterator LAST_POSITION = arFixedArray.GetLast();
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = true;
+
+    for(pointer_uint_q i = 0; i < arResult.GetCapacity(); ++i)
+        bArrayIsWhatExpected = bArrayIsWhatExpected && arResult[i] == EXPECTED_RESULT[i];
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+}
+
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses just one element.
+/// </sumary>
+QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeIsOnlyOneElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    u32_q arExpectedValues[] = {3U};
+    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetIterator(3U);
+    const QFixedArray<u32_q>::QArrayIterator LAST_POSITION = FIRST_POSITION;
+    const pointer_uint_q EXPECTED_COUNT = 1U;
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = arResult[0] == EXPECTED_RESULT[0];
+    pointer_uint_q uCount = arResult.GetCount();
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected array when the selected range encloses a common subarray.
+/// </sumary>
+QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeEnclosesCommonSubarray_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    u32_q arExpectedValues[] = {2U, 3U, 4U};
+    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetIterator(2U);
+    const QFixedArray<u32_q>::QArrayIterator LAST_POSITION = arFixedArray.GetIterator(4U);
+
+    // [Execution]
+    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+
+    // [Verification]
+    bool bArrayIsWhatExpected = true;
+
+    for(pointer_uint_q i = 0; i < arResult.GetCapacity(); ++i)
+        bArrayIsWhatExpected = bArrayIsWhatExpected && arResult[i] == EXPECTED_RESULT[i];
+
+    BOOST_CHECK(bArrayIsWhatExpected);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position is an end position.
+/// </sumary>
+QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsEnd_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetLast();
+    ++FIRST_POSITION;
+    const QFixedArray<u32_q>::QArrayIterator LAST_POSITION = arFixedArray.GetIterator(0);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the last position is an end position.
+/// </sumary>
+QTEST_CASE( GetRange2_AssertionFailsWhenLastPositionIsEnd_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QFixedArray<u32_q>::QArrayIterator LAST_POSITION = arFixedArray.GetLast();
+    ++LAST_POSITION;
+    const QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetIterator(0);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the first position is greater than the last position.
+/// </sumary>
+QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator FIRST_POSITION = arFixedArray.GetLast();
+    QFixedArray<u32_q>::QArrayIterator LAST_POSITION = FIRST_POSITION;
+    --LAST_POSITION;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that elements are correctly swapped when they occupy the first and the last positions.
+/// </sumary>
+QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 0;
+    const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q) - 1U;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_B], EXPECTED_VALUE_B);
+}
+
+/// <sumary>
+/// Checks that elements are correctly swapped when selecting any position.
+/// </sumary>
+QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 2U;
+    const pointer_uint_q POSITION_B = 4U;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_B], EXPECTED_VALUE_B);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position provided is out of bounds.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenFirstPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = sizeof(arValues) / sizeof(u32_q);
+    const pointer_uint_q POSITION_B = 4U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the second position provided is out of bounds.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenSecondPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = POSITION_A;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that nothing happens when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap1_NothingHappensWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = POSITION_A;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_A];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(arFixedArray[POSITION_B], EXPECTED_VALUE_B);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that elements are correctly swapped when they occupy the first and the last positions.
+/// </sumary>
+QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
+    const u32_q EXPECTED_VALUE_A = *POSITION_B;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+/// <sumary>
+/// Checks that elements are correctly swapped when selecting any position.
+/// </sumary>
+QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetIterator(2U);
+    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetIterator(4U);
+    const u32_q EXPECTED_VALUE_A = *POSITION_B;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenFirstPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetLast();
+    ++POSITION_A;
+    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetFirst();
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the second position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenSecondPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
+    ++POSITION_B;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QFixedArray<u32_q>::QArrayIterator POSITION_B = POSITION_A;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that nothing happens when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap2_NothingHappensWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QFixedArray<u32_q>::QArrayIterator POSITION_B = POSITION_A;
+    const u32_q EXPECTED_VALUE_A = *POSITION_A;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    arFixedArray.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that it returns True when arrays have the same number of elements and those elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenArraysHaveSameNumberOfElementsAndElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray1 == arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when arrays are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenArraysAreSameInstance_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray == arFixedArray;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when arrays have the same number of elements but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenArraysHaveSameNumberOfElementsButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = arFixedArray1 == arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when arrays have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenArraysHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = arFixedArray1 == arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when arrays have the same number of elements and those elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenArraysHaveSameNumberOfElementsAndElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = arFixedArray1 != arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when arrays are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenArraysAreSameInstance_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = arFixedArray != arFixedArray;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when arrays have the same number of elements but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenArraysHaveSameNumberOfElementsButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray1 != arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when arrays have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenArraysHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U};
+    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray1 != arFixedArray2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 /// <summary>
 /// Checks if returns a valid allocator.
 /// </summary>
