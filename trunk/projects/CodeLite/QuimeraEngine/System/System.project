@@ -422,4 +422,8 @@
     <File Name="../../../../headers/SQTypeExtensions.h"/>
     <File Name="../../../../source/SQTypeExtensions.cpp"/>
   </VirtualDirectory>
+  <VirtualDirectory Name="Diagnosis">
+    <File Name="../../../../headers/QArgumentTrace.h"/>
+    <File Name="../../../../source/QArgumentTrace.cpp"/>
+  </VirtualDirectory>
 </CodeLite_Project>

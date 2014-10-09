@@ -259,14 +259,15 @@ QTEST_CASE ( Convert1_ObjectIsCorrectlyConvertedToStringWhenUsingString_Test )
 QTEST_CASE ( Convert1_ObjectIsCorrectlyConvertedToStringWhenUsingNonBasicDataType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = "<Unknown>";
+    const string_q EXPECTED_RESULT = "<Unknown type at 0x";
     const UnknownType OBJECT = UnknownType();
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(OBJECT);
     
     // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
+    bool bContainsExpectedText = strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bContainsExpectedText);
 }
 
 /// <summary>
@@ -503,7 +504,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToString
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Unknown>";
+    const string_q EXPECTED_RESULT = " <Unknown type at 0x";
     UnknownType OBJECT;
 
     // [Execution]
@@ -512,7 +513,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBas
     // [Verification]
     // Checks that the result starts with 0x and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+                                 strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(bIsCorrectlyConverted);
 }
 
@@ -688,7 +689,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Unknown>";
+    const string_q EXPECTED_RESULT = " <Unknown type at 0x";
     UnknownType OBJECT;
     UnknownType* pObject = &OBJECT;
 
@@ -699,7 +700,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+                                 strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(bIsCorrectlyConverted);
 }
 
@@ -1081,7 +1082,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToString
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Unknown>";
+    const string_q EXPECTED_RESULT = " <Unknown type at 0x";
     const UnknownType OBJECT = UnknownType();
 
     // [Execution]
@@ -1266,7 +1267,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToNonBasicDataType_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Unknown>";
+    const string_q EXPECTED_RESULT = " <Unknown type at 0x";
     const UnknownType OBJECT = UnknownType();
     const UnknownType* pObject = &OBJECT;
 
@@ -1277,7 +1278,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
                                  strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+                                 strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(bIsCorrectlyConverted);
 }
 

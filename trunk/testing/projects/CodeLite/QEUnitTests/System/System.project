@@ -99,6 +99,9 @@
       <File Name="../../../../tests/unit/testmodule_system/SQAnyTypeToStringConverter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/SQTypeExtensions_Test.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Diagnosis">
+      <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>

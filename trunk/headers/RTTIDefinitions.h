@@ -29,64 +29,64 @@
 
 // --------------------------------------------------------------------------------------------------------
 // Quimera Engine's RTTI utilities for classes that derive directly from QObject: It automates the
-// overriding of QObject's virtual methods and the definition of the QType instance associated to the class.
+// overriding of QObject's virtual methods and the definition of the Kinesis::QuimeraEngine::Common::DataTypes::QType instance associated to the class.
 // This macro must be placed inside the class. Note that the macro includes visibility modifiers that may
 // affect the subsequent class' members.
 // -className: The name of the class inside which this macro is placed.
 // --------------------------------------------------------------------------------------------------------
-#define QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(className)                              \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType;                                     \
-    }                                                                               \
-                                                                                    \
+#define QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(className)                                              \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType;                                                     \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
 // Quimera Engine's RTTI utilities for classes that derive from either an interface or a class that inherits 
-// from QObject: It automates the overriding of QObject's virtual methods and the definition of the QType instance 
+// from QObject: It automates the overriding of QObject's virtual methods and the definition of the Kinesis::QuimeraEngine::Common::DataTypes::QType instance 
 // associated to the class. This macro must be placed inside the class. Note that the macro includes visibility 
 // modifiers that may affect the subsequent class' members.
 // -className: The name of the class inside which this macro is placed.
 // -baseClassName: The name of the class (derived from QObject) or interface from which the class inherits.
 // --------------------------------------------------------------------------------------------------------
-#define QE_RTTI_SUPPORT_DERIVED_FROM_1_CLASS(className, baseClassName)              \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType ||                                   \
-                baseClassName::OverrideIs(pType);                                   \
-    }                                                                               \
-                                                                                    \
+#define QE_RTTI_SUPPORT_DERIVED_FROM_1_CLASS(className, baseClassName)                              \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType ||                                                   \
+                baseClassName::OverrideIs(pType);                                                   \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
@@ -99,28 +99,28 @@ protected:                                                                      
 // -baseClassName2: The name of one of the classes (derived from QObject) or interfaces from which the class inherits.
 // --------------------------------------------------------------------------------------------------------
 #define QE_RTTI_SUPPORT_DERIVED_FROM_2_CLASSES(className, baseClassName1, baseClassName2) \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType    ||                                \
-                baseClassName1::OverrideIs(pType) ||                                \
-                baseClassName2::OverrideIs(pType);                                  \
-    }                                                                               \
-                                                                                    \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType    ||                                                \
+                baseClassName1::OverrideIs(pType) ||                                                \
+                baseClassName2::OverrideIs(pType);                                                  \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
@@ -134,29 +134,29 @@ protected:                                                                      
 // -baseClassName3: The name of one of the classes (derived from QObject) or interfaces from which the class inherits.
 // --------------------------------------------------------------------------------------------------------
 #define QE_RTTI_SUPPORT_DERIVED_FROM_3_CLASSES(className, baseClassName1, baseClassName2, baseClassName3) \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType    ||                                \
-                baseClassName1::OverrideIs(pType) ||                                \
-                baseClassName2::OverrideIs(pType) ||                                \
-                baseClassName3::OverrideIs(pType);                                  \
-    }                                                                               \
-                                                                                    \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType    ||                                                \
+                baseClassName1::OverrideIs(pType) ||                                                \
+                baseClassName2::OverrideIs(pType) ||                                                \
+                baseClassName3::OverrideIs(pType);                                                  \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
@@ -171,30 +171,30 @@ protected:                                                                      
 // -baseClassName4: The name of one of the classes (derived from QObject) or interfaces from which the class inherits.
 // --------------------------------------------------------------------------------------------------------
 #define QE_RTTI_SUPPORT_DERIVED_FROM_4_CLASSES(className, baseClassName1, baseClassName2, baseClassName3, baseClassName4) \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType    ||                                \
-                baseClassName1::OverrideIs(pType) ||                                \
-                baseClassName2::OverrideIs(pType) ||                                \
-                baseClassName3::OverrideIs(pType) ||                                \
-                baseClassName4::OverrideIs(pType);                                  \
-    }                                                                               \
-                                                                                    \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType    ||                                                \
+                baseClassName1::OverrideIs(pType) ||                                                \
+                baseClassName2::OverrideIs(pType) ||                                                \
+                baseClassName3::OverrideIs(pType) ||                                                \
+                baseClassName4::OverrideIs(pType);                                                  \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
@@ -210,38 +210,38 @@ protected:                                                                      
 // -baseClassName5: The name of one of the classes (derived from QObject) or interfaces from which the class inherits.
 // --------------------------------------------------------------------------------------------------------
 #define QE_RTTI_SUPPORT_DERIVED_FROM_5_CLASSES(className, baseClassName1, baseClassName2, baseClassName3, baseClassName4, baseClassName5) \
-                                                                                    \
-public:                                                                             \
-                                                                                    \
-    static const QType* GetTypeClass()                                              \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-    virtual const QType* GetTypeObject() const                                      \
-    {                                                                               \
-        return className::OBJECT_TYPE;                                              \
-    }                                                                               \
-                                                                                    \
-protected:                                                                          \
-                                                                                    \
-    virtual bool OverrideIs(const QType* pType) const                               \
-    {                                                                               \
-        return className::OBJECT_TYPE == pType    ||                                \
-                baseClassName1::OverrideIs(pType) ||                                \
-                baseClassName2::OverrideIs(pType) ||                                \
-                baseClassName3::OverrideIs(pType) ||                                \
-                baseClassName4::OverrideIs(pType) ||                                \
-                baseClassName5::OverrideIs(pType);                                  \
-    }                                                                               \
-                                                                                    \
+                                                                                                    \
+public:                                                                                             \
+                                                                                                    \
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeClass()                   \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+    virtual const Kinesis::QuimeraEngine::Common::DataTypes::QType* GetTypeObject() const           \
+    {                                                                                               \
+        return className::OBJECT_TYPE;                                                              \
+    }                                                                                               \
+                                                                                                    \
+protected:                                                                                          \
+                                                                                                    \
+    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const    \
+    {                                                                                               \
+        return className::OBJECT_TYPE == pType    ||                                                \
+                baseClassName1::OverrideIs(pType) ||                                                \
+                baseClassName2::OverrideIs(pType) ||                                                \
+                baseClassName3::OverrideIs(pType) ||                                                \
+                baseClassName4::OverrideIs(pType) ||                                                \
+                baseClassName5::OverrideIs(pType);                                                  \
+    }                                                                                               \
+                                                                                                    \
     static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
 
 // --------------------------------------------------------------------------------------------------------
 // Quimera Engine's RTTI utilities to define the instance of QType.
 // -className: The name of the class inside which the QType instance is declared.
 // --------------------------------------------------------------------------------------------------------
-#define QE_RTTI_SUPPORT_TYPE_DEFINITION(className) const QType* className::OBJECT_TYPE = new QType(QE_L(#className));
+#define QE_RTTI_SUPPORT_TYPE_DEFINITION(className) const Kinesis::QuimeraEngine::Common::DataTypes::QType* className::OBJECT_TYPE = new Kinesis::QuimeraEngine::Common::DataTypes::QType(QE_L(#className));
 
 
 
