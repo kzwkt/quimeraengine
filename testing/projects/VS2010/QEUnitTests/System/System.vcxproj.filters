@@ -22,6 +22,9 @@
     <Filter Include="Tests\FileSystem">
       <UniqueIdentifier>{98ed1d2d-a486-448f-9e40-212febed37fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Diagnosis">
+      <UniqueIdentifier>{30d1fdf8-fe58-4452-be35-77e34f13fbfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp">
       <Filter>Tests\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp">
+      <Filter>Tests\Diagnosis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

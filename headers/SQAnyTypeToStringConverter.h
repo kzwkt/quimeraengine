@@ -66,7 +66,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Any type that does not belong to the list of recognized types (see next) will not be converted.
-    /// Instead, a string containing the text "<Unknown>" will be returned.
+    /// Instead, a string containing the text "Unknown type" followed by the memory address of the instance will be returned.
     /// </remarks>
     /// <typeparam name="T">The type of the instance to be converted. Recognized types are: basic data types and string_q.</typeparam>
     /// <param name="object">[IN] The instance to be converted.</param>
@@ -77,8 +77,16 @@ public:
     static string_q Convert(const T &object)
     {
         // See template specializations below.
-        static const string_q UNKNOWN_TYPE("<Unknown>");
-        return UNKNOWN_TYPE;
+        static const string_q UNKNOWN_TYPE_PART1("<Unknown type at ");
+        static const string_q UNKNOWN_TYPE_PART2(">");
+        static const string_q HEXADECIMAL_PREFIX("0x");
+
+        string_q strResult = UNKNOWN_TYPE_PART1;
+        strResult.Append(HEXADECIMAL_PREFIX);
+        strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(&object, pointer_uint_q)));
+        strResult.Append(UNKNOWN_TYPE_PART2);
+
+        return strResult;
     }
     
     /// <summary>
@@ -90,7 +98,7 @@ public:
     /// then both will be dereferenced; this is the maximum number of dereferences supported. Example: int** --> "0x10AFB34D 0x90AFB11A 256".<br/>
     /// If the pointer is null, the resultant string will only contain the text "<Null>".<br/>
     /// Any type that does not belong to the list of recognized types (see next) will not be converted.
-    /// Instead, a string containing the text "<Unknown>" will be returned after the memory address.
+    /// Instead, a string containing the text "Unknown type" followed by the memory address of the instance will be returned after all the memory addresses.
     /// </remarks>
     /// <typeparam name="T">The type of the pointer to be converted. Recognized types are: pointers to non-constant basic data types, 
     /// pointers to non-constant string_q, pointers to non-constant QObject or derived classes, pointers to already mentioned types.</typeparam>
@@ -113,7 +121,7 @@ public:
     /// then both will be dereferenced; this is the maximum number of dereferences supported. Example: int** --> "0x10AFB34D 0x90AFB11A 256".<br/>
     /// If the pointer is null, the resultant string will only contain the text "<Null>".<br/>
     /// Any type that does not belong to the list of recognized types (see next) will not be converted.
-    /// Instead, a string containing the text "<Unknown>" will be returned after the memory address.
+    /// Instead, a string containing the text "Unknown type" followed by the memory address of the instance will be returned after all the memory addresses.
     /// </remarks>
     /// <typeparam name="T">The type of the pointer to be converted. Recognized types are: pointers to constant basic data types, 
     /// pointers to constant string_q, pointers to constant QObject or derived classes, pointers to already mentioned types.</typeparam>

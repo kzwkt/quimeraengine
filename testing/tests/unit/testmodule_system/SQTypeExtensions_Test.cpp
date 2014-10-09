@@ -181,7 +181,7 @@ QTEST_CASE ( FindType2_QObjectTypeIsReturnedWhenUsingNullPointerToNonConstantQOb
 /// <summary>
 /// Checks that a valid type is found when using pointers pointer to non-constant class derived from QObject.
 /// </summary>
-QTEST_CASE ( FindType3_ValidTypeIsFoundWhenUsingPointerToPointerToNonConstantQObjectDerived_Test )
+QTEST_CASE ( FindType2_ValidTypeIsFoundWhenUsingPointerToPointerToNonConstantQObjectDerived_Test )
 {
     // [Preparation]
     const QType* NULL_POINTER = null_q;
