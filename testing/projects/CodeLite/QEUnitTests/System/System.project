@@ -89,6 +89,9 @@
       <File Name="../../../../tests/unit/testmodule_system/QUri_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QUriWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamReader_Test.cpp"/>
+      <VirtualDirectory Name="FileSystem">
+        <File Name="../../../../tests/unit/testmodule_system/QPath_Test.cpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="DataTypes">
       <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.cpp"/>

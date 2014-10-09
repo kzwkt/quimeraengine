@@ -411,6 +411,10 @@
     <File Name="../../../../headers/QUri.h"/>
     <File Name="../../../../source/QUri.cpp"/>
     <File Name="../../../../headers/QBinaryStreamReader.h"/>
+    <VirtualDirectory Name="FileSystem">
+      <File Name="../../../../headers/QPath.h"/>
+      <File Name="../../../../source/QPath.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>

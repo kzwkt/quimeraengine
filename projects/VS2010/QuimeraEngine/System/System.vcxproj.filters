@@ -19,6 +19,9 @@
     <Filter Include="IO">
       <UniqueIdentifier>{562c444d-ac35-4fa5-9a34-f500fca2b890}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO\FileSystem">
+      <UniqueIdentifier>{a8b72246-8f33-46e5-8b2e-c38bb590a797}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -52,6 +55,9 @@
     <ClInclude Include="..\..\..\..\headers\SQTypeExtensions.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QPath.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -71,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp">
       <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QPath.cpp">
+      <Filter>IO\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
