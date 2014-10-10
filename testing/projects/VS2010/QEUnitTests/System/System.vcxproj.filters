@@ -19,11 +19,11 @@
     <Filter Include="Tests\DataTypes">
       <UniqueIdentifier>{357548f6-cb19-4f7a-80e6-08cc893b5352}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\FileSystem">
-      <UniqueIdentifier>{98ed1d2d-a486-448f-9e40-212febed37fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests\Diagnosis">
       <UniqueIdentifier>{30d1fdf8-fe58-4452-be35-77e34f13fbfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\IO\FileSystem">
+      <UniqueIdentifier>{98ed1d2d-a486-448f-9e40-212febed37fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +67,7 @@
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp">
-      <Filter>Tests\FileSystem</Filter>
+      <Filter>Tests\IO\FileSystem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
