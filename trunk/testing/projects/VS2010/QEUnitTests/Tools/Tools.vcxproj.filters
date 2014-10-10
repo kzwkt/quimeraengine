@@ -231,6 +231,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTree_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeIterator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -294,6 +297,9 @@
       <Filter>Tests\Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeWhiteBox.h">
+      <Filter>Tests\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeIteratorMock.h">
       <Filter>Tests\Containers</Filter>
     </ClInclude>
   </ItemGroup>

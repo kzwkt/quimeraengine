@@ -30,27 +30,27 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QNTree.h"
+#include "QBinarySearchTree.h"
 
-#include "QNTreeIteratorMock.h"
+#include "QBinarySearchTreeIteratorMock.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QNTree;
+using Kinesis::QuimeraEngine::Tools::Containers::QBinarySearchTree;
 using Kinesis::QuimeraEngine::Tools::Containers::EQTreeTraversalOrder;
-using Kinesis::QuimeraEngine::Tools::Containers::Test::QNTreeIteratorMock;
+using Kinesis::QuimeraEngine::Tools::Containers::Test::QBinarySearchTreeIteratorMock;
 
 /// <summary>
 /// Small structure used in operator* and operator-> tests.
 /// </summary>
 struct TestStructure
 {
-    TestStructure(const char field) : m_field(field)
+    TestStructure(const int field) : m_field(field)
     {
     }
 
-    char m_field;
+    int m_field;
 };
 
-QTEST_SUITE_BEGIN( QNTreeIterator_TestSuite )
+QTEST_SUITE_BEGIN( QBinarySearchTreeIterator_TestSuite )
 
 /// <summary>
 /// Gets a sample tree with which to perform some tests.
@@ -58,30 +58,27 @@ QTEST_SUITE_BEGIN( QNTreeIterator_TestSuite )
 /// <returns>
 /// A sample tree with a variety of nodes.
 /// </returns>
-static const QNTree<char>* GetSampleTree()
+static const QBinarySearchTree<int>* GetSampleTree()
 {
-    static QNTree<char> sampleTree(3, 7);
+    static QBinarySearchTree<int> sampleTree(7);
     static bool bInitialized = false;
 
     if(!bInitialized)
     {/* [TODO] Thund: Uncomment when the methods AddChild, GetFirstChild and GetRoot exist
-        //          A
-        //         /|\
-        //        / | \
-        //       B  C  D
-        //      / \     \
-        //     /   \     \
-        //    E     F     G
-        sampleTree.SetRootValue('A');
-        QNTree<char>::QNTreeIterator iteratorA = sampleTree.GetRoot();
-        sampleTree.AddChild(iteratorA, 'B');
-        sampleTree.AddChild(iteratorA, 'C');
-        sampleTree.AddChild(iteratorA, 'D');
-        QNTree<char>::QNTreeIterator iteratorB = sampleTree.GetFirstChild(iteratorA);
-        sampleTree.AddChild(iteratorB, 'E');
-        sampleTree.AddChild(iteratorB, 'F');
-        QNTree<char>::QNTreeIterator iteratorD = sampleTree.GetLastChild(iteratorA);
-        sampleTree.AddChild(iteratorD, 'G');
+        //         4
+        //       /   \
+        //      /     \
+        //     2       6
+        //    / \     / \
+        //   /   \   /   \
+        //  1     3 5     7
+        sampleTree.Add(4);
+        sampleTree.Add(2);
+        sampleTree.Add(1);
+        sampleTree.Add(3);
+        sampleTree.Add(6);
+        sampleTree.Add(5);
+        sampleTree.Add(7);
 
         bInitialized = true;*/
     }
@@ -93,43 +90,42 @@ static const QNTree<char>* GetSampleTree()
 /// Creates a sample tree using an external tree.
 /// </summary>
 /// <param name="inputTree">An empty tree.</param>
-static void BuildSampleTree(QNTree<char> &inputTree)
+static void BuildSampleTree(QBinarySearchTree<int> &inputTree)
 {
     /* [TODO] Thund: Uncomment when the methods AddChild, GetFirstChild and GetRoot exist
-    //          A
-    //         /|\
-    //        / | \
-    //       B  C  D
-    //      / \     \
-    //     /   \     \
-    //    E     F     G
-    sampleTree.SetRootValue('A');
-    QNTree<char>::QNTreeIterator iteratorA = inputTree.GetRoot();
-    inputTree.AddChild(iteratorA, 'B');
-    inputTree.AddChild(iteratorA, 'C');
-    inputTree.AddChild(iteratorA, 'D');
-    QNTree<char>::QNTreeIterator iteratorB = inputTree.GetFirstChild(iteratorA);
-    inputTree.AddChild(iteratorB, 'E');
-    inputTree.AddChild(iteratorB, 'F');
-    QNTree<char>::QNTreeIterator iteratorD = inputTree.GetLastChild(iteratorA);
-    inputTree.AddChild(iteratorD, 'G');*/
+    //         4
+    //       /   \
+    //      /     \
+    //     2       6
+    //    / \     / \
+    //   /   \   /   \
+    //  1     3 5     7
+    inputTree.Add(4);
+    inputTree.Add(2);
+    inputTree.Add(1);
+    inputTree.Add(3);
+    inputTree.Add(6);
+    inputTree.Add(5);
+    inputTree.Add(7);
+
+    bInitialized = true;*/
 }
 
 
 /// <summary>
-/// Checks that the iterator points to the given position when using a common tree and depth-first pre-order traversal order.
+/// Checks that the iterator points to the given position when using a common tree and depth-first in-order traversal order.
 /// </summary>
-QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonTreeAndDepthFirstPreOrder_Test )
+QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonTreeAndDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
-    const pointer_uint_q POSITION = 1;
-    QNTree<char>::QNTreeIterator EXPECTED_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
+    const pointer_uint_q POSITION = 2;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     EXPECTED_ITERATOR.MoveFirst();
     ++EXPECTED_ITERATOR;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, POSITION, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, POSITION, EQTreeTraversalOrder::E_DepthFirstInOrder);
     
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);*/
@@ -143,7 +139,7 @@ QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonTreeAndDept
 QTEST_CASE ( Constructor_AssertionFailsWhenInputTreeIsNull_Test )
 {
     // [Preparation]
-    QNTree<char>* SOURCE_TREE = null_q;
+    QBinarySearchTree<int>* SOURCE_TREE = null_q;
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -151,7 +147,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTreeIsNull_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator INVALID_ITERATOR(SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator INVALID_ITERATOR(SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     }
     catch(...)
     {
@@ -168,7 +164,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTreeIsNull_Test )
 QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
     const pointer_uint_q CAPACITY = SAMPLE_TREE->GetCapacity();
     const unsigned int INVALID_POSITION = CAPACITY;
@@ -179,7 +175,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_T
 
     try
     {
-        QNTree<char>::QNTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INVALID_POSITION, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INVALID_POSITION, EQTreeTraversalOrder::E_DepthFirstInOrder);
     }
     catch(...)
     {
@@ -196,7 +192,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_T
 QTEST_CASE ( Constructor_AssertionFailsWhenInputTraversalOrderIsNotSupported_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
     const EQTreeTraversalOrder UNSUPPORTED_TRAVERSAL_ORDER = EQTreeTraversalOrder::E_BreadthFirst;
     const unsigned int INPUT_POSITION = 0;
     const bool ASSERTION_FAILED = true;
@@ -206,7 +202,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTraversalOrderIsNotSupported_Tes
 
     try
     {
-        QNTree<char>::QNTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INPUT_POSITION, UNSUPPORTED_TRAVERSAL_ORDER);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INPUT_POSITION, UNSUPPORTED_TRAVERSAL_ORDER);
     }
     catch(...)
     {
@@ -227,7 +223,7 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosit
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
     const pointer_uint_q NUMBER_OF_ELEMENTS = SAMPLE_TREE->GetCount();
 
@@ -235,7 +231,7 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosit
     const bool IS_END = true;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INVALID_POSITION, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INVALID_POSITION, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIsEndIterationForward = INVALID_ITERATOR.IsEnd(EQIterationDirection::E_Forward);
@@ -250,11 +246,11 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyTree_Te
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char> SOURCE_TREE(3);
+    const QBinarySearchTree<int> SOURCE_TREE(3);
     const bool IS_END = true;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(&SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(&SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
@@ -269,14 +265,14 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyTree_Te
 QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    const char EXPECTED_VALUE = 'B';
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    ++ITERATOR;
+    const int EXPECTED_VALUE = 1;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    ITERATOR.MoveFirst();
 
 	// [Execution]
-    char value = *ITERATOR;
+    int value = *ITERATOR;
 
     // [Verification]
     BOOST_CHECK_EQUAL(value, EXPECTED_VALUE);
@@ -290,11 +286,11 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
 {
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(8);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTree<char>::QNTreeIterator FIRST_POSITION(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTree<int>::QBinarySearchTreeIterator FIRST_POSITION(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     
     const bool ASSERTION_FAILED = true;
@@ -321,9 +317,9 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -350,9 +346,9 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPos
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -381,24 +377,21 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
 QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 {
     // [Preparation]
-    QNTree<TestStructure> SAMPLE_TREE(3, 7);
-    SAMPLE_TREE.SetRootValue(TestStructure('A'));
-    QNTree<TestStructure>::QNTreeIterator iteratorA = SAMPLE_TREE.GetRoot();
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('B'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('C'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('D'));
-    QNTree<TestStructure>::QNTreeIterator iteratorB = SAMPLE_TREE.GetFirstChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('E'));
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('F'));
-    QNTree<TestStructure>::QNTreeIterator iteratorD = SAMPLE_TREE.GetLastChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorD, TestStructure('G'));
+    QBinarySearchTree<TestStructure> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(TestStructure(4));
+    SAMPLE_TREE.Add(TestStructure(2));
+    SAMPLE_TREE.Add(TestStructure(1));
+    SAMPLE_TREE.Add(TestStructure(3));
+    SAMPLE_TREE.Add(TestStructure(6));
+    SAMPLE_TREE.Add(TestStructure(5));
+    SAMPLE_TREE.Add(TestStructure(7));
 
-    const char EXPECTED_VALUE = 'B';
-    QNTree<TestStructure>::QNTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const int EXPECTED_VALUE = 4;
+    QBinarySearchTree<TestStructure>::QBinarySearchTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR;
 
 	// [Execution]
-    char value = ITERATOR->m_field;
+    int value = ITERATOR->m_field;
 
     // [Verification]
     BOOST_CHECK_EQUAL(value, EXPECTED_VALUE);
@@ -412,20 +405,17 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<TestStructure> SAMPLE_TREE(3, 7);
-    SAMPLE_TREE.SetRootValue(TestStructure('A'));
-    QNTree<TestStructure>::QNTreeIterator iteratorA = SAMPLE_TREE.GetRoot();
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('B'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('C'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('D'));
-    QNTree<TestStructure>::QNTreeIterator iteratorB = SAMPLE_TREE.GetFirstChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('E'));
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('F'));
-    QNTree<TestStructure>::QNTreeIterator iteratorD = SAMPLE_TREE.GetLastChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorD, TestStructure('G'));
+    QBinarySearchTree<TestStructure> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(TestStructure(4));
+    SAMPLE_TREE.Add(TestStructure(2));
+    SAMPLE_TREE.Add(TestStructure(1));
+    SAMPLE_TREE.Add(TestStructure(3));
+    SAMPLE_TREE.Add(TestStructure(6));
+    SAMPLE_TREE.Add(TestStructure(5));
+    SAMPLE_TREE.Add(TestStructure(7));
 
-    QNTree<TestStructure>::QNTreeIterator FIRST_POSITION(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTree<TestStructure>::QBinarySearchTreeIterator FIRST_POSITION(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
+    QBinarySearchTreeIteratorMock<TestStructure> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -451,19 +441,16 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QNTree<TestStructure> SAMPLE_TREE(3, 7);
-    SAMPLE_TREE.SetRootValue(TestStructure('A'));
-    QNTree<TestStructure>::QNTreeIterator iteratorA = SAMPLE_TREE.GetRoot();
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('B'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('C'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('D'));
-    QNTree<TestStructure>::QNTreeIterator iteratorB = SAMPLE_TREE.GetFirstChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('E'));
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('F'));
-    QNTree<TestStructure>::QNTreeIterator iteratorD = SAMPLE_TREE.GetLastChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorD, TestStructure('G'));
+    QBinarySearchTree<TestStructure> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(TestStructure(4));
+    SAMPLE_TREE.Add(TestStructure(2));
+    SAMPLE_TREE.Add(TestStructure(1));
+    SAMPLE_TREE.Add(TestStructure(3));
+    SAMPLE_TREE.Add(TestStructure(6));
+    SAMPLE_TREE.Add(TestStructure(5));
+    SAMPLE_TREE.Add(TestStructure(7));
 
-    QNTree<TestStructure>::QNTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<TestStructure>::QBinarySearchTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -490,19 +477,16 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndP
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEndPosition_Test )
 {
     // [Preparation]
-    QNTree<TestStructure> SAMPLE_TREE(3, 7);
-    SAMPLE_TREE.SetRootValue(TestStructure('A'));
-    QNTree<TestStructure>::QNTreeIterator iteratorA = SAMPLE_TREE.GetRoot();
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('B'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('C'));
-    SAMPLE_TREE.AddChild(iteratorA, TestStructure('D'));
-    QNTree<TestStructure>::QNTreeIterator iteratorB = SAMPLE_TREE.GetFirstChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('E'));
-    SAMPLE_TREE.AddChild(iteratorB, TestStructure('F'));
-    QNTree<TestStructure>::QNTreeIterator iteratorD = SAMPLE_TREE.GetLastChild(iteratorA);
-    SAMPLE_TREE.AddChild(iteratorD, TestStructure('G'));
+    QBinarySearchTree<TestStructure> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(TestStructure(4));
+    SAMPLE_TREE.Add(TestStructure(2));
+    SAMPLE_TREE.Add(TestStructure(1));
+    SAMPLE_TREE.Add(TestStructure(3));
+    SAMPLE_TREE.Add(TestStructure(6));
+    SAMPLE_TREE.Add(TestStructure(5));
+    SAMPLE_TREE.Add(TestStructure(7));
 
-    QNTree<TestStructure>::QNTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<TestStructure>::QBinarySearchTreeIterator ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -526,20 +510,20 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEnd
 #endif
 
 /// <summary>
-/// Checks that the iterator steps forward properly and returns the previous state when using depth-first pre-order.
+/// Checks that the iterator steps forward properly and returns the previous state when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsPreviousStateWhenUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsPreviousStateWhenUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char SECOND_ELEMENT_VALUE = 'B';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int SECOND_ELEMENT_VALUE = 2;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveFirst();
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = iterator++;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = iterator++;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
@@ -547,15 +531,15 @@ QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
 }
 
 /// <summary>
-/// Checks that the tree is traversed in the correct order when using depth-first pre-order.
+/// Checks that the tree is traversed in the correct order when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char ELEMENT_VALUES[] = {'A', 'B', 'E', 'F', 'C', 'D', 'G'};
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5, 6, 7};
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<int>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     iterator.MoveFirst();
     bool bIsCorrect = true;
     unsigned int i = 0;
@@ -565,7 +549,7 @@ QTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
     {
         bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
         iterator++;
-        ++i;
+        i++;
     }
 
     // [Verification]
@@ -573,21 +557,21 @@ QTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 }
 
 /// <summary>
-/// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one, using depth-first pre-order.
+/// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char FIRST_ELEMENT_VALUE = 'A';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int FIRST_ELEMENT_VALUE = 1;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = iterator++;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = iterator++;
     int nCurrentElement = *iterator;
 
     // [Verification]
@@ -603,10 +587,10 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -632,9 +616,9 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -664,14 +648,14 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ITERATOR_END);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ITERATOR_END);
     iterator++;
 
     // [Verification]
@@ -681,20 +665,20 @@ QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLas
 #endif
 
 /// <summary>
-/// Checks that the iterator steps backward properly and returns the previous state, when using depth-first pre-order.
+/// Checks that the iterator steps backward properly and returns the previous state, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturnsPreviousStateWhenUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturnsPreviousStateWhenUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char SECOND_ELEMENT_VALUE = 'B';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int SECOND_ELEMENT_VALUE = 6;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveLast();
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = iterator--;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = iterator--;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
@@ -702,15 +686,15 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
 }
 
 /// <summary>
-/// Checks that the tree is traversed in the correct order when using depth-first pre-order.
+/// Checks that the tree is traversed in the correct order when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char ELEMENT_VALUES[] = {'G', 'D', 'C', 'F', 'E', 'B', 'A'};
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<int>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     iterator.MoveLast();
     bool bIsCorrect = true;
     unsigned int i = 0;
@@ -720,7 +704,7 @@ QTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
     {
         bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
         iterator--;
-        ++i;
+        i++;
     }
 
     // [Verification]
@@ -728,21 +712,21 @@ QTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 }
 
 /// <summary>
-/// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first pre-order.
+/// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const char LAST_ELEMENT_VALUE = 'G';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int LAST_ELEMENT_VALUE = 7;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveLast();
     ++ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = iterator--;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = iterator--;
     int nCurrentElement = *iterator;
 
     // [Verification]
@@ -758,10 +742,10 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -787,9 +771,9 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -819,14 +803,14 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ITERATOR_END);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ITERATOR_END);
     iterator--;
 
     // [Verification]
@@ -836,20 +820,20 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
 #endif
 /* [TODO] Thund: Uncomment when the method AddChild exists
 /// <summary>
-/// Checks that the iterator steps forward properly and returns the current state, when using depth-first pre-order.
+/// Checks that the iterator steps forward properly and returns the current state, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCurrentStateWhenUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCurrentStateWhenUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const char SECOND_ELEMENT_VALUE = 'B';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int SECOND_ELEMENT_VALUE = 2;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveFirst();
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = ++iterator;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = ++iterator;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState != iterator);
@@ -857,15 +841,15 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
 }
 
 /// <summary>
-/// Checks that the tree is traversed in the correct order when using depth-first pre-order.
+/// Checks that the tree is traversed in the correct order when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const char ELEMENT_VALUES[] = {'A', 'B', 'E', 'F', 'C', 'D', 'G'};
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5, 6, 7};
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<int>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     iterator.MoveFirst();
     bool bIsCorrect = true;
     unsigned int i = 0;
@@ -883,21 +867,21 @@ QTEST_CASE ( OperatorPreIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFir
 }
 
 /// <summary>
-/// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one, when using depth-first pre-order.
+/// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrentStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const char FIRST_ELEMENT_VALUE = 'A';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int FIRST_ELEMENT_VALUE = 1;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = ++iterator;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = ++iterator;
     int nCurrentElement = *iterator;
 
     // [Verification]
@@ -913,10 +897,10 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -942,9 +926,9 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveLast();
     ITERATOR_END++;
 
@@ -974,14 +958,14 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
 QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveLast();
     ITERATOR_END++;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ITERATOR_END);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ITERATOR_END);
     ++iterator;
 
     // [Verification]
@@ -991,20 +975,20 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
 #endif
 /* [TODO] Thund: Uncomment when the method AddChild exists
 /// <summary>
-/// Checks that the iterator steps backward properly and returns the current state, when using depth-first pre-order.
+/// Checks that the iterator steps backward properly and returns the current state, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsCurrentStateWhenUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsCurrentStateWhenUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const char SECOND_ELEMENT_VALUE = 'B';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int SECOND_ELEMENT_VALUE = 6;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveLast();
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = --iterator;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = --iterator;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState != iterator);
@@ -1012,47 +996,21 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
 }
 
 /// <summary>
-/// Checks that the tree is traversed in the correct order when using depth-first pre-order.
+/// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorPreDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
+QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const char ELEMENT_VALUES[] = {'G', 'D', 'C', 'F', 'E', 'B', 'A'};
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const int LAST_ELEMENT_VALUE = 7;
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<int>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    iterator.MoveLast();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
-        --iterator;
-        ++i;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
-}
-
-/// <summary>
-/// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one, when using depth-first pre-order.
-/// </summary>
-QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentStateWhenItWasPointingToLastEndPositionUsingDepthFirstPreOrder_Test )
-{
-    // [Preparation]
-    const char LAST_ELEMENT_VALUE = 'G';
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
-
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR.MoveLast();
     ORIGINAL_ITERATOR++;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
-    QNTree<char>::QNTreeIterator iteratorPreviousState = --iterator;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iteratorPreviousState = --iterator;
     int nCurrentElement = *iterator;
 
     // [Verification]
@@ -1068,10 +1026,10 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1092,14 +1050,40 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 }
 
 /// <summary>
+/// Checks that the tree is traversed in the correct order when using depth-first in-order.
+/// </summary>
+QTEST_CASE ( OperatorPreDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    iterator.MoveLast();
+    bool bIsCorrect = true;
+    unsigned int i = 0;
+
+	// [Execution]
+    while(bIsCorrect && !iterator.IsEnd())
+    {
+        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
+        --iterator;
+        ++i;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bIsCorrect);
+}
+
+/// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position before the first one.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveFirst();
     ITERATOR_END--;
 
@@ -1129,14 +1113,14 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_END(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR_END.MoveFirst();
     ITERATOR_END--;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ITERATOR_END);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ITERATOR_END);
     --iterator;
 
     // [Verification]
@@ -1151,14 +1135,14 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
 QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator = ITERATOR_B;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator = ITERATOR_B;
     iterator = ITERATOR_A;
 
     // [Verification]
@@ -1171,15 +1155,15 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIteratorIsNotValid_Test )
 {
     // [Preparation]
-    QNTree<char> SAMPLE_TREE(3, 7);
+    QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE.GetCapacity());
-    QNTree<char>::QNTreeIterator VALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator VALID_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator = INVALID_ITERATOR;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator = INVALID_ITERATOR;
     iterator = VALID_ITERATOR;
 
     // [Verification]
@@ -1195,9 +1179,9 @@ QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIterat
 QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1206,7 +1190,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator = INVALID_ITERATOR;
     }
     catch(...)
@@ -1224,10 +1208,10 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
 QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferentTree_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1236,7 +1220,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator = ITERATOR_A;
     }
     catch(...)
@@ -1256,13 +1240,13 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     iterator = INVALID_ITERATOR;
 
     // [Verification]
@@ -1274,14 +1258,14 @@ QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test
 /// </summary>
 QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDifferentTree_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator = ITERATOR_B;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator = ITERATOR_B;
     iterator = ITERATOR_A;
 
     // [Verification]
@@ -1290,17 +1274,17 @@ QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDiff
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+/* [TODO] Thund: Uncomment when the method Add exists
 /// <summary>
 /// Checks that it returns True when iterators are equal.
 /// </summary>
 QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1316,10 +1300,10 @@ QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = false;
@@ -1339,9 +1323,9 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1350,7 +1334,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator == INVALID_ITERATOR;
     }
     catch(...)
@@ -1362,7 +1346,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR == iterator;
     }
     catch(...)
@@ -1381,10 +1365,10 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1393,7 +1377,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentTrees_T
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator == ITERATOR_A;
     }
     catch(...)
@@ -1413,11 +1397,11 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentTrees_T
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1435,10 +1419,10 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentTrees_Tes
 QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1454,10 +1438,10 @@ QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = true;
@@ -1477,9 +1461,9 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1488,7 +1472,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator != INVALID_ITERATOR;
     }
     catch(...)
@@ -1500,7 +1484,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR != iterator;
     }
     catch(...)
@@ -1519,10 +1503,10 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1531,7 +1515,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentTrees
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator != ITERATOR_A;
     }
     catch(...)
@@ -1551,11 +1535,11 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentTrees
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1568,15 +1552,15 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentTrees_Te
 #endif
 
 /// <summary>
-/// Checks that it returns True when the resident iterator is greater than the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is greater than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1588,15 +1572,15 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInp
 }
 
 /// <summary>
-/// Checks that it returns False when the resident iterator is not greater than the input iterator, using depth-first pre-order.
+/// Checks that it returns False when the resident iterator is not greater than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1616,9 +1600,9 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1627,7 +1611,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator > INVALID_ITERATOR;
     }
     catch(...)
@@ -1639,7 +1623,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR > iterator;
     }
     catch(...)
@@ -1658,10 +1642,10 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1670,7 +1654,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTree
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator > ITERATOR_A;
     }
     catch(...)
@@ -1690,12 +1674,12 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTree
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
-    QNTree<char>::QNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1708,15 +1692,15 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_
 #endif
 /* [TODO] Thund: Uncomment when the method AddChild exists
 /// <summary>
-/// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1728,15 +1712,15 @@ QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIt
 }
 
 /// <summary>
-/// Checks that it returns False when the resident iterator is not lower than the input iterator, using depth-first pre-order.
+/// Checks that it returns False when the resident iterator is not lower than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1755,9 +1739,9 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1766,7 +1750,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator < INVALID_ITERATOR;
     }
     catch(...)
@@ -1778,7 +1762,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR < iterator;
     }
     catch(...)
@@ -1797,10 +1781,10 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
 
     const bool ASSERTION_FAILED = true;
@@ -1810,7 +1794,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator < ITERATOR_A;
     }
     catch(...)
@@ -1830,11 +1814,11 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1849,15 +1833,15 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Te
 /* [TODO] Thund: Uncomment when the method AddChild exists
 
 /// <summary>
-/// Checks that it returns True when the resident iterator is greater than the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is greater than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1869,15 +1853,15 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreate
 }
 
 /// <summary>
-/// Checks that it returns True when the resident iterator is equal to the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is equal to the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1888,15 +1872,15 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsIn
 }
 
 /// <summary>
-/// Checks that it returns False when the resident iterator is neither greater than nor equals to the input iterator, using depth-first pre-order.
+/// Checks that it returns False when the resident iterator is neither greater than nor equals to the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGreaterThanAndDoNotEqualsInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGreaterThanAndDoNotEqualsInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1915,9 +1899,9 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
 {/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -1926,7 +1910,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator >= INVALID_ITERATOR;
     }
     catch(...)
@@ -1938,7 +1922,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR >= iterator;
     }
     catch(...)
@@ -1957,10 +1941,10 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1969,7 +1953,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator >= ITERATOR_A;
     }
     catch(...)
@@ -1989,11 +1973,11 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -2006,15 +1990,15 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDiffere
 #endif
 /* [TODO] Thund: Uncomment when the method AddChild exists
 /// <summary>
-/// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerThanInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = true;
 
@@ -2026,15 +2010,15 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerTha
 }
 
 /// <summary>
-/// Checks that it returns True when the resident iterator is equal to the input iterator, using depth-first pre-order.
+/// Checks that it returns True when the resident iterator is equal to the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -2045,15 +2029,15 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInpu
 }
 
 /// <summary>
-/// Checks that it returns False when the resident iterator is neither lower than nor equals to the input iterator, using depth-first pre-order.
+/// Checks that it returns False when the resident iterator is neither lower than nor equals to the input iterator, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowerThanAndDoNotEqualsInputIteratorUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowerThanAndDoNotEqualsInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = false;
 
@@ -2072,9 +2056,9 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -2083,7 +2067,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(&SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator <= INVALID_ITERATOR;
     }
     catch(...)
@@ -2095,7 +2079,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(&SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR <= iterator;
     }
     catch(...)
@@ -2114,10 +2098,10 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     const bool ASSERTION_FAILED = true;
 
@@ -2126,7 +2110,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 
     try
     {
-        QNTree<char>::QNTreeIterator iterator(&TREE_B, 0);
+        QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator <= ITERATOR_A;
     }
     catch(...)
@@ -2146,11 +2130,11 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
-    const QNTree<char>* TREE_B = GetSampleTree();
+    QBinarySearchTree<int> TREE_A(3);
+    const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -2169,9 +2153,9 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
 QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -2190,9 +2174,9 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -2211,9 +2195,9 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -2233,9 +2217,9 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
 
     const bool ASSERTION_FAILED = true;
@@ -2264,9 +2248,9 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
 QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     
     const bool EXPECTED_RESULT = false;
@@ -2288,9 +2272,9 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -2311,9 +2295,9 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -2334,9 +2318,9 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -2358,9 +2342,9 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     const bool ASSERTION_FAILED = true;
 
@@ -2390,9 +2374,9 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
     
     const bool EXPECTED_RESULT = false;
@@ -2407,21 +2391,21 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
 #endif
 
 /// <summary>
-/// Checks that the iterator points to the first position when the tree is not empty, using depth-first pre-order.
+/// Checks that the iterator points to the first position when the tree is not empty, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepthFirstPreOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepthFirstInOrder_Test )
+{/* [TODO] Thund: Uncomment when the method Add exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
-    QNTree<char>::QNTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 2, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -2429,20 +2413,20 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepth
 }
 
 /// <summary>
-/// Checks that the iterator points to the first position even when it was not valid, using depth-first pre-order.
+/// Checks that the iterator points to the first position even when it was not valid, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstPreOrder_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
+{/* [TODO] Thund: Uncomment when the methods Add and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
 
-    QNTree<char>::QNTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 2, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(INVALID_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(INVALID_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -2450,20 +2434,20 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
 }
 
 /// <summary>
-/// Checks that the iterator points to the first position even when it was pointing to the position before the first, using depth-first pre-order.
+/// Checks that the iterator points to the first position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     --ORIGINAL_ITERATOR;
 
-    QNTree<char>::QNTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_FIRST(SAMPLE_TREE, 2, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -2478,11 +2462,11 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
 QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 {
     // [Preparation]
-    QNTree<char> EMPTY_ARRAY(3, 1);
-    QNTree<char>::QNTreeIterator END_ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int> EMPTY_TREE(1);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator END_ITERATOR(&EMPTY_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QNTree<char>::QNTreeIterator ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(&EMPTY_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
     ITERATOR.MoveFirst();
@@ -2494,22 +2478,22 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 #endif
 
 /// <summary>
-/// Checks that the iterator points to the last position when the tree is not empty, using depth-first pre-order.
+/// Checks that the iterator points to the last position when the tree is not empty, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-    QNTree<char>::QNTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     while(!ITERATOR_LAST.IsEnd())
         ++ITERATOR_LAST;
     --ITERATOR_LAST;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]
@@ -2517,25 +2501,25 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFi
 }
 
 /// <summary>
-/// Checks that the iterator points to the last position even when it was not valid, using depth-first pre-order.
+/// Checks that the iterator points to the last position even when it was not valid, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-    QNTree<char>::QNTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     while(!ITERATOR_LAST.IsEnd())
         ++ITERATOR_LAST;
     --ITERATOR_LAST;
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(INVALID_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(INVALID_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]
@@ -2543,23 +2527,23 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 }
 
 /// <summary>
-/// Checks that the iterator points to the last position even when it was pointing to the position before the first, using depth-first pre-order.
+/// Checks that the iterator points to the last position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
 {/* [TODO] Thund: Uncomment when the method AddChild exists
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     --ORIGINAL_ITERATOR;
 
-    QNTree<char>::QNTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR_LAST(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     while(!ITERATOR_LAST.IsEnd())
         ++ITERATOR_LAST;
     --ITERATOR_LAST;
 
 	// [Execution]
-    QNTree<char>::QNTreeIterator iterator(ORIGINAL_ITERATOR);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]
@@ -2574,13 +2558,13 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 {
     // [Preparation]
-    QNTree<char> EMPTY_ARRAY(3, 1);
+    QBinarySearchTree<int> EMPTY_ARRAY(3, 1);
 
-    QNTree<char>::QNTreeIterator END_ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator END_ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
 
-    QNTree<char>::QNTreeIterator ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
     ITERATOR.MoveLast();
@@ -2591,16 +2575,15 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 
 #endif
 
-
 /// <summary>
 /// Checks that it returns True when iterator points to a common position.
 /// </summary>
 QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTree<char>::QNTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -2616,9 +2599,9 @@ QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
 {
     // [Preparation]
-    const QNTree<char>* SAMPLE_TREE = GetSampleTree();
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QNTreeIteratorMock<char> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder); 
+    QBinarySearchTreeIteratorMock<int> INVALID_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder); 
     INVALID_ITERATOR.SetPosition(SAMPLE_TREE->GetCapacity());
 
     const bool EXPECTED_RESULT = false;
@@ -2630,5 +2613,5 @@ QTEST_CASE ( IsValid_ReturnsFalseWhenIteratorPointsToOutOfBoundPosition_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
-// End - Test Suite: QNTreeIterator
+// End - Test Suite: QBinarySearchTreeIterator
 QTEST_SUITE_END()

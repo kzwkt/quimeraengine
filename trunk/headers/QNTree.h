@@ -406,6 +406,10 @@ public:
                     }
                 }
             } // if(m_uPosition != QNTree::END_POSITION_FORWARD)
+            else if(m_uPosition == QNTree::END_POSITION_BACKWARD)
+            {
+                this->MoveFirst();
+            }
 
             return iteratorCopy;
         }
@@ -497,6 +501,10 @@ public:
                     }
                 }
             } // if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+            else if(m_uPosition == QNTree::END_POSITION_FORWARD)
+            {
+                this->MoveLast();
+            }
 
             return iteratorCopy;
         }
@@ -589,6 +597,10 @@ public:
                     }
                 }
             } // if(m_uPosition != QNTree::END_POSITION_FORWARD)
+            else if(m_uPosition == QNTree::END_POSITION_BACKWARD)
+            {
+                this->MoveFirst();
+            }
 
             return *this;
         }
@@ -677,6 +689,10 @@ public:
                     }
                 }
             } // if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+            else if(m_uPosition == QNTree::END_POSITION_FORWARD)
+            {
+                this->MoveLast();
+            }
 
             return *this;
         }
