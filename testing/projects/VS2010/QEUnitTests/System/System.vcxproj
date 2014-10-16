@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QUriWhiteBox.h" />
   </ItemGroup>
   <ItemGroup>

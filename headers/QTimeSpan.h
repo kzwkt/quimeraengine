@@ -45,7 +45,7 @@ namespace Time
 
 
 /// <summary>
-/// Class that represents a time span with an accuracy of hundreds of nanoseconds.
+/// Represents a time span with an accuracy of hundreds of nanoseconds.
 /// </summary>
 class QE_LAYER_TOOLS_SYMBOLS QTimeSpan
 {
