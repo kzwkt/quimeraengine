@@ -113,6 +113,8 @@
     </VirtualDirectory>
     <File Name="../../../../headers/QDateTimeNow.h"/>
     <File Name="../../../../source/QDateTimeNow.cpp"/>
+    <File Name="../../../../headers/QStopwatch.h"/>
+    <File Name="../../../../source/QStopwatch.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

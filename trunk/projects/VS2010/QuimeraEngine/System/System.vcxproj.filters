@@ -64,6 +64,9 @@
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStopwatch.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStopwatch.cpp">
+      <Filter>Timing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

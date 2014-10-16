@@ -72,6 +72,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp">
+      <Filter>Tests\Timing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h">
       <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h">
+      <Filter>Tests\Timing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

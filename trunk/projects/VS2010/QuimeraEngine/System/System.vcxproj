@@ -166,6 +166,7 @@
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\QPath.h" />
+    <ClInclude Include="..\..\..\..\headers\QStopwatch.h" />
     <ClInclude Include="..\..\..\..\headers\QUri.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QObject.cpp" />
     <ClCompile Include="..\..\..\..\source\QPath.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStopwatch.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
     <ClCompile Include="..\..\..\..\source\QUri.cpp" />
     <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp" />
