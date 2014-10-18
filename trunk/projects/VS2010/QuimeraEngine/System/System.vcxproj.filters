@@ -67,6 +67,9 @@
     <ClInclude Include="..\..\..\..\headers\QStopwatch.h">
       <Filter>Timing</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFileInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QStopwatch.cpp">
       <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QFileInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

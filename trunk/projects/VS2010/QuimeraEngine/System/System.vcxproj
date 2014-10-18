@@ -162,6 +162,7 @@
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
+    <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
     <ClInclude Include="..\..\..\..\headers\QObject.h" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
+    <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
     <ClCompile Include="..\..\..\..\source\QObject.cpp" />
     <ClCompile Include="..\..\..\..\source\QPath.cpp" />
