@@ -706,7 +706,9 @@ public:
     /// </remarks>
     ~QFixedArray()
     {
-        for(pointer_uint_q uIndex = 0; uIndex < this->GetCount(); ++uIndex)
+        const pointer_uint_q ARRAY_COUNT = this->GetCount();
+
+        for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; ++uIndex)
             this->GetValue(uIndex).~T();
     }
 

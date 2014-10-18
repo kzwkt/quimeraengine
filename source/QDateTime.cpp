@@ -718,9 +718,11 @@ string_q QDateTime::ToString() const
     const string_q& YEAR_STRING = SQInteger::ToString(uYear);
 
     // Padding with zeroes
-    if(YEAR_STRING.GetLength() < 4U) // YYYYY is allowed, but padding is applied only when width is lower than 4 cyphers
+    const unsigned int YEAR_STRING_LENGTH = YEAR_STRING.GetLength();
+
+    if(YEAR_STRING_LENGTH < 4U) // YYYYY is allowed, but padding is applied only when width is lower than 4 cyphers
     {
-        for(unsigned int i = 0; i < 4U - YEAR_STRING.GetLength(); ++i)
+        for(unsigned int i = 0; i < 4U - YEAR_STRING_LENGTH; ++i)
             strTimestamp.Append(ZERO_STRING);
     }
 
@@ -819,7 +821,9 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
 
         const string_q& strMillisecond = SQInteger::ToString(uMillisecond);
 
-        for(unsigned int i = 0; i < 3U - strMillisecond.GetLength(); ++i)
+        const unsigned int MILLISECOND_LENGTH = strMillisecond.GetLength();
+
+        for(unsigned int i = 0; i < 3U - MILLISECOND_LENGTH; ++i)
             strTimestamp.Append(ZERO_STRING);
 
         strTimestamp.Append(strMillisecond);
@@ -829,7 +833,9 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
             // Has milliseconds and microseconds
             const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
 
-            for(unsigned int i = 0; i < 3U - strMicrosecond.GetLength(); ++i)
+            const unsigned int MICROSECOND_LENGTH = strMicrosecond.GetLength();
+
+            for(unsigned int i = 0; i < 3U - MICROSECOND_LENGTH; ++i)
                 strTimestamp.Append(ZERO_STRING);
 
             strTimestamp.Append(strMicrosecond);
@@ -861,7 +867,9 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
 
             const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
 
-            for(unsigned int i = 0; i < 3U - strMicrosecond.GetLength(); ++i)
+            const unsigned int MICROSECOND_LENGTH = strMicrosecond.GetLength();
+
+            for(unsigned int i = 0; i < 3U - MICROSECOND_LENGTH; ++i)
                 strTimestamp.Append(ZERO_STRING);
 
             strTimestamp.Append(strMicrosecond);

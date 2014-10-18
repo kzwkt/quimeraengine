@@ -45,13 +45,13 @@ QTEST_CASE ( Constructor_DirectoryIsDotAndSeparatorWhenInputIsEmpty_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING = string_q::GetEmpty();
-    const QPath EXPECTED_PATH("./");
+    const string_q EXPECTED_PATH("./");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
 }
 
 /// <summary>
@@ -61,13 +61,13 @@ QTEST_CASE ( Constructor_DirectoryIsSeparatorWhenPathIsEmptyAndHasHostname_Test 
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname");
-    const QPath EXPECTED_PATH("/");
+    const string_q EXPECTED_PATH("/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
 }
 
 /// <summary>
@@ -77,13 +77,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputOnlyContainsHostname_Tes
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname");
-    const QPath EXPECTED_HOSTNAME("hostname");
+    const string_q EXPECTED_HOSTNAME("hostname");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -93,13 +93,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputIsSeparator_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING("/");
-    const QPath EXPECTED_PATH("/");
+    const string_q EXPECTED_PATH("/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
 }
 
 /// <summary>
@@ -109,13 +109,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsHostnameAndPathS
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/");
-    const QPath EXPECTED_HOSTNAME("hostname");
+    const string_q EXPECTED_HOSTNAME("hostname");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -125,31 +125,31 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsHostnameAndPath
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/");
-    const QPath EXPECTED_DIRECTORY("/");
+    const string_q EXPECTED_DIRECTORY("/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 #if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
 /// <summary>
-/// Checks that the directory of the resultant path is what expected when input path has hostname and path is a separator.
+/// Checks that the directory of the resultant path is what expected when input hostname has an at sign.
 /// </summary>
 QTEST_CASE ( Constructor_AtSignsAreAllowedInHostnames_Test )
 {
     // [Preparation]
     const string_q INPUT_STRING("//user@hostname/");
-    const QPath EXPECTED_HOSTNAME("user@hostname");
+    const string_q EXPECTED_HOSTNAME("user@hostname");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -159,13 +159,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsTildeDirectoryO
 {
     // [Preparation]
     const string_q INPUT_STRING("~/");
-    const QPath EXPECTED_DIRECTORY("~/");
+    const string_q EXPECTED_DIRECTORY("~/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -175,13 +175,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputDirectoryStartsWithTild
 {
     // [Preparation]
     const string_q INPUT_STRING("~/path/");
-    const QPath EXPECTED_DIRECTORY("~/path/");
+    const string_q EXPECTED_DIRECTORY("~/path/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 #endif
@@ -193,13 +193,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsHostnameAndComm
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/path1/path2/");
-    const QPath EXPECTED_DIRECTORY("/path1/path2/");
+    const string_q EXPECTED_DIRECTORY("/path1/path2/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -209,13 +209,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsHostnameDirector
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/path1/filename.ext");
-    const QPath EXPECTED_HOSTNAME("hostname");
+    const string_q EXPECTED_HOSTNAME("hostname");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -225,13 +225,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsHostnameDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/path1/filename.ext");
-    const QPath EXPECTED_DIRECTORY("/path1/");
+    const string_q EXPECTED_DIRECTORY("/path1/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -241,13 +241,13 @@ QTEST_CASE ( Constructor_FilenameIsWhatExpectedWhenInputContainsHostnameDirector
 {
     // [Preparation]
     const string_q INPUT_STRING("//hostname/path1/filename.ext");
-    const QPath EXPECTED_FILENAME("filename.ext");
+    const string_q EXPECTED_FILENAME("filename.ext");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+    BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
 }
 
 /// <summary>
@@ -257,13 +257,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsDirectoryWithLe
 {
     // [Preparation]
     const string_q INPUT_STRING("/path1/");
-    const QPath EXPECTED_DIRECTORY("/path1/");
+    const string_q EXPECTED_DIRECTORY("/path1/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -273,13 +273,13 @@ QTEST_CASE ( Constructor_FilenameIsWhatExpectedWhenInputContainsDirectoryWithLea
 {
     // [Preparation]
     const string_q INPUT_STRING("/path1/filename.ext");
-    const QPath EXPECTED_FILENAME("filename.ext");
+    const string_q EXPECTED_FILENAME("filename.ext");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+    BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
 }
 
 /// <summary>
@@ -289,13 +289,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsRelativeDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("./");
-    const QPath EXPECTED_DIRECTORY("./");
+    const string_q EXPECTED_DIRECTORY("./");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -305,13 +305,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsRelativeDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("./../");
-    const QPath EXPECTED_DIRECTORY("./../");
+    const string_q EXPECTED_DIRECTORY("./../");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -321,13 +321,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsRelativeDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("../");
-    const QPath EXPECTED_DIRECTORY("../");
+    const string_q EXPECTED_DIRECTORY("../");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -337,13 +337,13 @@ QTEST_CASE ( Constructor_InputDirectoryIsNotResolvedWhenItContainsDotSegments_Te
 {
     // [Preparation]
     const string_q INPUT_STRING("./../path/../");
-    const QPath EXPECTED_DIRECTORY("./../path/../");
+    const string_q EXPECTED_DIRECTORY("./../path/../");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 #if defined(QE_OS_WINDOWS)
@@ -355,13 +355,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsDriveAndDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("X:/path1/");
-    const QPath EXPECTED_DIRECTORY("X:/path1/");
+    const string_q EXPECTED_DIRECTORY("X:/path1/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -371,13 +371,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsDriveAndDirecto
 {
     // [Preparation]
     const string_q INPUT_STRING("X:path1/");
-    const QPath EXPECTED_DIRECTORY("X:path1/");
+    const string_q EXPECTED_DIRECTORY("X:path1/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 /// <summary>
@@ -387,13 +387,13 @@ QTEST_CASE ( Constructor_DirectoryIsWhatExpectedWhenInputContainsDriveOnly_Test 
 {
     // [Preparation]
     const string_q INPUT_STRING("X:/");
-    const QPath EXPECTED_DIRECTORY("X:/");
+    const string_q EXPECTED_DIRECTORY("X:/");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
 }
 
 #endif
@@ -405,13 +405,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsIpEnclosedIntoSq
 {
     // [Preparation]
     const string_q INPUT_STRING("//[255.255.255.255]/");
-    const QPath EXPECTED_HOSTNAME("[255.255.255.255]");
+    const string_q EXPECTED_HOSTNAME("[255.255.255.255]");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -421,13 +421,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsIpEnclosedIntoSq
 {
     // [Preparation]
     const string_q INPUT_STRING("//[0.0.0.0]/");
-    const QPath EXPECTED_HOSTNAME("[0.0.0.0]");
+    const string_q EXPECTED_HOSTNAME("[0.0.0.0]");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -437,13 +437,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsIpWithoutSquareB
 {
     // [Preparation]
     const string_q INPUT_STRING("//255.255.255.255/");
-    const QPath EXPECTED_HOSTNAME("255.255.255.255");
+    const string_q EXPECTED_HOSTNAME("255.255.255.255");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -453,13 +453,13 @@ QTEST_CASE ( Constructor_HostnameIsWhatExpectedWhenInputContainsAllAllowedCharac
 {
     // [Preparation]
     const string_q INPUT_STRING("//ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789/");
-    const QPath EXPECTED_HOSTNAME("ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789");
+    const string_q EXPECTED_HOSTNAME("ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
 }
 
 /// <summary>
@@ -469,13 +469,13 @@ QTEST_CASE ( Constructor_FilenameIsWhatExpectedWhenInputContainsFilenameOnly_Tes
 {
     // [Preparation]
     const string_q INPUT_STRING("filename.ext");
-    const QPath EXPECTED_FILENAME("filename.ext");
+    const string_q EXPECTED_FILENAME("filename.ext");
 
     // [Execution]
     QPath path(INPUT_STRING);
 
     // [Verification]
-    //BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+    BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1898,7 +1898,7 @@ QTEST_CASE ( Resolve_TwoDotSegmentIsResolvedWhenItAppearsInTheMiddleOfTheInputPa
 /// <summary>
 /// Checks that the drive is not removed when the input path contains two-dots segments.
 /// </summary>
-QTEST_CASE ( Resolve_DriveIsNotRemovedWhenInputPathContainsTwoDotSegments_Test )
+QTEST_CASE ( Resolve_DriveIsNotRemovedWhenInputPathContainsTwoDotSegment_Test )
 {
     // [Preparation]
     const string_q ABSOLUTE_PATH = "x:/";
@@ -1912,8 +1912,7 @@ QTEST_CASE ( Resolve_DriveIsNotRemovedWhenInputPathContainsTwoDotSegments_Test )
     absolutePath.Resolve(relativePath);
     
     // [Verification]
-    // [TODO] Thund: Uncomment when HasDrive and GetDrive exist
-    //BOOST_CHECK(absolutePath == EXPECTED_RESULT);
+    BOOST_CHECK(absolutePath == EXPECTED_RESULT);
 }
 
 #elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
@@ -2115,7 +2114,7 @@ QTEST_CASE ( GetAbsolutePath_ReturnsResidentPathWhenItIsAbsolute_Test )
 /// Checks that paths with a leading separator are treated as if they had the same drive as the current directory.
 /// </summary>
 QTEST_CASE ( GetRelativePath_PathWithLeadingSeparatorIsTreatedAsIfItHadSameDriveAsCurrentDirectory_Test )
-{/* [TODO] Thund: Uncomment when HasDrive exists
+{
     // [Preparation]
     const string_q ORIGINAL_PATH = "/path1/path2/";
     const string_q EXPECTED_PATH_START = "./../../";
@@ -2127,7 +2126,7 @@ QTEST_CASE ( GetRelativePath_PathWithLeadingSeparatorIsTreatedAsIfItHadSameDrive
     
     // [Verification]
     string_q strStart = strPath.Substring(0, EXPECTED_PATH_START.GetLength() - 1U);
-    BOOST_CHECK(strStart == EXPECTED_PATH_START);*/
+    BOOST_CHECK(strStart == EXPECTED_PATH_START);
 }
 
 #elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
@@ -2232,8 +2231,7 @@ QTEST_CASE ( GetRelativePath_AssertionFailsWhenHostnamesAreDifferent_Test )
         }
     
         // [Verification]
-        // [TODO] Thund: Uncomment when HasDrive exists
-        //BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+        BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     }
 
     #endif
@@ -2246,20 +2244,20 @@ QTEST_CASE ( GetRelativePath_AssertionFailsWhenHostnamesAreDifferent_Test )
 /// Checks that paths with a leading separator are treated as if they had the same drive as the current directory.
 /// </summary>
 QTEST_CASE ( GetRelativePathTo_PathWithLeadingSeparatorIsTreatedAsIfItHadSameDriveAsCurrentDirectory_Test )
-{/* [TODO] Thund: Uncomment when HasDrive exists
+{
     // [Preparation]
     const string_q ORIGINAL_PATH = "/path1/path2/";
-    const string_q INPUT_PATH = "x:/p1/p2/";
-    const string_q EXPECTED_PATH = "./../../p1/p2/";
+    const string_q INPUT_STRING = "x:/p1/p2/";
+    const string_q EXPECTED_STRING = "./../../p1/p2/";
     QPath absolutePath(ORIGINAL_PATH);
-    const QPath INPUT_PATH(INPUT_PATH);
-    const string_q EXPECTED_PATH(EXPECTED_PATH);
+    const QPath INPUT_PATH(INPUT_STRING);
+    const string_q EXPECTED_PATH(EXPECTED_STRING);
 
     // [Execution]
     string_q strPath = absolutePath.GetRelativePathTo(INPUT_PATH);
     
     // [Verification]
-    BOOST_CHECK(strPath == EXPECTED_PATH);*/
+    BOOST_CHECK(strPath == EXPECTED_PATH);
 }
 
 /// <summary>
@@ -2481,13 +2479,226 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenHostnamesAreDifferent_Test )
         }
     
         // [Verification]
-        // [TODO] Thund: Uncomment when HasDrive exists
-        //BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+        BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     }
 
     #endif
 
 #endif
+
+/// <summary>
+/// Checks that it returns empty when path is compound of a separator only.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsEmptyWhenPathIsOneSeparator_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("/");
+    const string_q EXPECTED_RESULT = string_q::GetEmpty();
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns a dot followed by a separator when path is compound of a dot followed by a separator.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsDotWhenPathIsOneDotAndOneSeparator_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("./");
+    const string_q EXPECTED_RESULT(".");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#if defined(QE_OS_WINDOWS)
+
+/// <summary>
+/// Checks that it returns a drive when the path is compound of a drive and a separator only.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsDriveWhenPathIsJustADriveAndSeparator_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("x:/");
+    const string_q EXPECTED_RESULT("x:");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+/// <summary>
+/// Checks that it returns a tilde (~) when path is compound of a tilde followed by a separator only.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsTildeWhenPathIsTildeAndSeparator_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("~/");
+    const string_q EXPECTED_RESULT("~");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the last directory as if the filename didn't exist.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsLastDirectoryIgnoringTheFilename_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("/p1/p2/f");
+    const string_q EXPECTED_RESULT("p2");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the last directory when there is no filename.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsLastDirectoryWhenThereIsNoFilename_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("/p1/p2/");
+    const string_q EXPECTED_RESULT("p2");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns empty there is only hostname.
+/// </summary>
+QTEST_CASE ( GetLastDirectory_ReturnsEmptyWhenPathContainsHostnameOnly_Test )
+{
+    // [Preparation]
+    const QPath SOURCE_PATH("//hostname");
+    const string_q EXPECTED_RESULT = string_q::GetEmpty();
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetLastDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it only contains a directory.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItOnlyContainsDirectory_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/directory/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it only contains a filename.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItOnlyContainsFilename_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("./filename.ext");
+    const QPath SOURCE_PATH("filename.ext");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it only contains a host5name.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItOnlyContainsHostname_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("//hostname/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it contains a hostname, directories and a filename.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItContainsHostnameDirectoryAndFilename_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("//hostname/directory/filename.ext");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it contains just one separator.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItContainsOneSeparator_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns expected path when it contains just one dot followed by a separator.
+/// </summary>
+QTEST_CASE ( ToString_ReturnsExpectedPathWhenItContainsOneDotAndSeparator_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("./");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.ToString();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
 
 #if defined(QE_OS_WINDOWS)
 
@@ -2742,6 +2953,1654 @@ QTEST_CASE ( GetFileExtension_ReturnsEmptyWhenExtensionIsNotPresentButDotIs_Test
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
+
+/// <summary>
+/// Checks that it returns a separator when the path is only one separator.
+/// </summary>
+QTEST_CASE ( GetDirectory_ReturnsSeparatorWhenPathIsOnlyOneSeparator_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it only returns the directory when path also contains hostname and filename.
+/// </summary>
+QTEST_CASE ( GetDirectory_ReturnsDirectoryWhenPathAlsoContainsHostnameAndFilename_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/directory1/directory2/");
+    const QPath SOURCE_PATH("//hostname/directory1/directory2/filename.ext");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the directory without leading separator when the path does not start with a separator.
+/// </summary>
+QTEST_CASE ( GetDirectory_ReturnsDirectoryWithoutLeadingSeparatorWhenPathDoesNotHaveLeadingSeparator_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("directory1/directory2/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns one separator when the path only contains a hostname.
+/// </summary>
+QTEST_CASE ( GetDirectory_ReturnsOneSeparatorWhenPathOnlyContainsHostname_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH("//hostname");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetDirectory();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the hostname and one separator when the path only contains a hostname.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsHostnameFollowedByOneSeparatorWhenPathOnlyContainsHostname_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("//hostname/");
+    const QPath SOURCE_PATH("//hostname");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#if defined(QE_OS_WINDOWS)
+
+/// <summary>
+/// Checks that it returns the drive and a separator when the path contains a drive and other directories.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsDriveAndSeparatorWhenPathContainsDriveAndOtherDirectories_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("x:/");
+    const QPath SOURCE_PATH("x:/directory/");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+/// <summary>
+/// Checks that it returns a separator when the path contains a tilde and other directories.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsSeparatorWhenPathContainsTildeAndOtherDirectories_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH("~/directory/");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns a separator when the path only contains one separator.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsSeparatorWhenPathOnlyContainsSeparator_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH(EXPECTED_RESULT);
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the hostname and the last directory when the path contains hostname and directories.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsHostnameAndLastDirectoryWhenPathContainsHostnameAndDirectories_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("//hostname/directory1/");
+    const QPath SOURCE_PATH("//hostname/directory1/directory2/");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the hostname and the last directory when the path contains hostname and one directory.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsHostnameAndLastDirectoryWhenPathContainsHostnameAndOneDirectory_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("//hostname/directory/");
+    const QPath SOURCE_PATH("//hostname/directory/");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns a separator when the path starts with a separator and contains several directories.
+/// </summary>
+QTEST_CASE ( GetRoot_ReturnsSeparatorWhenPathStartsWithSeparatorAndHasSeveralDirectories_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("/");
+    const QPath SOURCE_PATH("/directory1/directory2/");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetRoot();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns a the hostname without separators.
+/// </summary>
+QTEST_CASE ( GetHostname_ReturnsTheHostnameWithoutSeparators_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT("hostname");
+    const QPath SOURCE_PATH("//hostname/directory/filename.ext");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetHostname();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns empty when the path has not a hostname.
+/// </summary>
+QTEST_CASE ( GetHostname_ReturnsEmptyWhenPathHasNotHostname_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_RESULT = string_q::GetEmpty();
+    const QPath SOURCE_PATH("/directory/filename.ext");
+
+    // [Execution]
+    string_q strResult = SOURCE_PATH.GetHostname();
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path does not contain a filename.
+/// </summary>
+QTEST_CASE ( IsFile_ReturnsFalseWhenPathDoesNotContainFilename_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("/directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.IsFile();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the path contains a filename.
+/// </summary>
+QTEST_CASE ( IsFile_ReturnsTrueWhenPathContainsFilename_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.IsFile();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path contains a filename.
+/// </summary>
+QTEST_CASE ( IsDirectory_ReturnsFalseWhenPathContainsFilename_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.IsDirectory();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the path does not contain a filename.
+/// </summary>
+QTEST_CASE ( IsDirectory_ReturnsTrueWhenPathDoesNotContainFilename_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("/directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.IsDirectory();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#if defined(QE_OS_WINDOWS)
+
+/// <summary>
+/// Checks that it returns True when the path contains a drive.
+/// </summary>
+QTEST_CASE ( HasDrive_ReturnsTrueWhenPathContainsDrive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("x:/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasDrive();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path does not contain a drive.
+/// </summary>
+QTEST_CASE ( HasDrive_ReturnsFalseWhenPathDoesNotContainDrive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasDrive();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#else
+
+/// <summary>
+/// Checks that it returns False.
+/// </summary>
+QTEST_CASE ( HasDrive_ReturnsFalse_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("x:/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasDrive();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns True when the path contains a hostname.
+/// </summary>
+QTEST_CASE ( HasHostname_ReturnsTrueWhenPathContainsHostname_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("//hostname/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasHostname();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path does not contain a hostname.
+/// </summary>
+QTEST_CASE ( HasHostname_ReturnsFalseWhenPathDoesNotContainHostname_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("/directory/filename.ext");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasHostname();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the path only contains a separator.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsTrueWhenPathOnlyContainsSeparator_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the path contains hostname.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsTrueWhenPathContainsHostname_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("//hostname");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#if defined(QE_OS_WINDOWS)
+
+/// <summary>
+/// Checks that it returns True when the path contains a drive.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsTrueWhenPathContainsDrive_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("x:/directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path does not start with a drive nor a separator.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsFalseWhenPathDoesNotBeginWithDriveNorSeparator_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+/// <summary>
+/// Checks that it returns True when the path starts with a tilde.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsTrueWhenPathBeginsWithTilde_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("~/directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the path does not start with a tilde nor a separator.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsFalseWhenPathDoesNotBeginWithTildeNorSeparator_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    const QPath SOURCE_PATH("directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns True when the path starts with a separator.
+/// </summary>
+QTEST_CASE ( HasRoot_ReturnsTrueWhenPathStartsWithSeparator_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    const QPath SOURCE_PATH("/directory/");
+
+    // [Execution]
+    bool bResult = SOURCE_PATH.HasRoot();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename is correctly set when the path contains a directory and a filename.
+/// </summary>
+QTEST_CASE ( SetFilename_FilenameIsCorrectlySetWhenPathContainsDirectoryAndFilename_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/directory/filename.ext");
+    const string_q INPUT_FILENAME("xxx");
+    const string_q EXPECTED_RESULT("/directory/xxx.ext");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilename(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename is correctly set when the path is a separator.
+/// </summary>
+QTEST_CASE ( SetFilename_FilenameIsCorrectlySetWhenPathIsASeparator_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/");
+    const string_q INPUT_FILENAME("filename");
+    const string_q EXPECTED_RESULT("/filename");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilename(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the extension is not changed.
+/// </summary>
+QTEST_CASE ( SetFilename_ExtensionIsNotChanged_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/filename.ext");
+    const string_q INPUT_FILENAME("xxx");
+    const string_q EXPECTED_RESULT("/xxx.ext");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilename(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename is changed when the path has no extension.
+/// </summary>
+QTEST_CASE ( SetFilename_FilenameIsChangedWhenItHasNoExtension_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/filename");
+    const string_q INPUT_FILENAME("xxx");
+    const string_q EXPECTED_RESULT("/xxx");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilename(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename is empty when using an empty input string.
+/// </summary>
+QTEST_CASE ( SetFilename_FilenameIsEmptyWhenUsingEmptyInputString_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    const string_q EXPECTED_FILENAME = string_q::GetEmpty();
+    QPath path("/filename");
+
+    // [Execution]
+    path.SetFilename(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+   #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that an assertion fails when the input contains invalid characters.
+    /// </summary>
+    QTEST_CASE ( SetFilename_AssertionFailsWhenInputContainsInvalidCharacters_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:end/");
+        const bool ASSERTION_FAILED = true;
+        QPath path("/");
+
+        // [Execution]
+        bool bAssertionFailed = false;
+
+        try
+        {
+            path.SetFilename(INPUT_STRING);
+        }
+        catch(...)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+    }
+
+    #endif
+    
+/// <summary>
+/// Checks that an assertion fails when the filename is too large (larger than 255 characters).
+/// </summary>
+QTEST_CASE ( SetFilename_AssertionFailsWhenFilenameIsTooLarge_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetFilename(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the filename contains a separator.
+/// </summary>
+QTEST_CASE ( SetFilename_AssertionFailsWhenFilenameContainsSeparator_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("filen/ame");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetFilename(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+    #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that invalid characters are removed from the filename.
+    /// </summary>
+    QTEST_CASE ( SetFilename_InvalidCharactersAreRemovedFromFilename_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:end/");
+        const string_q EXPECTED_FILENAME("startend");
+        QPath path("/");
+
+        // [Execution]
+        path.SetFilename(INPUT_STRING);
+
+        // [Verification]
+        BOOST_CHECK(path.GetFilenameWithoutExtension() == EXPECTED_FILENAME);
+    }
+
+    #endif
+
+#endif
+
+/// <summary>
+/// Checks that the filename and the extension are set when the path has no extension.
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_FilenameAndExtensionAreSetWhenPathHasNoExtension_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/filename");
+    const string_q INPUT_FILENAME("xxx.ext");
+    const string_q EXPECTED_RESULT("/xxx.ext");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilenameAndExtension(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename and the extension are set when the path has filename and extension.
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_FilenameAndExtensionAreChangedWhenPathHasFilenameAndExtension_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/filename.ext");
+    const string_q INPUT_FILENAME("xxx.yyy");
+    const string_q EXPECTED_RESULT("/xxx.yyy");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilenameAndExtension(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename and the extension are set when the path has directory, filename and extension.
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_FilenameAndExtensionAreChangedWhenPathHasDirectoryAndFilenameAndExtension_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/directory1/directory2/filename.ext");
+    const string_q INPUT_FILENAME("xxx.yyy");
+    const string_q EXPECTED_RESULT("/directory1/directory2/xxx.yyy");
+    
+    // [Execution]
+    SOURCE_PATH.SetFilenameAndExtension(INPUT_FILENAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the filename and the extension are empty when using an empty input string.
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_HostnameIsEmptyWhenUsingEmptyInputString_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    const string_q EXPECTED_FILENAME = string_q::GetEmpty();
+    QPath path("/filename.ext");
+
+    // [Execution]
+    path.SetFilenameAndExtension(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+   #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that an assertion fails when the input contains invalid characters.
+    /// </summary>
+    QTEST_CASE ( SetFilenameAndExtension_AssertionFailsWhenInputContainsInvalidCharacters_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:e.nd/");
+        const bool ASSERTION_FAILED = true;
+        QPath path("/");
+
+        // [Execution]
+        bool bAssertionFailed = false;
+
+        try
+        {
+            path.SetFilenameAndExtension(INPUT_STRING);
+        }
+        catch(...)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+    }
+
+    #endif
+    
+/// <summary>
+/// Checks that an assertion fails when the filename is too large (larger than 255 characters).
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_AssertionFailsWhenFilenameIsTooLarge_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetFilenameAndExtension(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the filename contains a separator.
+/// </summary>
+QTEST_CASE ( SetFilenameAndExtension_AssertionFailsWhenFilenameContainsSeparator_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("filen/ame");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetFilenameAndExtension(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+    #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that invalid characters are removed from the filename.
+    /// </summary>
+    QTEST_CASE ( SetFilenameAndExtension_InvalidCharactersAreRemovedFromFilenameAndExtension_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:e.nd/");
+        const string_q EXPECTED_FILENAME("starte.nd");
+        QPath path("/");
+
+        // [Execution]
+        path.SetFilenameAndExtension(INPUT_STRING);
+
+        // [Verification]
+        BOOST_CHECK(path.GetFilename() == EXPECTED_FILENAME);
+    }
+
+    #endif
+
+#endif
+
+/// <summary>
+/// Checks that the hostname is correctly set when path has hostname and directory.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsCorrectlySetWhenPathHasHostnameAndDirectory_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("//hostname/directory1/directory2/");
+    const string_q INPUT_HOSTNAME("xxx");
+    const string_q EXPECTED_RESULT("//xxx/directory1/directory2/");
+    
+    // [Execution]
+    SOURCE_PATH.SetHostname(INPUT_HOSTNAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the hostname is correctly set when path does not have hostname.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsCorrectlySetWhenPathDoesNotHaveHostname_Test )
+{
+    // [Preparation]
+    QPath SOURCE_PATH("/directory1/directory2/");
+    const string_q INPUT_HOSTNAME("xxx");
+    const string_q EXPECTED_RESULT("//xxx/directory1/directory2/");
+    
+    // [Execution]
+    SOURCE_PATH.SetHostname(INPUT_HOSTNAME);
+    
+    // [Verification]
+    string_q strResult = SOURCE_PATH.ToString();
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path has hostname and path is a separator.
+/// </summary>
+QTEST_CASE ( SetHostname_AtSignsAreAllowedInHostnames_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("user@hostname");
+    const string_q EXPECTED_HOSTNAME("user@hostname");
+    QPath path("/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the hostname of the resultant path is what expected when input path contains an IP enclosed into square brackets.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsWhatExpectedWhenInputContainsIpEnclosedIntoSquareBrackets_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("[255.255.255.255]");
+    const string_q EXPECTED_HOSTNAME("[255.255.255.255]");
+    QPath path("/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+/// <summary>
+/// Checks that the hostname of the resultant path is what expected when input path contains an IP enclosed into square brackets and numbers are zeroes.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsWhatExpectedWhenInputContainsIpEnclosedIntoSquareBracketsAndNumbersAreZeroes_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("[0.0.0.0]");
+    const string_q EXPECTED_HOSTNAME("[0.0.0.0]");
+    QPath path("/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+/// <summary>
+/// Checks that the hostname of the resultant path is what expected when input path contains an IP without square brackets.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsWhatExpectedWhenInputContainsIpWithoutSquareBrackets_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("255.255.255.255");
+    const string_q EXPECTED_HOSTNAME("255.255.255.255");
+    QPath path("/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+/// <summary>
+/// Checks that the hostname of the resultant path is what expected when input path contains all the allowed characters.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsWhatExpectedWhenInputContainsAllAllowedCharacters_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789");
+    const string_q EXPECTED_HOSTNAME("ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz0123456789");
+    QPath path("/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+/// <summary>
+/// Checks that the hostname is empty when using an empty input string.
+/// </summary>
+QTEST_CASE ( SetHostname_HostnameIsEmptyWhenUsingEmptyInputString_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    const string_q EXPECTED_HOSTNAME = string_q::GetEmpty();
+    QPath path("//hostname/");
+
+    // [Execution]
+    path.SetHostname(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+    #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that an assertion fails whent he path contains a drive.
+    /// </summary>
+    QTEST_CASE ( SetHostname_AssertionFailsWhenPathContainsDrive_Test )
+    {
+        // [Preparation]
+        QPath SOURCE_PATH("x:/directory1/directory2/");
+        const string_q INPUT_HOSTNAME("xxx");
+    
+        // [Execution]
+        bool bAssertionFailed = false;
+
+        try
+        {
+            SOURCE_PATH.SetHostname(INPUT_HOSTNAME);
+        }
+        catch(...)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK(bAssertionFailed);
+    }
+
+    #endif
+    
+/// <summary>
+/// Checks that an assertion fails when hostname starts with an hyphen ("-").
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameStartsWithHyphen_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//-hostname/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the IP starts with a square bracket ("[") but does not end with another square bracket ("]").
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenIpStartsWithSquareBracketButDoesNotEndWithAnotherSquareBracket_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//[255.255.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the IP ends with a square bracket ("]") but does not start with another square bracket ("[").
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenIpEndsWithSquareBracketButDoesNotStartWithAnotherSquareBracket_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255.255.255.255]/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when an IP contains letters.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenIpContainsLetters_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255a.255.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when a hostname contains dots.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameContainsDots_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//host.name/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when an IP contains hyphens ("-").
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenIpContainsHyphen_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255-.255.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the one of the parts of the IP is greater than 255.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenOneNumberOfIpIsGreaterThan255_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255.256.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the length of one of the parts of the IP is greater than 3.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenLengthOfOnePartOfIpIsGreaterThan3_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255.0000.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when a hostname contains square brackets ("[", "]").
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameContainsSquareBracket_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//hostname]/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when a number of the IP is missing.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenOneNumberOfIpIsMissing_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255.255.255/");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when a all the numbers of the IP are empty.
+/// </summary>
+QTEST_CASE ( SetHostname_AssertionFailsWhenNumbersOfTheIpAreEmpty_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("//255.../");
+    const bool ASSERTION_FAILED = true;
+    QPath path("/");
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        path.SetHostname(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+    /// <summary>
+    /// Checks that invalid characters are removed from the hostname.
+    /// </summary>
+    QTEST_CASE ( Constructor_InvalidCharactersAreRemovedFromHostname_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("//abc_def?ghi#/");
+        const string_q EXPECTED_HOSTNAME("abcdefghi");
+
+        // [Execution]
+        QPath path(INPUT_STRING);
+
+        // [Verification]
+        BOOST_CHECK(path.GetHostname() == EXPECTED_HOSTNAME);
+    }
+
+#endif
+
+/// <summary>
+/// Checks that the resultant path equals "./" when the input string is empty and the path does not contain a hostname.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsDotAndSeparatorWhenInputIsEmptyAndPathHasNoHostname_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    const string_q EXPECTED_PATH("./");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+}
+
+/// <summary>
+/// Checks that the resultant path equals "/" when the input string is empty and the path contains a hostname.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsSeparatorWhenInputIsEmptyAndPathHasHostname_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING = string_q::GetEmpty();
+    const string_q EXPECTED_PATH("/");
+    QPath path("//hostname/dir/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+}
+
+/// <summary>
+/// Checks that the resultant path equals input string when it is just a separator.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputIsSeparator_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("/");
+    const string_q EXPECTED_PATH("/");
+    QPath path("/dir/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_PATH);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path has relative directory that contains one dot segment.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsRelativeDirectoryWithOnlyOneDotSegment_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("./");
+    const string_q EXPECTED_DIRECTORY("./");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path has relative directory that contains two dot segment.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsRelativeDirectoryWithTwoDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("./../");
+    const string_q EXPECTED_DIRECTORY("./../");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path has relative directory that contains only two dot segment.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsRelativeDirectoryContainsOnlyTwoDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("../");
+    const string_q EXPECTED_DIRECTORY("../");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the input directory is not resolved when it contains dot segments.
+/// </summary>
+QTEST_CASE ( SetDirectory_InputDirectoryIsNotResolvedWhenItContainsDotSegments_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("./../path/../");
+    const string_q EXPECTED_DIRECTORY("./../path/../");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+#if defined(QE_OS_WINDOWS)
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path contains a drive and a directory.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsDriveAndDirectory_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("X:/path1/");
+    const string_q EXPECTED_DIRECTORY("X:/path1/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path contains a drive and a directory without separation.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsDriveAndDirectoryWithoutSeparation_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("X:path1/");
+    const string_q EXPECTED_DIRECTORY("X:path1/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input path contains a drive only.
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsDriveOnly_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("X:/");
+    const string_q EXPECTED_DIRECTORY("X:/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when input directory is a tilde ("~").
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputContainsTildeDirectoryOnly_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("~/");
+    const string_q EXPECTED_DIRECTORY("~/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+/// <summary>
+/// Checks that the directory of the resultant path is what expected when the directory starts with a tilde ("~").
+/// </summary>
+QTEST_CASE ( SetDirectory_DirectoryIsWhatExpectedWhenInputDirectoryStartsWithTilde_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("~/path/");
+    const string_q EXPECTED_DIRECTORY("~/path/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+#endif
+
+/// <summary>
+/// Checks that a trailing separator is appended when the input directory hasn't it.
+/// </summary>
+QTEST_CASE ( SetDirectory_ATrailingSeparatorIsAppendedWhenInputHasNotIt_Test )
+{
+    // [Preparation]
+    const string_q INPUT_STRING("/directory");
+    const string_q EXPECTED_DIRECTORY("/directory/");
+    QPath path("/");
+
+    // [Execution]
+    path.SetDirectory(INPUT_STRING);
+
+    // [Verification]
+    BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+    #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that an assertion fails when the path contains invalid characters.
+    /// </summary>
+    QTEST_CASE ( SetDirectory_AssertionFailsWhenPathContainsInvalidCharacters_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:end/");
+        const bool ASSERTION_FAILED = true;
+        QPath path("/");
+
+        // [Execution]
+        bool bAssertionFailed = false;
+
+        try
+        {
+            path.SetDirectory(INPUT_STRING);
+        }
+        catch(...)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+    }
+
+    /// <summary>
+    /// Checks that an assertion fails whent he path contains a hostname and the input string contains a drive.
+    /// </summary>
+    QTEST_CASE ( SetDirectory_AssertionFailsWhenPathContainsHostnameAndInputContainsDrive_Test )
+    {
+        // [Preparation]
+        QPath SOURCE_PATH("//hostname/");
+        const string_q INPUT_DIRECTORY("x:/");
+    
+        // [Execution]
+        bool bAssertionFailed = false;
+
+        try
+        {
+            SOURCE_PATH.SetDirectory(INPUT_DIRECTORY);
+        }
+        catch(...)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK(bAssertionFailed);
+    }
+    
+    #endif
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+    #if defined(QE_OS_WINDOWS)
+
+    /// <summary>
+    /// Checks that invalid characters are removed from the directory.
+    /// </summary>
+    QTEST_CASE ( SetDirectory_InvalidCharactersAreRemovedFromDirectory_Test )
+    {
+        // [Preparation]
+        const string_q INPUT_STRING("start?\"<>|:end/");
+        const string_q EXPECTED_DIRECTORY("startend");
+        QPath path("/");
+
+        // [Execution]
+        path.SetDirectory(INPUT_STRING);
+
+        // [Verification]
+        BOOST_CHECK(path.GetDirectory() == EXPECTED_DIRECTORY);
+    }
+
+    #endif
+
+#endif
 
 // End - Test Suite: QPath
 QTEST_SUITE_END()
