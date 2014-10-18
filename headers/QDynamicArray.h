@@ -271,9 +271,7 @@ public:
     /// Increases the capacity of the array, reserving memory for more elements.
     /// </summary>
     /// <remarks>
-    /// This operation implies a reallocation, which means:<br/>
-    /// - Iterators pointing to elements of this array may become invalid.<br/>
-    /// - Any pointer to elements of this array will be pointing to garbage.
+    /// This operation implies a reallocation, which means that any pointer to elements of this array will be pointing to garbage.
     /// </remarks>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
@@ -287,7 +285,7 @@ public:
     /// Copies an element to the end of the array.
     /// </summary>
     /// <remarks>
-    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.
     /// </remarks>
     /// <param name="newElement">[IN] The element to be copied.</param>
@@ -310,7 +308,7 @@ public:
     /// <remarks>
     /// An insertion produces the movement of all the subsequent elements in the array one position forward, which will affect the content pointed 
     /// to by any existing iterator or pointer.<br/>
-    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.<br/>
     /// Use Add method to insert elements at the end.
     /// </remarks>
@@ -362,7 +360,7 @@ public:
     /// <remarks>
     /// An insertion produces the movement of all the subsequent elements in the array one position forward, which will affect the content pointed 
     /// to by any existing iterator or pointer.<br/>
-    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.<br/>
     /// Use Add method to insert elements at the end.
     /// </remarks>
