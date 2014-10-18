@@ -416,6 +416,8 @@
     <VirtualDirectory Name="FileSystem">
       <File Name="../../../../headers/QPath.h"/>
       <File Name="../../../../source/QPath.cpp"/>
+      <File Name="../../../../headers/QFileInfo.h"/>
+      <File Name="../../../../source/QFileInfo.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
