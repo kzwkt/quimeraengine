@@ -74,6 +74,11 @@ private:
     /// The separator that divides the path into directories.
     /// </summary>
     static const string_q PATH_SEPARATOR;
+    
+    /// <summary>
+    /// The separator that divides the path into directories, as a char.
+    /// </summary>
+    static const Kinesis::QuimeraEngine::Common::DataTypes::char_q PATH_SEPARATOR_CHAR;
 
     /// <summary>
     /// A dot character (".").
@@ -94,7 +99,7 @@ public:
     /// a dot (".") or a double dot (".."), among others. Drive-relative paths (e.g. "C:path1/path2") are allowed on Windows. On Unix-based systems, a relative path can start with
     /// a tilde ("~") to refer to the user's "home" directory.<br/>
     /// The length of a filename cannot exceed 255 characters.<br/>
-    /// On Windows, the following characters are neither allowed in a directory name nor in a file name: "*", "?", "\", """, "<", ">", "|", ":".<br/>
+    /// On Windows, the following characters are neither allowed in a directory name nor in a file name: "*", "?", "\", """, "<", ">", "|", ":", "/".<br/>
     /// Remote paths are allowed, using either a hostname or an IP. Remote paths start with two slashes ("//") and may contain an at sign ("@") on Unix-based systems.<br/>
     /// The only valid characters in a hostname are: "[a-z]", "[A-Z]", "[0-9]", "-". On Unix-based systems, the at sign ("@") is admitted too. Hostnames cannot start with an hyphen ("-").<br/>
     /// The only valid characters in an IP are: "[", "]", "[0-9]", ".". IPs must be compound of 4 numbers separated by periods, where every number must be present and be equal to or 
@@ -224,10 +229,11 @@ public:
     /// Calculates a relative path to another absolute path.
     /// </summary>
     /// <remarks>
-    /// The path must be absolute.<br/>
+    /// The resident path must be absolute.<br/>
     /// The file name of the resident path is used in the result.<br/>
     /// If one of the paths has hostname, the other must have it too. Besides, both hostnames must be the same.<br/>
-    /// On Windows, if one of the paths has drive, the other must have it too. Besides, both drives must be the same.<br/>
+    /// On Windows, if one of the paths has drive, the other must have it too; however, if one of them starts with a slash ("/"), it will be considered as if it had the same drive. 
+    /// Besides, both drives must be the same.<br/>
     /// On Unix-based systems, if one of the paths starts with a tilde ("~"), the other must start with it too.
     /// Example:<br/>
     /// - Current working directory: "/a/b/c/"<br/>
@@ -239,6 +245,25 @@ public:
     /// A string that contains the relative path from resident path to the input path. If paths are not valid, an empty string is returned.
     /// </returns>
     string_q GetRelativePathTo(const QPath &absolutePath) const;
+    
+    /// <summary>
+    /// Gets the last directory in the path.
+    /// </summary>
+    /// <remarks>
+    /// The filename and the hostname, if any, are ignored.
+    /// </remarks>
+    /// <returns>
+    /// The name of the last directory, without separators. If the full directory is just a separator ("/"), the result is an empty string.
+    /// </returns>
+    string_q GetLastDirectory() const;
+    
+    /// <summary>
+    /// Gets the full path as a string.
+    /// </summary>
+    /// <returns>
+    /// A string that contains the full path. Note that, if the path contains dot segments ("." or "..") they will not be resolved.
+    /// </returns>
+    string_q ToString() const;
 
 protected:
 
@@ -354,6 +379,14 @@ private:
 public:
     
     /// <summary>
+    /// Gets the path separator.
+    /// </summary>
+    /// <returns>
+    /// A string containing the path separator. On Windows, Linux and Mac, this will be a slash ("/").
+    /// </returns>
+    static const string_q& GetPathSeparator();
+
+    /// <summary>
     /// Checks whether the path is absolute or not.
     /// </summary>
     /// <remarks>
@@ -387,11 +420,134 @@ public:
     /// The file extension, without the separation dot. If there is no extension, it returns empty.
     /// </returns>
     string_q GetFileExtension() const;
-
-    // [TODO] Thund: GetDirectory()
-    // [TODO] Thund: GetRoot() /, C:/, //hostaname/first/
-    // [TODO] Thund: HasRoot()
-    // [TODO] Thund: static GetPathSeparator()
+    
+    /// <summary>
+    /// Gets the full directory, this means the sequence of path segments between the hostname, if any, and the filename, if any.
+    /// </summary>
+    /// <returns>
+    /// A string that contains the directory. It will always end with a trailing separator.
+    /// </returns>
+    string_q GetDirectory() const;
+    
+    /// <summary>
+    /// Gets the root directory of the path. Root directories are those that do not have a parent directory.
+    /// </summary>
+    /// <remarks>
+    /// Only absolute paths have root directory (see exceptions below). If the path is relative, the result will be an empty string.<br/>
+    /// On Windows, the root directory can be either a drive or a single separator ("/"), which refers to the drive of the current directory.<br/>
+    /// On Unix-based systems, the root directory is a single separator ("/"), even if the path starts with a tilde ("~") which is considered an 
+    /// abbreviation of the user's "home" directory; this is the only exception for relative paths.<br/>
+    /// If the path contains a hostname, it will be included in the result along with the first segment of the directory, if any.<br/>
+    /// Examples:<br/>
+    /// - "//hostname/dir1/dir2/" --> "//hostname/dir1/"<br/>
+    /// - "/dir1/dir2/" --> "/"<br/>
+    /// - "x:/dir1/" --> "x:/"<br/>
+    /// - "~/dir1/" --> "/"<br/>
+    /// - ./dir1/ --> ""
+    /// </remarks>
+    /// <returns>
+    /// A string that contains the root directory. It will always end with a trailing separator. If the path is relative, resultant string will be empty.
+    /// </returns>
+    string_q GetRoot() const;
+    
+    /// <summary>
+    /// Gets the hostname.
+    /// </summary>
+    /// <returns>
+    /// A string that contains the hostname, without separators.
+    /// </returns>
+    string_q GetHostname() const;
+    
+    /// <summary>
+    /// Indicates whether the path refers to a file or not.
+    /// </summary>
+    /// <returns>
+    /// True if the path refers to a file; False otherwise.
+    /// </returns>
+    bool IsFile() const;
+    
+    /// <summary>
+    /// Indicates whether the path refers to a directory or not.
+    /// </summary>
+    /// <returns>
+    /// True if the path refers to a directory; False otherwise.
+    /// </returns>
+    bool IsDirectory() const;
+    
+    /// <summary>
+    /// Indicates whether the path starts with a drive letter or not (Windows only).
+    /// </summary>
+    /// <returns>
+    /// True if the path starts with a drive letter; False otherwise. On all operating systems but Windows, it will always return False.
+    /// </returns>
+    bool HasDrive() const;
+    
+    /// <summary>
+    /// Indicates whether the path starts with a hostname or not.
+    /// </summary>
+    /// <returns>
+    /// True if the path starts with a hostname; False otherwise.
+    /// </returns>
+    bool HasHostname() const;
+    
+    /// <summary>
+    /// Indicates whether the root directory of the path can be deduced or not.
+    /// </summary>
+    /// <remarks>
+    /// Only absolute paths have root directory (see exceptions below).<br/>
+    /// On Windows, the root directory can be either a drive or a single separator ("/"), which refers to the drive of the current directory.<br/>
+    /// On Unix-based systems, the root directory is a single separator ("/"), even if the path starts with a tilde ("~") which is considered an 
+    /// abbreviation of the user's "home" directory; this is the only exception for relative paths.<br/>
+    /// </remarks>
+    /// <returns>
+    /// True if the path has a root directory; False otherwise.
+    /// </returns>
+    bool HasRoot() const;
+    
+    /// <summary>
+    /// Replaces the filename, keeping the same file extension.
+    /// </summary>
+    /// <remarks>
+    /// The length of a filename cannot exceed 255 characters (including the file extension).<br/>
+    /// On Windows, the following characters are not allowed in a file name: "*", "?", "\", """, "<", ">", "|", ":", "/".
+    /// </remarks>
+    /// <param name="strFilename">[IN] The filename to be set. Any invalid character will be removed.</param>
+    void SetFilename(const string_q &strFilename);
+    
+    /// <summary>
+    /// Sets the filename, including the file extension.
+    /// </summary>
+    /// <remarks>
+    /// The length of a filename cannot exceed 255 characters (including the file extension).<br/>
+    /// On Windows, the following characters are not allowed in a file name: "*", "?", "\", """, "<", ">", "|", ":", "/".
+    /// </remarks>
+    /// <param name="strFilenameAndExtension">[IN] The filename and the extension to be set. Any invalid character will be removed.</param>
+    void SetFilenameAndExtension(const string_q &strFilenameAndExtension);
+    
+    /// <summary>
+    /// Sets the hostname.
+    /// </summary>
+    /// <remarks>
+    /// The only valid characters in a hostname are: "[a-z]", "[A-Z]", "[0-9]", "-". On Unix-based systems, the at sign ("@") is admitted too. Hostnames cannot start with an hyphen ("-").<br/>
+    /// The only valid characters in an IP (v4) are: "[", "]", "[0-9]", ".". IPs must be compound of 4 numbers separated by periods, where every number must be present and be equal to or 
+    /// lower than 255. IPs may be enclosed between square brackets.<br/>
+    /// On Windows, adding a hostname when the path starts with a drive letter will result in an invalid path.
+    /// </remarks>
+    /// <param name="strHostname">[IN] The hostname to be set, without separators. It can be either a name or an IP. Any invalid character will be removed.</param>
+    void SetHostname(const string_q &strHostname);
+    
+    /// <summary>
+    /// Sets the entire directory, this means the sequence of path segments between the host name, if any, and the filename, if any.
+    /// </summary>
+    /// <remarks>
+    /// On Windows, the following characters are not allowed in a directory name: "*", "?", "\", """, "<", ">", "|", ":", "/". Colons are allowed only to specity a drive letter. 
+    /// Slashes and backslashes are allowed only as separators.<br/>
+    /// On Unix-based systems, slashes are allowed only as separators.<br/>
+    /// On Windows, adding a directory that starts with a drive letter when the path already has a hostname will result in an invalid path.<br/>
+    /// </remarks>
+    /// <param name="strDirectory">[IN] The directory to be set. Any invalid character will be removed. Backslashes ("\") will be replaced with slashes ("/"). If it does not have a trailing separator, 
+    /// it will be added. If it is empty and the path contains a hostname, the directory "/" will be set; if the path does not contain a hostname, the directory "./" will be set instead.</param>
+    void SetDirectory(const string_q &strDirectory);
 
 
     // ATTRIBUTES

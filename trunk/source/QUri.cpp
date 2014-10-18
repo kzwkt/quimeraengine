@@ -393,7 +393,7 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
 
     static unsigned int PERCENT_ENCODED_LENGTH = 3U; // "%FF"
     
-    if(strInput.GetLength() >= PERCENT_ENCODED_LENGTH)
+    if(strInput.GetLength() >= PERCENT_ENCODED_LENGTH && strInput.Contains(QUri::CHAR_PERCENT_SIGN, EQComparisonType::E_BinaryCaseSensitive))
     {
         string_q strResult;
 

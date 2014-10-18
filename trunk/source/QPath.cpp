@@ -62,6 +62,7 @@ namespace FileSystem
 //##################=======================================================##################
 
 const string_q QPath::PATH_SEPARATOR("/");
+const char_q QPath::PATH_SEPARATOR_CHAR('/');
 const char_q QPath::DOT('.');
 
 
@@ -77,7 +78,6 @@ const char_q QPath::DOT('.');
 QPath::QPath(const string_q &strPath)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
     string_q strReplacedPath = strPath;
 
@@ -85,7 +85,8 @@ QPath::QPath(const string_q &strPath)
     
     // On Windows, paths can be created using backslashes as segment separator. They have to be replaced with slashes.
     static const string_q BACK_SLASH("\\");
-    strReplacedPath.Replace(BACK_SLASH, QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+    if(strReplacedPath.Contains(BACK_SLASH, EQComparisonType::E_BinaryCaseSensitive))
+        strReplacedPath.Replace(BACK_SLASH, QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
 
 #endif
 
@@ -94,45 +95,14 @@ QPath::QPath(const string_q &strPath)
     QPath::_ExtractHostnameFromPath(strReplacedPath, strHostname);
 
     if(!strHostname.IsEmpty())
-    {
-        //[TODO] Thund: Move this code to SetHostname when it exists
-        QPath::_RemoveNotAllowedCharactersInHostname(strHostname);
-        QPath::_ValidateHostname(strHostname);
+        this->SetHostname(strHostname);
 
-        m_strHostname = strHostname;
-    }
-
-#if defined(QE_OS_WINDOWS)
-
-    // Adds a slash at the end if the path consists only in a drive letter
-    static const char_q CHAR_COLON(':');
-
-    if(!strReplacedPath.IsEmpty() && strReplacedPath[strReplacedPath.GetLength() - 1U] == CHAR_COLON)
-        strReplacedPath.Append(QPath::PATH_SEPARATOR);
-
-    // Removes all the characters that are not allowed in Windows' file systems
-    QPath::_RemoveNotAllowedCharactersInPath(strReplacedPath);
-    // Note: Linux and Mac use Posix path names (case sensitive, separed with slashes, allowing any UTF-16 character but NUL and /)
-
-#endif
-    
     // Gets the filename if any
     string_q strFilename;
     QPath::_ExtractFilenameFromPath(strReplacedPath, strFilename);
 
-    // [TODO] Thund: Move this code to SetFilename when it exists
-    // Note: About the length restriction of 255 characters http://www.linfo.org/file_name.html
-    m_strFilename = strFilename;
-    QE_ASSERT_WARNING(m_strFilename.GetLength() <= 255, 
-                      string_q("The length of the file name (") + SQInteger::ToString(m_strFilename.GetLength()) + ") exceeds the maximum allowed (255).");
-
-    // [TODO] Thund: Move this code to SetPath when it exists
-    static const string_q DOT_SEPARATOR(string_q(QPath::DOT) + QPath::PATH_SEPARATOR);
-
-    if(strReplacedPath.IsEmpty())
-        m_strPath = m_strHostname.IsEmpty() ? DOT_SEPARATOR : QPath::PATH_SEPARATOR;
-    else
-        m_strPath = strReplacedPath;
+    this->SetFilenameAndExtension(strFilename);
+    this->SetDirectory(strReplacedPath);
 }
 
 
@@ -154,16 +124,14 @@ void QPath::_ResolveDotSegments(string_q &strPathToResolve)
     string_q strRest;
 
 #if defined(QE_OS_WINDOWS)
-    /* [TODO] Thund: Uncomment this when HasDrive and GetDrive exist
-    if(this->HasDrive())
+
+    const QPath PATH_TO_RESOLVE(strPathToResolve);
+
+    if(PATH_TO_RESOLVE.HasDrive())
     {
         // Extracts the drive part
-        strFirstPart = this->GetDrive();
+        strFirstPart = PATH_TO_RESOLVE.GetRoot();
         strRest = strPathToResolve.Substring(strFirstPart.GetLength() + 1U); // +1 due to the colon (:)
-    }
-    */
-    if(false)
-    {
     }
 #else
     if(strPathToResolve[0] == CHAR_TILDE)
@@ -350,7 +318,7 @@ void QPath::_ExtractHostnameFromPath(string_q &strPath, string_q &strHostname)
     
     int nHostnameStartPosition = strPath.IndexOf(AUTHORITY_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
 
-    if(nHostnameStartPosition != string_q::PATTERN_NOT_FOUND)
+    if(nHostnameStartPosition == 0)
     {
         nHostnameStartPosition += AUTHORITY_SEPARATOR.GetLength();
         int nHostnameEndPosition = strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nHostnameStartPosition);
@@ -506,7 +474,7 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 
 void QPath::_ExtractFilenameFromPath(string_q &strPath, string_q &strFilename)
 {
-    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR[0]);
+    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
 
     const int STRING_LAST_POSITION = strPath.GetLength() - 1;
 
@@ -575,7 +543,7 @@ void QPath::RemoveLastDirectory()
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
-    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR[0]);
+    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
     static const string_q LEADING_DOT(string_q(QPath::DOT) + QPath::PATH_SEPARATOR);
 
     if(!m_strPath.IsEmpty() && 
@@ -656,7 +624,7 @@ QPath QPath::_GetCurrentWorkingDirectory()
 #endif
 
     // Adds a trailing slash if it does not end with one
-    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR[0]);
+    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
 
     if(!strPath.IsEmpty() && strPath[strPath.GetLength() - 1U] != CHAR_SEPARATOR)
         strPath.Append(QPath::PATH_SEPARATOR);
@@ -666,6 +634,8 @@ QPath QPath::_GetCurrentWorkingDirectory()
 
 void QPath::Resolve(const QPath &relativePath)
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
     QE_ASSERT_WARNING(!relativePath.IsAbsolute(), "Input path should be relative.");
 
 #if defined(QE_OS_WINDOWS)    
@@ -680,14 +650,13 @@ void QPath::Resolve(const QPath &relativePath)
     if(relativePath.IsAbsolute())
     {
 #if defined(QE_OS_WINDOWS)
-        // [TODO] Thund: Uncomment when HasDrive, HasHostname, GetDrive and SetDrive exist
-        // if(this->HasDrive() && !relativePath.HasHostname() && !relativePath.HasDrive())
-        // {
-        //     string_q strDrive = this->GetDrive();
-        //     *this = relativePath;
-        //     this->SetDrive(strDrive);
-        // }
-        // else
+        if(this->HasDrive() && !relativePath.HasHostname() && !relativePath.HasDrive())
+        {
+            string_q strDrive = this->GetRoot();
+            *this = relativePath;
+            m_strPath = strDrive + m_strPath;
+        }
+        else
         {
             *this = relativePath;
         }
@@ -699,31 +668,33 @@ void QPath::Resolve(const QPath &relativePath)
     {
         static const string_q FILE_SCHEME("file:");
 
+        string_q strPathStart;
+
+#if defined(QE_OS_WINDOWS)
+        if(this->HasDrive())
+            strPathStart = this->GetRoot();
+#else
+        if(m_strPath[0] == TILDE)
+            strPathStart = string_q(TILDE) + QPath::PATH_SEPARATOR;
+#endif
+
         QUri relativeUri(relativePath.m_strPath);
         QUri absoluteURI(FILE_SCHEME + m_strPath);
         absoluteURI.Resolve(relativeUri);
+        string_q strResolvedPath = absoluteURI.GetPath();
 
-#if defined(QE_OS_WINDOWS)
-        // [TODO] Thund: Uncomment when HasDrive and GetDrive exist
-        /*if(this->HasDrive())
+        if(!strPathStart.IsEmpty() && strResolvedPath.IndexOf(strPathStart, EQComparisonType::E_BinaryCaseSensitive) != 0)
         {
-            m_strPath = this->GetDrive();*/
-        if(false)
-        {
-#else
-        if(m_strPath[0] == TILDE)
-        {
-            m_strPath = string_q(TILDE) + QPath::PATH_SEPARATOR;
-#endif
-            m_strPath.Append(absoluteURI.GetPath());
+            m_strPath = strPathStart;
+            m_strPath.Append(strResolvedPath);
         }
         else
         {
-            m_strPath = absoluteURI.GetPath();
+            m_strPath = strResolvedPath;
         }
-        
-        QUri::Decode(m_strPath, m_strPath);
 
+        QUri::Decode(m_strPath, m_strPath);
+        
         if(!relativePath.m_strFilename.IsEmpty())
             m_strFilename = relativePath.m_strFilename;
     }
@@ -735,20 +706,13 @@ string_q QPath::GetAbsolutePath() const
 
     if(this->IsAbsolute())
     {
-        // [TODO] Thund: Replace with ToString
-        strResult.Append(m_strHostname);
-        strResult.Append(m_strPath);
-        strResult.Append(m_strFilename);
+        strResult = this->ToString();
     }
     else
     {
         QPath targetPath = QPath::_GetCurrentWorkingDirectory();
         targetPath.Resolve(*this);
-        // [TODO] Thund: Uncomment when ToString exists
-        //strResult = targetPath.ToString();
-        strResult.Append(targetPath.m_strHostname);
-        strResult.Append(targetPath.m_strPath);
-        strResult.Append(targetPath.m_strFilename);
+        strResult = targetPath.ToString();
     }
 
     return strResult;
@@ -776,9 +740,16 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
     QE_ASSERT_WARNING(absolutePath.m_strHostname.CompareTo(m_strHostname, COMPARISON_TYPE) == 0, "When paths have hostname, they must be equal.");
 
 #if defined(QE_OS_WINDOWS)
-    // [TODO] Thund: Uncomment this when HasDrive and GetDrive exist
-    /*QE_ASSERT_WARNING((this->HasDrive() && absolutePath.HasDrive() && this->GetDrive() == absolutePath.GetDrive()) || (!this->HasDrive() && !absolutePath.HasDrive()), 
-                        "When paths have drive, they must be equal.");*/
+
+    string_q strDrive;
+    const bool RESIDENT_PATH_HAS_DRIVE = this->HasDrive();
+    const bool INPUT_PATH_HAS_DRIVE = absolutePath.HasDrive();
+
+    QE_ASSERT_WARNING((RESIDENT_PATH_HAS_DRIVE && INPUT_PATH_HAS_DRIVE && this->GetRoot() == absolutePath.GetRoot()) || 
+                      (!RESIDENT_PATH_HAS_DRIVE && !INPUT_PATH_HAS_DRIVE) ||
+                      (RESIDENT_PATH_HAS_DRIVE && !absolutePath.m_strPath.IsEmpty() && absolutePath.m_strPath[0] == QPath::PATH_SEPARATOR_CHAR) ||
+                      (INPUT_PATH_HAS_DRIVE && !m_strPath.IsEmpty() && m_strPath[0] == QPath::PATH_SEPARATOR_CHAR), 
+                      "When paths have drive, they must be equal.");
 #else
     QE_ASSERT_WARNING((m_strPath[0] == CHAR_TILDE) == (absolutePath.m_strPath[0] == CHAR_TILDE), "When paths start with a tilde ('~'), both must start with it.");
 #endif
@@ -786,16 +757,17 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
     string_q strAbsolutePath;
 
     if(absolutePath.m_strHostname.CompareTo(m_strHostname, COMPARISON_TYPE) == 0 &&
-       (absolutePath.IsAbsolute() && 
+       absolutePath.IsAbsolute() && 
        this->IsAbsolute()
 #if defined(QE_OS_WINDOWS)
-       )
-       // [TODO] Thund: Uncomment this when HasDrive and GetDrive exist
-       //&& // If both have drives, they must be equal. Otherwise they must not have drives.
-       //((this->HasDrive() && absolutePath.HasDrive() && this->GetDrive() == absolutePath.GetDrive()) || (!this->HasDrive() && !absolutePath.HasDrive())))
+       && // If both have drives, they must be equal. Otherwise they must not have drives.
+       ((RESIDENT_PATH_HAS_DRIVE && INPUT_PATH_HAS_DRIVE && this->GetRoot() == absolutePath.GetRoot()) || 
+        (!RESIDENT_PATH_HAS_DRIVE && !INPUT_PATH_HAS_DRIVE) ||
+        (RESIDENT_PATH_HAS_DRIVE && !absolutePath.m_strPath.IsEmpty() && absolutePath.m_strPath[0] == QPath::PATH_SEPARATOR_CHAR) ||
+        (INPUT_PATH_HAS_DRIVE && !m_strPath.IsEmpty() && m_strPath[0] == QPath::PATH_SEPARATOR_CHAR))
 #else
        || // Both must start with tildes ("~") or none
-       ((m_strPath[0] == CHAR_TILDE) == (absolutePath.m_strPath[0] == CHAR_TILDE)))
+       ((m_strPath[0] == CHAR_TILDE) == (absolutePath.m_strPath[0] == CHAR_TILDE))
 #endif
        )
     {
@@ -817,21 +789,21 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
         strAbsolutePath.Append(SINGLE_DOT);
 
 #if defined(QE_OS_WINDOWS)
-        // If resident path starts with a separator (without drive)
-        if((m_strPath[0] == QPath::PATH_SEPARATOR[0]) == (absolutePath.m_strPath[0] == QPath::PATH_SEPARATOR[0]))
+
+        if(this->HasDrive())
         {
-            /* [TODO] Thund: Uncomment when HasDrive exists
-            if(this->HasDrive())
-            {
-                // Skips the drive of the resident path
-                nSlashPosition1 = m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nSlashPosition1) + 1;
-            }
-            else
-            {
-                // Skips the drive of the input path
-                nSlashPosition2 = absolutePath.m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nSlashPosition1) + 1;
-            }*/
+            // Skips the drive of the resident path
+            nSlashPosition1 = m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+            nPreviousSlashPosition1 = nSlashPosition1;
         }
+
+        if(absolutePath.HasDrive())
+        {
+            // Skips the drive of the input path
+            nSlashPosition2 = absolutePath.m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+            nPreviousSlashPosition2 = nSlashPosition2;
+        }
+
 #endif
 
         // For every segment in the resident path
@@ -895,9 +867,6 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
 
 int QPath::_GetLastIndexOfString(const char_q &pattern, const string_q &strSource, const int nFromIndex)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-    using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
-
     int nLastDotPosition = string_q::PATTERN_NOT_FOUND;
     int i = nFromIndex;
 
@@ -910,6 +879,53 @@ int QPath::_GetLastIndexOfString(const char_q &pattern, const string_q &strSourc
     return nLastDotPosition;
 }
 
+string_q QPath::GetLastDirectory() const
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
+
+    string_q strResult;
+
+    if(m_strPath != QPath::PATH_SEPARATOR)
+    {
+        if(m_strPath.GetLength() <= 1U)
+        {
+            strResult = m_strPath;
+        }
+        else
+        {
+            int nLastSeparatorPosition = QPath::_GetLastIndexOfString(QPath::PATH_SEPARATOR_CHAR, m_strPath, m_strPath.GetLength() - 2U);
+
+            if(nLastSeparatorPosition != string_q::PATTERN_NOT_FOUND)
+                strResult = m_strPath.Substring(nLastSeparatorPosition + 1, m_strPath.GetLength() - 2U);
+            else
+                strResult = m_strPath.Substring(0, m_strPath.GetLength() - 2U);
+        }
+    }
+
+    return strResult;
+}
+
+string_q QPath::ToString() const
+{
+    static const string_q HOSTNAME_SEPARATOR("//");
+
+    string_q strCompletePath;
+    
+    if(this->HasHostname())
+    {
+        strCompletePath.Append(HOSTNAME_SEPARATOR);
+        strCompletePath.Append(m_strHostname);
+    }
+
+    strCompletePath.Append(m_strPath);
+
+    if(this->IsFile())
+        strCompletePath.Append(m_strFilename);
+
+    return strCompletePath;
+}
+
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -920,15 +936,20 @@ int QPath::_GetLastIndexOfString(const char_q &pattern, const string_q &strSourc
 //##################                                                       ##################
 //##################=======================================================##################
 
+const string_q& QPath::GetPathSeparator()
+{
+    return QPath::PATH_SEPARATOR;
+}
+
 bool QPath::IsAbsolute() const
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     static const string_q COLON_FOLLOWED_BY_SEPARATOR(string_q(":") + QPath::PATH_SEPARATOR);
-    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR[0]);
+    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
     
-    return m_strPath[0] == CHAR_SEPARATOR || !m_strHostname.IsEmpty() // [TODO] Thund: Replace this with HasHostname when it exists
+    return m_strPath[0] == CHAR_SEPARATOR || this->HasHostname()
 #if defined(QE_OS_WINDOWS)
            // Note: On Windows, the path "C:directory1" (without slash after the drive letter), for example, means a relative path in the current directory of the drive C
            || 
@@ -976,6 +997,223 @@ string_q QPath::GetFileExtension() const
     }
 
     return strExtension;
+}
+
+string_q QPath::GetDirectory() const
+{
+    return m_strPath;
+}
+
+string_q QPath::GetRoot() const
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    static const string_q TILDE_AND_SEPARATOR("~/");
+    static const string_q HOSTNAME_SEPARATOR("//");
+
+    string_q strResult;
+
+    if(this->HasHostname())
+    {
+        strResult.Append(HOSTNAME_SEPARATOR);
+        strResult.Append(m_strHostname);
+
+        if(m_strPath.GetLength() > 1U)
+        {
+            // Gets the first segment
+            int nFirstSeparatorPosition = m_strPath.IndexOf(QPath::PATH_SEPARATOR_CHAR, EQComparisonType::E_BinaryCaseSensitive, 1U);
+
+            if(nFirstSeparatorPosition != string_q::PATTERN_NOT_FOUND)
+                strResult.Append(m_strPath.Substring(0, nFirstSeparatorPosition));
+        }
+        else
+        {
+            strResult.Append(QPath::PATH_SEPARATOR);
+        }
+    }
+#if defined(QE_OS_WINDOWS)
+    else if(this->HasDrive())
+    {
+        static string_q DRIVE_SEPARATOR(":/");
+
+        // Gets the drive
+        int nDriveEndPosition = m_strPath.IndexOf(DRIVE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+        strResult = m_strPath.Substring(0, nDriveEndPosition + 1U);
+    }
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    else if(m_strPath.IndexOf(TILDE_AND_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive) == 0)
+    {
+        strResult = QPath::PATH_SEPARATOR;
+    }
+#endif
+    else if(!m_strPath.IsEmpty() && m_strPath[0] == QPath::PATH_SEPARATOR_CHAR)
+    {
+        strResult = QPath::PATH_SEPARATOR;
+    }
+
+    return strResult;
+}
+
+string_q QPath::GetHostname() const
+{
+    return m_strHostname;
+}
+
+bool QPath::IsFile() const
+{
+    return !m_strFilename.IsEmpty();
+}
+
+bool QPath::IsDirectory() const
+{
+    return m_strFilename.IsEmpty();
+}
+
+bool QPath::HasDrive() const
+{
+#if defined(QE_OS_WINDOWS)
+
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    static string_q DRIVE_SEPARATOR(":/");
+
+    return m_strPath.IndexOf(DRIVE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+#else
+    return false;
+#endif
+}
+
+bool QPath::HasHostname() const
+{
+    return !m_strHostname.IsEmpty();
+}
+
+bool QPath::HasRoot() const
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    static const string_q TILDE_AND_SEPARATOR("~/");
+
+    bool bHasRoot = this->HasHostname() ||
+#if defined(QE_OS_WINDOWS)
+                    this->HasDrive()    ||
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+                    m_strPath.IndexOf(TILDE_AND_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive) == 0 ||
+#endif
+                    (!m_strPath.IsEmpty() && m_strPath[0] == QPath::PATH_SEPARATOR_CHAR);
+
+    return bHasRoot;
+}
+
+void QPath::SetHostname(const string_q &strHostname)
+{
+    m_strHostname = strHostname;
+
+    if(!m_strHostname.IsEmpty())
+    {
+        QPath::_RemoveNotAllowedCharactersInHostname(m_strHostname);
+        QPath::_ValidateHostname(m_strHostname);
+
+#if defined(QE_OS_WINDOWS)
+        QE_ASSERT_WARNING(!this->HasDrive() || !this->HasHostname(), "The path contains both a hostname and a drive letter, it is not a valid path.");
+#endif
+    }
+}
+
+void QPath::SetDirectory(const string_q &strDirectory)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    m_strPath = strDirectory;
+    
+#if defined(QE_OS_WINDOWS)
+    
+    // On Windows, paths can be created using backslashes as segment separator. They have to be replaced with slashes.
+    static const string_q BACK_SLASH("\\");
+
+    if(m_strPath.Contains(BACK_SLASH, EQComparisonType::E_BinaryCaseSensitive))
+        m_strPath.Replace(BACK_SLASH, QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
+
+    // Adds a slash at the end if the path consists only in a drive letter
+    static const char_q CHAR_COLON(':');
+
+    if(!m_strPath.IsEmpty() && m_strPath[m_strPath.GetLength() - 1U] == CHAR_COLON)
+        m_strPath.Append(QPath::PATH_SEPARATOR);
+
+    // Removes all the characters that are not allowed in Windows' file systems
+    QPath::_RemoveNotAllowedCharactersInPath(m_strPath);
+    // Note: Linux and Mac use Posix path names (case sensitive, separed with slashes, allowing any UTF-16 character but NUL and /)
+
+#endif
+
+    static const string_q DOT_SEPARATOR(string_q(QPath::DOT) + QPath::PATH_SEPARATOR);
+
+    if(m_strPath.IsEmpty())
+        m_strPath = this->HasHostname() ? QPath::PATH_SEPARATOR : DOT_SEPARATOR;
+
+    if(m_strPath[m_strPath.GetLength() - 1U] != QPath::PATH_SEPARATOR_CHAR)
+        m_strPath.Append(QPath::PATH_SEPARATOR);
+
+#if defined(QE_OS_WINDOWS)
+    QE_ASSERT_WARNING(!this->HasDrive() || !this->HasHostname(), "The path contains both a hostname and a drive letter, it is not a valid path.");
+#endif
+
+}
+
+void QPath::SetFilename(const string_q &strFilename)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // Replaces only the name
+    int nLastDotPosition = QPath::_GetLastIndexOfString(QPath::DOT, m_strFilename, m_strFilename.GetLength() - 2U);
+    string_q strReplacedName;
+    
+    if(nLastDotPosition != string_q::PATTERN_NOT_FOUND)
+    {
+        strReplacedName = strFilename;
+        strReplacedName.Append(m_strFilename.Substring(nLastDotPosition));
+    }
+    else
+    {
+        strReplacedName = strFilename;
+    }
+
+    this->SetFilenameAndExtension(strReplacedName);
+}
+
+void QPath::SetFilenameAndExtension(const string_q &strFilenameAndExtension)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    static const string_q BACK_SLASH("\\");
+
+    m_strFilename = strFilenameAndExtension;
+
+    if(!strFilenameAndExtension.IsEmpty())
+    {
+        QE_ASSERT_WARNING(!strFilenameAndExtension.Contains(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive), "Path separators are not allowed in filenames.");
+
+#if defined(QE_OS_WINDOWS)
+
+        QE_ASSERT_WARNING(!strFilenameAndExtension.Contains(BACK_SLASH, EQComparisonType::E_BinaryCaseSensitive), "Path separators are not allowed in filenames.");
+
+        // Removes all the characters that are not allowed in Windows' file systems
+        QPath::_RemoveNotAllowedCharactersInPath(m_strFilename);
+        // Note: Linux and Mac use Posix path names (case sensitive, separed with slashes, allowing any UTF-16 character but NUL and /)
+
+        if(m_strFilename.Contains(BACK_SLASH, EQComparisonType::E_BinaryCaseSensitive))
+            m_strFilename.Replace(BACK_SLASH, string_q::GetEmpty(), EQComparisonType::E_BinaryCaseSensitive);
+
+#endif
+
+        if(m_strFilename.Contains(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive))
+            m_strFilename.Replace(QPath::PATH_SEPARATOR, string_q::GetEmpty(), EQComparisonType::E_BinaryCaseSensitive);
+
+        // Note: About the length restriction of 255 characters http://www.linfo.org/file_name.html
+        QE_ASSERT_WARNING(m_strFilename.GetLength() <= 255, 
+                          string_q("The length of the file name (") + SQInteger::ToString(m_strFilename.GetLength()) + ") exceeds the maximum allowed (255).");
+    }
 }
 
 
