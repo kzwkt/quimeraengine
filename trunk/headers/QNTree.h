@@ -36,6 +36,7 @@
 #include "AllocationOperators.h"
 #include "EQTreeTraversalOrder.h"
 #include "EQIterationDirection.h"
+#include "SQInteger.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
@@ -186,7 +187,7 @@ protected:
         /// <param name="uFirstChild">[IN] The position of the first child node. It can be QNTree::END_POSITION_FORWARD if there is no child node (it has not got children nodes).</param>
         void SetFirstChild(const pointer_uint_q uFirstChild)
         {
-            m_uFirstChild;
+            m_uFirstChild = uFirstChild;
         }
 
 
@@ -250,9 +251,14 @@ public:
                                                                                                                            m_eTraversalOrder(eTraversalOrder)
         {
             QE_ASSERT_ERROR(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
-            QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the tree");
+            QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition || 
+                              uPosition == QNTree::END_POSITION_BACKWARD || 
+                              uPosition == QNTree::END_POSITION_FORWARD, "Invalid argument: The position must be lower than the capacity of the tree");
+            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported.");
 
-            if(pTree == null_q || pTree->GetCapacity() <= uPosition || pTree->IsEmpty())
+            if(pTree == null_q || 
+               (pTree->GetCapacity() <= uPosition && uPosition != QNTree::END_POSITION_BACKWARD && uPosition != QNTree::END_POSITION_FORWARD) || 
+               pTree->IsEmpty())
                 m_uPosition = QNTree::END_POSITION_FORWARD;
         }
 
@@ -294,7 +300,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return *(((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition);
+            return *(((T*)m_pTree->m_elementAllocator.GetPointer()) + m_uPosition);
         }
 
         /// <summary>
@@ -310,7 +316,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QNTree::END_POSITION_FORWARD && m_uPosition != QNTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return ((T*)m_pTree->m_pElementAllocator->GetPointer()) + m_uPosition;
+            return ((T*)m_pTree->m_elementAllocator.GetPointer()) + m_uPosition;
         }
 
         /// <summary>
@@ -334,74 +340,71 @@ public:
 
             if(m_uPosition != QNTree::END_POSITION_FORWARD)
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    //          1
+                    //         /|\
+                    //        / | \
+                    //       2  5  6
+                    //      / \     \
+                    //     /   \     \
+                    //    3     4     7
+
+                    if(m_uPosition != QNTree::END_POSITION_BACKWARD)
                     {
-                        //          1
-                        //         /|\
-                        //        / | \
-                        //       2  5  6
-                        //      / \     \
-                        //     /   \     \
-                        //    3     4     7
+                        QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
 
-                        if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+                        if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
                         {
-                            QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
+                            // The current node has no children
 
-                            if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
+                            if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
                             {
-                                // The current node has no children
+                                // This node has no more brothers
 
-                                if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
+                                // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
+                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+
+                                while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
+                                      (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
                                 {
-                                    // This node has no more brothers
-
-                                    // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
-                                    QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
-
-                                    while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
-                                          (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
-                                    {
-                                        // Visits current node's parent
-                                        pNode = pBasePointer + pNode->GetParent();
-                                    }
-
-                                    if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
-                                    {
-                                        // It reached the root node, all the nodes have been visited
-                                        m_uPosition = QNTree::END_POSITION_FORWARD;
-                                    }
-                                    else
-                                    {
-                                        // It finds an ascendant whose brothers haven't been visited yet
-                                        m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
-                                    }
+                                    // Visits current node's parent
+                                    pNode = pBasePointer + pNode->GetParent();
                                 }
-                                else // pNode->GetNext() == QNTree::END_POSITION_FORWARD
+
+                                if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
                                 {
-                                    // The next brother is visited
-                                    m_uPosition = pNode->GetNext();
+                                    // It reached the root node, all the nodes have been visited
+                                    m_uPosition = QNTree::END_POSITION_FORWARD;
+                                }
+                                else
+                                {
+                                    // It finds an ascendant whose brothers haven't been visited yet
+                                    m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
                                 }
                             }
-                            else // pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD
+                            else // pNode->GetNext() == QNTree::END_POSITION_FORWARD
                             {
-                                // The first child of the current node is visited
-                                m_uPosition = pNode->GetFirstChild();
+                                // The next brother is visited
+                                m_uPosition = pNode->GetNext();
                             }
                         }
-                        else // m_uPosition != QNTree::END_POSITION_BACKWARD
+                        else // pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD
                         {
-                            if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
-                            {
-                                this->MoveFirst();
-                            }
-                            else
-                            {
-                                // The tree is empty
-                                m_uPosition = QNTree::END_POSITION_FORWARD;
-                            }
+                            // The first child of the current node is visited
+                            m_uPosition = pNode->GetFirstChild();
+                        }
+                    }
+                    else // m_uPosition != QNTree::END_POSITION_BACKWARD
+                    {
+                        if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
+                        {
+                            this->MoveFirst();
+                        }
+                        else
+                        {
+                            // The tree is empty
+                            m_uPosition = QNTree::END_POSITION_FORWARD;
                         }
                     }
                 }
@@ -435,68 +438,65 @@ public:
 
             if(m_uPosition != QNTree::END_POSITION_BACKWARD)
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    //          7
+                    //         /|\
+                    //        / | \
+                    //       6  3  2
+                    //      / \     \
+                    //     /   \     \
+                    //    5     4     1
+
+                    if(m_uPosition != QNTree::END_POSITION_FORWARD)
                     {
-                        //          7
-                        //         /|\
-                        //        / | \
-                        //       6  3  2
-                        //      / \     \
-                        //     /   \     \
-                        //    5     4     1
+                        QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
 
-                        if(m_uPosition != QNTree::END_POSITION_FORWARD)
+                        if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
                         {
-                            QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
+                            // The current node has no previous brother
 
-                            if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
+                            if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
                             {
-                                // The current node has no previous brother
-
-                                if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
-                                {
-                                    // The current node has no parent so it is the root, all the nodes have been visited
-                                    m_uPosition = QNTree::END_POSITION_BACKWARD;
-                                }
-                                else
-                                {
-                                    // The current node's parent is visited
-                                    m_uPosition = pNode->Parent();
-                                }
-                            }
-                            else
-                            {
-                                // The current node has a previous brother
-                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
-                                pNode = pBasePointer + pNode->GetPrevious();
-
-                                // Searches for the last child of the deepest descendant
-                                while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
-                                {
-                                    pNode = pBasePointer + pNode->GetFirstChild();
-
-                                    while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
-                                    {
-                                        pNode = pBasePointer + pNode->GetNext();
-                                    }
-                                }
-
-                                m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
-                            }
-                        }
-                        else // m_uPosition == QNTree::END_POSITION_FORWARD
-                        {
-                            if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
-                            {
-                                this->MoveLast();
-                            }
-                            else
-                            {
-                                // The tree is empty
+                                // The current node has no parent so it is the root, all the nodes have been visited
                                 m_uPosition = QNTree::END_POSITION_BACKWARD;
                             }
+                            else
+                            {
+                                // The current node's parent is visited
+                                m_uPosition = pNode->Parent();
+                            }
+                        }
+                        else
+                        {
+                            // The current node has a previous brother
+                            QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                            pNode = pBasePointer + pNode->GetPrevious();
+
+                            // Searches for the last child of the deepest descendant
+                            while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                            {
+                                pNode = pBasePointer + pNode->GetFirstChild();
+
+                                while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                                {
+                                    pNode = pBasePointer + pNode->GetNext();
+                                }
+                            }
+
+                            m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
+                        }
+                    }
+                    else // m_uPosition == QNTree::END_POSITION_FORWARD
+                    {
+                        if(m_pTree->m_uRoot != QNTree::END_POSITION_FORWARD)
+                        {
+                            this->MoveLast();
+                        }
+                        else
+                        {
+                            // The tree is empty
+                            m_uPosition = QNTree::END_POSITION_BACKWARD;
                         }
                     }
                 }
@@ -527,72 +527,69 @@ public:
 
             if(m_uPosition != QNTree::END_POSITION_FORWARD)
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    //          1
+                    //         /|\
+                    //        / | \
+                    //       2  5  6
+                    //      / \     \
+                    //     /   \     \
+                    //    3     4     7
+
+                    if(m_uPosition != QNTree::END_POSITION_BACKWARD)
                     {
-                        //          1
-                        //         /|\
-                        //        / | \
-                        //       2  5  6
-                        //      / \     \
-                        //     /   \     \
-                        //    3     4     7
+                        QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
 
-                        if(m_uPosition != QNTree::END_POSITION_BACKWARD)
+                        if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
                         {
-                            QNTree::QNode* pNode = (QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition;
+                            // The current node has no children
 
-                            if(pNode->GetFirstChild() == QNTree::END_POSITION_FORWARD)
+                            if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
                             {
-                                // The current node has no children
+                                // This node has no more brothers
+                                // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
+                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
 
-                                if(pNode->GetNext() == QNTree::END_POSITION_FORWARD)
+                                while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
+                                      (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
                                 {
-                                    // This node has no more brothers
-                                    // Goes up in the tree until it finds a parent with non-visited brothers or it reaches the root node
-                                    QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
-
-                                    while(pNode->GetParent() != QNTree::END_POSITION_FORWARD && 
-                                          (pBasePointer + pNode->GetParent())->GetNext() == QNTree::END_POSITION_FORWARD)
-                                    {
-                                        // Visits current node's parent
-                                        pNode = pBasePointer + pNode->GetParent();
-                                    }
-
-                                    if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
-                                    {
-                                        // It reached the root node, all the nodes have been visited
-                                        m_uPosition = QNTree::END_POSITION_FORWARD;
-                                    }
-                                    else // pNode->GetParent()->GetNext() != QNTree::END_POSITION_FORWARD
-                                    {
-                                        // It finds an ascendant whose brothers haven't been visited yet
-                                        m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
-                                    }
+                                    // Visits current node's parent
+                                    pNode = pBasePointer + pNode->GetParent();
                                 }
-                                else
+
+                                if(pNode->GetParent() == QNTree::END_POSITION_FORWARD)
                                 {
-                                    // The next brother is visited
-                                    m_uPosition = pNode->GetNext();
+                                    // It reached the root node, all the nodes have been visited
+                                    m_uPosition = QNTree::END_POSITION_FORWARD;
+                                }
+                                else // pNode->GetParent()->GetNext() != QNTree::END_POSITION_FORWARD
+                                {
+                                    // It finds an ascendant whose brothers haven't been visited yet
+                                    m_uPosition = (pBasePointer + pNode->GetParent())->GetNext();
                                 }
                             }
                             else
                             {
-                                // The first child of the current node is visited
-                                m_uPosition = pNode->GetFirstChild();
+                                // The next brother is visited
+                                m_uPosition = pNode->GetNext();
                             }
                         }
-                        else // m_uPosition == QNTree::END_POSITION_BACKWARD
+                        else
                         {
-                            if(m_pTree->IsEmpty())
-                            {
-                                m_uPosition = QNTree::END_POSITION_FORWARD;
-                            }
-                            else
-                            {
-                                this->MoveFirst();
-                            }
+                            // The first child of the current node is visited
+                            m_uPosition = pNode->GetFirstChild();
+                        }
+                    }
+                    else // m_uPosition == QNTree::END_POSITION_BACKWARD
+                    {
+                        if(m_pTree->IsEmpty())
+                        {
+                            m_uPosition = QNTree::END_POSITION_FORWARD;
+                        }
+                        else
+                        {
+                            this->MoveFirst();
                         }
                     }
                 }
@@ -623,68 +620,65 @@ public:
 
             if(m_uPosition != QNTree::END_POSITION_BACKWARD)
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    //          7
+                    //         /|\
+                    //        / | \
+                    //       6  3  2
+                    //      / \     \
+                    //     /   \     \
+                    //    5     4     1
+
+                    if(m_uPosition != QNTree::END_POSITION_FORWARD)
                     {
-                        //          7
-                        //         /|\
-                        //        / | \
-                        //       6  3  2
-                        //      / \     \
-                        //     /   \     \
-                        //    5     4     1
+                        QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
 
-                        if(m_uPosition != QNTree::END_POSITION_FORWARD)
+                        if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
                         {
-                            QNTree::QNode* pNode = ((QNTree::QNode*)m_pTree->m_nodeAllocator.GetPointer() + m_uPosition);
+                            // The current node has no previous brother
 
-                            if(pNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
+                            if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
                             {
-                                // The current node has no previous brother
-
-                                if(pNode->Parent() == QNTree::END_POSITION_FORWARD)
-                                {
-                                    // The current node has no parent so it is the root, all the nodes have been visited
-                                    m_uPosition = QNTree::END_POSITION_BACKWARD;
-                                }
-                                else
-                                {
-                                    // The current node's parent is visited
-                                    m_uPosition = pNode->Parent();
-                                }
-                            }
-                            else
-                            {
-                                // The current node has a previous brother
-                                QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
-                                pNode = pBasePointer + pNode->GetPrevious();
-
-                                // Searches for the last child of the deepest descendant
-                                while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
-                                {
-                                    pNode = pBasePointer + pNode->GetFirstChild();
-
-                                    while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
-                                    {
-                                        pNode = pBasePointer + pNode->GetNext();
-                                    }
-                                }
-
-                                m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
-                            }
-                        }
-                        else // m_uPosition == QNTree::END_POSITION_FORWARD
-                        {
-                            if(m_pTree->IsEmpty())
-                            {
-                                // The tree is empty
+                                // The current node has no parent so it is the root, all the nodes have been visited
                                 m_uPosition = QNTree::END_POSITION_BACKWARD;
                             }
                             else
                             {
-                                this->MoveLast();
+                                // The current node's parent is visited
+                                m_uPosition = pNode->Parent();
                             }
+                        }
+                        else
+                        {
+                            // The current node has a previous brother
+                            QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                            pNode = pBasePointer + pNode->GetPrevious();
+
+                            // Searches for the last child of the deepest descendant
+                            while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                            {
+                                pNode = pBasePointer + pNode->GetFirstChild();
+
+                                while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                                {
+                                    pNode = pBasePointer + pNode->GetNext();
+                                }
+                            }
+
+                            m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
+                        }
+                    }
+                    else // m_uPosition == QNTree::END_POSITION_FORWARD
+                    {
+                        if(m_pTree->IsEmpty())
+                        {
+                            // The tree is empty
+                            m_uPosition = QNTree::END_POSITION_BACKWARD;
+                        }
+                        else
+                        {
+                            this->MoveLast();
                         }
                     }
                 }
@@ -938,13 +932,10 @@ public:
             }
             else
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
-                    {
-                        // In this order, the first node will be always the root
-                        m_uPosition = m_pTree->m_uRoot;
-                    }
+                    // In this order, the first node will be always the root
+                    m_uPosition = m_pTree->m_uRoot;
                 }
             }
         }
@@ -963,27 +954,24 @@ public:
             }
             else
             {
-                switch(m_eTraversalOrder)
+                if(m_eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder)
                 {
-                case EQTreeTraversalOrder::E_DepthFirstPreOrder:
+                    // The current node has a previous brother
+                    QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                    QNTree::QNode* pNode = pBasePointer + m_pTree->m_uRoot;
+
+                    // Searches for the last child of the deepest descendant
+                    while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
                     {
-                        // The current node has a previous brother
-                        QNTree::QNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QNTree::QNode*);
-                        QNTree::QNode* pNode = pBasePointer + m_pTree->m_uRoot;
+                        pNode = pBasePointer + pNode->GetFirstChild();
 
-                        // Searches for the last child of the deepest descendant
-                        while(pNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+                        while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
                         {
-                            pNode = pBasePointer + pNode->GetFirstChild();
-
-                            while(pNode->GetNext() != QNTree::END_POSITION_FORWARD)
-                            {
-                                pNode = pBasePointer + pNode->GetNext();
-                            }
+                            pNode = pBasePointer + pNode->GetNext();
                         }
-
-                        m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
                     }
+
+                    m_uPosition = scast_q(pNode - pBasePointer, pointer_uint_q);
                 }
             }
         }
@@ -1006,6 +994,17 @@ public:
                    (m_uPosition < m_pTree->m_nodeAllocator.GetPoolSize() / sizeof(QNode) ||
                     m_uPosition == QNTree::END_POSITION_BACKWARD ||
                     m_uPosition == QNTree::END_POSITION_FORWARD);
+        }
+        
+        /// <summary>
+        /// Gets the order in which the iterator traverses the tree.
+        /// </summary>
+        /// <returns>
+        /// The tree traversal order.
+        /// </returns>
+        EQTreeTraversalOrder GetTraversalOrder() const
+        {
+            return m_eTraversalOrder;
         }
 
 
@@ -1033,6 +1032,7 @@ public:
 
    	// CONSTANTS
     // ---------------
+protected:
 
     /// <summary>
     /// Number of elements for which to reserve memory by default.
@@ -1054,6 +1054,13 @@ public:
     /// </summary>
     const pointer_uint_q MAX_CHILDREN;
 
+private:
+
+    /// <summary>
+    /// The reallocation factor to be applied to calculate the new capacity on every reallocation. It must be greater than or equal to 1.
+    /// </summary>
+    static float REALLOCATION_FACTOR;
+    
 
     // CONSTRUCTORS
     // ---------------
@@ -1108,9 +1115,10 @@ public:
     /// </remarks>
     ~QNTree()
     {
-        /* [TODO] Thund: Uncomment when GetFirst exists
-        for(QNTree::QNTreeIterator it = this->GetFirst(); !it.IsEnd(); ++it)
-            it->~T();*/
+        // [TODO] Thund: Uncomment when GetFirst exists
+        if(!this->IsEmpty())
+            for(QNTree::QNTreeIterator it = this->GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder); !it.IsEnd(); ++it)
+                (*it).~T();
     }
 
 
@@ -1122,9 +1130,7 @@ public:
     /// Increases the capacity of the tree, reserving memory for more elements.
     /// </summary>
     /// <remarks>
-    /// This operation implies a reallocation, which means:<br/>
-    /// - Iterators pointing to elements of this tree may become invalid.<br/>
-    /// - Any pointer to elements of this tree will be pointing to garbage.
+    /// This operation implies a reallocation, which means that any pointer to elements of this tree will be pointing to garbage.
     /// </remarks>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
@@ -1165,6 +1171,379 @@ public:
             *((T*)m_elementAllocator.GetPointer() + m_uRoot) = newRoot; // [TODO] Thund: Replace with GetRootNode when it exists
         }
     }
+    
+    /// <summary>
+    /// Adds an element at the last position of the child node list.
+    /// </summary>
+    /// <remarks>
+    /// If the tree is empty, use the SetRootValue method.<br/>
+    /// If the parent node already has the maximum number of child nodes, the new element will not be added.<br/>
+    /// The copy constructor of the new element will be called.
+    /// </remarks>
+    /// <param name="parentNode">[IN] An iterator that points to the parent node to which the element will be added as a child. It must not point to an end position.</param>
+    /// <param name="value">[IN] The value of the new element.</param>
+    /// <returns>
+    /// An iterator that points to the just added element. If it was not added, the iterator will point to an end position.
+    /// </returns>
+    QNTreeIterator AddChild(const typename QNTree::QNTreeIterator &parentNode, const T &value)
+    {
+        //        R
+        //       / \
+        //      0-...
+        //     /|\
+        //    0-1-2-X
+        //
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uNodePosition;
+        
+        pointer_uint_q uNewNodePosition = QNTree::END_POSITION_FORWARD;
+
+        // If the parent node has any child node
+        if(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            QNTree::QNode* pCurrentNode = pBaseNodePointer + pParentNode->GetFirstChild();
+            pointer_uint_q uNumberOfElements = 1U;
+
+            // Navigates to the last child node
+            while(pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+                ++uNumberOfElements;
+            }
+
+            QE_ASSERT_ERROR(uNumberOfElements < MAX_CHILDREN, string_q("It is not possible to add another child to this node, maximum allowed exceeded (") + SQInteger::ToString(MAX_CHILDREN) + ").");
+
+            if(uNumberOfElements < MAX_CHILDREN)
+            {
+                // Reserves more memory if necessary
+                if(this->GetCount() == this->GetCapacity())
+                {
+                    pointer_uint_q uLastNodePosition = pCurrentNode - pBaseNodePointer;
+                    this->_ReallocateByFactor(this->GetCapacity() + 1U);
+                    pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                    pCurrentNode = pBaseNodePointer + uLastNodePosition;
+                }
+
+                // Adds the child to the end of the child list
+                QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uNodePosition, QNTree::END_POSITION_FORWARD, pCurrentNode - pBaseNodePointer, QNTree::END_POSITION_FORWARD);
+
+                uNewNodePosition = pNewNode - pBaseNodePointer;
+                pCurrentNode->SetNext(uNewNodePosition);
+                
+                // Copies the new element
+                new(m_elementAllocator.Allocate()) T(value);
+            }
+        }
+        else
+        {
+            // Reserves more memory if necessary
+            if(this->GetCount() == this->GetCapacity())
+            {
+                this->_ReallocateByFactor(this->GetCapacity() + 1U);
+                pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+                pParentNode = pBaseNodePointer + uNodePosition;
+            }
+
+            // Adds the child as the first of the child list
+            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uNodePosition, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD);
+
+            uNewNodePosition = pNewNode - pBaseNodePointer;
+            pParentNode->SetFirstChild(uNewNodePosition);
+
+            // Copies the new element
+            new(m_elementAllocator.Allocate()) T(value);
+        }
+
+        return QNTree::QNTreeIterator(this, uNewNodePosition, parentNode.GetTraversalOrder());
+    }
+    
+    /// <summary>
+    /// Removes an element from the tree and all its descendents.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each element will be called in an undefined order, from bottom to top.
+    /// </remarks>
+    /// <param name="node">[IN] An iterator that points to the node to be removed. It must not point to an end position. The root element is a valid target.</param>
+    /// <returns>
+    /// An iterator that points to the next element (following the traversal order of the input iterator). If the element was the last one, the iterator will point to an end position.
+    /// </returns>
+    QNTreeIterator Remove(const typename QNTree::QNTreeIterator &node)
+    {
+        //        X
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X...
+        //
+        
+        QE_ASSERT_ERROR(node.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!node.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uNodePosition = &*node - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pNode = pBaseNodePointer + uNodePosition;
+
+        QNTree::QNTreeIterator resultantIterator = node;
+        ++resultantIterator;
+
+        QNTree::QNode* pCurrentNode = pNode;
+        QNTree::QNode* pNodeToRemove = null_q;
+
+        // Traverses the tree in any order to remove the entire subtree defined by the input node
+        do
+        {
+            if(pCurrentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetFirstChild();
+            }
+            else if(pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+            }
+            else
+            {
+                pNodeToRemove = pCurrentNode;
+
+                if(pCurrentNode->GetPrevious() != QNTree::END_POSITION_FORWARD)
+                {
+                    pCurrentNode = pBaseNodePointer + pCurrentNode->GetPrevious();
+                    pCurrentNode->SetNext(QNTree::END_POSITION_FORWARD);
+                }
+                else if(pCurrentNode->GetParent() != QNTree::END_POSITION_FORWARD)
+                {
+                    pCurrentNode = pBaseNodePointer + pCurrentNode->GetParent();
+                    pCurrentNode->SetFirstChild(QNTree::END_POSITION_FORWARD);
+                }
+                else
+                {
+                    pCurrentNode = null_q;
+                }
+
+                // Removes the element
+                T* pElement = pBaseElementPointer + (pNodeToRemove - pBaseNodePointer);
+                pElement->~T();
+                m_elementAllocator.Deallocate(pElement);
+
+                // Removes the node
+                m_nodeAllocator.Deallocate(pNodeToRemove);
+            }
+        }
+        while(pNodeToRemove != pNode);
+
+        return resultantIterator;
+    }
+    
+    /// <summary>
+    /// Removes a child node, at a given position in the child list, and all its descendents.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each element will be called in an undefined order, from bottom to top.
+    /// </remarks>
+    /// <param name="parentNode">[IN] An iterator that points to the node whose child is to be removed. It must not point to an end position.</param>
+    /// <param name="uChildIndex">[IN] The position (zero-based index) of the child in the parent's child list. It must be lower than the number of children in the list.</param>
+    void RemoveChild(const typename QNTree::QNTreeIterator &parentNode, const pointer_uint_q uChildIndex)
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X
+        //
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uParentNodePosition;
+
+        QNTree::QNode* pCurrentNode = pParentNode;
+
+        QE_ASSERT_ERROR(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD, "The node has no children.");
+
+        // If the node has children
+        if(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            pCurrentNode = pBaseNodePointer + pParentNode->GetFirstChild();
+            
+            pointer_uint_q i = 0;
+
+            // Gets the child node at the specified index
+            while(i < uChildIndex && pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+                ++i;
+            }
+
+            QE_ASSERT_WARNING(i == uChildIndex, "There is not a child node at the specified position index.");
+
+            // If the child node exists at the specified index
+            if(i == uChildIndex)
+            {
+                // Removes the node
+                pointer_uint_q uNodeToRemovedPosition = pCurrentNode - pBaseNodePointer;
+                this->Remove(QNTree::QNTreeIterator(this, uNodeToRemovedPosition, parentNode.GetTraversalOrder()));
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Inserts a child node at a given position in the child list.
+    /// </summary>
+    /// <remarks>
+    /// If the tree is empty, use the SetRootValue method.<br/>
+    /// If the parent node already has the maximum number of child nodes, the new element will not be added.<br/>
+    /// The copy constructor of the new element will be called.
+    /// </remarks>
+    /// <param name="parentNode">[IN] An iterator that points to the node whose child is to be removed. It must not point to an end position.</param>
+    /// <param name="value">[IN] The value of the new element.</param>
+    /// <param name="uChildIndex">[IN] The position (zero-based index) of the new child in the parent's child list. It must be lower than the number of children in the list.</param>
+    /// <returns>
+    /// An iterator that points to the just added element. If it was not added, the iterator will point to an end position.
+    /// </returns>
+    QNTreeIterator InsertChild(const typename QNTree::QNTreeIterator &parentNode, const T &value, const pointer_uint_q uChildIndex)
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X-X
+        //
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+
+        pointer_uint_q uResultNodePosition = QNTree::END_POSITION_FORWARD;
+
+        // Reserves more memory if necessary
+        if(this->GetCount() == this->GetCapacity())
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uParentNodePosition;
+
+        QNTree::QNode* pCurrentNode = pParentNode;
+        pointer_uint_q uNewNodePosition = QNTree::END_POSITION_FORWARD;
+
+        QE_ASSERT_WARNING(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD, "The node has no children.");
+
+        // If the node has children
+        if(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            pCurrentNode = pBaseNodePointer + pParentNode->GetFirstChild();
+            
+            pointer_uint_q i = 0;
+
+            // Gets the child node at the specified index
+            while(i < uChildIndex && pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+                ++i;
+            }
+
+            // Counts how many child nodes are there
+            QNTree::QNode* pCurrentAux = pCurrentNode;
+            pointer_uint_q uNumberOfElements = i + 1U;
+
+            while(pCurrentAux->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentAux = pBaseNodePointer + pCurrentAux->GetNext();
+                ++uNumberOfElements;
+            }
+
+            QE_ASSERT_ERROR(uNumberOfElements < MAX_CHILDREN, string_q("It is not possible to insert another child to this node, maximum allowed exceeded (") + SQInteger::ToString(MAX_CHILDREN) + ").");
+
+            if(uNumberOfElements < MAX_CHILDREN)
+            {
+                QE_ASSERT_WARNING(i == uChildIndex, "There is not a child node at the specified position index.");
+
+                // If there is no children at the specified index
+                if(i < uChildIndex)
+                {
+                    // Adds the node to the end of the child list
+                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, QNTree::END_POSITION_FORWARD, pCurrentNode - pBaseNodePointer, QNTree::END_POSITION_FORWARD);
+
+                    uNewNodePosition = pNewNode - pBaseNodePointer;
+                    pCurrentNode->SetNext(uNewNodePosition);
+                }
+                else
+                {
+                    // Adds the node at the specified position
+                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, pCurrentNode - pBaseNodePointer, pCurrentNode->GetPrevious(), QNTree::END_POSITION_FORWARD);
+
+                    uNewNodePosition = pNewNode - pBaseNodePointer;
+                    pCurrentNode->SetPrevious(uNewNodePosition);
+
+                    if(pNewNode->GetPrevious() == QNTree::END_POSITION_FORWARD)
+                        pParentNode->SetFirstChild(uNewNodePosition);
+                    else
+                        (pBaseNodePointer + pNewNode->GetPrevious())->SetNext(uNewNodePosition);
+                }
+            }
+        }
+        else // There are no children
+        {
+            // Adds the node as the first child node
+            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD);
+
+            uNewNodePosition = pNewNode - pBaseNodePointer;
+            pParentNode->SetFirstChild(uNewNodePosition);
+        }
+            
+        // Copies the new element
+        new(m_elementAllocator.Allocate()) T(value);
+
+        uResultNodePosition = uNewNodePosition;
+
+        return QNTree::QNTreeIterator(this, uResultNodePosition, parentNode.GetTraversalOrder());
+    }
+
+    /// <summary>
+    /// Gets an iterator that points to a given position in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="uIndex">[IN] Position in the tree, starting at zero, to which the iterator will point. If it is out of bounds, the returned iterator will point 
+    /// to the end position.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the position of the element.
+    /// </returns>
+    QNTreeIterator GetIterator(const pointer_uint_q uIndex, const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+        QE_ASSERT_WARNING(uIndex < this->GetCount(), string_q("The input index (") + SQInteger::ToString(uIndex) + ") is out of bounds.");
+        QE_ASSERT_WARNING(!this->IsEmpty(), "It is not possible to get an iterator that points to the given position, the tree is empty.");
+
+        QNTree::QNTreeIterator iterator(this, 0, eTraversalOrder);
+        iterator.MoveFirst();
+
+        for(pointer_uint_q i = 0; i < uIndex && !iterator.IsEnd(); ++i)
+            ++iterator;
+
+        return iterator;
+    }
 
 private:
 
@@ -1175,7 +1554,7 @@ private:
     /// This is used when a node is moved to a different position in the internal buffer.
     /// </remarks>
     /// <param name="pNode">[IN] The node whose related nodes are to be updated.</param>
-    void UpdateNodesPositions(typename QNTree::QNode* pNode)
+    void _UpdateNodesPositions(typename QNTree::QNode* pNode)
     {
         QNTree::QNode* pFirstBlock = (QNTree::QNode*)m_nodeAllocator().GetPointer();
         const pointer_uint_q NODE_POSITION = pFirstBlock - pNode;
@@ -1226,6 +1605,17 @@ private:
                     pNextNode = null_q;
             }
         }
+    }
+
+    /// <summary>
+    /// Increases the capacity of the tree, reserving memory for more elements than necessary, depending on the reallocation factor.
+    /// </summary>
+    /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
+    /// current capacity or nothing will happen.</param>
+    void _ReallocateByFactor(const pointer_uint_q uNumberOfElements)
+    {
+        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QNTree::REALLOCATION_FACTOR, pointer_uint_q);
+        this->Reserve(FINAL_CAPACITY);
     }
 
 
@@ -1313,6 +1703,8 @@ protected:
 template <class T, class AllocatorT, class ComparatorT>
 pointer_uint_q QNTree<T, AllocatorT, ComparatorT>::sm_uDefaultCapacity = 1;
 
+template<class T, class AllocatorT, class ComparatorT>
+float QNTree<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
 
 } //namespace Containers
 } //namespace Tools

@@ -990,9 +990,7 @@ public:
     /// Increases the capacity of the list, reserving memory for more elements.
     /// </summary>
     /// <remarks>
-    /// This operation implies a reallocation, which means:<br/>
-    /// - Iterators pointing to elements of this list may become invalid.<br/>
-    /// - Any pointer to elements of this list will be pointing to garbage.
+    /// This operation implies a reallocation, which means that any pointer to elements of this array will be pointing to garbage.
     /// </remarks>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
@@ -1009,7 +1007,7 @@ public:
     /// Copies an element to the end of the list.
     /// </summary>
     /// <remarks>
-    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.
     /// </remarks>
     /// <param name="newElement">[IN] The element to be copied.</param>
@@ -1050,7 +1048,7 @@ public:
     /// Copies an element to a concrete position of the list and returns an iterator that points to it.
     /// </summary>
     /// <remarks>
-    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.<br/>
     /// Use Add method to insert elements at the end.
     /// </remarks>
@@ -1145,7 +1143,7 @@ public:
     /// Copies an element to a concrete position of the list.
     /// </summary>
     /// <remarks>
-    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing iterator or pointer invalid.<br/>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the element will be called.<br/>
     /// Use Add method to insert elements at the end.
     /// </remarks>

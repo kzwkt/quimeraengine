@@ -214,6 +214,7 @@ public:
         {
             QE_ASSERT_ERROR(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
             QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition, "Invalid argument: The position must be lower than the capacity of the tree");
+            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstInOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported.");
 
             if(pTree == null_q || pTree->GetCapacity() <= uPosition || pTree->IsEmpty())
                 m_uPosition = QBinarySearchTree::END_POSITION_FORWARD;
@@ -1044,9 +1045,7 @@ public:
     /// Increases the capacity of the tree, reserving memory for more elements.
     /// </summary>
     /// <remarks>
-    /// This operation implies a reallocation, which means:<br/>
-    /// - Iterators pointing to elements of this tree may become invalid.<br/>
-    /// - Any pointer to elements of this tree will be pointing to garbage.
+    /// This operation implies a reallocation, which means that any pointer to elements of this array will be pointing to garbage.
     /// </remarks>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>

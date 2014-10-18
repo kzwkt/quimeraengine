@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::Tools::Containers::QNTree;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QNTreeWhiteBox;
+using Kinesis::QuimeraEngine::Tools::Containers::EQTreeTraversalOrder;
 
 
 QTEST_SUITE_BEGIN( QNTree_TestSuite )
@@ -380,6 +381,1329 @@ QTEST_CASE ( SetRootValue_AssignmentOperatorOfElementIsCalledWhenTreeIsNotEmpty_
 
     BOOST_CHECK_EQUAL(uAssignmentOperatorCalls, EXPECTED_CALLS_TO_ASSIGNMENT_OPERATOR);
 }
+
+/// <summary>
+/// Checks that the element is added when the parent node has no children.
+/// </summary>
+QTEST_CASE ( AddChild_ElementIsAddedWhenNodeHasNoChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B'};
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    TREE.AddChild(itParent, 'B');
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is added when the parent node has one child node only.
+/// </summary>
+QTEST_CASE ( AddChild_ElementIsAddedWhenNodeHasOnlyOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B', 'C'};
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+
+    // [Execution]
+    TREE.AddChild(itParent, 'C');
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is added when the parent node has more than one child node.
+/// </summary>
+QTEST_CASE ( AddChild_ElementIsAddedWhenNodeHasMoreThanOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B', 'C', 'D'};
+    QNTree<char> TREE(3, 4);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
+    
+    // [Execution]
+    TREE.AddChild(itParent, 'D');
+    
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+        
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element count is incremented when an element is added.
+/// </summary>
+QTEST_CASE ( AddChild_CountIsIncrementedWhenElementIsAdded_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const pointer_uint_q ORIGINAL_COUNT = TREE.GetCount();
+
+    // [Execution]
+    TREE.AddChild(itParent, 'B');
+
+    // [Verification]
+    pointer_uint_q uCount = TREE.GetCount();
+    BOOST_CHECK(uCount > ORIGINAL_COUNT);
+}
+
+/// <summary>
+/// Checks that the capacity is incremented when an element is added and the capacity was full.
+/// </summary>
+QTEST_CASE ( AddChild_CapacityIsIncrementedWhenElementIsAddedAndCapacityWasFull_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const pointer_uint_q ORIGINAL_CAPACITY = TREE.GetCapacity();
+
+    // [Execution]
+    TREE.AddChild(itParent, 'B');
+
+    // [Verification]
+    pointer_uint_q uCapacity = TREE.GetCapacity();
+    BOOST_CHECK(uCapacity > ORIGINAL_CAPACITY);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to the added node.
+/// </summary>
+QTEST_CASE ( AddChild_ReturnedIteratorPointsToAddedNode_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const char EXPECTED_NODE_VALUE = 'B';
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.AddChild(itParent, EXPECTED_NODE_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itResult, EXPECTED_NODE_VALUE);
+}
+
+/// <summary>
+/// Checks that the copy constructor of the added element is called.
+/// </summary>
+QTEST_CASE ( AddChild_CopyConstructorIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QNTree<CallCounter> TREE(3, 5);
+    TREE.SetRootValue(CallCounter());
+    QNTree<CallCounter>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const unsigned int EXPECTED_CALLS = 1;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    TREE.AddChild(itParent, CallCounter());
+
+    // [Verification]
+    unsigned int uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when adding more nodes than the maximum allowed.
+/// </summary>
+QTEST_CASE ( AddChild_AssertionFailsWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 4);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.AddChild(itParent, 'D');
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the input node points to an end position.
+/// </summary>
+QTEST_CASE ( AddChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 4);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    ++itParent;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.AddChild(itParent, 'B');
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the node is not added when the maximum has been reached.
+/// </summary>
+QTEST_CASE ( AddChild_NothingHappensWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B'};
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+
+    // [Execution]
+    TREE.AddChild(itParent, 'C');
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the result iterator points to an end position when the maximum has been reached.
+/// </summary>
+QTEST_CASE ( AddChild_ResultIteratorPointsToEndWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const bool RESULT_IS_END = true;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.AddChild(itParent, 'C');
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(itResult.IsEnd(), RESULT_IS_END);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the element is correctly removed when it is the last child and it has no children.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItIsLastChildAndHasNoChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B'};
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParentNode, 'B');
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'C');
+
+    // [Execution]
+    TREE.Remove(itNode);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the entire tree is removed when removing the root node.
+/// </summary>
+QTEST_CASE ( Remove_TheEntireTreeIsRemovedWhenRemovingRootNode_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    TREE.AddChild(itParentNode1, 'C');
+    TREE.AddChild(itParentNode1, 'D');
+    TREE.AddChild(itParentNode1, 'E');
+    TREE.AddChild(itParentNode2, 'G');
+
+    const bool TREE_IS_EMPTY = true;
+
+    // [Execution]
+    TREE.Remove(itRootNode);
+
+    // [Verification]
+    bool bIsEmpty = TREE.IsEmpty();
+    BOOST_CHECK_EQUAL(bIsEmpty, TREE_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it is the root node and there are no more elements in the tree.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItIsTheRootAndThereAreNoMoreElements_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const bool TREE_IS_EMPTY = true;
+
+    // [Execution]
+    TREE.Remove(itRootNode);
+
+    // [Verification]
+    bool bIsEmpty = TREE.IsEmpty();
+    BOOST_CHECK_EQUAL(bIsEmpty, TREE_IS_EMPTY);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it has parent.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItHasParent_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A'};
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+
+    // [Execution]
+    TREE.Remove(itNode);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it has parent and children.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItHasParentAndChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itNode, 'C');
+    TREE.AddChild(itNode, 'D');
+    TREE.AddChild(itNode, 'E');
+
+    // [Execution]
+    TREE.Remove(itNode);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it has parent and one child.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItHasParentAndOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itNode, 'C');
+
+    // [Execution]
+    TREE.Remove(itNode);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it has parent and brother.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsRemovedWhenItHasParentAndBrother_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'C'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itParentNode, 'C');
+
+    // [Execution]
+    TREE.Remove(itNode);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to the next node.
+/// </summary>
+QTEST_CASE ( Remove_ReturnsIteratorThatPointsToNextNode_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUE = 'C';
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itParentNode, EXPECTED_VALUE);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.Remove(itNode);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to an end position.
+/// </summary>
+QTEST_CASE ( Remove_ReturnsIteratorThatPointsToEndPosition_Test )
+{
+    // [Preparation]
+    const bool POINTS_TO_END_POSITION = true;
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itNode = TREE.AddChild(itParentNode, 'B');
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.Remove(itNode);
+
+    // [Verification]
+    bool bIsEnd = itResult.IsEnd();
+    BOOST_CHECK_EQUAL(bIsEnd, POINTS_TO_END_POSITION);
+}
+
+/// <summary>
+/// Checks that the destructor of all the removed elements is called.
+/// </summary>
+QTEST_CASE ( Remove_DestructorsAreCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QNTree<CallCounter> TREE(3, 5);
+    TREE.SetRootValue(CallCounter());
+    QNTree<CallCounter>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, CallCounter());
+    TREE.AddChild(itParent, CallCounter());
+    const unsigned int EXPECTED_CALLS = 3;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    TREE.Remove(itParent);
+
+    // [Verification]
+    unsigned int uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input iterator points to an end position.
+/// </summary>
+QTEST_CASE ( Remove_AssertionFailsWhenInputIteratorPointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    ++itRootNode;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.Remove(itRootNode);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the tree is empty.
+/// </summary>
+QTEST_CASE ( Remove_AssertionFailsWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.Remove(itRootNode);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.Remove(itRootNode);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the element is correctly removed when it is the last child and it has no children.
+/// </summary>
+QTEST_CASE ( RemoveChild_ElementIsRemoveChilddWhenItIsLastChildAndHasNoChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B'};
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itParentNode, 'C');
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    TREE.RemoveChild(itParentNode, POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it is in the middle and it has no children.
+/// </summary>
+QTEST_CASE ( RemoveChild_ElementIsRemoveChilddWhenItIsInTheMiddleAndHasNoChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B', 'D'};
+    QNTree<char> TREE(3, 4);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itParentNode, 'C');
+    TREE.AddChild(itParentNode, 'D');
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    TREE.RemoveChild(itParentNode, POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it is the first and it has no children.
+/// </summary>
+QTEST_CASE ( RemoveChild_ElementIsRemoveChilddWhenItIsTheFirstAndHasNoChildren_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'C', 'D'};
+    QNTree<char> TREE(3, 4);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParentNode, 'B');
+    TREE.AddChild(itParentNode, 'C');
+    TREE.AddChild(itParentNode, 'D');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.RemoveChild(itParentNode, POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the entire subtree is removed when removing the a node.
+/// </summary>
+QTEST_CASE ( RemoveChild_TheEntireSubtreeIsRemovedWhenRemovingNode_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'F', 'G'};
+
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    TREE.AddChild(itParentNode1, 'C');
+    TREE.AddChild(itParentNode1, 'D');
+    TREE.AddChild(itParentNode1, 'E');
+    TREE.AddChild(itParentNode2, 'G');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.RemoveChild(itRootNode, POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly removed when it has one child.
+/// </summary>
+QTEST_CASE ( RemoveChild_ElementIsRemovedWhenItHasOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParentNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParentNode, 'B');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.RemoveChild(itParentNode, POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the destructor of all the removed elements is called.
+/// </summary>
+QTEST_CASE ( RemoveChild_DestructorsAreCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QNTree<CallCounter> TREE(3, 5);
+    TREE.SetRootValue(CallCounter());
+    QNTree<CallCounter>::QNTreeIterator itRoot = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<CallCounter>::QNTreeIterator itParent = TREE.AddChild(itRoot, CallCounter());
+    TREE.AddChild(itParent, CallCounter());
+    TREE.AddChild(itParent, CallCounter());
+    const unsigned int EXPECTED_CALLS = 3;
+    const pointer_uint_q POSITION = 0;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    TREE.RemoveChild(itRoot, POSITION);
+
+    // [Verification]
+    unsigned int uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input iterator points to an end position.
+/// </summary>
+QTEST_CASE ( RemoveChild_AssertionFailsWhenInputIteratorPointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    ++itRootNode;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.RemoveChild(itRootNode, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the tree is empty.
+/// </summary>
+QTEST_CASE ( RemoveChild_AssertionFailsWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.Remove(itRootNode);
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.RemoveChild(itRootNode, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the child position does not exist.
+/// </summary>
+QTEST_CASE ( RemoveChild_AssertionFailsWhenPositionDoesNotExist_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    const pointer_uint_q POSITION = 2;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.RemoveChild(itRootNode, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the node has no children.
+/// </summary>
+QTEST_CASE ( RemoveChild_AssertionFailsWhenNodeHasNoChildren_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.RemoveChild(itRootNode, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the element is correctly inserted at the first position when the parent node has only one child.
+/// </summary>
+QTEST_CASE ( InsertChild_ElementIsInsertedAtFirstPositionWhenNodeHasOnlyOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'C', 'B'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'C', POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly inserted at the first position when the parent node has more than one child.
+/// </summary>
+QTEST_CASE ( InsertChild_ElementIsInsertedAtFirstPositionWhenNodeHasMoreThanOneChild_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'D', 'B', 'C'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'D', POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly inserted in the middle.
+/// </summary>
+QTEST_CASE ( InsertChild_ElementIsInsertedInTheMiddle_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B', 'D', 'C'};
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'D', POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the copy constructor of the inserted element is called.
+/// </summary>
+QTEST_CASE ( InsertChild_CopyConstructorIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QNTree<CallCounter> TREE(3, 5);
+    TREE.SetRootValue(CallCounter());
+    QNTree<CallCounter>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, CallCounter());
+    TREE.AddChild(itParent, CallCounter());
+    const pointer_uint_q POSITION = 1;
+    const unsigned int EXPECTED_CALLS = 1;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    TREE.InsertChild(itParent, CallCounter(), POSITION);
+
+    // [Verification]
+    unsigned int uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that the element count is incremented when an element is added.
+/// </summary>
+QTEST_CASE ( InsertChild_CountIsIncrementedWhenElementIsAdded_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 3);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const pointer_uint_q ORIGINAL_COUNT = TREE.GetCount();
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'C', POSITION);
+
+    // [Verification]
+    pointer_uint_q uCount = TREE.GetCount();
+    BOOST_CHECK(uCount > ORIGINAL_COUNT);
+}
+
+/// <summary>
+/// Checks that the capacity is incremented when an element is added and the capacity was full.
+/// </summary>
+QTEST_CASE ( InsertChild_CapacityIsIncrementedWhenElementIsAddedAndCapacityWasFull_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 2);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const pointer_uint_q ORIGINAL_CAPACITY = TREE.GetCapacity();
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'C', POSITION);
+
+    // [Verification]
+    pointer_uint_q uCapacity = TREE.GetCapacity();
+    BOOST_CHECK(uCapacity > ORIGINAL_CAPACITY);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to the added node.
+/// </summary>
+QTEST_CASE ( InsertChild_ReturnedIteratorPointsToAddedNode_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const char EXPECTED_NODE_VALUE = 'C';
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.InsertChild(itParent, EXPECTED_NODE_VALUE, POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itResult, EXPECTED_NODE_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when adding more nodes than the maximum allowed.
+/// </summary>
+QTEST_CASE ( InsertChild_AssertionFailsWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.InsertChild(itParent, 'C', POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the input node points to an end position.
+/// </summary>
+QTEST_CASE ( InsertChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    ++itParent;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.InsertChild(itParent, 'C', POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the node is not added when the maximum has been reached.
+/// </summary>
+QTEST_CASE ( InsertChild_NothingHappensWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUES[] = {'A', 'B'};
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    TREE.InsertChild(itParent, 'C', POSITION);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the result iterator points to an end position when the maximum has been reached.
+/// </summary>
+QTEST_CASE ( InsertChild_ResultIteratorPointsToEndWhenExceedingMaximumNodes_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(2, 1);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itParent, 'B');
+    const bool RESULT_IS_END = true;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itResult = TREE.InsertChild(itParent, 'C', POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(itResult.IsEnd(), RESULT_IS_END);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the expected iterator is returned when using a common tree and a common index.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPosition_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 1;
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = QNTree<char>::QNTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+
+    QNTree<char>::QNTreeIterator EXPECTED_ITERATOR = QNTree<char>::QNTreeIterator(&TREE, 1, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+/// <sumary>
+/// Checks that the first position is returned when using a common tree and the index equals zero.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndex_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = QNTree<char>::QNTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+
+    QNTree<char>::QNTreeIterator EXPECTED_ITERATOR = QNTree<char>::QNTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+/// <sumary>
+/// Checks that the last position is returned when using a common tree and the last index.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonTreeAndLastIndex_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = QNTree<char>::QNTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    const pointer_uint_q INPUT_INDEX = TREE.GetCount() - 1U;
+
+    QNTree<char>::QNTreeIterator EXPECTED_ITERATOR = QNTree<char>::QNTreeIterator(&TREE, 2, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the tree is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QNTree<char> TREE(3, 3);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = TREE.GetCount() + 1U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the list is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QNTree<char> TREE(3, 3);
+    const bool ITERATOR_POINTS_END_POSITION = true;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const bool ITERATOR_POINTS_END_POSITION = true;
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = TREE.GetCount() + 1U;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator it = TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+#endif
 
 /// <summary>
 /// Checks that the capacity is correctly calculated.
