@@ -70,6 +70,9 @@
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h">
       <Filter>IO\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -100,6 +103,9 @@
       <Filter>Timing</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp">
       <Filter>IO\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>

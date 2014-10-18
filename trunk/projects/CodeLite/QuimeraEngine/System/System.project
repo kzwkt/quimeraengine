@@ -418,6 +418,8 @@
       <File Name="../../../../source/QPath.cpp"/>
       <File Name="../../../../headers/QFileInfo.h"/>
       <File Name="../../../../source/QFileInfo.cpp"/>
+      <File Name="../../../../headers/QDirectoryInfo.h"/>
+      <File Name="../../../../source/QDirectoryInfo.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
