@@ -376,13 +376,12 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
         while( null_q != *ppLastFreeBlock )
         {
             // Index of the next free block in the source = *ppLastFreeBlock - m_ppFreeBlocks
-            pointer_uint_q uLastFreeBlockPosition = (void**)ppLastFreeBlock - m_ppFreeBlocks;
-            *(ppNewFreeBlockList + uLastFreeBlockPosition) = m_ppFreeBlocks + uLastFreeBlockPosition;
+            pointer_uint_q uLastFreeBlockPosition = (void**)(ppLastFreeBlock) - m_ppFreeBlocks;
+            pointer_uint_q uNextFreeBlockPosition = (void**)(*ppLastFreeBlock) - m_ppFreeBlocks;
+            *(ppNewFreeBlockList + uLastFreeBlockPosition) = ppNewFreeBlockList + uNextFreeBlockPosition;
 
-            // ppLastFreeBlock will contain the pointer to last free block in the list or null if there are no free blocks
-            // when exits from the while loop.
-            if(null_q != *ppLastFreeBlock)
-                ppLastFreeBlock = (void**)*ppLastFreeBlock;
+            // Moves to the next free block
+            ppLastFreeBlock = (void**)*ppLastFreeBlock;
         }
 
         // Assigns the next free block in the destination (same block index as in origin).
