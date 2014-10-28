@@ -235,11 +235,11 @@ public:
         QBinarySearchTreeIterator& operator=(const QBinarySearchTreeIterator &iterator)
         {
             QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
+            QE_ASSERT_WARNING(m_eTraversalOrder == iterator.m_eTraversalOrder, "The iterators have different traversal order.");
 
             if(m_pTree == iterator.m_pTree)
             {
                 m_uPosition = iterator.m_uPosition;
-                m_eTraversalOrder = iterator.m_eTraversalOrder;
             }
 
             return *this;
