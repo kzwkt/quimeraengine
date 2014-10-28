@@ -967,10 +967,7 @@ public:
     /// </returns>
     QListIterator GetFirst() const
     {
-        QE_ASSERT_WARNING( !this->IsEmpty(), "The list is empty, there is no first position." );
-
         return QList::QListIterator(this, m_uFirst);
-        
     }
 
     /// <summary>
@@ -981,8 +978,6 @@ public:
     /// </returns>
     QListIterator GetLast() const
     {
-        QE_ASSERT_WARNING( !this->IsEmpty(), "The list is empty, there is no last position." );
-
         return QList::QListIterator(this, m_uLast);
     }
     

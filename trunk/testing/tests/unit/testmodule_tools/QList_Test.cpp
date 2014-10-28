@@ -1015,35 +1015,6 @@ QTEST_CASE( GetFirst_ReturnsTheFirstPositionWhenUsingCommonList_Test )
     BOOST_CHECK(it == EXPECTED_ITERATOR);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <sumary>
-/// Checks that an assertion fails when the list is empty.
-/// </sumary>
-QTEST_CASE( GetFirst_AssertionFailsWhenListIsEmpty_Test )
-{
-    // [Preparation]
-    QList<int> list = QList<int>();
-    const bool ASSERTION_FAILED = true;
-
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        list.GetFirst();
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that the resultant iterator points to the end position when the list is empty.
 /// </sumary>
@@ -1062,8 +1033,6 @@ QTEST_CASE( GetFirst_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
     BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
 }
-
-#endif
 
 /// <sumary>
 /// Checks that the last position is returned when using a common list.
@@ -1086,35 +1055,6 @@ QTEST_CASE( GetLast_ReturnsTheLastPositionWhenUsingCommonList_Test )
     BOOST_CHECK(it == EXPECTED_ITERATOR);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <sumary>
-/// Checks that an assertion fails when the list is empty.
-/// </sumary>
-QTEST_CASE( GetLast_AssertionFailsWhenListIsEmpty_Test )
-{
-    // [Preparation]
-    QList<int> list = QList<int>();
-    const bool ASSERTION_FAILED = true;
-
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        list.GetLast();
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that the resultant iterator points to the end position when the list is empty.
 /// </sumary>
@@ -1133,8 +1073,6 @@ QTEST_CASE( GetLast_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
     BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
 }
-
-#endif
 
 /// <summary>
 /// Checks that the capacity is correctly increased.
