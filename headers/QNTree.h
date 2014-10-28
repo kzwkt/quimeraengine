@@ -277,11 +277,11 @@ public:
         QNTreeIterator& operator=(const QNTreeIterator &iterator)
         {
             QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
+            QE_ASSERT_WARNING(m_eTraversalOrder == iterator.m_eTraversalOrder, "The iterators have different traversal order.");
 
             if(m_pTree == iterator.m_pTree)
             {
                 m_uPosition = iterator.m_uPosition;
-                m_eTraversalOrder = iterator.m_eTraversalOrder;
             }
 
             return *this;
@@ -1543,6 +1543,235 @@ public:
             ++iterator;
 
         return iterator;
+    }
+    
+    /// <summary>
+    /// Empties the tree.
+    /// </summary>
+    /// <remarks>
+    /// This is equivalent to removing the root node.<br/>
+    /// The destructor of each element will be called in an undefined order, from bottom to top.
+    /// </remarks>
+    void Clear()
+    {
+        if(!this->IsEmpty())
+            this->Remove(this->GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder));
+        // Note: The traversal order does not affect the result
+    }
+    
+    /// <summary>
+    /// Gets a child of a node that occupies a given position in the child list.
+    /// </summary>
+    /// <param name="parentNode">[IN] The node whose child is to be obtained. It must not point to the end position.</param>
+    /// <param name="uChildIndex">[IN] The position (zero-based index) of the child in the parent's child list. It must be lower than the number of children in the list.</param>
+    /// <returns>
+    /// An iterator that points to the child node. If there is not a child at the given position, the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetChild(const typename QNTree::QNTreeIterator &parentNode, const pointer_uint_q uChildIndex) const
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X
+        //
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        QNTree::QNTreeIterator itResult(this, QNTree::END_POSITION_FORWARD, parentNode.GetTraversalOrder());
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uParentNodePosition;
+
+        QNTree::QNode* pCurrentNode = pParentNode;
+
+        QE_ASSERT_ERROR(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD, "The node has no children.");
+
+        // If the node has children
+        if(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            pCurrentNode = pBaseNodePointer + pParentNode->GetFirstChild();
+            
+            pointer_uint_q i = 0;
+
+            // Gets the child node at the specified index
+            while(i < uChildIndex && pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+                ++i;
+            }
+
+            QE_ASSERT_WARNING(i == uChildIndex, "There is not a child node at the specified position index.");
+
+            // If the child node exists at the specified index
+            if(i == uChildIndex)
+            {
+                // Gets the node
+                pointer_uint_q uNodeToRemovedPosition = pCurrentNode - pBaseNodePointer;
+                itResult = QNTree::QNTreeIterator(this, uNodeToRemovedPosition, parentNode.GetTraversalOrder());
+            }
+        }
+
+        return itResult;
+    }
+    
+    /// <summary>
+    /// Gets the parent of a node.
+    /// </summary>
+    /// <param name="node">[IN] The node whose parent is to be obtained. It must not point to the end position.</param>
+    /// <returns>
+    /// An iterator that points to the parent node. If the node does not have a parent, the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetParent(const typename QNTree::QNTreeIterator &node) const
+    {
+        //        X
+        //       / \
+        //      X-...
+        //     /|\
+        //    N-N-N
+        //
+
+        QE_ASSERT_ERROR(node.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!node.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uNodePosition = &*node - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pNode = pBaseNodePointer + uNodePosition;
+
+        QE_ASSERT_WARNING(pNode->GetParent() != QNTree::END_POSITION_FORWARD, "The node does not have a parent.");
+
+        return QNTree::QNTreeIterator(this, pNode->GetParent(), node.GetTraversalOrder());
+    }
+    
+    /// <summary>
+    /// Gets the first element in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the first element. If the tree is empty, the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetFirst(const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QNTree::QNTreeIterator itFirst = this->GetRoot(eTraversalOrder);
+        itFirst.MoveFirst();
+        return itFirst;
+    }
+    
+    /// <summary>
+    /// Gets the number of child nodes of a parent node.
+    /// </summary>
+    /// <param name="parentNode">[IN] The node whose children are to be counted. It must not point to the end position.</param>
+    /// <returns>
+    /// The number of child nodes.
+    /// </returns>
+    pointer_uint_q GetChildrenCount(const typename QNTree::QNTreeIterator &parentNode) const
+    {
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        pointer_uint_q uCount = 0;
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pCurrentNode = pBaseNodePointer + uParentNodePosition;
+
+        // If the node has children
+        if(pCurrentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            pCurrentNode = pBaseNodePointer + pCurrentNode->GetFirstChild();
+
+            ++uCount; // At least, one
+
+            // Counts the children
+            while(pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+            {
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+                ++uCount;
+            }
+        }
+
+        return uCount;
+    }
+    
+    /// <summary>
+    /// Checks whether a node has children or not.
+    /// </summary>
+    /// <param name="parentNode">[IN] The node to be checked. It must not point to the end position.</param>
+    /// <returns>
+    /// True if the node has any child; False otherwise.
+    /// </returns>
+    bool HasChildren(const typename QNTree::QNTreeIterator &parentNode) const
+    {
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uParentNodePosition;
+
+        return pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD;
+    }
+    
+    /// <summary>
+    /// Checks whether a node has a parent or not. Only a root node lacks parent.
+    /// </summary>
+    /// <param name="node">[IN] The node whose parent is to be checked. It must not point to the end position.</param>
+    /// <returns>
+    /// True if the node has parent; False otherwise.
+    /// </returns>
+    bool HasParent(const typename QNTree::QNTreeIterator &node) const
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X
+        //
+
+        QE_ASSERT_ERROR(node.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!node.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uNodePosition = &*node - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pNode = pBaseNodePointer + uNodePosition;
+
+        return pNode->GetParent() != QNTree::END_POSITION_FORWARD;
+    }
+
+    /// <summary>
+    /// Gets the root node of the tree, which is independent from the traversal order.
+    /// </summary>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited, used to create the iterator that points to the root.</param>
+    /// <returns>
+    /// An iterator that points to the root element. If the tree is empty, the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetRoot(const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QE_ASSERT_WARNING(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        return QNTree::QNTreeIterator(this, m_uRoot, eTraversalOrder);
     }
 
 private:
