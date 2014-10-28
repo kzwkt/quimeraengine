@@ -65,7 +65,7 @@ public:
     enum EnumType
     {
         E_Deprecation = QE_ENUMERATION_MIN_VALUE, /*!< This type of assertion indicates that the code being executed has been deprecated. */
-        E_Warning,                                /*!< This type of assertion warns the developer about a rare execution case or a result or input value that probably is not intended. */
+        E_Warning,                                /*!< This type of assertion warns the developer about a rare execution case or a result or input value that probably is not intended. The program will continue normally. */
         E_Error,                                  /*!< This type of assertion warns the developer about a serious error, something that has failed or may make the application crash eventually. */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
