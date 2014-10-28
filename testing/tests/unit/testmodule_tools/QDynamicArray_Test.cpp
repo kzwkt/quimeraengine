@@ -1990,5 +1990,43 @@ QTEST_CASE ( Clone_NeitherDestructorNorConstructorsAreCalledWhenCloning_Test )
     BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
 }
 
+/// <sumary>
+/// Checks that it returns False when the array is empty.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsFalseWhenArrayIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    QDynamicArray<u32_q> dynamicArray;
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = dynamicArray.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the array is empty.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenArrayIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    QDynamicArray<u32_q> dynamicArray;
+    const pointer_uint_q EXPECTED_RESULT = QDynamicArray<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = dynamicArray.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
 // End - Test Suite: QDynamicArray
 QTEST_SUITE_END()

@@ -1635,6 +1635,521 @@ QTEST_CASE( OperatorInequality_ReturnsTrueWhenArraysHaveDifferentNumberOfElement
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+/// <sumary>
+/// Checks that it returns True when the element appears the first.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when the element appears the last.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = arFixedArray.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when the element is not in the array.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsFalseWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = arFixedArray.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the first.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 0;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 1U;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the last.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 2U;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element is not in the array.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the first.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 0;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 0;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 2U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 2U;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the last.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 3U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 3U;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element is not in the array.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 0;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element appears before the start position.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementAppearsBeforeTheStartPosition_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 2U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the start index is not lower than the number of elements.
+/// </sumary>
+QTEST_CASE( IndexOf2_AssertionFailsWhenStartIndexIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q START_POSITION = arFixedArray.GetCount();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the start position is not lower than the number of elements.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenStartPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q START_POSITION = arFixedArray.GetCount();
+    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the first.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(1U);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the last.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the returned iterator points to the end position when the element is not in the array.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsEndPositionWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the first.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetFirst();
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(2U);
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the last.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetIterator(3U);
+    const QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the element is not in the array.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetFirst();
+    QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the element appears before the start position.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementAppearsBeforeTheStartPosition_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
+    QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the input start position points to the end position.
+/// </sumary>
+QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetLast();
+    ++START_POSITION;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the start position points to an end position.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QFixedArray<u32_q>::QArrayIterator START_POSITION = arFixedArray.GetCount();
+    QFixedArray<u32_q>::QArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QFixedArray<u32_q>::QArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+#endif
+
 /// <summary>
 /// Checks if returns a valid allocator.
 /// </summary>

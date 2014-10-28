@@ -610,6 +610,13 @@ protected:
     /// </summary>
     static const pointer_uint_q DEFAULT_CAPACITY = 1;
 
+public:
+
+    /// <summary>
+    /// Constant to symbolize an invalid index returned when an element is not found.
+    /// </summary>
+    static const pointer_uint_q ELEMENT_NOT_FOUND = -1;
+
 
     // CONSTRUCTORS
     // ---------------
@@ -716,7 +723,8 @@ public:
     // METHODS
     // ---------------
 public:
-      /// <summary>
+      
+    /// <summary>
     /// Defines the assignment operator which makes a copy of the passed fixed array.
     /// </summary>
     /// <remarks>
@@ -986,6 +994,156 @@ public:
     bool operator!=(const QFixedArray &array) const
     {
         return !this->operator==(array);
+    }
+    
+    /// <summary>
+    /// Checks if any of the elements in the array is equal to a given one.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the array.</param>
+    /// <returns>
+    /// True if it is found; False otherwise.
+    /// </returns>
+    bool Contains(const T &element) const
+    {
+        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        pointer_uint_q uIndex = 0;
+        const pointer_uint_q ARRAY_COUNT = this->GetCount();
+        
+        bool bElementFound = false;
+
+        while(uIndex < ARRAY_COUNT && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            ++pElement;
+            ++uIndex;
+        }
+
+        return bElementFound;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the array equal to a given one and obtains its position index.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the array.</param>
+    /// <returns>
+    /// The position index (zero-based) of the first element that is equal to the input one. If the element is not found,
+    /// the ELEMENT_NOT_FOUND constant will be returned.
+    /// </returns>
+    pointer_uint_q IndexOf(const T &element) const
+    {
+        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        pointer_uint_q uIndex = 0;
+        const pointer_uint_q ARRAY_COUNT = this->GetCount();
+        
+        bool bElementFound = false;
+
+        while(uIndex < ARRAY_COUNT && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            ++pElement;
+            ++uIndex;
+        }
+
+        return bElementFound ? uIndex - 1U : QFixedArray::ELEMENT_NOT_FOUND;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the array equal to a given one, starting from a concrete position, and obtains its position index.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the array.</param>
+    /// <param name="uStartIndex">[IN] The start position to search from. It must be lower than the number of elements in the array.</param>
+    /// <returns>
+    /// The position index (zero-based) of the first element that is equal to the input one. If the element is not found,
+    /// the ELEMENT_NOT_FOUND constant will be returned.
+    /// </returns>
+    pointer_uint_q IndexOf(const T &element, const pointer_uint_q uStartIndex) const
+    {
+        const pointer_uint_q ARRAY_COUNT = this->GetCount();
+        pointer_uint_q uIndex = uStartIndex;
+
+        QE_ASSERT_WARNING(uIndex < ARRAY_COUNT, "The input start index must be lower than the number of elements in the array.");
+
+        const T* pElement = scast_q(m_allocator.GetPointer(), T*) + uStartIndex;
+        
+        bool bElementFound = false;
+
+        while(uIndex < ARRAY_COUNT && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            ++pElement;
+            ++uIndex;
+        }
+
+        return bElementFound ? uIndex - 1U : QFixedArray::ELEMENT_NOT_FOUND;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the array equal to a given one and obtains its position.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the array.</param>
+    /// <returns>
+    /// The position of the first element that is equal to the input one. If the element is not found,
+    /// the iterator will point to the forward end position.
+    /// </returns>
+    QArrayIterator PositionOf(const T &element) const
+    {
+        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        QFixedArray::QArrayIterator position = this->GetFirst();
+
+        bool bElementFound = false;
+
+        while(!position.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            ++pElement;
+            ++position;
+        }
+
+        return bElementFound ? --position : position;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the array equal to a given one, starting from a concrete position, and obtains its position.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the array's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the array.</param>
+    /// <param name="startPosition">[IN] The start position to search from. It must not point to an end position.</param>
+    /// <returns>
+    /// The position of the first element that is equal to the input one. If the element is not found,
+    /// the iterator will point to the forward end position.
+    /// </returns>
+    QArrayIterator PositionOf(const T &element, const typename QFixedArray::QArrayIterator startPosition) const
+    {
+        QE_ASSERT_WARNING(!startPosition.IsEnd(), "The input start position must not point to an end position.");
+        QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position must not point to an end position.");
+
+        const T* pElement = startPosition.IsEnd() ? null_q : &*startPosition;
+        QFixedArray::QArrayIterator position = startPosition;
+
+        bool bElementFound = false;
+
+        while(!position.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            ++pElement;
+            ++position;
+        }
+
+        return bElementFound ? --position : position;
     }
 
 private:
