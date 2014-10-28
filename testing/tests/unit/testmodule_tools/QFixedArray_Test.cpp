@@ -816,8 +816,6 @@ QTEST_CASE( GetFirst_ReturnsIteratorToFirstElementInTheArray_Test )
     BOOST_CHECK_EQUAL(*it, NEW_VALUE);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that if the array is empty backward end position of the array is returned.
 /// </sumary>
@@ -835,8 +833,6 @@ QTEST_CASE( GetFirst_ReturnsIteratorToBackwardEndPositionInTheArrayWhenArrayIsEm
     // [Verification]
     BOOST_CHECK_EQUAL(bBackwardEndPosition, EXPECTED_VALUE);
 }
-
-#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <sumary>
 /// Returns an iterator to the last element in the array.
@@ -858,8 +854,6 @@ QTEST_CASE( GetLast_ReturnsIteratorToLastElementInTheArray_Test )
     BOOST_CHECK_EQUAL(*it, NEW_VALUE);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that if the array is empty forward end position of the array is returned.
 /// </sumary>
@@ -877,8 +871,6 @@ QTEST_CASE( GetLast_ReturnsIteratorToForwardEndPositionInTheArrayWhenArrayIsEmpt
     // [Verification]
     BOOST_CHECK_EQUAL(bForwardEndPosition, EXPECTED_VALUE);
 }
-
-#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <sumary>
 /// Checks that it returns the expected array when the selected range encloses the entire array.

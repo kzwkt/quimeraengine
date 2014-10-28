@@ -102,9 +102,12 @@ public:
         QArrayIterator(const QFixedArray* pArray, const unsigned int uPosition) : m_pArray(pArray), m_uPosition(uPosition)
         {
             QE_ASSERT_ERROR(pArray != null_q, "Invalid argument: The pointer to the array cannot be null");
-            QE_ASSERT_WARNING(pArray->GetCount() > uPosition, "Invalid argument: The position must be lower than the number of elements in the array");
+            QE_ASSERT_WARNING(pArray->GetCount() > uPosition || 
+                              uPosition == QFixedArray::END_POSITION_BACKWARD || 
+                              uPosition == QFixedArray::END_POSITION_FORWARD, "Invalid argument: The position must be lower than the number of elements in the array");
 
-            if(pArray == null_q || pArray->GetCount() <= uPosition)
+            if(pArray == null_q || 
+               (pArray->GetCount() <= uPosition && uPosition != QFixedArray::END_POSITION_BACKWARD && uPosition != QFixedArray::END_POSITION_FORWARD))
                 m_uPosition = QFixedArray::END_POSITION_FORWARD;
         }
 
@@ -829,10 +832,7 @@ public:
     /// </returns>
     QArrayIterator GetFirst() const
     {
-        QE_ASSERT_WARNING( !this->IsEmpty(), "The array is empty, there is no first position." );
-
         return QFixedArray::QArrayIterator(this, m_uFirst);
-        
     }
 
     /// <summary>
@@ -843,8 +843,6 @@ public:
     /// </returns>
     QArrayIterator GetLast() const
     {
-        QE_ASSERT_WARNING( !this->IsEmpty(), "The array is empty, there is no last position." );
-
         return QFixedArray::QArrayIterator(this, m_uLast);
     }
     

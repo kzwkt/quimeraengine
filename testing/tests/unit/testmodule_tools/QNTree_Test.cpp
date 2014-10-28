@@ -2282,33 +2282,6 @@ QTEST_CASE( GetParent_ParentNodeIsCorrectlyObtained_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
-/// Checks that an assertion fails when the node has not parent.
-/// </sumary>
-QTEST_CASE( GetParent_AssertionFailsWhenNodeDoesNotHaveParent_Test )
-{
-    // [Preparation]
-    QNTree<char> TREE(3, 5);
-    TREE.SetRootValue('A');
-    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    TREE.AddChild(itRootNode, 'B');
-
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        TREE.GetParent(itRootNode);
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bAssertionFailed);
-}
-
-/// <sumary>
 /// Checks that an assertion fails when the iterator points to the end position.
 /// </sumary>
 QTEST_CASE( GetParent_AssertionFailsWhenIteratorPointsToEndPosition_Test )
@@ -2337,7 +2310,7 @@ QTEST_CASE( GetParent_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     BOOST_CHECK(bAssertionFailed);
 }
 
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+#endif
 
 /// <sumary>
 /// Checks that the obtained iterator points to end position when node has no parent.
@@ -2359,8 +2332,6 @@ QTEST_CASE( GetParent_ReturnedIteratorPointsToEndWhenNodeHasNoParent_Test )
     bool bIteratorPointstoEnd = itParent.IsEnd();
     BOOST_CHECK(bIteratorPointstoEnd);
 }
-
-#endif
 
 /// <sumary>
 /// Checks that the node is obtained when using the depth-first pre-order.
@@ -2385,34 +2356,6 @@ QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstPreOrder_Test )
     BOOST_CHECK_EQUAL(*itFirst, EXPECTED_ELEMENT);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <sumary>
-/// Checks that an assertion fails when the tre is empty.
-/// </sumary>
-QTEST_CASE( GetFirst_AssertionFailsWhenTreeIsEmpty_Test )
-{
-    // [Preparation]
-    QNTree<char> TREE(3, 5);
-
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bAssertionFailed);
-}
-
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that the obtained iterator points to end position when the tree is empty.
 /// </sumary>
@@ -2430,8 +2373,6 @@ QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
     bool bIteratorPointstoEnd = itFirst.IsEnd();
     BOOST_CHECK(bIteratorPointstoEnd);
 }
-
-#endif
 
 /// <sumary>
 /// Checks that it returns the correct number of children when the node has several child nodes.
@@ -2681,34 +2622,6 @@ QTEST_CASE( GetRoot_NodeIsObtainedWhenUsingDepthFirstPreOrder_Test )
     BOOST_CHECK_EQUAL(*itFirst, EXPECTED_ELEMENT);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <sumary>
-/// Checks that an assertion fails when the tre is empty.
-/// </sumary>
-QTEST_CASE( GetRoot_AssertionFailsWhenTreeIsEmpty_Test )
-{
-    // [Preparation]
-    QNTree<char> TREE(3, 5);
-
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bAssertionFailed);
-}
-
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
 /// <sumary>
 /// Checks that the obtained iterator points to end position when the tree is empty.
 /// </sumary>
@@ -2727,7 +2640,6 @@ QTEST_CASE( GetRoot_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
     BOOST_CHECK(bIteratorPointstoEnd);
 }
 
-#endif
 
 /// <summary>
 /// Checks that it returns True when the tree contains the element.
@@ -2884,6 +2796,198 @@ QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstPreOr
     // [Verification]
     bool bIteratorIsEnd = itPosition.IsEnd();
     BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <sumary>
+/// Checks that the first child node is correctly obtained.
+/// </sumary>
+QTEST_CASE( GetFirstChild_ChildNodeIsCorrectlyObtained_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    const char EXPECTED_ELEMENT = 'B';
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, EXPECTED_ELEMENT);
+    TREE.AddChild(itRootNode, 'C');
+    TREE.AddChild(itRootNode, 'D');
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itChild = TREE.GetFirstChild(itRootNode);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itChild, EXPECTED_ELEMENT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the iterator points to the end position.
+/// </sumary>
+QTEST_CASE( GetFirstChild_AssertionFailsWhenIteratorPointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    itRootNode.MoveLast();
+    ++itRootNode;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetFirstChild(itRootNode);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when node has no children.
+/// </sumary>
+QTEST_CASE( GetFirstChild_ReturnedIteratorPointsToEndWhenNodeHasNoChildren_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itChild = TREE.GetFirstChild(itRootNode);
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itChild.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <sumary>
+/// Checks that the last child node is correctly obtained.
+/// </sumary>
+QTEST_CASE( GetLastChild_ChildNodeIsCorrectlyObtained_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const char EXPECTED_ELEMENT = 'D';
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    TREE.AddChild(itRootNode, EXPECTED_ELEMENT);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itChild = TREE.GetLastChild(itRootNode);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itChild, EXPECTED_ELEMENT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the iterator points to the end position.
+/// </sumary>
+QTEST_CASE( GetLastChild_AssertionFailsWhenIteratorPointsToEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    itRootNode.MoveLast();
+    ++itRootNode;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetLastChild(itRootNode);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when node has no children.
+/// </sumary>
+QTEST_CASE( GetLastChild_ReturnedIteratorPointsToEndWhenNodeHasNoChildren_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itChild = TREE.GetLastChild(itRootNode);
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itChild.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <sumary>
+/// Checks that the node is obtained when using the depth-first pre-order.
+/// </sumary>
+QTEST_CASE( GetLast_NodeIsObtainedWhenUsingDepthFirstPreOrder_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    const char EXPECTED_ELEMENT = 'E';
+    QNTree<char> TREE(3, 5);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE.AddChild(itRootNode, 'B');
+    TREE.AddChild(itRootNode, 'C');
+    QNTree<char>::QNTreeIterator itChild = TREE.AddChild(itRootNode, 'D');
+    TREE.AddChild(itChild, EXPECTED_ELEMENT);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itLast = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itLast, EXPECTED_ELEMENT);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the tree is empty.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QNTree<char> TREE(3, 5);
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itLast = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itLast.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
 }
 
 /// <summary>

@@ -1665,8 +1665,6 @@ public:
 
         QNTree::QNode* pCurrentNode = pParentNode;
 
-        QE_ASSERT_ERROR(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD, "The node has no children.");
-
         // If the node has children
         if(pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
         {
@@ -1721,8 +1719,6 @@ public:
 
         QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
         QNTree::QNode* pNode = pBaseNodePointer + uNodePosition;
-
-        QE_ASSERT_WARNING(pNode->GetParent() != QNTree::END_POSITION_FORWARD, "The node does not have a parent.");
 
         return QNTree::QNTreeIterator(this, pNode->GetParent(), node.GetTraversalOrder());
     }
@@ -1843,8 +1839,6 @@ public:
     /// </returns>
     QNTreeIterator GetRoot(const EQTreeTraversalOrder &eTraversalOrder) const
     {
-        QE_ASSERT_WARNING(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
-
         return QNTree::QNTreeIterator(this, m_uRoot, eTraversalOrder);
     }
 
@@ -1861,19 +1855,12 @@ public:
     /// </returns>
     bool Contains(const T &value) const
     {
-        bool bResult = false;
+        QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
-        if(!this->IsEmpty())
-        {
-            QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
+            ++itElement;
 
-            while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
-                ++itElement;
-
-            bResult = !itElement.IsEnd();
-        }
-
-        return bResult;
+        return !itElement.IsEnd();
     }
     
     /// <summary>
@@ -1887,15 +1874,103 @@ public:
     /// </returns>
     QNTreeIterator PositionOf(const T &value, const EQTreeTraversalOrder &eTraversalOrder) const
     {
-        QNTree::QNTreeIterator itElement = QNTree::QNTreeIterator(this, QNTree::END_POSITION_FORWARD, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-
-        if(!this->IsEmpty())
-            itElement.MoveFirst();
+        QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
         while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
             ++itElement;
 
         return itElement;
+    }
+
+    
+    /// <summary>
+    /// Gets the first child in the child list of a given node.
+    /// </summary>
+    /// <param name="parentNode">[IN] An iterator that points to the node whose child is to be obtained. It must not point to an end position.</param>
+    /// <returns>
+    /// An iterator that points to the first child node. If the node has no children, the resultant iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetFirstChild(const typename QNTree::QNTreeIterator &parentNode) const
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    0-X-X
+        //
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pParentNode = pBaseNodePointer + uParentNodePosition;
+
+        return QNTree::QNTreeIterator(this, pParentNode->GetFirstChild(), parentNode.GetTraversalOrder());
+    }
+    
+    /// <summary>
+    /// Gets the last child in the child list of a given node.
+    /// </summary>
+    /// <param name="parentNode">[IN] An iterator that points to the node whose child is to be obtained. It must not point to an end position.</param>
+    /// <returns>
+    /// An iterator that points to the last child node. If the node has no children, the resultant iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetLastChild(const typename QNTree::QNTreeIterator &parentNode) const
+    {
+        //        R
+        //       / \
+        //      X-...
+        //     /|\
+        //    X-X-X
+        //
+
+        QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
+        QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
+        QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
+
+        QNTree::QNTreeIterator itResult(this, QNTree::END_POSITION_FORWARD, parentNode.GetTraversalOrder());
+
+        // Gets node pointer and position
+        T* pBaseElementPointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uParentNodePosition = &*parentNode - pBaseElementPointer;
+
+        QNTree::QNode* pBaseNodePointer = scast_q(m_nodeAllocator.GetPointer(), QNTree::QNode*);
+        QNTree::QNode* pCurrentNode = pBaseNodePointer + uParentNodePosition;
+
+        // If the node has children
+        if(pCurrentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
+        {
+            pCurrentNode = pBaseNodePointer + pCurrentNode->GetFirstChild();
+
+            // Gets the last child
+            while(pCurrentNode->GetNext() != QNTree::END_POSITION_FORWARD)
+                pCurrentNode = pBaseNodePointer + pCurrentNode->GetNext();
+
+            // Gets the node
+            pointer_uint_q uLastChildPosition = pCurrentNode - pBaseNodePointer;
+            itResult = QNTree::QNTreeIterator(this, uLastChildPosition, parentNode.GetTraversalOrder());
+        }
+
+        return itResult;
+    }
+    
+    /// <summary>
+    /// Gets the last element in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the last element. If the tree is empty, the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator GetLast(const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QNTree::QNTreeIterator itLast = this->GetRoot(eTraversalOrder);
+        itLast.MoveLast();
+        return itLast;
     }
 
 private:
