@@ -113,8 +113,12 @@
 #endif
 
 // A macro definition for every type of assertion
+
+// Assertion to notify the use of deprecated functions or classes
 #define QE_ASSERT_DEPRECATED(expression, strErrorMessage) QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Deprecation)
+// Assertion to notify an abnormal situation, something that may be not intended, although the program will continue normally
 #define QE_ASSERT_WARNING(expression, strErrorMessage)    QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Warning)
+// Assertion to notify an abnormal situation, something that is not allowed and will make the program crash either immediately or in a while
 #define QE_ASSERT_ERROR(expression, strErrorMessage)      QE_ASSERT(expression, strErrorMessage, Kinesis::QuimeraEngine::Common::EQAssertionType::E_Error)
 
 #endif // __ASSERTIONS__

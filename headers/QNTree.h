@@ -55,15 +55,16 @@ namespace Containers
 /// </summary>
 /// <remarks>
 /// Trees are empty when they are created; to add the root node, use the the SetRootNode method.<br/>
-/// The number of child nodes per node (N) is set when the tree is created. Trees with different value of N cannot interact.<br/>
+/// The number of child nodes per node (N) is set when the tree is created. Trees with different value of N cannot interact. However, 
+/// trees can be created without that restriction by using the NO_MAX_CHILDREN constant.<br/>
 /// Every node keeps a reference to its parent and its children. Removing a node implies removing all its children.<br/>
 /// There is not a default way to traverse an N-ary tree, the desired method will have to be specified when necessary.<br/>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
 /// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
-/// <typeparam name="T"> The type of the tree elements.</typeparam>
-/// <typeparam name="AllocatorT"> The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
-/// <typeparam name="ComparatorT"> The comparator. The default type is QComparatorDefault.</typeparam>
+/// <typeparam name="T">The type of the tree elements.</typeparam>
+/// <typeparam name="AllocatorT">The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
+/// <typeparam name="ComparatorT">The comparator. The default type is QComparatorDefault.</typeparam>
 template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
 class QNTree
 {
@@ -1032,6 +1033,13 @@ public:
 
    	// CONSTANTS
     // ---------------
+public:
+    
+    /// <summary>
+    /// Constant used to specify that the tree nodes have no maximum child nodes restriction.
+    /// </summary>
+    static const pointer_uint_q NO_MAXIMUM_CHILDREN = -1;
+
 protected:
 
     /// <summary>
@@ -1073,7 +1081,7 @@ public:
     /// <remarks>
     /// Once the maximum number of child nodes has been set, it cannot be changed in the future.
     /// </remarks>
-    /// <param name="uMaximumChildren">[IN] The maximum number of child nodes per node. It must be greater than zero.</param>
+    /// <param name="uMaximumChildren">[IN] The maximum number of child nodes per node. It must be greater than zero. Use the NO_MAXIMUM_CHILDREN constant to disable this restriction.</param>
     QNTree(const pointer_uint_q uMaximumChildren) : MAX_CHILDREN(uMaximumChildren),
                                                     m_elementAllocator(QNTree::sm_uDefaultCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
                                                     m_nodeAllocator(QNTree::sm_uDefaultCapacity * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
@@ -1088,7 +1096,7 @@ public:
     /// <remarks>
     /// Once the maximum number of child nodes has been set, it cannot be changed in the future.
     /// </remarks>
-    /// <param name="uMaximumChildren">[IN] The maximum number of child nodes per node. It must be greater than zero.</param>
+    /// <param name="uMaximumChildren">[IN] The maximum number of child nodes per node. It must be greater than zero. Use the NO_MAXIMUM_CHILDREN constant to disable this restriction.</param>
     /// <param name="uInitialCapacity">[IN] The number of elements for which to reserve memory. It must be greater than zero.</param>
     QNTree(const pointer_uint_q uMaximumChildren, const pointer_uint_q uInitialCapacity) :
                                                             MAX_CHILDREN(uMaximumChildren),
@@ -1098,6 +1106,32 @@ public:
     {
         QE_ASSERT_ERROR(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
+    }
+
+    /// <summary>
+    /// Copy constructor that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every copied element, in an arbitrary order.
+    /// </remarks>
+    /// <param name="tree">[IN] The other tree to be copied.</param>
+    QNTree(const QNTree &tree) :
+                                MAX_CHILDREN(tree.MAX_CHILDREN),
+                                m_elementAllocator(tree.GetCapacity() * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                                m_nodeAllocator(tree.GetCapacity() * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
+                                m_uRoot(tree.m_uRoot)
+    {
+        if(!tree.IsEmpty())
+        {
+            tree.m_elementAllocator.CopyTo(m_elementAllocator);
+            tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
+
+            QNTree::QNTreeIterator itSource = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+            QNTree::QNTreeIterator itDestination = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+            for(; !itSource.IsEnd(); ++itSource, ++itDestination)
+                new(&*itDestination) T(*itSource);
+        }
     }
 
 protected:
@@ -1115,9 +1149,8 @@ public:
     /// </remarks>
     ~QNTree()
     {
-        // [TODO] Thund: Uncomment when GetFirst exists
         if(!this->IsEmpty())
-            for(QNTree::QNTreeIterator it = this->GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder); !it.IsEnd(); ++it)
+            for(QNTree::QNTreeIterator it = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder); !it.IsEnd(); ++it)
                 (*it).~T();
     }
 
@@ -1126,6 +1159,45 @@ public:
     // ---------------
 public:
     
+    /// <summary>
+    /// Assignment operator that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// All the elements in the resident tree will be firstly removed, calling each element's destructor.
+    /// The copy constructor is then called for every copied element, in an arbitrary order.
+    /// </remarks>
+    /// <param name="tree">[IN] The other tree to be copied. The maximum number of children per node in both trees must be the same 
+    /// unless the resident tree was created without such restriction.</param>
+    QNTree& operator=(const QNTree &tree)
+    {
+        QE_ASSERT_ERROR(MAX_CHILDREN == tree.MAX_CHILDREN && MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node must be the same in both trees.");
+
+        if(this != &tree)
+        {
+            if(!this->IsEmpty())
+                this->Clear();
+
+            if(!tree.IsEmpty())
+            {
+                m_uRoot = tree.m_uRoot;
+
+                if(this->GetCapacity() < tree.GetCapacity())
+                    this->Reserve(tree.GetCapacity());
+
+                tree.m_elementAllocator.CopyTo(m_elementAllocator);
+                tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
+
+                QNTree::QNTreeIterator itSource = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+                QNTree::QNTreeIterator itDestination = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+                for(; !itSource.IsEnd(); ++itSource, ++itDestination)
+                    new(&*itDestination) T(*itSource);
+            }
+        }
+
+        return *this;
+    }
+
     /// <summary>
     /// Increases the capacity of the tree, reserving memory for more elements.
     /// </summary>
@@ -1329,6 +1401,8 @@ public:
                 }
                 else
                 {
+                    // The node being removed is the only one in the tree
+                    m_uRoot = QNTree::END_POSITION_FORWARD;
                     pCurrentNode = null_q;
                 }
 
@@ -1772,6 +1846,56 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         return QNTree::QNTreeIterator(this, m_uRoot, eTraversalOrder);
+    }
+
+    
+    /// <summary>
+    /// Checks whether any element in the tree has the same value as a given element.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared to the provided value using the container's comparator, in an arbitrary order.<br/>
+    /// </remarks>
+    /// <param name="value">[IN] The value of the element to search for.</param>
+    /// <returns>
+    /// True if the element is present in the tree; False otherwise.
+    /// </returns>
+    bool Contains(const T &value) const
+    {
+        bool bResult = false;
+
+        if(!this->IsEmpty())
+        {
+            QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+            while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
+                ++itElement;
+
+            bResult = !itElement.IsEnd();
+        }
+
+        return bResult;
+    }
+    
+    /// <summary>
+    /// Searches for a given element and obtains its position.
+    /// </summary>
+    /// <param name="value">[IN] The value of the element to search for.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the position of the first occurrence of the element, depending on the traversal order. If the element is not present in the tree, 
+    /// the iterator will point to the end position.
+    /// </returns>
+    QNTreeIterator PositionOf(const T &value, const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QNTree::QNTreeIterator itElement = QNTree::QNTreeIterator(this, QNTree::END_POSITION_FORWARD, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+
+        if(!this->IsEmpty())
+            itElement.MoveFirst();
+
+        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
+            ++itElement;
+
+        return itElement;
     }
 
 private:

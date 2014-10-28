@@ -133,8 +133,8 @@ QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingALis
     static const pointer_uint_q EXPECTED_END_POSITION_BACKWARD = -2;
 
     // [Execution]
-    QListWhiteBox<u64_q> listOrigin = QListWhiteBox<u64_q>();
-    QListWhiteBox<u64_q> listDestination = QListWhiteBox<u64_q>(listOrigin);
+    QListWhiteBox<u64_q> listOrigin;
+    QListWhiteBox<u64_q> listDestination(listOrigin);
 
     // [Verification]
     pointer_uint_q uFirst = listDestination.GetFirstPosition();
@@ -161,7 +161,7 @@ QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingAFul
     }
 
     // [Execution]
-    QList<u64_q> listDestination = QList<u64_q>(listOrigin);
+    QList<u64_q> listDestination(listOrigin);
 
     // [Verification]
     bool bSameValues = true;
