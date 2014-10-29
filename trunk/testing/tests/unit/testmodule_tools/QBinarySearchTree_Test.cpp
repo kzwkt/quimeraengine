@@ -131,6 +131,81 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
 #endif // #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
+/// Checks that the tree is correctly copied when it has elements.
+/// </summary>
+QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItHasElements_Test )
+{/* [TODO] Thund: Uncomment when GetIterator exists
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(8, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
+
+    // [Execution]
+    QBinarySearchTree<int> copiedTree(TREE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    pointer_uint_q uCount = copiedTree.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);*/
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when it is empty.
+/// </summary>
+QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItIsEmpty_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+
+    // [Execution]
+    QBinarySearchTree<int> copiedTree(TREE);
+
+    // [Verification]
+    bool bTreeIsEmpty = copiedTree.IsEmpty();
+    BOOST_CHECK(bTreeIsEmpty);
+}
+
+/// <summary>
+/// Checks that the copy constructors are called for each element.
+/// </summary>
+QTEST_CASE ( Constructor3_CopyConstructorsAreCalledForAllElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QBinarySearchTree<CallCounter> TREE(5);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const unsigned int EXPECTED_VALUE = TREE.GetCount();
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    QBinarySearchTree<CallCounter> copiedTree(TREE);
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_VALUE);
+}
+
+/// <summary>
 /// Checks that all the default values have not changed since the last time this test was executed.
 /// </summary>
 QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
@@ -157,6 +232,228 @@ QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
 }
 
 /// <summary>
+/// Checks that the tree is correctly copied when it has elements and the destination tree is empty.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenItHasElementsAndDestinationIsEmpty_Test )
+{/* [TODO] Thund: Uncomment when GetIterator exists
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(8, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
+    QBinarySearchTree<int> copiedTree(8);
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    pointer_uint_q uCount = copiedTree.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);*/
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are more elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreMoreElementsInSourceThanInDestination_Test )
+{/* [TODO] Thund: Uncomment when GetIterator exists
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QBinarySearchTree<int> TREE(8);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(8, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
+
+    QBinarySearchTree<int> copiedTree(3);
+    copiedTree.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    pointer_uint_q uCount = copiedTree.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);*/
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are less elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
+{/* [TODO] Thund: Uncomment when GetIterator exists
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {3, 5};
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
+
+    QBinarySearchTree<int> copiedTree(3);
+    copiedTree.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    pointer_uint_q uCount = copiedTree.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);*/
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are the same number of elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreSameNumberOfElementsInSourceThanInDestination_Test )
+{/* [TODO] Thund: Uncomment when GetIterator exists
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {3, 5, 6};
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
+
+    QBinarySearchTree<int> copiedTree(3);
+    copiedTree.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    pointer_uint_q uCount = copiedTree.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);*/
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when it is empty and the destination tree has elements.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenItIsEmptyAndDestinationHasElements_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+    QBinarySearchTree<int> copiedTree(3);
+    copiedTree.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    bool bTreeIsEmpty = copiedTree.IsEmpty();
+    BOOST_CHECK(bTreeIsEmpty);
+}
+
+/// <summary>
+/// Checks that the copy constructors are called for each element.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_CopyConstructorsAreCalledForAllElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QBinarySearchTree<CallCounter> TREE(8);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<CallCounter> copiedTree(3);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = TREE.GetCount();
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_COPY_CONSTRUCTORS_VALUE);
+}
+
+/// <summary>
+/// Checks that the destructors are called for each element.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+    
+    // [Preparation]
+    QBinarySearchTree<CallCounter> TREE(8);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<CallCounter> copiedTree(3);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+    copiedTree.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const unsigned int EXPECTED_DESTRUCTORS_VALUE = copiedTree.GetCount();
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedTree = TREE;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
+}
+
+/// <summary>
 /// Checks that the capacity is correctly increased.
 /// </summary>
 QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
@@ -178,7 +475,7 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 /// Checks that elements are correctly reallocated.
 /// </summary>
 QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
-{/* [TODO] Thund: Uncomment when Add, GetRoot and QBinarySearchTreeIterator are implemented
+{/* [TODO] Thund: Uncomment when GetRoot is implemented
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 4;
     const int EXPECTED_FIRST_ELEMENT = 1;
@@ -201,7 +498,7 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 /// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than current reserved.
 /// </summary>
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
-{/* [TODO] Thund: Uncomment when Reserve, GetRoot and QBinarySearchTree::QBinarySearchTreeIterator is implemented
+{/* [TODO] Thund: Uncomment when GetRoot is implemented
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 1;
     const pointer_uint_q EXPECTED_CAPACITY = 4;
@@ -219,6 +516,66 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
 
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
     BOOST_CHECK_EQUAL(pLocationOfElement, EXPECTED_LOCATION_OF_ELEMENT);*/
+}
+
+/// <summary>
+/// Checks that it returns True when the tree contains the element.
+/// </summary>
+QTEST_CASE ( Contains_ReturnsTrueWhenTreeContainsTheElement_Test )
+{
+    // [Preparation]
+    const int INPUT_VALUE = 3;
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE.Contains(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the tree does not contain the element.
+/// </summary>
+QTEST_CASE ( Contains_ReturnsFalseWhenTreeDoesNotContainTheElement_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const int INPUT_VALUE = 0;
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE.Contains(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the tree is empty.
+/// </summary>
+QTEST_CASE ( Contains_ReturnsFalseWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+    const int INPUT_VALUE = 5;
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE.Contains(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>

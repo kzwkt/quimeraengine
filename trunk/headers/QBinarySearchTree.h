@@ -1013,6 +1013,31 @@ public:
     {
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
     }
+    
+    /// <summary>
+    /// Copy constructor that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every copied element, in an arbitrary order.
+    /// </remarks>
+    /// <param name="tree">[IN] The other tree to be copied.</param>
+    QBinarySearchTree(const QBinarySearchTree &tree): m_elementAllocator(tree.GetCapacity() * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                                                      m_nodeAllocator(tree.GetCapacity() * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
+                                                      m_uRoot(tree.m_uRoot)
+    {
+        if(!tree.IsEmpty())
+        {
+            tree.m_elementAllocator.CopyTo(m_elementAllocator);
+            tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
+
+            // [TODO] Thund: Replace with GetFirst
+            QBinarySearchTree::QBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+            for(itSource.MoveFirst(), itDestination.MoveFirst(); !itSource.IsEnd(); ++itSource, ++itDestination)
+                new(&*itDestination) T(*itSource);
+        }
+    }
 
 
     // DESTRUCTOR
@@ -1039,6 +1064,53 @@ public:
     // ---------------
 public:
     
+    /// <summary>
+    /// Assignment operator that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// All the elements in the resident tree will be firstly removed, calling each element's destructor.
+    /// The copy constructor is then called for every copied element, in an arbitrary order.
+    /// </remarks>
+    /// <param name="tree">[IN] The other tree to be copied.</param>
+    QBinarySearchTree& operator=(const QBinarySearchTree &tree)
+    {
+        if(this != &tree)
+        {
+            // Removes all the elements in the resident tree
+            // [TODO] Thund: Replace with Clear when it exists
+            QBinarySearchTree::QBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+            for(it.MoveFirst(); !it.IsEnd(); ++it)
+                (*it).~T();
+
+            m_elementAllocator.Clear();
+            m_nodeAllocator.Clear();
+
+            m_uRoot = QBinarySearchTree::END_POSITION_FORWARD;
+
+            // Copies all the elements of the input tree, if any
+            if(!tree.IsEmpty())
+            {
+                m_uRoot = tree.m_uRoot;
+
+                if(this->GetCapacity() < tree.GetCapacity())
+                    this->Reserve(tree.GetCapacity());
+
+                tree.m_elementAllocator.CopyTo(m_elementAllocator);
+                tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
+
+                // [TODO] Thund: Replace with GetFirst
+                QBinarySearchTree::QBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+                QBinarySearchTree::QBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+                for(itSource.MoveFirst(), itDestination.MoveFirst(); !itSource.IsEnd(); ++itSource, ++itDestination)
+                    new(&*itDestination) T(*itSource);
+            }
+        }
+
+        return *this;
+    }
+
     /// <summary>
     /// Increases the capacity of the tree, reserving memory for more elements.
     /// </summary>
@@ -1235,6 +1307,47 @@ public:
         return resultIterator;
     }
     
+    /// <summary>
+    /// Checks whether there is any element in the tree that is equal to other given element.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared to the provided value using the container's comparator.<br/>
+    /// </remarks>
+    /// <param name="value">[IN] The value of the element to search for.</param>
+    /// <returns>
+    /// True if the element is present in the tree; False otherwise.
+    /// </returns>
+    bool Contains(const T &value) const
+    {
+        static const int INPUT_VALUE_IS_LOWER = -1;
+        static const int INPUT_VALUE_IS_GREATER = 1;
+        static const int INPUT_VALUE_IS_EQUAL = 0;
+        static const int INVALID_RESULT = -2;
+
+        pointer_uint_q uCurrentPosition = m_uRoot;
+
+        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
+        int nComparisonResult = INVALID_RESULT;
+
+        while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
+        {
+            nComparisonResult = m_comparator.Compare(value, *pCurrentElement);
+
+            if(nComparisonResult == INPUT_VALUE_IS_LOWER)
+                uCurrentPosition = pCurrentNode->GetLeftChild();
+            else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
+                uCurrentPosition = pCurrentNode->GetRightChild();
+
+            pCurrentElement = pElementBasePointer + uCurrentPosition;
+            pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        }
+
+        return nComparisonResult == INPUT_VALUE_IS_EQUAL;
+    }
+
 private:
 
     /// <summary>
@@ -1247,7 +1360,6 @@ private:
         const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QBinarySearchTree::REALLOCATION_FACTOR, pointer_uint_q);
         this->Reserve(FINAL_CAPACITY);
     }
-
 
     // PROPERTIES
     // ---------------
