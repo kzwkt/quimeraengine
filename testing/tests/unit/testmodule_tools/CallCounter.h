@@ -114,9 +114,9 @@ public:
     /// <returns>
     /// A boolean value with no meaning.
     /// </returns>
-    bool operator>(const CallCounter &instance)
+    bool operator<(const CallCounter &instance) const
     {
-        return this > &instance;
+        return this < &instance;
     }
     
     /// <summary>
@@ -126,7 +126,7 @@ public:
     /// <returns>
     /// A boolean value with no meaning.
     /// </returns>
-    bool operator==(const CallCounter &instance)
+    bool operator==(const CallCounter &instance) const
     {
         return this == &instance;
     }

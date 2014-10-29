@@ -1250,14 +1250,15 @@ public:
     /// <remarks>
     /// If the tree is empty, use the SetRootValue method.<br/>
     /// If the parent node already has the maximum number of child nodes, the new element will not be added.<br/>
+    /// If the capacity of the tree is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the new element will be called.
     /// </remarks>
     /// <param name="parentNode">[IN] An iterator that points to the parent node to which the element will be added as a child. It must not point to an end position.</param>
-    /// <param name="value">[IN] The value of the new element.</param>
+    /// <param name="newElement">[IN] The value of the new element.</param>
     /// <returns>
     /// An iterator that points to the just added element. If it was not added, the iterator will point to an end position.
     /// </returns>
-    QNTreeIterator AddChild(const typename QNTree::QNTreeIterator &parentNode, const T &value)
+    QNTreeIterator AddChild(const typename QNTree::QNTreeIterator &parentNode, const T &newElement)
     {
         //        R
         //       / \
@@ -1312,7 +1313,7 @@ public:
                 pCurrentNode->SetNext(uNewNodePosition);
                 
                 // Copies the new element
-                new(m_elementAllocator.Allocate()) T(value);
+                new(m_elementAllocator.Allocate()) T(newElement);
             }
         }
         else
@@ -1332,7 +1333,7 @@ public:
             pParentNode->SetFirstChild(uNewNodePosition);
 
             // Copies the new element
-            new(m_elementAllocator.Allocate()) T(value);
+            new(m_elementAllocator.Allocate()) T(newElement);
         }
 
         return QNTree::QNTreeIterator(this, uNewNodePosition, parentNode.GetTraversalOrder());
@@ -1484,15 +1485,16 @@ public:
     /// <remarks>
     /// If the tree is empty, use the SetRootValue method.<br/>
     /// If the parent node already has the maximum number of child nodes, the new element will not be added.<br/>
+    /// If the capacity of the tree is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
     /// The copy constructor of the new element will be called.
     /// </remarks>
     /// <param name="parentNode">[IN] An iterator that points to the node whose child is to be removed. It must not point to an end position.</param>
-    /// <param name="value">[IN] The value of the new element.</param>
+    /// <param name="newElement">[IN] The newElement of the new element.</param>
     /// <param name="uChildIndex">[IN] The position (zero-based index) of the new child in the parent's child list. It must be lower than the number of children in the list.</param>
     /// <returns>
     /// An iterator that points to the just added element. If it was not added, the iterator will point to an end position.
     /// </returns>
-    QNTreeIterator InsertChild(const typename QNTree::QNTreeIterator &parentNode, const T &value, const pointer_uint_q uChildIndex)
+    QNTreeIterator InsertChild(const typename QNTree::QNTreeIterator &parentNode, const T &newElement, const pointer_uint_q uChildIndex)
     {
         //        R
         //       / \
@@ -1587,7 +1589,7 @@ public:
         }
             
         // Copies the new element
-        new(m_elementAllocator.Allocate()) T(value);
+        new(m_elementAllocator.Allocate()) T(newElement);
 
         uResultNodePosition = uNewNodePosition;
 
