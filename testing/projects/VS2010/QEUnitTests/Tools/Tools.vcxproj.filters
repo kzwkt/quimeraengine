@@ -234,6 +234,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeIterator_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstArrayIterator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

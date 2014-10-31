@@ -1066,7 +1066,7 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
     QDynamicArray<int> arCommonArray;
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1085,7 +1085,7 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedInBetween_Test )
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetIterator(1);
+    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetIterator(1);
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1106,7 +1106,7 @@ QTEST_CASE ( Insert1_CapacityIsIncreasedWhenAddingElementsToFullArray_Test )
     arFullArray.Add(0);
     arFullArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QArrayIterator POSITION = arFullArray.GetFirst();
+    const QDynamicArray<int>::QConstArrayIterator POSITION = arFullArray.GetFirst();
 
     // [Execution]
     arFullArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1127,7 +1127,7 @@ QTEST_CASE ( Insert1_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q INITIAL_CAPACITY = 3U;
     QDynamicArray<int> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(0);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1151,7 +1151,7 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
     arCommonArray.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
-    const QDynamicArray<CallCounter>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QDynamicArray<CallCounter>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(newElement, POSITION);
@@ -1171,7 +1171,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     // [Preparation]
     QDynamicArray<int> arCommonArray;
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QDynamicArray<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1202,7 +1202,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorIsInvalid_Test )
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
+    QDynamicArray<int>::QConstArrayIterator ITERATOR = arCommonArray.GetLast();
     arCommonArray.Remove(ITERATOR);
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1232,7 +1232,7 @@ QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyArray_Test )
 {
     // [Preparation]
     QDynamicArray<int> arEmptyArray;
-    QDynamicArray<int>::QArrayIterator ITERATOR = arEmptyArray.GetFirst();
+    QDynamicArray<int>::QConstArrayIterator ITERATOR = arEmptyArray.GetFirst();
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
@@ -1250,7 +1250,7 @@ QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPos
     // [Preparation]
     QDynamicArray<int> arCommonArray;
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QDynamicArray<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
     const int ELEMENT_VALUE = 1;
 
@@ -1454,9 +1454,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromLastPosition_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1477,9 +1476,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1500,9 +1498,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1668,9 +1665,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromLastPosition_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1691,9 +1687,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1714,9 +1709,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     arCommonArray.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !arCommonArray.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
