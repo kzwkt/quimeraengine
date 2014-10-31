@@ -582,6 +582,294 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenTreesHaveDifferentMaximumChild
 
 #endif
 
+/// <sumary>
+/// Checks that it returns True when trees are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenTreesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2 = TREE1;
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenTreesAreSameInstance_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have the same structure but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesHaveSameStructureButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(3, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent4 = TREE2.AddChild(itParent3, 'B');
+    TREE2.AddChild(itParent4, 'C');
+    TREE2.AddChild(itParent4, 'X');
+    TREE2.AddChild(itParent4, 'E');
+    TREE2.AddChild(itParent3, 'F');
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have the same values but with a different structure.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesAreHaveSameValuesButDifferentStructure_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(8, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(8, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE2.AddChild(itParent3, 'B');
+    TREE2.AddChild(itParent3, 'C');
+    TREE2.AddChild(itParent3, 'D');
+    TREE2.AddChild(itParent3, 'E');
+    TREE2.AddChild(itParent3, 'F');
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(3, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE2.AddChild(itParent3, 'B');
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenTreesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2 = TREE1;
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenTreesAreSameInstance_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have the same structure but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesHaveSameStructureButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(3, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent4 = TREE2.AddChild(itParent3, 'B');
+    TREE2.AddChild(itParent4, 'C');
+    TREE2.AddChild(itParent4, 'X');
+    TREE2.AddChild(itParent4, 'E');
+    TREE2.AddChild(itParent3, 'F');
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have the same values but with a different structure.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesAreHaveSameValuesButDifferentStructure_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(8, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(8, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE2.AddChild(itParent3, 'B');
+    TREE2.AddChild(itParent3, 'C');
+    TREE2.AddChild(itParent3, 'D');
+    TREE2.AddChild(itParent3, 'E');
+    TREE2.AddChild(itParent3, 'F');
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE1(3, 8);
+    TREE1.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent = TREE1.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParent2 = TREE1.AddChild(itParent, 'B');
+    TREE1.AddChild(itParent2, 'C');
+    TREE1.AddChild(itParent2, 'D');
+    TREE1.AddChild(itParent2, 'E');
+    TREE1.AddChild(itParent, 'F');
+
+    QNTree<char> TREE2(3, 8);
+    TREE2.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itParent3 = TREE2.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    TREE2.AddChild(itParent3, 'B');
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 /// <summary>
 /// Checks that the capacity is correctly increased.
 /// </summary>
@@ -2707,7 +2995,7 @@ QTEST_CASE ( Contains_ReturnsFalseWhenTreeIsEmpty_Test )
 /// <summary>
 /// Checks that it returns the expected position when the tree contains the element and using depth-first pre-order.
 /// </summary>
-QTEST_CASE ( PositionOf_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( PositionOf1_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char INPUT_VALUE = 'E';
@@ -2731,7 +3019,7 @@ QTEST_CASE ( PositionOf_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsin
 /// <summary>
 /// Checks that it returns the first occurrence, when there is more than one, using depth-first pre-order.
 /// </summary>
-QTEST_CASE ( PositionOf_ReturnsFirstOccurrenceWhenUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( PositionOf1_ReturnsFirstOccurrenceWhenUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const char INPUT_VALUE = 'E';
@@ -2755,7 +3043,7 @@ QTEST_CASE ( PositionOf_ReturnsFirstOccurrenceWhenUsingDepthFirstPreOrder_Test )
 /// <summary>
 /// Checks that it returns an iterator that points to the end position when the tree does not contain the element and using depth-first pre-order.
 /// </summary>
-QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( PositionOf1_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     QNTree<char> TREE(3, 8);
@@ -2780,7 +3068,7 @@ QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsi
 /// <summary>
 /// Checks that it returns an iterator that points to the end position when the tree is empty and using depth-first pre-order.
 /// </summary>
-QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstPreOrder_Test )
+QTEST_CASE ( PositionOf1_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstPreOrder_Test )
 {
     // [Preparation]
     QNTree<char> TREE(3, 8);
@@ -2793,6 +3081,136 @@ QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstPreOr
     bool bIteratorIsEnd = itPosition.IsEnd();
     BOOST_CHECK(bIteratorIsEnd);
 }
+
+/// <summary>
+/// Checks that it returns the expected position when the tree contains the element and using depth-first pre-order.
+/// </summary>
+QTEST_CASE ( PositionOf2_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsingDepthFirstPreOrder_Test )
+{
+    // [Preparation]
+    const char INPUT_VALUE = 'E';
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    TREE.AddChild(itParentNode1, 'C');
+    TREE.AddChild(itParentNode1, 'D');
+    QNTree<char>::QNTreeIterator startPosition = TREE.AddChild(itParentNode1, INPUT_VALUE);
+    TREE.AddChild(itParentNode2, 'G');
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itPosition = TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itPosition, INPUT_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence, when there is more than one, using depth-first pre-order.
+/// </summary>
+QTEST_CASE ( PositionOf2_ReturnsFirstOccurrenceWhenUsingDepthFirstPreOrder_Test )
+{
+    // [Preparation]
+    const char INPUT_VALUE = 'E';
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    QNTree<char>::QNTreeIterator itFirst = TREE.AddChild(itParentNode1, INPUT_VALUE);
+    TREE.AddChild(itParentNode1, 'D');
+    TREE.AddChild(itParentNode1, INPUT_VALUE);
+    TREE.AddChild(itParentNode2, 'G');
+    QNTree<char>::QNTreeIterator startPosition = itFirst;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itPosition = TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
+
+    // [Verification]
+    BOOST_CHECK(itPosition == itFirst);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence from the start point, when there is more than one, using depth-first pre-order.
+/// </summary>
+QTEST_CASE ( PositionOf2_ReturnsFirstOccurrenceFromStartPositionWhenUsingDepthFirstPreOrder_Test )
+{
+    // [Preparation]
+    const char INPUT_VALUE = 'E';
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    QNTree<char>::QNTreeIterator itFirst = TREE.AddChild(itParentNode1, INPUT_VALUE);
+    TREE.AddChild(itParentNode1, 'D');
+    QNTree<char>::QNTreeIterator startPosition = TREE.AddChild(itParentNode1, INPUT_VALUE);
+    TREE.AddChild(itParentNode2, 'G');
+    QNTree<char>::QNTreeIterator EXPECTED_POSITION = startPosition;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itPosition = TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
+
+    // [Verification]
+    BOOST_CHECK(itPosition == EXPECTED_POSITION);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the tree does not contain the element and using depth-first pre-order.
+/// </summary>
+QTEST_CASE ( PositionOf2_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsingDepthFirstPreOrder_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 8);
+    TREE.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
+    TREE.AddChild(itParentNode1, 'C');
+    TREE.AddChild(itParentNode1, 'D');
+    TREE.AddChild(itParentNode1, 'E');
+    TREE.AddChild(itParentNode2, 'G');
+    const char INPUT_VALUE = 'X';
+    QNTree<char>::QNTreeIterator startPosition = itRootNode;
+
+    // [Execution]
+    QNTree<char>::QNTreeIterator itPosition = TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the start position points to the end position.
+/// </summary>
+QTEST_CASE ( PositionOf2_AssertionFailsWhenStartPositionPointsToEnd_Test )
+{
+    // [Preparation]
+    QNTree<char> TREE(3, 8);
+    QNTree<char>::QNTreeIterator startPosition = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const char INPUT_VALUE = 'X';
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
 
 /// <sumary>
 /// Checks that the first child node is correctly obtained.
