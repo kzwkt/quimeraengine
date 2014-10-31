@@ -1599,8 +1599,8 @@ public:
     /// <summary>
     /// Gets an iterator that points to a given position in the tree, depending on the traversal order.
     /// </summary>
-    /// <param name="uIndex">[IN] Position in the tree, starting at zero, to which the iterator will point. If it is out of bounds, the returned iterator will point 
-    /// to the end position.</param>
+    /// <param name="uIndex">[IN] Position in the tree, starting at zero, to which the iterator will point. It must be lower than the number of elements in the tree.
+    /// If it is out of bounds, the returned iterator will point to the end position.</param>
     /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
     /// <returns>
     /// An iterator that points to the position of the element.
@@ -1843,7 +1843,6 @@ public:
     {
         return QNTree::QNTreeIterator(this, m_uRoot, eTraversalOrder);
     }
-
     
     /// <summary>
     /// Checks whether any element in the tree has the same value as a given element.
@@ -1851,15 +1850,15 @@ public:
     /// <remarks>
     /// Elements are compared to the provided value using the container's comparator, in an arbitrary order.<br/>
     /// </remarks>
-    /// <param name="value">[IN] The value of the element to search for.</param>
+    /// <param name="element">[IN] The value of the element to search for.</param>
     /// <returns>
     /// True if the element is present in the tree; False otherwise.
     /// </returns>
-    bool Contains(const T &value) const
+    bool Contains(const T &element) const
     {
         QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
-        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
+        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, element) != 0)
             ++itElement;
 
         return !itElement.IsEnd();
@@ -1868,23 +1867,22 @@ public:
     /// <summary>
     /// Searches for a given element and obtains its position.
     /// </summary>
-    /// <param name="value">[IN] The value of the element to search for.</param>
+    /// <param name="element">[IN] The value of the element to search for.</param>
     /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
     /// <returns>
     /// An iterator that points to the position of the first occurrence of the element, depending on the traversal order. If the element is not present in the tree, 
     /// the iterator will point to the end position.
     /// </returns>
-    QNTreeIterator PositionOf(const T &value, const EQTreeTraversalOrder &eTraversalOrder) const
+    QNTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder) const
     {
         QNTree::QNTreeIterator itElement = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
-        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, value) != 0)
+        while(!itElement.IsEnd() && m_comparator.Compare(*itElement, element) != 0)
             ++itElement;
 
         return itElement;
     }
 
-    
     /// <summary>
     /// Gets the first child in the child list of a given node.
     /// </summary>

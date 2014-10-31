@@ -1252,6 +1252,259 @@ QTEST_CASE ( Remove_AssertionFailsWhenTheInputIteratorPointsToEndPosition_Test )
 
 #endif
 
+/// <sumary>
+/// Checks that the node is obtained when using the depth-first in-order.
+/// </sumary>
+QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int EXPECTED_ELEMENT = 1;
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itFirst, EXPECTED_ELEMENT);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the tree is empty.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(5);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itFirst.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <sumary>
+/// Checks that the expected iterator is returned when using a common tree and a common index and using the depth-first in-order.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPositionAndDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 1;
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    ++EXPECTED_ITERATOR;
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+/// <sumary>
+/// Checks that the first position is returned when using a common tree and the index equals zero and using the depth-first in-order.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndexAndDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+/// <sumary>
+/// Checks that the last position is returned when using a common tree and the last index and using the depth-first in-order.
+/// </sumary>
+QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonTreeAndLastIndexAndDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q INPUT_INDEX = TREE.GetCount() - 1U;
+    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    EXPECTED_ITERATOR.MoveLast();
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    BOOST_CHECK(it == EXPECTED_ITERATOR);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the tree is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QBinarySearchTree<int> TREE(3);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = TREE.GetCount() + 1U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the list is empty.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_INDEX = 0;
+    QBinarySearchTree<int> TREE(3);
+    const bool ITERATOR_POINTS_END_POSITION = true;
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+/// <sumary>
+/// Checks that the resultant iterator points to the end position when the input index is out of bounds.
+/// </sumary>
+QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const bool ITERATOR_POINTS_END_POSITION = true;
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = TREE.GetCount() + 1U;
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
+    BOOST_CHECK_EQUAL(bIsEnd, ITERATOR_POINTS_END_POSITION);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns the expected position when the tree contains the element and using depth-first in-order.
+/// </summary>
+QTEST_CASE ( PositionOf_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int EXPECTED_ELEMENT = 1;
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*itPosition, EXPECTED_ELEMENT);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the tree does not contain the element and using depth-first in-order.
+/// </summary>
+QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int EXPECTED_ELEMENT = 9;
+    QBinarySearchTree<int> TREE(5);
+    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the tree is empty and using depth-first in-order.
+/// </summary>
+QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int EXPECTED_ELEMENT = 9;
+    QBinarySearchTree<int> TREE(5);
+
+    // [Execution]
+    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
 /// <summary>
 /// Checks that the capacity is correctly calculated.
 /// </summary>

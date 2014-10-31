@@ -1347,6 +1347,81 @@ public:
 
         return nComparisonResult == INPUT_VALUE_IS_EQUAL;
     }
+    
+    /// <summary>
+    /// Gets the first element in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the first element. If the tree is empty, the iterator will point to the end position.
+    /// </returns>
+    QBinarySearchTreeIterator GetFirst(const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QBinarySearchTree::QBinarySearchTreeIterator itResult(this, m_uRoot, eTraversalOrder);
+        itResult.MoveFirst();
+        return itResult;
+    }
+    
+    /// <summary>
+    /// Gets an iterator that points to a given position in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="uIndex">[IN] Position in the tree, starting at zero, to which the iterator will point. It must be lower than the number of elements in the tree.
+    /// If it is out of bounds, the returned iterator will point to the end position.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the position of the element.
+    /// </returns>
+    QBinarySearchTreeIterator GetIterator(const pointer_uint_q uIndex, const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QE_ASSERT_ERROR(uIndex < this->GetCount(), "The input index must be lower than the number of elements in the tree.");
+
+        QBinarySearchTree::QBinarySearchTreeIterator itResult = this->GetFirst(eTraversalOrder);
+
+        for(pointer_uint_q i = 0; i < uIndex; ++i)
+            ++itResult;
+
+        return itResult;
+    }
+    
+    /// <summary>
+    /// Searches for a given element and obtains its position.
+    /// </summary>
+    /// <param name="element">[IN] The value of the element to search for.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited. It is used just to create the resultant iterator.</param>
+    /// <returns>
+    /// An iterator that points to the position of the element. If the element is not present in the tree, the iterator will point to the end position.
+    /// </returns>
+    QBinarySearchTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        static const int INPUT_VALUE_IS_LOWER = -1;
+        static const int INPUT_VALUE_IS_GREATER = 1;
+        static const int INPUT_VALUE_IS_EQUAL = 0;
+        static const int INVALID_RESULT = -2;
+
+        pointer_uint_q uCurrentPosition = m_uRoot;
+
+        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
+        int nComparisonResult = INVALID_RESULT;
+
+        while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
+        {
+            nComparisonResult = m_comparator.Compare(element, *pCurrentElement);
+
+            if(nComparisonResult == INPUT_VALUE_IS_LOWER)
+                uCurrentPosition = pCurrentNode->GetLeftChild();
+            else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
+                uCurrentPosition = pCurrentNode->GetRightChild();
+
+            pCurrentElement = pElementBasePointer + uCurrentPosition;
+            pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        }
+
+        return QBinarySearchTree::QBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
+    }
+
 
 private:
 
