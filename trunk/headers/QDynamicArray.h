@@ -85,7 +85,7 @@ public:
     /// </remarks>
     QDynamicArray()
     {
-        if(sm_uDefaultCapacity > QFixedArray<T, AllocatorT, ComparatorT>::DEFAULT_CAPACITY)
+        if(sm_uDefaultCapacity > QDynamicArray::DEFAULT_CAPACITY)
             this->Reserve(sm_uDefaultCapacity);
     }
 
@@ -103,7 +103,7 @@ public:
         if(uInitialCapacity == 0)
             uCapacity = sm_uDefaultCapacity;
 
-        if(uCapacity > QFixedArray<T, AllocatorT, ComparatorT>::DEFAULT_CAPACITY)
+        if(uCapacity > QDynamicArray::DEFAULT_CAPACITY)
             this->Reserve(uCapacity);
     }
     
@@ -139,7 +139,7 @@ public:
     /// The capacity of the resultant array will be just the necessary to store the amount of elements of the input array.
     /// </remarks>
     /// <param name="arInputArray">[IN] The input array to be copied.</param>
-    QDynamicArray(const QDynamicArray<T, AllocatorT, ComparatorT> &arInputArray)
+    QDynamicArray(const QDynamicArray &arInputArray)
     {
         const pointer_uint_q INPUT_COUNT = arInputArray.GetCount();
 
@@ -151,9 +151,21 @@ public:
         m_uFirst = arInputArray.m_uFirst;
 
         // Copies every element, if input array is not empty
-        if(m_uLast != QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD)
+        if(m_uLast != QDynamicArray::END_POSITION_FORWARD)
             for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
                 new(m_allocator.Allocate()) T(arInputArray[uIndex]);
+    }
+    
+    /// <summary>
+    /// Constructor that receives an existing array and its size.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every element of the array.
+    /// </remarks>
+    /// <param name="pArray">[IN] The existing array that will be copied. It must not be null.</param>
+    /// <param name="uNumberOfElements">[IN] The number of elements in the input array. It must be greater than zero.</param>
+    QDynamicArray(const T* pArray, const pointer_uint_q uNumberOfElements) : QFixedArray<T, AllocatorT, ComparatorT>(pArray, uNumberOfElements)
+    {
     }
 
 
@@ -292,7 +304,7 @@ public:
     void Add(const T &newElement)
     {
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
         
         if(this->IsEmpty())
             m_uFirst = m_uLast = 0;
@@ -316,7 +328,7 @@ public:
     /// <param name="position">[IN] The position where the new element will be placed. It should not be an end position; if it is, 
     /// the element will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void Insert(const T &newElement, const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
+    void Insert(const T &newElement, const typename QDynamicArray::QArrayIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
@@ -325,7 +337,7 @@ public:
         pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
 
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         if(this->IsEmpty())
         {
@@ -372,7 +384,7 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty() && uIndex <= m_uLast, "The input index is out of bounds");
 
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         if(this->IsEmpty())
         {
@@ -412,7 +424,7 @@ public:
     /// <param name="position">[IN] The position of the element to be deleted. It should not be an end position; if it is, 
     /// nothing will be done. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void Remove(const typename QFixedArray<T, AllocatorT, ComparatorT>::QArrayIterator &position)
+    void Remove(const typename QDynamicArray::QArrayIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty(), "The array is empty, there is nothing to remove");
@@ -427,8 +439,8 @@ public:
             {
                 // The container is emptied
                 ((T*)m_allocator.GetPointer())->~T();
-                m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
-                m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+                m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
+                m_uLast = QDynamicArray::END_POSITION_FORWARD;
                 m_allocator.Clear();
             }
             else
@@ -470,8 +482,8 @@ public:
             {
                 // The container is emptied
                 ((T*)m_allocator.GetPointer())->~T();
-                m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
-                m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+                m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
+                m_uLast = QDynamicArray::END_POSITION_FORWARD;
                 m_allocator.Clear();
             }
             else
@@ -509,8 +521,8 @@ public:
             for(pointer_uint_q uIndex = m_uFirst; uIndex <= m_uLast; ++uIndex)
                 ((T*)pBuffer + uIndex)->~T();
 
-            m_uFirst = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_BACKWARD;
-            m_uLast = QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD;
+            m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
+            m_uLast = QDynamicArray::END_POSITION_FORWARD;
 
             m_allocator.Clear();
         }
@@ -534,6 +546,342 @@ public:
         arDestinationArray.m_uLast = m_uLast;
     }
     
+    /// <summary>
+    /// Copies a range of elements from another array to the end of the array.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the array is exceeded a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same array is safe.<br/>
+    /// The first and the last element of the range must belong to the same array.<br/>
+    /// The copy constructor of each element will be called.<br/>
+    /// Calling this method is faster than adding each element one by one.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    void AddRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+
+        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+
+        if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
+            this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
+
+        T* pCurrentInput = &*first;
+        T* pAfterLast = (&*last) + 1U;
+
+        // If the array is empty, sets up the first and the last positions
+        if(this->IsEmpty())
+        {
+            m_uFirst = 0;
+            m_uLast = -1;
+        }
+
+        // Copies each element in the input range
+        for(; pCurrentInput != pAfterLast; ++pCurrentInput)
+            new(m_allocator.Allocate()) T(*pCurrentInput);
+
+        m_uLast += NEW_ELEMENTS_COUNT;
+    }
+
+    /// <summary>
+    /// Copies a range of elements from another array to a concrete position of the array.
+    /// </summary>
+    /// <remarks>
+    /// An insertion produces the movement of all the subsequent elements in the array N positions forward (where N is the number of elements in the range), 
+    /// which will affect the content pointed to by any existing iterator or pointer.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same array is not safe, strange results may be obtained.<br/>
+    /// The first and the last element of the range must belong to the same array.<br/>
+    /// The copy constructor of each element will be called.<br/>
+    /// Calling this method is faster than inserting each element one by one.<br/>
+    /// Use AddRange method to insert elements at the end.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    /// <param name="uIndex">[IN] The index (zero-based) where the range of elements will be placed. It should be lower than the number of elements of the array; if it is not, 
+    /// the element will be inserted at the end by default.</param>
+    void InsertRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last, const pointer_uint_q uIndex)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_WARNING(uIndex < this->GetCount(), "The index is out of bounds.");
+
+        const bool INSERTING_AT_THE_END = uIndex >= this->GetCount();
+        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : uIndex;
+
+        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+
+        if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
+            this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
+        
+        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        T* pCurrentResident = pBasePointer + FIXED_INDEX;
+        T* pCurrentInput = &*first;
+        T* pAfterLast = (&*last) + 1U;
+
+        // If the array is empty, sets up the first and the last positions
+        if(this->IsEmpty())
+            m_uFirst = 0;
+
+        // Occupies the space for the elementas that will be moved
+        for(pointer_uint_q i = 0; i < NEW_ELEMENTS_COUNT; ++i)
+            m_allocator.Allocate();
+
+        // Moves all the elements of positions posterior to insertion position
+        if(!INSERTING_AT_THE_END)
+            memmove(pCurrentResident + NEW_ELEMENTS_COUNT, pCurrentResident, (this->GetCount() - FIXED_INDEX - NEW_ELEMENTS_COUNT) * sizeof(T));
+
+        // Copies each element in the input range
+        for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
+            new(pCurrentResident) T(*pCurrentInput);
+
+        m_uLast += NEW_ELEMENTS_COUNT;
+    }
+    
+    /// <summary>
+    /// Copies a range of elements from another array to a concrete position of the array.
+    /// </summary>
+    /// <remarks>
+    /// An insertion produces the movement of all the subsequent elements in the array N positions forward (where N is the number of elements in the range), 
+    /// which will affect the content pointed to by any existing iterator or pointer.<br/>
+    /// If the capacity of the array is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same array is not safe, strange results may be obtained.<br/>
+    /// The first and the last element of the range must belong to the same array.<br/>
+    /// The copy constructor of each element will be called.<br/>
+    /// Calling this method is faster than inserting each element one by one.<br/>
+    /// Use AddRange method to insert elements at the end.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    /// <param name="position">[IN] The position where the range of elements will be placed. It should not be an end position; if it is, 
+    /// the range will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// array; otherwise, the behavior is undefined.</param>
+    void InsertRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last, const typename QDynamicArray::QArrayIterator &position)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_WARNING(!position.IsEnd(), "The insertion position should not point to an end position.");
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator that points to the insertion position is not valid.");
+
+        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        const bool INSERTING_AT_THE_END = position.IsEnd();
+        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : &*position - pBasePointer;
+
+        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+
+        if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
+        {
+            this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
+            pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        }
+        
+        T* pCurrentResident = pBasePointer + FIXED_INDEX;
+        T* pCurrentInput = &*first;
+        T* pAfterLast = (&*last) + 1U;
+
+        // If the array is empty, sets up the first and the last positions
+        if(this->IsEmpty())
+            m_uFirst = 0;
+
+        // Occupies the space for the elementas that will be moved
+        for(pointer_uint_q i = 0; i < NEW_ELEMENTS_COUNT; ++i)
+            m_allocator.Allocate();
+
+        // Moves all the elements of positions posterior to insertion position
+        if(!INSERTING_AT_THE_END)
+            memmove(pCurrentResident + NEW_ELEMENTS_COUNT, pCurrentResident, (this->GetCount() - FIXED_INDEX - NEW_ELEMENTS_COUNT) * sizeof(T));
+
+        // Copies each element in the input range
+        for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
+            new(pCurrentResident) T(*pCurrentInput);
+
+        m_uLast += NEW_ELEMENTS_COUNT;
+    }
+    
+    /// <summary>
+    /// Deletes a range of elements placed at a concrete position in the array.
+    /// </summary>
+    /// <remarks>
+    /// A removal produces the movement of all the subsequent elements in the array N positions backward (where N is the number of elements in the range), 
+    /// which will affect the content pointed to by any existing iterator or pointer.<br/>
+    /// Calling this method is faster than removing each element one by one.<br/>
+    /// The destructor of each element will be called.
+    /// </remarks>
+    /// <param name="first">[IN] The position of the first element to be deleted. It must not be an end position. It must point to the same
+    /// array; otherwise, the behavior is undefined. It must be equal or anterior to the last element in the range.</param>
+    /// <param name="last">[IN] The position of the last element to be deleted. It must not be an end position. It must point to the same
+    /// array; otherwise, the behavior is undefined. It must be equal or posterior to the first element in the range.</param>
+    void RemoveRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+
+        const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = (&*last - &*first) + 1U;
+        
+        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        T* pFirstInRange = &*first;
+        T* pAfterLast = (&*last) + 1U;
+
+        // Deletes each element in the input range
+        for(T* pElementToDelete = pFirstInRange; pElementToDelete != pAfterLast; ++pElementToDelete)
+            (*pElementToDelete).~T();
+
+        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - pBasePointer;
+        const pointer_uint_q ELEMENTS_AFTER_LAST = this->GetCount() - FIRST_DELETED_POSITION - ELEMENTS_TO_REMOVE_COUNT;
+
+        // Moves all the elements of positions posterior to the last deleted element to the position of the first removed element
+        if(ELEMENTS_AFTER_LAST > 0)
+            memmove(pFirstInRange, pAfterLast, ELEMENTS_AFTER_LAST * sizeof(T));
+
+        // Destroys the rest of the elements
+        pFirstInRange += ELEMENTS_AFTER_LAST; // Sets the pointer after the current last element
+
+        for(pointer_uint_q i = 0; i < ELEMENTS_TO_REMOVE_COUNT; ++i, ++pFirstInRange)
+            m_allocator.Deallocate(pFirstInRange);
+
+        if(this->IsEmpty())
+            m_uFirst = m_uLast = QDynamicArray::END_POSITION_FORWARD;
+        else
+            m_uLast -= ELEMENTS_TO_REMOVE_COUNT;
+    }
+    
+    /// <summary>
+    /// Deletes a range of elements placed at a concrete position in the array.
+    /// </summary>
+    /// <remarks>
+    /// A removal produces the movement of all the subsequent elements in the array N positions backward (where N is the number of elements in the range), 
+    /// which will affect the content pointed to by any existing iterator or pointer.<br/>
+    /// Calling this method is faster than removing each element one by one.<br/>
+    /// The destructor of each element will be called.
+    /// </remarks>
+    /// <param name="uFirst">[IN] The position index (zero-based) of the first element to be deleted. It must be equal or lower than the last element's index in the range. 
+    /// It must be lower than the number of elements of the array.</param>
+    /// <param name="uLast">[IN] The position index (zero-based) of the last element to be deleted. It must be equal or greater than the first element's index in the range.
+    /// It must be lower than the number of elements of the array.</param>
+    void RemoveRange(const pointer_uint_q uFirst, const pointer_uint_q uLast)
+    {
+        QE_ASSERT_ERROR(uFirst <= uLast, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_ERROR(uFirst < this->GetCount(), "The first position is out of bounds.");
+        QE_ASSERT_ERROR(uLast < this->GetCount(), "The last position is out of bounds.");
+
+        const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = uLast - uFirst + 1U;
+        
+        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        T* pFirstInRange = pBasePointer + uFirst;
+        T* pAfterLast = pBasePointer + uLast + 1U;
+
+        // Deletes each element in the input range
+        for(T* pElementToDelete = pFirstInRange; pElementToDelete != pAfterLast; ++pElementToDelete)
+            (*pElementToDelete).~T();
+        
+        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - pBasePointer;
+        const pointer_uint_q ELEMENTS_AFTER_LAST = this->GetCount() - FIRST_DELETED_POSITION - ELEMENTS_TO_REMOVE_COUNT;
+
+        // Moves all the elements of positions posterior to the last deleted element to the position of the first removed element
+        if(ELEMENTS_AFTER_LAST > 0)
+            memmove(pFirstInRange, pAfterLast, ELEMENTS_AFTER_LAST * sizeof(T));
+
+        // Destroys the rest of the elements
+        pFirstInRange += ELEMENTS_AFTER_LAST; // Sets the pointer after the current last element
+
+        for(pointer_uint_q i = 0; i < ELEMENTS_TO_REMOVE_COUNT; ++i, ++pFirstInRange)
+            m_allocator.Deallocate(pFirstInRange);
+
+        if(this->IsEmpty())
+            m_uFirst = m_uLast = QDynamicArray::END_POSITION_FORWARD;
+        else
+            m_uLast -= ELEMENTS_TO_REMOVE_COUNT;
+    }
+    
+    /// <summary>
+    /// Gets a range of elements from the array.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor of each element in the range will be called, at least, once.
+    /// </remarks>
+    /// <param name="first">[IN] The position of the first element to be copied. It must not be an end position. It must point to the same
+    /// array; otherwise, the behavior is undefined. It must be equal or anterior to the last element in the range.</param>
+    /// <param name="last">[IN] The position of the last element to be copied. It must not be an end position. It must point to to the same
+    /// array; otherwise, the behavior is undefined. It must be equal or posterior to the first element in the range.</param>
+    /// <returns>
+    /// An array that contains a copy of all the elements in the given range.
+    /// </returns>
+    QDynamicArray GetRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last) const
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+
+        const pointer_uint_q ELEMENTS_TO_GET_COUNT = (&*last - &*first) + 1U;
+        
+        QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
+
+        T* pCurrentResult = &*first;
+        T* pAfterLast = &*last + 1U;
+
+        // Copies each element in the input range
+        for(; pCurrentResult != pAfterLast; ++pCurrentResult)
+            new(arResult.m_allocator.Allocate()) T(*pCurrentResult);
+
+        arResult.m_uFirst = 0;
+        arResult.m_uLast  = ELEMENTS_TO_GET_COUNT - 1U;
+
+        return arResult;
+    }
+    
+    /// <summary>
+    /// Gets a range of elements from the array.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor of each element in the range will be called, at least, once.
+    /// </remarks>
+    /// <param name="uFirst">[IN] The position index (zero-based) of the first element to be copied. It must be lower than the number of elements of the array.
+    /// It must be equal or lower than the last element's index in the range.</param>
+    /// <param name="uLast">[IN] The position index (zero-based) of the last element to be copied. It must be lower than the number of elements of the array.
+    /// It must be equal or greater than the first element's index in the range.</param>
+    /// <returns>
+    /// An array that contains a copy of all the elements in the given range.
+    /// </returns>
+    QDynamicArray GetRange(const pointer_uint_q uFirst, const pointer_uint_q uLast) const
+    {
+        QE_ASSERT_ERROR(uFirst <= uLast, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_ERROR(uFirst < this->GetCount(), "The first position is out of bounds.");
+        QE_ASSERT_ERROR(uLast < this->GetCount(), "The last position is out of bounds.");
+
+        const pointer_uint_q ELEMENTS_TO_GET_COUNT = uLast - uFirst + 1U;
+        
+        QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
+
+        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        T* pCurrentResult = pBasePointer + uFirst;
+        T* pAfterLast = pBasePointer + uLast + 1U;
+
+        // Copies each element in the input range
+        for(; pCurrentResult != pAfterLast; ++pCurrentResult)
+            new(arResult.m_allocator.Allocate()) T(*pCurrentResult);
+
+        arResult.m_uFirst = 0;
+        arResult.m_uLast  = ELEMENTS_TO_GET_COUNT - 1U;
+
+        return arResult;
+    }
+
 private:
 
     /// <summary>
@@ -541,7 +889,7 @@ private:
     /// </summary>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
-    void ReallocateByFactor(const pointer_uint_q uNumberOfElements)
+    void _ReallocateByFactor(const pointer_uint_q uNumberOfElements)
     {
         const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QDynamicArray::REALLOCATION_FACTOR, pointer_uint_q);
         this->Reserve(FINAL_CAPACITY);
