@@ -328,7 +328,7 @@ public:
     /// <param name="position">[IN] The position where the new element will be placed. It should not be an end position; if it is, 
     /// the element will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void Insert(const T &newElement, const typename QDynamicArray::QArrayIterator &position)
+    void Insert(const T &newElement, const typename QDynamicArray::QConstArrayIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
@@ -558,7 +558,7 @@ public:
     /// </remarks>
     /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
     /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
-    void AddRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last)
+    void AddRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -571,8 +571,8 @@ public:
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
             this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
 
-        T* pCurrentInput = &*first;
-        T* pAfterLast = (&*last) + 1U;
+        const T* pCurrentInput = &*first;
+        const T* pAfterLast = (&*last) + 1U;
 
         // If the array is empty, sets up the first and the last positions
         if(this->IsEmpty())
@@ -605,7 +605,7 @@ public:
     /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
     /// <param name="uIndex">[IN] The index (zero-based) where the range of elements will be placed. It should be lower than the number of elements of the array; if it is not, 
     /// the element will be inserted at the end by default.</param>
-    void InsertRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last, const pointer_uint_q uIndex)
+    void InsertRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last, const pointer_uint_q uIndex)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -624,8 +624,8 @@ public:
         
         T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
         T* pCurrentResident = pBasePointer + FIXED_INDEX;
-        T* pCurrentInput = &*first;
-        T* pAfterLast = (&*last) + 1U;
+        const T* pCurrentInput = &*first;
+        const T* pAfterLast = (&*last) + 1U;
 
         // If the array is empty, sets up the first and the last positions
         if(this->IsEmpty())
@@ -664,7 +664,7 @@ public:
     /// <param name="position">[IN] The position where the range of elements will be placed. It should not be an end position; if it is, 
     /// the range will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void InsertRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last, const typename QDynamicArray::QArrayIterator &position)
+    void InsertRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last, const typename QDynamicArray::QArrayIterator &position)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -687,8 +687,8 @@ public:
         }
         
         T* pCurrentResident = pBasePointer + FIXED_INDEX;
-        T* pCurrentInput = &*first;
-        T* pAfterLast = (&*last) + 1U;
+        const T* pCurrentInput = &*first;
+        const T* pAfterLast = (&*last) + 1U;
 
         // If the array is empty, sets up the first and the last positions
         if(this->IsEmpty())
@@ -820,7 +820,7 @@ public:
     /// <returns>
     /// An array that contains a copy of all the elements in the given range.
     /// </returns>
-    QDynamicArray GetRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last) const
+    QDynamicArray GetRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last) const
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -832,8 +832,8 @@ public:
         
         QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
 
-        T* pCurrentResult = &*first;
-        T* pAfterLast = &*last + 1U;
+        const T* pCurrentResult = &*first;
+        const T* pAfterLast = &*last + 1U;
 
         // Copies each element in the input range
         for(; pCurrentResult != pAfterLast; ++pCurrentResult)
