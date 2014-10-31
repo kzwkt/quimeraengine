@@ -55,7 +55,7 @@ namespace Containers
 /// </summary>
 /// <remarks>
 /// Trees are empty when they are created; to add the root node, use the the SetRootNode method.<br/>
-/// The number of child nodes per node (N) is set when the tree is created. Trees with different value of N cannot interact. However, 
+/// The number of child nodes per node (N) is set when the tree is created. Trees with different value of N cannot interact in certain scenarios. However, 
 /// trees can be created without that restriction by using the NO_MAX_CHILDREN constant.<br/>
 /// Every node keeps a reference to its parent and its children. Removing a node implies removing all its children.<br/>
 /// There is not a default way to traverse an N-ary tree, the desired method will have to be specified when necessary.<br/>
@@ -1166,11 +1166,11 @@ public:
     /// All the elements in the resident tree will be firstly removed, calling each element's destructor.
     /// The copy constructor is then called for every copied element, in an arbitrary order.
     /// </remarks>
-    /// <param name="tree">[IN] The other tree to be copied. The maximum number of children per node in both trees must be the same 
-    /// unless the resident tree was created without such restriction.</param>
+    /// <param name="tree">[IN] The other tree to be copied. The maximum number of children per node in the tree must 
+    /// be lower than or equal to the resident tree's.</param>
     QNTree& operator=(const QNTree &tree)
     {
-        QE_ASSERT_ERROR(MAX_CHILDREN == tree.MAX_CHILDREN && MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node must be the same in both trees.");
+        QE_ASSERT_ERROR(MAX_CHILDREN >= tree.MAX_CHILDREN && MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node in the resident tree is lower than the input tree's.");
 
         if(this != &tree)
         {
@@ -2074,6 +2074,27 @@ public:
         QNTree::QNTreeIterator itLast = this->GetRoot(eTraversalOrder);
         itLast.MoveLast();
         return itLast;
+    }
+    
+    /// <summary>
+    /// Performs a shallow copy of the contents of the tree to another tree.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the destination tree is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
+    /// No constructors will be called during this operation.
+    /// </remarks>
+    /// <param name="destinationTree">[IN/OUT] The destination array to which the contents will be copied. The maximum number of children per node in the tree must 
+    /// be greater than or equal to the resident tree's.</param>
+    void Clone(QNTree &destinationTree) const
+    {
+        QE_ASSERT_ERROR(destinationTree.MAX_CHILDREN >= MAX_CHILDREN, "The maximum number of children per node in the destination tree is lower than the source tree's.");
+
+        if(destinationTree.GetCapacity() < this->GetCapacity())
+            destinationTree.Reserve(this->GetCapacity());
+
+        this->m_nodeAllocator.CopyTo(destinationTree.m_nodeAllocator);
+        this->m_elementAllocator.CopyTo(destinationTree.m_elementAllocator);
+        destinationTree.m_uRoot = m_uRoot;
     }
 
 private:

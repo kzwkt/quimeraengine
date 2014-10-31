@@ -3405,6 +3405,127 @@ QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
 }
 
 /// <summary>
+/// Checks if it the clone method works properly.
+/// </summary>
+QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalTree_Test )
+{
+    // [Preparation]
+    QNTree<char> sourceTree(3, 8);
+    sourceTree.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = sourceTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = sourceTree.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = sourceTree.AddChild(itRootNode, 'F');
+    sourceTree.AddChild(itParentNode1, 'C');
+    sourceTree.AddChild(itParentNode1, 'D');
+    sourceTree.AddChild(itParentNode1, 'E');
+    sourceTree.AddChild(itParentNode2, 'G');
+    QNTree<char> destinationTree(3, 8);
+
+    // [Execution]
+    sourceTree.Clone(destinationTree);
+
+    // [Verification]
+    BOOST_CHECK(sourceTree == destinationTree);
+}
+
+/// <summary>
+/// Checks if it the clone method works properly when the destination tree has more capacity and elements.
+/// </summary>
+QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalTreeWhenInputTreeHasMoreCapacityAndElements_Test )
+{
+    // [Preparation]
+    QNTree<char> sourceTree(3, 4);
+    sourceTree.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = sourceTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = sourceTree.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = sourceTree.AddChild(itRootNode, 'F');
+    sourceTree.AddChild(itParentNode1, 'C');
+
+    QNTree<char> destinationTree(3, 8);
+    destinationTree.SetRootValue('X');
+    QNTree<char>::QNTreeIterator itRootNode2 = destinationTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode3 = destinationTree.AddChild(itRootNode2, 'Z');
+    QNTree<char>::QNTreeIterator itParentNode4 = destinationTree.AddChild(itRootNode2, 'U');
+    destinationTree.AddChild(itParentNode3, 'T');
+    destinationTree.AddChild(itParentNode3, 'R');
+    destinationTree.AddChild(itParentNode4, 'S');
+    destinationTree.AddChild(itParentNode4, 'M');
+
+    // [Execution]
+    sourceTree.Clone(destinationTree);
+
+    // [Verification]
+    BOOST_CHECK(sourceTree == destinationTree);
+}
+
+/// <summary>
+/// Checks if it the clone method works properly when the destination tree has less capacity and elements.
+/// </summary>
+QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalListWhenInputTreeHasLessCapacityAndElements_Test )
+{
+    // [Preparation]
+    QNTree<char> sourceTree(3, 8);
+    sourceTree.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = sourceTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator itParentNode1 = sourceTree.AddChild(itRootNode, 'B');
+    QNTree<char>::QNTreeIterator itParentNode2 = sourceTree.AddChild(itRootNode, 'F');
+    sourceTree.AddChild(itParentNode1, 'C');
+    sourceTree.AddChild(itParentNode1, 'D');
+    sourceTree.AddChild(itParentNode1, 'E');
+    sourceTree.AddChild(itParentNode2, 'G');
+
+    QNTree<char> destinationTree(3, 3);
+    destinationTree.SetRootValue('X');
+    QNTree<char>::QNTreeIterator itRootNode2 = destinationTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    destinationTree.AddChild(itRootNode2, 'Z');
+    destinationTree.AddChild(itRootNode2, 'U');
+
+    // [Execution]
+    sourceTree.Clone(destinationTree);
+
+    // [Verification]
+    BOOST_CHECK(sourceTree == destinationTree);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the maximum number of elements in the destination tree is lower than in the source tree.
+/// </summary>
+QTEST_CASE ( Clone_AssertionFailsWhenTheMaximumNumberOfElementsInDestinationIsLowerThanInSource_Test )
+{
+    // [Preparation]
+    QNTree<char> sourceTree(5, 3);
+    sourceTree.SetRootValue('A');
+    QNTree<char>::QNTreeIterator itRootNode = sourceTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    sourceTree.AddChild(itRootNode, 'B');
+    sourceTree.AddChild(itRootNode, 'F');
+
+    QNTree<char> destinationTree(3, 3);
+    destinationTree.SetRootValue('X');
+    QNTree<char>::QNTreeIterator itRootNode2 = destinationTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    destinationTree.AddChild(itRootNode2, 'Z');
+    destinationTree.AddChild(itRootNode2, 'U');
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        sourceTree.Clone(destinationTree);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
 /// Checks that the capacity is correctly calculated.
 /// </summary>
 QTEST_CASE ( GetCapacity_IsCorrectlyCalculated_Test )
@@ -3447,19 +3568,18 @@ QTEST_CASE ( GetCapacity_IsCorrectlyCalculatedWhenItEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( GetCount_IsCorrectlyCalculated_Test )
 {
-    //[TODO] Thund: Uncomment when AddChild is implemented
-    //// [Preparation]
-    //const pointer_uint_q EXPECTED_COUNT = 3;
-    //QNTree<int> TREE(3, 3);
-    //TREE.SetRootValue(1);             // [ 1 |   |   ]
-    //TREE.AddChild(TREE.GetRoot(), 2); // [ 1 | 2 |   ]
-    //TREE.AddChild(TREE.GetRoot(), 3); // [ 1 | 2 | 3 ]
+    // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 3;
+    QNTree<int> TREE(3, 3);
+    TREE.SetRootValue(1);                                                       // [ 1 |   |   ]
+    TREE.AddChild(TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder), 2); // [ 1 | 2 |   ]
+    TREE.AddChild(TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder), 3); // [ 1 | 2 | 3 ]
 
-    //// [Execution]
-    //pointer_uint_q uCount = TREE.GetCount();
+    // [Execution]
+    pointer_uint_q uCount = TREE.GetCount();
 
-    //// [Verification]
-    //BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    // [Verification]
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
 /// <summary>
