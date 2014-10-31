@@ -308,6 +308,44 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
+/// Checks if it assigns correctly when the size of the origin array is equal to the destination array.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginArraySizeIsEqualToDestinationArraySize_Test )
+{
+    // [Preparation]
+    const u64_q ORIGIN_VALUES[] = {0, 1, 2, 3};
+    QFixedArray<u64_q> arOrigin = QFixedArray<u64_q>(ORIGIN_VALUES, 4U);
+    const u64_q DESTINATION_VALUES[] = {4, 5, 6, 7};
+    QFixedArray<u64_q> arDestination = QFixedArray<u64_q>(DESTINATION_VALUES, 4U);
+
+    // [Execution]
+    arDestination = arOrigin;
+
+    // [Verification]
+    BOOST_CHECK(arDestination == arOrigin);
+}
+
+/// <summary>
+/// Checks if it assigns correctly when the size of the origin array is lower than the destination array.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginArraySizeIsLowerThanDestinationArraySize_Test )
+{
+    // [Preparation]
+    const u64_q ORIGIN_VALUES[] = {0, 1, 2};
+    QFixedArray<u64_q> arOrigin = QFixedArray<u64_q>(ORIGIN_VALUES, 3U);
+    const u64_q DESTINATION_VALUES[] = {4, 5, 6, 7};
+    QFixedArray<u64_q> arDestination = QFixedArray<u64_q>(DESTINATION_VALUES, 4U);
+    const u64_q EXPECTED_VALUES[] = {0, 1, 2, 7};
+    QFixedArray<u64_q> arExpectedValues = QFixedArray<u64_q>(EXPECTED_VALUES, 4U);
+
+    // [Execution]
+    arDestination = arOrigin;
+
+    // [Verification]
+    BOOST_CHECK(arDestination == arExpectedValues);
+}
+
+/// <summary>
 /// Checks if it calls to operator assignment of the array elements.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_OperatorAssignmentOfArrayElementsIsCalled_Test )

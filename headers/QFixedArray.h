@@ -640,7 +640,7 @@ public:
             m_allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
     {
         QE_ASSERT_ERROR( uCount > 0, "Zero elements array is not allowed." );
-        QE_ASSERT_ERROR( this->MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
+        QE_ASSERT_ERROR( this->_MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
 
         for(pointer_uint_q uIndex = 0; uIndex < uCount; uIndex++)
         {
@@ -956,8 +956,8 @@ public:
     {
         bool bAreEqual = true;
 
-        // If they are not the same instance
-        if(this != &array)
+        // If they are not the same instance and they are not both empty
+        if(this != &array && !(m_uLast == QFixedArray::END_POSITION_FORWARD && array.m_uLast == QFixedArray::END_POSITION_FORWARD))
         {
             // If they have the same number of elements
             if(m_uLast == array.m_uLast)
@@ -1154,9 +1154,9 @@ private:
     /// <returns>
     /// True if the result overflows for the pointer_uint_q type.
     /// </returns>
-    bool MultiplicationOverflows(pointer_uint_q uOperandA, pointer_uint_q uOperandB) const
+    bool _MultiplicationOverflows(pointer_uint_q uOperandA, pointer_uint_q uOperandB) const
     {
-        return this->HighestOneBitPosition(uOperandA) + this->HighestOneBitPosition(uOperandB) > sizeof(pointer_uint_q) * 8;
+        return this->_HighestOneBitPosition(uOperandA) + this->_HighestOneBitPosition(uOperandB) > sizeof(pointer_uint_q) * 8;
     }
 
     /// <summary>
@@ -1166,7 +1166,7 @@ private:
     /// <returns>
     /// The highest one bit position of the number passed by parameter.
     /// </returns>
-    pointer_uint_q HighestOneBitPosition(pointer_uint_q uValue) const
+    pointer_uint_q _HighestOneBitPosition(pointer_uint_q uValue) const
     {
         pointer_uint_q position = 0;
 
