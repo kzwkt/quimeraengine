@@ -781,7 +781,7 @@ public:
     /// </returns>
     T& GetValue(const pointer_uint_q uIndex) const
     {
-        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size." );
         return *((T*)m_allocator.GetPointer() + uIndex);
     }
 
@@ -791,7 +791,7 @@ public:
     /// <param name="destinationArray"> [IN/OUT] Destination array where to copy the array elements. The capacity of the two arrays has to be equal.</param>
     void Clone(QFixedArray &destinationArray) const
     {
-        QE_ASSERT_ERROR( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal" );
+        QE_ASSERT_ERROR( destinationArray.GetCapacity() == this->GetCapacity(), "The capacity of the two arrays has to be equal." );
         m_allocator.CopyTo(destinationArray.m_allocator);
     }
 
@@ -805,7 +805,7 @@ public:
     /// <param name="value">[IN] Value to copy in the array.</param>
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
-        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size." );
         *((T*)m_allocator.GetPointer() + uIndex) = value;
     }
 
@@ -819,7 +819,7 @@ public:
     /// </returns>
     QArrayIterator GetIterator(const pointer_uint_q uIndex) const 
     {
-        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size" );
+        QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size." );
 
         return QFixedArray::QArrayIterator(this, uIndex);
     }

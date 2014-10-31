@@ -1881,9 +1881,9 @@ QTEST_CASE ( InsertChild_ResultIteratorPointsToEndWhenExceedingMaximumNodes_Test
 #endif
 
 /// <sumary>
-/// Checks that the expected iterator is returned when using a common tree and a common index.
+/// Checks that the expected iterator is returned when using a common tree and a common index and using the depth-first pre-order.
 /// </sumary>
-QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPosition_Test )
+QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPositionAndDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const pointer_uint_q INPUT_INDEX = 1;
@@ -1903,9 +1903,9 @@ QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPosition
 }
 
 /// <sumary>
-/// Checks that the first position is returned when using a common tree and the index equals zero.
+/// Checks that the first position is returned when using a common tree and the index equals zero and using the depth-first pre-order.
 /// </sumary>
-QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndex_Test )
+QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndexAndDepthFirstPreOrder_Test )
 {
     // [Preparation]
     const pointer_uint_q INPUT_INDEX = 0;
@@ -1925,9 +1925,9 @@ QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndex_T
 }
 
 /// <sumary>
-/// Checks that the last position is returned when using a common tree and the last index.
+/// Checks that the last position is returned when using a common tree and the last index and using the depth-first pre-order.
 /// </sumary>
-QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonTreeAndLastIndex_Test )
+QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonTreeAndLastIndexAndDepthFirstPreOrder_Test )
 {
     // [Preparation]
     QNTree<char> TREE(3, 5);
@@ -2338,8 +2338,6 @@ QTEST_CASE( GetParent_ReturnedIteratorPointsToEndWhenNodeHasNoParent_Test )
 /// </sumary>
 QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstPreOrder_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
-
     // [Preparation]
     const char EXPECTED_ELEMENT = 'A';
     QNTree<char> TREE(3, 5);
@@ -2361,8 +2359,6 @@ QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstPreOrder_Test )
 /// </sumary>
 QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
-
     // [Preparation]
     QNTree<char> TREE(3, 5);
 
