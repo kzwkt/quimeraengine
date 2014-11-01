@@ -166,14 +166,14 @@ protected:
 public:
 
     /// <summary>
-    /// Iterator that steps once per element of a list.
+    /// Iterator that steps once per element of a list and does not allow to modify them.
     /// </summary>
     /// <remarks>
     /// Once an interator have been bound to a list, it cannot point to another list ever.<br/>
     /// Iterators can be invalid, this means, they may not point to an existing position of the list.<br/>
     /// The position before the first element or after the last one (end positions) are considered as valid positions.
     /// </remarks>
-    class QListIterator
+    class QConstListIterator
     {
         // CONSTRUCTORS
         // ---------------
@@ -189,7 +189,7 @@ public:
         /// <param name="pList">[IN] The list to iterate. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of list elements, but the physical.
         /// It must be lower than the capacity of the list.</param>
-        QListIterator(const QList* pList, const unsigned int uPosition) : m_pList(pList), m_uPosition(uPosition)
+        QConstListIterator(const QList* pList, const unsigned int uPosition) : m_pList(pList), m_uPosition(uPosition)
         {
             QE_ASSERT_ERROR(pList != null_q, "Invalid argument: The pointer to the list cannot be null");
             QE_ASSERT_WARNING(pList->GetCapacity() > uPosition || 
@@ -214,8 +214,9 @@ public:
         /// <returns>
         /// A reference to the resident iterator.
         /// </returns>
-        QListIterator& operator=(const QListIterator &iterator)
+        QConstListIterator& operator=(const QConstListIterator &iterator)
         {
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid.");
             QE_ASSERT_ERROR(m_pList == iterator.m_pList, "The input iterator points to a different list");
 
             if(m_pList == iterator.m_pList)
@@ -231,13 +232,15 @@ public:
         /// A reference to the list element the iterator points to. If the iterator is invalid or points to an end position,
         /// the result is undefined.
         /// </returns>
-        T& operator*() const
+        const T& operator*() const
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the list element");
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return *(((T*)m_pList->m_elementAllocator.GetPointer()) + m_uPosition);
+            return *(scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition);
         }
 
         /// <summary>
@@ -247,13 +250,15 @@ public:
         /// A pointer to the list element the iterator points to. If the iterator is invalid or points to an end position,
         /// the result is undefined.
         /// </returns>
-        T* operator->() const
+        const T* operator->() const
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the list element");
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return ((T*)m_pList->m_elementAllocator.GetPointer()) + m_uPosition;
+            return scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition;
         }
 
         /// <summary>
@@ -267,13 +272,15 @@ public:
         /// <returns>
         /// A copy of the previous state of the iterator.
         /// </returns>
-        QListIterator operator++(int)
+        QConstListIterator operator++(int)
         {
+            // Note: This code is a copy of the same method of QListIterator (replacing QListIterator with QConstListIterator)
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
             QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
-            QListIterator iteratorCopy = *this;
+            QConstListIterator iteratorCopy = *this;
 
             if(m_uPosition == m_pList->m_uLast)
                 m_uPosition = QList::END_POSITION_FORWARD;
@@ -296,13 +303,15 @@ public:
         /// <returns>
         /// A copy of the previous state of the iterator.
         /// </returns>
-        QListIterator operator--(int)
+        QConstListIterator operator--(int)
         {
+            // Note: This code is a copy of the same method of QListIterator (replacing QListIterator with QConstListIterator)
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
             QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
-            QListIterator iteratorCopy = *this;
+            QConstListIterator iteratorCopy = *this;
 
             if(m_uPosition == m_pList->m_uFirst)
                 m_uPosition = QList::END_POSITION_BACKWARD;
@@ -324,8 +333,10 @@ public:
         /// <returns>
         /// A reference to the iterator.
         /// </returns>
-        QListIterator& operator++()
+        QConstListIterator& operator++()
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
             QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
@@ -350,8 +361,10 @@ public:
         /// <returns>
         /// A reference to the iterator.
         /// </returns>
-        QListIterator& operator--()
+        QConstListIterator& operator--()
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
             QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
@@ -376,7 +389,7 @@ public:
         /// <returns>
         /// True if they are pointing to the same position of the same list; False otherwise.
         /// </returns>
-        bool operator==(const QListIterator &iterator) const
+        bool operator==(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -395,7 +408,7 @@ public:
         /// <returns>
         /// True if they are pointing to the a different position or a different list; False otherwise.
         /// </returns>
-        bool operator!=(const QListIterator &iterator) const
+        bool operator!=(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -415,7 +428,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more posterior position than the input iterator; False otherwise.
         /// </returns>
-        bool operator>(const QListIterator &iterator) const
+        bool operator>(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -428,7 +441,7 @@ public:
                iterator.m_uPosition != QList::END_POSITION_FORWARD &&
                m_uPosition != QList::END_POSITION_BACKWARD)
             {
-                QList::QListIterator iteratorFromThis = *this;
+                QList::QConstListIterator iteratorFromThis = *this;
 
                 // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                 while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -452,7 +465,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more anterior position than the input iterator; False otherwise.
         /// </returns>
-        bool operator<(const QListIterator &iterator) const
+        bool operator<(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -465,7 +478,7 @@ public:
                iterator.m_uPosition != QList::END_POSITION_BACKWARD &&
                m_uPosition != QList::END_POSITION_FORWARD)
             {
-                QList::QListIterator iteratorFromThis = *this;
+                QList::QConstListIterator iteratorFromThis = *this;
 
                 // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                 while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -490,7 +503,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more posterior position than the input iterator or to the same position; False otherwise.
         /// </returns>
-        bool operator>=(const QListIterator &iterator) const
+        bool operator>=(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -504,7 +517,7 @@ public:
                     bResult = true;
                 else
                 {
-                    QList::QListIterator iteratorFromThis = *this;
+                    QList::QConstListIterator iteratorFromThis = *this;
 
                     // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                     while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -530,7 +543,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more anterior position than the input iterator or to the same position; False otherwise.
         /// </returns>
-        bool operator<=(const QListIterator &iterator) const
+        bool operator<=(const QConstListIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -544,7 +557,7 @@ public:
                     bResult = true;
                 else
                 {
-                    QList::QListIterator iteratorFromThis = *this;
+                    QList::QConstListIterator iteratorFromThis = *this;
 
                     // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                     while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -605,6 +618,8 @@ public:
         /// </remarks>
         void MoveFirst()
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             m_uPosition = m_pList->m_uFirst == QList::END_POSITION_BACKWARD ? QList::END_POSITION_FORWARD : m_pList->m_uFirst;
         }
 
@@ -616,6 +631,8 @@ public:
         /// </remarks>
         void MoveLast()
         {
+            // Note: This code is a copy of the same method of QListIterator
+
             m_uPosition = m_pList->m_uLast;
         }
 
@@ -642,7 +659,7 @@ public:
 
         // ATTRIBUTES
         // ---------------
-    private:
+    protected:
 
         /// <summary>
         /// The list the iterator points to.
@@ -654,10 +671,243 @@ public:
         /// </summary>
         pointer_uint_q m_uPosition;
 
+    }; // QConstListIterator
+
+    
+    /// <summary>
+    /// Iterator that steps once per element of a list.
+    /// </summary>
+    /// <remarks>
+    /// Once an interator have been bound to a list, it cannot point to another list ever.<br/>
+    /// Iterators can be invalid, this means, they may not point to an existing position of the list.<br/>
+    /// The position before the first element or after the last one (end positions) are considered as valid positions.
+    /// </remarks>
+    class QListIterator : public QList::QConstListIterator
+    {
+        using QList::QConstListIterator::m_pList;
+        using QList::QConstListIterator::m_uPosition;
+
+
+        // CONSTRUCTORS
+        // ---------------
+    public:
+
+        /// <summary>
+        /// Constructor that receives the list to iterate and the position to point to. This constructor is intended to be used internally, use
+        /// GetConstIterator and GetIterator methods instead.
+        /// </summary>
+        /// <remarks>
+        /// If the list is empty, it will point to the end position (forward iteration).
+        /// </remarks>
+        /// <param name="pList">[IN] The list to iterate. It must not be null.</param>
+        /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of list elements, but the physical.
+        /// It must be lower than the capacity of the list.</param>
+        QListIterator(const QList* pList, const unsigned int uPosition) : QConstListIterator(pList, uPosition)
+        {
+        }
+
+
+        // METHODS
+        // ---------------
+    public:
+
+        /// <summary>
+        /// Assignment operator that moves the iterator to the same position of other iterator.
+        /// </summary>
+        /// <param name="iterator">[IN] Iterator whose position will be copied. It must point to the same list as the resident iterator.</param>
+        /// <returns>
+        /// A reference to the resident iterator.
+        /// </returns>
+        QListIterator& operator=(const QListIterator &iterator)
+        {
+            QList::QConstListIterator::operator=(iterator);
+            return *this;
+        }
+
+        /// <summary>
+        /// Indirection operator that returns a reference to the list element the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A reference to the list element the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        T& operator*() const
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the list element");
+
+            QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
+
+            return *(scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition);
+        }
+
+        /// <summary>
+        /// Dereferencing operator that returns a pointer to the list element the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A pointer to the list element the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        T* operator->() const
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the list element");
+
+            QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
+
+            return scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition;
+        }
+
+        /// <summary>
+        /// Post-increment operator that makes the iterator step forward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QListIterator operator++(int)
+        {
+            // Note: This code is a copy of the same method of QConstListIterator (replacing QConstListIterator with QListIterator)
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+
+            QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+
+            QListIterator iteratorCopy = *this;
+
+            if(m_uPosition == m_pList->m_uLast)
+                m_uPosition = QList::END_POSITION_FORWARD;
+            else if(m_uPosition == QList::END_POSITION_BACKWARD)
+                m_uPosition = m_pList->m_uFirst;
+            else if(m_uPosition != QList::END_POSITION_FORWARD)
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Post-decrement operator that makes the iterator step backward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QListIterator operator--(int)
+        {
+            // Note: This code is a copy of the same method of QConstListIterator (replacing QConstListIterator with QListIterator)
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+
+            QListIterator iteratorCopy = *this;
+
+            if(m_uPosition == m_pList->m_uFirst)
+                m_uPosition = QList::END_POSITION_BACKWARD;
+            else if(m_uPosition == QList::END_POSITION_FORWARD)
+                m_uPosition = m_pList->m_uLast;
+            else if(m_uPosition != QList::END_POSITION_BACKWARD)
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Pre-increment operator that makes the iterator step forward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QListIterator& operator++()
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+
+            QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+
+            if(m_uPosition == m_pList->m_uLast)
+                m_uPosition = QList::END_POSITION_FORWARD;
+            else if(m_uPosition == QList::END_POSITION_BACKWARD)
+                m_uPosition = m_pList->m_uFirst;
+            else if(m_uPosition != QList::END_POSITION_FORWARD)
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Pre-decrement operator that makes the iterator step backward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QListIterator& operator--()
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+
+            QE_ASSERT_WARNING(m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+
+            if(m_uPosition == m_pList->m_uFirst)
+                m_uPosition = QList::END_POSITION_BACKWARD;
+            else if(m_uPosition == QList::END_POSITION_FORWARD)
+                m_uPosition = m_pList->m_uLast;
+            else if(m_uPosition != QList::END_POSITION_BACKWARD)
+                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the first position.
+        /// </summary>
+        /// <remarks>
+        /// If the list is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveFirst()
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            m_uPosition = m_pList->m_uFirst == QList::END_POSITION_BACKWARD ? QList::END_POSITION_FORWARD : m_pList->m_uFirst;
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the last position.
+        /// </summary>
+        /// <remarks>
+        /// If the list is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveLast()
+        {
+            // Note: This code is a copy of the same method of QConstListIterator
+
+            m_uPosition = m_pList->m_uLast;
+        }
+
     }; // QListIterator
 
 
-       // CONSTANTS
+    // CONSTANTS
     // ---------------
 protected:
 
@@ -675,6 +925,7 @@ protected:
     /// Constant to symbolize the end of the sequence near the first element.
     /// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
+
 
     // CONSTRUCTORS
     // ---------------
@@ -1054,7 +1305,7 @@ public:
     /// <returns>
     /// An iterator that points to the just inserted element.
     /// </returns>
-    QListIterator Insert(const T &newElement, const typename QList::QListIterator &position)
+    QListIterator Insert(const T &newElement, const typename QList::QConstListIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
