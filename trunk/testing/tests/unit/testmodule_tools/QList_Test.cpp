@@ -834,11 +834,11 @@ QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonListAndPosition
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
-    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetFirst();
+    QList<int>::QConstListIterator EXPECTED_ITERATOR = list.GetFirst();
     ++EXPECTED_ITERATOR;
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+    QList<int>::QConstListIterator it = list.GetIterator(INPUT_INDEX);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -857,10 +857,10 @@ QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonListAndZeroIndex_T
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
-    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetFirst();
+    QList<int>::QConstListIterator EXPECTED_ITERATOR = list.GetFirst();
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+    QList<int>::QConstListIterator it = list.GetIterator(INPUT_INDEX);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -879,10 +879,10 @@ QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonListAndLastIndex_Te
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
-    QList<int>::QListIterator EXPECTED_ITERATOR = list.GetLast();
+    QList<int>::QConstListIterator EXPECTED_ITERATOR = list.GetLast();
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+    QList<int>::QConstListIterator it = list.GetIterator(INPUT_INDEX);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -961,7 +961,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     const bool ITERATOR_POINTS_END_POSITION = true;
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetIterator(INPUT_INDEX);
+    QList<int>::QConstListIterator it = list.GetIterator(INPUT_INDEX);
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -985,7 +985,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
         list.Add(i);
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetIterator(OUT_OF_BOUNDS_INDEX);
+    QList<int>::QConstListIterator it = list.GetIterator(OUT_OF_BOUNDS_INDEX);
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -1006,10 +1006,10 @@ QTEST_CASE( GetFirst_ReturnsTheFirstPositionWhenUsingCommonList_Test )
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
-    QList<int>::QListIterator EXPECTED_ITERATOR(&list, 0);
+    QList<int>::QConstListIterator EXPECTED_ITERATOR(&list, 0);
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetFirst();
+    QList<int>::QConstListIterator it = list.GetFirst();
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -1027,7 +1027,7 @@ QTEST_CASE( GetFirst_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     const bool ITERATOR_POINTS_END_POSITION = true;
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetFirst();
+    QList<int>::QConstListIterator it = list.GetFirst();
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -1046,10 +1046,10 @@ QTEST_CASE( GetLast_ReturnsTheLastPositionWhenUsingCommonList_Test )
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
-    QList<int>::QListIterator EXPECTED_ITERATOR(&list, NUMBER_OF_ELEMENTS - 1U);
+    QList<int>::QConstListIterator EXPECTED_ITERATOR(&list, NUMBER_OF_ELEMENTS - 1U);
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetLast();
+    QList<int>::QConstListIterator it = list.GetLast();
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -1067,7 +1067,7 @@ QTEST_CASE( GetLast_IteratorPointsToEndPositionWhenListIsEmpty_Test )
     const bool ITERATOR_POINTS_END_POSITION = true;
 
     // [Execution]
-    QList<int>::QListIterator it = list.GetLast();
+    QList<int>::QConstListIterator it = list.GetLast();
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -1296,7 +1296,7 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
     QList<int> arCommonList;
     arCommonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
+    const QList<int>::QConstListIterator POSITION = arCommonList.GetFirst();
 
     // [Execution]
     arCommonList.Insert(ELEMENT_VALUE, POSITION);
@@ -1315,7 +1315,7 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedInBetween_Test )
     arCommonList.Add(0);
     arCommonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QListIterator POSITION = arCommonList.GetIterator(1);
+    const QList<int>::QConstListIterator POSITION = arCommonList.GetIterator(1);
 
     // [Execution]
     arCommonList.Insert(ELEMENT_VALUE, POSITION);
@@ -1336,7 +1336,7 @@ QTEST_CASE ( Insert1_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
     arFullList.Add(0);
     arFullList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QListIterator POSITION = arFullList.GetFirst();
+    const QList<int>::QConstListIterator POSITION = arFullList.GetFirst();
 
     // [Execution]
     arFullList.Insert(ELEMENT_VALUE, POSITION);
@@ -1357,7 +1357,7 @@ QTEST_CASE ( Insert1_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q INITIAL_CAPACITY = 3U;
     QList<int> arCommonList(INITIAL_CAPACITY);
     arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
+    const QList<int>::QConstListIterator POSITION = arCommonList.GetFirst();
 
     // [Execution]
     arCommonList.Insert(ELEMENT_VALUE, POSITION);
@@ -1381,7 +1381,7 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
     arCommonList.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
-    const QList<CallCounter>::QListIterator POSITION = arCommonList.GetFirst();
+    const QList<CallCounter>::QConstListIterator POSITION = arCommonList.GetFirst();
 
     // [Execution]
     arCommonList.Insert(newElement, POSITION);
@@ -1401,10 +1401,10 @@ QTEST_CASE ( Insert1_ReturnsIteratorThatPointsToInsertedElement_Test )
     arCommonList.Add(0);
     arCommonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QListIterator POSITION = arCommonList.GetIterator(1);
+    const QList<int>::QConstListIterator POSITION = arCommonList.GetIterator(1);
 
     // [Execution]
-    QList<int>::QListIterator itResult = arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    QList<int>::QConstListIterator itResult = arCommonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*itResult, ELEMENT_VALUE);
@@ -1420,7 +1420,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     // [Preparation]
     QList<int> arCommonList;
     arCommonList.Add(0);
-    QList<int>::QListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int>::QConstListIterator ITERATOR_END = arCommonList.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1450,7 +1450,7 @@ QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyList_Test )
 {
     // [Preparation]
     QList<int> arEmptyList;
-    QList<int>::QListIterator ITERATOR = arEmptyList.GetFirst();
+    QList<int>::QConstListIterator ITERATOR = arEmptyList.GetFirst();
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
@@ -1468,7 +1468,7 @@ QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPos
     // [Preparation]
     QList<int> arCommonList;
     arCommonList.Add(0);
-    QList<int>::QListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int>::QConstListIterator ITERATOR_END = arCommonList.GetLast();
     ++ITERATOR_END;
     const int ELEMENT_VALUE = 1;
 
@@ -1780,7 +1780,7 @@ QTEST_CASE ( Remove1_ReturnedIteratorPointsNextWhenElementWasNotTheLastOne_Test 
     const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
 
     // [Execution]
-    QList<int>::QListIterator itResult = arCommonList.Remove(POSITION);
+    QList<int>::QConstListIterator itResult = arCommonList.Remove(POSITION);
 
     // [Verification]
     int nValue = *itResult;
@@ -1801,7 +1801,7 @@ QTEST_CASE ( Remove1_ReturnedIteratorPointsEndPositionWhenElementWasTheLastOne_T
     const QList<int>::QListIterator POSITION = arCommonList.GetLast();
 
     // [Execution]
-    QList<int>::QListIterator itResult = arCommonList.Remove(POSITION);
+    QList<int>::QConstListIterator itResult = arCommonList.Remove(POSITION);
 
     // [Verification]
     bool bPointsToEndPosition = itResult.IsEnd();

@@ -39,6 +39,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstArrayIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstListIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
