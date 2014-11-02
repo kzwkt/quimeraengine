@@ -193,7 +193,7 @@ public:
     /// Iterators can be invalid, this means, they may not point to an existing position of the tree.<br/>
     /// The position just before the first element or just after the last one (end positions) are considered as valid positions.
     /// </remarks>
-    class QBinarySearchTreeIterator
+    class QConstBinarySearchTreeIterator
     {
         // CONSTRUCTORS
 	    // ---------------
@@ -210,9 +210,9 @@ public:
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of tree elements, but the physical.
         /// It must be lower than the capacity of the tree.</param>
         /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
-        QBinarySearchTreeIterator(const QBinarySearchTree* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : m_pTree(pTree), 
-                                                                                                                                                 m_uPosition(uPosition), 
-                                                                                                                                                 m_eTraversalOrder(eTraversalOrder)
+        QConstBinarySearchTreeIterator(const QBinarySearchTree* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : m_pTree(pTree), 
+                                                                                                                                                      m_uPosition(uPosition), 
+                                                                                                                                                      m_eTraversalOrder(eTraversalOrder)
         {
             QE_ASSERT_ERROR(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
             QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition || 
@@ -238,7 +238,7 @@ public:
         /// <returns>
         /// A reference to the resident iterator.
         /// </returns>
-        QBinarySearchTreeIterator& operator=(const QBinarySearchTreeIterator &iterator)
+        QConstBinarySearchTreeIterator& operator=(const QConstBinarySearchTreeIterator &iterator)
         {
             QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
             QE_ASSERT_WARNING(m_eTraversalOrder == iterator.m_eTraversalOrder, "The iterators have different traversal order.");
@@ -258,13 +258,13 @@ public:
         /// A reference to the tree element the iterator points to. If the iterator is invalid or points to an end position,
         /// the result is undefined.
         /// </returns>
-        T& operator*() const
+        const T& operator*() const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the tree element");
 
             QE_ASSERT_ERROR(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD && m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return *(((T*)m_pTree->m_elementAllocator.GetPointer()) + m_uPosition);
+            return *(scast_q(m_pTree->m_elementAllocator.GetPointer(), T*) + m_uPosition);
         }
 
         /// <summary>
@@ -274,13 +274,13 @@ public:
         /// A pointer to the tree element the iterator points to. If the iterator is invalid or points to an end position,
         /// the result is undefined.
         /// </returns>
-        T* operator->() const
+        const T* operator->() const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the tree element");
 
             QE_ASSERT_ERROR(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD && m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return ((T*)m_pTree->m_elementAllocator.GetPointer()) + m_uPosition;
+            return scast_q(m_pTree->m_elementAllocator.GetPointer(), T*) + m_uPosition;
         }
 
         /// <summary>
@@ -294,13 +294,13 @@ public:
         /// <returns>
         /// A copy of the previous state of the iterator.
         /// </returns>
-        QBinarySearchTreeIterator operator++(int)
+        QConstBinarySearchTreeIterator operator++(int)
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
             QE_ASSERT_WARNING(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
 
-            QBinarySearchTreeIterator iteratorCopy = *this;
+            QConstBinarySearchTreeIterator iteratorCopy = *this;
 
             if(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD)
             {
@@ -380,13 +380,13 @@ public:
         /// <returns>
         /// A copy of the previous state of the iterator.
         /// </returns>
-        QBinarySearchTreeIterator operator--(int)
+        QConstBinarySearchTreeIterator operator--(int)
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
 
             QE_ASSERT_WARNING(m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
 
-            QBinarySearchTreeIterator iteratorCopy = *this;
+            QConstBinarySearchTreeIterator iteratorCopy = *this;
 
             if(m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD)
             {
@@ -465,7 +465,7 @@ public:
         /// <returns>
         /// A reference to the iterator.
         /// </returns>
-        QBinarySearchTreeIterator& operator++()
+        QConstBinarySearchTreeIterator& operator++()
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
 
@@ -548,7 +548,7 @@ public:
         /// <returns>
         /// A reference to the iterator.
         /// </returns>
-        QBinarySearchTreeIterator& operator--()
+        QConstBinarySearchTreeIterator& operator--()
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_WARNING(m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
@@ -630,7 +630,7 @@ public:
         /// <returns>
         /// True if they are pointing to the same position of the same tree; False otherwise.
         /// </returns>
-        bool operator==(const QBinarySearchTreeIterator &iterator) const
+        bool operator==(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -649,7 +649,7 @@ public:
         /// <returns>
         /// True if they are pointing to the a different position or a different tree; False otherwise.
         /// </returns>
-        bool operator!=(const QBinarySearchTreeIterator &iterator) const
+        bool operator!=(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -669,7 +669,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more posterior position than the input iterator; False otherwise.
         /// </returns>
-        bool operator>(const QBinarySearchTreeIterator &iterator) const
+        bool operator>(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -682,7 +682,7 @@ public:
                iterator.m_uPosition != QBinarySearchTree::END_POSITION_FORWARD &&
                m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD)
             {
-                QBinarySearchTree::QBinarySearchTreeIterator iteratorFromThis = *this;
+                QBinarySearchTree::QConstBinarySearchTreeIterator iteratorFromThis = *this;
 
                 // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                 while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -706,7 +706,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more anterior position than the input iterator; False otherwise.
         /// </returns>
-        bool operator<(const QBinarySearchTreeIterator &iterator) const
+        bool operator<(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -719,7 +719,7 @@ public:
                iterator.m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD &&
                m_uPosition != QBinarySearchTree::END_POSITION_FORWARD)
             {
-                QBinarySearchTree::QBinarySearchTreeIterator iteratorFromThis = *this;
+                QBinarySearchTree::QConstBinarySearchTreeIterator iteratorFromThis = *this;
 
                 // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                 while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -744,7 +744,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more posterior position than the input iterator or to the same position; False otherwise.
         /// </returns>
-        bool operator>=(const QBinarySearchTreeIterator &iterator) const
+        bool operator>=(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -758,7 +758,7 @@ public:
                     bResult = true;
                 else
                 {
-                    QBinarySearchTree::QBinarySearchTreeIterator iteratorFromThis = *this;
+                    QBinarySearchTree::QConstBinarySearchTreeIterator iteratorFromThis = *this;
 
                     // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                     while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -784,7 +784,7 @@ public:
         /// <returns>
         /// True if the resident iterator points to a more anterior position than the input iterator or to the same position; False otherwise.
         /// </returns>
-        bool operator<=(const QBinarySearchTreeIterator &iterator) const
+        bool operator<=(const QConstBinarySearchTreeIterator &iterator) const
         {
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
             QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
@@ -798,7 +798,7 @@ public:
                     bResult = true;
                 else
                 {
-                    QBinarySearchTree::QBinarySearchTreeIterator iteratorFromThis = *this;
+                    QBinarySearchTree::QConstBinarySearchTreeIterator iteratorFromThis = *this;
 
                     // One iterator is moved forward till it either reaches the position of the input iterator or the end position
                     while(!iteratorFromThis.IsEnd() && iterator.m_uPosition != iteratorFromThis.m_uPosition)
@@ -959,7 +959,7 @@ public:
         /// </summary>
         const EQTreeTraversalOrder m_eTraversalOrder;
 
-    }; // QBinarySearchTreeIterator
+    }; // QConstBinarySearchTreeIterator
 
 
    	// CONSTANTS
@@ -1031,11 +1031,11 @@ public:
             tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
 
             // [TODO] Thund: Replace with GetFirst
-            QBinarySearchTree::QBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-            QBinarySearchTree::QBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QConstBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QConstBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
             for(itSource.MoveFirst(), itDestination.MoveFirst(); !itSource.IsEnd(); ++itSource, ++itDestination)
-                new(&*itDestination) T(*itSource);
+                new(ccast_q(&*itDestination, T*)) T(*itSource);
         }
     }
 
@@ -1053,7 +1053,7 @@ public:
     ~QBinarySearchTree()
     {
         // [TODO] Thund: Replace with GetFirst when it exists
-        QBinarySearchTree::QBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree::QConstBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
         for(it.MoveFirst(); !it.IsEnd(); ++it)
             (*it).~T();
@@ -1078,7 +1078,7 @@ public:
         {
             // Removes all the elements in the resident tree
             // [TODO] Thund: Replace with Clear when it exists
-            QBinarySearchTree::QBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QConstBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
             for(it.MoveFirst(); !it.IsEnd(); ++it)
                 (*it).~T();
@@ -1099,12 +1099,11 @@ public:
                 tree.m_elementAllocator.CopyTo(m_elementAllocator);
                 tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
 
-                // [TODO] Thund: Replace with GetFirst
-                QBinarySearchTree::QBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-                QBinarySearchTree::QBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+                QBinarySearchTree::QConstBinarySearchTreeIterator itSource = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+                QBinarySearchTree::QConstBinarySearchTreeIterator itDestination = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-                for(itSource.MoveFirst(), itDestination.MoveFirst(); !itSource.IsEnd(); ++itSource, ++itDestination)
-                    new(&*itDestination) T(*itSource);
+                for(; !itSource.IsEnd(); ++itSource, ++itDestination)
+                    new(ccast_q(&*itDestination, T*)) T(*itSource);
             }
         }
 
@@ -1140,7 +1139,7 @@ public:
     /// <returns>
     /// An iterator that points to the just added element. If the element was already in the tree, the returned iterator will point to the end position.
     /// </returns>
-    QBinarySearchTreeIterator Add(const T &newElement, const EQTreeTraversalOrder &eTraversalOrder)
+    QConstBinarySearchTreeIterator Add(const T &newElement, const EQTreeTraversalOrder &eTraversalOrder)
     {
         if(this->GetCapacity() == this->GetCount())
             this->_ReallocateByFactor(this->GetCapacity() + 1U);
@@ -1212,7 +1211,7 @@ public:
             } // while(pNewNode != null_q)
         }
 
-        return QBinarySearchTree::QBinarySearchTreeIterator(this, pNewNode - pNodeBasePosition, eTraversalOrder);
+        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, pNewNode - pNodeBasePosition, eTraversalOrder);
     }
     
     /// <summary>
@@ -1227,13 +1226,13 @@ public:
     /// An iterator that points to the next element. If the removed element was the last one in the tree, the returned iterator will point to the end position.
     /// The traversal order of the returned iterator will be the same as the input iterator's.
     /// </returns>
-    QBinarySearchTreeIterator Remove(const typename QBinarySearchTree::QBinarySearchTreeIterator &elementPosition)
+    QConstBinarySearchTreeIterator Remove(const typename QBinarySearchTree::QConstBinarySearchTreeIterator &elementPosition)
     {
         QE_ASSERT_ERROR(!elementPosition.IsEnd(), "The input iterator must not point to an end position.");
         QE_ASSERT_ERROR(elementPosition.IsValid(), "The input iterator is invalid.");
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, the element does not exist.");
 
-        QBinarySearchTree::QBinarySearchTreeIterator resultIterator = elementPosition;
+        QBinarySearchTree::QConstBinarySearchTreeIterator resultIterator = elementPosition;
         ++resultIterator;
 
         T* pElementBasePosition = scast_q(m_elementAllocator.GetPointer(), T*);
@@ -1355,9 +1354,9 @@ public:
     /// <returns>
     /// An iterator that points to the first element. If the tree is empty, the iterator will point to the end position.
     /// </returns>
-    QBinarySearchTreeIterator GetFirst(const EQTreeTraversalOrder &eTraversalOrder) const
+    QConstBinarySearchTreeIterator GetFirst(const EQTreeTraversalOrder &eTraversalOrder) const
     {
-        QBinarySearchTree::QBinarySearchTreeIterator itResult(this, m_uRoot, eTraversalOrder);
+        QBinarySearchTree::QConstBinarySearchTreeIterator itResult(this, m_uRoot, eTraversalOrder);
         itResult.MoveFirst();
         return itResult;
     }
@@ -1371,11 +1370,11 @@ public:
     /// <returns>
     /// An iterator that points to the position of the element.
     /// </returns>
-    QBinarySearchTreeIterator GetIterator(const pointer_uint_q uIndex, const EQTreeTraversalOrder &eTraversalOrder) const
+    QConstBinarySearchTreeIterator GetIterator(const pointer_uint_q uIndex, const EQTreeTraversalOrder &eTraversalOrder) const
     {
         QE_ASSERT_ERROR(uIndex < this->GetCount(), "The input index must be lower than the number of elements in the tree.");
 
-        QBinarySearchTree::QBinarySearchTreeIterator itResult = this->GetFirst(eTraversalOrder);
+        QBinarySearchTree::QConstBinarySearchTreeIterator itResult = this->GetFirst(eTraversalOrder);
 
         for(pointer_uint_q i = 0; i < uIndex; ++i)
             ++itResult;
@@ -1391,7 +1390,7 @@ public:
     /// <returns>
     /// An iterator that points to the position of the element. If the element is not present in the tree, the iterator will point to the end position.
     /// </returns>
-    QBinarySearchTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder) const
+    QConstBinarySearchTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder) const
     {
         static const int INPUT_VALUE_IS_LOWER = -1;
         static const int INPUT_VALUE_IS_GREATER = 1;
@@ -1419,7 +1418,7 @@ public:
             pCurrentNode = pNodeBasePointer + uCurrentPosition;
         }
 
-        return QBinarySearchTree::QBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
+        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
     }
 
 

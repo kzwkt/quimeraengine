@@ -152,7 +152,7 @@ QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItHasElements_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     int i = 0;
 
     for(; !it.IsEnd(); ++it, ++i)
@@ -254,7 +254,7 @@ QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenItHasElementsAndDestina
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     int i = 0;
 
     for(; !it.IsEnd(); ++it, ++i)
@@ -291,7 +291,7 @@ QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreMoreElementsInS
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     int i = 0;
 
     for(; !it.IsEnd(); ++it, ++i)
@@ -325,7 +325,7 @@ QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreLessElementsInS
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     int i = 0;
 
     for(; !it.IsEnd(); ++it, ++i)
@@ -360,7 +360,7 @@ QTEST_CASE ( OperatorAssignment_TreeIsCorrectlyCopiedWhenThereAreSameNumberOfEle
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     int i = 0;
 
     for(; !it.IsEnd(); ++it, ++i)
@@ -488,7 +488,7 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
     TREE.Reserve(INPUT_CAPACITY); // A reallocation occurs
 
     // [Verification]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetRoot();
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetRoot();
     BOOST_CHECK_EQUAL(*it, EXPECTED_FIRST_ELEMENT);
     ++it;
     BOOST_CHECK_EQUAL(*it, EXPECTED_SECOND_ELEMENT);*/
@@ -597,7 +597,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenTreeIsEmpty_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -625,7 +625,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsLowerThanRootAndTreeOnlyContains
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -653,7 +653,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsGreaterThanRootAndTreeOnlyContai
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -682,7 +682,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsLowerThanRootAndGreaterThanItsLe
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -711,7 +711,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsLowerThanRootAndLowerThanItsLeft
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -740,7 +740,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsGreaterThanRootAndLowerThanItsRi
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -769,7 +769,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenItIsGreaterThanRootAndGreaterThanIts
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -792,7 +792,7 @@ QTEST_CASE ( Add_ReturnedIteratorPointsToAddedElement_Test )
     TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itResult = TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itResult = TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*itResult, INPUT_ELEMENT);
@@ -887,7 +887,7 @@ QTEST_CASE ( Add_ElementIsNotAddedWhenItAlreadyExists_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -909,7 +909,7 @@ QTEST_CASE ( Add_ReturnedIteratorPointsToEndPositionWhenElementIsNotAdded_Test )
     TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itResult = TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itResult = TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIteratorPointsToEndPosition = itResult.IsEnd();
@@ -925,7 +925,7 @@ QTEST_CASE ( Remove_TreeIsEmptyWhenRemovingTheOnlyElementInTheTree_Test )
 {
     // [Preparation]
     QBinarySearchTree<int> TREE(3);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
     TREE.Remove(itElementPosition);
@@ -944,7 +944,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenWhichD
     const int EXPECTED_VALUES[] = {1, 4, 5};
     QBinarySearchTree<int> TREE(5);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
@@ -954,7 +954,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenWhichD
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -973,7 +973,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndIsL
     const int EXPECTED_VALUES[] = {1, 4, 5};
     QBinarySearchTree<int> TREE(5);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
@@ -983,7 +983,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndIsL
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1002,7 +1002,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndIsR
     const int EXPECTED_VALUES[] = {5, 6, 8};
     QBinarySearchTree<int> TREE(5);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(8, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
@@ -1012,7 +1012,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndIsR
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1031,7 +1031,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndThe
     const int EXPECTED_VALUES[] = {1, 2, 4, 5};
     QBinarySearchTree<int> TREE(5);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
@@ -1042,7 +1042,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndThe
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1061,7 +1061,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndThe
     const int EXPECTED_VALUES[] = {0, 1, 4, 5};
     QBinarySearchTree<int> TREE(5);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
@@ -1072,7 +1072,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftAndRightChildrenAndThe
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1091,7 +1091,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftChildOnly_Test )
     const int EXPECTED_VALUES[] = {1, 5};
     QBinarySearchTree<int> TREE(3);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
@@ -1100,7 +1100,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasLeftChildOnly_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1119,7 +1119,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasRightChildOnly_Test )
     const int EXPECTED_VALUES[] = {4, 5};
     QBinarySearchTree<int> TREE(3);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
@@ -1128,7 +1128,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenItHasRightChildOnly_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1147,7 +1147,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenHasNoChildren_Test )
     const int EXPECTED_VALUES[] = {5};
     QBinarySearchTree<int> TREE(3);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementPosition = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
     TREE.Remove(itElementPosition);
@@ -1155,7 +1155,7 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenHasNoChildren_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = QBinarySearchTree<int>::QBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     int i = 0;
 
@@ -1172,14 +1172,14 @@ QTEST_CASE ( Remove_RootElementIsUpdatedWhenItIsRemoved_Test )
 {
     // [Preparation]
     QBinarySearchTree<int> TREE(3);
-    const QBinarySearchTree<int>::QBinarySearchTreeIterator ROOT_ITERATOR = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    const QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const QBinarySearchTree<int>::QConstBinarySearchTreeIterator ROOT_ITERATOR = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
     TREE.Remove(ROOT_ITERATOR);
 
     // [Verification]
-    //QBinarySearchTree<int>::QBinarySearchTreeIterator itRoot = TREE.GetRoot();
+    //QBinarySearchTree<int>::QConstBinarySearchTreeIterator itRoot = TREE.GetRoot();
     //BOOST_CHECK(itRoot == EXPECTED_ITERATOR);
 }
 
@@ -1191,10 +1191,10 @@ QTEST_CASE ( Remove_ReturnedIteratorPointsToEndPositionWhenThereIsNoNextElementI
     // [Preparation]
     QBinarySearchTree<int> TREE(3);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itLastElement = TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itLastElement = TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itResult = TREE.Remove(itLastElement);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itResult = TREE.Remove(itLastElement);
 
     // [Verification]
     bool bIteratorPointsToEndPosition = itResult.IsEnd();
@@ -1209,14 +1209,14 @@ QTEST_CASE ( Remove_ReturnedIteratorPointsToNextElement_Test )
     // [Preparation]
     QBinarySearchTree<int> TREE(4);
     TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itElementToRemove = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itElementToRemove = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = itElementToRemove;
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = itElementToRemove;
     ++EXPECTED_ITERATOR;
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itResult = TREE.Remove(itElementToRemove);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itResult = TREE.Remove(itElementToRemove);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_ITERATOR);
@@ -1231,7 +1231,7 @@ QTEST_CASE ( Remove_AssertionFailsWhenTheInputIteratorPointsToEndPosition_Test )
 {
     // [Preparation]
     QBinarySearchTree<int> TREE(1);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itEnd = TREE.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itEnd = TREE.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++itEnd;
 
     // [Execution]
@@ -1265,7 +1265,7 @@ QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstInOrder_Test )
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*itFirst, EXPECTED_ELEMENT);
@@ -1280,7 +1280,7 @@ QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
     QBinarySearchTree<int> TREE(5);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itFirst = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIteratorPointstoEnd = itFirst.IsEnd();
@@ -1298,11 +1298,11 @@ QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonTreeAndPosition
     TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++EXPECTED_ITERATOR;
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -1319,10 +1319,10 @@ QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonTreeAndZeroIndexAn
     TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -1339,11 +1339,11 @@ QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonTreeAndLastIndexAnd
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const pointer_uint_q INPUT_INDEX = TREE.GetCount() - 1U;
-    QBinarySearchTree<int>::QBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
     EXPECTED_ITERATOR.MoveLast();
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK(it == EXPECTED_ITERATOR);
@@ -1419,7 +1419,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
     const bool ITERATOR_POINTS_END_POSITION = true;
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -1440,7 +1440,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
     const pointer_uint_q OUT_OF_BOUNDS_INDEX = TREE.GetCount() + 1U;
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator it = TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIsEnd = it.IsEnd(EQIterationDirection::E_Forward);
@@ -1462,7 +1462,7 @@ QTEST_CASE ( PositionOf_ReturnsExpectedPositionWhenTreeContainsTheElementAndUsin
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*itPosition, EXPECTED_ELEMENT);
@@ -1481,7 +1481,7 @@ QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeDoesNotContainTheElementAndUsi
     TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIteratorIsEnd = itPosition.IsEnd();
@@ -1498,7 +1498,7 @@ QTEST_CASE ( PositionOf_ReturnsEndPositionWhenTreeIsEmptyAndUsingDepthFirstInOrd
     QBinarySearchTree<int> TREE(5);
 
     // [Execution]
-    QBinarySearchTree<int>::QBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itPosition = TREE.PositionOf(EXPECTED_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
     bool bIteratorIsEnd = itPosition.IsEnd();
