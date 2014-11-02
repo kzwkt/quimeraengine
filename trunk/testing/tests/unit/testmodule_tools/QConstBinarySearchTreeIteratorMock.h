@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QBINARYSEARCHTREEITERATORMOCK__
-#define __QBINARYSEARCHTREEITERATORMOCK__
+#ifndef __QCONSTBINARYSEARCHTREEITERATORMOCK__
+#define __QCONSTBINARYSEARCHTREEITERATORMOCK__
 
 #include "QBinarySearchTree.h"
 
@@ -45,14 +45,14 @@ namespace Test
 /// </summary>
 /// <typeparam name="T">The type of the tree elements.</typeparam>
 template <class T>
-class QBinarySearchTreeIteratorMock : public QBinarySearchTree<T>::QBinarySearchTreeIterator
+class QConstBinarySearchTreeIteratorMock : public QBinarySearchTree<T>::QConstBinarySearchTreeIterator
 {
-    using QBinarySearchTree<T>::QBinarySearchTreeIterator::m_uPosition;
+    using QBinarySearchTree<T>::QConstBinarySearchTreeIterator::m_uPosition;
 
 public:
 
     // Constructor bypass
-    QBinarySearchTreeIteratorMock(const QBinarySearchTree<T>* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : QBinarySearchTree<T>::QBinarySearchTreeIterator(pTree, uPosition, eTraversalOrder)
+    QConstBinarySearchTreeIteratorMock(const QBinarySearchTree<T>* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : QBinarySearchTree<T>::QConstBinarySearchTreeIterator(pTree, uPosition, eTraversalOrder)
     {
     }
 
@@ -72,4 +72,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QBINARYSEARCHTREEITERATORMOCK__
+#endif // __QCONSTBINARYSEARCHTREEITERATORMOCK__

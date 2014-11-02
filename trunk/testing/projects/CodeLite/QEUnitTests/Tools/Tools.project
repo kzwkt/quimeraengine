@@ -94,11 +94,11 @@
       <File Name="../../../../tests/unit/testmodule_tools/QNTreeIteratorMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTree_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTreeWhiteBox.h"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTreeIterator_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTreeIteratorMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstArrayIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstListIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstNTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIteratorMock.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
