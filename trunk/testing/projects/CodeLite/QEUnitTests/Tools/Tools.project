@@ -98,6 +98,7 @@
       <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTreeIteratorMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstArrayIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstListIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstNTreeIterator_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
