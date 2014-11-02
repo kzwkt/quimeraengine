@@ -474,10 +474,10 @@ const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm
     case EQNormalizationForm::E_D:
         pNormalizer = icu::Normalizer2::getNFDInstance(eErrorCode);
         break;
-    case EQNormalizationForm::E_KC:
-    case EQNormalizationForm::E_KD:
-        QE_ASSERT_ERROR(false, "Normalization forms KC and KD are not supported currently");
-        break;
+    //case EQNormalizationForm::E_KC:
+    //case EQNormalizationForm::E_KD:
+    //    QE_ASSERT_ERROR(false, "Normalization forms KC and KD are not supported currently");
+    //    break;
     }
 
     QE_ASSERT_ERROR(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
@@ -509,10 +509,10 @@ int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComp
             nResult = pCollator->compare(m_strString, strInputString.m_strString);
         }
         break;
-    case EQComparisonType::E_CompatibilityCaseInsensitive:
-    case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
-        break;
+    //case EQComparisonType::E_CompatibilityCaseInsensitive:
+    //case EQComparisonType::E_CompatibilityCaseSensitive:
+    //    QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
+    //    break;
     }
 
     return nResult;
@@ -556,10 +556,10 @@ const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eCompar
     case EQComparisonType::E_CanonicalCaseSensitive:
         pCollator = CANONICAL_CASESENSITIVE_COLLATOR;
         break;
-    case EQComparisonType::E_CompatibilityCaseInsensitive:
-    case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
-        break;
+    //case EQComparisonType::E_CompatibilityCaseInsensitive:
+    //case EQComparisonType::E_CompatibilityCaseSensitive:
+    //    QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
+    //    break;
     default:
         QE_ASSERT_ERROR(false, "Invalid comparison type");
     }
@@ -636,10 +636,10 @@ void QStringUnicode::ConfigureSearch(const EQComparisonType &eComparisonType, ic
         search.getCollator()->setAttribute(UCOL_ALTERNATE_HANDLING, UCOL_NON_IGNORABLE, errorCode);
         QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An error occurred when calling setAttribute (UCOL_NON_IGNORABLE)");
         break;
-    case EQComparisonType::E_CompatibilityCaseInsensitive:
-    case EQComparisonType::E_CompatibilityCaseSensitive:
-        QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
-        break;
+    //case EQComparisonType::E_CompatibilityCaseInsensitive:
+    //case EQComparisonType::E_CompatibilityCaseSensitive:
+    //    QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
+    //    break;
     default:
         QE_ASSERT_ERROR(false, "Invalid comparison type");
     }

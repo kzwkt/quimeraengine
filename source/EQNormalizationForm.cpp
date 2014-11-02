@@ -48,8 +48,8 @@ EQNormalizationForm::TNameValuePair EQNormalizationForm::sm_arValueName[] =
     {
         std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("C"),    EQNormalizationForm::E_C),
         std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("D"),    EQNormalizationForm::E_D),
-        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KC"),    EQNormalizationForm::E_KC),
-        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KD"),    EQNormalizationForm::E_KD),
+        //std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KC"),    EQNormalizationForm::E_KC),
+        //std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KD"),    EQNormalizationForm::E_KD),
     };
 
 EQNormalizationForm::TNameValueMap EQNormalizationForm::sm_mapValueName(

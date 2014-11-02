@@ -209,7 +209,7 @@ public:
         /// <param name="pTree">[IN] The tree to iterate through. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of tree elements, but the physical.
         /// It must be lower than the capacity of the tree.</param>
-        /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+        /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited. Currently, only depth-first in-order is supported.</param>
         QConstBinarySearchTreeIterator(const QBinarySearchTree* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : m_pTree(pTree), 
                                                                                                                                                       m_uPosition(uPosition), 
                                                                                                                                                       m_eTraversalOrder(eTraversalOrder)
@@ -218,7 +218,7 @@ public:
             QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition || 
                               uPosition == QBinarySearchTree::END_POSITION_BACKWARD || 
                               uPosition == QBinarySearchTree::END_POSITION_FORWARD, "Invalid argument: The position must be lower than the capacity of the tree");
-            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstInOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported.");
+            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstInOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported. The only traversal order available currently is: DepthFirstInOrder.");
 
             if(pTree == null_q || 
                (pTree->GetCapacity() <= uPosition && uPosition != QBinarySearchTree::END_POSITION_BACKWARD && uPosition != QBinarySearchTree::END_POSITION_FORWARD) || 
@@ -1362,6 +1362,20 @@ public:
     }
     
     /// <summary>
+    /// Gets the last element in the tree, depending on the traversal order.
+    /// </summary>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <returns>
+    /// An iterator that points to the last element. If the tree is empty, the iterator will point to the end position.
+    /// </returns>
+    QConstBinarySearchTreeIterator GetLast(const EQTreeTraversalOrder &eTraversalOrder) const
+    {
+        QBinarySearchTree::QConstBinarySearchTreeIterator itResult(this, m_uRoot, eTraversalOrder);
+        itResult.MoveLast();
+        return itResult;
+    }
+    
+    /// <summary>
     /// Gets an iterator that points to a given position in the tree, depending on the traversal order.
     /// </summary>
     /// <param name="uIndex">[IN] Position in the tree, starting at zero, to which the iterator will point. It must be lower than the number of elements in the tree.
@@ -1437,6 +1451,49 @@ public:
         this->m_nodeAllocator.CopyTo(destinationTree.m_nodeAllocator);
         this->m_elementAllocator.CopyTo(destinationTree.m_elementAllocator);
         destinationTree.m_uRoot = m_uRoot;
+    }
+    
+    /// <summary>
+    /// Searches for a given element, starting at a concrete point, and obtains its position.
+    /// </summary>
+    /// <param name="element">[IN] The value of the element to search for.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+    /// <param name="startPosition">[IN] An iterator that points to the node from which to start searching. It must not point to an end position.</param>
+    /// <returns>
+    /// An iterator that points to the position of the element, starting from the given position, depending on the traversal order. If the element is not found, 
+    /// the iterator will point to the end position.
+    /// </returns>
+    QConstBinarySearchTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder, const typename QBinarySearchTree::QConstBinarySearchTreeIterator &startPosition) const
+    {
+        QE_ASSERT_ERROR(!startPosition.IsEnd(), "The start position must not point to the end position.");
+
+        static const int INPUT_VALUE_IS_LOWER = -1;
+        static const int INPUT_VALUE_IS_GREATER = 1;
+        static const int INPUT_VALUE_IS_EQUAL = 0;
+        static const int INVALID_RESULT = -2;
+
+        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        pointer_uint_q uCurrentPosition = &*startPosition - pElementBasePointer;
+
+        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
+        int nComparisonResult = INVALID_RESULT;
+
+        while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
+        {
+            nComparisonResult = m_comparator.Compare(element, *pCurrentElement);
+
+            if(nComparisonResult == INPUT_VALUE_IS_LOWER)
+                uCurrentPosition = pCurrentNode->GetLeftChild();
+            else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
+                uCurrentPosition = pCurrentNode->GetRightChild();
+
+            pCurrentElement = pElementBasePointer + uCurrentPosition;
+            pCurrentNode = pNodeBasePointer + uCurrentPosition;
+        }
+
+        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
     }
 
 private:
