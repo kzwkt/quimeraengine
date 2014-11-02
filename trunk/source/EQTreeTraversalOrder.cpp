@@ -49,8 +49,8 @@ EQTreeTraversalOrder::TNameValuePair EQTreeTraversalOrder::sm_arValueName[] =
     {
         std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstInOrder"),   EQTreeTraversalOrder::E_DepthFirstInOrder),
         std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstPreOrder"),  EQTreeTraversalOrder::E_DepthFirstPreOrder),
-        std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstPostOrder"), EQTreeTraversalOrder::E_DepthFirstPostOrder),
-        std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("BreadthFirst"),        EQTreeTraversalOrder::E_BreadthFirst),
+        //std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstPostOrder"), EQTreeTraversalOrder::E_DepthFirstPostOrder),
+        //std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("BreadthFirst"),        EQTreeTraversalOrder::E_BreadthFirst),
     };
 
 EQTreeTraversalOrder::TNameValueMap EQTreeTraversalOrder::sm_mapValueName(

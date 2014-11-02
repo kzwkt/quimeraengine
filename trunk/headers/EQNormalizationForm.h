@@ -66,8 +66,9 @@ public:
     {
         E_C = QE_ENUMERATION_MIN_VALUE, /*!< Canonical decomposition followed by canonical composition (NFC). */
         E_D,                            /*!< Canonical decomposition (NFD). */
-        E_KC,                           /*!< Compatibility decomposition followed by canonical composition (NFKC). */
-        E_KD,                           /*!< Compatibility decomposition (NFKD). */
+        // These options will be available in the future:
+        //E_KC,                           /*!< Not supported yet. Compatibility decomposition followed by canonical composition (NFKC). */
+        //E_KD,                           /*!< Not supported yet. Compatibility decomposition (NFKD). */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };

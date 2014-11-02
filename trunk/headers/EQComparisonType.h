@@ -68,8 +68,9 @@ public:
         E_BinaryCaseInsensitive,                          /*!< Binary comparison (case insensitive). Fast comparison type, but not localized. */
         E_CanonicalCaseSensitive,                         /*!< Compared by collation order (case sensitive), after normalization form D has been applied. */
         E_CanonicalCaseInsensitive,                       /*!< Compared by collation order (case insensitive), after normalization form D has been applied. */
-        E_CompatibilityCaseSensitive,                     /*!< Not supported yet. Compared by collation order (case sensitive), after normalization form KD has been applied. */
-        E_CompatibilityCaseInsensitive,                   /*!< Not supported yet. Compared by collation order (case insensitive), after normalization form KD has been applied. */
+        // These options will be available in the future:
+        //E_CompatibilityCaseSensitive,                     /*!< Not supported yet. Compared by collation order (case sensitive), after normalization form KD has been applied. */
+        //E_CompatibilityCaseInsensitive,                   /*!< Not supported yet. Compared by collation order (case insensitive), after normalization form KD has been applied. */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };

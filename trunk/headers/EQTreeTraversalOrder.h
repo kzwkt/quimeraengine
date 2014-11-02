@@ -74,8 +74,9 @@ public:
         // 
         E_DepthFirstInOrder    = QE_ENUMERATION_MIN_VALUE, /*!< Depth-first in-order. */
         E_DepthFirstPreOrder,                              /*!< Depth-first pre-order. */
-        E_DepthFirstPostOrder,                             /*!< Depth-first post-order. */
-        E_BreadthFirst,                                    /*!< Breadth-first. */
+        // These options will be available in the future:
+        //E_DepthFirstPostOrder,                             /*!< Not supported yet. Depth-first post-order. */
+        //E_BreadthFirst,                                    /*!< Not supported yet. Breadth-first. */
         _NotEnumValue          = QE_ENUMERATION_MAX_VALUE  /*!< Not valid value. */
     };
 

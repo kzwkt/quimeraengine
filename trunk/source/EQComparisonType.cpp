@@ -42,8 +42,8 @@ EQComparisonType::TNameValuePair EQComparisonType::sm_arValueName[] =
         std::pair<string_q, EQComparisonType::EnumType>(QE_L("BinaryCaseInsensitive"),    EQComparisonType::E_BinaryCaseInsensitive),
         std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseSensitive"),    EQComparisonType::E_CanonicalCaseSensitive),
         std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseInsensitive"),    EQComparisonType::E_CanonicalCaseInsensitive),
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseSensitive"),    EQComparisonType::E_CompatibilityCaseSensitive),
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseInsensitive"),    EQComparisonType::E_CompatibilityCaseInsensitive),
+        //std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseSensitive"),    EQComparisonType::E_CompatibilityCaseSensitive),
+        //std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseInsensitive"),    EQComparisonType::E_CompatibilityCaseInsensitive),
     };
 
 EQComparisonType::TNameValueMap EQComparisonType::sm_mapValueName(

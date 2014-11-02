@@ -246,7 +246,7 @@ public:
         /// <param name="pTree">[IN] The tree to iterate through. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of tree elements, but the physical.
         /// It must be lower than the capacity of the tree.</param>
-        /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
+        /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited. Currently, only depth-first pre-order is supported.</param>
         QConstNTreeIterator(const QNTree* pTree, const pointer_uint_q uPosition, const EQTreeTraversalOrder &eTraversalOrder) : m_pTree(pTree), 
                                                                                                                            m_uPosition(uPosition), 
                                                                                                                            m_eTraversalOrder(eTraversalOrder)
@@ -255,7 +255,7 @@ public:
             QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition || 
                               uPosition == QNTree::END_POSITION_BACKWARD || 
                               uPosition == QNTree::END_POSITION_FORWARD, "Invalid argument: The position must be lower than the capacity of the tree");
-            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported.");
+            QE_ASSERT_ERROR(eTraversalOrder == EQTreeTraversalOrder::E_DepthFirstPreOrder, string_q("The traversal order specified (") + eTraversalOrder.ToString() + ") is not supported. The only traversal order available currently is: DepthFirstPreOrder.");
 
             if(pTree == null_q || 
                (pTree->GetCapacity() <= uPosition && uPosition != QNTree::END_POSITION_BACKWARD && uPosition != QNTree::END_POSITION_FORWARD) || 
