@@ -47,7 +47,7 @@ namespace Test
 template <class T>
 class QNTreeIteratorMock : public QNTree<T>::QNTreeIterator
 {
-    using QNTree<T>::QNTreeIterator::m_uPosition;
+    using QNTree<T>::QConstNTreeIterator::m_uPosition;
 
 public:
 
