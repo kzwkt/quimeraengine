@@ -1420,7 +1420,24 @@ public:
 
         return QBinarySearchTree::QConstBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
     }
+    
+    /// <summary>
+    /// Performs a shallow copy of the contents of the tree to another tree.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the destination tree is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
+    /// No constructors will be called during this operation.
+    /// </remarks>
+    /// <param name="destinationTree">[IN/OUT] The destination array to which the contents will be copied.</param>
+    void Clone(QBinarySearchTree &destinationTree) const
+    {
+        if(destinationTree.GetCapacity() < this->GetCapacity())
+            destinationTree.Reserve(this->GetCapacity());
 
+        this->m_nodeAllocator.CopyTo(destinationTree.m_nodeAllocator);
+        this->m_elementAllocator.CopyTo(destinationTree.m_elementAllocator);
+        destinationTree.m_uRoot = m_uRoot;
+    }
 
 private:
 
