@@ -1556,7 +1556,7 @@ QTEST_CASE ( CanAllocate2_ReturnsFalseWhenThereIsNotEnoughFreeSpaceDueToAlignmen
 /// <summary>
 /// Checks that an assertion fails when input size is zero.
 /// </summary>
-QTEST_CASE ( CanAllocate1_AssertionFailsWhenInputSizeIsZero_Test )
+QTEST_CASE ( CanAllocate2_AssertionFailsWhenInputSizeIsZero_Test )
 {
     // [Preparation]
     const pointer_uint_q INPUT_SIZE = 0;

@@ -1694,7 +1694,7 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_
 
     QNTree<char>::QConstNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     ++ITERATOR_A;
-    QNTree<char>::QConstNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QConstNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1834,7 +1834,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Te
     const QNTree<char>* TREE_B = GetSampleTree();
 
     QNTree<char>::QConstNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QConstNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QConstNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1988,11 +1988,11 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
 {
     // [Preparation]
-    QNTree<char> TREE_A(3);
+    QNTree<char> TREE_A(3, 3);
     const QNTree<char>* TREE_B = GetSampleTree();
 
-    QNTree<char>::QConstNTreeIterator ITERATOR_A(TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QConstNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QConstNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QConstNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -2149,7 +2149,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
     const QNTree<char>* TREE_B = GetSampleTree();
 
     QNTree<char>::QConstNTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    QNTree<char>::QConstNTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QConstNTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 

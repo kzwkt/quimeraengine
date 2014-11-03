@@ -576,6 +576,14 @@ void QPath::AppendDirectory(const string_q &strDirectory)
 
 #if defined(QE_OS_WINDOWS)
 
+        static const string_q COLON(":");
+
+        if(strFixedDirectory.Contains(COLON, EQComparisonType::E_BinaryCaseSensitive))
+        {
+            QE_ASSERT_WARNING(false, "Colons (\":\") are not allowed but for specifying drives.");
+            strFixedDirectory.Replace(COLON, string_q::GetEmpty(), EQComparisonType::E_BinaryCaseSensitive);
+        }
+
         QPath::_RemoveNotAllowedCharactersInPath(strFixedDirectory);
         
         static const string_q BACKSLASH = "\\";
@@ -636,8 +644,6 @@ void QPath::Resolve(const QPath &relativePath)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
-    QE_ASSERT_WARNING(!relativePath.IsAbsolute(), "Input path should be relative.");
-
 #if defined(QE_OS_WINDOWS)    
     const bool RESIDENT_IS_ABSOLUTE = this->IsAbsolute();
 #else
@@ -653,14 +659,17 @@ void QPath::Resolve(const QPath &relativePath)
         if(this->HasDrive() && !relativePath.HasHostname() && !relativePath.HasDrive())
         {
             string_q strDrive = this->GetRoot();
+            strDrive = strDrive.Substring(0, strDrive.GetLength() - QPath::PATH_SEPARATOR.GetLength() - 1U);
             *this = relativePath;
             m_strPath = strDrive + m_strPath;
         }
         else
         {
+            QE_ASSERT_WARNING(false, "Input path should be relative.");
             *this = relativePath;
         }
 #else
+        QE_ASSERT_WARNING(false, "Input path should be relative.");
         *this = relativePath;
 #endif
     }
@@ -1197,6 +1206,14 @@ void QPath::SetFilenameAndExtension(const string_q &strFilenameAndExtension)
 #if defined(QE_OS_WINDOWS)
 
         QE_ASSERT_WARNING(!strFilenameAndExtension.Contains(BACK_SLASH, EQComparisonType::E_BinaryCaseSensitive), "Path separators are not allowed in filenames.");
+        
+        static const string_q COLON(":");
+
+        if(m_strFilename.Contains(COLON, EQComparisonType::E_BinaryCaseSensitive))
+        {
+            QE_ASSERT_WARNING(false, "Colons (\":\") are not allowed but for specifying drives.");
+            m_strFilename.Replace(COLON, string_q::GetEmpty(), EQComparisonType::E_BinaryCaseSensitive);
+        }
 
         // Removes all the characters that are not allowed in Windows' file systems
         QPath::_RemoveNotAllowedCharactersInPath(m_strFilename);

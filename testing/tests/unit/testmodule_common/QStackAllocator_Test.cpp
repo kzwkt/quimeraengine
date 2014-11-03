@@ -168,41 +168,6 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenPreallocationSizeIsZero_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
-/// <summary>
-/// Checks that the assertion fails when the passed alignment value is not a power of two.
-/// </summary>
-QTEST_CASE ( Constructor2_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test )
-{
-    // [Preparation]
-
-    const bool             ASSERTION_FAILED                 = true;
-    bool                   bAssertionFailed                 = false;
-
-    const pointer_uint_q   VALID_PREALLOCATION_SIZE         = 512;
-
-    const pointer_uint_q   VALID_ALIGNMENT_VALUE            = 4;
-    QAlignmentMocked       alignmentMocked(VALID_ALIGNMENT_VALUE);
-
-
-	// [Execution]
-
-    // The alignment value for 'alignmentMocked' is not anymore a power of two.
-    alignmentMocked.SabotageAlignmentValue();
-
-    try
-    {
-        QStackAllocator stackAllocator( VALID_PREALLOCATION_SIZE, alignmentMocked );      
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -3588,7 +3553,7 @@ QTEST_CASE (CanAllocate1_ReturnsFalseWhenSizeIsZero_Test)
 {
     // [Preparation]
 
-    const bool                 EXPECTED_VALUE_TRUE                        = true;
+    const bool                 EXPECTED_VALUE                             = false;
     const pointer_uint_q       VALID_PREALLOCATION_SIZE                   = 64;
 
     const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE01      = 2;
@@ -3620,11 +3585,11 @@ QTEST_CASE (CanAllocate1_ReturnsFalseWhenSizeIsZero_Test)
 
     // [Verification]
 
-    BOOST_CHECK_EQUAL(bCouldNotAllocateIn01, EXPECTED_VALUE_TRUE);
-    BOOST_CHECK_EQUAL(bCouldNotAllocateIn02, EXPECTED_VALUE_TRUE);
-    BOOST_CHECK_EQUAL(bCouldNotAllocateIn03, EXPECTED_VALUE_TRUE);
-    BOOST_CHECK_EQUAL(bCouldNotAllocateIn04, EXPECTED_VALUE_TRUE);
-    BOOST_CHECK_EQUAL(bCouldNotAllocateIn05, EXPECTED_VALUE_TRUE);
+    BOOST_CHECK_EQUAL(bCouldNotAllocateIn01, EXPECTED_VALUE);
+    BOOST_CHECK_EQUAL(bCouldNotAllocateIn02, EXPECTED_VALUE);
+    BOOST_CHECK_EQUAL(bCouldNotAllocateIn03, EXPECTED_VALUE);
+    BOOST_CHECK_EQUAL(bCouldNotAllocateIn04, EXPECTED_VALUE);
+    BOOST_CHECK_EQUAL(bCouldNotAllocateIn05, EXPECTED_VALUE);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -4266,7 +4231,7 @@ QTEST_CASE (CanAllocate2_ReturnsFalseWhenSizeIsZero_Test)
 {
     // [Preparation]
 
-    const bool                 EXPECTED_VALUE                             = true;
+    const bool                 EXPECTED_VALUE                             = false;
     const pointer_uint_q       VALID_PREALLOCATION_SIZE                   = 64;
 
     const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE01      = 2;
@@ -5587,103 +5552,6 @@ QTEST_CASE (Preallocate_AssertionFailsWhenNewPreallocationSizeIsZero_Test)
                 case 1: stackAllocatorWhiteBox02.PreallocatePublic( 0, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) ); break;
                 case 2: stackAllocatorWhiteBox03.PreallocatePublic( 0, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) ); break;
                 case 3: stackAllocatorWhiteBox04.PreallocatePublic( 0, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) ); break;
-            }
-        }
-        catch(...)
-        {
-            switch (u)
-            {
-                case 0:
-                    if (false == bAssertionFailedIn01)
-                    {
-                        bAssertionFailedIn01 = true;
-                    }
-                break;
-                case 1:
-                    if (false == bAssertionFailedIn02)
-                    {
-                        bAssertionFailedIn02 = true;
-                    }
-                break;
-                case 2:
-                    if (false == bAssertionFailedIn03)
-                    {
-                        bAssertionFailedIn03 = true;
-                    }
-                break;
-                case 3:
-                    if (false == bAssertionFailedIn04)
-                    {
-                        bAssertionFailedIn04 = true;
-                    }
-                break;
-            }
-        }
-    }
-
-
-    // [Verification]
-
-    BOOST_CHECK_EQUAL(bAssertionFailedIn01, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn02, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn03, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn04, ASSERTION_FAILED);
-}
-
-/// <summary>
-/// Checks that an assertion fails when the alignment value for the preallocated block is not a power of two.
-/// </summary>
-QTEST_CASE (Preallocate_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test)
-{
-    // [Preparation]
-
-    const bool                 ASSERTION_FAILED                           = true;
-    const pointer_uint_q       AMOUNT_CASES                               = 4;
-
-    const pointer_uint_q       VALID_PREALLOCATION_SIZE                   = 64;
-
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE01      = 2;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE02      = 4;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE03      = 8;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE04      = 16;
-    QAlignmentMocked           alignmentMocked01(VALID_PREALLOCATION_ALIGNMENT_VALUE01);
-    QAlignmentMocked           alignmentMocked02(VALID_PREALLOCATION_ALIGNMENT_VALUE02);
-    QAlignmentMocked           alignmentMocked03(VALID_PREALLOCATION_ALIGNMENT_VALUE03);
-    QAlignmentMocked           alignmentMocked04(VALID_PREALLOCATION_ALIGNMENT_VALUE04);
-
-    bool                       bAssertionFailedIn01                       = false;
-    bool                       bAssertionFailedIn02                       = false;
-    bool                       bAssertionFailedIn03                       = false;
-    bool                       bAssertionFailedIn04                       = false;
-
-    pointer_uint_q             u                                          = 0;
-
-
-    // [Execution]
-
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBox01( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE01) );
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBox02( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) );
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBox03( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
-    QStackAllocatorWhiteBox    stackAllocatorWhiteBox04( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
-
-    // Sabotage of the alignment values
-    // (they are not anymore powers of two).
-    alignmentMocked01.SabotageAlignmentValue();
-    alignmentMocked02.SabotageAlignmentValue();
-    alignmentMocked03.SabotageAlignmentValue();
-    alignmentMocked04.SabotageAlignmentValue();
-
-    for (u = 0; u < AMOUNT_CASES; ++u)
-    {
-        try
-        {
-            switch (u)
-            {
-                // (** public **) QStackAllocatorWhiteBox::PreallocatePublic --> (** protected **) QStackAllocatorWhiteBox::Preallocate
-                case 0: stackAllocatorWhiteBox01.PreallocatePublic( VALID_PREALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 1: stackAllocatorWhiteBox02.PreallocatePublic( VALID_PREALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 2: stackAllocatorWhiteBox03.PreallocatePublic( VALID_PREALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 3: stackAllocatorWhiteBox04.PreallocatePublic( VALID_PREALLOCATION_SIZE, alignmentMocked04 ); break;
             }
         }
         catch(...)

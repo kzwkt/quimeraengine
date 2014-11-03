@@ -869,8 +869,8 @@ QTEST_CASE ( Constructor_AssertionFailsWhenFilenameIsTooLarge_Test )
     QTEST_CASE ( Constructor_InvalidCharactersAreRemovedFromDirectory_Test )
     {
         // [Preparation]
-        const string_q INPUT_STRING("start?\"<>|:end/");
-        const string_q EXPECTED_DIRECTORY("startend");
+        const string_q INPUT_STRING("/start?\"<>|:end/");
+        const string_q EXPECTED_DIRECTORY("/startend/");
 
         // [Execution]
         QPath path(INPUT_STRING);
@@ -1561,7 +1561,7 @@ QTEST_CASE ( AppendDirectory_NothingHappensWhenInputIsEmpty_Test )
         // [Preparation]
         QPath path("/path/");
         const string_q DIRECTORY("start?\"<>|:/\\end");
-        const QPath EXPECTED_PATH("/path/startend");
+        const QPath EXPECTED_PATH("/path/startend/");
 
         // [Execution]
         path.AppendDirectory(DIRECTORY);
@@ -4278,7 +4278,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenNumbersOfTheIpAreEmpty_Test )
     /// <summary>
     /// Checks that invalid characters are removed from the hostname.
     /// </summary>
-    QTEST_CASE ( Constructor_InvalidCharactersAreRemovedFromHostname_Test )
+    QTEST_CASE ( SetHostname_InvalidCharactersAreRemovedFromHostname_Test )
     {
         // [Preparation]
         const string_q INPUT_STRING("//abc_def?ghi#/");
@@ -4587,8 +4587,8 @@ QTEST_CASE ( SetDirectory_ATrailingSeparatorIsAppendedWhenInputHasNotIt_Test )
     QTEST_CASE ( SetDirectory_InvalidCharactersAreRemovedFromDirectory_Test )
     {
         // [Preparation]
-        const string_q INPUT_STRING("start?\"<>|:end/");
-        const string_q EXPECTED_DIRECTORY("startend");
+        const string_q INPUT_STRING("/start?\"<>|:end/");
+        const string_q EXPECTED_DIRECTORY("/startend/");
         QPath path("/");
 
         // [Execution]

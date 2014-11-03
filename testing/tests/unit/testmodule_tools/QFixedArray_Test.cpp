@@ -2167,7 +2167,8 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_T
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
     QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetCount();
+    QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
+    ++START_POSITION;
     QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
     ++EXPECTED_RESULT;
 

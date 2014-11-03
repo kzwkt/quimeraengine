@@ -1241,14 +1241,15 @@ QTEST_CASE ( AddChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
 QTEST_CASE ( AddChild_NothingHappensWhenExceedingMaximumNodes_Test )
 {
     // [Preparation]
-    const char EXPECTED_VALUES[] = {'A', 'B'};
+    const char EXPECTED_VALUES[] = {'A', 'B', 'C'};
     QNTree<char> TREE(2, 1);
     TREE.SetRootValue('A');
     QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
 
     // [Execution]
-    TREE.AddChild(itParent, 'C');
+    TREE.AddChild(itParent, 'D');
 
     // [Verification]
     bool bResultIsWhatEspected = true;
@@ -1272,10 +1273,11 @@ QTEST_CASE ( AddChild_ResultIteratorPointsToEndWhenExceedingMaximumNodes_Test )
     TREE.SetRootValue('A');
     QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
     const bool RESULT_IS_END = true;
 
     // [Execution]
-    QNTree<char>::QNTreeIterator itResult = TREE.AddChild(itParent, 'C');
+    QNTree<char>::QNTreeIterator itResult = TREE.AddChild(itParent, 'D');
 
     // [Verification]
     BOOST_CHECK_EQUAL(itResult.IsEnd(), RESULT_IS_END);
@@ -2124,15 +2126,16 @@ QTEST_CASE ( InsertChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
 QTEST_CASE ( InsertChild_NothingHappensWhenExceedingMaximumNodes_Test )
 {
     // [Preparation]
-    const char EXPECTED_VALUES[] = {'A', 'B'};
+    const char EXPECTED_VALUES[] = {'A', 'B', 'C'};
     QNTree<char> TREE(2, 1);
     TREE.SetRootValue('A');
     QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    TREE.InsertChild(itParent, 'C', POSITION);
+    TREE.InsertChild(itParent, 'D', POSITION);
 
     // [Verification]
     bool bResultIsWhatEspected = true;
@@ -2156,11 +2159,12 @@ QTEST_CASE ( InsertChild_ResultIteratorPointsToEndWhenExceedingMaximumNodes_Test
     TREE.SetRootValue('A');
     QNTree<char>::QNTreeIterator itParent = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     TREE.AddChild(itParent, 'B');
+    TREE.AddChild(itParent, 'C');
     const bool RESULT_IS_END = true;
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    QNTree<char>::QNTreeIterator itResult = TREE.InsertChild(itParent, 'C', POSITION);
+    QNTree<char>::QNTreeIterator itResult = TREE.InsertChild(itParent, 'D', POSITION);
 
     // [Verification]
     BOOST_CHECK_EQUAL(itResult.IsEnd(), RESULT_IS_END);
@@ -3651,7 +3655,7 @@ QTEST_CASE( Swap_NothingHappensWhenSwappingTheSameElement_Test )
     QNTree<char> tree(3, 4);
     tree.SetRootValue('A');
     const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
-    const QNTree<char>::QNTreeIterator POSITION_A = tree.AddChild(ROOT, EXPECTED_VALUE_B);
+    const QNTree<char>::QNTreeIterator POSITION_A = tree.AddChild(ROOT, EXPECTED_VALUE_A);
     const QNTree<char>::QNTreeIterator POSITION_B = POSITION_A;
     tree.AddChild(ROOT, 'D');
 
