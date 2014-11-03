@@ -199,15 +199,9 @@ public:
 
         // Destroys exceeding elements of the resident array
         if(INPUT_COUNT < RESIDENT_COUNT)
-        {   // [TODO] Thund: Replace this block with Remove
-            T* pElement = &this->GetValue(INPUT_COUNT);
-
+        {
             for(pointer_uint_q uIndex = INPUT_COUNT; uIndex < RESIDENT_COUNT; ++uIndex)
-            {
-                pElement->~T();
-                m_allocator.Deallocate(pElement);
-                ++pElement;
-            }
+                this->Remove(INPUT_COUNT);
         }
 
         // Assigns every existing element
@@ -218,7 +212,7 @@ public:
         // Copies new elements
         if(INPUT_COUNT > RESIDENT_COUNT)
             for(pointer_uint_q uIndex = RESIDENT_COUNT; uIndex < INPUT_COUNT; ++uIndex)
-                new(m_allocator.Allocate()) T(arInputArray[uIndex]);   // [TODO] Thund: Replace this block with Add
+                this->Add(arInputArray[uIndex]);
 
         m_uLast = INPUT_COUNT - 1U;
         m_uFirst = 0;
@@ -253,14 +247,8 @@ public:
         // Destroys exceeding elements of the resident array
         if(INPUT_COUNT < RESIDENT_COUNT)
         {
-            T* pElement = &this->GetValue(INPUT_COUNT);
-
             for(pointer_uint_q uIndex = INPUT_COUNT; uIndex < RESIDENT_COUNT; ++uIndex)
-            {   // [TODO] Thund: Replace this block with Remove
-                pElement->~T();
-                m_allocator.Deallocate(pElement);
-                ++pElement;
-            }
+                this->Remove(INPUT_COUNT);
         }
 
         // Assigns every existing element
@@ -271,7 +259,7 @@ public:
         // Copies new elements
         if(INPUT_COUNT > RESIDENT_COUNT)
             for(pointer_uint_q uIndex = RESIDENT_COUNT; uIndex < INPUT_COUNT; ++uIndex)
-                new(m_allocator.Allocate()) T(arInputArray[uIndex]);   // [TODO] Thund: Replace this block with Add
+                this->Add(arInputArray[uIndex]);
 
         m_uLast = arInputArray.m_uLast;
         m_uFirst = arInputArray.m_uFirst;

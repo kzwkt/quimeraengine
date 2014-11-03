@@ -1274,8 +1274,6 @@ public:
     /// </returns>
     T& operator[] (const pointer_uint_q uIndex) const
     {
-        // [TODO] raul. When unit tests get done, check if the program crashes in case the index is not lower than the number of elements.
-        // [TODO] raul. If so a remark must be added in the documentation.
         return this->GetValue(uIndex);
     }
     
