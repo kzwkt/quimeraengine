@@ -3525,6 +3525,146 @@ QTEST_CASE ( Clone_AssertionFailsWhenTheMaximumNumberOfElementsInDestinationIsLo
 
 #endif
 
+/// <sumary>
+/// Checks that elements are correctly swapped when selecting any position.
+/// </sumary>
+QTEST_CASE( Swap_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUE_A = 'B';
+    const char EXPECTED_VALUE_B = 'C';
+    QNTree<char> tree(3, 4);
+    tree.SetRootValue('A');
+    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const QNTree<char>::QNTreeIterator POSITION_A = tree.AddChild(ROOT, EXPECTED_VALUE_B);
+    const QNTree<char>::QNTreeIterator POSITION_B = tree.AddChild(ROOT, EXPECTED_VALUE_A);
+    tree.AddChild(ROOT, 'D');
+
+    // [Execution]
+    tree.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap_AssertionFailsWhenFirstPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> tree(3, 4);
+    tree.SetRootValue('A');
+    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator POSITION_A = tree.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    ++POSITION_A;
+    const QNTree<char>::QNTreeIterator POSITION_B = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        tree.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the second position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap_AssertionFailsWhenSecondPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    QNTree<char> tree(3, 4);
+    tree.SetRootValue('A');
+    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator POSITION_A = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator POSITION_B = tree.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    ++POSITION_B;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        tree.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap_AssertionFailsWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    QNTree<char> tree(3, 4);
+    tree.SetRootValue('A');
+    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator POSITION_A = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    QNTree<char>::QNTreeIterator POSITION_B = POSITION_A;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        tree.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that nothing happens when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap_NothingHappensWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    const char EXPECTED_VALUE_A = 'B';
+    QNTree<char> tree(3, 4);
+    tree.SetRootValue('A');
+    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
+    const QNTree<char>::QNTreeIterator POSITION_A = tree.AddChild(ROOT, EXPECTED_VALUE_B);
+    const QNTree<char>::QNTreeIterator POSITION_B = POSITION_A;
+    tree.AddChild(ROOT, 'D');
+
+    // [Execution]
+    tree.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_A);
+}
+
+#endif
+
 /// <summary>
 /// Checks that the capacity is correctly calculated.
 /// </summary>
