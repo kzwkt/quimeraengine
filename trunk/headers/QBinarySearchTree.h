@@ -1109,6 +1109,86 @@ public:
 
         return *this;
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two trees are equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other tree. Elements are compared using the tree's comparator.<br/>
+    /// Trees are compared morphologically too, so if an element A is a child of another element B in one of the trees, this relation must exist in the other tree to be considered equal.
+    /// </remarks>
+    /// <param name="tree">[IN] The tree to compare to.</param>
+    /// <returns>
+    /// True if all the elements of both trees are equal and the trees have the same structure; False otherwise.
+    /// </returns>
+    bool operator==(const QBinarySearchTree &tree) const
+    {
+        bool bAreEqual = true;
+
+        // If they are not the same instance
+        if(this != &tree)
+        {
+            // If they have the same number of elements
+            if(this->GetCount() == tree.GetCount())
+            {
+                // Both trees are traversed in the same order
+                QBinarySearchTree::QConstBinarySearchTreeIterator itThis = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+                QBinarySearchTree::QConstBinarySearchTreeIterator itInput = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+                QBinarySearchTree::QBinaryNode* pNodeBasePointerThis  = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+                QBinarySearchTree::QBinaryNode* pNodeBasePointerInput = scast_q(tree.m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+                T* pElementBasePointerThis  = scast_q(m_elementAllocator.GetPointer(), T*);
+                T* pElementBasePointerInput = scast_q(tree.m_elementAllocator.GetPointer(), T*);
+
+                QBinarySearchTree::QBinaryNode* pCurrentNodeThis = null_q;
+                QBinarySearchTree::QBinaryNode* pCurrentNodeInput = null_q;
+
+                pointer_uint_q uCurrentNodePositionThis = 0;
+                pointer_uint_q uCurrentNodePositionInput = 0;
+
+                while(bAreEqual && !itThis.IsEnd())
+                {
+                    // Note: Both trees can have the same structure and be physically ordered differently in memory
+
+                    uCurrentNodePositionThis = &*itThis - pElementBasePointerThis;
+                    uCurrentNodePositionInput = &*itInput - pElementBasePointerInput;
+
+                    pCurrentNodeThis = pNodeBasePointerThis + uCurrentNodePositionThis;
+                    pCurrentNodeInput = pNodeBasePointerInput + uCurrentNodePositionInput;
+
+                    // The value of the current element is checked
+                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0
+                    // The relations of the current node are checked too
+                                && ((pCurrentNodeThis->GetParent() != QBinarySearchTree::END_POSITION_FORWARD) == (pCurrentNodeInput->GetParent() != QBinarySearchTree::END_POSITION_FORWARD))
+                                && ((pCurrentNodeThis->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD) == (pCurrentNodeInput->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD))
+                                && ((pCurrentNodeThis->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD) == (pCurrentNodeInput->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD));
+
+                    ++itThis;
+                    ++itInput;
+                }
+            }
+            else
+                bAreEqual = false;
+        }
+
+        return bAreEqual;
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two trees are not equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other tree. Elements are compared using the tree's comparator.<br/>
+    /// Trees are compared morphologically too, so if an element A is a child of another element B in one of the trees, this relation must exist in the other tree to be considered equal.
+    /// </remarks>
+    /// <param name="tree">[IN] The tree to compare to.</param>
+    /// <returns>
+    /// True if not all the elements of both trees are equal or if the trees do not have the same structure; False otherwise.
+    /// </returns>
+    bool operator!=(const QBinarySearchTree &tree) const
+    {
+        return !this->operator==(tree);
+    }
 
     /// <summary>
     /// Increases the capacity of the tree, reserving memory for more elements.

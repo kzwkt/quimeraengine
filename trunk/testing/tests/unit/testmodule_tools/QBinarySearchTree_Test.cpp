@@ -453,6 +453,297 @@ QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllElements_Test )
     BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
 }
 
+/// <sumary>
+/// Checks that it returns True when trees are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenTreesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2 = TREE1;
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenTreesAreSameInstance_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have the same structure but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesHaveSameStructureButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have the same values but with a different structure.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesAreHaveSameValuesButDifferentStructure_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenTreesHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 == TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenTreesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2 = TREE1;
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when trees are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenTreesAreSameInstance_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE1;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have the same structure but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesHaveSameStructureButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have the same values but with a different structure.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesAreHaveSameValuesButDifferentStructure_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when trees have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenTreesHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<int> TREE1(8);
+    TREE1.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE1.Add(9, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int> TREE2(8);
+    TREE2.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(7, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE2.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = TREE1 != TREE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 /// <summary>
 /// Checks that the capacity is correctly increased.
 /// </summary>
