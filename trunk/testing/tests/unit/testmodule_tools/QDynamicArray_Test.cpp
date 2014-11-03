@@ -1202,7 +1202,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorIsInvalid_Test )
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    QDynamicArray<int>::QConstArrayIterator ITERATOR = arCommonArray.GetLast();
+    QDynamicArray<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
     arCommonArray.Remove(ITERATOR);
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;

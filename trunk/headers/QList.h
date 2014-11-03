@@ -925,6 +925,13 @@ protected:
     /// Constant to symbolize the end of the sequence near the first element.
     /// </summary>
     static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    
+public:
+
+    /// <summary>
+    /// Constant to symbolize an invalid index returned when an element is not found.
+    /// </summary>
+    static const pointer_uint_q ELEMENT_NOT_FOUND = -1;
 
 
     // CONSTRUCTORS
@@ -989,7 +996,29 @@ public:
         }
     }
     
-protected:
+    /// <summary>
+    /// Constructor that receives an existing array and its size.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every element of the list.
+    /// </remarks>
+    /// <param name="pArray">[IN] The existing array that will be copied. It must not be null.</param>
+    /// <param name="uNumberOfElements">[IN] The number of elements in the input array. It must be greater than zero.</param>
+    QList(const T* pArray, const pointer_uint_q uNumberOfElements) :
+                                                        m_uFirst(QList::END_POSITION_BACKWARD),
+                                                        m_uLast(QList::END_POSITION_FORWARD),
+                                                        m_elementAllocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                                                        m_linkAllocator(uNumberOfElements * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+    {
+        QE_ASSERT_ERROR( pArray != null_q, "The argument pArray is null." );
+        QE_ASSERT_ERROR( uNumberOfElements > 0, "The number of elements in the array must be greater than zero." );
+
+        const T* pElement = pArray;
+
+        for(pointer_uint_q uIndex = 0; uIndex < uNumberOfElements; ++uIndex, ++pElement)
+            this->Add(*pElement);
+    }
+
 
     // DESTRUCTOR
     // ---------------
@@ -1011,6 +1040,7 @@ public:
                 (*it).~T();
         }
     }
+
 
     // METHODS
     // ---------------
@@ -1129,7 +1159,59 @@ public:
         
         return *this;
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two lists are equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other list. Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="list">[IN] The list to compare to.</param>
+    /// <returns>
+    /// True if all the elements of both lists are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QList &list) const
+    {
+        bool bAreEqual = true;
 
+        // If they are not the same instance and they are not both empty
+        if(this != &list && !(m_uLast == QList::END_POSITION_FORWARD && list.m_uLast == QList::END_POSITION_FORWARD))
+        {
+            // If they have the same number of elements
+            if(m_uLast == list.m_uLast)
+            {
+                QList::QConstListIterator itThis = this->GetFirst();
+                QList::QConstListIterator itInput = list.GetFirst();
+
+                while(bAreEqual && !itThis.IsEnd())
+                {
+                    bAreEqual = bAreEqual && m_comparator.Compare(*itThis, *itInput) == 0;
+                    ++itThis;
+                    ++itInput;
+                }
+            }
+            else
+                bAreEqual = false;
+        }
+
+        return bAreEqual;
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two lists are not equal.
+    /// </summary>
+    /// <remarks>
+    /// Every element is compared with the element at the same position in the other list. Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="list">[IN] The list to compare to.</param>
+    /// <returns>
+    /// True if not all the elements of both lists are equal; False otherwise.
+    /// </returns>
+    bool operator!=(const QList &list) const
+    {
+        return !this->operator==(list);
+    }
+    
     /// <summary>
     /// Performs a fast shallow copy of the list elements.
     /// </summary>
@@ -1260,7 +1342,7 @@ public:
     void Add(const T &newElement)
     {
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
         
         pointer_uint_q uNewLinkPrevious = m_uLast;
 
@@ -1311,7 +1393,7 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
 
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         // Gets the position of the iterator
         pointer_uint_q uIndex = &(*position) - (T*)m_elementAllocator.GetPointer();
@@ -1401,7 +1483,7 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty() && uPosition < this->GetCount(), "The input iterator is out of bounds");
         
         if(this->GetCount() == this->GetCapacity())
-            this->ReallocateByFactor(this->GetCapacity() + 1U);
+            this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         pointer_uint_q uNewLinkNext = 0;
         pointer_uint_q uNewLinkPrevious = 0;
@@ -1626,6 +1708,260 @@ public:
             m_linkAllocator.Clear();
         }
     }
+    
+    /// <summary>
+    /// Gets a range of elements from the list.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor of each element in the range will be called, at least, once.
+    /// </remarks>
+    /// <param name="first">[IN] The position of the first element to be copied. It must not be an end position. It must point to the same
+    /// list; otherwise, the behavior is undefined. It must be equal or anterior to the last element in the range.</param>
+    /// <param name="last">[IN] The position of the last element to be copied. It must not be an end position. It must point to the same
+    /// list; otherwise, the behavior is undefined. It must be equal or posterior to the first element in the range.</param>
+    /// <returns>
+    /// A list that contains a copy of all the elements in the given range.
+    /// </returns>
+    QList GetRange(const typename QList::QConstListIterator &first, const typename QList::QConstListIterator &last) const
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+
+        QList resultList;
+
+        QList::QConstListIterator itEnd = last;
+        ++itEnd;
+
+        for(QList::QConstListIterator it = first; it != itEnd; ++it)
+            resultList.Add(*it);
+
+        return resultList;
+    }
+    
+    /// <summary>
+    /// Gets a range of elements from the list.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor of each element in the range will be called, at least, once.
+    /// </remarks>
+    /// <param name="uFirst">[IN] The position index (zero-based) of the first element to be copied. It must be lower than the number of elements of the list.
+    /// It must be equal or lower than the last element's index in the range.</param>
+    /// <param name="uLast">[IN] The position index (zero-based) of the last element to be copied. It must be lower than the number of elements of the list.
+    /// It must be equal or greater than the first element's index in the range.</param>
+    /// <returns>
+    /// An list that contains a copy of all the elements in the given range.
+    /// </returns>
+    QList GetRange(const pointer_uint_q uFirst, const pointer_uint_q uLast) const
+    {
+        QE_ASSERT_ERROR(uFirst <= uLast, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_ERROR(uFirst < this->GetCount(), "The first position is out of bounds.");
+        QE_ASSERT_ERROR(uLast < this->GetCount(), "The last position is out of bounds.");
+        
+        const pointer_uint_q ELEMENTS_TO_GET_COUNT = uLast - uFirst + 1U;
+
+        QList resultList(ELEMENTS_TO_GET_COUNT);
+
+        QList::QConstListIterator it = this->GetIterator(uFirst);
+
+        for(pointer_uint_q i = 0; i < ELEMENTS_TO_GET_COUNT; ++it, ++i)
+            resultList.Add(*it);
+
+        return resultList;
+    }
+    
+    /// <summary>
+    /// Swaps two elements of the list.
+    /// </summary>
+    /// <remarks>
+    /// The list must not be empty.<br/>
+    /// No assignment operator nor copy constructors are called during this operation.
+    /// </remarks>
+    /// <param name="uElementA">[IN] The index (zero-based) of an element. It must be lower than the number of elements of the list.</param>
+    /// <param name="uElementB">[IN] The index (zero-based) of the other element. It must be lower than the number of elements of the list.</param>
+    void Swap(const pointer_uint_q uElementA, const pointer_uint_q uElementB)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+
+        QE_ASSERT_ERROR(uElementA < this->GetCount(), "The first index is out of bounds.");
+        QE_ASSERT_ERROR(uElementB < this->GetCount(), "The last index is out of bounds.");
+        QE_ASSERT_WARNING(uElementA != uElementB, "Both elements are the same.");
+        
+        T* pElementA = &this->GetValue(uElementA);
+        T* pElementB = &this->GetValue(uElementB);
+
+        u8_q arBytes[sizeof(T)];
+        memcpy(arBytes,   pElementA, sizeof(T));
+        memcpy(pElementA, pElementB, sizeof(T));
+        memcpy(pElementB, arBytes,   sizeof(T));
+    }
+    
+    /// <summary>
+    /// Swaps two elements of the list.
+    /// </summary>
+    /// <remarks>
+    /// The list must not be empty.<br/>
+    /// No assignment operator nor copy constructors are called during this operation.
+    /// </remarks>
+    /// <param name="elementA">[IN] The position of an element. It must not be an end position.</param>
+    /// <param name="elementB">[IN] The position of the other element. It must not be an end position.</param>
+    void Swap(const typename QList::QListIterator elementA, const typename QList::QListIterator elementB)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+
+        QE_ASSERT_ERROR(!elementA.IsEnd(), "The element A position is an end position.");
+        QE_ASSERT_ERROR(!elementB.IsEnd(), "The element B position is an end position.");
+        QE_ASSERT_ERROR(elementA.IsValid(), "The element A's position is not valid.");
+        QE_ASSERT_ERROR(elementB.IsValid(), "The element B's position is not valid.");
+        QE_ASSERT_WARNING(elementA != elementB, "Both elements are the same.");
+        
+        T* pElementA = &*elementA;
+        T* pElementB = &*elementB;
+
+        u8_q arBytes[sizeof(T)];
+        memcpy(arBytes,   pElementA, sizeof(T));
+        memcpy(pElementA, pElementB, sizeof(T));
+        memcpy(pElementB, arBytes,   sizeof(T));
+    }
+    
+    /// <summary>
+    /// Checks if any of the elements in the list is equal to a given one.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to be searched through the list.</param>
+    /// <returns>
+    /// True if the element is found; False otherwise.
+    /// </returns>
+    bool Contains(const T &element) const
+    {
+        bool bElementFound = false;
+        QList::QConstListIterator itElement = this->GetFirst();
+
+        while(!itElement.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            ++itElement;
+        }
+
+        return bElementFound;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the list equal to a given one and obtains its position index.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to search for through the list.</param>
+    /// <returns>
+    /// The position index (zero-based) of the first element that is equal to the input one. If the element is not found,
+    /// the ELEMENT_NOT_FOUND constant will be returned.
+    /// </returns>
+    pointer_uint_q IndexOf(const T &element) const
+    {
+        bool bElementFound = false;
+        QList::QConstListIterator itElement = this->GetFirst();
+        pointer_uint_q uIndex = 0;
+
+        while(!itElement.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            ++itElement;
+            ++uIndex;
+        }
+
+        return bElementFound ? uIndex - 1U : QList::ELEMENT_NOT_FOUND;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the list equal to a given one, starting from a concrete position, and obtains its position index.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to search for through the list.</param>
+    /// <param name="uStartIndex">[IN] The start position to search from. It must be lower than the number of elements in the list.</param>
+    /// <returns>
+    /// The position index (zero-based) of the first element that is equal to the input one. If the element is not found,
+    /// the ELEMENT_NOT_FOUND constant will be returned.
+    /// </returns>
+    pointer_uint_q IndexOf(const T &element, const pointer_uint_q uStartIndex) const
+    {
+        QE_ASSERT_WARNING(uStartIndex < this->GetCount(), "The input start index must be lower than the number of elements in the list.");
+
+        bool bElementFound = false;
+        QList::QConstListIterator itElement = this->GetIterator(uStartIndex);
+        pointer_uint_q uIndex = uStartIndex;
+
+        while(!itElement.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            ++itElement;
+            ++uIndex;
+        }
+
+        return bElementFound ? uIndex - 1U : QList::ELEMENT_NOT_FOUND;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the list equal to a given one and obtains its position.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to search for through the list.</param>
+    /// <returns>
+    /// The position of the first element that is equal to the input one. If the element is not found,
+    /// the iterator will point to the forward end position.
+    /// </returns>
+    QListIterator PositionOf(const T &element) const
+    {
+        bool bElementFound = false;
+        QList::QListIterator itElement = this->GetFirst();
+
+        while(!itElement.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            ++itElement;
+        }
+
+        return bElementFound ? --itElement : itElement;
+    }
+    
+    /// <summary>
+    /// Searches for the first element in the list equal to a given one, starting from a concrete position, and obtains its position.
+    /// </summary>
+    /// <remarks>
+    /// Elements are compared using the list's comparator.
+    /// </remarks>
+    /// <param name="element">[IN] The element to search for through the list.</param>
+    /// <param name="startPosition">[IN] The start position to search from. It must not point to an end position.</param>
+    /// <returns>
+    /// The position of the first element that is equal to the input one. If the element is not found,
+    /// the iterator will point to the forward end position.
+    /// </returns>
+    QListIterator PositionOf(const T &element, const typename QList::QConstListIterator &startPosition) const
+    {
+        QE_ASSERT_WARNING(!startPosition.IsEnd(), "The input start position must not point to an end position.");
+        QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position is not valid.");
+
+        bool bElementFound = false;
+        QList::QListIterator itElement = QList::QListIterator(this, &*startPosition - scast_q(m_elementAllocator.GetPointer(), T*));
+        pointer_uint_q uIndex = 0;
+
+        while(!itElement.IsEnd() && !bElementFound)
+        {
+            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            ++itElement;
+            ++uIndex;
+        }
+
+        return bElementFound ? --itElement : itElement;
+    }
 
     
 private:
@@ -1635,7 +1971,7 @@ private:
     /// </summary>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
-    void ReallocateByFactor(const pointer_uint_q uNumberOfElements)
+    void _ReallocateByFactor(const pointer_uint_q uNumberOfElements)
     {
         const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QList::REALLOCATION_FACTOR, pointer_uint_q);
         this->Reserve(FINAL_CAPACITY);

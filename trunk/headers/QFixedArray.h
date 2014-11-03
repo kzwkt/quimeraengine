@@ -1259,10 +1259,13 @@ public:
         QE_ASSERT_ERROR(uElementB < this->GetCount(), "The last index is out of bounds.");
         QE_ASSERT_WARNING(uElementA != uElementB, "Both elements are the same.");
 
+        T* pElementA = &this->GetValue(uElementA);
+        T* pElementB = &this->GetValue(uElementB);
+
         u8_q arBytes[sizeof(T)];
-        memcpy(arBytes, &this->GetValue(uElementA), sizeof(T));
-        memcpy(&this->GetValue(uElementA), &this->GetValue(uElementB), sizeof(T));
-        memcpy(&this->GetValue(uElementB), arBytes, sizeof(T));
+        memcpy(arBytes,   pElementA, sizeof(T));
+        memcpy(pElementA, pElementB, sizeof(T));
+        memcpy(pElementB, arBytes,   sizeof(T));
     }
     
     /// <summary>
@@ -1284,10 +1287,13 @@ public:
         QE_ASSERT_ERROR(elementB.IsValid(), "The element B's position is not valid.");
         QE_ASSERT_WARNING(elementA != elementB, "Both elements are the same.");
 
+        T* pElementA = &*elementA;
+        T* pElementB = &*elementB;
+
         u8_q arBytes[sizeof(T)];
-        memcpy(arBytes, &*elementA, sizeof(T));
-        memcpy(&*elementA, &*elementB, sizeof(T));
-        memcpy(&*elementB, arBytes, sizeof(T));
+        memcpy(arBytes,   pElementA, sizeof(T));
+        memcpy(pElementA, pElementB, sizeof(T));
+        memcpy(pElementB, arBytes,   sizeof(T));
     }
     
     /// <summary>
@@ -1350,7 +1356,7 @@ public:
     /// </remarks>
     /// <param name="element">[IN] The element to be searched through the array.</param>
     /// <returns>
-    /// True if it is found; False otherwise.
+    /// True if the element is found; False otherwise.
     /// </returns>
     bool Contains(const T &element) const
     {
@@ -1472,7 +1478,7 @@ public:
     /// The position of the first element that is equal to the input one. If the element is not found,
     /// the iterator will point to the forward end position.
     /// </returns>
-    QArrayIterator PositionOf(const T &element, const typename QFixedArray::QConstArrayIterator startPosition) const
+    QArrayIterator PositionOf(const T &element, const typename QFixedArray::QConstArrayIterator &startPosition) const
     {
         QE_ASSERT_WARNING(!startPosition.IsEnd(), "The input start position must not point to an end position.");
         QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position must not point to an end position.");
