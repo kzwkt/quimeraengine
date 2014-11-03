@@ -2655,6 +2655,34 @@ public:
         this->m_elementAllocator.CopyTo(destinationTree.m_elementAllocator);
         destinationTree.m_uRoot = m_uRoot;
     }
+    
+    /// <summary>
+    /// Swaps two elements of the tree.
+    /// </summary>
+    /// <remarks>
+    /// The tree must not be empty.<br/>
+    /// No assignment operator nor copy constructors are called during this operation.
+    /// </remarks>
+    /// <param name="elementA">[IN] The position of an element. It must not be an end position.</param>
+    /// <param name="elementB">[IN] The position of the other element. It must not be an end position.</param>
+    void Swap(const typename QNTree::QNTreeIterator elementA, const typename QNTree::QNTreeIterator elementB)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+
+        QE_ASSERT_ERROR(!elementA.IsEnd(), "The element A position is an end position.");
+        QE_ASSERT_ERROR(!elementB.IsEnd(), "The element B position is an end position.");
+        QE_ASSERT_ERROR(elementA.IsValid(), "The element A's position is not valid.");
+        QE_ASSERT_ERROR(elementB.IsValid(), "The element B's position is not valid.");
+        QE_ASSERT_WARNING(elementA != elementB, "Both elements are the same.");
+        
+        T* pElementA = &*elementA;
+        T* pElementB = &*elementB;
+
+        u8_q arBytes[sizeof(T)];
+        memcpy(arBytes,   pElementA, sizeof(T));
+        memcpy(pElementA, pElementB, sizeof(T));
+        memcpy(pElementB, arBytes,   sizeof(T));
+    }
 
 private:
 
