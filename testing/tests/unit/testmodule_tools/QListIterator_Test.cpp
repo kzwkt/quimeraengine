@@ -208,39 +208,6 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        *INVALID_ITERATOR;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when the iterator is pointing to the end position (forward iteration).
 /// </summary>
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
@@ -332,39 +299,6 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
-{
-    // [Preparation]
-    QList<TestStructure> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(TestStructure(i));
-    }
-
-    QList<TestStructure>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        INVALID_ITERATOR->m_nField;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
 
 /// <summary>
 /// Checks that an assertion fails when the iterator is pointing to the end position (forward iteration).
@@ -489,39 +423,6 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        INVALID_ITERATOR++;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
@@ -636,39 +537,6 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        INVALID_ITERATOR--;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position before the first one.
@@ -787,39 +655,6 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        ++INVALID_ITERATOR;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
@@ -936,39 +771,6 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        --INVALID_ITERATOR;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position before the first one.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
@@ -1054,67 +856,7 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
     BOOST_CHECK(iterator == ITERATOR_A);
 }
 
-/// <summary>
-/// Checks that input iterator is copied when resident iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    QList<int>::QListIterator VALID_ITERATOR(&SOURCE_LIST, 0);
-
-	// [Execution]
-    QList<int>::QListIterator iterator = INVALID_ITERATOR;
-    iterator = VALID_ITERATOR;
-
-    // [Verification]
-    BOOST_CHECK(iterator.IsValid());
-    BOOST_CHECK(iterator == VALID_ITERATOR);
-}
-
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when the input iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        QList<int>::QListIterator iterator(SOURCE_LIST);
-        iterator = INVALID_ITERATOR;
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different list.
@@ -1152,30 +894,6 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
-/// <summary>
-/// Checks that the iterator is copied when it is not valid.
-/// </summary>
-QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(10);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-
-	// [Execution]
-    QList<int>::QListIterator iterator(&SOURCE_LIST, 0);
-    iterator = INVALID_ITERATOR;
-
-    // [Verification]
-    BOOST_CHECK(iterator == INVALID_ITERATOR);
-}
 
 /// <summary>
 /// Checks that the iterator is not copied when it points to a different list.
@@ -1225,31 +943,6 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenListIsNotEmpty_Test )
 
 	// [Execution]
     QList<int>::QListIterator iterator(ORIGINAL_ITERATOR);
-    iterator.MoveFirst();
-
-    // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);
-}
-
-/// <summary>
-/// Checks that the iterator points to the first position even when it was not valid.
-/// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenListIsNotEmptyAndIteratorWasNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(3);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator ITERATOR_FIRST(&SOURCE_LIST, 0);
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    INVALID_ITERATOR.MoveLast();
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-
-	// [Execution]
-    QList<int>::QListIterator iterator(INVALID_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -1323,33 +1016,6 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenListIsNotEmpty_Test )
 
 	// [Execution]
     QList<int>::QListIterator iterator(ORIGINAL_ITERATOR);
-    iterator.MoveLast();
-
-    // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);
-}
-
-/// <summary>
-/// Checks that the iterator points to the last position even when it was not valid.
-/// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenListIsNotEmptyAndIteratorWasNotValid_Test )
-{
-    // [Preparation]
-    QList<int> SOURCE_LIST(3);
-    for(unsigned int i = 0; i < SOURCE_LIST.GetCapacity(); ++i)
-    {
-        SOURCE_LIST.Add(i);
-    }
-
-    QList<int>::QListIterator ITERATOR_LAST(&SOURCE_LIST, 0);
-    ++ITERATOR_LAST;
-    QList<int>::QListIterator INVALID_ITERATOR(&SOURCE_LIST, 0);
-    ++INVALID_ITERATOR;
-    ++INVALID_ITERATOR;
-    SOURCE_LIST.Remove(SOURCE_LIST.GetCount()-1);
-
-	// [Execution]
-    QList<int>::QListIterator iterator(INVALID_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]

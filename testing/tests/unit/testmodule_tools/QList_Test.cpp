@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "CallCounter.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QList;
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QListWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::ListElementMock;
@@ -173,6 +174,82 @@ QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingAFul
 
     BOOST_CHECK_EQUAL( bSameValues, SAME_VALUES );
 }
+
+/// <summary>
+/// Checks if the instance is correctly constructed when it receives a common array and its size.
+/// </summary>
+QTEST_CASE ( Constructor4_ItIsCorrectlyConstructedFromCommonArray_Test )
+{
+    // [Preparation]
+    const unsigned int ARRAY_SIZE = 3;
+    const char SOURCE_ARRAY[ARRAY_SIZE] = {0, 1, 2};
+
+    // [Execution]
+    QList<char> list(SOURCE_ARRAY, ARRAY_SIZE);
+
+    // [Verification]
+    unsigned int uListSize = list.GetCount();
+    BOOST_CHECK_EQUAL(uListSize, ARRAY_SIZE);
+
+    for(unsigned int i = 0; i < list.GetCount(); ++i)
+        BOOST_CHECK_EQUAL( list[i], SOURCE_ARRAY[i] );
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks than assertion fails when the input array is null.
+/// </summary>
+QTEST_CASE ( Constructor4_AssertionFailsWhenListIsNull_Test )
+{
+    // [Preparation]
+    const int* NULL_ARRAY = null_q;
+    const unsigned int NON_ZERO_SIZE = 3;
+    const bool ASSERTION_FAILED = true;
+
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        QList<int> list(NULL_ARRAY, NON_ZERO_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <summary>
+/// Checks than assertion fails when the input array size equals zero.
+/// </summary>
+QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
+{
+    // [Preparation]
+    const int SOURCE_ARRAY[3] = {0, 1, 2};
+    const unsigned int ZERO_SIZE = 0;
+    const bool ASSERTION_FAILED = true;
+
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        QList<int> list(SOURCE_ARRAY, ZERO_SIZE);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if it assigns correctly when the size of the origin list is equal to the destination list.
@@ -418,6 +495,154 @@ QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginListSizeIsGreaterThan
     }
 
     BOOST_CHECK_EQUAL( bSameValues, SAME_VALUES );
+}
+
+/// <sumary>
+/// Checks that it returns True when lists have the same number of elements and those elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenListsHaveSameNumberOfElementsAndElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list1 == list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when lists are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenListsAreSameInstance_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list == list;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when lists have the same number of elements but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenListsHaveSameNumberOfElementsButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = list1 == list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when lists have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenListsHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = list1 == list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when lists have the same number of elements and those elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenListsHaveSameNumberOfElementsAndElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = list1 != list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when lists are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenListsAreSameInstance_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = list != list;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when lists have the same number of elements but elements are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenListsHaveSameNumberOfElementsButElementsAreNotEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list1 != list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when lists have different number of elements although elements are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenListsHaveDifferentNumberOfElementsAlthoughElementsAreEqual_Test )
+{
+    // [Preparation]
+    u32_q arValues1[] = {0, 1U, 2U, 3U};
+    QList<u32_q> list1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list1 != list2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2139,6 +2364,1247 @@ QTEST_CASE ( Clear_DestructorIsCalledForEveryElement_Test )
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
     BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
 }
+
+/// <summary>
+/// Checks that elements are correctly retrieved from the last position of the list.
+/// </summary>
+QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromLastPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(3);
+    QList<int>::QListIterator itLast = commonList.GetLast();
+
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly retrieved from the first position of the list.
+/// </summary>
+QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetFirst();
+    QList<int>::QListIterator itLast = commonList.GetIterator(2);
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly retrieved when they are in between of two elements.
+/// </summary>
+QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromBetweenTwoElements_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1, 2, 3};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetIterator(3);
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when both positions are the same.
+/// </summary>
+QTEST_CASE ( GetRange1_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = itFirst;
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that the copy constructor of each element is called when it is copied, at least once.
+/// </summary>
+QTEST_CASE ( GetRange1_CopyConstructorOfEachElementIsCalledAtLeastOnce_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 2;
+    const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+
+    QList<CallCounter>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<CallCounter>::QListIterator itLast = commonList.GetIterator(2);
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uCopyConstructor = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK(uCopyConstructor >= EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that all elements of the list can be retrieved.
+/// </summary>
+QTEST_CASE ( GetRange1_AllElementsCanBeRetrieved_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int> expectedList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));;
+    QList<int>::QListIterator itFirst = commonList.GetFirst();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first element points to the end position.
+/// </summary>
+QTEST_CASE ( GetRange1_AssertionFailsWhenFirstElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    ++itFirst;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last element points to the end position.
+/// </summary>
+QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    ++itLast;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements are correctly retrieved from the last position of the list.
+/// </summary>
+QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromLastPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 3U;
+    const pointer_uint_q LAST = 5U;
+
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly retrieved from the first position of the list.
+/// </summary>
+QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 0;
+    const pointer_uint_q LAST = 2U;
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly retrieved when they are in between of two elements.
+/// </summary>
+QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromBetweenTwoElements_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1, 2, 3};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 3U;
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when both positions are the same.
+/// </summary>
+QTEST_CASE ( GetRange2_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = FIRST;
+    
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(returnedList == expectedList);
+}
+
+/// <summary>
+/// Checks that the copy constructor of each element is called when it is copied, at least once.
+/// </summary>
+QTEST_CASE ( GetRange2_CopyConstructorOfEachElementIsCalledAtLeastOnce_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 2;
+    const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    pointer_uint_q uCopyConstructor = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK(uCopyConstructor >= EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that all elements of the list can be retrieved.
+/// </summary>
+QTEST_CASE ( GetRange2_AllElementsCanBeRetrieved_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int> expectedList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 0;
+    const pointer_uint_q LAST = commonList.GetCount() - 1U;
+
+    // [Execution]
+    QList<int> returnedList = commonList.GetRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( GetRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first position is not lower than the number of elements in the list.
+/// </summary>
+QTEST_CASE ( GetRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = commonList.GetCount();
+    const pointer_uint_q LAST = 2U;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last position is not lower than the number of elements in the list
+/// </summary>
+QTEST_CASE ( GetRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = commonList.GetCount();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.GetRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that elements are correctly swapped when they occupy the first and the last positions.
+/// </sumary>
+QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 0;
+    const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q) - 1U;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(list[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(list[POSITION_B], EXPECTED_VALUE_B);
+}
+
+/// <sumary>
+/// Checks that elements are correctly swapped when selecting any position.
+/// </sumary>
+QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 2U;
+    const pointer_uint_q POSITION_B = 4U;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(list[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(list[POSITION_B], EXPECTED_VALUE_B);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position provided is out of bounds.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenFirstPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = sizeof(arValues) / sizeof(u32_q);
+    const pointer_uint_q POSITION_B = 4U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the second position provided is out of bounds.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenSecondPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q);
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap1_AssertionFailsWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = POSITION_A;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that nothing happens when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap1_NothingHappensWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q POSITION_A = 4U;
+    const pointer_uint_q POSITION_B = POSITION_A;
+    const u32_q EXPECTED_VALUE_A = arValues[POSITION_A];
+    const u32_q EXPECTED_VALUE_B = arValues[POSITION_A];
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(list[POSITION_A], EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(list[POSITION_B], EXPECTED_VALUE_B);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that elements are correctly swapped when they occupy the first and the last positions.
+/// </sumary>
+QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QListIterator POSITION_A = list.GetFirst();
+    const QList<u32_q>::QListIterator POSITION_B = list.GetLast();
+    const u32_q EXPECTED_VALUE_A = *POSITION_B;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+/// <sumary>
+/// Checks that elements are correctly swapped when selecting any position.
+/// </sumary>
+QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QListIterator POSITION_A = list.GetIterator(2U);
+    const QList<u32_q>::QListIterator POSITION_B = list.GetIterator(4U);
+    const u32_q EXPECTED_VALUE_A = *POSITION_B;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the first position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenFirstPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    QList<u32_q>::QListIterator POSITION_A = list.GetLast();
+    ++POSITION_A;
+    const QList<u32_q>::QListIterator POSITION_B = list.GetFirst();
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when the second position provided is an end position.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenSecondPositionIsEndPosition_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QListIterator POSITION_A = list.GetFirst();
+    QList<u32_q>::QListIterator POSITION_B = list.GetLast();
+    ++POSITION_B;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+/// <sumary>
+/// Checks that an assertion fails when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap2_AssertionFailsWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QListIterator POSITION_A = list.GetFirst();
+    const QList<u32_q>::QListIterator POSITION_B = POSITION_A;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.Swap(POSITION_A, POSITION_B);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL( bAssertionFailed, ASSERTION_FAILED );
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that nothing happens when swapping the same element.
+/// </sumary>
+QTEST_CASE( Swap2_NothingHappensWhenSwappingTheSameElement_Test )
+{
+    // [Preparation]
+    u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QListIterator POSITION_A = list.GetFirst();
+    const QList<u32_q>::QListIterator POSITION_B = POSITION_A;
+    const u32_q EXPECTED_VALUE_A = *POSITION_A;
+    const u32_q EXPECTED_VALUE_B = *POSITION_A;
+
+    // [Execution]
+    list.Swap(POSITION_A, POSITION_B);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(*POSITION_A, EXPECTED_VALUE_A);
+    BOOST_CHECK_EQUAL(*POSITION_B, EXPECTED_VALUE_B);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that it returns True when the element appears the first.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when the element appears the last.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = list.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when the element is not in the list.
+/// </sumary>
+QTEST_CASE( Contains_ReturnsFalseWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = list.Contains(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the first.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 0;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 1U;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the last.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 2U;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element is not in the list.
+/// </sumary>
+QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QList<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the first.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 0;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 0;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 2U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 2U;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected index when the element appears the last.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 3U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = 3U;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element is not in the list.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 0;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QList<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the element appears before the start position.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementAppearsBeforeTheStartPosition_Test )
+{
+    // [Preparation]
+    const pointer_uint_q START_POSITION = 2U;
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QList<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the start index is not lower than the number of elements.
+/// </sumary>
+QTEST_CASE( IndexOf2_AssertionFailsWhenStartIndexIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q START_POSITION = list.GetCount();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.IndexOf(INPUT_ELEMENT, START_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that it returns ELEMENT_NOT_FOUND when the start position is not lower than the number of elements.
+/// </sumary>
+QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenStartPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q START_POSITION = list.GetCount();
+    const pointer_uint_q EXPECTED_RESULT = QList<u32_q>::ELEMENT_NOT_FOUND;
+
+    // [Execution]
+    pointer_uint_q uResult = list.IndexOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_RESULT);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the first.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetFirst();
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetIterator(1U);
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the last.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the returned iterator points to the end position when the element is not in the list.
+/// </sumary>
+QTEST_CASE( PositionOf1_ReturnsEndPositionWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the first.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetFirst();
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetFirst();
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears in the middle.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetIterator(2U);
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetIterator(2U);
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns the expected position when the element appears the last.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetIterator(3U);
+    const QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the element is not in the list.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementIsNotFound_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetFirst();
+    QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the element appears before the start position.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementAppearsBeforeTheStartPosition_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetIterator(2U);
+    QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the input start position points to the end position.
+/// </sumary>
+QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    QList<u32_q>::QConstListIterator START_POSITION = list.GetLast();
+    ++START_POSITION;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        list.PositionOf(INPUT_ELEMENT, START_POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <sumary>
+/// Checks that it returns an iterator that points to the end position when the start position points to an end position.
+/// </sumary>
+QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_Test )
+{
+    // [Preparation]
+    const u32_q INPUT_ELEMENT = 2U;
+    u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
+    QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QList<u32_q>::QConstListIterator START_POSITION = list.GetCount();
+    QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
+    ++EXPECTED_RESULT;
+
+    // [Execution]
+    QList<u32_q>::QConstListIterator itResult = list.PositionOf(INPUT_ELEMENT, START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+#endif
 
 /// <summary>
 /// Checks if the method returns the correct number of elements in the list.

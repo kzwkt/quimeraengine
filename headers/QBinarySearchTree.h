@@ -1453,49 +1453,6 @@ public:
         destinationTree.m_uRoot = m_uRoot;
     }
     
-    /// <summary>
-    /// Searches for a given element, starting at a concrete point, and obtains its position.
-    /// </summary>
-    /// <param name="element">[IN] The value of the element to search for.</param>
-    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited.</param>
-    /// <param name="startPosition">[IN] An iterator that points to the node from which to start searching. It must not point to an end position.</param>
-    /// <returns>
-    /// An iterator that points to the position of the element, starting from the given position, depending on the traversal order. If the element is not found, 
-    /// the iterator will point to the end position.
-    /// </returns>
-    QConstBinarySearchTreeIterator PositionOf(const T &element, const EQTreeTraversalOrder &eTraversalOrder, const typename QBinarySearchTree::QConstBinarySearchTreeIterator &startPosition) const
-    {
-        QE_ASSERT_ERROR(!startPosition.IsEnd(), "The start position must not point to the end position.");
-
-        static const int INPUT_VALUE_IS_LOWER = -1;
-        static const int INPUT_VALUE_IS_GREATER = 1;
-        static const int INPUT_VALUE_IS_EQUAL = 0;
-        static const int INVALID_RESULT = -2;
-
-        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
-        pointer_uint_q uCurrentPosition = &*startPosition - pElementBasePointer;
-
-        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
-        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
-        int nComparisonResult = INVALID_RESULT;
-
-        while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
-        {
-            nComparisonResult = m_comparator.Compare(element, *pCurrentElement);
-
-            if(nComparisonResult == INPUT_VALUE_IS_LOWER)
-                uCurrentPosition = pCurrentNode->GetLeftChild();
-            else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
-                uCurrentPosition = pCurrentNode->GetRightChild();
-
-            pCurrentElement = pElementBasePointer + uCurrentPosition;
-            pCurrentNode = pNodeBasePointer + uCurrentPosition;
-        }
-
-        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
-    }
-
 private:
 
     /// <summary>

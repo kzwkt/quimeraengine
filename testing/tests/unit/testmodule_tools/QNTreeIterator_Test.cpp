@@ -196,7 +196,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTraversalOrderIsNotSupported_Tes
 {
     // [Preparation]
     const QNTree<char>* SAMPLE_TREE = GetSampleTree();
-    const EQTreeTraversalOrder UNSUPPORTED_TRAVERSAL_ORDER = EQTreeTraversalOrder::E_BreadthFirst;
+    const EQTreeTraversalOrder UNSUPPORTED_TRAVERSAL_ORDER = EQTreeTraversalOrder::_NotEnumValue;
     const unsigned int INPUT_POSITION = 0;
     const bool ASSERTION_FAILED = true;
 
