@@ -181,7 +181,7 @@ public:
 
         /// <summary>
         /// Constructor that receives the list to iterate and the position to point to. This constructor is intended to be used internally, use
-        /// GetConstIterator and GetIterator methods instead.
+        /// GetIterator method of the QList class instead.
         /// </summary>
         /// <remarks>
         /// If the list is empty, it will point to the end position (forward iteration).
@@ -694,7 +694,7 @@ public:
 
         /// <summary>
         /// Constructor that receives the list to iterate and the position to point to. This constructor is intended to be used internally, use
-        /// GetConstIterator and GetIterator methods instead.
+        /// GetIterator method of the QList class instead.
         /// </summary>
         /// <remarks>
         /// If the list is empty, it will point to the end position (forward iteration).
@@ -905,6 +905,14 @@ public:
         }
 
     }; // QListIterator
+    
+
+    // TYPEDEFS
+    // --------------
+public:
+
+    typedef typename QList::QListIterator Iterator;
+    typedef typename QList::QConstListIterator ConstIterator;
 
 
     // CONSTANTS
