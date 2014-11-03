@@ -65,12 +65,6 @@ namespace Containers
 template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
 class QFixedArray
 {
-    // TYPEDEFS
-    // --------------
-protected:
-
-    typedef QFixedArray<T, AllocatorT, ComparatorT> TFixedArray;
-
 
     // INTERNAL CLASSES
     // -----------------
@@ -92,7 +86,7 @@ public:
 
         /// <summary>
         /// Constructor that receives the array to iterate and the position to point to. This constructor is intended to be used internally, use
-        /// GetConstIterator and GetIterator methods of QFixedArray instead.
+        /// GetIterator method of the QFixedArray class instead.
         /// </summary>
         /// <remarks>
         /// If the array is empty, it will point to the end position (forward iteration).
@@ -604,7 +598,7 @@ public:
         /// <summary>
         /// The array the iterator points to.
         /// </summary>
-        const TFixedArray* m_pArray;
+        const QFixedArray* m_pArray;
 
         /// <summary>
         /// The current iteration position regarding the first element. It is zero-based.
@@ -634,7 +628,7 @@ public:
 
         /// <summary>
         /// Constructor that receives the array to iterate and the position to point to. This constructor is intended to be used internally, use
-        /// GetConstIterator and GetIterator methods of QFixedArray instead.
+        /// GetIterator method of the QFixedArray class instead.
         /// </summary>
         /// <remarks>
         /// If the array is empty, it will point to the end position (forward iteration).
@@ -940,6 +934,14 @@ public:
         }
 
     }; // QArrayIterator
+
+
+    // TYPEDEFS
+    // --------------
+public:
+
+    typedef typename QFixedArray::QArrayIterator Iterator;
+    typedef typename QFixedArray::QConstArrayIterator ConstIterator;
 
 
     // CONSTANTS

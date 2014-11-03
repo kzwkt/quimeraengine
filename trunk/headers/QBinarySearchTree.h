@@ -201,7 +201,7 @@ public:
 
         /// <summary>
         /// Constructor that receives the tree to iterate through, the position to physically point to and the traversal order. This constructor is intended 
-        /// to be used internally, use GetConstIterator and GetIterator methods instead.
+        /// to be used internally, use GetIterator method of the QBinarySearchTree class instead.
         /// </summary>
         /// <remarks>
         /// If the tree is empty, it will point to the end position (forward iteration).
@@ -960,6 +960,13 @@ public:
         const EQTreeTraversalOrder m_eTraversalOrder;
 
     }; // QConstBinarySearchTreeIterator
+    
+
+    // TYPEDEFS
+    // --------------
+public:
+
+    typedef typename QBinarySearchTree::QConstBinarySearchTreeIterator ConstIterator;
 
 
    	// CONSTANTS
