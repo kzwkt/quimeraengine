@@ -1321,7 +1321,7 @@ public:
 
                 while(bAreEqual && !itThis.IsEnd())
                 {
-                    bAreEqual = bAreEqual && m_comparator.Compare(*itThis, *itInput) == 0;
+                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0;
                     ++itThis;
                     ++itInput;
                 }

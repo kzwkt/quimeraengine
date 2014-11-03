@@ -551,7 +551,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If the capacity of the array is exceeded a reallocation will take place, which will make any existing pointer invalid.<br/>
-    /// Copying elements from the same array is safe.<br/>
+    /// Copying elements from the same list is safe only if no reallocation is necessary.<br/>
     /// The first and the last element of the range must belong to the same array.<br/>
     /// The copy constructor of each element will be called.<br/>
     /// Calling this method is faster than adding each element one by one.
