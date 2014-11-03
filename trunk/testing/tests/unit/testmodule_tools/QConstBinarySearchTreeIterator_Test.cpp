@@ -2565,7 +2565,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 {
     // [Preparation]
-    QBinarySearchTree<int> EMPTY_ARRAY(3, 1);
+    QBinarySearchTree<int> EMPTY_ARRAY(1);
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator END_ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     END_ITERATOR.MoveLast();

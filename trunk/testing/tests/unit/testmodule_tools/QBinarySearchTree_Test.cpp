@@ -1158,55 +1158,6 @@ QTEST_CASE ( Add_AssertionFailsWhenTheElementAlreadyExists_Test )
     BOOST_CHECK(bAssertionFailed);
 }
 
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
-/// <summary>
-/// Checks that the element is not added when it already exists in the tree.
-/// </summary>
-QTEST_CASE ( Add_ElementIsNotAddedWhenItAlreadyExists_Test )
-{
-    // [Preparation]
-    const int INPUT_ELEMENT = 1;
-    const int EXPECTED_VALUES[] = {INPUT_ELEMENT};
-    
-    QBinarySearchTree<int> TREE(3);
-    TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-    // [Execution]
-    TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-    // [Verification]
-    bool bResultIsWhatEspected = true;
-
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = QBinarySearchTree<int>::QConstBinarySearchTreeIterator(&TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-    int i = 0;
-
-    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
-        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-
-    BOOST_CHECK(bResultIsWhatEspected);
-}
-
-/// <summary>
-/// Checks that the iterator points to the end position when it is not added.
-/// </summary>
-QTEST_CASE ( Add_ReturnedIteratorPointsToEndPositionWhenElementIsNotAdded_Test )
-{
-    // [Preparation]
-    const int INPUT_ELEMENT = 1;
-    
-    QBinarySearchTree<int> TREE(3);
-    TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-    // [Execution]
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itResult = TREE.Add(INPUT_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-    // [Verification]
-    bool bIteratorPointsToEndPosition = itResult.IsEnd();
-    BOOST_CHECK_EQUAL(bIteratorPointsToEndPosition);
-}
-
 #endif
 
 /// <summary>

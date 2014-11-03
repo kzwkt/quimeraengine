@@ -2737,51 +2737,6 @@ QTEST_CASE ( Normalize_StringIsNormalizedAsExpected_Test )
 
 #endif
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when using a normalization form that is not supported.
-/// </summary>
-QTEST_CASE ( Normalize_AssertionFailsWhenUsingUnsupportedNormalizationForms_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
-
-    // [Preparation]
-    QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
-    const EQNormalizationForm NOT_SUPPORTED_NF1 = EQNormalizationForm::E_KC;
-    const EQNormalizationForm NOT_SUPPORTED_NF2 = EQNormalizationForm::E_KD;
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed1 = false;
-
-    try
-    {
-        SOURCE_STRING.Normalize(NOT_SUPPORTED_NF1);
-    }
-    catch(...)
-    {
-        bAssertionFailed1 = true;
-    }
-
-    bool bAssertionFailed2 = false;
-
-    try
-    {
-        SOURCE_STRING.Normalize(NOT_SUPPORTED_NF2);
-    }
-    catch(...)
-    {
-        bAssertionFailed2 = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
-}
-
-#endif
-
 /// <summary>
 /// Checks that it returns "greater" when the input string is lower than resident string due to a base character, using binary case insensitive comparison type.
 /// </summary>
@@ -3752,36 +3707,23 @@ QTEST_CASE ( CompareTo_AssertionFailsWhenUsingUnsupportedComparisonTypes_Test )
 
     // [Preparation]
     QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
-    const EQComparisonType NOT_SUPPORTED_CT1 = EQComparisonType::E_CompatibilityCaseInsensitive;
-    const EQComparisonType NOT_SUPPORTED_CT2 = EQComparisonType::E_CompatibilityCaseSensitive;
+    const EQComparisonType NOT_SUPPORTED = EQComparisonType::_NotEnumValue;
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
-    bool bAssertionFailed1 = false;
+    bool bAssertionFailed = false;
 
     try
     {
-        SOURCE_STRING.CompareTo(SOURCE_STRING, NOT_SUPPORTED_CT1);
+        SOURCE_STRING.CompareTo(SOURCE_STRING, NOT_SUPPORTED);
     }
     catch(...)
     {
-        bAssertionFailed1 = true;
-    }
-
-    bool bAssertionFailed2 = false;
-
-    try
-    {
-        SOURCE_STRING.CompareTo(SOURCE_STRING, NOT_SUPPORTED_CT2);
-    }
-    catch(...)
-    {
-        bAssertionFailed2 = true;
+        bAssertionFailed = true;
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #endif

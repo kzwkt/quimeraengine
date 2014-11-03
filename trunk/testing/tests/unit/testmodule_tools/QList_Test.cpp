@@ -3593,7 +3593,8 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_T
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
     QList<u32_q> list(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QList<u32_q>::QConstListIterator START_POSITION = list.GetCount();
+    QList<u32_q>::QConstListIterator START_POSITION = list.GetLast();
+    ++START_POSITION;
     QList<u32_q>::QConstListIterator EXPECTED_RESULT = list.GetLast();
     ++EXPECTED_RESULT;
 
@@ -4591,9 +4592,7 @@ QTEST_CASE ( InsertRange2_ElementIsInsertedIntoEmptyList_Test )
     QList<int>::QListIterator itFirst = inputList.GetIterator(1);
     QList<int>::QListIterator itLast = inputList.GetIterator(3);
     QList<int> emptyList(5);
-    emptyList.Add(0);
     const QList<int>::QListIterator POSITION = emptyList.GetFirst();
-    emptyList.Clear();
 
     // [Execution]
     emptyList.InsertRange(itFirst, itLast, POSITION);
