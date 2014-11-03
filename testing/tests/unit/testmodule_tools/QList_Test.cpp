@@ -1402,14 +1402,14 @@ QTEST_CASE ( GetCount_CorrectNumberOfElementsReturned_Test )
 QTEST_CASE ( Add_ElementIsCorrectlyAddedToEmptyList_Test )
 {
     // [Preparation]
-    QList<int> arEmptyList;
+    QList<int> emptyList;
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arEmptyList.Add(ELEMENT_VALUE);
+    emptyList.Add(ELEMENT_VALUE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arEmptyList[0], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(emptyList[0], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1419,17 +1419,17 @@ QTEST_CASE ( Add_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arFullList(INITIAL_CAPACITY);
-    arFullList.Add(0);
-    arFullList.Add(0);
-    arFullList.Add(0);
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    fullList.Add(0);
+    fullList.Add(0);
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arFullList.Add(ELEMENT_VALUE);
+    fullList.Add(ELEMENT_VALUE);
 
     // [Verification]
-    pointer_uint_q uCapacity =  arFullList.GetCapacity();
+    pointer_uint_q uCapacity =  fullList.GetCapacity();
     BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
 }
 
@@ -1440,17 +1440,17 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenListIsFull_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arFullList(INITIAL_CAPACITY);
-    arFullList.Add(0);
-    arFullList.Add(0);
-    arFullList.Add(0);
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    fullList.Add(0);
+    fullList.Add(0);
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arFullList.Add(ELEMENT_VALUE);
+    fullList.Add(ELEMENT_VALUE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arFullList[3], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(fullList[3], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1460,15 +1460,15 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedAtTheEnd_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arCommonList(INITIAL_CAPACITY);
-    arCommonList.Add(0);
+    QList<int> commonList(INITIAL_CAPACITY);
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arCommonList.Add(ELEMENT_VALUE);
+    commonList.Add(ELEMENT_VALUE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[1], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[1], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1480,13 +1480,13 @@ QTEST_CASE ( Add_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 1;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arCommonList(INITIAL_CAPACITY);
+    QList<int> commonList(INITIAL_CAPACITY);
 
     // [Execution]
-    arCommonList.Add(ELEMENT_VALUE);
+    commonList.Add(ELEMENT_VALUE);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -1500,12 +1500,12 @@ QTEST_CASE ( Add_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<CallCounter> arCommonList(INITIAL_CAPACITY);
+    QList<CallCounter> commonList(INITIAL_CAPACITY);
     CallCounter newElement;
     CallCounter::ResetCounters();
 
     // [Execution]
-    arCommonList.Add(newElement);
+    commonList.Add(newElement);
 
     // [Verification]
     pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
@@ -1518,16 +1518,16 @@ QTEST_CASE ( Add_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
+    QList<int> commonList;
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QConstListIterator POSITION = arCommonList.GetFirst();
+    const QList<int>::QConstListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[0], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[0], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1536,17 +1536,17 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QConstListIterator POSITION = arCommonList.GetIterator(1);
+    const QList<int>::QConstListIterator POSITION = commonList.GetIterator(1);
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[1], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[1], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1556,18 +1556,18 @@ QTEST_CASE ( Insert1_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arFullList(INITIAL_CAPACITY);
-    arFullList.Add(0);
-    arFullList.Add(0);
-    arFullList.Add(0);
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    fullList.Add(0);
+    fullList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QConstListIterator POSITION = arFullList.GetFirst();
+    const QList<int>::QConstListIterator POSITION = fullList.GetFirst();
 
     // [Execution]
-    arFullList.Insert(ELEMENT_VALUE, POSITION);
+    fullList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    pointer_uint_q uCapacity =  arFullList.GetCapacity();
+    pointer_uint_q uCapacity =  fullList.GetCapacity();
     BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
 }
 
@@ -1580,15 +1580,15 @@ QTEST_CASE ( Insert1_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 2;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arCommonList(INITIAL_CAPACITY);
-    arCommonList.Add(0);
-    const QList<int>::QConstListIterator POSITION = arCommonList.GetFirst();
+    QList<int> commonList(INITIAL_CAPACITY);
+    commonList.Add(0);
+    const QList<int>::QConstListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -1602,14 +1602,14 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<CallCounter> arCommonList(INITIAL_CAPACITY);
-    arCommonList.Add(CallCounter());
+    QList<CallCounter> commonList(INITIAL_CAPACITY);
+    commonList.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
-    const QList<CallCounter>::QConstListIterator POSITION = arCommonList.GetFirst();
+    const QList<CallCounter>::QConstListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Insert(newElement, POSITION);
+    commonList.Insert(newElement, POSITION);
 
     // [Verification]
     pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
@@ -1622,14 +1622,14 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert1_ReturnsIteratorThatPointsToInsertedElement_Test )
 {
     // [Preparation]
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QList<int>::QConstListIterator POSITION = arCommonList.GetIterator(1);
+    const QList<int>::QConstListIterator POSITION = commonList.GetIterator(1);
 
     // [Execution]
-    QList<int>::QConstListIterator itResult = arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    QList<int>::QConstListIterator itResult = commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*itResult, ELEMENT_VALUE);
@@ -1643,9 +1643,9 @@ QTEST_CASE ( Insert1_ReturnsIteratorThatPointsToInsertedElement_Test )
 QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    QList<int>::QConstListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int> commonList;
+    commonList.Add(0);
+    QList<int>::QConstListIterator ITERATOR_END = commonList.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1655,7 +1655,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 
     try
     {
-        arCommonList.Insert(ELEMENT_VALUE, ITERATOR_END);
+        commonList.Insert(ELEMENT_VALUE, ITERATOR_END);
     }
     catch(...)
     {
@@ -1674,15 +1674,15 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyList_Test )
 {
     // [Preparation]
-    QList<int> arEmptyList;
-    QList<int>::QConstListIterator ITERATOR = arEmptyList.GetFirst();
+    QList<int> emptyList;
+    QList<int>::QConstListIterator ITERATOR = emptyList.GetFirst();
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arEmptyList.Insert(ELEMENT_VALUE, ITERATOR);
+    emptyList.Insert(ELEMENT_VALUE, ITERATOR);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arEmptyList[0], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(emptyList[0], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1691,17 +1691,17 @@ QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyList_Test )
 QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    QList<int>::QConstListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int> commonList;
+    commonList.Add(0);
+    QList<int>::QConstListIterator ITERATOR_END = commonList.GetLast();
     ++ITERATOR_END;
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, ITERATOR_END);
+    commonList.Insert(ELEMENT_VALUE, ITERATOR_END);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[1], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[1], ELEMENT_VALUE);
 }
 
 #endif
@@ -1712,16 +1712,16 @@ QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPos
 QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
+    QList<int> commonList;
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[0], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[0], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1730,17 +1730,17 @@ QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q POSITION = 1;
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[1], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[1], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1750,18 +1750,18 @@ QTEST_CASE ( Insert2_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arFullList(INITIAL_CAPACITY);
-    arFullList.Add(0);
-    arFullList.Add(0);
-    arFullList.Add(0);
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    fullList.Add(0);
+    fullList.Add(0);
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arFullList.Insert(ELEMENT_VALUE, POSITION);
+    fullList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    pointer_uint_q uCapacity = arFullList.GetCapacity();
+    pointer_uint_q uCapacity = fullList.GetCapacity();
     BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
 }
 
@@ -1774,15 +1774,15 @@ QTEST_CASE ( Insert2_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 2;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<int> arCommonList(INITIAL_CAPACITY);
-    arCommonList.Add(0);
+    QList<int> commonList(INITIAL_CAPACITY);
+    commonList.Add(0);
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, POSITION);
+    commonList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -1796,14 +1796,14 @@ QTEST_CASE ( Insert2_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QList<CallCounter> arCommonList(INITIAL_CAPACITY);
-    arCommonList.Add(CallCounter());
+    QList<CallCounter> commonList(INITIAL_CAPACITY);
+    commonList.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Insert(newElement, POSITION);
+    commonList.Insert(newElement, POSITION);
 
     // [Verification]
     pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
@@ -1818,9 +1818,9 @@ QTEST_CASE ( Insert2_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    const pointer_uint_q OUT_OF_BOUNDS_INDEX = arCommonList.GetCount();
+    QList<int> commonList;
+    commonList.Add(0);
+    const pointer_uint_q OUT_OF_BOUNDS_INDEX = commonList.GetCount();
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
 
@@ -1829,7 +1829,7 @@ QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 
     try
     {
-        arCommonList.Insert(ELEMENT_VALUE, OUT_OF_BOUNDS_INDEX);
+        commonList.Insert(ELEMENT_VALUE, OUT_OF_BOUNDS_INDEX);
     }
     catch(...)
     {
@@ -1848,15 +1848,15 @@ QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Insert2_ElementIsInsertedIntoEmptyList_Test )
 {
     // [Preparation]
-    QList<int> arEmptyList;
+    QList<int> emptyList;
     const pointer_uint_q POSITION = 0;
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arEmptyList.Insert(ELEMENT_VALUE, POSITION);
+    emptyList.Insert(ELEMENT_VALUE, POSITION);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arEmptyList[0], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(emptyList[0], ELEMENT_VALUE);
 }
 
 /// <summary>
@@ -1865,16 +1865,16 @@ QTEST_CASE ( Insert2_ElementIsInsertedIntoEmptyList_Test )
 QTEST_CASE ( Insert2_ElementIsInsertedAtTheEndWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    const pointer_uint_q INDEX_OUT_OF_BOUNDS = arCommonList.GetCount();
+    QList<int> commonList;
+    commonList.Add(0);
+    const pointer_uint_q INDEX_OUT_OF_BOUNDS = commonList.GetCount();
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
-    arCommonList.Insert(ELEMENT_VALUE, INDEX_OUT_OF_BOUNDS);
+    commonList.Insert(ELEMENT_VALUE, INDEX_OUT_OF_BOUNDS);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arCommonList[1], ELEMENT_VALUE);
+    BOOST_CHECK_EQUAL(commonList[1], ELEMENT_VALUE);
 }
 
 #endif
@@ -1887,18 +1887,18 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromLastPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(ELEMENT_VALUE);
-    const QList<int>::QListIterator POSITION = arCommonList.GetLast();
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(ELEMENT_VALUE);
+    const QList<int>::QListIterator POSITION = commonList.GetLast();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -1910,18 +1910,18 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(ELEMENT_VALUE);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
+    QList<int> commonList(3U);
+    commonList.Add(ELEMENT_VALUE);
+    commonList.Add(0);
+    commonList.Add(0);
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -1933,18 +1933,18 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(ELEMENT_VALUE);
-    arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetIterator(1);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(ELEMENT_VALUE);
+    commonList.Add(0);
+    const QList<int>::QListIterator POSITION = commonList.GetIterator(1);
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -1955,17 +1955,17 @@ QTEST_CASE ( Remove1_CountDecreasesAfterRemovingElements_Test )
 {
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 2;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(0);
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -1978,13 +1978,13 @@ QTEST_CASE ( Remove1_DestructorOfElementIsCalled_Test )
 
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
-    QList<CallCounter> arCommonList;
-    arCommonList.Add(CallCounter());
-    const QList<CallCounter>::QListIterator POSITION = arCommonList.GetFirst();
+    QList<CallCounter> commonList;
+    commonList.Add(CallCounter());
+    const QList<CallCounter>::QListIterator POSITION = commonList.GetFirst();
     CallCounter::ResetCounters();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
@@ -1998,14 +1998,14 @@ QTEST_CASE ( Remove1_ReturnedIteratorPointsNextWhenElementWasNotTheLastOne_Test 
 {
     // [Preparation]
     const int EXPECTED_ELEMENT = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(EXPECTED_ELEMENT);
-    arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetFirst();
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(EXPECTED_ELEMENT);
+    commonList.Add(0);
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
 
     // [Execution]
-    QList<int>::QConstListIterator itResult = arCommonList.Remove(POSITION);
+    QList<int>::QConstListIterator itResult = commonList.Remove(POSITION);
 
     // [Verification]
     int nValue = *itResult;
@@ -2019,14 +2019,14 @@ QTEST_CASE ( Remove1_ReturnedIteratorPointsEndPositionWhenElementWasTheLastOne_T
 {
     // [Preparation]
     const bool POINTS_END_POSITION = true;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    const QList<int>::QListIterator POSITION = arCommonList.GetLast();
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(0);
+    const QList<int>::QListIterator POSITION = commonList.GetLast();
 
     // [Execution]
-    QList<int>::QConstListIterator itResult = arCommonList.Remove(POSITION);
+    QList<int>::QConstListIterator itResult = commonList.Remove(POSITION);
 
     // [Verification]
     bool bPointsToEndPosition = itResult.IsEnd();
@@ -2041,9 +2041,9 @@ QTEST_CASE ( Remove1_ReturnedIteratorPointsEndPositionWhenElementWasTheLastOne_T
 QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    QList<int>::QListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int> commonList;
+    commonList.Add(0);
+    QList<int>::QListIterator ITERATOR_END = commonList.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
 
@@ -2052,7 +2052,7 @@ QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 
     try
     {
-        arCommonList.Remove(ITERATOR_END);
+        commonList.Remove(ITERATOR_END);
     }
     catch(...)
     {
@@ -2071,17 +2071,17 @@ QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Remove1_NothingHappensWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    const pointer_uint_q EXPECTED_COUNT = arCommonList.GetCount();
-    QList<int>::QListIterator ITERATOR_END = arCommonList.GetLast();
+    QList<int> commonList;
+    commonList.Add(0);
+    const pointer_uint_q EXPECTED_COUNT = commonList.GetCount();
+    QList<int>::QListIterator ITERATOR_END = commonList.GetLast();
     ++ITERATOR_END;
 
     // [Execution]
-    arCommonList.Remove(ITERATOR_END);
+    commonList.Remove(ITERATOR_END);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2091,15 +2091,15 @@ QTEST_CASE ( Remove1_NothingHappensWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Remove1_NothingHappensWhenListIsEmpty_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
+    QList<int> commonList;
     const pointer_uint_q EXPECTED_COUNT = 0;
-    QList<int>::QListIterator ITERATOR = arCommonList.GetFirst();
+    QList<int>::QListIterator ITERATOR = commonList.GetFirst();
 
     // [Execution]
-    arCommonList.Remove(ITERATOR);
+    commonList.Remove(ITERATOR);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2113,18 +2113,18 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromLastPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(ELEMENT_VALUE);
-    const pointer_uint_q POSITION = arCommonList.GetCount() - 1U;
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(ELEMENT_VALUE);
+    const pointer_uint_q POSITION = commonList.GetCount() - 1U;
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -2136,18 +2136,18 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(ELEMENT_VALUE);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(ELEMENT_VALUE);
+    commonList.Add(0);
+    commonList.Add(0);
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -2159,18 +2159,18 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(ELEMENT_VALUE);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(ELEMENT_VALUE);
+    commonList.Add(0);
     const pointer_uint_q POSITION = 1;
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     /* [TODO] Thund: Uncomment when Contains method exists
-    bool bElementDoesNotExist = !arCommonList.Contains(ELEMENT_VALUE);
+    bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
     BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
 }
 
@@ -2181,17 +2181,17 @@ QTEST_CASE ( Remove2_CountDecreasesAfterRemovingElements_Test )
 {
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 2;
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(0);
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2204,13 +2204,13 @@ QTEST_CASE ( Remove2_DestructorOfElementIsCalled_Test )
 
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
-    QList<CallCounter> arCommonList;
-    arCommonList.Add(CallCounter());
+    QList<CallCounter> commonList;
+    commonList.Add(CallCounter());
     const pointer_uint_q POSITION = 0;
     CallCounter::ResetCounters();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
@@ -2225,9 +2225,9 @@ QTEST_CASE ( Remove2_DestructorOfElementIsCalled_Test )
 QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    const pointer_uint_q POSITION = arCommonList.GetCount();
+    QList<int> commonList;
+    commonList.Add(0);
+    const pointer_uint_q POSITION = commonList.GetCount();
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -2235,7 +2235,7 @@ QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 
     try
     {
-        arCommonList.Remove(POSITION);
+        commonList.Remove(POSITION);
     }
     catch(...)
     {
@@ -2254,16 +2254,16 @@ QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Remove2_NothingHappensWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
-    arCommonList.Add(0);
-    const pointer_uint_q EXPECTED_COUNT = arCommonList.GetCount();
-    const pointer_uint_q POSITION = arCommonList.GetCount();
+    QList<int> commonList;
+    commonList.Add(0);
+    const pointer_uint_q EXPECTED_COUNT = commonList.GetCount();
+    const pointer_uint_q POSITION = commonList.GetCount();
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2273,15 +2273,15 @@ QTEST_CASE ( Remove2_NothingHappensWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Remove2_NothingHappensWhenListIsEmpty_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
+    QList<int> commonList;
     const pointer_uint_q EXPECTED_COUNT = 0;
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
-    arCommonList.Remove(POSITION);
+    commonList.Remove(POSITION);
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2293,14 +2293,14 @@ QTEST_CASE ( Remove2_NothingHappensWhenListIsEmpty_Test )
 QTEST_CASE ( Clear_NothingHappensWhenListIsEmpty_Test )
 {
     // [Preparation]
-    QList<int> arCommonList;
+    QList<int> commonList;
     const pointer_uint_q EXPECTED_COUNT = 0;
 
     // [Execution]
-    arCommonList.Clear();
+    commonList.Clear();
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2310,17 +2310,17 @@ QTEST_CASE ( Clear_NothingHappensWhenListIsEmpty_Test )
 QTEST_CASE ( Clear_AllElemensAreRemovedWhenListIsFull_Test )
 {
     // [Preparation]
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
+    commonList.Add(0);
     const pointer_uint_q EXPECTED_COUNT = 0;
 
     // [Execution]
-    arCommonList.Clear();
+    commonList.Clear();
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2330,16 +2330,16 @@ QTEST_CASE ( Clear_AllElemensAreRemovedWhenListIsFull_Test )
 QTEST_CASE ( Clear_AllElementsAreRemovedWhenListContainsSomeElements_Test )
 {
     // [Preparation]
-    QList<int> arCommonList(3U);
-    arCommonList.Add(0);
-    arCommonList.Add(0);
+    QList<int> commonList(3U);
+    commonList.Add(0);
+    commonList.Add(0);
     const pointer_uint_q EXPECTED_COUNT = 0;
 
     // [Execution]
-    arCommonList.Clear();
+    commonList.Clear();
 
     // [Verification]
-    pointer_uint_q uCount = arCommonList.GetCount();
+    pointer_uint_q uCount = commonList.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
@@ -2351,14 +2351,14 @@ QTEST_CASE ( Clear_DestructorIsCalledForEveryElement_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
-    QList<CallCounter> arCommonList(3U);
-    arCommonList.Add(CallCounter());
-    arCommonList.Add(CallCounter());
+    QList<CallCounter> commonList(3U);
+    commonList.Add(CallCounter());
+    commonList.Add(CallCounter());
     const pointer_uint_q EXPECTED_CALLS = 2;
     CallCounter::ResetCounters();
 
     // [Execution]
-    arCommonList.Clear();
+    commonList.Clear();
 
     // [Verification]
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
@@ -3602,6 +3602,1486 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_T
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements can be added to empty lists.
+/// </summary>
+QTEST_CASE ( AddRange_ElementIsCorrectlyAddedToEmptyList_Test )
+{
+    // [Preparation]
+    QList<int> emptyList;
+    const int EXPECTED_VALUES[] = {2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    
+    // [Execution]
+    emptyList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(emptyList == expectedList);
+}
+
+/// <summary>
+/// Checks that the capacity is increased when elements are added to a full list.
+/// </summary>
+QTEST_CASE ( AddRange_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_CAPACITY = 1U;
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    
+    // [Execution]
+    fullList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uCapacity = fullList.GetCapacity();
+    BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
+}
+
+/// <summary>
+/// Checks that elements are correctly added when lists are full.
+/// </summary>
+QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenListIsFull_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_CAPACITY = 3U;
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(8);
+    fullList.Add(9);
+    fullList.Add(0);
+    const int EXPECTED_VALUES[] = {8, 9, 0, 2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+
+    // [Execution]
+    fullList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(fullList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list.
+/// </summary>
+QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedAtTheEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(2);
+    QList<int>::QListIterator itLast = inputList.GetIterator(4);
+
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that the count of elements of the list is increased after some elements are added.
+/// </summary>
+QTEST_CASE ( AddRange_CountIsIncreasedAfterAddingElements_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_COUNT = 1U;
+    QList<int> commonList(3);
+    commonList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uCount = commonList.GetCount();
+    BOOST_CHECK(uCount > INITIAL_COUNT);
+}
+
+/// <summary>
+/// Checks that the copy constructor of the elements is called when adding them to the list.
+/// </summary>
+QTEST_CASE ( AddRange_CopyConstructorIsCalledForAddedElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 3;
+    const CallCounter COMMON_VALUES[] = {CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QList<CallCounter>::QListIterator itFirst = inputList.GetIterator(0);
+    QList<CallCounter>::QListIterator itLast = inputList.GetIterator(2);
+    CallCounter newElement;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end when both iterators are equal.
+/// </summary>
+QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2, 3};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(2);
+    QList<int>::QListIterator itLast = itFirst;
+
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list when using all the elements of another list.
+/// </summary>
+QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfAnotherList_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2, 3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetFirst();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list when using elements of the same list and no reallocation is necessary.
+/// </summary>
+QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenUsingElementsOfTheSameListAndNoReallocationIsNecessary_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    commonList.Reserve(5);
+    const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetLast();
+
+    // [Execution]
+    commonList.AddRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.AddRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first element points to the end position.
+/// </summary>
+QTEST_CASE ( AddRange_AssertionFailsWhenFirstElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itFirst;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.AddRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last element points to the end position.
+/// </summary>
+QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itLast;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.AddRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements can be inserted at the first position.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementsAreCorrectlyInsertedAtFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {2, 3, 4, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements can be inserted in between of two existing elements.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementsAreCorrectlyInsertedInBetween_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 2, 3, 4, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly inserted when using elements of the same list and no reallocation is necessary.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementRangeIsCorrectlyAddedWhenUsingElementsOfTheSameListAndNoReallocationIsNecessary_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    commonList.Reserve(5);
+    const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    const pointer_uint_q POSITION = 1;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that the capacity is increased when elements are added to a full list.
+/// </summary>
+QTEST_CASE ( InsertRange1_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_CAPACITY = 1U;
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const pointer_uint_q POSITION = 0;
+    
+    // [Execution]
+    fullList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCapacity = fullList.GetCapacity();
+    BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
+}
+
+/// <summary>
+/// Checks that the count of elements of the list is increased after an element is added.
+/// </summary>
+QTEST_CASE ( InsertRange1_CountIsIncreasedAfterAddingAnElement_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_COUNT = 1U;
+    QList<int> commonList(3);
+    commonList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const pointer_uint_q POSITION = 0;
+    
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCount = commonList.GetCount();
+    BOOST_CHECK(uCount > INITIAL_COUNT);
+}
+
+/// <summary>
+/// Checks that the copy constructor of the element is called when adding it to the list.
+/// </summary>
+QTEST_CASE ( InsertRange1_CopyConstructorIsCalledForAddedElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 3;
+    const CallCounter COMMON_VALUES[] = {CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QList<CallCounter>::QListIterator itFirst = inputList.GetIterator(0);
+    QList<CallCounter>::QListIterator itLast = inputList.GetIterator(2);
+    const pointer_uint_q POSITION = 0;
+
+    CallCounter newElement;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that elements are correctly inserted when both positions are equal.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(2);
+    QList<int>::QListIterator itLast = itFirst;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list when using all the elements of another list.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfAnotherList_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetFirst();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetFirst();
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first element points to the end position.
+/// </summary>
+QTEST_CASE ( InsertRange1_AssertionFailsWhenFirstElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itFirst;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last element points to the end position.
+/// </summary>
+QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itLast;
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the insertion position is not lower than the number of elements in the list.
+/// </summary>
+QTEST_CASE ( InsertRange1_AssertionFailsWhenInsertionPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetFirst();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    const pointer_uint_q POSITION = commonList.GetCount();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that elements can be inserted into empty lists.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementIsInsertedIntoEmptyList_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    QList<int> emptyList(5);
+    const pointer_uint_q POSITION = 0;
+
+    // [Execution]
+    emptyList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(emptyList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are inserted at the end when the insertion position is not lower than the number of elements in the list.
+/// </summary>
+QTEST_CASE ( InsertRange1_ElementIsInsertedAtTheEndWhenInsertionPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2, 2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const pointer_uint_q POSITION = commonList.GetCount();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements can be inserted at the first position.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementsAreCorrectlyInsertedAtFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {2, 3, 4, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements can be inserted in between of two existing elements.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementsAreCorrectlyInsertedInBetween_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 2, 3, 4, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const QList<int>::QListIterator POSITION = commonList.GetIterator(1);
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly inserted when using elements of the same list and no reallocation is necessary.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementRangeIsCorrectlyAddedWhenUsingElementsOfTheSameListAndNoReallocationIsNecessary_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    commonList.Reserve(5);
+    const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    const QList<int>::QListIterator POSITION = commonList.GetIterator(1);
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that the capacity is increased when elements are added to a full list.
+/// </summary>
+QTEST_CASE ( InsertRange2_CapacityIsIncreasedWhenAddingElementsToFullList_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_CAPACITY = 1U;
+    QList<int> fullList(INITIAL_CAPACITY);
+    fullList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const QList<int>::QListIterator POSITION = fullList.GetFirst();
+    
+    // [Execution]
+    fullList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCapacity = fullList.GetCapacity();
+    BOOST_CHECK(uCapacity > INITIAL_CAPACITY);
+}
+
+/// <summary>
+/// Checks that the count of elements of the list is increased after an element is added.
+/// </summary>
+QTEST_CASE ( InsertRange2_CountIsIncreasedAfterAddingAnElement_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INITIAL_COUNT = 1U;
+    QList<int> commonList(3);
+    commonList.Add(0);
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+    
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCount = commonList.GetCount();
+    BOOST_CHECK(uCount > INITIAL_COUNT);
+}
+
+/// <summary>
+/// Checks that the copy constructor of the element is called when adding it to the list.
+/// </summary>
+QTEST_CASE ( InsertRange2_CopyConstructorIsCalledForAddedElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 3;
+    const CallCounter COMMON_VALUES[] = {CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QList<CallCounter>::QListIterator itFirst = inputList.GetIterator(0);
+    QList<CallCounter>::QListIterator itLast = inputList.GetIterator(2);
+    const QList<CallCounter>::QListIterator POSITION = commonList.GetFirst();
+
+    CallCounter newElement;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    pointer_uint_q uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(2);
+    QList<int>::QListIterator itLast = itFirst;
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly added at the end of a common list when using all the elements of another list.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfAnotherList_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5, 0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetFirst();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetFirst();
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first element points to the end position.
+/// </summary>
+QTEST_CASE ( InsertRange2_AssertionFailsWhenFirstElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itFirst;
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last element points to the end position.
+/// </summary>
+QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetLast();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    ++itLast;
+    const QList<int>::QListIterator POSITION = commonList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the insertion position points to the end position.
+/// </summary>
+QTEST_CASE ( InsertRange2_AssertionFailsWhenInsertionPositionIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetFirst();
+    QList<int>::QListIterator itLast = inputList.GetLast();
+    QList<int>::QListIterator POSITION = commonList.GetLast();
+    ++POSITION;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.InsertRange(itFirst, itLast, POSITION);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that elements can be inserted into empty lists.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementIsInsertedIntoEmptyList_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    QList<int> emptyList(5);
+    emptyList.Add(0);
+    const QList<int>::QListIterator POSITION = emptyList.GetFirst();
+    emptyList.Clear();
+
+    // [Execution]
+    emptyList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(emptyList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are inserted at the end when the insertion position points to the forward end position.
+/// </summary>
+QTEST_CASE ( InsertRange2_ElementIsInsertedAtTheEndWhenInsertionPositionPointsToForwardEndPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2, 2, 3, 4};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
+    QList<int> inputList(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = inputList.GetIterator(1);
+    QList<int>::QListIterator itLast = inputList.GetIterator(3);
+    QList<int>::QListIterator POSITION = commonList.GetLast();
+    ++POSITION;
+
+    // [Execution]
+    commonList.InsertRange(itFirst, itLast, POSITION);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements are correctly removed from the last position of the list.
+/// </summary>
+QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromLastPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(3);
+    QList<int>::QListIterator itLast = commonList.GetLast();
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed from the first position of the list.
+/// </summary>
+QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetFirst();
+    QList<int>::QListIterator itLast = commonList.GetIterator(2);
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when they are in between of two elements.
+/// </summary>
+QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromBetweenTwoElements_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetIterator(3);
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that all elements of the list can be removed.
+/// </summary>
+QTEST_CASE ( RemoveRange1_AllElementsCanBeRemoved_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int> expectedList;
+    QList<int>::QListIterator itFirst = commonList.GetFirst();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when both positions are the same.
+/// </summary>
+QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 2, 3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = itFirst;
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that count of elements in the list decreases after they are removed.
+/// </summary>
+QTEST_CASE ( RemoveRange1_CountDecreasesAfterRemovingElements_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 3;
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+
+    QList<int>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<int>::QListIterator itLast = commonList.GetIterator(3);
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uCount = commonList.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+
+/// <summary>
+/// Checks that the destructor of each element is called when it is removed.
+/// </summary>
+QTEST_CASE ( RemoveRange1_DestructorOfEachElementIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 2;
+    const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+
+    QList<CallCounter>::QListIterator itFirst = commonList.GetIterator(1);
+    QList<CallCounter>::QListIterator itLast = commonList.GetIterator(2);
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.RemoveRange(itFirst, itLast);
+
+    // [Verification]
+    pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetFirst();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first element points to the end position.
+/// </summary>
+QTEST_CASE ( RemoveRange1_AssertionFailsWhenFirstElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    ++itFirst;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last element points to the end position.
+/// </summary>
+QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsEnd_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int>::QListIterator itFirst = commonList.GetLast();
+    QList<int>::QListIterator itLast = commonList.GetLast();
+    ++itLast;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(itFirst, itLast);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that elements are correctly removed from the last position of the list.
+/// </summary>
+QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromLastPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 1, 2};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 3U;
+    const pointer_uint_q LAST = 5U;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed from the first position of the list.
+/// </summary>
+QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromFirstPosition_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 0;
+    const pointer_uint_q LAST = 2U;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when they are in between of two elements.
+/// </summary>
+QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromBetweenTwoElements_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 3U;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that all elements of the list can be removed.
+/// </summary>
+QTEST_CASE ( RemoveRange2_AllElementsCanBeRemoved_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QList<int> expectedList;
+    const pointer_uint_q FIRST = 0;
+    const pointer_uint_q LAST = commonList.GetCount() - 1U;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that elements are correctly removed when both positions are the same.
+/// </summary>
+QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const int EXPECTED_VALUES[] = {0, 2, 3, 4, 5};
+    QList<int> expectedList(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = FIRST;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    BOOST_CHECK(commonList == expectedList);
+}
+
+/// <summary>
+/// Checks that count of elements in the list decreases after they are removed.
+/// </summary>
+QTEST_CASE ( RemoveRange2_CountDecreasesAfterRemovingElements_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 3;
+    const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 3U;
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    pointer_uint_q uCount = commonList.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+
+/// <summary>
+/// Checks that the destructor of each element is called when it is removed.
+/// </summary>
+QTEST_CASE ( RemoveRange2_DestructorOfEachElementIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 2;
+    const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
+    QList<CallCounter> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    commonList.RemoveRange(FIRST, LAST);
+
+    // [Verification]
+    pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the last element is anterior to the first element in the range.
+/// </summary>
+QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the first position is not lower than the number of elements in the list.
+/// </summary>
+QTEST_CASE ( RemoveRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = commonList.GetCount();
+    const pointer_uint_q LAST = 2U;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the last position is not lower than the number of elements in the list
+/// </summary>
+QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
+{
+    // [Preparation]
+    const int COMMON_VALUES[] = {0, 1, 2};
+    QList<int> commonList(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    const pointer_uint_q FIRST = 1U;
+    const pointer_uint_q LAST = commonList.GetCount();
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        commonList.RemoveRange(FIRST, LAST);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
 }
 
 #endif

@@ -1545,6 +1545,43 @@ QTEST_CASE ( Remove_AssertionFailsWhenTheInputIteratorPointsToEndPosition_Test )
 #endif
 
 /// <sumary>
+/// Checks that the tree is emptied.
+/// </sumary>
+QTEST_CASE( Clear_TheTreeIsEmptied_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
+    // [Preparation]
+    QBinarySearchTree<int> TREE(3);
+    TREE.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    // [Execution]
+    TREE.Clear();
+
+    // [Verification]
+    bool bIsEmpty = TREE.IsEmpty();
+    BOOST_CHECK(bIsEmpty);
+}
+
+/// <sumary>
+/// Checks that nothing is done when the tree is already empty.
+/// </sumary>
+QTEST_CASE( Clear_NothingHappensWhenTreeIsAlreadyEmpty_Test )
+{
+    // [Preparation]
+    QBinarySearchTree<char> TREE(3);
+
+    // [Execution]
+    TREE.Clear();
+
+    // [Verification]
+    bool bIsEmpty = TREE.IsEmpty();
+    BOOST_CHECK(bIsEmpty);
+}
+
+/// <sumary>
 /// Checks that the node is obtained when using the depth-first in-order.
 /// </sumary>
 QTEST_CASE( GetFirst_NodeIsObtainedWhenUsingDepthFirstInOrder_Test )

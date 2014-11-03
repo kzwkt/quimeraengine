@@ -1178,14 +1178,14 @@ public:
         if(this != &list && !(m_uLast == QList::END_POSITION_FORWARD && list.m_uLast == QList::END_POSITION_FORWARD))
         {
             // If they have the same number of elements
-            if(m_uLast == list.m_uLast)
+            if(this->GetCount() == list.GetCount())
             {
                 QList::QConstListIterator itThis = this->GetFirst();
                 QList::QConstListIterator itInput = list.GetFirst();
 
                 while(bAreEqual && !itThis.IsEnd())
                 {
-                    bAreEqual = bAreEqual && m_comparator.Compare(*itThis, *itInput) == 0;
+                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0;
                     ++itThis;
                     ++itInput;
                 }
@@ -1962,7 +1962,160 @@ public:
 
         return bElementFound ? --itElement : itElement;
     }
+    
+    /// <summary>
+    /// Copies a range of elements from another list to the end of the list.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same list is safe only if no reallocation is necessary.<br/>
+    /// The first and the last element of the range must belong to the same list.<br/>
+    /// The copy constructor of each element will be called.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    void AddRange(const typename QList::QConstListIterator &first, const typename QList::QConstListIterator &last)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
 
+        // Copies each element in the input range
+        QList::QConstListIterator it = first;
+
+        for(; it != last; ++it)
+            this->Add(*it);
+
+        this->Add(*it);
+    }
+
+    /// <summary>
+    /// Copies a range of elements from another list to a concrete position of the list.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same list is safe only if no reallocation is necessary.<br/>
+    /// The first and the last element of the range must belong to the same list.<br/>
+    /// The copy constructor of each element will be called.<br/>
+    /// Use AddRange method to insert elements at the end.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    /// <param name="uIndex">[IN] The index (zero-based) where the range of elements will be placed. It should be lower than the number of elements of the list; if it is not, 
+    /// the element will be inserted at the end by default.</param>
+    void InsertRange(const typename QList::QConstListIterator &first, const typename QList::QConstListIterator &last, const pointer_uint_q uIndex)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_WARNING(uIndex < this->GetCount(), "The index is out of bounds.");
+
+        // Copies each element in the input range
+        QList::QConstListIterator it = last;
+
+        for(; it != first; --it)
+            this->Insert(*it, uIndex);
+
+        this->Insert(*it, uIndex);
+    }
+    
+    /// <summary>
+    /// Copies a range of elements from another list to a concrete position of the list.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the list is exceeded, a reallocation will take place, which will make any existing pointer invalid.<br/>
+    /// Copying elements from the same list is safe only if no reallocation is necessary.<br/>
+    /// The first and the last element of the range must belong to the same list.<br/>
+    /// The copy constructor of each element will be called.<br/>
+    /// Use AddRange method to insert elements at the end.
+    /// </remarks>
+    /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
+    /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
+    /// <param name="position">[IN] The position where the range of elements will be placed. It should not be an end position; if it is, 
+    /// the range will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
+    /// list; otherwise, the behavior is undefined.</param>
+    void InsertRange(const typename QList::QConstListIterator &first, const typename QList::QConstListIterator &last, const typename QList::QListIterator &position)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+        QE_ASSERT_WARNING(!position.IsEnd(), "The insertion position should not point to an end position.");
+        QE_ASSERT_ERROR(position.IsValid(), "The input iterator that points to the insertion position is not valid.");
+        
+        // Copies each element in the input range
+        QList::QConstListIterator it = first;
+
+        for(; it != last; ++it)
+            this->Insert(*it, position);
+
+        this->Insert(*it, position);
+    }
+    
+    /// <summary>
+    /// Deletes a range of elements placed at a concrete position in the list.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each element will be called.
+    /// </remarks>
+    /// <param name="first">[IN] The position of the first element to be deleted. It must not be an end position. It must point to the same
+    /// list; otherwise, the behavior is undefined. It must be equal or anterior to the last element in the range.</param>
+    /// <param name="last">[IN] The position of the last element to be deleted. It must not be an end position. It must point to the same
+    /// list; otherwise, the behavior is undefined. It must be equal or posterior to the first element in the range.</param>
+    void RemoveRange(const typename QList::QListIterator &first, const typename QList::QListIterator &last)
+    {
+        QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
+        QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
+        QE_ASSERT_ERROR(first.IsValid(), "The input iterator that points to the first element is not valid.");
+        QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
+        QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
+
+        QList::QListIterator it = first;
+        QList::QListIterator itNext = first;
+
+        while(it != last)
+        {
+            itNext = it;
+            ++itNext;
+            this->Remove(it);
+            it = itNext;
+        }
+
+        this->Remove(it);
+    }
+    
+    /// <summary>
+    /// Deletes a range of elements placed at a concrete position in the list.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each element will be called.
+    /// </remarks>
+    /// <param name="uFirst">[IN] The position index (zero-based) of the first element to be deleted. It must be equal or lower than the last element's index in the range. 
+    /// It must be lower than the number of elements of the list.</param>
+    /// <param name="uLast">[IN] The position index (zero-based) of the last element to be deleted. It must be equal or greater than the first element's index in the range.
+    /// It must be lower than the number of elements of the list.</param>
+    void RemoveRange(const pointer_uint_q uFirst, const pointer_uint_q uLast)
+    {
+        QList::QListIterator it = this->GetIterator(uFirst);
+        const QList::QListIterator LAST = this->GetIterator(uLast);
+        QList::QListIterator itNext = it;
+
+        while(it != LAST)
+        {
+            itNext = it;
+            ++itNext;
+            this->Remove(it);
+            it = itNext;
+        }
+
+        this->Remove(it);
+    }
+    
     
 private:
 

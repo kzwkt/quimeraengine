@@ -1077,16 +1077,7 @@ public:
         if(this != &tree)
         {
             // Removes all the elements in the resident tree
-            // [TODO] Thund: Replace with Clear when it exists
-            QBinarySearchTree::QConstBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-            for(it.MoveFirst(); !it.IsEnd(); ++it)
-                (*it).~T();
-
-            m_elementAllocator.Clear();
-            m_nodeAllocator.Clear();
-
-            m_uRoot = QBinarySearchTree::END_POSITION_FORWARD;
+            this->Clear();
 
             // Copies all the elements of the input tree, if any
             if(!tree.IsEmpty())
@@ -1384,6 +1375,24 @@ public:
         m_nodeAllocator.Deallocate(pNode);
 
         return resultIterator;
+    }
+    
+    /// <summary>
+    /// Empties the tree.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each element will be called in an undefined order.
+    /// </remarks>
+    void Clear()
+    {
+        if(!this->IsEmpty())
+        {
+            // Note: The traversal order does not affect the result
+            QBinarySearchTree::QConstBinarySearchTreeIterator it = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+            while(!it.IsEnd())
+                it = this->Remove(it);
+        }
     }
     
     /// <summary>
