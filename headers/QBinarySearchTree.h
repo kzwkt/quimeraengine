@@ -240,6 +240,7 @@ public:
         /// </returns>
         QConstBinarySearchTreeIterator& operator=(const QConstBinarySearchTreeIterator &iterator)
         {
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid.");
             QE_ASSERT_ERROR(m_pTree == iterator.m_pTree, "The input iterator points to a different tree");
             QE_ASSERT_WARNING(m_eTraversalOrder == iterator.m_eTraversalOrder, "The iterators have different traversal order.");
 
@@ -825,6 +826,8 @@ public:
         /// </returns>
         bool IsEnd() const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+
             return m_uPosition == QBinarySearchTree::END_POSITION_BACKWARD || m_uPosition == QBinarySearchTree::END_POSITION_FORWARD;
         }
 
@@ -843,6 +846,8 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QBinarySearchTree::END_POSITION_BACKWARD) ||
                    (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QBinarySearchTree::END_POSITION_FORWARD);
         }
@@ -1037,11 +1042,10 @@ public:
             tree.m_elementAllocator.CopyTo(m_elementAllocator);
             tree.m_nodeAllocator.CopyTo(m_nodeAllocator);
 
-            // [TODO] Thund: Replace with GetFirst
-            QBinarySearchTree::QConstBinarySearchTreeIterator itSource(&tree, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-            QBinarySearchTree::QConstBinarySearchTreeIterator itDestination(this, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QConstBinarySearchTreeIterator itSource = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
+            QBinarySearchTree::QConstBinarySearchTreeIterator itDestination = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-            for(itSource.MoveFirst(), itDestination.MoveFirst(); !itSource.IsEnd(); ++itSource, ++itDestination)
+            for(; !itSource.IsEnd(); ++itSource, ++itDestination)
                 new(ccast_q(&*itDestination, T*)) T(*itSource);
         }
     }
@@ -1059,10 +1063,9 @@ public:
     /// </remarks>
     ~QBinarySearchTree()
     {
-        // [TODO] Thund: Replace with GetFirst when it exists
-        QBinarySearchTree::QConstBinarySearchTreeIterator it(this, m_uRoot, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree::QConstBinarySearchTreeIterator it = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-        for(it.MoveFirst(); !it.IsEnd(); ++it)
+        for(; !it.IsEnd(); ++it)
             (*it).~T();
     }
 

@@ -1347,7 +1347,7 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 /// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than currently reserved.
 /// </summary>
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
-{/* [TODO] Thund: Uncomment when Add is implemented
+{
     // [Preparation]
     const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 1U;
@@ -1367,11 +1367,9 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     int* pFirstElementAddress = &list[0];
 
     BOOST_CHECK_EQUAL(pFirstElementAddress, ORIGINAL_FIRST_ELEMENT_ADDRESS);
-    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);*/
+    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
 }
 
-// [TODO] raul. Uncomment the test when method Add exists.
-/*
 /// <summary>
 /// Checks if the method returns the correct number of elements in the list.
 /// </summary>
@@ -1385,7 +1383,7 @@ QTEST_CASE ( GetCount_CorrectNumberOfElementsReturned_Test )
 
     for(pointer_uint_q uIndex = 0; uIndex < LIST_COUNT_ORIGIN; uIndex++)
     {
-        list.Add(VALUE_TO_FILL_LIST);
+        list.Add(uIndex);
     }
 
     // [Execution]
@@ -1394,7 +1392,6 @@ QTEST_CASE ( GetCount_CorrectNumberOfElementsReturned_Test )
     // [Verification]
     BOOST_CHECK_EQUAL( uReturnedValue, LIST_COUNT_ORIGIN );
 }
-*/
 
 /// <summary>
 /// Checks that elements can be added to empty lists.
@@ -1897,9 +1894,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromLastPosition_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1920,9 +1916,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -1943,9 +1938,8 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -2123,9 +2117,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromLastPosition_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>
@@ -2169,9 +2162,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);
 }
 
 /// <summary>

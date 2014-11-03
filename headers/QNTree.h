@@ -1888,7 +1888,7 @@ public:
         }
         else
         {
-            *((T*)m_elementAllocator.GetPointer() + m_uRoot) = newRoot; // [TODO] Thund: Replace with GetRootNode when it exists
+            *this->GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder) = newRoot;
         }
     }
     

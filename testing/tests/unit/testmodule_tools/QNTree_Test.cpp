@@ -892,36 +892,36 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 /// Checks that elements are correctly reallocated.
 /// </summary>
 QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
-{/* [TODO] Thund: Uncomment when AddChild, GetRoot and QNTreeIterator are implemented
+{
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 4;
     const int EXPECTED_FIRST_ELEMENT = 1;
     const int EXPECTED_SECOND_ELEMENT = 2;
     QNTree<int> TREE(2, 2);
     TREE.SetRootValue(EXPECTED_FIRST_ELEMENT);
-    TREE.AddChild(TREE.GetRoot(), EXPECTED_SECOND_ELEMENT);
+    TREE.AddChild(TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder), EXPECTED_SECOND_ELEMENT);
 
     // [Execution]
     TREE.Reserve(INPUT_CAPACITY); // A reallocation occurs
 
     // [Verification]
-    QNTree<int>::QNTreeIterator it = TREE.GetRoot();
+    QNTree<int>::QNTreeIterator it = TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
     BOOST_CHECK_EQUAL(*it, EXPECTED_FIRST_ELEMENT);
     ++it;
-    BOOST_CHECK_EQUAL(*it, EXPECTED_SECOND_ELEMENT);*/
+    BOOST_CHECK_EQUAL(*it, EXPECTED_SECOND_ELEMENT);
 }
 
 /// <summary>
 /// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than current reserved.
 /// </summary>
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
-{/* [TODO] Thund: Uncomment when Reserve, GetRoot and QNTree::QNTreeIterator is implemented
+{
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 1;
     const pointer_uint_q EXPECTED_CAPACITY = 4;
     QNTree<int> TREE(4, 4);
     TREE.SetRootValue(1);
-    int* EXPECTED_LOCATION_OF_ELEMENT = &(*TREE.GetRoot());
+    int* EXPECTED_LOCATION_OF_ELEMENT = &(*TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder));
 
     // [Execution]
     TREE.Reserve(INPUT_CAPACITY); // A reallocation occurs
@@ -929,17 +929,17 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     // [Verification]
     pointer_uint_q uCapacity = TREE.GetCapacity();
     TREE.SetRootValue(1);
-    int* pLocationOfElement = &(*TREE.GetRoot());
+    int* pLocationOfElement = &(*TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder));
 
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
-    BOOST_CHECK_EQUAL(pLocationOfElement, EXPECTED_LOCATION_OF_ELEMENT);*/
+    BOOST_CHECK_EQUAL(pLocationOfElement, EXPECTED_LOCATION_OF_ELEMENT);
 }
 
 /// <summary>
 /// Checks that the element is correctly copied when the tree is empty.
 /// </summary>
 QTEST_CASE ( SetRootValue_RootNodeIsCorrectlyCopiedWhenTreeIsEmpty_Test )
-{/* [TODO] Thund: Uncomment when GetRoot is implemented
+{
     // [Preparation]
     const int EXPECTED_ELEMENT = 1;
     QNTree<int> TREE(2, 2);
@@ -948,16 +948,16 @@ QTEST_CASE ( SetRootValue_RootNodeIsCorrectlyCopiedWhenTreeIsEmpty_Test )
     TREE.SetRootValue(EXPECTED_ELEMENT);
 
     // [Verification]
-    int nElementValue = *TREE.GetRoot();
+    int nElementValue = *TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
-    BOOST_CHECK_EQUAL(nElementValue, EXPECTED_ELEMENT);*/
+    BOOST_CHECK_EQUAL(nElementValue, EXPECTED_ELEMENT);
 }
 
 /// <summary>
 /// Checks that the element is correctly copied when the tree is not empty.
 /// </summary>
 QTEST_CASE ( SetRootValue_RootNodeIsCorrectlyCopiedWhenTreeIsNotEmpty_Test )
-{/* [TODO] Thund: Uncomment when GetRoot is implemented
+{
     // [Preparation]
     const int EXPECTED_ELEMENT = 1;
     const int ORIGINAL_ELEMENT = 2;
@@ -968,10 +968,9 @@ QTEST_CASE ( SetRootValue_RootNodeIsCorrectlyCopiedWhenTreeIsNotEmpty_Test )
     TREE.SetRootValue(EXPECTED_ELEMENT);
 
     // [Verification]
-    int nElementValue = *TREE.GetRoot();
+    int nElementValue = *TREE.GetRoot(EQTreeTraversalOrder::E_DepthFirstPreOrder);
 
     BOOST_CHECK_EQUAL(nElementValue, EXPECTED_ELEMENT);
-    */
 }
 
 /// <summary>

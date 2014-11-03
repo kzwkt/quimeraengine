@@ -447,7 +447,6 @@ QDateTime::QDateTime(const string_q &strTimestamp)
     i32_q nYear, nOffsetHours;
     u32_q uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, uOffsetMinutes;
 
-    // [TODO] Thund: Replace this with PositionOf, when it exists, and remove the IF block below
     int nTimePosition = strTimestamp.IndexOf(TIME_START_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
 
     if(nTimePosition != string_q::PATTERN_NOT_FOUND)
@@ -469,7 +468,7 @@ QDateTime::QDateTime(const string_q &strTimestamp)
         if(strTimestamp[0] == POSITIVE_SIGN || strTimestamp[0] == NEGATIVE_SIGN)
         {
             // It is preceeded by a sign, so it must be a date
-            // [TODO] Thund: Replace this with Contains when it exists
+
             const int SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1); // Starts from 1 to skip the sign
 
             if(SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
@@ -483,11 +482,11 @@ QDateTime::QDateTime(const string_q &strTimestamp)
         {
             // It is not preceded by a sign, so it may be either a date or a time
 
-            const int FIRST_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive); // [TODO] Thund: Replace this with Contains when it exists
+            const int FIRST_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
 
             if(FIRST_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
             {
-                const int SECOND_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, FIRST_SEPARATOR_POSITION + 1U); // [TODO] Thund: Replace this with Contains when it exists
+                const int SECOND_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, FIRST_SEPARATOR_POSITION + 1U);
 
                 if(SECOND_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
                 {
@@ -909,7 +908,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
         }
 
         if(uNumberOfZeroesToRemove > 0)
-            strTimestamp = strTimestamp.Substring(0, strTimestamp.GetLength() - 1U - uNumberOfZeroesToRemove); // [TODO] Thund: Replace this with Substring overload that uses iterators
+            strTimestamp = strTimestamp.Substring(0, strTimestamp.GetLength() - 1U - uNumberOfZeroesToRemove);
     }
 }
 
@@ -1632,7 +1631,7 @@ void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u
     static const char_q TIME_START_SEPARATOR = 'T';
 
     // Gets the Date part only
-    const string_q& DATE_PART = strTimestamp.Substring(0, uTPosition - 1); // [TODO] Thund: Replace this with Substring(iterators) when it exists
+    const string_q& DATE_PART = strTimestamp.Substring(0, uTPosition - 1);
 
     const int FIRST_SEPARATOR_POSITION = DATE_PART.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1U); // Starts from 1 because it may have a "-" sign at the beginning
 
@@ -1848,7 +1847,7 @@ void QDateTime::ParseTimestampIncompleteDateWithSeparators(const string_q &strTi
 
     if(strTimestamp.GetLength() > uFirstSeparatorPosition + 2U * SEPARATOR_WIDTH)
     {
-        const string_q& DAY = strTimestamp.Substring(uFirstSeparatorPosition + 4U, strTimestamp.GetLength()); // [TODO] Thund: Replace with Substring(start) when it exists
+        const string_q& DAY = strTimestamp.Substring(uFirstSeparatorPosition + 4U);
         uDay = scast_q(DAY.ToInteger(), u32_q);
     }
     else

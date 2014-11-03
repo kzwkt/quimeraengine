@@ -408,7 +408,6 @@ QTEST_CASE ( AdditionOperator_MaximumValueIsAssignedWhenAdditionProducesOverflow
     QTimeSpan timeSpanResult = timeSpanOriginal + timeSpanToAdd;
 
     // [Verification]
-    // [TODO] [raul] To uncomment this line the getter must be implemented in class QTimeSpan.
     BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
 
 }

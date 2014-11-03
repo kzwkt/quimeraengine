@@ -157,9 +157,8 @@ QUri& QUri::operator=(const string_q &strUri)
 
 bool QUri::operator==(const QUri &uri) const
 {
-    // [TODO] Thund: Replace GetPath call with operator== of QDynamicArray when it exists
     return m_strHost == uri.m_strHost                     &&
-           this->GetPath() == uri.GetPath()               &&
+           m_arPathSegments == uri.m_arPathSegments       &&
            m_strFragment == uri.m_strFragment             &&
            m_strQuery == uri.m_strQuery                   &&
            m_strScheme == uri.m_strScheme                 &&
@@ -170,9 +169,8 @@ bool QUri::operator==(const QUri &uri) const
 
 bool QUri::operator!=(const QUri &uri) const
 {
-    // [TODO] Thund: Replace GetPath call with operator== of QDynamicArray when it exists
     return m_strHost != uri.m_strHost                     ||
-           this->GetPath() != uri.GetPath()               ||
+           m_arPathSegments != uri.m_arPathSegments       ||
            m_strFragment != uri.m_strFragment             ||
            m_strQuery != uri.m_strQuery                   ||
            m_strScheme != uri.m_strScheme                 ||

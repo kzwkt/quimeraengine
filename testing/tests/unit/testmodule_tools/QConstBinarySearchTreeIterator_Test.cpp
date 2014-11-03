@@ -123,19 +123,18 @@ static void BuildSampleTree(QBinarySearchTree<int> &inputTree)
 /// Checks that the iterator points to the given position when using a common tree and depth-first in-order traversal order.
 /// </summary>
 QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonTreeAndDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
-    const pointer_uint_q POSITION = 2;
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    EXPECTED_ITERATOR.MoveFirst();
+    const pointer_uint_q POSITION = 1;
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = SAMPLE_TREE->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++EXPECTED_ITERATOR;
 
 	// [Execution]
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(SAMPLE_TREE, POSITION, EQTreeTraversalOrder::E_DepthFirstInOrder);
     
     // [Verification]
-    BOOST_CHECK(iterator == EXPECTED_ITERATOR);*/
+    BOOST_CHECK(iterator == EXPECTED_ITERATOR);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -567,7 +566,7 @@ QTEST_CASE ( OperatorPostIncrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
 /// Checks that the iterator points to the first position and returns the previous state when it was pointing to the end position before the first one, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPreviousStateWhenItWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const int FIRST_ELEMENT_VALUE = 1;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
@@ -583,7 +582,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(nCurrentElement == FIRST_ELEMENT_VALUE);*/
+    BOOST_CHECK(nCurrentElement == FIRST_ELEMENT_VALUE);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -592,7 +591,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> SAMPLE_TREE(7);
     BuildSampleTree(SAMPLE_TREE);
@@ -614,14 +613,14 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the iterator already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -644,7 +643,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -675,7 +674,7 @@ QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLas
 /// Checks that the iterator steps backward properly and returns the previous state, when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturnsPreviousStateWhenUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const int SECOND_ELEMENT_VALUE = 6;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
@@ -689,14 +688,14 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(*iterator == SECOND_ELEMENT_VALUE);*/
+    BOOST_CHECK(*iterator == SECOND_ELEMENT_VALUE);
 }
 
 /// <summary>
 /// Checks that the tree is traversed in the correct order when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
@@ -715,14 +714,14 @@ QTEST_CASE ( OperatorPostDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFi
     }
 
     // [Verification]
-    BOOST_CHECK(bIsCorrect);*/
+    BOOST_CHECK(bIsCorrect);
 }
 
 /// <summary>
 /// Checks that the iterator points to the last position and returns the previous state when it was pointing to the end position after the last one, when using depth-first in-order.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviousStateWhenItWasPointingToLastEndPositionUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const int LAST_ELEMENT_VALUE = 7;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
@@ -738,11 +737,11 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
-    BOOST_CHECK(nCurrentElement == LAST_ELEMENT_VALUE);*/
+    BOOST_CHECK(nCurrentElement == LAST_ELEMENT_VALUE);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
@@ -800,7 +799,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}*/
+}
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
@@ -808,7 +807,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -821,11 +820,11 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
     iterator--;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that the iterator steps forward properly and returns the current state, when using depth-first in-order.
 /// </summary>
@@ -835,15 +834,14 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
     const int SECOND_ELEMENT_VALUE = 2;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    ORIGINAL_ITERATOR.MoveFirst();
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR = SAMPLE_TREE->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator iteratorPreviousState = ++iterator;
 
     // [Verification]
-    BOOST_CHECK(iteratorPreviousState != iterator);
+    BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(*iterator == SECOND_ELEMENT_VALUE);
 }
 
@@ -892,12 +890,12 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
     int nCurrentElement = *iterator;
 
     // [Verification]
-    BOOST_CHECK(iteratorPreviousState != iterator);
+    BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(nCurrentElement == FIRST_ELEMENT_VALUE);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
@@ -956,14 +954,14 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
-*/
+
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -976,11 +974,11 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
     ++iterator;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that the iterator steps backward properly and returns the current state, when using depth-first in-order.
 /// </summary>
@@ -990,15 +988,14 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
     const int SECOND_ELEMENT_VALUE = 6;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    ORIGINAL_ITERATOR.MoveLast();
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR = SAMPLE_TREE->GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator iteratorPreviousState = --iterator;
 
     // [Verification]
-    BOOST_CHECK(iteratorPreviousState != iterator);
+    BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(*iterator == SECOND_ELEMENT_VALUE);
 }
 
@@ -1011,8 +1008,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     const int LAST_ELEMENT_VALUE = 7;
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    ORIGINAL_ITERATOR.MoveLast();
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR = SAMPLE_TREE->GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
     ORIGINAL_ITERATOR++;
 
 	// [Execution]
@@ -1021,12 +1017,12 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     int nCurrentElement = *iterator;
 
     // [Verification]
-    BOOST_CHECK(iteratorPreviousState != iterator);
+    BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(nCurrentElement == LAST_ELEMENT_VALUE);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
@@ -1110,7 +1106,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}*/
+}
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
@@ -1118,7 +1114,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 /// Checks that the iterator does not change when it already points to the end position.
 /// </summary>
 QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -1131,11 +1127,11 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
     --iterator;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);*/
+    BOOST_CHECK(iterator == ITERATOR_END);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that a common iterator is copied.
 /// </summary>
@@ -1176,10 +1172,10 @@ QTEST_CASE ( OperatorAssignment_InputIteratorIsCorrectlyCopiedWhenResidentIterat
     // [Verification]
     BOOST_CHECK(iterator.IsValid());
     BOOST_CHECK(iterator == VALID_ITERATOR);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that an assertion fails when the input iterator is not valid.
 /// </summary>
@@ -1237,7 +1233,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}*/
+}
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
@@ -1245,7 +1241,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 /// Checks that the iterator is copied when it is not valid.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -1257,14 +1253,14 @@ QTEST_CASE ( OperatorAssignment_IteratorIsCopiedWhenInputIteratorIsNotValid_Test
     iterator = INVALID_ITERATOR;
 
     // [Verification]
-    BOOST_CHECK(iterator == INVALID_ITERATOR);*/
+    BOOST_CHECK(iterator == INVALID_ITERATOR);
 }
 
 /// <summary>
 /// Checks that the iterator is not copied when it points to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDifferentTree_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
@@ -1277,11 +1273,11 @@ QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDiff
 
     // [Verification]
     BOOST_CHECK(iterator != ITERATOR_A);
-    BOOST_CHECK(iterator == ITERATOR_B);*/
+    BOOST_CHECK(iterator == ITERATOR_B);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method Add exists
+
 /// <summary>
 /// Checks that it returns True when iterators are equal.
 /// </summary>
@@ -1597,7 +1593,6 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
-*/
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -1605,7 +1600,7 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -1640,14 +1635,14 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
@@ -1670,7 +1665,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTree
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1679,25 +1674,25 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentTree
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_A;
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
     bool bResult = ITERATOR_A > ITERATOR_B;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first in-order.
 /// </summary>
@@ -1736,7 +1731,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -1744,7 +1739,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -1779,16 +1774,17 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
+    TREE_A.Add(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
@@ -1801,7 +1797,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
 
     try
     {
-        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator < ITERATOR_A;
     }
     catch(...)
@@ -1810,7 +1806,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1819,13 +1815,13 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentTrees_
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1833,11 +1829,10 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentTrees_Te
     bool bResult = ITERATOR_A < ITERATOR_B;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
 
 /// <summary>
 /// Checks that it returns True when the resident iterator is greater than the input iterator, using depth-first in-order.
@@ -1897,14 +1892,14 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
-*/
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when either the input or the resident iterator is not valid.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -1939,14 +1934,14 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
@@ -1960,7 +1955,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 
     try
     {
-        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator >= ITERATOR_A;
     }
     catch(...)
@@ -1969,7 +1964,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -1978,24 +1973,24 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 /// Checks that it returns False when iterators point to a different tree.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentTrees_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     QBinarySearchTree<int> TREE_A(3);
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
     bool bResult = ITERATOR_A >= ITERATOR_B;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that it returns True when the resident iterator is lower than the input iterator, using depth-first in-order.
 /// </summary>
@@ -2074,7 +2069,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         iterator <= INVALID_ITERATOR;
     }
     catch(...)
@@ -2086,7 +2081,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
 
     try
     {
-        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
         INVALID_ITERATOR <= iterator;
     }
     catch(...)
@@ -2141,7 +2136,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
     const QBinarySearchTree<int>* TREE_B = GetSampleTree();
 
     QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_A(&TREE_A, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(&TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_B(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -2214,7 +2209,7 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -2222,7 +2217,7 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2244,7 +2239,7 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2253,7 +2248,7 @@ QTEST_CASE ( IsEnd1_AssertionFailsWhenIteratorIsNotValid_Test )
 /// Checks that it returns False when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2266,11 +2261,11 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
     bool bResult = INVALID_ITERATOR.IsEnd();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
-/* [TODO] Thund: Uncomment when the method AddChild exists
+
 /// <summary>
 /// Checks that it returns True when the iterator points to the position before the first.
 /// </summary>
@@ -2337,7 +2332,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -2345,7 +2340,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 /// Checks that an assertion fails when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
@@ -2368,7 +2363,7 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
     }
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2377,7 +2372,7 @@ QTEST_CASE ( IsEnd2_AssertionFailsWhenIteratorIsNotValid_Test )
 /// Checks that it returns False when the iterator is not valid.
 /// </summary>
 QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
@@ -2392,7 +2387,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
     bool bResult = INVALID_ITERATOR.IsEnd(EQIterationDirection::E_Backward);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 #endif
@@ -2401,7 +2396,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
 /// Checks that the iterator points to the first position when the tree is not empty, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method Add exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2416,14 +2411,14 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepth
     iterator.MoveFirst();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the first position even when it was not valid, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the methods Add and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2437,14 +2432,14 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
     iterator.MoveFirst();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2458,7 +2453,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIterato
     iterator.MoveFirst();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_FIRST);*/
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -2488,7 +2483,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 /// Checks that the iterator points to the last position when the tree is not empty, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2504,14 +2499,14 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFi
     iterator.MoveLast();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was not valid, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the methods AddChild and Remove exist
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2530,14 +2525,14 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
     iterator.MoveLast();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasPointingToPositionBeforeFirstUsingDepthFirstInOrder_Test )
-{/* [TODO] Thund: Uncomment when the method AddChild exists
+{
     // [Preparation]
     const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
 
@@ -2554,7 +2549,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
     iterator.MoveLast();
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_LAST);*/
+    BOOST_CHECK(iterator == ITERATOR_LAST);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED

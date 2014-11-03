@@ -134,7 +134,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
 /// Checks that the tree is correctly copied when it has elements.
 /// </summary>
 QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItHasElements_Test )
-{/* [TODO] Thund: Uncomment when GetIterator exists
+{
     // [Preparation]
     const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
     QBinarySearchTree<int> TREE(5);
@@ -160,7 +160,7 @@ QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItHasElements_Test )
 
     pointer_uint_q uCount = copiedTree.GetCount();
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-    BOOST_CHECK(bResultIsWhatEspected);*/
+    BOOST_CHECK(bResultIsWhatEspected);
 }
 
 /// <summary>
@@ -766,47 +766,41 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 /// Checks that elements are correctly reallocated.
 /// </summary>
 QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
-{/* [TODO] Thund: Uncomment when GetRoot is implemented
+{
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 4;
     const int EXPECTED_FIRST_ELEMENT = 1;
     const int EXPECTED_SECOND_ELEMENT = 2;
     QBinarySearchTree<int> TREE(2);
-    TREE.Add(EXPECTED_FIRST_ELEMENT);
-    TREE.Add(EXPECTED_SECOND_ELEMENT);
+    TREE.Add(EXPECTED_FIRST_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    TREE.Add(EXPECTED_SECOND_ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
     TREE.Reserve(INPUT_CAPACITY); // A reallocation occurs
 
     // [Verification]
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetRoot();
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = TREE.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
     BOOST_CHECK_EQUAL(*it, EXPECTED_FIRST_ELEMENT);
     ++it;
-    BOOST_CHECK_EQUAL(*it, EXPECTED_SECOND_ELEMENT);*/
+    BOOST_CHECK_EQUAL(*it, EXPECTED_SECOND_ELEMENT);
 }
 
 /// <summary>
 /// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than current reserved.
 /// </summary>
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
-{/* [TODO] Thund: Uncomment when GetRoot is implemented
+{
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 1;
     const pointer_uint_q EXPECTED_CAPACITY = 4;
     QBinarySearchTree<int> TREE(4);
-    TREE.Add(1);
-    int* EXPECTED_LOCATION_OF_ELEMENT = &(*TREE.GetRoot());
 
     // [Execution]
     TREE.Reserve(INPUT_CAPACITY); // A reallocation occurs
 
     // [Verification]
     pointer_uint_q uCapacity = TREE.GetCapacity();
-    *TREE.GetFirst() = 1;
-    int* pLocationOfElement = &(*TREE.GetRoot());
-
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
-    BOOST_CHECK_EQUAL(pLocationOfElement, EXPECTED_LOCATION_OF_ELEMENT);*/
 }
 
 /// <summary>
