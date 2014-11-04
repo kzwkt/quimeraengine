@@ -1,4 +1,4 @@
-﻿//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -3695,38 +3695,6 @@ QTEST_CASE ( CompareTo_NormalizationDoesNotAffectTheResultWhenUsingCanonicalComp
     BOOST_CHECK_EQUAL(nResultNormalized, nResultNonNormalized2);
     BOOST_CHECK_EQUAL(nResultNormalized, nResultNormalized2);
 }
-
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when using a comparison type that is not supported.
-/// </summary>
-QTEST_CASE ( CompareTo_AssertionFailsWhenUsingUnsupportedComparisonTypes_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-
-    // [Preparation]
-    QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
-    const EQComparisonType NOT_SUPPORTED = EQComparisonType::_NotEnumValue;
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        SOURCE_STRING.CompareTo(SOURCE_STRING, NOT_SUPPORTED);
-    }
-    catch(...)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-#endif
 
 /// <summary>
 /// Checks that it returns "not found" when the pattern is empty.

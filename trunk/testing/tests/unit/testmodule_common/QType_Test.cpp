@@ -48,6 +48,11 @@ using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
+// Type used in some tests as a non-basic type nor string
+struct NonBasicType
+{
+};
+    
 QTEST_SUITE_BEGIN( QType_TestSuite )
 
 /// <summary>
@@ -378,10 +383,6 @@ QTEST_CASE ( FindType_ReturnsStringType_Test )
 QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
 {
     // [Preparation]
-    struct NonBasicType
-    {
-    };
-
     const QType* NULL_POINTER = null_q;
 
 	// [Execution]
@@ -398,10 +399,6 @@ QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
 QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
 {
     // [Preparation]
-    struct NonBasicType
-    {
-    };
-
     const QType* NULL_POINTER = null_q;
     const bool ASSERTION_FAILED = true;
 
