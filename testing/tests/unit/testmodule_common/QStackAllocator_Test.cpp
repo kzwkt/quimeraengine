@@ -3963,264 +3963,6 @@ QTEST_CASE (CanAllocate2_AssertionFailsWhenSizeIsZero_Test)
     BOOST_CHECK_EQUAL(bAssertionFailedIn20, ASSERTION_FAILED);
 }
 
-/// <summary>
-/// Checks than an assertion inside CanAllocate fails when the specified alignment value
-/// for the intended memory block to be allocated is not a power of two.
-/// </summary>
-QTEST_CASE (CanAllocate2_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test)
-{
-    // [Preparation]
-
-    const bool                 ASSERTION_FAILED                           = true;
-    const pointer_uint_q       AMOUNT_CASES                               = 20;
-
-    const pointer_uint_q       VALID_PREALLOCATION_SIZE                   = 64;
-    const pointer_uint_q       VALID_ALLOCATION_SIZE                      = 32;
-
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE01      = 2;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE02      = 4;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE03      = 8;
-    const pointer_uint_q       VALID_PREALLOCATION_ALIGNMENT_VALUE04      = 16;
-    QAlignmentMocked           alignmentMocked01(VALID_PREALLOCATION_ALIGNMENT_VALUE01);
-    QAlignmentMocked           alignmentMocked02(VALID_PREALLOCATION_ALIGNMENT_VALUE02);
-    QAlignmentMocked           alignmentMocked03(VALID_PREALLOCATION_ALIGNMENT_VALUE03);
-    QAlignmentMocked           alignmentMocked04(VALID_PREALLOCATION_ALIGNMENT_VALUE04);
-
-    bool                       bAssertionFailedIn01                       = false;
-    bool                       bAssertionFailedIn02                       = false;
-    bool                       bAssertionFailedIn03                       = false;
-    bool                       bAssertionFailedIn04                       = false;
-    bool                       bAssertionFailedIn05                       = false;
-    bool                       bAssertionFailedIn06                       = false;
-    bool                       bAssertionFailedIn07                       = false;
-    bool                       bAssertionFailedIn08                       = false;
-    bool                       bAssertionFailedIn09                       = false;
-    bool                       bAssertionFailedIn10                       = false;
-    bool                       bAssertionFailedIn11                       = false;
-    bool                       bAssertionFailedIn12                       = false;
-    bool                       bAssertionFailedIn13                       = false;
-    bool                       bAssertionFailedIn14                       = false;
-    bool                       bAssertionFailedIn15                       = false;
-    bool                       bAssertionFailedIn16                       = false;
-    bool                       bAssertionFailedIn17                       = false;
-    bool                       bAssertionFailedIn18                       = false;
-    bool                       bAssertionFailedIn19                       = false;
-    bool                       bAssertionFailedIn20                       = false;
-
-    pointer_uint_q             u                                          = 0;
-
-
-    // [Execution]
-
-    QStackAllocator            stackAllocator01( VALID_PREALLOCATION_SIZE );
-    QStackAllocator            stackAllocator02( VALID_PREALLOCATION_SIZE );
-    QStackAllocator            stackAllocator03( VALID_PREALLOCATION_SIZE );
-    QStackAllocator            stackAllocator04( VALID_PREALLOCATION_SIZE );
-    QStackAllocator            stackAllocator05( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE01) );
-    QStackAllocator            stackAllocator06( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE01) );
-    QStackAllocator            stackAllocator07( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE01) );
-    QStackAllocator            stackAllocator08( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE01) );
-    QStackAllocator            stackAllocator09( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) );
-    QStackAllocator            stackAllocator10( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) );
-    QStackAllocator            stackAllocator11( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) );
-    QStackAllocator            stackAllocator12( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE02) );
-    QStackAllocator            stackAllocator13( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
-    QStackAllocator            stackAllocator14( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
-    QStackAllocator            stackAllocator15( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
-    QStackAllocator            stackAllocator16( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE03) );
-    QStackAllocator            stackAllocator17( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
-    QStackAllocator            stackAllocator18( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
-    QStackAllocator            stackAllocator19( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
-    QStackAllocator            stackAllocator20( VALID_PREALLOCATION_SIZE, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) );
-
-    // Sabotage of the alignment values
-    // (they are not anymore powers of two).
-    alignmentMocked01.SabotageAlignmentValue();
-    alignmentMocked02.SabotageAlignmentValue();
-    alignmentMocked03.SabotageAlignmentValue();
-    alignmentMocked04.SabotageAlignmentValue();
-
-    for (u = 1; u <= AMOUNT_CASES; ++u)
-    {
-        try
-        {
-            switch (u)
-            {
-                case 1:  stackAllocator01.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 2:  stackAllocator02.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 3:  stackAllocator03.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 4:  stackAllocator04.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked04 ); break;
-                case 5:  stackAllocator05.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 6:  stackAllocator06.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 7:  stackAllocator07.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 8:  stackAllocator08.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked04 ); break;
-                case 9:  stackAllocator09.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 10: stackAllocator10.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 11: stackAllocator11.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 12: stackAllocator12.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked04 ); break;
-                case 13: stackAllocator13.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 14: stackAllocator14.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 15: stackAllocator15.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 16: stackAllocator16.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked04 ); break;
-                case 17: stackAllocator17.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked01 ); break;
-                case 18: stackAllocator18.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked02 ); break;
-                case 19: stackAllocator19.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked03 ); break;
-                case 20: stackAllocator20.CanAllocate( VALID_ALLOCATION_SIZE, alignmentMocked04 ); break;
-            }
-        }
-        catch(...)
-        {
-            switch (u)
-            {
-                case 1:
-                    if (false == bAssertionFailedIn01)
-                    {
-                        bAssertionFailedIn01 = true;
-                    }
-                break;
-                case 2:
-                    if (false == bAssertionFailedIn02)
-                    {
-                        bAssertionFailedIn02 = true;
-                    }
-                break;
-                case 3:
-                    if (false == bAssertionFailedIn03)
-                    {
-                        bAssertionFailedIn03 = true;
-                    }
-                break;
-                case 4:
-                    if (false == bAssertionFailedIn04)
-                    {
-                        bAssertionFailedIn04 = true;
-                    }
-                break;
-                case 5:
-                    if (false == bAssertionFailedIn05)
-                    {
-                        bAssertionFailedIn05 = true;
-                    }
-                break;
-                case 6:
-                    if (false == bAssertionFailedIn06)
-                    {
-                        bAssertionFailedIn06 = true;
-                    }
-                break;
-                case 7:
-                    if (false == bAssertionFailedIn07)
-                    {
-                        bAssertionFailedIn07 = true;
-                    }
-                break;
-                case 8:
-                    if (false == bAssertionFailedIn08)
-                    {
-                        bAssertionFailedIn08 = true;
-                    }
-                break;
-                case 9:
-                    if (false == bAssertionFailedIn09)
-                    {
-                        bAssertionFailedIn09 = true;
-                    }
-                break;
-                case 10:
-                    if (false == bAssertionFailedIn10)
-                    {
-                        bAssertionFailedIn10 = true;
-                    }
-                break;
-                case 11:
-                    if (false == bAssertionFailedIn11)
-                    {
-                        bAssertionFailedIn11 = true;
-                    }
-                break;
-                case 12:
-                    if (false == bAssertionFailedIn12)
-                    {
-                        bAssertionFailedIn12 = true;
-                    }
-                break;
-                case 13:
-                    if (false == bAssertionFailedIn13)
-                    {
-                        bAssertionFailedIn13 = true;
-                    }
-                break;
-                case 14:
-                    if (false == bAssertionFailedIn14)
-                    {
-                        bAssertionFailedIn14 = true;
-                    }
-                break;
-                case 15:
-                    if (false == bAssertionFailedIn15)
-                    {
-                        bAssertionFailedIn15 = true;
-                    }
-                break;
-                case 16:
-                    if (false == bAssertionFailedIn16)
-                    {
-                        bAssertionFailedIn16 = true;
-                    }
-                break;
-                case 17:
-                    if (false == bAssertionFailedIn17)
-                    {
-                        bAssertionFailedIn17 = true;
-                    }
-                break;
-                case 18:
-                    if (false == bAssertionFailedIn18)
-                    {
-                        bAssertionFailedIn18 = true;
-                    }
-                break;
-                case 19:
-                    if (false == bAssertionFailedIn19)
-                    {
-                        bAssertionFailedIn19 = true;
-                    }
-                break;
-                case 20:
-                    if (false == bAssertionFailedIn20)
-                    {
-                        bAssertionFailedIn20 = true;
-                    }
-                break;
-            };
-        }
-    }
-
-
-    // [Verification]
-
-    BOOST_CHECK_EQUAL(bAssertionFailedIn01, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn02, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn03, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn04, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn05, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn06, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn07, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn08, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn09, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn10, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn11, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn12, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn13, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn14, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn15, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn16, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn17, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn18, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn19, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailedIn20, ASSERTION_FAILED);
-}
-
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
@@ -5260,9 +5002,6 @@ QTEST_CASE(CopyTo_TheStackAllocatorIsCorrectlyCopied_Test)
     bool                       bSameBlockHeadersInBoth                    = true;
     bool                       bSameAmountOfMemoryBlocksInBoth            = false;
 
-
-    // [Execution]
-
     QStackAllocatorWhiteBox    stackAllocatorWhiteBoxResident(VALID_PREALLOCATION_SIZE_LESSER, PREALLOCATION_ALIGMENT01);
     QStackAllocatorWhiteBox    stackAllocatorWhiteBoxPassed(VALID_PREALLOCATION_SIZE_GREATER,  PREALLOCATION_ALIGMENT01);
 
@@ -5274,6 +5013,8 @@ QTEST_CASE(CopyTo_TheStackAllocatorIsCorrectlyCopied_Test)
     // Saving some parameters of the stack allocator that will be passed on before the copy.
     uPreallocatedBlockSizeBeforeCopy = stackAllocatorWhiteBoxPassed.GetSize();
     pStackBaseBeforeCopy             = stackAllocatorWhiteBoxPassed.GetpBase(); 
+
+    // [Execution]
 
     // Now it is time for the copy.
     stackAllocatorWhiteBoxResident.CopyTo(stackAllocatorWhiteBoxPassed);
@@ -5347,7 +5088,7 @@ QTEST_CASE(CopyTo_TheStackAllocatorIsCorrectlyCopied_Test)
 
     bool bAreEqual = memcmp(stackAllocatorWhiteBoxResident.GetpBase(), 
                             stackAllocatorWhiteBoxPassed.GetpBase(), 
-                            stackAllocatorWhiteBoxResident.GetSize()) == 0;
+                            stackAllocatorWhiteBoxResident.GetAllocatedBytes()) == 0;
 
     BOOST_CHECK( bAreEqual );
     BOOST_CHECK_EQUAL( bSamePreallocationSizeBeforeAndAfterCopy, EXPECTED_VALUE );

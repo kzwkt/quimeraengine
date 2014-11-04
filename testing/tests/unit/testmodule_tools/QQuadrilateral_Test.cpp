@@ -2174,13 +2174,13 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
                                          QVector2(SQFloat::_1, -SQFloat::_0));
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
+    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
         string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.99999999e-06)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
     #else
         string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.99999999e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
     #endif
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    #if defined(QE_COMPILER_GCC) // This is necessary due to a different implementation of the STL when compiling with GCC
+    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
         string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.9999999999999999e-06)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
     #else
         string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.9999999999999999e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");

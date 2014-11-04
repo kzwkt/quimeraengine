@@ -200,8 +200,8 @@ $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\t
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QLinearAllocator_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QLinearAllocator_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QLinearAllocator_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QLinearAllocator_Test.o
 
-$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.cpp
-	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.o	
+$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QMark_Test.o
 
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QBlockHeader_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QBlockHeader_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QBlockHeader_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QBlockHeader_Test.o
