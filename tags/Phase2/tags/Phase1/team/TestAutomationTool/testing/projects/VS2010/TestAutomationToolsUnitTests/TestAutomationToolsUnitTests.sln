@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAutomationToolsUnitTests", "TestAutomationToolsUnitTests\TestAutomationToolsUnitTests.vcxproj", "{D30ABC11-8048-453D-8D25-6B828D9C15CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugWin32|Win32 = DebugWin32|Win32
+		ReleaseWin32|Win32 = ReleaseWin32|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D30ABC11-8048-453D-8D25-6B828D9C15CD}.DebugWin32|Win32.ActiveCfg = DebugWin32|Win32
+		{D30ABC11-8048-453D-8D25-6B828D9C15CD}.DebugWin32|Win32.Build.0 = DebugWin32|Win32
+		{D30ABC11-8048-453D-8D25-6B828D9C15CD}.ReleaseWin32|Win32.ActiveCfg = ReleaseWin32|Win32
+		{D30ABC11-8048-453D-8D25-6B828D9C15CD}.ReleaseWin32|Win32.Build.0 = ReleaseWin32|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

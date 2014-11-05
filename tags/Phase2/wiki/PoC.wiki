@@ -1,0 +1,11 @@
+=Pruebas de Concepto=
+
+Aquí se encuentra la documentación y los enlaces al repositorio o a descargas externas de cada prueba de concepto realizada durante las investigaciones de las tecnologías que integran Quimera Engine.
+
+* [POCXMLParsing Lectura / Escritura XML]
+
+* [POCLogging Escritura de logs]
+
+* [POCS11n Serialización]
+
+* [POCMulti Multihilo]

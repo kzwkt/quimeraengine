@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{7f6352d6-11ce-46b4-b8fb-71a54617e3ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{5c3d08c1-41de-4f23-8e4f-782bc2528628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing\Workarounds">
+      <UniqueIdentifier>{d0977b75-25bc-48db-aeba-1c7fdb2350ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{727a4e0b-0afe-4a4d-9f21-85fb894ea330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{4c8c61c4-20d7-4622-9bd6-b72a860134b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{562c444d-ac35-4fa5-9a34-f500fca2b890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\FileSystem">
+      <UniqueIdentifier>{a8b72246-8f33-46e5-8b2e-c38bb590a797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diagnosis">
+      <UniqueIdentifier>{31a3958d-95b3-4f72-b86b-9433e422f0e8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\QObject.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h">
+      <Filter>Timing\Workarounds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QMemoryStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QUri.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQTypeExtensions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QPath.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStopwatch.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFileInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\QObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QUri.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QPath.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStopwatch.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QFileInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

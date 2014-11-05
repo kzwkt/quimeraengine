@@ -1,0 +1,50 @@
+||[WikiRoot Inicio]||[http://code.google.com/p/quimeraengine/wiki/Tracker?tm=3 Tracker]||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
+
+----
+
+  * [DocProject Project Documentation]
+    * Planning
+      * [OrgChart Organization Chart]
+      * [Roadmap Roadmap]
+      * [CurrentState Current state]
+      * [Phase0 Phase 0]
+      * [Phase1 Phase 1]
+    * Development
+      * [Conventions Conventions]
+        * [PatternsConv Patterns]
+        * [NamingConv Naming]
+        * [OrderConv Code Order]
+        * [GoodPracConv Good Practices]
+        * [DocConv Documentation]
+        * [ErrorConv Error Handling]
+      * [Workflow Work flow]
+      * [InTools Indispensable tools]
+    * Testing
+      * [ConcepUnitTest Basic concepts of Unit tests]
+      * [ConvTests Conventions]
+  * [Doc3rdParty 3rd Party Documentation]
+    * [DocBoost Boost]
+      * [CompBoost Compilación de las librerías]
+    * [DocCodeBlocks Code::Blocks IDE]
+      * [CodeSnippets CodeSnippets]
+  * [RefAPI API Reference]
+  * [PoC Proofs of Concept]
+    * [POCXMLParsing Lectura/Escritura XML]
+      * [POCXMLXerces Xerces-c]
+      * [POCXMLplugixml PugiXML]
+      * [POCXMLtinyxml TinyXML]
+    * [POCLogging Escritura de logs]
+      * [POCBoostLog Logging con Boost]
+      * [POCPOCOLog Logging con POCO]
+    * [POCS11n Serialización]
+      * [POCBoostSerial Boost]
+      * [POCs11nSerial s11n]
+      * [POCeternitySerial Eternity]
+    * [POCMulti Multihilo] 
+      * [MultiBoost Boost]
+      * [MultiPoco POCO]
+    * [POCwxWidgets wxWidgets]
+  * [Downloads Downloads]
+  * [ProjectFAQ F.A.Q.]
+----
+Kinesis Group

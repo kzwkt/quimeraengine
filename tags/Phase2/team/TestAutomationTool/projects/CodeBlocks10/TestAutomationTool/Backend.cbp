@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Backend" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Common\;FG1 - Test Configuration\;FG2 - Test Execution\;FG3 - Editor\;FG4 - Test Results\;" />
+		<Build>
+			<Target title="DebugWin32">
+				<Option platforms="Windows;" />
+				<Option output="../../../bin/CodeBlocks10/DebugWin32/Backend" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../garbage/CodeBlocks10/DebugWin32/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add directory="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud" />
+				</Compiler>
+			</Target>
+			<Target title="ReleaseWin32">
+				<Option platforms="Windows;" />
+				<Option output="../../../bin/CodeBlocks10/ReleaseWin32/Backend" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../garbage/CodeBlocks10/ReleaseWin32/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add directory="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux32">
+				<Option platforms="Unix;" />
+				<Option output="../../../bin/CodeBlocks10/DebugLinux32/Backend" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../garbage/CodeBlocks10/DebugLinux32/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="`wx-config --cflags`" />
+					<Add option="-fpermissive" />
+				</Compiler>
+				<Linker>
+					<Add option="`wx-config --libs std richtext`" />
+				</Linker>
+			</Target>
+			<Target title="ReleaseLinux32">
+				<Option platforms="Unix;" />
+				<Option output="../../../bin/CodeBlocks10/ReleaseLinux32/Backend" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../garbage/CodeBlocks10/ReleaseLinux32/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="`wx-config --cflags`" />
+					<Add option="-fpermissive" />
+				</Compiler>
+				<Linker>
+					<Add option="`wx-config --libs std richtext`" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-DwxUSE_UNICODE" />
+			<Add directory="../../../headers" />
+			<Add directory="../../../3rdparty/wxWidgets/include/include" />
+			<Add directory="../../../3rdparty/Boost/include" />
+		</Compiler>
+		<Unit filename="../../../headers/ExternalDefinitions.h">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../headers/STATFileSystemHelper.h">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../headers/STATStringHelper.h">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../headers/TATNode.h">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../headers/TATShellProcess.h">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/ETATConfigNodeType.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/ETATConfigurationSource.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/ITATConfigLoader.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/STATAppSettings.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATConfigLoaderFactory.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATConfigLoaderFromIniFile.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATConfigNode.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATKeyValueNode.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATRuleNode.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATTestAutomationToolConfiguration.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestConfiguration/TATValidationException.h">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/ETATColor.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/ITATLogger.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATCompilerInfo.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATFormattedMessage.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATMessageFormat.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATTestAutomationToolExecution.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATTestModulesExecutionInfo.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestExecution/TATwxWidgetsControlLogger.h">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/ETATResult.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/ETATResultSource.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/ETATTestResultNodeType.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/ITATTestResultLoader.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestAutomationToolResults.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestResultConsultant.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestResultInfo.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestResultLoader.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestResultLoaderFactory.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATTestResultNode.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../headers/TestResults/TATXmlReader.h">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/STATFileSystemHelper.cpp">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../source/STATStringHelper.cpp">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../source/TATNode.cpp">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../source/TATShellProcess.cpp">
+			<Option virtualFolder="Common/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/ETATConfigNodeType.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/ETATConfigurationSource.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/STATAppSettings.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATConfigLoaderFactory.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATConfigLoaderFromIniFile.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATConfigNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATKeyValueNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATRuleNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestConfiguration/TATTestAutomationToolConfiguration.cpp">
+			<Option virtualFolder="FG1 - Test Configuration/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/ETATColor.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATCompilerInfo.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATFormattedMessage.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATMessageFormat.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATTestAutomationToolExecution.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATTestModulesExecutionInfo.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestExecution/TATwxWidgetsControlLogger.cpp">
+			<Option virtualFolder="FG2 - Test Execution/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/ETATResult.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/ETATResultSource.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/ETATTestResultNodeType.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestAutomationToolResults.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestResultConsultant.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestResultInfo.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestResultLoader.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestResultLoaderFactory.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Unit filename="../../../source/TestResults/TATTestResultNode.cpp">
+			<Option virtualFolder="FG4 - Test Results/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

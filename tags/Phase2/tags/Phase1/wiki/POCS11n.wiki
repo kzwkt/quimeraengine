@@ -1,0 +1,7 @@
+= Serialización =
+
+  * ==[POCBoostSerial Boost]==
+
+  * ==[POCs11nSerial S11n]==
+
+  * ==[POCeternitySerial Eternity]==

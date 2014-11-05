@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HattrickData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="arena.xsd">
+	<FileName>arenadetails.xml</FileName>
+	<Version>1.3</Version>
+	<UserID>6522208</UserID>
+	<FetchedDate>2010-09-20 14:52:27</FetchedDate>
+	<Arena>
+		<ArenaID0>985151</ArenaID0>
+		<ArenaName>Jwladi Arena</ArenaName>
+		<League>
+			<LeagueID>36</LeagueID>
+			<LeagueName>España</LeagueName>
+		</League>
+		<Region>
+			<RegionID>811</RegionID>
+			<RegionName>Castilla-La Mancha</RegionName>
+		</Region>
+		<CurrentCapacity>
+			<RebuiltDate Available="True">2010-05-26 21:13:10</RebuiltDate>
+			<Terraces>34100</Terraces>
+			<Basic>14300</Basic>
+			<Roof>5225</Roof>
+			<VIP>1375</VIP>
+			<Total>55000</Total>
+		</CurrentCapacity>
+		<ExpandedCapacity Available="False"/>
+		<Team>
+			<TeamID>988589</TeamID>
+			<TeamName>Fernanduco1</TeamName>
+		</Team>
+		<Team>
+			<TeamID>988590</TeamID>
+			<TeamName>Fernanduco2</TeamName>
+		</Team>
+		<Team>
+			<TeamID>988591</TeamID>
+			<TeamName>Fernanduco3</TeamName>
+		</Team>
+	</Arena>
+</HattrickData>
+
+
+

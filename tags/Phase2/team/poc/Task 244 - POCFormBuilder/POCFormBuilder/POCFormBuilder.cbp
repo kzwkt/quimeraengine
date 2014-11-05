@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="POCFormBuilder" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\POCFormBuilder" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll\mswd" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll\mswd" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="libwxmsw28d_core.a" />
+					<Add library="libwxbase28d.a" />
+					<Add library="libwxpngd.a" />
+					<Add library="libwxzlibd.a" />
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll" />
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\additions\lib\gcc_dll" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\POCFormBuilder" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll\msw" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll\msw" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwxmsw28_core.a" />
+					<Add library="libwxbase28.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxzlib.a" />
+					<Add directory="D:\Juan\kinesis\wxWidgets2.8\lib\gcc_dll" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DWXUSINGDLL" />
+			<Add option='[[if (PLATFORM == PLATFORM_MSW &amp;&amp; (GetCompilerFactory().GetCompilerVersionString(_T(&quot;gcc&quot;)) &gt;= _T(&quot;4.0.0&quot;))) print(_T(&quot;-Wno-attributes&quot;));]]' />
+			<Add option="-Wall" />
+			<Add directory="D:\Juan\kinesis\wxWidgets2.8\include" />
+			<Add directory="D:\Juan\kinesis\wxWidgets2.8\contrib\include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="D:\Juan\kinesis\wxWidgets2.8\include" />
+		</ResourceCompiler>
+		<Linker>
+			<Add option="-mthreads" />
+		</Linker>
+		<Unit filename="DialogoDerivada.cpp" />
+		<Unit filename="DialogoDerivada.h" />
+		<Unit filename="GUIFrame.cpp" />
+		<Unit filename="GUIFrame.h" />
+		<Unit filename="POCFormBuilderApp.cpp" />
+		<Unit filename="POCFormBuilderApp.h" />
+		<Unit filename="POCFormBuilderMain.cpp" />
+		<Unit filename="POCFormBuilderMain.h" />
+		<Unit filename="WxWizFrame.fbp" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
