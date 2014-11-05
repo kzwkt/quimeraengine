@@ -1580,7 +1580,7 @@ QTEST_CASE ( AppendDirectory_NothingHappensWhenInputIsEmpty_Test )
         // [Preparation]
         QPath path("/path/");
         const string_q DIRECTORY("start/end");
-        const QPath EXPECTED_PATH("/path/startend");
+        const QPath EXPECTED_PATH("/path/startend/");
 
         // [Execution]
         path.AppendDirectory(DIRECTORY);
@@ -2027,26 +2027,30 @@ QTEST_CASE ( Resolve_AssertionFailsWhenInputIsEmpty_Test )
 
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
-/// <summary>
-/// Checks that the drive is not changed when the input path is absolute, starting with a separator.
-/// </summary>
-QTEST_CASE ( Resolve_DriveRemainsTheSameWhenInputPathIsAbsoluteWithLeadingSeparator_Test )
-{
-    // [Preparation]
-    const string_q ABSOLUTE_PATH = "x:/path1/";
-    const string_q RELATIVE_PATH = "/path2/";
-    const string_q EXPECTED_PATH = "x:/path2/";
-    QPath absolutePath(ABSOLUTE_PATH);
-    QPath relativePath(RELATIVE_PATH);
-    const QPath EXPECTED_RESULT(EXPECTED_PATH);
+    #if defined(QE_OS_WINDOWS)
 
-    // [Execution]
-    absolutePath.Resolve(relativePath);
+    /// <summary>
+    /// Checks that the drive is not changed when the input path is absolute, starting with a separator.
+    /// </summary>
+    QTEST_CASE ( Resolve_DriveRemainsTheSameWhenInputPathIsAbsoluteWithLeadingSeparator_Test )
+    {
+        // [Preparation]
+        const string_q ABSOLUTE_PATH = "x:/path1/";
+        const string_q RELATIVE_PATH = "/path2/";
+        const string_q EXPECTED_PATH = "x:/path2/";
+        QPath absolutePath(ABSOLUTE_PATH);
+        QPath relativePath(RELATIVE_PATH);
+        const QPath EXPECTED_RESULT(EXPECTED_PATH);
+
+        // [Execution]
+        absolutePath.Resolve(relativePath);
+        
+        // [Verification]
+        BOOST_CHECK(absolutePath == EXPECTED_RESULT);
+    }
     
-    // [Verification]
-    BOOST_CHECK(absolutePath == EXPECTED_RESULT);
-}
-
+    #endif
+    
 #endif
 
 /// <summary>

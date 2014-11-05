@@ -927,7 +927,7 @@ protected:
     /// <summary>
     /// Constant to symbolize the end of the sequence near the last element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_FORWARD = -1;
+    static const pointer_uint_q END_POSITION_FORWARD;
 
     /// <summary>
     /// Constant to symbolize the end of the sequence near the first element.
@@ -2223,6 +2223,8 @@ protected:
 template<class T, class AllocatorT, class ComparatorT>
 float QList<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
 
+template<class T, class AllocatorT, class ComparatorT>
+const pointer_uint_q QList<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -1;
 
 } //namespace Containers
 } //namespace Tools
