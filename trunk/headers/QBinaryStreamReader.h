@@ -83,7 +83,7 @@ public:
     /// No instance's constructors nor operators are called.
     /// </remarks>
     /// <typeparam name="T">The data type as which to interpret the read bytes.</typeparam>
-    /// <param name="stream">[OUT] The instance to be filled with stream's bytes.</param>
+    /// <param name="value">[OUT] The instance to be filled with stream's bytes.</param>
     /// <returns>
     /// A reference to the resident binary stream reader.
     /// </returns>

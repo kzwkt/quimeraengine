@@ -1082,6 +1082,9 @@ public:
     /// The copy constructor is then called for every copied element, in an arbitrary order.
     /// </remarks>
     /// <param name="tree">[IN] The other tree to be copied.</param>
+    /// <returns>
+    /// A reference to the resultant binary search tree.
+    /// </returns>
     QBinarySearchTree& operator=(const QBinarySearchTree &tree)
     {
         if(this != &tree)

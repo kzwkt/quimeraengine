@@ -315,7 +315,7 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -480,8 +480,8 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -651,9 +651,9 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -831,10 +831,10 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
-    /// <param name="Param4T">[IN] The forth parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
+    /// <param name="p4">[IN] The forth parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -1020,11 +1020,11 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
-    /// <param name="Param4T">[IN] The forth parameter of the function.</param>
-    /// <param name="Param5T">[IN] The fifth parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
+    /// <param name="p4">[IN] The forth parameter of the function.</param>
+    /// <param name="p5">[IN] The fifth parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -1215,12 +1215,12 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
-    /// <param name="Param4T">[IN] The forth parameter of the function.</param>
-    /// <param name="Param5T">[IN] The fifth parameter of the function.</param>
-    /// <param name="Param6T">[IN] The sixth parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
+    /// <param name="p4">[IN] The forth parameter of the function.</param>
+    /// <param name="p5">[IN] The fifth parameter of the function.</param>
+    /// <param name="p6">[IN] The sixth parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -1417,13 +1417,13 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
-    /// <param name="Param4T">[IN] The forth parameter of the function.</param>
-    /// <param name="Param5T">[IN] The fifth parameter of the function.</param>
-    /// <param name="Param6T">[IN] The sixth parameter of the function.</param>
-    /// <param name="Param7T">[IN] The seventh parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
+    /// <param name="p4">[IN] The forth parameter of the function.</param>
+    /// <param name="p5">[IN] The fifth parameter of the function.</param>
+    /// <param name="p6">[IN] The sixth parameter of the function.</param>
+    /// <param name="p7">[IN] The seventh parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>
@@ -1626,14 +1626,14 @@ public:
     /// <summary>
     /// Calls the stored function for the stored object, if any.
     /// </summary>
-    /// <param name="Param1T">[IN] The first parameter of the function.</param>
-    /// <param name="Param2T">[IN] The second parameter of the function.</param>
-    /// <param name="Param3T">[IN] The third parameter of the function.</param>
-    /// <param name="Param4T">[IN] The forth parameter of the function.</param>
-    /// <param name="Param5T">[IN] The fifth parameter of the function.</param>
-    /// <param name="Param6T">[IN] The sixth parameter of the function.</param>
-    /// <param name="Param7T">[IN] The seventh parameter of the function.</param>
-    /// <param name="Param8T">[IN] The eighth parameter of the function.</param>
+    /// <param name="p1">[IN] The first parameter of the function.</param>
+    /// <param name="p2">[IN] The second parameter of the function.</param>
+    /// <param name="p3">[IN] The third parameter of the function.</param>
+    /// <param name="p4">[IN] The forth parameter of the function.</param>
+    /// <param name="p5">[IN] The fifth parameter of the function.</param>
+    /// <param name="p6">[IN] The sixth parameter of the function.</param>
+    /// <param name="p7">[IN] The seventh parameter of the function.</param>
+    /// <param name="p8">[IN] The eighth parameter of the function.</param>
     /// <returns>
     /// The value returned by the function, if any.
     /// </returns>

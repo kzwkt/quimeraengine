@@ -1735,6 +1735,9 @@ public:
     /// </remarks>
     /// <param name="tree">[IN] The other tree to be copied. The maximum number of children per node in the tree must 
     /// be lower than or equal to the resident tree's.</param>
+    /// <returns>
+    /// A reference to the resultant n-ary tree.
+    /// </returns>
     QNTree& operator=(const QNTree &tree)
     {
         QE_ASSERT_ERROR(MAX_CHILDREN >= tree.MAX_CHILDREN && MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node in the resident tree is lower than the input tree's.");

@@ -1255,9 +1255,10 @@ public:
     }
 
     /// <summary>
-    /// Sets the value in the index passed as parameter.
+    /// Sets the value of an element located at a given position.
     /// </summary>
     /// <param name="uIndex">[IN] Position of the element to set. It must be less than the list's size. Note that indexes are zero-based.</param>
+    /// <param name="value">[IN] The new value for the element.</param>
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
         QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the list's size" );
@@ -1484,9 +1485,9 @@ public:
     /// <param name="newElement">[IN] The element to be copied.</param>
     /// <param name="uIndex">[IN] The index (zero-based) where the new element will be placed. It should be lower than the number of elements of the list; if it is not, 
     /// the element will be inserted at the end by default.</param>
-    void Insert(const T &newElement, const pointer_uint_q uPosition)
+    void Insert(const T &newElement, const pointer_uint_q uIndex)
     {
-        QE_ASSERT_WARNING(!this->IsEmpty() && uPosition < this->GetCount(), "The input iterator is out of bounds");
+        QE_ASSERT_WARNING(!this->IsEmpty() && uIndex < this->GetCount(), "The input iterator is out of bounds");
         
         if(this->GetCount() == this->GetCapacity())
             this->_ReallocateByFactor(this->GetCapacity() + 1U);
@@ -1500,7 +1501,7 @@ public:
         QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
 
         // Gets the physical position of the link at the given ordinal position
-        pointer_uint_q uIndex = &this->GetValue(uPosition) - (T*)m_elementAllocator.GetPointer();
+        pointer_uint_q uPosition = &this->GetValue(uIndex) - (T*)m_elementAllocator.GetPointer();
 
         // Calculates what's the next link and what's the previous one
         if(this->IsEmpty())
@@ -1509,14 +1510,14 @@ public:
             uNewLinkPrevious = QList::END_POSITION_BACKWARD;
             uNewLinkNext = QList::END_POSITION_FORWARD;
         }
-        else if(uIndex >= this->GetCount())
+        else if(uPosition >= this->GetCount())
         {
             // Adding at the end
             pPreviousLink = pBasePointer + m_uLast;
             uNewLinkPrevious = m_uLast;
             uNewLinkNext = QList::END_POSITION_FORWARD;
         }
-        else if(uIndex == m_uFirst)
+        else if(uPosition == m_uFirst)
         {
             // Adding at the beginning
             pNextLink = pBasePointer + m_uFirst;
@@ -1526,9 +1527,9 @@ public:
         else
         {
             // Adding somewhere in the middle
-            pNextLink = pBasePointer + uIndex;
+            pNextLink = pBasePointer + uPosition;
             uNewLinkPrevious = pNextLink->GetPrevious();
-            uNewLinkNext = uIndex;
+            uNewLinkNext = uPosition;
             pPreviousLink = pBasePointer + uNewLinkPrevious;
         }
 
@@ -1640,15 +1641,15 @@ public:
     /// </remarks>
     /// <param name="uIndex">[IN] The index (zero-based) of the element to be deleted. It should be lower than the number of elements of the list; if it is not, 
     /// nothing will happen.</param>
-    void Remove(const pointer_uint_q uPosition)
+    void Remove(const pointer_uint_q uIndex)
     {
         QE_ASSERT_WARNING(!this->IsEmpty(), "The list is empty, there is nothing to remove");
-        QE_ASSERT_WARNING(!this->IsEmpty() && uPosition < this->GetCount(), "The input iterator is out of bounds");
+        QE_ASSERT_WARNING(!this->IsEmpty() && uIndex < this->GetCount(), "The input iterator is out of bounds");
 
-        if(!this->IsEmpty() && uPosition < this->GetCount())
+        if(!this->IsEmpty() && uIndex < this->GetCount())
         {
             // Gets the position of the iterator
-            T* pElementToRemove = &this->GetValue(uPosition);
+            T* pElementToRemove = &this->GetValue(uIndex);
             pointer_uint_q uIndex = pElementToRemove - (T*)m_elementAllocator.GetPointer();
 
             QList::QLink* pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
