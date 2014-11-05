@@ -83,15 +83,15 @@ public:
     /// type retrieved by default will be QObject.<br/>
     /// For every pointer dereferencing, a memory address will be added before the value of the instance.<br/>
     /// <br/>
-    /// Examples (Code / Type name / Value):<br/>
-    /// - i32_q i = 3 / i32 / 3<br/>
-    /// - i32_q* pInt = &i / i32* / 0x######## 3<br/>
-    /// - const i32_q ci = 3 / i32 / 3<br/>
-    /// - const i32_q* pInt = &ci / const i32* / 0x######## 3<br/>
-    /// - const i32_q** ppInt = &pInt / const i32** / 0x######## 0x######## 3<br/>
-    /// - string_q strInt = "text" / string / text<br/>
-    /// - MyCustomType t / <Unknown type (size: #)> / <Unknown type at 0x########><br/>
-    /// - i32_q* pNull = null_q / i32* / <Null>
+    /// Examples (Code / Type name / "Value"):<br/>
+    /// - i32_q i = 3 / i32 / "3"<br/>
+    /// - i32_q* pInt = &i / i32* / "0x######## 3"<br/>
+    /// - const i32_q ci = 3 / i32 / "3"<br/>
+    /// - const i32_q* pInt = &ci / const i32* / "0x######## 3"<br/>
+    /// - const i32_q** ppInt = &pInt / const i32** / "0x######## 0x######## 3"<br/>
+    /// - string_q strInt = "text" / string / "text"<br/>
+    /// - MyCustomType t / "<Unknown type (size: #)>" / "<Unknown type at 0x########>"<br/>
+    /// - i32_q* pNull = null_q / i32* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
     /// <param name="argument">[IN] The argument to be traced.</param>
@@ -118,14 +118,14 @@ public:
     /// For every pointer dereferencing, a memory address will be added before the value of the instance.<br/>
     /// <br/>
     /// Examples (Code / Type name / Value):<br/>
-    /// - i32_q i = 3 / i32 / 3<br/>
-    /// - i32_q* pInt = &i / i32* / 0x######## 3<br/>
-    /// - const i32_q ci = 3 / i32 / 3<br/>
-    /// - const i32_q* pInt = &ci / const i32* / 0x######## 3<br/>
-    /// - const i32_q** ppInt = &pInt / const i32** / 0x######## 0x######## 3<br/>
+    /// - i32_q i = 3 / i32 / "3"<br/>
+    /// - i32_q* pInt = &i / i32* / "0x######## 3"<br/>
+    /// - const i32_q ci = 3 / i32 / "3"<br/>
+    /// - const i32_q* pInt = &ci / const i32* / "0x######## 3"<br/>
+    /// - const i32_q** ppInt = &pInt / const i32** / "0x######## 0x######## 3"<br/>
     /// - string_q strInt = "text" / string / text<br/>
-    /// - MyCustomType t / <Unknown type (size: #)> / <Unknown type at 0x########><br/>
-    /// - i32_q* pNull = null_q / i32* / <Null>
+    /// - MyCustomType t / "<Unknown type (size: #)>" / "<Unknown type at 0x########>"<br/>
+    /// - i32_q* pNull = null_q / i32* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
     /// <param name="pArgument">[IN] The argument to be traced.</param>
@@ -152,14 +152,14 @@ public:
     /// For every pointer dereferencing, a memory address will be added before the value of the instance.<br/>
     /// <br/>
     /// Examples (Code / Type name / Value):<br/>
-    /// - i32_q i = 3 / i32 / 3<br/>
-    /// - i32_q* pInt = &i / i32* / 0x######## 3<br/>
-    /// - const i32_q ci = 3 / i32 / 3<br/>
-    /// - const i32_q* pInt = &ci / const i32* / 0x######## 3<br/>
-    /// - const i32_q** ppInt = &pInt / const i32** / 0x######## 0x######## 3<br/>
-    /// - string_q strInt = "text" / string / text<br/>
-    /// - MyCustomType t / <Unknown type (size: #)> / <Unknown type at 0x########><br/>
-    /// - i32_q* pNull = null_q / i32* / <Null>
+    /// - i32_q i = 3 / i32 / "3"<br/>
+    /// - i32_q* pInt = &i / i32* / "0x######## 3"<br/>
+    /// - const i32_q ci = 3 / i32 / "3"<br/>
+    /// - const i32_q* pInt = &ci / const i32* / "0x######## 3"<br/>
+    /// - const i32_q** ppInt = &pInt / const i32** / "0x######## 0x######## 3"<br/>
+    /// - string_q strInt = "text" / string / "text"<br/>
+    /// - MyCustomType t / "<Unknown type (size: #)>" / "<Unknown type at 0x########>"<br/>
+    /// - i32_q* pNull = null_q / i32* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
     /// <param name="pArgument">[IN] The argument to be traced.</param>

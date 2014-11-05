@@ -72,7 +72,7 @@ public:
     /// The use of this mark is optional with respect to the stack allocator, but the overall deletion of blocks from the stack may
     /// speed up by deleting them at once (the stack shall decrease until the position pointed by the mark) instead of deleting
     /// the blocks one by one.
-    /// </remakrs>
+    /// </remarks>
     class QE_LAYER_COMMON_SYMBOLS QMark
     {
 
@@ -109,7 +109,7 @@ public:
         /// </summary>
         /// <remarks>
         /// It cannot be a null address.
-        /// </remakrs>
+        /// </remarks>
         void* m_pMemoryAddress;
 
     }; // --- QMark ---
@@ -124,7 +124,7 @@ protected:
     /// left as a gap in the stack (if it proceeds) between the end of the block header and the start of the memory block for
     /// making the block to be aligned according to its alignment value, and the amount of bytes necessary to roll the stack back
     /// to the previous block header.
-    /// </remakrs>
+    /// </remarks>
     class QE_LAYER_COMMON_SYMBOLS QBlockHeader
     {
 	    // CONSTRUCTORS
@@ -178,7 +178,7 @@ protected:
         /// </summary>
         /// <remarks>
         /// If the block header is the first one in the stack, this value will be zero.
-        /// </remakrs>
+        /// </remarks>
         /// <returns>
         /// A discrete, positie value (or zero) representing the necessary offset to make the stack to point to the previous
         /// block header respect to the current one.
@@ -195,7 +195,7 @@ protected:
         /// </summary>
         /// <remarks>
         /// It cannot be zero.
-        /// </remakrs>
+        /// </remarks>
         pointer_uint_q m_uSize;
 
         /// <summary>
@@ -206,7 +206,7 @@ protected:
         /// -If the memory block is correctly aligned, this value will be zero so the block will be stored in the stack
         /// immediately after the block header.<br/>
         /// -If a negative value for this member was computed, the behaviour is undefined.
-        /// </remakrs>
+        /// </remarks>
         pointer_uint_q m_uAlignmentOffset;
 
         /// <summary>
@@ -217,7 +217,7 @@ protected:
         /// of the current bloch header in order to roll back to the previous one.<br/>
         /// -If the current block header is the first one in the stack, this value will be zero.<br/>
         /// -If a negative value for this member was computed, the behaviour is undefined.
-        /// </remakrs>
+        /// </remarks>
         pointer_uint_q m_uPreviousHeaderBackOffset;
 
     }; // --- QBlockHeader ---
@@ -242,7 +242,7 @@ public:
 	/// </summary>
     /// <remarks>
     /// A memory alignment of 1 byte is assumed.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uPreallocationSize">[IN] The size of the contiguous preallocation block of memory needed by the stack allocator to work.
     /// It cannot be zero.</param>
 	explicit QStackAllocator(const pointer_uint_q uPreallocationSize);
@@ -262,7 +262,7 @@ public:
     /// -The stack allocator will not delete the input preallocated memory block; it has to be deleted externally
     /// by the entity which provided it.<br/>
     /// -A memory alignment of 1 byte is assumed.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uPreallocationSize">[IN] The size of the contiguous preallocation block of memory needed by the stack allocator to work.
     /// It cannot be zero. If the pointer is not pointing to a real preallocated memory block, the behaviour is undefined.</param>
     /// <param name="pMemAddress">[IN] A pointer to the start of the preallocated memory block into which the stack allocator will perform allocations.
@@ -277,7 +277,7 @@ public:
     /// some amount memory may be useless at the beginning of the block.<br/>
     /// The stack allocator will not delete the input preallocated memory block; it has to be deleted externally
     /// by the entity which provided it.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uPreallocationSize">[IN] The size of the and contiguous preallocation block of memory needed by the stack allocator to work.
     /// It cannot be zero.</param>
     /// <param name="pMemAddress">[IN] A pointer to the start of the preallocated memory block from which the stack allocator may perform allocations.
@@ -292,7 +292,7 @@ private:
     /// </summary>
     /// <remarks>
     /// This constructor is invalidated, so that the user has to use QStackAllocator::CopyTo in order to copy the stack allocator.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="stackAllocator">[IN] The stack allocator from which there is a try to create a copy in the resident stack allocator.</param>
     QStackAllocator(const QStackAllocator& stackAllocator);
 
@@ -306,7 +306,7 @@ public:
 	/// </summary>
     /// <remarks>
     /// The stack allocator will not delete the preallocated memory block when it has been provided externally by the user.
-    /// </remakrs>
+    /// </remarks>
 	~QStackAllocator();
 
 
@@ -321,7 +321,7 @@ public:
     /// -If something goes wrong and the block cannot be allocated a null pointer is returned.<br/>
     /// -A memory alignment of 1 byte is assumed.<br/>
     /// -Every allocation requires an extra amount of bytes of 12 bytes.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uSize">[IN] Size of the memory block to be allocated. It cannot be zero.</param>
     /// <returns>
     /// A pointer to the start of the allocated memory block.
@@ -335,7 +335,7 @@ public:
     /// If something goes wrong and the block cannot be allocated a null pointer is returned.<br/>
     /// Every allocation requires an extra amount of bytes of 12 bytes.<br/>
     /// Due to the alignment adjustment, the required free space may be greater than expected.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uSize">[IN] Size of the memory block to be allocated. It cannot be zero.</param>
     /// <param name="alignment">[IN] The alignment for the new memory block.</param>
     /// <returns>
@@ -348,7 +348,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If the stack is empty nothing happens.
-    /// </remakrs>
+    /// </remarks>
     void Deallocate();
 
     /// <summary>
@@ -360,7 +360,7 @@ public:
     /// memory addresses into the preallocated memory block will be considered as released/deleted).<br/>
     /// -If the stack is empty nothing happens.<br/>
     /// -If the mark is out of the bounds of stack base and the stack top, deallocation will not occur.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="mark">[IN] The mark to which the stack has to be rolled back. It cannot be null,
     /// and will always be in a range between the base address of the stack and the stack top.</param>
     void Deallocate(const QMark& mark);
@@ -370,7 +370,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If the stack is empty nothing happens.
-    /// </remakrs>
+    /// </remarks>
     void Clear();
 
     /// <summary>
@@ -379,7 +379,7 @@ public:
     /// </summary>
     /// <remarks>
     /// This size cannot be, by no means, lesser than the sum of the sizes of the currently allocated blocks.
-    /// </remakrs>
+    /// </remarks>
     /// <returns>
     /// A discrete, positive value representing the amount of bytes occupied by the preallocated memory block.
     /// </returns>
@@ -400,7 +400,7 @@ public:
     /// the metadata.<br/>
     /// <br/>
     /// -A memory alignment of 1 byte is assumed.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uSize">[IN] Size of the memory block to be allocated.</param>
     /// <returns>
     /// True if the allocation is possible. False otherwise.
@@ -421,7 +421,7 @@ public:
     /// it could be expected that an allocation of a memory block whose size occupies 1024 bytes, and a valid alignment value
     /// of 16 bytes, could occur. However, it will not and CanAllocate will return false due to the necessary extra bytes to store
     /// the metadata.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uSize">[IN] Size of the memory block to be allocated.</param>
     /// <param name="alignment">[IN] The alignment value for the memory block to be allocated.</param>
     /// <returns>
@@ -435,7 +435,7 @@ public:
     /// <remarks>
     /// This size cannot be, by no means, greater than the size of the preallocated memory block.<br/>
     /// The amount of allocated bytes includes the bytes lost due to the alignment adjustment of allocated blocks.
-    /// </remakrs>
+    /// </remarks>
     /// <returns>
     /// A discrete, positive value representing the amount of bytes occupied in the stack by all its allocated memory blocks.
     /// </returns>
@@ -448,7 +448,7 @@ public:
     /// If the resident stack allocator has a greater size than the specified one, the latter is not modified in any way.<br/>
     /// The alignment of both allocators must be the same or nothing will be done.<br/>
     /// An important thing to take into account is that, since the buffer is copied in one go, all the blocks may be misaligned in the destination allocator.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="stackAllocator">[OUT] The stack allocator in which the resident has to copy its data.</param>
     void CopyTo(QStackAllocator& stackAllocator) const;
 
@@ -458,7 +458,7 @@ public:
     /// <remarks>
     /// Special attention has to be taken when using this mark, because it could become obsolete due to further deallocations
     /// in the stack; if the user uses an obsolete mark for trying to roll the stack top back, undefined behaviour is expected.
-    /// </remakrs>
+    /// </remarks>
     /// <returns>
     /// A mark to the current stack top.
     /// </returns>
@@ -476,7 +476,7 @@ protected:
     /// -In order to avoid a huge memory leak the preallocated memory block has to be freed before calling this method.<br/>
     /// -The stack allocator keeps its current state (either validated or invalidated) after calling to this method. If the state
     /// has to be modified, it has to be done apart from this method.
-    /// </remakrs>
+    /// </remarks>
     void ClearAttributes();
 
     /// <summary>
@@ -485,7 +485,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// If something goes wrong (and the block cannot be allocated) a null pointer is returned.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="uPreallocationSize">[IN] The size of the preallocated block of memory needed by the stack allocator to work.
     /// It cannot be zero.</param>
     /// <param name="alignment">[IN] The alignment for the preallocated aligned memory block.</param>
@@ -501,7 +501,7 @@ private:
     /// </summary>
     /// <remarks>
     /// This operator is invalidated, so that the user has to use QStackAllocator::CopyTo in order to copy the stack allocator.
-    /// </remakrs>
+    /// </remarks>
     /// <param name="stackallocator">[IN] The stack allocator from which there is a try to create a copy in the resident stack allocator.</param>
     QStackAllocator& operator=(const QStackAllocator& stackallocator);
 
@@ -515,7 +515,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// Its main role is to point to the start of the prellocated memory block.
-    /// </remakrs>
+    /// </remarks>
     void* m_pBase;
 
     /// <summary>
@@ -523,7 +523,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// When the stack is empty it points to the same address as the pointer to the stack base.
-    /// </remakrs>
+    /// </remarks>
     void* m_pTop;
 
     /// <summary>
@@ -531,7 +531,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// When the stack is empty it points to the same address as the pointer to the stack top.
-    /// </remakrs>
+    /// </remarks>
     void* m_pPrevious;
 
     /// <summary>
@@ -539,7 +539,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// By default it equals one, otherwise it has to be a power of two.
-    /// </remakrs>
+    /// </remarks>
     QAlignment m_alignment;
 
     /// <summary>
@@ -555,7 +555,7 @@ protected:
     /// </summary>
     /// <remarks>
     /// This size cannot be, by no means, greater than the size of the preallocated memory block.
-    /// </remakrs>
+    /// </remarks>
     pointer_uint_q m_uAllocatedBytes;
 
     /// <summary>

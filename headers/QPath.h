@@ -107,12 +107,12 @@ public:
     /// On Windows, backslashes ("\") are internally replaced with slashes ("/").<br/>
     /// Examples of valid paths:<br/>
     /// <br/><ul>
-    /// <li>C:/Windows/System/
-    /// <li>/home/user/Desktop/
-    /// <li>~/Desktop/
-    /// <li>./../../path1/filename.ext
-    /// <li>//user@myhost/directory/
-    /// <li>//[255.255.0.1]/
+    /// <li>"C:/Windows/System/"
+    /// <li>"/home/user/Desktop/"
+    /// <li>"~/Desktop/"
+    /// <li>"./../../path1/filename.ext"
+    /// <li>"//user@myhost/directory/"
+    /// <li>"//[255.255.0.1]/"
     /// </ul>
     /// </remarks>
     /// <param name="strPath">[IN] The path to be parsed, validated and stored. Any invalid character will be removed. If it is empty, the path "./" will be used instead; if it only contains 
@@ -128,6 +128,9 @@ public:
     /// Assignment operator that makes a copy of another path.
     /// </summary>
     /// <param name="path">[IN] The path to be copied.</param>
+    /// <returns>
+    /// A reference to the resultant path.
+    /// </returns>
     QPath& operator=(const QPath &path);
 
     /// <summary>
