@@ -1,0 +1,4 @@
+=Documentación relacionada con el IDE Code::Blocks=
+
+ * [CodeSnippets CodeSnippets]
+ * [DoxyBlocksPlugin Plug-in DoxyBlocks]

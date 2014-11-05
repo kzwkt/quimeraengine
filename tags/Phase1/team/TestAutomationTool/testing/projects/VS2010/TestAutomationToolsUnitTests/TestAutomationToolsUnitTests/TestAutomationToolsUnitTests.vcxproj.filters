@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{87c71125-8d77-49cc-b6f0-e2e4a47d85cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem">
+      <UniqueIdentifier>{a0a9a6ac-b120-439f-be19-0d3338ba20eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFile_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactory_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATKeyValueNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATShellProcess_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATCompilerInfo_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATFormattedMessage_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATMessageFormat_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThread_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLogger_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoader_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATXmlReader_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactory_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultInfo_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultConsultant_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\ETATTestType.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\TATCommonTestConfig.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\TATSimpleConfigLoader.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResults_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactoryWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfigurationWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFileWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNodeMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\ExternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\InternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\Configuration.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATShellProcessListenerMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATLoggerMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThreadWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRichTextCtrlMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLoggerWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\ETATTestType.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATCommonTestConfig.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATPerformanceTestModuleBase.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATSimpleConfigLoader.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATFixtures.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATUnitTestModuleBase.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsMock.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">
+      <Filter>TestSystem</Filter>
+    </None>
+  </ItemGroup>
+</Project>

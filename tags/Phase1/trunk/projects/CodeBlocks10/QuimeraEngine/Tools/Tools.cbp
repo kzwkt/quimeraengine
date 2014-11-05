@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tools" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Math\;Containers\;Time\;" />
+		<Build>
+			<Target title="DebugLinux32SharedrtStatic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/libQuimeraEngineTools.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../../../3rdparty/Boost/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtStatic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+			</Target>
+			<Target title="DebugWin32SharedrtDynamic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" imp_lib="$(TARGET_OUTPUT_DIR)lib$(TARGET_OUTPUT_BASENAME).dll.a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux32SharedrtDynamic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/libQuimeraEngineTools.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtStatic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic/libQuimeraEngineTools.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add directory="../../../../3rdparty/Boost/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtDynamic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic/libQuimeraEngineTools.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add option="-v" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugMac32SharedrtDynamic\libQuimeraEngineCommon.so" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-march=pentium4" />
+			<Add option="-Wshadow" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Winline" />
+			<Add option="-Wmissing-include-dirs" />
+			<Add option="-Wswitch-default" />
+			<Add option="-Wall" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
+		</Compiler>
+		<Unit filename="../../../../headers/EQIntersections.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/EQSpaceRelation.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/EQTreeTraversalOrder.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../headers/MathDefinitions.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseDualQuaternion.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseHexahedron.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseLineSegment.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseMatrix2x2.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseMatrix3x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseMatrix3x4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseMatrix4x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseMatrix4x4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseOrb.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBasePlane.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseQuadrilateral.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseQuaternion.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseRay.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseTriangle.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseVector2.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseVector3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QBaseVector4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QCircle.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QComparatorDefault.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../headers/QDateTime.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../headers/QDualQuaternion.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QFixedArray.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../headers/QHexahedron.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QLineSegment.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QLineSegment2D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QLineSegment3D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QList.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../headers/QMatrix2x2.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QMatrix3x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QMatrix3x4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QMatrix4x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QMatrix4x4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QOrb.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QPlane.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QQuadrilateral.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QQuaternion.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QRay.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QRay2D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QRay3D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QRotationMatrix3x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QScalingMatrix3x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QSpaceConversionMatrix.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QSphere.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTimeSpan.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTimeZone.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTransformationMatrix.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTransformationMatrix3x3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTranslationMatrix.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTriangle.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTriangle2D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QTriangle3D.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QVector2.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QVector3.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QVector4.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQAngle.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQPoint.h">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQTimeZoneFactory.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../headers/ToolsDefinitions.h" />
+		<Unit filename="../../../../source/EQIntersections.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/EQSpaceRelation.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/EQTreeTraversalOrder.cpp">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseDualQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseHexahedron.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseLineSegment.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseMatrix2x2.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseMatrix3x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseMatrix3x4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseMatrix4x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseMatrix4x4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseOrb.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBasePlane.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseQuadrilateral.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseRay.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseTriangle.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseVector2.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseVector3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseVector4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QCircle.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QDateTime.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/QDstInformation.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/QDualQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QHexahedron.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QLineSegment.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QLineSegment2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QLineSegment3D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QMatrix2x2.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QMatrix3x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QMatrix3x4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QMatrix4x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QMatrix4x4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QOrb.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QPlane.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QQuadrilateral.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QRay.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QRay2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QRay3D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QRotationMatrix3x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QScalingMatrix3x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QSpaceConversionMatrix.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QSphere.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTimeSpan.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/QTimeZone.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/QTransformationMatrix.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTransformationMatrix3x3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTranslationMatrix.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTriangle.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTriangle2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTriangle3D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QVector2.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QVector3.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QVector4.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/SQAngle.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/SQPoint.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/SQTimeZoneFactory.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Unit filename="../../../../source/TimeZoneDatabase.cpp">
+			<Option virtualFolder="Time/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

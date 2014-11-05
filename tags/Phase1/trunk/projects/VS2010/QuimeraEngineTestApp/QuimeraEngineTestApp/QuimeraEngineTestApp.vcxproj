@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3077CE62-37E5-432F-A7CD-CD344DBE8836}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>QuimeraEngineTestApp</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsManaged>false</CompileAsManaged>
+      <StringPooling>true</StringPooling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>All</AssemblerOutput>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreLinkEvent>
+      <Command>copy $(TargetDir)\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAsManaged>false</CompileAsManaged>
+      <StringPooling>true</StringPooling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>All</AssemblerOutput>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PreLinkEvent>
+      <Command>copy $(TargetDir)\..\..\..\..\bin\VS2010\$(Configuration) $(TargetDir)
+copy $(TargetDir)\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="QuimeraEngineTestApp.ico" />
+    <None Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QuimeraEngineTestApp.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="QuimeraEngineTestApp.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="QuimeraEngineTestApp.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

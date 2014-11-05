@@ -1,0 +1,15 @@
+= Introducción =
+
+Para aquellos que no estén familiarizados con el uso de Code Snippets o similares lo primero que tenemos que saber es que su  principal función es la de tener ordenados pequeños trozos de código de uso frecuente. De esta forma podremos introducirlos directamente en nuestro programa sin necesidad de volver a teclearlos.
+
+En este documento se explica como utilizar la utilidad Code snippets de Codeblocks con un objetivo ligeramente distinto. Se trata de tener disponibles las plantillas de varios archivos y no empezar a codificar desde cero.
+
+= Detalles =
+
+  * Si no tenemos visible la ventana de Code snippets vamos al menú View → Code snippets y veremos una ventana similar a la que aparece en la parte superior izquierda de la imagen:[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_1.jpg]
+
+  * El primer paso será crear una nueva sección, en este ejemplo la he llamado Plantillas Quimera Engine. Para ello pincharemos con el botón derecho en la carpeta de color verde que pone codesnippets y seleccionaremos la opción “Add SubCategory” y le ponemos el nombre deseado. El resultado puede verse en la siguiente imagen:[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_2.jpg]
+
+  * Ahora vamos a añadir un enlace a una de las plantillas que deseamos tener disponibles. Para ello haremos click con el botón derecho en la categoría que acabamos de crear “Plantillas Quimera Engine” y seleccionamos “Add snippet”. Se nos aparece una ventana nueva con varias opciones. En este ejemplo vamos a añadir la plantilla de los archivos cpp. Rellenamos el campo que pone label con algo descriptivo como “Plantilla de archivos fuente” o similar. Después pulsamos sobre el botón que pone Link target con lo que se nos abrirá un dialogo en que el tendremos que elegir el archivo que queremos utilizar como plantilla. En nuestro caso será “SourceTemplate.cpp”. El resultado final lo podemos ver en la imagen. Después pulsaremos el botón de aceptar.[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_3.jpg]
+
+  * Una vez finalizado el paso anterior ya tendremos disponible la plantilla para poder utilizarla cuando nos sea necesario. Para ello bastará hacer click con el botón derecho del ratón sobre el enlace recién creado, en este caso “Plantilla de archivos fuente” y seleccionar la opción “Edit File” con lo que conseguiremos que se nos abra el archivo deseado en otra ventana que nos permitirá copiar todo el código deseado a nuestro editor de Codeblocks.[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_4.jpg]
