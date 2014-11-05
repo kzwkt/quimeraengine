@@ -3384,13 +3384,13 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const QVector4 VECTOR = QVector4(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, SQFloat::_1);
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux
         string_q EXPECTED_STRING_FORM = QE_L("V4(0.25,-1.99999999e-06,40000,1)");
     #else
         string_q EXPECTED_STRING_FORM = QE_L("V4(0.25,-1.99999999e-006,40000,1)");
     #endif
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+    #if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux
         string_q EXPECTED_STRING_FORM = QE_L("V4(0.25,-1.9999999999999999e-06,40000,1)");
     #else
         string_q EXPECTED_STRING_FORM = QE_L("V4(0.25,-1.9999999999999999e-006,40000,1)");
