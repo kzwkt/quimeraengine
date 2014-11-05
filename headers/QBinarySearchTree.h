@@ -340,14 +340,14 @@ public:
 
                             // And searches for the first parent reached from the left side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetRightChild() == pNode - pBasePointer)
+                                  pNextNode->GetRightChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
                                 pNextNode = pBasePointer + pNextNode->GetParent();
                             }
                             
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetLeftChild() != pNode - pBasePointer)
+                               pNextNode->GetLeftChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_FORWARD;
                             else
@@ -426,14 +426,14 @@ public:
 
                             // And searches for the first ancestor reached from the right side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetLeftChild() == pNode - pBasePointer)
+                                  pNextNode->GetLeftChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
                                 pNextNode = pBasePointer + pNextNode->GetParent();
                             }
 
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetRightChild() != pNode - pBasePointer)
+                               pNextNode->GetRightChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_BACKWARD;
                             else
@@ -509,14 +509,14 @@ public:
 
                             // And searches for the first parent reached from the left side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetRightChild() == pNode - pBasePointer)
+                                  pNextNode->GetRightChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
                                 pNextNode = pBasePointer + pNextNode->GetParent();
                             }
 
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetLeftChild() != pNode - pBasePointer)
+                               pNextNode->GetLeftChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_FORWARD;
                             else
@@ -591,14 +591,14 @@ public:
 
                             // And searches for the first ancestor reached from the right side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetLeftChild() == pNode - pBasePointer)
+                                  pNextNode->GetLeftChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
                                 pNextNode = pBasePointer + pNextNode->GetParent();
                             }
                             
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetRightChild() != pNode - pBasePointer)
+                               pNextNode->GetRightChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_BACKWARD;
                             else

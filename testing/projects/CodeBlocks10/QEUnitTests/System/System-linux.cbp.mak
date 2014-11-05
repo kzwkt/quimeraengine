@@ -17,7 +17,7 @@ CFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -Wshadow -Wredundant-decls -Wcast-align -Wi
 RESINC_DEBUGLINUX32SHAREDRTSTATIC =  
 RCFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  
 LIBDIR_DEBUGLINUX32SHAREDRTSTATIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtStatic
-LIB_DEBUGLINUX32SHAREDRTSTATIC = -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n
+LIB_DEBUGLINUX32SHAREDRTSTATIC = -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n -lrt
 LDFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtStatic
 DEP_DEBUGLINUX32SHAREDRTSTATIC = 
@@ -98,8 +98,8 @@ $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmo
 $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/SQTypeExtensions_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/SQTypeExtensions_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/SQTypeExtensions_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/SQTypeExtensions_Test.o
 
-$(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.cpp
-	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC) $(INC_DEBUGLINUX32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.o
+$(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.cpp
+	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QDerivedFromObject.o
 
 $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QPath_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QPath_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_system/QPath_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_system/QPath_Test.o
