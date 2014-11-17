@@ -162,7 +162,6 @@ QTEST_CASE ( Constructor2_BufferIsNotAdjustedToAlignment_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_SIZE = 8U;
     const QAlignment INPUT_ALIGNMENT(4U);
-    const void* NULL_BUFFER = null_q;
     void* pInputBuffer = operator new(EXPECTED_SIZE, INPUT_ALIGNMENT);
     void* INPUT_ADDRESS = (void*)((pointer_uint_q)pInputBuffer + 2U);
     void* EXPECTED_ADDRESS = (void*)((pointer_uint_q)pInputBuffer + 4U); // The start address should be moved to this address so it is aligned to 4 bytes

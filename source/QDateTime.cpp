@@ -113,6 +113,7 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
     static const u64_q MIN_DATE_HNS         = 3ULL;
 
     // These constants represent the maximum values for every part of the date and time
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
     static const u64_q MAX_MONTH       = 12ULL;
     static const u64_q MAX_DAY         = 31ULL;
     static const u64_q MAX_HOUR        = 23ULL;
@@ -121,6 +122,7 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
     static const u64_q MAX_MILLISECOND = 999ULL;
     static const u64_q MAX_MICROSECOND = 999ULL;
     static const u64_q MAX_HNS         = 9ULL;
+#endif
 
     // Checks for invalid inputs
     QE_ASSERT_ERROR(nYear != 0, "The year zero does not exist");
@@ -258,8 +260,10 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
     static const u64_q MIN_DATE_DAY         = 19ULL; // IMPORTANT: It cannot be 18 because the time would be 00:00:00, which is anterior to 21:11:54
 
     // These constants represent the maximum values for every part of the date and time
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
     static const u64_q MAX_MONTH       = 12ULL;
     static const u64_q MAX_DAY         = 31ULL;
+#endif
 
     // Checks for invalid inputs
     QE_ASSERT_ERROR(nYear != 0, "The year zero does not exist");
@@ -363,12 +367,14 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
                      const QTimeZone* pTimeZone) : m_pTimeZone(pTimeZone)
 {
     // These constants represent the maximum values for every part of the date and time
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
     static const u64_q MAX_HOUR        = 23ULL;
     static const u64_q MAX_MINUTE      = 59ULL;
     static const u64_q MAX_SECOND      = 59ULL;
     static const u64_q MAX_MILLISECOND = 999ULL;
     static const u64_q MAX_MICROSECOND = 999ULL;
     static const u64_q MAX_HNS         = 9ULL;
+#endif
 
     // Checks for invalid inputs
     QE_ASSERT_ERROR(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
@@ -401,10 +407,12 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
                 m_pTimeZone(pTimeZone)
 {
     // These constants represent the maximum values for every part of the date and time
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
     static const u64_q MAX_HOUR        = 23ULL;
     static const u64_q MAX_MINUTE      = 59ULL;
     static const u64_q MAX_SECOND      = 59ULL;
     static const u64_q MAX_MILLISECOND = 999ULL;
+#endif
 
     // Checks for invalid inputs
     QE_ASSERT_ERROR(uHour <= MAX_HOUR, "The value of the hour is not valid, it must be in the range [0, 23]");
@@ -1561,8 +1569,6 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
                 uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
-
         u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
         uHour = scast_q(uHoursInLastDay / HNS_PER_HOUR, unsigned int);
 
@@ -1628,7 +1634,6 @@ QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant,
 void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
 {
     static const char_q DATE_SEPARATOR = '-';
-    static const char_q TIME_START_SEPARATOR = 'T';
 
     // Gets the Date part only
     const string_q& DATE_PART = strTimestamp.Substring(0, uTPosition - 1);
@@ -1664,7 +1669,6 @@ void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u
 
 void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
 {
-    static const char_q TIME_START_SEPARATOR = 'T';
     static const char_q SECOND_FRACTION_SEPARATOR1 = '.';
     static const char_q SECOND_FRACTION_SEPARATOR2 = ',';
     static const char_q POSITIVE_SIGN = '+';

@@ -228,7 +228,6 @@ QTEST_CASE ( Constructor3_ElementsAreCopiedInOrder_Test )
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
     QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
     const bool ARE_EQUAL = true;
 
 	// [Execution]
@@ -333,7 +332,6 @@ QTEST_CASE ( Constructor4_ElementsAreCopiedInOrder_Test )
     arOriginalArray.Add(1);
     arOriginalArray.Add(2);
     arOriginalArray.Add(3);
-    const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
     const bool ARE_EQUAL = true;
 
 	// [Execution]
@@ -602,7 +600,6 @@ QTEST_CASE ( AssignmentOperator1_ElementsAreCopiedInOrder_Test )
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
     QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
     const bool ARE_EQUAL = true;
 
 	// [Execution]
@@ -835,7 +832,6 @@ QTEST_CASE ( AssignmentOperator2_ElementsAreCopiedInOrder_Test )
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
     QDynamicArray<int> arOriginalArray(QFixedArray<int>(arOriginalArrayElements, 3U));
-    const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
     const bool ARE_EQUAL = true;
 
 	// [Execution]
@@ -893,9 +889,9 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
 
     // [Preparation]
-    int arOriginalArrayElements[] = {0, 1, 2};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    unsigned int arOriginalArrayElements[] = {0, 1, 2};
+    QFixedArray<unsigned int> arOriginalArray(arOriginalArrayElements, 3U);
+    QDynamicArray<unsigned int> arDynamicArray(arOriginalArray);
 
     const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 20U;
@@ -920,7 +916,6 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
 
     // [Preparation]
-    const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 1U;
     const pointer_uint_q EXPECTED_CAPACITY = 3U;
 

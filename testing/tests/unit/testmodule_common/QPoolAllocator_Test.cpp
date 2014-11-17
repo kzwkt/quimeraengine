@@ -276,7 +276,7 @@ QTEST_CASE( Constructor3_PointerToFirstPreAllocatedBlockIsAsExpected_Test )
 
     const QAlignment ALIGNMENT(BLOCK_SIZE);
 
-    pointer_uint_q uAdjustment = ALIGNMENT - (pointer_uint_q)pUnalignedBuffer & (ALIGNMENT - 1);
+    pointer_uint_q uAdjustment = ALIGNMENT - ((pointer_uint_q)pUnalignedBuffer & (ALIGNMENT - 1U));
     if(uAdjustment == ALIGNMENT) uAdjustment = 0;
     pointer_uint_q firstAlignedAddress = (pointer_uint_q)pUnalignedBuffer + uAdjustment;
 
@@ -426,9 +426,9 @@ QTEST_CASE( Deallocate_DeallocationOfABlockAllowsItToBeAllocatedAgain_Test )
     // [Execution]
     QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, ALIGNMENT);
 
-    f64_q *pFirstBlock  = (f64_q*)pool.Allocate();
+    pool.Allocate();
     f64_q *pSecondBlock = (f64_q*)pool.Allocate();
-    f64_q *pThirdBlock  = (f64_q*)pool.Allocate();
+    pool.Allocate();
 
     pool.Deallocate(pSecondBlock);
     f64_q *pFourthBlock = (f64_q*)pool.Allocate();
@@ -492,7 +492,7 @@ QTEST_CASE( Clear_ClearAFullPoolMakesItAvailableToAllocateAgain_Test )
 
     for( pointer_uint_q uIndex = 0; uIndex < BLOCKS_COUNT; uIndex++ )
     {
-        f64_q *pBlock = (f64_q*)pool.Allocate();
+        pool.Allocate();
     }
 
     pool.Clear();
@@ -568,11 +568,9 @@ QTEST_CASE( CanAllocate_ReturnsFalseIfCannotAllocate_Test )
     // [Execution]
     QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, ALIGNMENT);
 
-    void* pBuffer;
-
     for( pointer_uint_q uIndex = 0; uIndex < BLOCKS_COUNT; uIndex++ )
     {
-        pBuffer = pool.Allocate();
+        pool.Allocate();
     }
 
     // [Verification]
@@ -641,7 +639,7 @@ QTEST_CASE( GetAllocatedBytes_CheckIfCorrectlyCalculatedWhenOneBlockAllocated_Te
     // [Execution]
     QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, ALIGNMENT);
 
-    f64_q *pBlock = (f64_q*)pool.Allocate();
+    pool.Allocate();
 
     uAllocatedBytesOneBlockExpected = pool.GetAllocatedBytes();
 
@@ -667,11 +665,11 @@ QTEST_CASE( GetAllocatedBytes_CheckIfCorrectlyCalculatedWhenAllBlocksAllocated_T
     // [Execution]
     QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, ALIGNMENT);
 
-    f64_q *pBlock = (f64_q*)pool.Allocate();
+    pool.Allocate();
 
     for(pointer_uint_q uIndex = 0; uIndex < BLOCK_SIZE; uIndex++)
     {
-        pBlock = (f64_q*)pool.Allocate();
+        pool.Allocate();
     }
 
     uAllocatedBytesFullExpected = pool.GetAllocatedBytes();
@@ -1048,12 +1046,12 @@ QTEST_CASE( Reallocate1_PoolContentIsCorrectlyCopied_Test )
 {
     // [Preparation]
     const bool IS_SAME_DATA = true;
-    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCK_SIZE = sizeof(unsigned int);
     const pointer_uint_q BLOCKS_COUNT = 4;
     const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
-    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(unsigned int)));
     for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
-        *(int*)allocator.Allocate() = i;
+        *(unsigned int*)allocator.Allocate() = i;
     
     // [Execution]
     allocator.Reallocate(BLOCK_SIZE * (BLOCKS_COUNT + 1));
@@ -1062,7 +1060,7 @@ QTEST_CASE( Reallocate1_PoolContentIsCorrectlyCopied_Test )
     bool bIsSameData = true;
     
     for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
-        bIsSameData = bIsSameData && *((int*)allocator.GetPointer() + i) == i;
+        bIsSameData = bIsSameData && *((unsigned int*)allocator.GetPointer() + i) == i;
 
     BOOST_CHECK_EQUAL(bIsSameData, IS_SAME_DATA);
 }
@@ -1073,7 +1071,6 @@ QTEST_CASE( Reallocate1_PoolContentIsCorrectlyCopied_Test )
 QTEST_CASE( Reallocate1_SizesAreCorrectAfterReallocation_Test )
 {
     // [Preparation]
-    const bool IS_SAME_DATA = true;
     const pointer_uint_q BLOCK_SIZE = sizeof(int);
     const pointer_uint_q BLOCKS_COUNT = 4;
     const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
@@ -1161,16 +1158,16 @@ QTEST_CASE( Reallocate2_PoolContentIsCorrectlyCopied_Test )
 {
     // [Preparation]
     const bool IS_SAME_DATA = true;
-    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCK_SIZE = sizeof(unsigned int);
     const pointer_uint_q BLOCKS_COUNT = 4;
     const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
     const pointer_uint_q NEW_POOL_SIZE = POOL_SIZE + BLOCK_SIZE;
 
     void* pInputBuffer = operator new(NEW_POOL_SIZE);
 
-    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(unsigned int)));
     for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
-        *(int*)allocator.Allocate() = i;
+        *(unsigned int*)allocator.Allocate() = i;
     
     // [Execution]
     allocator.Reallocate(NEW_POOL_SIZE, pInputBuffer);
@@ -1179,12 +1176,12 @@ QTEST_CASE( Reallocate2_PoolContentIsCorrectlyCopied_Test )
     bool bIsSameData = true;
     
     for(pointer_uint_q i = 0; i < BLOCKS_COUNT; ++i)
-        bIsSameData = bIsSameData && *((int*)allocator.GetPointer() + i) == i;
+        bIsSameData = bIsSameData && *((unsigned int*)allocator.GetPointer() + i) == i;
 
     BOOST_CHECK_EQUAL(bIsSameData, IS_SAME_DATA);
 
     // [Cleaning]
-    delete pInputBuffer;
+    operator delete(pInputBuffer);
 }
 
 /// <summary>
@@ -1193,17 +1190,16 @@ QTEST_CASE( Reallocate2_PoolContentIsCorrectlyCopied_Test )
 QTEST_CASE( Reallocate2_SizesAreCorrectAfterReallocation_Test )
 {
     // [Preparation]
-    const bool IS_SAME_DATA = true;
-    const pointer_uint_q BLOCK_SIZE = sizeof(int);
+    const pointer_uint_q BLOCK_SIZE = sizeof(unsigned int);
     const pointer_uint_q BLOCKS_COUNT = 4;
     const pointer_uint_q POOL_SIZE = BLOCKS_COUNT * BLOCK_SIZE;
     const pointer_uint_q NEW_POOL_SIZE = POOL_SIZE + BLOCK_SIZE;
 
     void* pInputBuffer = operator new(NEW_POOL_SIZE);
 
-    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(int)));
+    QPoolAllocator allocator(POOL_SIZE, BLOCK_SIZE, QAlignment(alignof_q(unsigned int)));
     for(pointer_uint_q i = 0; i < BLOCKS_COUNT - 1; ++i)
-        *(int*)allocator.Allocate() = i;
+        *(unsigned int*)allocator.Allocate() = i;
 
     const pointer_uint_q EXPECTED_POOL_SIZE       = (BLOCKS_COUNT + 1) * BLOCK_SIZE;
     const pointer_uint_q EXPECTED_TOTAL_SIZE      = EXPECTED_POOL_SIZE + sizeof(void**) * (BLOCKS_COUNT + 1);
@@ -1222,7 +1218,7 @@ QTEST_CASE( Reallocate2_SizesAreCorrectAfterReallocation_Test )
     BOOST_CHECK_EQUAL(uAllocatedBytes, EXPECTED_ALLOCATED_BYTES);
 
     // [Cleaning]
-    delete pInputBuffer;
+    operator delete(pInputBuffer);
 }
 
 /// <summary>
@@ -1252,7 +1248,7 @@ QTEST_CASE( Reallocate2_AllocationsCanBeDoneAfterReallocatingFullAllocator_Test 
     BOOST_CHECK_NE(pAllocation, NULL_POINTER);
 
     // [Cleaning]
-    delete pInputBuffer;
+    operator delete(pInputBuffer);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1289,7 +1285,7 @@ QTEST_CASE( Reallocate2_AssertionFailsWhenInputSizeIsNotGreaterThanCurrentPoolSi
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 
     // [Cleaning]
-    delete pInputBuffer;
+    operator delete(pInputBuffer);
 }
 
 /// <summary>

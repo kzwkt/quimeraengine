@@ -89,8 +89,6 @@ QStackAllocator::QStackAllocator(const pointer_uint_q uPreallocationSize, const 
 
     this->ClearAttributes();
 
-    pointer_uint_q uAlignment = alignment;
-
     QE_ASSERT_ERROR(uPreallocationSize > 0, "The given size for the preallocated memory block cannot be zero.");
 
     m_pBase = this->Preallocate(uPreallocationSize, alignment);
@@ -213,7 +211,7 @@ void* QStackAllocator::Allocate(const pointer_uint_q uSize, const QAlignment& al
                                                                       0 : 
                                                                       pLastBlock->GetAllocatedBlockSize() + pLastBlock->GetAlignmentOffset() + sizeof(QBlockHeader);
 
-        QBlockHeader* pBlockHeader = new (m_pTop) QBlockHeader(uSize, uAmountMisalignedBytes, uOffsetToPreviousBlock);
+        new (m_pTop) QBlockHeader(uSize, uAmountMisalignedBytes, uOffsetToPreviousBlock);
 
         // STEP 4) Gets the allocated block and moves the stack top above it
         pointer_uint_q uAllocatedBlockAddress = rcast_q(m_pTop, pointer_uint_q) + sizeof(QBlockHeader) + uAmountMisalignedBytes;
@@ -275,21 +273,9 @@ void QStackAllocator::Deallocate(const QStackAllocator::QMark& mark)
     if(this->GetAllocatedBytes() > 0 && pMarkAddress >= m_pBase && pMarkAddress < m_pTop)
     {
         // STEP 1) Update 'm_pPrevious'.
-
-        // Auxiliar pointer that will point, on each iteration during the reverse traversal of the Preallocated Memory
-        // Block, to the block header of each allocated memory block; at the end of the traversal, it will point to the
-        // block header of the memory block that will become the top of the stack, so that m_pPrevious will also have to
-        // point to the same address.
-        void* pResultingBackAddress = null_q;
      
         // Auxiliar variable that will store the accumulated decrement of allocates bytes during the traversal.
         pointer_uint_q uAcumDecrementOfAllocatedBytes = 0;
-
-        // Auxiliar variable that stores, on each case, the Offset to traverse back the the previous block header. 
-        pointer_uint_q uOffset  = 0; 
-
-        // Auxiar variables that stores, on each case, casted addresses.
-        pointer_uint_q uAddress = 0;
 
         uAcumDecrementOfAllocatedBytes = rcast_q(m_pTop, pointer_uint_q) - rcast_q(mark.GetMemoryAddress(), pointer_uint_q);
         QBlockHeader* pMarkBlockHeader = scast_q(mark.GetMemoryAddress(), QBlockHeader*);

@@ -368,8 +368,6 @@ QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginListIsZeroAndTheDesti
         listDestination.Add(uIndex);
     }
 
-    const bool SAME_VALUES = true;
-
     // [Execution]
     listDestination = listOrigin;
 
@@ -787,7 +785,6 @@ QTEST_CASE ( GetValue_AssertionFailedWhenPassingAnIndexBiggerThanNumberOfElement
     const pointer_uint_q INDEX_POSITION_TO_RETURN = 10;
     QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
     const bool ASSERTION_FAILED = true;
-    u64_q uReturnedValue = 0;
 
     for(pointer_uint_q uIndex = 0; uIndex < LIST_COUNT_ORIGIN; uIndex++)
     {
@@ -799,7 +796,7 @@ QTEST_CASE ( GetValue_AssertionFailedWhenPassingAnIndexBiggerThanNumberOfElement
 
     try
     {
-        uReturnedValue = list.GetValue(INDEX_POSITION_TO_RETURN);
+        list.GetValue(INDEX_POSITION_TO_RETURN);
     }
     catch(...)
     {
@@ -824,14 +821,13 @@ QTEST_CASE ( GetValue_AssertionFailedWhenListIsEmpty_Test )
     const pointer_uint_q INDEX_POSITION_TO_RETURN = 4;
     QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
     const bool ASSERTION_FAILED = true;
-    u64_q uReturnedValue = 0;
 
     // [Execution]
     bool bAssertionFailed = false;
 
     try
     {
-        uReturnedValue = list.GetValue(INDEX_POSITION_TO_RETURN);
+        list.GetValue(INDEX_POSITION_TO_RETURN);
     }
     catch(...)
     {
@@ -986,14 +982,13 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenListIsEmpty_Test )
     const pointer_uint_q INDEX_POSITION_TO_RETURN = 4;
     QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
     const bool ASSERTION_FAILED = true;
-    u64_q uReturnedValue = 0;
 
     // [Execution]
     bool bAssertionFailed = false;
 
     try
     {
-        uReturnedValue = list[INDEX_POSITION_TO_RETURN];
+        list[INDEX_POSITION_TO_RETURN];
     }
     catch(...)
     {
@@ -1020,7 +1015,6 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenPassingAnIndexBiggerThanNu
      const pointer_uint_q INDEX_POSITION_TO_RETURN = 10;
     QList<u64_q> list = QList<u64_q>(LIST_CAPACITY);
     const bool ASSERTION_FAILED = true;
-    u64_q uReturnedValue = 0;
 
     for(pointer_uint_q uIndex = 0; uIndex < LIST_COUNT; uIndex++)
     {
@@ -1032,7 +1026,7 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenPassingAnIndexBiggerThanNu
 
     try
     {
-        uReturnedValue = list[INDEX_POSITION_TO_RETURN];
+        list[INDEX_POSITION_TO_RETURN];
     }
     catch(...)
     {
@@ -1052,7 +1046,7 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenPassingAnIndexBiggerThanNu
 QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonListAndPosition_Test )
 {
     // [Preparation]
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     const pointer_uint_q INPUT_INDEX = 1;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
@@ -1075,7 +1069,7 @@ QTEST_CASE( GetIterator_ReturnsTheExpectedIteratorWhenUsingCommonListAndPosition
 QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonListAndZeroIndex_Test )
 {
     // [Preparation]
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     const pointer_uint_q INPUT_INDEX = 0;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
@@ -1097,7 +1091,7 @@ QTEST_CASE( GetIterator_ReturnsTheFirstPositionWhenUsingCommonListAndZeroIndex_T
 QTEST_CASE( GetIterator_ReturnsTheLastPositionWhenUsingCommonListAndLastIndex_Test )
 {
     // [Preparation]
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     const pointer_uint_q INPUT_INDEX = NUMBER_OF_ELEMENTS - 1U;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
@@ -1148,7 +1142,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
     const bool ASSERTION_FAILED = true;
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     const pointer_uint_q OUT_OF_BOUNDS_INDEX = NUMBER_OF_ELEMENTS;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
@@ -1202,7 +1196,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
 
     // [Preparation]
     const bool ITERATOR_POINTS_END_POSITION = true;
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     const pointer_uint_q OUT_OF_BOUNDS_INDEX = NUMBER_OF_ELEMENTS;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
@@ -1225,7 +1219,7 @@ QTEST_CASE( GetIterator_IteratorPointsToEndPositionWhenIndexIsOutOfBounds_Test )
 QTEST_CASE( GetFirst_ReturnsTheFirstPositionWhenUsingCommonList_Test )
 {
     // [Preparation]
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
@@ -1265,7 +1259,7 @@ QTEST_CASE( GetFirst_IteratorPointsToEndPositionWhenListIsEmpty_Test )
 QTEST_CASE( GetLast_ReturnsTheLastPositionWhenUsingCommonList_Test )
 {
     // [Preparation]
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 5;
+    const int NUMBER_OF_ELEMENTS = 5;
     QList<int> list = QList<int>(NUMBER_OF_ELEMENTS);
 
     for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
@@ -1326,9 +1320,9 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
     const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 20U;
     QList<int> list(3U);
-    const pointer_uint_q NUMBER_OF_ELEMENTS = 3;
+    const int NUMBER_OF_ELEMENTS = 3;
     
-    for(pointer_uint_q i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         list.Add(i);
 
     // [Execution]
@@ -1337,7 +1331,7 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
     // [Verification]
     bool bElementsAreTheSame = true;
 
-    for(pointer_uint_q i = 0; i < NUMBER_OF_ELEMENTS; ++i)
+    for(int i = 0; i < NUMBER_OF_ELEMENTS; ++i)
         bElementsAreTheSame = bElementsAreTheSame && (list[i] == i);
 
     BOOST_CHECK_EQUAL(bElementsAreTheSame, ELEMENTS_ARE_THE_SAME);
@@ -1349,7 +1343,6 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
 {
     // [Preparation]
-    const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 1U;
     const pointer_uint_q EXPECTED_CAPACITY = 3U;
     QList<int> list(EXPECTED_CAPACITY);
@@ -2127,7 +2120,6 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromLastPosition_Test )
 QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromFirstPosition_Test )
 {
     // [Preparation]
-    const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
     QList<int> commonList(3U);
     commonList.Add(ELEMENT_VALUE);

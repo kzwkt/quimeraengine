@@ -1978,8 +1978,6 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsLesserThanStackBase_Test)
     const pointer_uint_q           VALID_ALLOCATION_ALIGNMENT_VALUE03         = 8;
     const pointer_uint_q           VALID_ALLOCATION_ALIGNMENT_VALUE04         = 16;
 
-    const pointer_uint_q           DECREMENT_VALUE                            = 0X100;
-
     bool                           bAssertionFailedIn01                       = false;
     bool                           bAssertionFailedIn02                       = false;
     bool                           bAssertionFailedIn03                       = false;
@@ -2355,8 +2353,6 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsGreaterThanStackTop_Test)
     const pointer_uint_q           VALID_PREALLOCATION_ALIGNMENT_VALUE02      = 4;
     const pointer_uint_q           VALID_PREALLOCATION_ALIGNMENT_VALUE03      = 8;
     const pointer_uint_q           VALID_PREALLOCATION_ALIGNMENT_VALUE04      = 16;
-
-    const pointer_uint_q           INCREMENT_VALUE                            = 0X100;
 
     bool                           bAssertionFailedIn01                       = false;
     bool                           bAssertionFailedIn02                       = false;

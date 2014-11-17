@@ -1090,7 +1090,7 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
 
     try
     {
-        QQuaternion qQuaternionUT = QQuaternion(NULL_MATRIX);
+        QQuaternion quat(NULL_MATRIX);
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -2193,7 +2193,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
 
     try
     {
-        QQuaternion qQuaternionUT = QUATERNION.Normalize();
+        QUATERNION.Normalize();
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -2825,7 +2825,7 @@ QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsNull_Test )
     BOOST_CHECK_EQUAL(fAngleZUT, EXPECTED_ANGLES);
 }
 
-// TODO Thund: There is a special case, when X = +-90บ. TEst it!
+// TODO Thund: There is a special case, when X = +-90ยบ. TEst it!
 
 /// <summary>
 /// Checks that the length of a common quaternion is what expected.
@@ -3008,7 +3008,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 }
 
 /// <summary>
-/// Checks that obtained angle equals PI (or 180บ) and rotation axis equals null vector when the quaternion is null.
+/// Checks that obtained angle equals PI (or 180ยบ) and rotation axis equals null vector when the quaternion is null.
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Test )
 {
@@ -3037,7 +3037,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 }
 
 /// <summary>
-/// Checks that correct results are obtained when the rotation angle equals Pi (or 180บ).
+/// Checks that correct results are obtained when the rotation angle equals Pi (or 180ยบ).
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Test )
 {
@@ -3173,7 +3173,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 }
 
 /// <summary>
-/// Checks that obtained angle equals PI (or 180บ) and rotation axis equals null vector when the quaternion is null.
+/// Checks that obtained angle equals PI (or 180ยบ) and rotation axis equals null vector when the quaternion is null.
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Test )
 {
@@ -3202,7 +3202,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 }
 
 /// <summary>
-/// Checks that correct results are obtained when the rotation angle equals Pi (or 180บ).
+/// Checks that correct results are obtained when the rotation angle equals Pi (or 180ยบ).
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Test )
 {

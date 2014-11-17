@@ -89,6 +89,8 @@ QCommonTestConfig::QCommonTestConfig(const std::string &strTestModuleName, const
                 nEntryToReadResultsPathFrom = FILE_PERFORMANCETEST_RESULTSPATH_ENTRY_POSITION;
                 break;
             }
+        default:
+            break;
         }
 
         QCommonTestConfig::s_strLogFilePath = (config[nEntryToReadResultsPathFrom] + strTestModuleName + "_" + QE_TEST_CONFIG_NAME + "_" + this->GetCurrentTime() + ".xml");

@@ -1481,7 +1481,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 
     try
     {
-        QVector3 vVectorUT = VECTOR.Normalize();
+        VECTOR.Normalize();
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -1746,7 +1746,7 @@ QTEST_CASE ( AngleBetween_AngleEqualsZeroWhenVectorsAreParallel_Test )
 }
 
 /// <summary>
-/// Checks that the angle equals PI/2 (or 90บ) when vectors are orthogonal.
+/// Checks that the angle equals PI/2 (or 90ยบ) when vectors are orthogonal.
 /// </summary>
 QTEST_CASE ( AngleBetween_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
 {
@@ -1773,7 +1773,7 @@ QTEST_CASE ( AngleBetween_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrtho
 }
 
 /// <summary>
-/// Checks that the angle equals Pi (or 180บ) when vectors are opposite.
+/// Checks that the angle equals Pi (or 180ยบ) when vectors are opposite.
 /// </summary>
 QTEST_CASE ( AngleBetween_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOpposite_Test )
 {
@@ -1804,7 +1804,7 @@ QTEST_CASE ( AngleBetween_AngleIsAlwaysPositive_Test )
     // [Preparation]
     const QVector3 REFERENCE_OPERAND = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);                                // _
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
-    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /จ
+    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /ยจ
 
 	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
@@ -1816,7 +1816,7 @@ QTEST_CASE ( AngleBetween_AngleIsAlwaysPositive_Test )
 }
 
 /// <summary>
-/// Checks that the angle is lower than Pi (or 180บ) when vector are not opposite.
+/// Checks that the angle is lower than Pi (or 180ยบ) when vector are not opposite.
 /// </summary>
 QTEST_CASE ( AngleBetween_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNotOpposite_Test )
 {
@@ -1831,7 +1831,7 @@ QTEST_CASE ( AngleBetween_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNot
 
     const QVector3 REFERENCE_OPERAND = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);                                // _
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
-    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /จ
+    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /ยจ
 
 	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);

@@ -236,7 +236,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 
     try
     {
-        QPlane planeUT = QPlane(NULL_ARRAY);
+        QPlane planeUT(NULL_ARRAY);
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {

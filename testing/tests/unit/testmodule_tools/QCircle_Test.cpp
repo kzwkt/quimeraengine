@@ -941,7 +941,7 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
     bool bAssertionFailed1 = false;
     try
     {
-        EQIntersections intersection1UT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
+        CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     }
     catch(...)
     {
@@ -951,7 +951,7 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
     bool bAssertionFailed2 = false;
     try
     {
-        EQIntersections intersection2UT = CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
+        CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     }
     catch(...)
     {

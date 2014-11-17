@@ -4311,7 +4311,6 @@ QTEST_CASE ( IntersectionPoint4_WComponentOfIntersectionPointDoesNotChange_Test 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
 
     const QVector4 EXPECTED_POINT = QVector4(PLANE.a * -PLANE.d, PLANE.b * -PLANE.d, PLANE.c * -PLANE.d, SQFloat::_0);
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_0 };
     const QVector4 ORIGIN(ORIGIN_COMPONENTS);

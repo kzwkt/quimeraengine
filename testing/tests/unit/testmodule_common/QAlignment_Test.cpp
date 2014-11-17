@@ -47,7 +47,6 @@ QTEST_SUITE_BEGIN( QAlignment_TestSuite )
 QTEST_CASE ( Constructor_AssertionFailsWhenAlignmentValueIsNotPowerOfTwo_Test )
 {
     // [Preparation]
-    unsigned int uAlignmentValue01                = 0;
     const u32_q  ALIGNMENT_VALUE_NON_POWER_OF_TWO = 5;
 
     const bool ASSERTION_FAILED                   = true;

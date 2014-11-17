@@ -600,8 +600,6 @@ QTEST_CASE ( GetCircumcenter_OutputWComponentDependsOnInputVertices_Test)
     TRIANGLE2.B.w = SQFloat::_3;
     TRIANGLE2.C.w = SQFloat::_4;
 
-    const QVector4 EXPECTED_CIRCUMCENTER = QVector4((float_q)2.2142856, (float_q)1.9285715, (float_q)3.6428571, SQFloat::_1);
-
 	// [Execution]
     QVector4 vCircumcenter1 = TRIANGLE1.GetCircumcenter();
     QVector4 vCircumcenter2 = TRIANGLE2.GetCircumcenter();

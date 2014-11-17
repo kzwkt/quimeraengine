@@ -629,7 +629,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointersAreNull_Test )
 
     try
     {
-        QDualQuaternion dualQuaternion = QDualQuaternion(arRealPartComponents, NULL_POINTER);
+        QDualQuaternion(arRealPartComponents, NULL_POINTER);
     }
     catch(...) // TODO avillalba: A concrete exception should be caoght when it's implemented
     {
@@ -638,7 +638,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointersAreNull_Test )
 
     try
     {
-        QDualQuaternion dualQuaternion = QDualQuaternion(NULL_POINTER, arDualPartComponents);
+        QDualQuaternion(NULL_POINTER, arDualPartComponents);
     }
     catch(...) // TODO avillalba: A concrete exception should be caught when it's implemented
     {
@@ -872,7 +872,7 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
 
     try
     {
-        QDualQuaternion dualQuaternionUT = DUALQUATERNION / SCALAR;
+        DUALQUATERNION / SCALAR;
     }
     catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
     {
@@ -1047,7 +1047,7 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
 
     try
     {
-        QDualQuaternion dualQuaternionUT = DUALQUATERNION / SCALAR;
+        DUALQUATERNION / SCALAR;
     }
     catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
     {

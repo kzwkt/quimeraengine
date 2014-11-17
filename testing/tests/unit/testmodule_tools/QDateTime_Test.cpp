@@ -3173,8 +3173,6 @@ QTEST_CASE ( Constructor6_TimeZoneDefaultValueIsNull_Test )
     const u64_q EXPECTED_MINUTE      = 32;
     const u64_q EXPECTED_SECOND      = 23;
     const u64_q EXPECTED_MILLISECOND = 654;
-    const u64_q EXPECTED_MICROSECOND = 489;
-    const u64_q EXPECTED_HNS         = 5;
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
@@ -4918,7 +4916,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenDateIsUndefined_Test )
 
     try
     {
-        QDateTime dateTime = UNDEFINED_DATETIME + ANY_TIMESPAN;
+        UNDEFINED_DATETIME + ANY_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -4946,7 +4944,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumV
 
     try
     {
-        QDateTime dateTime = MAXIMUM_DATETIME + INPUT_TIMESPAN;
+        MAXIMUM_DATETIME + INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -5092,7 +5090,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenDateIsUndefined_Test )
 
     try
     {
-        QDateTime dateTime = UNDEFINED_DATETIME - ANY_TIMESPAN;
+        UNDEFINED_DATETIME - ANY_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -5120,7 +5118,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedM
 
     try
     {
-        QDateTime dateTime = MINIMUM_DATETIME - INPUT_TIMESPAN;
+        MINIMUM_DATETIME - INPUT_TIMESPAN;
     }
     catch(...) // [TODO] Thund: Use the corresponding exception when it exists
     {
@@ -15022,7 +15020,6 @@ QTEST_CASE ( GetUtc_ReturnsSameDateTimeWithDifferentTimeZone_Test )
 
     // [Preparation]
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
-    const QTimeZone* TIMEZONE = SQTimeZoneFactory::GetTimeZoneById(QE_L("Europe/Madrid")); // CET+1
     const QDateTime SOURCE_DATETIME(-4, 12, 31, 23, 59, 59, 999, 999, 9, EXPECTED_TIMEZONE);
     const QDateTime UTC_DATETIME(   SOURCE_DATETIME, null_q);
 

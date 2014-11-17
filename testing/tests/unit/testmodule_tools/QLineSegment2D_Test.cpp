@@ -1359,7 +1359,6 @@ QTEST_CASE ( Rotate_IsCorrectlyRotatedWhenUsingCommonAngle_Test )
 
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_2, -SQFloat::_2);
-    const QVector2 EXPECTED_VALUE_FOR_C = QVector2(-SQFloat::_5, SQFloat::_0);
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
