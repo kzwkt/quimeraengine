@@ -130,7 +130,7 @@
     <File Name="../../../../source/QStackAllocator.cpp"/>
     <File Name="../../../../source/QBlockHeader.cpp"/>
   </VirtualDirectory>
-  <Settings Type="Static Library">
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -140,11 +140,10 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
-    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
       </Compiler>
@@ -186,11 +185,10 @@
         <SearchPaths/>
       </Completion>
     </Configuration>
-    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
@@ -228,10 +226,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
       </Compiler>
@@ -274,10 +271,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
@@ -315,10 +311,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -m32 -Wall -Wno-comment -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
       </Compiler>
@@ -362,10 +357,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -m32 -Wall -Wno-comment -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
