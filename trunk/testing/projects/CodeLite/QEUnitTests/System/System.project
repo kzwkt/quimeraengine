@@ -136,7 +136,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
@@ -201,7 +200,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
@@ -260,7 +258,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
@@ -325,7 +322,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
@@ -383,7 +379,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
@@ -444,7 +439,6 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32 -mwindows" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
