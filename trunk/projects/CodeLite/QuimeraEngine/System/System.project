@@ -116,6 +116,30 @@
     <File Name="../../../../headers/QStopwatch.h"/>
     <File Name="../../../../source/QStopwatch.cpp"/>
   </VirtualDirectory>
+  <VirtualDirectory Name="IO">
+    <File Name="../../../../headers/QMemoryStream.h"/>
+    <File Name="../../../../headers/QUri.h"/>
+    <File Name="../../../../source/QUri.cpp"/>
+    <File Name="../../../../headers/QBinaryStreamReader.h"/>
+    <VirtualDirectory Name="FileSystem">
+      <File Name="../../../../headers/QPath.h"/>
+      <File Name="../../../../source/QPath.cpp"/>
+      <File Name="../../../../headers/QFileInfo.h"/>
+      <File Name="../../../../source/QFileInfo.cpp"/>
+      <File Name="../../../../headers/QDirectoryInfo.h"/>
+      <File Name="../../../../source/QDirectoryInfo.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="DataTypes">
+    <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
+    <File Name="../../../../source/SQAnyTypeToStringConverter.cpp"/>
+    <File Name="../../../../headers/SQTypeExtensions.h"/>
+    <File Name="../../../../source/SQTypeExtensions.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Diagnosis">
+    <File Name="../../../../headers/QArgumentTrace.h"/>
+    <File Name="../../../../source/QArgumentTrace.cpp"/>
+  </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
@@ -127,10 +151,9 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <IncludePath Value="J:/WindowsKit/8.0/Include/um"/>
         <IncludePath Value="J:/WindowsKit/8.0/Include/shared"/>
         <IncludePath Value="_M_IX86"/>
@@ -182,10 +205,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
@@ -223,10 +245,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
@@ -274,10 +295,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
@@ -315,10 +335,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
@@ -367,10 +386,9 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="../../../../3rdparty/Boost/include"/>
         <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
@@ -408,28 +426,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="IO">
-    <File Name="../../../../headers/QMemoryStream.h"/>
-    <File Name="../../../../headers/QUri.h"/>
-    <File Name="../../../../source/QUri.cpp"/>
-    <File Name="../../../../headers/QBinaryStreamReader.h"/>
-    <VirtualDirectory Name="FileSystem">
-      <File Name="../../../../headers/QPath.h"/>
-      <File Name="../../../../source/QPath.cpp"/>
-      <File Name="../../../../headers/QFileInfo.h"/>
-      <File Name="../../../../source/QFileInfo.cpp"/>
-      <File Name="../../../../headers/QDirectoryInfo.h"/>
-      <File Name="../../../../source/QDirectoryInfo.cpp"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
-  <VirtualDirectory Name="DataTypes">
-    <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
-    <File Name="../../../../source/SQAnyTypeToStringConverter.cpp"/>
-    <File Name="../../../../headers/SQTypeExtensions.h"/>
-    <File Name="../../../../source/SQTypeExtensions.cpp"/>
-  </VirtualDirectory>
-  <VirtualDirectory Name="Diagnosis">
-    <File Name="../../../../headers/QArgumentTrace.h"/>
-    <File Name="../../../../source/QArgumentTrace.cpp"/>
-  </VirtualDirectory>
 </CodeLite_Project>
