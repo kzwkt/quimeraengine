@@ -157,7 +157,6 @@
         <IncludePath Value="J:/WindowsKit/8.0/Include/um"/>
         <IncludePath Value="J:/WindowsKit/8.0/Include/shared"/>
         <IncludePath Value="_M_IX86"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
@@ -208,7 +207,6 @@
       <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
@@ -248,7 +246,6 @@
       <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
@@ -298,7 +295,6 @@
       <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
@@ -338,7 +334,6 @@
       <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
@@ -389,7 +384,6 @@
       <Compiler Options="-g -Wall -Wno-comment -m32 -isystem ../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <Preprocessor Value="_DEBUG"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>

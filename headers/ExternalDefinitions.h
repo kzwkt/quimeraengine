@@ -33,7 +33,7 @@
 // Compilation configuration: Defines if the current compilation configuration is set for debugging or
 // releasing.
 // --------------------------------------------------------------------------------------------------------
-#ifdef _DEBUG
+#ifndef NDEBUG
     #define QE_DEBUG    // Debug compilation
 #else
     #define QE_RELEASE  // Release compilation
