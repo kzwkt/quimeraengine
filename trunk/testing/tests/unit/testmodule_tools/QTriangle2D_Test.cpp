@@ -176,7 +176,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
 
     try
     {
-        QTriangle2D triangleUT = QTriangle2D(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
+        QTriangle2D(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
     }
     catch(...) 
     {
@@ -187,7 +187,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
 
     try
     {
-        QTriangle2D triangleUT = QTriangle2D(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
+        QTriangle2D(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
     }
     catch(...) 
     {
@@ -198,7 +198,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
 
     try
     {
-        QTriangle2D triangleUT = QTriangle2D(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
+        QTriangle2D(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
     }
     catch(...) 
     {

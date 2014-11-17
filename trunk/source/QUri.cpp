@@ -613,7 +613,6 @@ void QUri::DecomposePath(const string_q &strInputUri,
     //       when the path ends with a slash, an empty segment is added at the end
 
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
-    static char_q SLASH = '/';
 
     if(nPathStartPosition != string_q::PATTERN_NOT_FOUND)
     {
@@ -777,10 +776,10 @@ bool QUri::IsEncodable(const char_q &character, const bool bIsPathSegment)
 
     return codePoint > CHAR_TILDE.GetCodePoint()                // It's not an allowed ASCII character
            ||
-           (codePoint < CODEPOINT_FIRST_NUMBER ||
-           (codePoint > CODEPOINT_LAST_NUMBER && codePoint < CODEPOINT_FIRST_ALPHA_UPPERCASE) ||
-           (codePoint > CODEPOINT_LAST_ALPHA_UPPERCASE && codePoint < CODEPOINT_FIRST_ALPHA_LOWERCASE) ||
-           codePoint > CODEPOINT_LAST_ALPHA_LOWERCASE)          // It's not an alpha or number chracter
+           ((codePoint < CODEPOINT_FIRST_NUMBER ||
+            (codePoint > CODEPOINT_LAST_NUMBER && codePoint < CODEPOINT_FIRST_ALPHA_UPPERCASE) ||
+            (codePoint > CODEPOINT_LAST_ALPHA_UPPERCASE && codePoint < CODEPOINT_FIRST_ALPHA_LOWERCASE) ||
+             codePoint > CODEPOINT_LAST_ALPHA_LOWERCASE)        // It's not an alpha or number chracter
            &&
            character != CHAR_UNDERSCORE                   &&    // It's not other allowed character
            character != CHAR_TILDE                        &&
@@ -802,7 +801,7 @@ bool QUri::IsEncodable(const char_q &character, const bool bIsPathSegment)
            character != QUri::CHAR_OPENING_PARENTHESES[0] &&
            character != QUri::CHAR_PERCENT_SIGN[0]        &&
            character != QUri::CHAR_PLUS_SIGN[0]           &&
-           character != QUri::CHAR_SEMICOLON[0];
+           character != QUri::CHAR_SEMICOLON[0]);
 }
 
 void QUri::RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)

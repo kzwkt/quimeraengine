@@ -86,7 +86,6 @@ QTEST_CASE ( Constructor1_ChecksifIsCorrectlyInitializedWithInitialValue_Test )
     // [Preparation]
     const u64_q INITIAL_VALUE = 12;
     const pointer_uint_q ARRAY_COUNT = 10;
-    const pointer_uint_q SIZEOF_VALUE_TYPE = sizeof(u64_q);
     const bool VALUES_ARE_AS_EXPECTED = true;
 
     // [Execution]
@@ -133,7 +132,6 @@ QTEST_CASE ( Constructor1_CopyConstructorOfArrayElementsAreCalled_Test )
     // [Preparation]
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT = 10;
-    const pointer_uint_q SIZEOF_VALUE_TYPE = sizeof(INITIAL_VALUE);
     const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
 
     // [Execution]
@@ -163,7 +161,6 @@ QTEST_CASE ( Constructor1_DestructorOfArrayElementsAreCalled_Test )
     // [Preparation]
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT = 10;
-    const pointer_uint_q SIZEOF_VALUE_TYPE = sizeof(INITIAL_VALUE);
     const i16_q EXPECTED_REMAINING_OBJECTS_ALLOCATED = 1;
 
     // [Execution]
@@ -184,7 +181,6 @@ QTEST_CASE ( Constructor2_CopyConstructorOfArrayElementsAreCalled_Test )
     // [Preparation]
     const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
     const pointer_uint_q ARRAY_COUNT = 10;
-    const pointer_uint_q SIZEOF_VALUE_TYPE = sizeof(INITIAL_VALUE);
     const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
 
     QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
@@ -796,7 +792,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
     // [Execution]
     try
     {
-        QFixedArray<u32_q>::QConstArrayIterator it = arFixedArray.GetIterator(INDEX);
+        arFixedArray.GetIterator(INDEX);
     }
     catch(...)
     {

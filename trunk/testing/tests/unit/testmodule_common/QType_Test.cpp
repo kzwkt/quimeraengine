@@ -399,7 +399,6 @@ QTEST_CASE ( FindType_ReturnsNullPointerWithNonBasicType_Test )
 QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
 {
     // [Preparation]
-    const QType* NULL_POINTER = null_q;
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -407,7 +406,7 @@ QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
 
     try
     {
-        const QType* pQTypePointer = QType::FindType<NonBasicType>();
+        QType::FindType<NonBasicType>();
     }
     catch(...)
     {

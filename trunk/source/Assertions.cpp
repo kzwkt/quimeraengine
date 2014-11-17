@@ -74,6 +74,8 @@ void QE_TRACE_FAILED_ASSERT(const string_q &strExpression,
         case EQAssertionType::E_Error:
             strLogText.Append("[Error]");
             break;
+        default:
+            break;
     }
 
     strLogText.Append(" QE ASSERTION FAILED !! : \"");

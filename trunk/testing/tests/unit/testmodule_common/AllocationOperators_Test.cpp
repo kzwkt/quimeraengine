@@ -126,7 +126,6 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANonAlignedMemoryBloc
     const bool           ASSERTION_FAILED             = true;
     bool                 bAssertionFailed02           = false;
 
-    const pointer_uint_q ARRAY_SIZE                   = 5;
     const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO = 8;
     QAlignment           align_002(ALIGNMENT_VALUE_POWER_OF_TWO);
 

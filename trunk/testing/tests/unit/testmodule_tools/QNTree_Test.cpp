@@ -3146,7 +3146,6 @@ QTEST_CASE ( PositionOf2_ReturnsFirstOccurrenceFromStartPositionWhenUsingDepthFi
     QNTree<char>::QNTreeIterator itRootNode = TREE.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator itParentNode1 = TREE.AddChild(itRootNode, 'B');
     QNTree<char>::QNTreeIterator itParentNode2 = TREE.AddChild(itRootNode, 'F');
-    QNTree<char>::QNTreeIterator itFirst = TREE.AddChild(itParentNode1, INPUT_VALUE);
     TREE.AddChild(itParentNode1, 'D');
     QNTree<char>::QNTreeIterator startPosition = TREE.AddChild(itParentNode1, INPUT_VALUE);
     TREE.AddChild(itParentNode2, 'G');
@@ -3441,7 +3440,6 @@ QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalTreeWhenInputTreeHasMor
     sourceTree.SetRootValue('A');
     QNTree<char>::QNTreeIterator itRootNode = sourceTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator itParentNode1 = sourceTree.AddChild(itRootNode, 'B');
-    QNTree<char>::QNTreeIterator itParentNode2 = sourceTree.AddChild(itRootNode, 'F');
     sourceTree.AddChild(itParentNode1, 'C');
 
     QNTree<char> destinationTree(3, 8);
@@ -3561,7 +3559,6 @@ QTEST_CASE( Swap_AssertionFailsWhenFirstPositionIsEndPosition_Test )
     // [Preparation]
     QNTree<char> tree(3, 4);
     tree.SetRootValue('A');
-    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator POSITION_A = tree.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
     ++POSITION_A;
     const QNTree<char>::QNTreeIterator POSITION_B = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
@@ -3591,7 +3588,6 @@ QTEST_CASE( Swap_AssertionFailsWhenSecondPositionIsEndPosition_Test )
     // [Preparation]
     QNTree<char> tree(3, 4);
     tree.SetRootValue('A');
-    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator POSITION_A = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator POSITION_B = tree.GetLast(EQTreeTraversalOrder::E_DepthFirstPreOrder);
     ++POSITION_B;
@@ -3621,7 +3617,6 @@ QTEST_CASE( Swap_AssertionFailsWhenSwappingTheSameElement_Test )
     // [Preparation]
     QNTree<char> tree(3, 4);
     tree.SetRootValue('A');
-    const QNTree<char>::QNTreeIterator ROOT = tree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator POSITION_A = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstPreOrder);
     QNTree<char>::QNTreeIterator POSITION_B = POSITION_A;
     const bool ASSERTION_FAILED = true;

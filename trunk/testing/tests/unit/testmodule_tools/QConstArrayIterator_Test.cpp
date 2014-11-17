@@ -2025,7 +2025,7 @@ QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorIsNotValid_Test )
     SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QConstArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
-    SOURCE_ARRAY;
+
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -2153,7 +2153,7 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorIsNotValid_Test )
     SOURCE_ARRAY.Add(0);
     QDynamicArray<int>::QConstArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, 0);
     INVALID_ITERATOR.MoveLast();
-    SOURCE_ARRAY;
+
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]

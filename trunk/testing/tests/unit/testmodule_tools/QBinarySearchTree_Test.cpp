@@ -1407,12 +1407,12 @@ QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenHasNoChildren_Test )
 QTEST_CASE ( Remove_RootElementIsUpdatedWhenItIsRemoved_Test )
 {
     // [Preparation]
-    QBinarySearchTree<int> TREE(3);
-    const QBinarySearchTree<int>::QConstBinarySearchTreeIterator ROOT_ITERATOR = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    const QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    //QBinarySearchTree<int> TREE(3);
+    //const QBinarySearchTree<int>::QConstBinarySearchTreeIterator ROOT_ITERATOR = TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    //const QBinarySearchTree<int>::QConstBinarySearchTreeIterator EXPECTED_ITERATOR = TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    TREE.Remove(ROOT_ITERATOR);
+    //TREE.Remove(ROOT_ITERATOR);
 
     // [Verification]
     // [TODO] Thund: Uncomment when GetRoot exists

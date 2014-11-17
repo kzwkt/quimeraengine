@@ -242,7 +242,9 @@ void QPath::_RemoveNotAllowedCharactersInHostname(string_q &strHostnameToBeRepla
     static const char_q CHAR_DOT                             = '.';
     static const codepoint_q CODEPOINT_FIRST_NUMBER          = '0';
     static const codepoint_q CODEPOINT_LAST_NUMBER           = '9';
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     static const char_q CHAR_AT_SIGN                         = '@';
+#endif
     static const codepoint_q CODEPOINT_FIRST_ALPHA_UPPERCASE = 'A';
     static const codepoint_q CODEPOINT_LAST_ALPHA_UPPERCASE  = 'Z';
     static const char_q CHAR_OPENING_SQUARE_BRACKET          = '[';

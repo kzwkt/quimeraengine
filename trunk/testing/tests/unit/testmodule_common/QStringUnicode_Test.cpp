@@ -4910,7 +4910,7 @@ QTEST_CASE ( PositionOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonT
 
     // [Preparation]
     const u16_q PATTERN_CHARS[] = {0xC1, 0xF1, 0xA8, ' '}; // Áñ¨ 
-    const QStringUnicode PATTERN(rcast_q(L"Áñ¨ ", const char*), 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
+    const QStringUnicode PATTERN(rcast_q(PATTERN_CHARS, const char*), 8, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
     const QStringUnicode RESIDENT_STRING(rcast_q(RESIDENT_CHARS, const char*), 28, EQTextEncoding::E_UTF16LE); // [TODO] Thund: Change this to use either BE or LE depending on the machine
     const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;

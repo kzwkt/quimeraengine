@@ -377,7 +377,7 @@ QTEST_CASE ( AdditionOperator_AssertionFailsWhenAdditionProvokesOverflow_Test )
 	// [Execution]
     try
     {
-        QTimeSpan timeSpanResult = timeSpanOriginal + timeSpanToAdd;
+        timeSpanOriginal + timeSpanToAdd;
     }
     catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet.
     {
@@ -408,7 +408,7 @@ QTEST_CASE ( AdditionOperator_MaximumValueIsAssignedWhenAdditionProducesOverflow
     QTimeSpan timeSpanResult = timeSpanOriginal + timeSpanToAdd;
 
     // [Verification]
-    BOOST_CHECK(timeSpanOriginal == timeSpanExpectedResult);
+    BOOST_CHECK(timeSpanResult == timeSpanExpectedResult);
 
 }
 
@@ -1107,7 +1107,7 @@ QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingCommonTimeSpa
 QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
 {
     // [Preparation]
-    const u64_q EXPECTED_VALUE = 18446744073709551615LL;
+    const u64_q EXPECTED_VALUE = 18446744073709551615ULL;
     const QTimeSpan MAXIMUM_TIMESPAN(-1);
 
 	// [Execution]
@@ -1124,7 +1124,7 @@ QTEST_CASE ( ToString_ReturnsTimeSpanAsString_Test )
 {
     // [Preparation]
     const string_q EXPECTED_VALUE = QE_L("12345678912345");
-    QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+    QTimeSpan COMMON_TIMESPAN(12345678912345ULL);
 
 	// [Execution]
     string_q strStringRepresentation = COMMON_TIMESPAN.ToString();

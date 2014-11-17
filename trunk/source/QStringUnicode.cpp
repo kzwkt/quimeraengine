@@ -1,4 +1,4 @@
-﻿//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -323,6 +323,8 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOu
             // The width of UTF32 characters is always 32 bits
             nRequiredLengthBytes = sizeof(i32_q) * (CHARACTERS_COUNT + ADD_NULL_TERMINATION);
             break;
+        default:
+            break;
         }
 
         // Conversion from native encoding (UTF16) to input encoding
@@ -358,6 +360,8 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOu
                 // 32 bits character
                 uOutputLength += sizeof(i32_q);
                 memset(&pOutputBytes[uOutputLength - sizeof(i32_q)], 0, sizeof(i32_q));
+                break;
+            default:
                 break;
             }
         }
@@ -410,6 +414,8 @@ UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
         break;
     case EQTextEncoding::E_UTF32LE:
         pConverter = UTF32LE_CONVERTER;
+        break;
+    default:
         break;
     }
 
@@ -478,6 +484,8 @@ const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm
     //case EQNormalizationForm::E_KD:
     //    QE_ASSERT_ERROR(false, "Normalization forms KC and KD are not supported currently");
     //    break;
+    default:
+        break;
     }
 
     QE_ASSERT_ERROR(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
@@ -513,6 +521,8 @@ int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComp
     //case EQComparisonType::E_CompatibilityCaseSensitive:
     //    QE_ASSERT_ERROR(false, "Compatibility comparisons are not supported yet");
     //    break;
+    default:
+        break;
     }
 
     return nResult;
@@ -879,7 +889,6 @@ i64_q QStringUnicode::ToInteger() const
     UErrorCode errorCodeGetting = U_ZERO_ERROR;
 
     const bool HAS_POSITIVE_SIGN = m_strString[0] == '+';
-    const bool HAS_NEGATIVE_SIGN = m_strString[0] == '-';
 
     icu::Formattable formattable;
     if(HAS_POSITIVE_SIGN)
