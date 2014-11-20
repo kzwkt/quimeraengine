@@ -462,9 +462,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->NotifyEvent(INFO_NOTIFICATION + iTestModuleInfo->GetTestProjectPath() + wxT(" test project"));
 
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + iTestModuleInfo->GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), iTestModuleInfo->GetCleanParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {
@@ -475,9 +475,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(this->TestDestroy()) throw std::exception();
 
                             this->Log(TATFormattedMessage(wxT("Building..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + iTestModuleInfo->GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), iTestModuleInfo->GetBuildParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {

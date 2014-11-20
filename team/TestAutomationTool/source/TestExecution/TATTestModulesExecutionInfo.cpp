@@ -136,6 +136,26 @@ void TATTestModulesExecutionInfo::SetTestProjectPath(const wxString& strTestProj
     m_strTestProjectPath = strTestProjectPath;
 }
 
+wxString TATTestModulesExecutionInfo::GetBuildParams() const
+{
+    return m_strBuildParams;
+}
+
+void TATTestModulesExecutionInfo::SetBuildParams(const wxString& strParams)
+{
+    m_strBuildParams = strParams;
+}
+
+wxString TATTestModulesExecutionInfo::GetCleanParams() const
+{
+    return m_strCleanParams;
+}
+
+void TATTestModulesExecutionInfo::SetCleanParams(const wxString& strParams)
+{
+    m_strCleanParams = strParams;
+}
+
 } //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis

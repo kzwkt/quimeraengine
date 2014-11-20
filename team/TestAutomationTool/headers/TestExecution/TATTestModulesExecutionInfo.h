@@ -129,6 +129,34 @@ public:
     /// </summary>
     /// <param name="strTestProjectPath">The path to the test project file.</param>
     void SetTestProjectPath(const wxString& strTestProjectPath);
+    
+    /// <summary>
+    /// Gets a string that contains all the parameters for the "build" command.
+    /// </summary>
+    /// <returns>
+    /// The parameters for the "build" command.
+    /// </returns>
+    wxString GetBuildParams() const;
+
+    /// <summary>
+    /// Sets a string that contains all the parameters for the "build" command.
+    /// </summary>
+    /// <param name="strParams">The parameters for the "build" command.</param>
+    void SetBuildParams(const wxString& strParams);
+    
+    /// <summary>
+    /// Gets a string that contains all the parameters for the "clean" command.
+    /// </summary>
+    /// <returns>
+    /// The parameters for the "clean" command.
+    /// </returns>
+    wxString GetCleanParams() const;
+
+    /// <summary>
+    /// Sets a string that contains all the parameters for the "clean" command.
+    /// </summary>
+    /// <param name="strParams">The parameters for the "clean" command.</param>
+    void SetCleanParams(const wxString& strParams);
 
 
 	// ATTRIBUTES
@@ -149,7 +177,16 @@ protected:
     /// The path to the test project file.
     /// </summary>
     wxString m_strTestProjectPath;
-
+    
+    /// <summary>
+    /// The parameters for the "build" command.
+    /// </summary>
+    wxString m_strBuildParams;
+    
+    /// <summary>
+    /// The parameters for the "clean" command.
+    /// </summary>
+    wxString m_strCleanParams;
 };
 
 } //namespace Backend

@@ -148,7 +148,17 @@ TATRuleNode* TATConfigLoaderFactory::CreateRuleTree() const
     // There can be as many test system settings sections as compilers are supported by the test system. 
     // The header of this section is preceded by a “T”, followed by the test type (Performance, Unit, Endurance, etc.).
     TATRuleNode* pTestSystemNode = new TATRuleNode(wxT("T"), 0, false, true, ETATConfigNodeType::E_HEADER);
-
+    
+    // --CompilerBuildParams
+    // Compilation options, known by the compiler that will be added every time the SUT is compiled. It must appear once and only once, 
+    // although it can be empty.
+    pTestSystemNode->AddChild( new TATRuleNode(wxT("CompilerBuildParams"), 1, true, true, ETATConfigNodeType::E_VALUE) );
+    
+    // --CompilerCleanParams
+    // Compilation options, known by the compiler that will be added every time the SUT is compiled. It must appear once and only once, 
+    // although it can be empty.
+    pTestSystemNode->AddChild( new TATRuleNode(wxT("CompilerCleanParams"), 1, true, true, ETATConfigNodeType::E_VALUE) );
+    
     // --TestModulesPath
     // The relative path to the executable test modules. It must appear once and only once, and it can’t be empty.
     pTestSystemNode->AddChild( new TATRuleNode(wxT("TestModulesPath"), 1, false, true, ETATConfigNodeType::E_VALUE) );

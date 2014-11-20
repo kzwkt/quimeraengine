@@ -291,6 +291,8 @@ void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode
             {
                 pTestModulesInfo = dynamic_cast<TATKeyValueNode*>(iTestModuleInfo->second);
                 wxString strTestProjectPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("CompilationInfoPath")).begin()->second)->GetValue();
+                wxString strTestBuildParams = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("CompilerBuildParams")).begin()->second)->GetValue();
+                wxString strTestCleanParams = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("CompilerCleanParams")).begin()->second)->GetValue();
                 wxString strResultsPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("ResultsPath")).begin()->second)->GetValue();
                 wxString strModulesPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("TestModulesPath")).begin()->second)->GetValue();
 
@@ -298,6 +300,8 @@ void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode
                 executionInfo.SetResultsPath(strResultsPath);
                 executionInfo.SetTestModulesPath(strModulesPath);
                 executionInfo.SetTestProjectPath(strTestProjectPath);
+                executionInfo.SetBuildParams(strTestBuildParams);
+                executionInfo.SetCleanParams(strTestCleanParams);
 
                 testModulesExecutionInfo.push_back(executionInfo);
             }
