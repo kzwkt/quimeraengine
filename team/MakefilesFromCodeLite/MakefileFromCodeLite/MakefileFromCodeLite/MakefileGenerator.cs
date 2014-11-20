@@ -58,7 +58,7 @@ namespace MakefileFromCodeLite
 
                 foreach (var project in workspaceModel.Projects)
                 {
-                    projectTargets += "\t" + MAKE + " build" + config.Name + " -f " + EXECUTION_PATH + project.Path + ".mak2 EXECUTION_PATH=\"" + EXECUTION_PATH + "\"\n";
+                    projectTargets += "\t" + MAKE + " build" + config.Name + " -f " + EXECUTION_PATH + project.Path + ".mak EXECUTION_PATH=\"" + EXECUTION_PATH + "\"\n";
                 }
 
                 result += projectTargets + "\n";
@@ -70,7 +70,7 @@ namespace MakefileFromCodeLite
 
                 foreach (var project in workspaceModel.Projects)
                 {
-                    projectTargets += "\t" + MAKE + " clean" + config.Name + " -f " + EXECUTION_PATH + project.Path + ".mak2 EXECUTION_PATH=\"" + EXECUTION_PATH + "\"\n";
+                    projectTargets += "\t" + MAKE + " clean" + config.Name + " -f " + EXECUTION_PATH + project.Path + ".mak EXECUTION_PATH=\"" + EXECUTION_PATH + "\"\n";
                 }
 
                 result += projectTargets + "\n";

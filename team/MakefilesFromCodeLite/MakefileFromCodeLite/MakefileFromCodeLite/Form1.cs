@@ -231,7 +231,7 @@ namespace MakefileFromCodeLite
             MakefileGenerator generator = new MakefileGenerator();
             string workspaceMakefileContent = generator.GenerateWorkspaceMakefileFromModel(m_model);
 
-            string workspaceMakefilePath = this.textBoxWorkspacePath.Text + ".mak2";
+            string workspaceMakefilePath = this.textBoxWorkspacePath.Text + ".mak";
 
             TextWriter workspaceWriter = new StreamWriter(new FileStream(workspaceMakefilePath, FileMode.Create), Encoding.ASCII);
             workspaceWriter.Write(workspaceMakefileContent);
@@ -239,7 +239,7 @@ namespace MakefileFromCodeLite
 
             foreach (var project in m_model.Projects)
 	        {
-                string projectMakefilePath = Path.GetDirectoryName(this.textBoxWorkspacePath.Text) + Path.DirectorySeparatorChar + project.Path + ".mak2";
+                string projectMakefilePath = Path.GetDirectoryName(this.textBoxWorkspacePath.Text) + Path.DirectorySeparatorChar + project.Path + ".mak";
 
                 string projectMakefileContent = generator.GenerateProjectMakefileFromModel(project);
 
