@@ -135,7 +135,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -162,11 +162,11 @@
         <StartupCommands/>
       </Debugger>
       <PreBuild>
-        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
-        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "../../../../bin/GCC/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "."</Command>
-        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes">rm *.so</Command>
@@ -193,7 +193,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -219,9 +219,9 @@
         <StartupCommands/>
       </Debugger>
       <PreBuild>
-        <Command Enabled="yes">mkdir -p ../../../../bin/GCC/$(ConfigurationName)</Command>
-        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes"/>
@@ -248,7 +248,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -275,11 +275,11 @@
         <StartupCommands/>
       </Debugger>
       <PreBuild>
-        <Command Enabled="yes">mkdir -p ../../../../bin/Clang/$(ConfigurationName)</Command>
-        <Command Enabled="yes">cp "../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "../../../../bin/Clang/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "."</Command>
-        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/Clang/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes">rm *.dylib</Command>
@@ -306,7 +306,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -332,9 +332,9 @@
         <StartupCommands/>
       </Debugger>
       <PreBuild>
-        <Command Enabled="yes">mkdir -p ../../../../bin/Clang/$(ConfigurationName)</Command>
-        <Command Enabled="yes">cp "../../../../bin/TestConfig.txt" "../../../../bin/Clang/$(ConfigurationName)"</Command>
-        <Command Enabled="yes">cp "../../../../bin/NormalizationTest.txt" "../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes"/>
@@ -361,7 +361,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -390,10 +390,10 @@
       </Debugger>
       <PreBuild/>
       <PostBuild>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\bin\TestConfig.txt" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\bin\NormalizationTest.txt" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineCommon.dll" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\TestConfig.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\NormalizationTest.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineCommon.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>
@@ -417,7 +417,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem ../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_common"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -445,9 +445,9 @@
       </Debugger>
       <PreBuild/>
       <PostBuild>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\bin\TestConfig.txt" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\bin\NormalizationTest.txt" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
-        <Command Enabled="yes">cmd /c copy "..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\TestConfig.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\NormalizationTest.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>
