@@ -61,7 +61,7 @@ public:
     /// Constructor that receives a Unicode code point.
     /// </summary>
     /// <param name="codepoint">[IN] A code point that represents the character in the Unicode code space.</param>
-    QCharUnicode(const codepoint_q &codepoint);
+    QCharUnicode(const codepoint_q codepoint);
 
     /// <summary>
     /// Constructor that makes a copy of another character.

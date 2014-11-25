@@ -66,7 +66,7 @@ using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 /// <returns>
 /// An aligned memory block of the specified type.
 /// </returns>
-inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& alignment)
+inline void* aligned_alloc_q (const pointer_uint_q uSize, const QAlignment& alignment)
 {
     void* pMemoryBlock = null_q;
 

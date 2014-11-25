@@ -44,7 +44,7 @@ namespace DataTypes
 //##################                                                       ##################
 //##################=======================================================##################
 
-string_q SQBoolean::ToString(const bool& bValue)
+string_q SQBoolean::ToString(const bool bValue)
 {
     if (bValue)
     {

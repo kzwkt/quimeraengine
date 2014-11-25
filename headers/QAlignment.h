@@ -60,7 +60,7 @@ public:
     /// Constructor from a value.
     /// </summary>
     /// <param name="uAlignment">[IN] Unsigned integer value to define alignment. It MUST be a power of 2.</param>
-    explicit QAlignment(const pointer_uint_q &uAlignment);
+    explicit QAlignment(const pointer_uint_q uAlignment);
 
 
     // METHODS
