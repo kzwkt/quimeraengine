@@ -70,28 +70,28 @@ const i64_q SQInteger::MaxNegativeI64_Q = -9223372036854775807LL - 1LL;// Define
 //##################                                                       ##################
 //##################=======================================================##################
 
-i8_q SQInteger::Abs(i8_q& nValue)
+i8_q SQInteger::Abs(const i8_q nValue)
 {
     return abs(nValue);
 }
 
-i16_q SQInteger::Abs(const i16_q& nValue)
+i16_q SQInteger::Abs(const i16_q nValue)
 {
     return abs(nValue);
 }
 
-i32_q SQInteger::Abs(const i32_q& nValue)
+i32_q SQInteger::Abs(const i32_q nValue)
 {
     return abs(nValue);
 }
 
-i64_q SQInteger::Abs(const i64_q& nValue)
+i64_q SQInteger::Abs(const i64_q nValue)
 {
     return llabs(nValue);
 }
 
 template<>
-string_q SQInteger::ToString<i8_q>(const i8_q &nValue)
+string_q SQInteger::ToString<i8_q>(const i8_q nValue)
 {
     // [SMELL] Thund: This specialization is necessary since STL's converter treats signed chars
     //                in a different way than how it does with the other integer types.
@@ -102,7 +102,7 @@ string_q SQInteger::ToString<i8_q>(const i8_q &nValue)
 }
 
 template<>
-string_q SQInteger::ToString<u8_q>(const u8_q &uValue)
+string_q SQInteger::ToString<u8_q>(const u8_q uValue)
 {
     // [SMELL] Thund: This specialization is necessary since STL's converter treats unsigned chars
     //                in a different way than how it does with the other integer types.

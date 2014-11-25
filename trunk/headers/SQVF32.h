@@ -79,7 +79,7 @@ public:
     /// <param name="fThird">[IN] Third value in the packet.</param>
     /// <param name="fFourth">[IN] Fourth value in the packet.</param>
     /// <param name="pack">[OUT] The package containing four 32-bits floating point values.</param>
-    static void Pack(const float_q &fFirst, const float_q &fSecond, const float_q &fThird, const float_q &fFourth, vf32_q &pack);
+    static void Pack(const float_q fFirst, const float_q fSecond, const float_q fThird, const float_q fFourth, vf32_q &pack);
 
     /// <summary>
     /// Unpacks into four output floating point variables stored in a 128-bits type.
@@ -95,7 +95,7 @@ public:
     /// <param name="fSecond">[OUT] Second value in the packet.</param>
     /// <param name="fThird">[OUT] Third value in the packet.</param>
     /// <param name="fFourth">[OUT] Fourth value in the packet.</param>
-    static void Unpack(const vf32_q &pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth);
+    static void Unpack(const vf32_q pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth);
 
     /// <summary>
     /// Represents the package content as a character string.
@@ -105,7 +105,7 @@ public:
     /// The packet represented as a character string.<br/>
     /// The format is: VF( First, Second, Third, Fourth ).
     /// </returns>
-    static string_q ToString(const vf32_q &inPack);
+    static string_q ToString(const vf32_q inPack);
 
 };
 

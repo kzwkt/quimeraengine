@@ -44,7 +44,7 @@ namespace DataTypes
 //##################                                                       ##################
 //##################=======================================================##################
 
-void SQVF32::Pack(const float_q &fFirst, const float_q &fSecond, const float_q &fThird, const float_q &fFourth, vf32_q &pack)
+void SQVF32::Pack(const float_q fFirst, const float_q fSecond, const float_q fThird, const float_q fFourth, vf32_q &pack)
 {
     #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
 
@@ -69,7 +69,7 @@ void SQVF32::Pack(const float_q &fFirst, const float_q &fSecond, const float_q &
     pack.m128_f32[3] = f_4;
 }
 
-void SQVF32::Unpack(const vf32_q &pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth)
+void SQVF32::Unpack(const vf32_q pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth)
 {
     #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
 
@@ -101,7 +101,7 @@ void SQVF32::Unpack(const vf32_q &pack, float_q &fFirst, float_q &fSecond, float
     #endif
 }
 
-string_q SQVF32::ToString(const vf32_q &inPack)
+string_q SQVF32::ToString(const vf32_q inPack)
 {
     float_q fFirst  = SQFloat::_0;
     float_q fSecond = SQFloat::_0;

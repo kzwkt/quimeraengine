@@ -133,7 +133,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as an 8-bit integer.
     /// </returns>
-    static i8_q Abs(i8_q& nValue);
+    static i8_q Abs(const i8_q nValue);
 
     /// <summary>
     /// Returns the absolute value of a short integer value.
@@ -142,7 +142,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as a short integer.
     /// </returns>
-    static i16_q Abs(const i16_q& nValue);
+    static i16_q Abs(const i16_q nValue);
 
     /// <summary>
     /// Returns the absolute value of an integer value.
@@ -151,7 +151,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as an integer.
     /// </returns>
-    static i32_q Abs(const i32_q& nValue);
+    static i32_q Abs(const i32_q nValue);
 
     /// <summary>
     /// Returns the absolute value of a long integer value.
@@ -160,7 +160,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as a long integer.
     /// </returns>
-    static i64_q Abs(const i64_q& nValue);
+    static i64_q Abs(const i64_q nValue);
 
     /// <summary>
     /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.
@@ -174,7 +174,7 @@ public:
     /// The transformed value.
     /// </returns>
     template<typename IntegerType>
-    static IntegerType SwapEndianess(const IntegerType &nValue)
+    static IntegerType SwapEndianess(const IntegerType nValue)
     {
         const unsigned int INTEGER_SIZE = sizeof(IntegerType);
 
@@ -207,7 +207,7 @@ public:
     /// The string that represents the number.
     /// </returns>
     template<typename IntegerType>
-    static string_q ToString(const IntegerType &nValue)
+    static string_q ToString(const IntegerType nValue)
     {
         std::ostringstream output;
         output << nValue;
@@ -278,7 +278,7 @@ public:
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const i8_q &nValue);
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const i8_q nValue);
 
 /// <summary>
 /// Converts the integer number to a readable character string that represents it.
@@ -288,7 +288,7 @@ string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const i8_q &nValue);
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<u8_q>(const u8_q &uValue);
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<u8_q>(const u8_q uValue);
 
 } //namespace DataTypes
 } //namespace Common

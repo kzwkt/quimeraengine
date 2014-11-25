@@ -66,7 +66,7 @@ public:
     /// <returns>
     /// The strings "true" or "false".
     /// </returns>
-    static string_q ToString(const bool& bValue);
+    static string_q ToString(const bool bValue);
 };
 
 
