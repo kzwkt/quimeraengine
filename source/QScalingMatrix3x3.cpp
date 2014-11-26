@@ -70,7 +70,7 @@ QScalingMatrix3x3::QScalingMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(s
 {
 }
 
-QScalingMatrix3x3::QScalingMatrix3x3(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+QScalingMatrix3x3::QScalingMatrix3x3(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ)
 {
     this->ij[0][0] = fScaleX;
     this->ij[1][1] = fScaleY;

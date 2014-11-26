@@ -1124,14 +1124,14 @@ QRay2D QRay2D::Transform(const QTransformationMatrix3x3 &transformation) const
     return auxRay;
 }
 
-QRay2D QRay2D::Rotate(const float_q &fRotationAngle) const
+QRay2D QRay2D::Rotate(const float_q fRotationAngle) const
 {
     QRay2D auxRay = *this;
     SQPoint::Rotate(fRotationAngle, rcast_q(&auxRay, QVector2*), 2);
     return auxRay;
 }
 
-QRay2D QRay2D::RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
+QRay2D QRay2D::RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const
 {
     QRay2D auxRay = *this;
     SQPoint::RotateWithPivot(fRotationAngle, vPivot, &auxRay.Origin, 1);
@@ -1146,7 +1146,7 @@ QRay2D QRay2D::Translate(const QBaseVector2 &vTranslation) const
     return auxRay;
 }
 
-QRay2D QRay2D::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+QRay2D QRay2D::Translate(const float_q fTranslationX, const float_q fTranslationY) const
 {
     QRay2D auxRay = *this;
     SQPoint::Translate(fTranslationX, fTranslationY, &auxRay.Origin, 1);
@@ -1160,7 +1160,7 @@ QRay2D QRay2D::Scale(const QBaseVector2 &vScale) const
     return QRay2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
-QRay2D QRay2D::Scale(const float_q &vScaleX, const float_q &vScaleY) const
+QRay2D QRay2D::Scale(const float_q vScaleX, const float_q vScaleY) const
 {
     QRay2D auxRay = *this;
     SQPoint::Scale(vScaleX, vScaleY, rcast_q(&auxRay, QVector2*), 2);
@@ -1175,7 +1175,7 @@ QRay2D QRay2D::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vP
     return QRay2D(auxRay.Origin, auxRay.Direction.Normalize());
 }
 
-QRay2D QRay2D::ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot) const
+QRay2D QRay2D::ScaleWithPivot(const float_q vScaleX, const float_q vScaleY, const QBaseVector2 &vPivot) const
 {
     QRay2D auxRay = *this;
     SQPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, &auxRay.Origin, 1);

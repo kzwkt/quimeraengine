@@ -138,12 +138,12 @@ QDualQuaternion QDualQuaternion::operator*(const QBaseDualQuaternion &dualQuat) 
     return QDualQuaternion(QBaseQuaternion(this->r * dualQuat.r), QBaseQuaternion(this->r * dualQuat.d + this->d * dualQuat.r));
 }
 
-QDualQuaternion QDualQuaternion::operator*(const float_q &fScalar) const
+QDualQuaternion QDualQuaternion::operator*(const float_q fScalar) const
 {
     return QDualQuaternion(QBaseQuaternion(this->r * fScalar), QBaseQuaternion(this->d * fScalar));
 }
 
-QDualQuaternion operator*(const float_q &fScalar, const QDualQuaternion &dualQuat)
+QDualQuaternion operator*(const float_q fScalar, const QDualQuaternion &dualQuat)
 {
     return QDualQuaternion(QBaseQuaternion(dualQuat.r * fScalar), QBaseQuaternion(dualQuat.d * fScalar));
 }
@@ -170,7 +170,7 @@ QDualQuaternion QDualQuaternion::operator*(const QBaseVector4 &vVector) const
     return auxQ;
 }
 
-QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
+QDualQuaternion QDualQuaternion::operator/(const float_q fScalar) const
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "The input value must not equal zero");
 
@@ -213,7 +213,7 @@ QDualQuaternion& QDualQuaternion::operator*=(const float_q fScalar)
     return *this;
 }
 
-QDualQuaternion& QDualQuaternion::operator/=(const float_q &fScalar)
+QDualQuaternion& QDualQuaternion::operator/=(const float_q fScalar)
 {
     // Checkout to avoid division by zero.
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "The input array must not be null");
@@ -284,7 +284,7 @@ QDualQuaternion QDualQuaternion::TransformTranslationFirst(const QBaseVector4 &v
     return this->TransformTranslationFirstImp(vTranslation, qRotation);
 }
 
-QDualQuaternion QDualQuaternion::Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const
+QDualQuaternion QDualQuaternion::Lerp(const float_q fProportion, const QDualQuaternion &dualQuat) const
 {
     QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat;
     float_q fLength = auxDualQuat.GetNonDualLength();

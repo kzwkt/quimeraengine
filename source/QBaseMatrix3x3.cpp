@@ -66,16 +66,16 @@ QBaseMatrix3x3::QBaseMatrix3x3(const QBaseMatrix3x3 &matrix)
     memcpy(this->ij, matrix.ij, sizeof(float_q) * 9);
 }
 
-QBaseMatrix3x3::QBaseMatrix3x3(const float_q &fValueAll)
+QBaseMatrix3x3::QBaseMatrix3x3(const float_q fValueAll)
 {
     ij[0][0] = ij[0][1] = ij[0][2] =
     ij[1][0] = ij[1][1] = ij[1][2] =
     ij[2][0] = ij[2][1] = ij[2][2] = fValueAll;
 }
 
-QBaseMatrix3x3::QBaseMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
-                               const float_q &f10, const float_q &f11, const float_q &f12,
-                               const float_q &f20, const float_q &f21, const float_q &f22)
+QBaseMatrix3x3::QBaseMatrix3x3(const float_q f00, const float_q f01, const float_q f02,
+                               const float_q f10, const float_q f11, const float_q f12,
+                               const float_q f20, const float_q f21, const float_q f22)
 {
     ij[0][0] = f00;
     ij[0][1] = f01;
@@ -103,7 +103,7 @@ QBaseMatrix3x3::QBaseMatrix3x3(const float_q* arValues)
     ij[2][2] = arValues[8];
 }
 
-QBaseMatrix3x3::QBaseMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2)
+QBaseMatrix3x3::QBaseMatrix3x3(const vf32_q row0, const vf32_q row1, const vf32_q row2)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

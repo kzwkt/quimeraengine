@@ -52,7 +52,7 @@ class QMatrix4x4;
 class QScalingMatrix3x3;
 
 // Preventing friend global operator to be called.
-QScalingMatrix3x3 operator*(const float_q &fScalar, const QScalingMatrix3x3 &matrix);
+QScalingMatrix3x3 operator*(const float_q fScalar, const QScalingMatrix3x3 &matrix);
 
 
 /// <summary>
@@ -98,7 +98,7 @@ public:
     /// <param name="fScaleX">[IN] Scale within X direction.</param>
     /// <param name="fScaleY">[IN] Scale within Y direction.</param>
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
-    QScalingMatrix3x3(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ);
+    QScalingMatrix3x3(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ);
 
     /// <summary>
     /// Constructor from a 3D vector which stores the three scaling values, one for each axis direction.
@@ -266,15 +266,15 @@ public:
 private:
 
     // Preventing the operators from base class to be used.
-    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const float_q fScalar) const;
     QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
     QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
-    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator/(const float_q fScalar) const;
     QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
     QMatrix3x3& operator*=(const float_q fScalar);
-    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator/=(const float_q fScalar);
     QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
     QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 

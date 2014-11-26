@@ -81,7 +81,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend QVector3 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QVector3 &vVector);
+    friend QVector3 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q fScalar, const QVector3 &vVector);
 
 
     // CONSTRUCTORS
@@ -120,13 +120,13 @@ public:
     /// <param name="fValueX">[IN] The value for X component.</param>
     /// <param name="fValueY">[IN] The value for Y component.</param>
     /// <param name="fValueZ">[IN] The value for Z component.</param>
-    QVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ);
+    QVector3(const float_q fValueX, const float_q fValueY, const float_q fValueZ);
 
     /// <summary>
     /// Constructor from a single value for all the vector's components.
     /// </summary>
     /// <param name="fValueAll">[IN] The value for all components.</param>
-    explicit QVector3(const float_q &fValueAll);
+    explicit QVector3(const float_q fValueAll);
 
     /// <summary>
     /// Constructor that receives an array of scalars.
@@ -263,7 +263,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    QVector3 operator*(const float_q &fScalar) const;
+    QVector3 operator*(const float_q fScalar) const;
 
     /// <summary>
     /// Multiplies two vectors by multiplying each component.
@@ -305,7 +305,7 @@ public:
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    QVector3 operator/(const float_q &fScalar) const;
+    QVector3 operator/(const float_q fScalar) const;
 
     /// <summary>
     /// Divides two vectors by dividing each component.
@@ -371,7 +371,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the division.
     /// </returns>
-    QVector3& operator/=(const float_q &fScalar);
+    QVector3& operator/=(const float_q fScalar);
 
     /// <summary>
     /// Divides two vectors by dividing each component. The resident vector is set to the result.
@@ -502,7 +502,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-    QVector3 Lerp(const float_q &fProportion, const QVector3 &vVector) const;
+    QVector3 Lerp(const float_q fProportion, const QVector3 &vVector) const;
 
     /// <summary>
     /// Calculates the distance between two vectors (two points).

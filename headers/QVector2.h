@@ -69,7 +69,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend QVector2 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QVector2 &vVector);
+    friend QVector2 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q fScalar, const QVector2 &vVector);
 
 
     // CONSTRUCTORS
@@ -101,13 +101,13 @@ public:
     /// </summary>
     /// <param name="fValueX">[IN] The value for X component.</param>
     /// <param name="fValueY">[IN] The value for Y component.</param>
-    QVector2(const float_q &fValueX, const float_q &fValueY);
+    QVector2(const float_q fValueX, const float_q fValueY);
 
     /// <summary>
     /// Constructor from a single value for all the vector's components.
     /// </summary>
     /// <param name="fValueAll">[IN] The value for all components.</param>
-    explicit QVector2(const float_q &fValueAll);
+    explicit QVector2(const float_q fValueAll);
 
     /// <summary>
     /// Constructor that receives an array of scalars.
@@ -210,7 +210,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    QVector2 operator*(const float_q &fScalar) const;
+    QVector2 operator*(const float_q fScalar) const;
 
     /// <summary>
     /// Multiplies two vectors by multiplying each component.
@@ -240,7 +240,7 @@ public:
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    QVector2 operator/(const float_q &fScalar) const;
+    QVector2 operator/(const float_q fScalar) const;
 
     /// <summary>
     /// Divides two vectors by dividing each component.
@@ -306,7 +306,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the division.
     /// </returns>
-    QVector2& operator/=(const float_q &fScalar);
+    QVector2& operator/=(const float_q fScalar);
 
     /// <summary>
     /// Divides two vectors by dividing each component. The resident vector is set to the result.
@@ -404,7 +404,7 @@ public:
     /// <returns>
     /// The rotated vector.
     /// </returns>
-    QVector2 Transform(const float_q &fRotationAngle) const;
+    QVector2 Transform(const float_q fRotationAngle) const;
 
     /// <summary>
     /// Checks if all components equal zero.
@@ -456,7 +456,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-    QVector2 Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const;
+    QVector2 Lerp(const float_q fProportion, const QBaseVector2 &vVector) const;
 
     /// <summary>
     /// Calculates the distance between two vectors (two points).

@@ -71,7 +71,7 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix
 {
 }
 
-QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ)
+QRotationMatrix3x3::QRotationMatrix3x3(const float_q fRotationAngleX, const float_q fRotationAngleY, const float_q fRotationAngleZ)
 {
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -111,7 +111,7 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
     ij[2][2]  =  fA * fC;
 }
 
-QRotationMatrix3x3::QRotationMatrix3x3 (const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis)
+QRotationMatrix3x3::QRotationMatrix3x3 (const float_q fRotationAngle, const QBaseVector3 &vRotationAxis)
 {
     // Taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     // but changing factors affected by sinus to get a left handed matrix.

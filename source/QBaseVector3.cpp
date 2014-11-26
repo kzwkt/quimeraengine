@@ -62,12 +62,12 @@ QBaseVector3::QBaseVector3(const QBaseVector3 &vVector)
     this->z = vVector.z;
 }
 
-QBaseVector3::QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) :
+QBaseVector3::QBaseVector3(const float_q fValueX, const float_q fValueY, const float_q fValueZ) :
                                 x(fValueX), y(fValueY), z(fValueZ)
 {
 }
 
-QBaseVector3::QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll)
+QBaseVector3::QBaseVector3(const float_q fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll)
 {
 }
 

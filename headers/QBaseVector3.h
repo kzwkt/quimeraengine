@@ -76,13 +76,13 @@ public:
     /// <param name="fValueX">[IN] The value for X component.</param>
     /// <param name="fValueY">[IN] The value for Y component.</param>
     /// <param name="fValueZ">[IN] The value for Z component.</param>
-    QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ);
+    QBaseVector3(const float_q fValueX, const float_q fValueY, const float_q fValueZ);
 
     /// <summary>
     /// Constructor from a single value for all the vector's components.
     /// </summary>
     /// <param name="fValueAll">[IN] The value for all components.</param>
-    explicit QBaseVector3(const float_q &fValueAll);
+    explicit QBaseVector3(const float_q fValueAll);
 
     /// <summary>
     /// Constructor that receives an array of scalars.

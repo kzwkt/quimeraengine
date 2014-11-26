@@ -74,13 +74,13 @@ public:
     /// </summary>
     /// <param name="fValueX">[IN] The value for X component.</param>
     /// <param name="fValueY">[IN] The value for Y component.</param>
-    QBaseVector2(const float_q &fValueX, const float_q &fValueY);
+    QBaseVector2(const float_q fValueX, const float_q fValueY);
 
     /// <summary>
     /// Constructor from a single value for all the vector's components.
     /// </summary>
     /// <param name="fValueAll">[IN] The value for all components.</param>
-    explicit QBaseVector2(const float_q &fValueAll);
+    explicit QBaseVector2(const float_q fValueAll);
 
     /// <summary>
     /// Constructor that receives an array of scalars.
@@ -99,7 +99,7 @@ public:
     /// Only the two first elements in the pack (most significant bits) are considered.
     /// </remarks>
     /// <param name="value">[IN] 4x32 packed floating point value containing the two components.</param>
-    explicit QBaseVector2(const vf32_q &value);
+    explicit QBaseVector2(const vf32_q value);
 
 
     // METHODS

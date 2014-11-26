@@ -64,13 +64,13 @@ QMatrix3x3::QMatrix3x3(const QBaseMatrix3x3 &matrix) : QBaseMatrix3x3(matrix)
 {
 }
 
-QMatrix3x3::QMatrix3x3(const float_q &fValueAll) : QBaseMatrix3x3(fValueAll)
+QMatrix3x3::QMatrix3x3(const float_q fValueAll) : QBaseMatrix3x3(fValueAll)
 {
 }
 
-QMatrix3x3::QMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
-                       const float_q &f10, const float_q &f11, const float_q &f12,
-                       const float_q &f20, const float_q &f21, const float_q &f22) :
+QMatrix3x3::QMatrix3x3(const float_q f00, const float_q f01, const float_q f02,
+                       const float_q f10, const float_q f11, const float_q f12,
+                       const float_q f20, const float_q f21, const float_q f22) :
                           QBaseMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22)
 {
 }
@@ -79,7 +79,7 @@ QMatrix3x3::QMatrix3x3(const float_q *arValues) : QBaseMatrix3x3(arValues)
 {
 }
 
-QMatrix3x3::QMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : QBaseMatrix3x3(row0, row1, row2)
+QMatrix3x3::QMatrix3x3(const vf32_q row0, const vf32_q row1, const vf32_q row2) : QBaseMatrix3x3(row0, row1, row2)
 {
 }
 
@@ -93,7 +93,7 @@ QMatrix3x3::QMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMatrix3x3 QMatrix3x3::operator*(const float_q &fScalar) const
+QMatrix3x3 QMatrix3x3::operator*(const float_q fScalar) const
 {
     QMatrix3x3 aux;
 
@@ -110,7 +110,7 @@ QMatrix3x3 QMatrix3x3::operator*(const float_q &fScalar) const
     return aux;
 }
 
-QMatrix3x3 operator*(const float_q &fScalar, const QMatrix3x3 &matrix)
+QMatrix3x3 operator*(const float_q fScalar, const QMatrix3x3 &matrix)
 {
 
     QMatrix3x3 aux;
@@ -185,7 +185,7 @@ QMatrix3x3& QMatrix3x3::operator*=(const float_q fScalar)
     return *this;
 }
 
-QMatrix3x3 QMatrix3x3::operator/(const float_q &fScalar) const
+QMatrix3x3 QMatrix3x3::operator/(const float_q fScalar) const
 {
 
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -262,7 +262,7 @@ QMatrix3x3& QMatrix3x3::operator*=(const QBaseMatrix3x3 &matrix)
     return *this;
 }
 
-QMatrix3x3& QMatrix3x3::operator/=(const float_q &fScalar)
+QMatrix3x3& QMatrix3x3::operator/=(const float_q fScalar)
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 

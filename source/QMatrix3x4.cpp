@@ -62,13 +62,13 @@ QMatrix3x4::QMatrix3x4(const QBaseMatrix3x4 &matrix) : QBaseMatrix3x4(matrix)
 {
 }
 
-QMatrix3x4::QMatrix3x4(const float_q &fValueAll) : QBaseMatrix3x4(fValueAll)
+QMatrix3x4::QMatrix3x4(const float_q fValueAll) : QBaseMatrix3x4(fValueAll)
 {
 }
 
-QMatrix3x4::QMatrix3x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                       const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                       const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23) :
+QMatrix3x4::QMatrix3x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+                       const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+                       const float_q f20, const float_q f21, const float_q f22, const float_q f23) :
                          QBaseMatrix3x4(f00, f01, f02, f03,
                                         f10, f11, f12, f13,
                                         f20, f21, f22, f23)
@@ -79,7 +79,7 @@ QMatrix3x4::QMatrix3x4(const float_q *arValues) : QBaseMatrix3x4(arValues)
 {
 }
 
-QMatrix3x4::QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) :
+QMatrix3x4::QMatrix3x4(const vf32_q row0, const vf32_q row1, const vf32_q row2) :
                             QBaseMatrix3x4(row0, row1, row2)
 {
 }
@@ -94,7 +94,7 @@ QMatrix3x4::QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMatrix3x4 QMatrix3x4::operator*(const float_q &fScalar) const
+QMatrix3x4 QMatrix3x4::operator*(const float_q fScalar) const
 {
     QMatrix3x4 aux;
 
@@ -114,7 +114,7 @@ QMatrix3x4 QMatrix3x4::operator*(const float_q &fScalar) const
     return aux;
 }
 
-QMatrix3x4 operator*(const float_q &fScalar, const QMatrix3x4 &matrix)
+QMatrix3x4 operator*(const float_q fScalar, const QMatrix3x4 &matrix)
 {
     QMatrix3x4 aux;
 
@@ -134,7 +134,7 @@ QMatrix3x4 operator*(const float_q &fScalar, const QMatrix3x4 &matrix)
     return aux;
 }
 
-QMatrix3x4 QMatrix3x4::operator/(const float_q &fScalar) const
+QMatrix3x4 QMatrix3x4::operator/(const float_q fScalar) const
 {
 
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -240,7 +240,7 @@ QMatrix3x4 QMatrix3x4::operator*(const QBaseMatrix4x4 &matrix) const
     return aux;
 }
 
-QMatrix3x4& QMatrix3x4::operator/=(const float_q &fScalar)
+QMatrix3x4& QMatrix3x4::operator/=(const float_q fScalar)
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
@@ -415,16 +415,16 @@ string_q QMatrix3x4::ToString() const
 const QMatrix3x4& QMatrix3x4::GetNullMatrix()
 {
     static const QMatrix3x4 NULLMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+                                       SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                       SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     return NULLMATRIX;
 }
 
 const QMatrix3x4& QMatrix3x4::GetIdentity()
 {
     static const QMatrix3x4 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
+                                     SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                     SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
     return IDENTITY;
 }
 

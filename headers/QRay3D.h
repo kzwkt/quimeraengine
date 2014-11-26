@@ -1915,7 +1915,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-    QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QRay3D<VectorType> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
     {
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
@@ -1948,17 +1948,17 @@ public:
     /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
+    QRay3D<VectorType> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
     {
         QRay3D<VectorType> auxRay = *this;
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Origin, 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Origin, 1);
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 
@@ -1991,18 +1991,18 @@ public:
     /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
+    QRay3D<VectorType> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType &vPivot) const
     {
         QRay3D<VectorType> auxRay = *this;
-        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, &auxRay.Origin, 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxRay.Origin, 1);
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxRay.Direction, 1);
         return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
     }
 

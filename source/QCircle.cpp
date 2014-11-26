@@ -60,7 +60,7 @@ QCircle::QCircle(const QBaseOrb<QVector2> &orb) : QOrb<QVector2>(orb)
 {
 }
 
-QCircle::QCircle(const QVector2 &vCenter, const float_q &fRadius) : QOrb<QVector2>(vCenter, fRadius)
+QCircle::QCircle(const QVector2 &vCenter, const float_q fRadius) : QOrb<QVector2>(vCenter, fRadius)
 {
 }
 
@@ -87,28 +87,28 @@ QCircle QCircle::Translate(const QBaseVector2 &vTranslation) const
     return auxCircle;
 }
 
-QCircle QCircle::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+QCircle QCircle::Translate(const float_q fTranslationX, const float_q fTranslationY) const
 {
     QCircle auxCircle = *this;
     SQPoint::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
     return auxCircle;
 }
 
-QCircle QCircle::Rotate(const float_q &fRotationAngle) const
+QCircle QCircle::Rotate(const float_q fRotationAngle) const
 {
     QCircle auxCircle = *this;
     SQPoint::Rotate(fRotationAngle, &auxCircle.Center, 1);
     return auxCircle;
 }
 
-QCircle QCircle::RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
+QCircle QCircle::RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const
 {
     QCircle auxCircle = *this;
     SQPoint::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
     return auxCircle;
 }
 
-QCircle QCircle::Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) const
+QCircle QCircle::Scale(const QBaseVector2 &vScale, const float_q fRadiusScale) const
 {
     QCircle auxCircle = *this;
     SQPoint::Scale(vScale, &auxCircle.Center, 1);
@@ -116,7 +116,7 @@ QCircle QCircle::Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) 
     return auxCircle;
 }
 
-QCircle QCircle::Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale) const
+QCircle QCircle::Scale(const float_q fScaleX, const float_q fScaleY, const float_q fRadiusScale) const
 {
     QCircle auxCircle = *this;
     SQPoint::Scale(fScaleX, fScaleY, &auxCircle.Center, 1);
@@ -124,7 +124,7 @@ QCircle QCircle::Scale(const float_q &fScaleX, const float_q &fScaleY, const flo
     return auxCircle;
 }
 
-QCircle QCircle::ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
+QCircle QCircle::ScaleWithPivot(const QBaseVector2 &vScale, const float_q fRadiusScale, const QBaseVector2 &vPivot) const
 {
     QCircle auxCircle = *this;
     SQPoint::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
@@ -132,7 +132,7 @@ QCircle QCircle::ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadi
     return auxCircle;
 }
 
-QCircle QCircle::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
+QCircle QCircle::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fRadiusScale, const QBaseVector2 &vPivot) const
 {
     QCircle auxCircle = *this;
     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
@@ -140,7 +140,7 @@ QCircle QCircle::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, 
     return auxCircle;
 }
 
-QCircle QCircle::Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale) const
+QCircle QCircle::Transform(const QTransformationMatrix3x3 &transformation, const float_q fRadiusScale) const
 {
     QCircle auxCircle = *this;
     SQPoint::Transform(transformation, &auxCircle.Center, 1);
@@ -148,7 +148,7 @@ QCircle QCircle::Transform(const QTransformationMatrix3x3 &transformation, const
     return auxCircle;
 }
 
-QCircle QCircle::TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
+QCircle QCircle::TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q fRadiusScale, const QBaseVector2 &vPivot) const
 {
     QCircle auxCircle = *this;
     SQPoint::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);

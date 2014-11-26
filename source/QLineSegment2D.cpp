@@ -127,7 +127,7 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
         return false;
 }
 
-QLineSegment2D QLineSegment2D::Rotate(const float_q &fRotationAngle) const
+QLineSegment2D QLineSegment2D::Rotate(const float_q fRotationAngle) const
 {
     QLineSegment2D auxLineSegment = *this;
     SQPoint::Rotate(fRotationAngle, rcast_q(&auxLineSegment, QVector2*), 2);
@@ -141,7 +141,7 @@ QLineSegment2D QLineSegment2D::Translate(const QBaseVector2 &vTranslation) const
     return auxLineSegment;
 }
 
-QLineSegment2D QLineSegment2D::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+QLineSegment2D QLineSegment2D::Translate(const float_q fTranslationX, const float_q fTranslationY) const
 {
     QLineSegment2D auxLineSegment = *this;
     SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
@@ -155,7 +155,7 @@ QLineSegment2D QLineSegment2D::Scale(const QBaseVector2 &vScale) const
     return auxLineSegment;
 }
 
-QLineSegment2D QLineSegment2D::Scale(const float_q &fScaleX, const float_q &fScaleY) const
+QLineSegment2D QLineSegment2D::Scale(const float_q fScaleX, const float_q fScaleY) const
 {
     QLineSegment2D auxLineSegment = *this;
     SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
@@ -169,7 +169,7 @@ QLineSegment2D QLineSegment2D::Transform(const QTransformationMatrix3x3 &transfo
     return auxLineSegment;
 }
 
-QLineSegment2D QLineSegment2D::RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
+QLineSegment2D QLineSegment2D::RotateWithPivot(const float_q fRotationAngle, const QVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
     SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
@@ -183,7 +183,7 @@ QLineSegment2D QLineSegment2D::ScaleWithPivot(const QBaseVector2 &vScale, const 
     return auxLineSegment;
 }
 
-QLineSegment2D QLineSegment2D::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
+QLineSegment2D QLineSegment2D::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const
 {
     QLineSegment2D auxLineSegment = *this;
     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);

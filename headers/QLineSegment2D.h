@@ -189,7 +189,7 @@ public:
     /// <returns>
     /// The rotated segment.
     /// </returns>
-    QLineSegment2D Rotate(const float_q &fRotationAngle) const;
+    QLineSegment2D Rotate(const float_q fRotationAngle) const;
 
     /// <summary>
     /// This method performs a translation of the resident line segment given by the provided vector.
@@ -208,7 +208,7 @@ public:
     /// <returns>
     /// The translated segment.
     /// </returns>
-    QLineSegment2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QLineSegment2D Translate(const float_q fTranslationX, const float_q fTranslationY) const;
 
     /// <summary>
     /// This method scales the resident line segment by the scale contained in the provided vector.
@@ -227,7 +227,7 @@ public:
     /// <returns>
     /// The scaled segment.
     /// </returns>
-    QLineSegment2D Scale(const float_q &fScaleX, const float_q &fScaleY) const;
+    QLineSegment2D Scale(const float_q fScaleX, const float_q fScaleY) const;
 
     /// <summary>
     /// Receives a transformation matrix and applies the transformations to the resident
@@ -248,7 +248,7 @@ public:
     /// <returns>
     /// The rotated segment.
     /// </returns>
-    QLineSegment2D RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
+    QLineSegment2D RotateWithPivot(const float_q fRotationAngle, const QVector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident line segment by the scale contained in the provided vector,
@@ -271,7 +271,7 @@ public:
     /// <returns>
     /// The scaled segment.
     /// </returns>
-    QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
+    QLineSegment2D ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations

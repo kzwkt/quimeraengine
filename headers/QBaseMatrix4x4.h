@@ -67,7 +67,7 @@ public:
     /// Constructor that receives a floating point value for all elements of the matrix.
     /// </summary>
     /// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
-    explicit QBaseMatrix4x4(const float_q &fValueAll);
+    explicit QBaseMatrix4x4(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -88,10 +88,10 @@ public:
     /// <param name="f31">[IN] Floating point value for element of row 3, column 1.</param>
     /// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
     /// <param name="f33">[IN] Floating point value for element of row 3, column 3.</param>
-    QBaseMatrix4x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                   const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                   const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
-                   const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33);
+    QBaseMatrix4x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+                   const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+                   const float_q f20, const float_q f21, const float_q f22, const float_q f23,
+                   const float_q f30, const float_q f31, const float_q f32, const float_q f33);
 
     /// <summary>
     /// Constructor that receives a pointer to 16 floating point values.
@@ -111,7 +111,7 @@ public:
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3, parsed in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3, parsed in this order.</param>
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3, parsed in this order.</param>
-    QBaseMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3);
+    QBaseMatrix4x4(const vf32_q row0, const vf32_q row1, const vf32_q row2, const vf32_q &row3);
     
 
     // METHODS

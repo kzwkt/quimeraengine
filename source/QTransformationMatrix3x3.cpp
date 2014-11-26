@@ -66,7 +66,7 @@ QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseMatrix3x3 &transfo
 {
 }
 
-QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q &fRotationAngle, const QBaseVector2 &vScale)
+QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q fRotationAngle, const QBaseVector2 &vScale)
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians

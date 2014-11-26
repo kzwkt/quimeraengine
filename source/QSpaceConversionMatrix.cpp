@@ -175,8 +175,8 @@ void QSpaceConversionMatrix::SetViewSpaceMatrix(const QVector4 &vPointOfView, co
                              QVector3(vUpDirection));
 }
 
-void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
-                                                      const float_q &fAspectRatio, const float_q &fVerticalFOV)
+void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q fNearClipPlane, const float_q fFarClipPlane,
+                                                      const float_q fAspectRatio, const float_q fVerticalFOV)
 {
     // The clipping planes should not coincide
     QE_ASSERT_WARNING(SQFloat::AreNotEqual(fNearClipPlane, fFarClipPlane), "The clipping planes should not coincide");

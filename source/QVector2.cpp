@@ -66,11 +66,11 @@ QVector2::QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
 {
 }
 
-QVector2::QVector2(const float_q &fValueX, const float_q &fValueY) : QBaseVector2(fValueX, fValueY)
+QVector2::QVector2(const float_q fValueX, const float_q fValueY) : QBaseVector2(fValueX, fValueY)
 {
 }
 
-QVector2::QVector2(const float_q &fValueAll) : QBaseVector2(fValueAll)
+QVector2::QVector2(const float_q fValueAll) : QBaseVector2(fValueAll)
 {
 }
 
@@ -107,7 +107,7 @@ QVector2 QVector2::operator-(const QBaseVector2 &vVector) const
     return QVector2(this->x - vVector.x, this->y - vVector.y);
 }
 
-QVector2 QVector2::operator*(const float_q &fScalar) const
+QVector2 QVector2::operator*(const float_q fScalar) const
 {
     return QVector2(this->x * fScalar, this->y * fScalar);
 }
@@ -123,7 +123,7 @@ QVector2 QVector2::operator*(const QBaseMatrix2x2 &matrix) const
                     this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1]);
 }
 
-QVector2 QVector2::operator/(const float_q &fScalar) const
+QVector2 QVector2::operator/(const float_q fScalar) const
 {
     // Checkout to avoid division by 0
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -184,7 +184,7 @@ QVector2& QVector2::operator*=(const QBaseVector2 &vVector)
     return *this;
 }
 
-QVector2& QVector2::operator/=(const float_q &fScalar)
+QVector2& QVector2::operator/=(const float_q fScalar)
 {
     // Checkout to avoid division by 0
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must no equal zero");
@@ -216,7 +216,7 @@ QVector2& QVector2::operator=(const QBaseVector2 &vVector)
 }
 
 // Left float product
-QVector2 operator*(const float_q &fScalar, const QVector2 &vVector)
+QVector2 operator*(const float_q fScalar, const QVector2 &vVector)
 {
     return QVector2(vVector.x * fScalar, vVector.y * fScalar);
 }
@@ -305,7 +305,7 @@ float_q QVector2::AngleBetween(const QVector2 &vVector) const
     return fAngle;
 }
 
-QVector2 QVector2::Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const
+QVector2 QVector2::Lerp(const float_q fProportion, const QBaseVector2 &vVector) const
 {
     return QVector2(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
                     this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion);
@@ -329,7 +329,7 @@ QVector2 QVector2::Transform(const QTransformationMatrix3x3 &matrix) const
                     this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1]);
 }
 
-QVector2 QVector2::Transform(const float_q &fRotationAngle) const
+QVector2 QVector2::Transform(const float_q fRotationAngle) const
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);

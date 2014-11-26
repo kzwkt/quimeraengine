@@ -55,7 +55,7 @@ class QTransformationMatrix;
 
 // Preventing friend global operator to be called.
 template <class MatrixType>
-QTransformationMatrix<MatrixType> operator*(const float_q &fScalar, const QTransformationMatrix<MatrixType> &matrix);
+QTransformationMatrix<MatrixType> operator*(const float_q fScalar, const QTransformationMatrix<MatrixType> &matrix);
 
 /// <summary>
 /// Class that represents a transformation matrix.
@@ -157,9 +157,9 @@ public:
     /// <param name="fScaleX">[IN] Scale within X direction.</param>
     /// <param name="fScaleY">[IN] Scale within Y direction.</param>
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
-    QTransformationMatrix(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
-                                 const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
-                                 const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    QTransformationMatrix(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ,
+                                 const float_q fRotationX, const float_q fRotationY, const float_q fRotationZ, const float_q fRotationW,
+                                 const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ)
     {
         this->Initialize(fTranslationX, fTranslationY, fTranslationZ,
                          fRotationX, fRotationY, fRotationZ, fRotationW,
@@ -852,9 +852,9 @@ protected:
     /// <param name="fScaleX">[IN] Scale within X direction.</param>
     /// <param name="fScaleY">[IN] Scale within Y direction.</param>
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
-    void Initialize(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
-                    const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
-                    const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    void Initialize(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ,
+                    const float_q fRotationX, const float_q fRotationY, const float_q fRotationZ, const float_q fRotationW,
+                    const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ)
     {
         QBaseQuaternion qRot(fRotationX, fRotationY, fRotationZ, fRotationW);
 

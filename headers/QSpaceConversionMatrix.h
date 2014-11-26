@@ -55,7 +55,7 @@ class QMatrix4x3;
 class QSpaceConversionMatrix;
 
 // Preventing friend global operator to be called.
-QSpaceConversionMatrix operator*(const float_q &fScalar, const QSpaceConversionMatrix &matrix);
+QSpaceConversionMatrix operator*(const float_q fScalar, const QSpaceConversionMatrix &matrix);
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations.
@@ -196,8 +196,8 @@ public:
     /// <param name="fFarClipPlane">[IN] Floating point value which defines the distance to the farthest clipping plane. It must not equal the near clip plane's distance.</param>
     /// <param name="fAspectRatio">[IN] Floating point value which defines the frame width/height ratio. If it equals zero, the result is undefined.</param>
     /// <param name="fVerticalFOV">[IN] Floating point value which defines the vertical field of view. If it equals zero, the result is undefined.</param>
-    void SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
-                                  const float_q &fAspectRatio, const float_q &fVerticalFOV);
+    void SetProjectionSpaceMatrix(const float_q fNearClipPlane, const float_q fFarClipPlane,
+                                  const float_q fAspectRatio, const float_q fVerticalFOV);
 
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
@@ -239,15 +239,15 @@ public:
 private:
 
     // Preventing the operators from base class to be used.
-    QMatrix4x4 operator*(const float_q &fScalar) const;
+    QMatrix4x4 operator*(const float_q fScalar) const;
     QMatrix4x4 operator*(const QBaseMatrix4x4 &matrix) const;
     QBaseMatrix4x3 operator*(const QBaseMatrix4x3 &matrix) const;
-    QMatrix4x4 operator/(const float_q &fScalar) const;
+    QMatrix4x4 operator/(const float_q fScalar) const;
     QMatrix4x4 operator+(const QBaseMatrix4x4 &matrix) const;
     QMatrix4x4 operator-(const QBaseMatrix4x4 &matrix) const;
     QMatrix4x4& operator*=(const QBaseMatrix4x4 &matrix);
     QMatrix4x4& operator*=(const float_q fScalar);
-    QMatrix4x4& operator/=(const float_q &fScalar);
+    QMatrix4x4& operator/=(const float_q fScalar);
     QMatrix4x4& operator+=(const QBaseMatrix4x4 &matrix);
     QMatrix4x4& operator-=(const QBaseMatrix4x4 &matrix);
 

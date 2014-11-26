@@ -88,7 +88,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the cirle.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    QCircle(const QVector2 &vCenter, const float_q &fRadius);
+    QCircle(const QVector2 &vCenter, const float_q fRadius);
 
 
     // PROPERTIES
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// The translated circle.
     /// </returns>
-    QCircle Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QCircle Translate(const float_q fTranslationX, const float_q fTranslationY) const;
 
     /// <summary>
     /// Rotates the circle.
@@ -143,7 +143,7 @@ public:
     /// <returns>
     /// The rotated circle.
     /// </returns>
-    QCircle Rotate(const float_q &fRotationAngle) const;
+    QCircle Rotate(const float_q fRotationAngle) const;
 
     /// <summary>
     /// Rotates the circle using a pivot.
@@ -153,7 +153,7 @@ public:
     /// <returns>
     /// The rotated circle.
     /// </returns>
-    QCircle RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
+    QCircle RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const;
 
      /// <summary>
     /// Scales the circle.
@@ -163,7 +163,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    QCircle Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) const;
+    QCircle Scale(const QBaseVector2 &vScale, const float_q fRadiusScale) const;
 
      /// <summary>
     /// Scales the circle.
@@ -174,7 +174,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    QCircle Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale) const;
+    QCircle Scale(const float_q fScaleX, const float_q fScaleY, const float_q fRadiusScale) const;
 
      /// <summary>
     /// Scales the circle using a pivot.
@@ -185,7 +185,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    QCircle ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
+    QCircle ScaleWithPivot(const QBaseVector2 &vScale, const float_q fRadiusScale, const QBaseVector2 &vPivot) const;
 
      /// <summary>
     /// Scales the circle using a pivot.
@@ -197,7 +197,7 @@ public:
     /// <returns>
     /// The scaled circle.
     /// </returns>
-    QCircle ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
+    QCircle ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fRadiusScale, const QBaseVector2 &vPivot) const;
 
      /// <summary>
     /// Transforms the circle.
@@ -207,7 +207,7 @@ public:
     /// <returns>
     /// The transformed circle.
     /// </returns>
-    QCircle Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale) const;
+    QCircle Transform(const QTransformationMatrix3x3 &transformation, const float_q fRadiusScale) const;
 
      /// <summary>
     /// Transforms the circle using a pivot.
@@ -218,7 +218,7 @@ public:
     /// <returns>
     /// The transformed circle.
     /// </returns>
-    QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
+    QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q fRadiusScale, const QBaseVector2 &vPivot) const;
 
      /// <summary>
     /// Calculates possible intersections between resident circle and a circle received as parameter.

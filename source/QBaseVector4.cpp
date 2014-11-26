@@ -62,12 +62,12 @@ QBaseVector4::QBaseVector4(const QBaseVector4 &vVector)
     this->w = vVector.w;
 }
 
-QBaseVector4::QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
+QBaseVector4::QBaseVector4(const float_q fValueX, const float_q fValueY, const float_q fValueZ, const float_q fValueW) :
                                 x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
 {
 }
 
-QBaseVector4::QBaseVector4(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll), w(fValueAll)
+QBaseVector4::QBaseVector4(const float_q fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll), w(fValueAll)
 {
 }
 
@@ -83,7 +83,7 @@ QBaseVector4::QBaseVector4(const float_q* arValues)
     w = arValues[3];
 }
 
-QBaseVector4::QBaseVector4(const vf32_q &value)
+QBaseVector4::QBaseVector4(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

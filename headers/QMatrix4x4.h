@@ -73,7 +73,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix4x4 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QMatrix4x4 &matrix);
+    friend QMatrix4x4 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q fScalar, const QMatrix4x4 &matrix);
 
 
      // CONSTRUCTORS
@@ -101,7 +101,7 @@ public:
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
     /// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>
-    explicit QMatrix4x4(const float_q &fValueAll);
+    explicit QMatrix4x4(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -122,10 +122,10 @@ public:
     /// <param name="f31">[IN] Floating point value for element of row 3, column 1.</param>
     /// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
     /// <param name="f33">[IN] Floating point value for element of row 3, column 3.</param>
-    QMatrix4x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-               const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-               const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
-               const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33);
+    QMatrix4x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+               const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+               const float_q f20, const float_q f21, const float_q f22, const float_q f23,
+               const float_q f30, const float_q f31, const float_q f32, const float_q f33);
 
     /// <summary>
     /// Constructor that receives a pointer to 16 floating point values.
@@ -145,7 +145,7 @@ public:
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-    QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3);
+    QMatrix4x4(const vf32_q row0, const vf32_q row1, const vf32_q row2, const vf32_q &row3);
 
 
     // PROPERTIES
@@ -183,7 +183,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix4x4 operator*(const float_q &fScalar) const;
+    QMatrix4x4 operator*(const float_q fScalar) const;
 
     /// <summary>
     /// Multiplies a QMatrix4x4 by the current matrix.
@@ -235,7 +235,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix4x4 operator/(const float_q &fScalar) const;
+    QMatrix4x4 operator/(const float_q fScalar) const;
 
     /// <summary>
     /// Adds a QMatrix4x4 to the current matrix.
@@ -281,7 +281,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    QMatrix4x4& operator/=(const float_q &fScalar);
+    QMatrix4x4& operator/=(const float_q fScalar);
 
     /// <summary>
     /// Addition and assign operator. Current matrix stores the result of the addition.

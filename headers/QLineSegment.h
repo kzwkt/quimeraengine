@@ -1387,7 +1387,7 @@ public:
     /// If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
     /// </remarks>
     /// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-    void Lengthen(const float_q &fLengtheningFactor)
+    void Lengthen(const float_q fLengtheningFactor)
     {
         // If Lengthening Factor == 1 we just don't touch the segment.
         if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
@@ -1418,7 +1418,7 @@ public:
     /// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
     /// </remarks>
     /// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-    void LengthenFromA(const float_q &fLengtheningFactor)
+    void LengthenFromA(const float_q fLengtheningFactor)
     {
         // If Lengthening Factor == 1 we just don't touch the segment.
         if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
@@ -1444,7 +1444,7 @@ public:
     /// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
     /// </remarks>
     /// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-    void LengthenFromB(const float_q &fLengtheningFactor)
+    void LengthenFromB(const float_q fLengtheningFactor)
     {
         // If Lengthening Factor == 1 we just don't touch the segment.
         if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )

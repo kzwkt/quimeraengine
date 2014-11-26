@@ -67,7 +67,7 @@ QBaseMatrix4x4::QBaseMatrix4x4(const QBaseMatrix4x4 &matrix)
     memcpy(this->ij, matrix.ij, sizeof(float_q) * 16);
 }
 
-QBaseMatrix4x4::QBaseMatrix4x4(const float_q &fValueAll)
+QBaseMatrix4x4::QBaseMatrix4x4(const float_q fValueAll)
 {
     ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] =
     ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] =
@@ -75,10 +75,10 @@ QBaseMatrix4x4::QBaseMatrix4x4(const float_q &fValueAll)
     ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = fValueAll;
 }
 
-QBaseMatrix4x4::QBaseMatrix4x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                               const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                               const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
-                               const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33)
+QBaseMatrix4x4::QBaseMatrix4x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+                               const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+                               const float_q f20, const float_q f21, const float_q f22, const float_q f23,
+                               const float_q f30, const float_q f31, const float_q f32, const float_q f33)
 {
     ij[0][0] = f00;
     ij[0][1] = f01;
@@ -120,7 +120,7 @@ QBaseMatrix4x4::QBaseMatrix4x4(const float_q* arValues)
     ij[3][3] = arValues[15];
 }
 
-QBaseMatrix4x4::QBaseMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
+QBaseMatrix4x4::QBaseMatrix4x4(const vf32_q row0, const vf32_q row1, const vf32_q row2, const vf32_q &row3)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

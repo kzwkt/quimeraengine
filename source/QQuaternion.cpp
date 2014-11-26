@@ -70,7 +70,7 @@ QQuaternion::QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
 {
 }
 
-QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ)
+QQuaternion::QQuaternion(const float_q fRotationAngleX, const float_q fRotationAngleY, const float_q fRotationAngleZ)
 {
     // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -97,7 +97,7 @@ QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotatio
     this->z = -sy * sx * cz + cy * cx * sz;
 }
 
-QQuaternion::QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
+QQuaternion::QQuaternion(const float_q fValueX, const float_q fValueY, const float_q fValueZ, const float_q fValueW) :
                            QBaseQuaternion(fValueX, fValueY, fValueZ, fValueW)
 {
 }
@@ -106,11 +106,11 @@ QQuaternion::QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues)
 {
 }
 
-QQuaternion::QQuaternion(const vf32_q &value) : QBaseQuaternion(value)
+QQuaternion::QQuaternion(const vf32_q value) : QBaseQuaternion(value)
 {
 }
 
-QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
+QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q fRotationAngle)
 {
     // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -131,7 +131,7 @@ QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRota
     this->w = cos_q(HALF_ANGLE_RAD);
 }
 
-QQuaternion::QQuaternion(const QBaseVector4 &vRotationAxis, const float_q &fRotationAngle)
+QQuaternion::QQuaternion(const QBaseVector4 &vRotationAxis, const float_q fRotationAngle)
 {
     // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -208,7 +208,7 @@ QQuaternion QQuaternion::operator*(const QBaseQuaternion &qQuat) const
                         qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );       // W
 }
 
-QQuaternion QQuaternion::operator*(const float_q &fScalar) const
+QQuaternion QQuaternion::operator*(const float_q fScalar) const
 {
     return QQuaternion( this->x * fScalar,
                         this->y * fScalar,
@@ -240,7 +240,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
     return *this * QQuaternion(qQuat.x * NEG_INV_LENGTH, qQuat.y * NEG_INV_LENGTH, qQuat.z * NEG_INV_LENGTH, qQuat.w * -NEG_INV_LENGTH);
 }
 
-QQuaternion QQuaternion::operator/(const float_q &fScalar) const
+QQuaternion QQuaternion::operator/(const float_q fScalar) const
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
@@ -273,10 +273,10 @@ QQuaternion& QQuaternion::operator-=(const QBaseQuaternion &qQuat)
 
 QQuaternion& QQuaternion::operator*=(const QBaseQuaternion &qQuat)
 {
-    QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,       // Vx
-                            qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,       // Vy
-                            qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,       // Vz
-                            qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
+    QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,    // Vx
+                         qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,    // Vy
+                         qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,    // Vz
+                         qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
     this->x = resQuat.x;
     this->y = resQuat.y;
     this->z = resQuat.z;
@@ -329,7 +329,7 @@ QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
     return *this;
 }
 
-QQuaternion& QQuaternion::operator/=(const float_q &fScalar)
+QQuaternion& QQuaternion::operator/=(const float_q fScalar)
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
@@ -391,7 +391,7 @@ void QQuaternion::ResetToIdentity()
     this->w = SQFloat::_1;
 }
 
-QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat)
+QQuaternion operator*(const float_q fScalar, const QQuaternion &qQuat)
 {
     return QQuaternion( qQuat.x * fScalar, qQuat.y * fScalar, qQuat.z * fScalar, qQuat.w * fScalar);
 }
@@ -432,7 +432,7 @@ QQuaternion QQuaternion::Conjugate() const
     return QQuaternion(-this->x, -this->y, -this->z, this->w);
 }
 
-QQuaternion QQuaternion::Lerp(const float_q &fProportion, const QQuaternion &qQuat) const
+QQuaternion QQuaternion::Lerp(const float_q fProportion, const QQuaternion &qQuat) const
 {
     // Separated from the equation to gain performance
     QQuaternion qAuxSum(this->x * (SQFloat::_1 - fProportion) + qQuat.x * fProportion,
@@ -448,7 +448,7 @@ QQuaternion QQuaternion::Lerp(const float_q &fProportion, const QQuaternion &qQu
     return qAuxSum / fDivisor;
 }
 
-QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQuat) const
+QQuaternion QQuaternion::Slerp(const float_q fProportion, const QQuaternion &qQuat) const
 {
     QQuaternion qReturnValue;
 
@@ -491,7 +491,7 @@ QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQ
     return qReturnValue;
 }
 
-QQuaternion QQuaternion::UnitSlerp(const float_q &fProportion, const QQuaternion &qQuat) const
+QQuaternion QQuaternion::UnitSlerp(const float_q fProportion, const QQuaternion &qQuat) const
 {
     QQuaternion qReturnValue;
 

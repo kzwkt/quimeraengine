@@ -1845,7 +1845,7 @@ public:
     /// <returns>
     /// The translated segment.
     /// </returns>
-    QLineSegment3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QLineSegment3D<VectorType> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1961,7 +1961,7 @@ public:
     /// <returns>
     /// The scaled segment.
     /// </returns>
-    QLineSegment3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+    QLineSegment3D<VectorType> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -2007,7 +2007,7 @@ public:
     /// <returns>
     /// The scaled segment.
     /// </returns>
-    QLineSegment3D<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);

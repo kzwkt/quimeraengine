@@ -96,7 +96,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQTreeTraversalOrder(const EQTreeTraversalOrder::EnumType &eValue) : m_value(eValue)
+    inline EQTreeTraversalOrder(const EQTreeTraversalOrder::EnumType eValue) : m_value(eValue)
     {
     }
 
@@ -104,7 +104,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    inline EQTreeTraversalOrder(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQTreeTraversalOrder::EnumType))
+    inline EQTreeTraversalOrder(const enum_int_q nValue) : m_value(scast_q(nValue, const EQTreeTraversalOrder::EnumType))
     {
     }
 
@@ -138,7 +138,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const enum_int_q &nValue)
+    inline EQTreeTraversalOrder& operator=(const enum_int_q nValue)
     {
         m_value = scast_q(nValue, const EQTreeTraversalOrder::EnumType);
         return *this;
@@ -168,7 +168,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const EQTreeTraversalOrder::EnumType &eValue)
+    inline EQTreeTraversalOrder& operator=(const EQTreeTraversalOrder::EnumType eValue)
     {
         m_value = eValue;
         return *this;
@@ -222,7 +222,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const enum_int_q &nValue) const
+    inline bool operator==(const enum_int_q nValue) const
     {
         return m_value == scast_q(nValue, const EQTreeTraversalOrder::EnumType);
     }
@@ -234,7 +234,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQTreeTraversalOrder::EnumType &eValue) const
+    bool operator==(const EQTreeTraversalOrder::EnumType eValue) const
     {
         return m_value == eValue;
     }
@@ -318,7 +318,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQTreeTraversalOrder::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQTreeTraversalOrder::EnumType eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();

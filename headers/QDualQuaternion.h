@@ -77,7 +77,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    friend QDualQuaternion QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
+    friend QDualQuaternion QE_LAYER_TOOLS_SYMBOLS operator*(const float_q fScalar, const QDualQuaternion &dualQuat);
 
 
     // CONSTRUCTORS
@@ -322,7 +322,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    QDualQuaternion operator*(const float_q &fScalar) const;
+    QDualQuaternion operator*(const float_q fScalar) const;
 
     /// <summary>
     /// Product by a vector (multiplying to the dual quaternion by the right).
@@ -359,7 +359,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    QDualQuaternion operator/(const float_q &fScalar) const;
+    QDualQuaternion operator/(const float_q fScalar) const;
 
     /// <summary>
     /// Add and assign operator. Each input quaternion component is added to the corresponding quaternion
@@ -414,7 +414,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    QDualQuaternion& operator/=(const float_q &fScalar);
+    QDualQuaternion& operator/=(const float_q fScalar);
 
     /// <summary>
     /// Assignation operator. Assigns the provided dual quaternion to the resident dual quaternion.
@@ -547,7 +547,7 @@ public:
     /// <returns>
     /// The "lerped" dual quaternion.
     /// </returns>
-    QDualQuaternion Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const;
+    QDualQuaternion Lerp(const float_q fProportion, const QDualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Converts dual quaternion into a string.

@@ -86,7 +86,7 @@ public:
     /// <returns>
     /// A plane that is the result of the product.
     /// </returns>
-    friend QPlane QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QPlane &plane);
+    friend QPlane QE_LAYER_TOOLS_SYMBOLS operator*(const float_q fScalar, const QPlane &plane);
 
 
     // CONSTRUCTORS
@@ -117,13 +117,13 @@ public:
     /// <param name="fB">[IN] Floating point value for b coefficient.</param>
     /// <param name="fC">[IN] Floating point value for c coefficient.</param>
     /// <param name="fD">[IN] Floating point value for independent term d.</param>
-    QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD);
+    QPlane(const float_q fA, const float_q fB, const float_q fC, const float_q fD);
 
     /// <summary>
     /// Constructor from a floating point value for all coefficients.
     /// </summary>
     /// <param name="fValueAll">[IN] Floating point value for all the coefficients.</param>
-    explicit QPlane(const float_q &fValueAll);
+    explicit QPlane(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a pointer to an array of floating point values.
@@ -233,7 +233,7 @@ public:
     /// <returns>
     /// A plane that is the result of the product.
     /// </returns>
-    QPlane operator*(const float_q &fScalar) const;
+    QPlane operator*(const float_q fScalar) const;
 
     /// <summary>
     /// Division by a scalar: all coefficients are divided by the floating point value provided.
@@ -245,7 +245,7 @@ public:
     /// <returns>
     /// A plane that is the result of the division.
     /// </returns>
-    QPlane operator/(const float_q &fScalar) const;
+    QPlane operator/(const float_q fScalar) const;
 
     /// <summary>
     /// Multiplies resident plane coefficients by a floating point value provided.
@@ -268,7 +268,7 @@ public:
     /// <returns>
     /// A reference to plane result of the division.
     /// </returns>
-    QPlane& operator/=(const float_q &fScalar);
+    QPlane& operator/=(const float_q fScalar);
 
     /// <summary>
     /// Opposite plane: multiplies each coefficient by -1, maintaining its distance to the origin.
@@ -602,7 +602,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    QPlane Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const;
+    QPlane Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const;
 
     /// <summary>
     /// Applies a translation to the resident plane.
@@ -669,7 +669,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    QPlane Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const;
+    QPlane Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const;
 
     /// <summary>
     /// Applies a transformation to the resident plane.
@@ -798,7 +798,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot) const;
+    QPlane ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
@@ -815,7 +815,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot) const;
+    QPlane ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,
@@ -991,7 +991,7 @@ private:
     /// The scaled plane.
     /// </returns>
     template <class VectorType>
-    QPlane ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const;
+    QPlane ScaleWithPivotImp(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,

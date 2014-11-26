@@ -68,12 +68,12 @@ QPlane::QPlane(const QBasePlane &plane) : QBasePlane(plane)
 {
 }
 
-QPlane::QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD) :
+QPlane::QPlane(const float_q fA, const float_q fB, const float_q fC, const float_q fD) :
                 QBasePlane(fA, fB, fC, fD)
 {
 }
 
-QPlane::QPlane(const float_q &fValueAll) : QBasePlane(fValueAll)
+QPlane::QPlane(const float_q fValueAll) : QBasePlane(fValueAll)
 {
 }
 
@@ -121,18 +121,18 @@ void QPlane::QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, con
 //##################                                                       ##################
 //##################=======================================================##################
 
-QPlane QPlane::operator*(const float_q &fScalar) const
+QPlane QPlane::operator*(const float_q fScalar) const
 {
     return QPlane(this->a * fScalar, this->b * fScalar, this->c * fScalar, this->d * fScalar);
 }
 
 // Left float product
-QPlane operator*(const float_q &fScalar, const QPlane &plane)
+QPlane operator*(const float_q fScalar, const QPlane &plane)
 {
     return QPlane(plane.a * fScalar, plane.b * fScalar, plane.c * fScalar, plane.d * fScalar);
 }
 
-QPlane QPlane::operator/(const float_q &fScalar) const
+QPlane QPlane::operator/(const float_q fScalar) const
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
@@ -151,7 +151,7 @@ QPlane& QPlane::operator*=(const float_q fScalar)
     return *this;
 }
 
-QPlane& QPlane::operator/=(const float_q &fScalar)
+QPlane& QPlane::operator/=(const float_q fScalar)
 {
     // Checkout to avoid division by 0
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -350,7 +350,7 @@ QPlane QPlane::Scale(const QBaseVector3 &vScale) const
             .Normalize();
 }
 
-QPlane QPlane::Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+QPlane QPlane::Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
 {
     // None of the scale values should equal zero
     QE_ASSERT_WARNING( fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0, "None of the scale values should equal zero, this will cause a division by zero" );
@@ -391,7 +391,7 @@ QPlane QPlane::Translate(const QBaseVector4 &vTranslation) const
                   this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
 }
 
-QPlane QPlane::Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+QPlane QPlane::Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
 {
     return QPlane(this->a,
                   this->b,
@@ -529,12 +529,12 @@ QPlane QPlane::ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot
     return this->ScaleWithPivotImp(vScale, vPivot);
 }
 
-QPlane QPlane::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot) const
+QPlane QPlane::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const QVector3 &vPivot) const
 {
     return this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
 }
 
-QPlane QPlane::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot) const
+QPlane QPlane::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const QVector4 &vPivot) const
 {
     return this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
 }
@@ -639,7 +639,7 @@ QPlane QPlane::ScaleWithPivotImp(const QBaseVector3 &vScale, const VectorType &v
 }
 
 template <class VectorType>
-QPlane QPlane::ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+QPlane QPlane::ScaleWithPivotImp(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType &vPivot) const
 {
     return this->Translate(-vPivot)
                 .Scale(fScaleX, fScaleY, fScaleZ)

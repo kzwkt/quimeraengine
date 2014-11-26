@@ -101,7 +101,7 @@ public:
     /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-    QTriangle2D(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC);
+    QTriangle2D(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC);
 
 
     // METHODS
@@ -182,7 +182,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QTriangle2D Translate(const float_q fTranslationX, const float_q fTranslationY) const;
 
     /// <summary>
     /// This method applies to the resident triangle the rotation defined by the provided angle
@@ -192,7 +192,7 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle2D Rotate(const float_q &fRotationAngle) const;
+    QTriangle2D Rotate(const float_q fRotationAngle) const;
 
     /// <summary>
     /// This method transforms the resident triangle by rotating it an amount defined by a rotation angle
@@ -203,7 +203,7 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
+    QTriangle2D RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident triangle by the scale contained in the provided vector.
@@ -222,7 +222,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle2D Scale(const float_q &fScaleX, const float_q &fScaleY) const;
+    QTriangle2D Scale(const float_q fScaleX, const float_q fScaleY) const;
 
     /// <summary>
     /// This method scales the resident triangle by the scale contained in the provided vector,
@@ -245,7 +245,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
+    QTriangle2D ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const;
 };
 
 } //namespace Math

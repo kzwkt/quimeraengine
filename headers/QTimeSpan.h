@@ -104,7 +104,7 @@ public:
     /// Constructor that receives a value containing a time span.
     /// </summary>
     /// <param name="uTimeValue">[IN] Value containing a time span in hundreds of nanoseconds.</param>
-    explicit inline QTimeSpan(const u64_q &uTimeValue) : m_uTimeSpan(uTimeValue)
+    explicit inline QTimeSpan(const u64_q uTimeValue) : m_uTimeSpan(uTimeValue)
     {
     }
 

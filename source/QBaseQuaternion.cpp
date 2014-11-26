@@ -62,8 +62,8 @@ QBaseQuaternion::QBaseQuaternion(const QBaseQuaternion &qQuat)
     this->w = qQuat.w;
 }
 
-QBaseQuaternion::QBaseQuaternion(const float_q &fValueX, const float_q &fValueY,
-                                const float_q &fValueZ, const float_q &fValueW) :
+QBaseQuaternion::QBaseQuaternion(const float_q fValueX, const float_q fValueY,
+                                 const float_q fValueZ, const float_q fValueW) :
                                        x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
 {
 }
@@ -84,7 +84,7 @@ QBaseQuaternion::QBaseQuaternion(const float_q* arValues)
     this->w = arValues[QE_W_INDEX_IN_FLOATTYPE_ARRAY];
 }
 
-QBaseQuaternion::QBaseQuaternion(const vf32_q &value)
+QBaseQuaternion::QBaseQuaternion(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

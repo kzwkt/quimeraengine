@@ -107,7 +107,7 @@ public:
     /// <param name="fTranslationX">[IN] Displacement in X direction.</param>
     /// <param name="fTranslationY">[IN] Displacement in Y direction.</param>
     /// <param name="fTranslationZ">[IN] Displacement in Z direction.</param>
-    QTranslationMatrix(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
+    QTranslationMatrix(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ)
     {
         this->ResetToIdentity();
 

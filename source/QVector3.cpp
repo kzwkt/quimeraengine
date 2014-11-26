@@ -74,11 +74,11 @@ QVector3::QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVecto
 {
 }
 
-QVector3::QVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : QBaseVector3(fValueX, fValueY, fValueZ)
+QVector3::QVector3(const float_q fValueX, const float_q fValueY, const float_q fValueZ) : QBaseVector3(fValueX, fValueY, fValueZ)
 {
 }
 
-QVector3::QVector3(const float_q &fValueAll) : QBaseVector3(fValueAll)
+QVector3::QVector3(const float_q fValueAll) : QBaseVector3(fValueAll)
 {
 }
 
@@ -120,7 +120,7 @@ QVector3 QVector3::operator-(const QBaseVector3 &vVector) const
     return QVector3(this->x - vVector.x, this->y - vVector.y, this->z - vVector.z);
 }
 
-QVector3 QVector3::operator*(const float_q &fScalar) const
+QVector3 QVector3::operator*(const float_q fScalar) const
 {
     return QVector3(this->x * fScalar, this->y * fScalar, this->z * fScalar);
 }
@@ -147,7 +147,7 @@ QBaseVector4 QVector3::operator*(const QBaseMatrix3x4 &matrix) const
 
 }
 
-QVector3 QVector3::operator/(const float_q &fScalar) const
+QVector3 QVector3::operator/(const float_q fScalar) const
 {
     // Checkout to avoid division by 0
     QE_ASSERT_WARNING (fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -214,12 +214,12 @@ QVector3& QVector3::operator*=(const QBaseMatrix3x3 &matrix)
     return *this;
 }
 
-QVector3 operator*(const float_q &fScalar, const QVector3 &vVector)
+QVector3 operator*(const float_q fScalar, const QVector3 &vVector)
 {
     return QVector3(vVector.x * fScalar, vVector.y * fScalar, vVector.z * fScalar);
 }
 
-QVector3& QVector3::operator/=(const float_q &fScalar)
+QVector3& QVector3::operator/=(const float_q fScalar)
 {
     // Checkout to avoid division by 0
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -342,7 +342,7 @@ QVector3 QVector3::CrossProduct(const QBaseVector3 &vVector) const
                     this->x * vVector.y - this->y * vVector.x);
 }
 
-QVector3 QVector3::Lerp(const float_q &fProportion, const QVector3 &vVector) const
+QVector3 QVector3::Lerp(const float_q fProportion, const QVector3 &vVector) const
 {
     return QVector3(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
                     this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,

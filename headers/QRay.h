@@ -167,7 +167,7 @@ public:
     /// <returns>
     /// A point of the ray.
     /// </returns>
-    VectorTypeOrigin GetPoint(const float_q &fDistance) const
+    VectorTypeOrigin GetPoint(const float_q fDistance) const
     {
         // The direction vector must be normalized
         QE_ASSERT_WARNING( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
