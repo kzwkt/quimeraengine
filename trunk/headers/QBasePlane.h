@@ -73,13 +73,13 @@ public:
     /// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
     /// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
     /// <param name="fValueD">[IN] Floating point value for independent term d.</param>
-    QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD);
+    QBasePlane(const float_q fValueA, const float_q fValueB, const float_q fValueC, const float_q fValueD);
 
     /// <summary>
     /// Constructor from a floating point value for all coefficients.
     /// </summary>
     /// <param name="fValueAll">[IN] Floating point value.</param>
-    explicit QBasePlane(const float_q &fValueAll);
+    explicit QBasePlane(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a pointer to a array of floating point values.
@@ -94,7 +94,7 @@ public:
     /// <param name="value">[IN] 4x32 packed float containing the four components.<br/>
     /// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
     /// 3rd value (c coefficient), 4th value (d independent term).</param>
-    explicit QBasePlane(const vf32_q &value);
+    explicit QBasePlane(const vf32_q value);
 
 
     // METHODS

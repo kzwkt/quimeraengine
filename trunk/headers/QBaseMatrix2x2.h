@@ -67,7 +67,7 @@ public:
     /// Constructor that receives a floating point value for all elements of the matrix.
     /// </summary>
     /// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
-    explicit QBaseMatrix2x2(const float_q &fValueAll);
+    explicit QBaseMatrix2x2(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -76,7 +76,7 @@ public:
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
     /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
     /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-    QBaseMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11);
+    QBaseMatrix2x2(const float_q f00, const float_q f01, const float_q f10, const float_q f11);
 
     /// <summary>
     /// Constructor that receives a pointer to 4 floating point values.
@@ -94,7 +94,7 @@ public:
     /// Each pack element is unpacked following the row x column convention.
     /// </summary>
     /// <param name="value">[IN] 4x32 values for the matrix.</param>
-    QBaseMatrix2x2(const vf32_q &value);
+    QBaseMatrix2x2(const vf32_q value);
 
 
     // METHODS

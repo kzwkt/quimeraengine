@@ -53,7 +53,7 @@ class QMatrix4x4;
 class QRotationMatrix3x3;
 
 // Preventing friend global operator to be called.
-QRotationMatrix3x3 operator*(const float_q &fScalar, const QRotationMatrix3x3 &matrix);
+QRotationMatrix3x3 operator*(const float_q fScalar, const QRotationMatrix3x3 &matrix);
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
@@ -103,7 +103,7 @@ public:
     /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
     /// <param name="fRotationAngleY">[IN] Rotation angle about Y global axis.</param>
     /// <param name="fRotationAngleZ">[IN] Rotation angle about Z global axis.</param>
-    QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ);
+    QRotationMatrix3x3(const float_q fRotationAngleX, const float_q fRotationAngleY, const float_q fRotationAngleZ);
 
     /// <summary>
     /// Constructor from an angle and a spin axis defined by a vector.
@@ -122,7 +122,7 @@ public:
     /// <remarks>
     /// The axis vector must be normalized to construct the rotation matrix properly.
     /// </remarks>
-    QRotationMatrix3x3(const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis);
+    QRotationMatrix3x3(const float_q fRotationAngle, const QBaseVector3 &vRotationAxis);
 
     /// <summary>
     /// Constructor from a quaternion.
@@ -312,15 +312,15 @@ public:
 private:
 
     // Preventing the operators from base class to be used.
-    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const float_q fScalar) const;
     QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
     QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
-    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator/(const float_q fScalar) const;
     QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
     QMatrix3x3& operator*=(const float_q fScalar);
-    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator/=(const float_q fScalar);
     QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
     QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 

@@ -71,7 +71,7 @@ public:
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
     /// <param name="fValueW">[IN] W component value.</param>
-    QBaseQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW);
+    QBaseQuaternion(const float_q fValueX, const float_q fValueY, const float_q fValueZ, const float_q fValueW);
 
     /// <summary>
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
@@ -88,7 +88,7 @@ public:
     /// The values order is: X, Y, Z and W.
     /// </remarks>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
-    explicit QBaseQuaternion(const vf32_q &value);
+    explicit QBaseQuaternion(const vf32_q value);
 
 
     // METHODS

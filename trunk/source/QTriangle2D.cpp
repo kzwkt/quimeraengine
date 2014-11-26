@@ -73,7 +73,7 @@ QTriangle2D::QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, con
 {
 }
 
-QTriangle2D::QTriangle2D(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QTriangle<QVector2>(valueA, valueB, valueC)
+QTriangle2D::QTriangle2D(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) : QTriangle<QVector2>(valueA, valueB, valueC)
 {
 }
 
@@ -194,21 +194,21 @@ QTriangle2D QTriangle2D::Translate(const QBaseVector2 &vTranslation) const
     return auxTriangle;
 }
 
-QTriangle2D QTriangle2D::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+QTriangle2D QTriangle2D::Translate(const float_q fTranslationX, const float_q fTranslationY) const
 {
     QTriangle2D auxTriangle = *this;
     SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxTriangle, QVector2*), 3);
     return auxTriangle;
 }
 
-QTriangle2D QTriangle2D::Rotate(const float_q &fRotationAngle) const
+QTriangle2D QTriangle2D::Rotate(const float_q fRotationAngle) const
 {
     QTriangle2D auxTriangle = *this;
     SQPoint::Rotate(fRotationAngle, rcast_q(&auxTriangle, QVector2*), 3);
     return auxTriangle;
 }
 
-QTriangle2D QTriangle2D::RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
+QTriangle2D QTriangle2D::RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const
 {
     QTriangle2D auxTriangle = *this;
     SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
@@ -222,7 +222,7 @@ QTriangle2D QTriangle2D::Scale(const QBaseVector2 &vScale) const
     return auxTriangle;
 }
 
-QTriangle2D QTriangle2D::Scale(const float_q &fScaleX, const float_q &fScaleY) const
+QTriangle2D QTriangle2D::Scale(const float_q fScaleX, const float_q fScaleY) const
 {
     QTriangle2D auxTriangle = *this;
     SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxTriangle, QVector2*), 3);
@@ -236,7 +236,7 @@ QTriangle2D QTriangle2D::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseV
     return auxTriangle;
 }
 
-QTriangle2D QTriangle2D::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
+QTriangle2D QTriangle2D::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const
 {
     QTriangle2D auxTriangle = *this;
     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxTriangle, QVector2*), 3);

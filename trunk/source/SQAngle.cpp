@@ -99,7 +99,7 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-float_q SQAngle::DegreesToRadians(const float_q &fDegrees)
+float_q SQAngle::DegreesToRadians(const float_q fDegrees)
 {
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -112,7 +112,7 @@ float_q SQAngle::DegreesToRadians(const float_q &fDegrees)
 
 }
 
-float_q SQAngle::RadiansToDegrees(const float_q &fRadians)
+float_q SQAngle::RadiansToDegrees(const float_q fRadians)
 {
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -125,7 +125,7 @@ float_q SQAngle::RadiansToDegrees(const float_q &fRadians)
 
 }
 
-float_q SQAngle::Truncate(const float_q &fAngle)
+float_q SQAngle::Truncate(const float_q fAngle)
 {
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -136,7 +136,7 @@ float_q SQAngle::Truncate(const float_q &fAngle)
 
 }
 
-float_q SQAngle::CountRevolutions(const float_q &fAngle)
+float_q SQAngle::CountRevolutions(const float_q fAngle)
 {
     const float_q COMPLETE_REVOLUTION =
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -148,7 +148,7 @@ float_q SQAngle::CountRevolutions(const float_q &fAngle)
     return fAngle / COMPLETE_REVOLUTION;
 }
 
-float_q SQAngle::CountCompleteRevolutions(const float_q &fAngle)
+float_q SQAngle::CountCompleteRevolutions(const float_q fAngle)
 {
     const float_q COMPLETE_REVOLUTION =
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS

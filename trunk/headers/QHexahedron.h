@@ -238,7 +238,7 @@ public:
     /// <returns>
     /// The translated hexahedron.
     /// </returns>
-    QHexahedron<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QHexahedron<VectorType> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
     {
         QHexahedron<VectorType> auxHexahedron = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxHexahedron, VectorType*), 8);
@@ -268,7 +268,7 @@ public:
     /// <returns>
     /// The scaled hexahedron.
     /// </returns>
-    QHexahedron<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+    QHexahedron<VectorType> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
     {
         QHexahedron<VectorType> auxHexahedron = *this;
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxHexahedron, VectorType*), 8);
@@ -302,7 +302,7 @@ public:
     /// <returns>
     /// The scaled hexahedron.
     /// </returns>
-    QHexahedron<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+    QHexahedron<VectorType> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType &vPivot) const
     {
         QHexahedron<VectorType> auxHexahedron = *this;
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);

@@ -64,14 +64,14 @@ QMatrix4x4::QMatrix4x4(const QBaseMatrix4x4 &matrix) : QBaseMatrix4x4(matrix)
 {
 }
 
-QMatrix4x4::QMatrix4x4(const float_q &fValueAll) : QBaseMatrix4x4(fValueAll)
+QMatrix4x4::QMatrix4x4(const float_q fValueAll) : QBaseMatrix4x4(fValueAll)
 {
 }
 
-QMatrix4x4::QMatrix4x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                       const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                       const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
-                       const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
+QMatrix4x4::QMatrix4x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+                       const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+                       const float_q f20, const float_q f21, const float_q f22, const float_q f23,
+                       const float_q f30, const float_q f31, const float_q f32, const float_q f33) :
                             QBaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13,
                                            f20, f21, f22, f23, f30, f31, f32, f33)
 {
@@ -81,7 +81,7 @@ QMatrix4x4::QMatrix4x4(const float_q* arValues) : QBaseMatrix4x4(arValues)
 {
 }
 
-QMatrix4x4::QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
+QMatrix4x4::QMatrix4x4(const vf32_q row0, const vf32_q row1, const vf32_q row2, const vf32_q &row3) :
                             QBaseMatrix4x4(row0, row1, row2, row3)
 {
 }
@@ -96,7 +96,7 @@ QMatrix4x4::QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMatrix4x4 QMatrix4x4::operator*(const float_q &fScalar) const
+QMatrix4x4 QMatrix4x4::operator*(const float_q fScalar) const
 {
     QMatrix4x4 aux;
 
@@ -120,7 +120,7 @@ QMatrix4x4 QMatrix4x4::operator*(const float_q &fScalar) const
     return aux;
 }
 
-QMatrix4x4 operator*(const float_q &fScalar, const QMatrix4x4 &matrix)
+QMatrix4x4 operator*(const float_q fScalar, const QMatrix4x4 &matrix)
 {
     QMatrix4x4 aux;
 
@@ -194,7 +194,7 @@ QBaseMatrix4x3 QMatrix4x4::operator*(const QBaseMatrix4x3 &matrix) const
     return aux;
 }
 
-QMatrix4x4 QMatrix4x4::operator/(const float_q &fScalar) const
+QMatrix4x4 QMatrix4x4::operator/(const float_q fScalar) const
 {
 
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -306,7 +306,7 @@ QMatrix4x4& QMatrix4x4::operator*=(const float_q fScalar)
     return *this;
 }
 
-QMatrix4x4& QMatrix4x4::operator/=(const float_q &fScalar)
+QMatrix4x4& QMatrix4x4::operator/=(const float_q fScalar)
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 
@@ -585,18 +585,18 @@ string_q QMatrix4x4::ToString() const
 const QMatrix4x4& QMatrix4x4::GetNullMatrix()
 {
     static const QMatrix4x4 NULLMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+                                       SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                       SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                       SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     return NULLMATRIX;
 }
 
 const QMatrix4x4& QMatrix4x4::GetIdentity()
 {
     static const QMatrix4x4 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0,
-                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+                                     SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                     SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                     SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     return IDENTITY;
 }
 

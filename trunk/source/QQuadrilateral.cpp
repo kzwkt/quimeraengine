@@ -286,7 +286,7 @@ float_q QQuadrilateral::GetAngleD() const
         return ANGLE;
 }
 
-QQuadrilateral QQuadrilateral::Rotate(const float_q &fRotationAngle) const
+QQuadrilateral QQuadrilateral::Rotate(const float_q fRotationAngle) const
 {
     QQuadrilateral auxQuadrilateral = *this;
     SQPoint::Rotate(fRotationAngle, rcast_q(&auxQuadrilateral, QVector2*), 4);
@@ -300,7 +300,7 @@ QQuadrilateral QQuadrilateral::Translate(const QBaseVector2 &vTranslation) const
     return auxQuadrilateral;
 }
 
-QQuadrilateral QQuadrilateral::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+QQuadrilateral QQuadrilateral::Translate(const float_q fTranslationX, const float_q fTranslationY) const
 {
     QQuadrilateral auxQuadrilateral = *this;
     SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxQuadrilateral, QVector2*), 4);
@@ -314,7 +314,7 @@ QQuadrilateral QQuadrilateral::Scale(const QBaseVector2 &vScale) const
     return auxQuadrilateral;
 }
 
-QQuadrilateral QQuadrilateral::Scale(const float_q &fScaleX, const float_q &fScaleY) const
+QQuadrilateral QQuadrilateral::Scale(const float_q fScaleX, const float_q fScaleY) const
 {
     QQuadrilateral auxQuadrilateral = *this;
     SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxQuadrilateral, QVector2*), 4);
@@ -328,7 +328,7 @@ QQuadrilateral QQuadrilateral::Transform(const QTransformationMatrix3x3 &transfo
     return auxQuadrilateral;
 }
 
-QQuadrilateral QQuadrilateral::RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
+QQuadrilateral QQuadrilateral::RotateWithPivot(const float_q fRotationAngle, const QVector2 &vPivot) const
 {
     QQuadrilateral auxQuadrilateral = *this;
     SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
@@ -342,7 +342,7 @@ QQuadrilateral QQuadrilateral::ScaleWithPivot(const QBaseVector2 &vScale, const 
     return auxQuadrilateral;
 }
 
-QQuadrilateral QQuadrilateral::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
+QQuadrilateral QQuadrilateral::ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const
 {
     QQuadrilateral auxQuadrilateral = *this;
     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);

@@ -542,7 +542,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-    QRay2D Rotate(const float_q &fRotationAngle) const;
+    QRay2D Rotate(const float_q fRotationAngle) const;
 
     /// <summary>
     /// This method rotates the resident ray the provided angle around the point provided as pivot.
@@ -552,7 +552,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-    QRay2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
+    QRay2D RotateWithPivot(const float_q fRotationAngle, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// This method translates the resident ray by the translation contained in the provided vector.
@@ -571,7 +571,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-    QRay2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QRay2D Translate(const float_q fTranslationX, const float_q fTranslationY) const;
 
     /// <summary>
     /// This method scales the resident ray by the scale contained in the provided vector.
@@ -593,12 +593,12 @@ public:
     /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    QRay2D Scale(const float_q &vScaleX, const float_q &vScaleY) const;
+    QRay2D Scale(const float_q fScaleX, const float_q fScaleY) const;
 
     /// <summary>
     /// This method scales the resident ray by the scale contained in the provided vector from
@@ -623,13 +623,13 @@ public:
     /// Resultant ray is normalized after this operation.<br/>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
-    /// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
-    QRay2D ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot) const;
+    QRay2D ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// This method applies the transformation contained in the provided transformation matrix from

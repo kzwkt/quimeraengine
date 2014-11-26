@@ -67,7 +67,7 @@ public:
     /// Constructor that receives a floating point value for all elements of the matrix.
     /// </summary>
     /// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
-    explicit QBaseMatrix3x4(const float_q &fValueAll);
+    explicit QBaseMatrix3x4(const float_q fValueAll);
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -84,9 +84,9 @@ public:
     /// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
     /// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
     /// <param name="f23">[IN] Floating point value for element of row 2, column 3.</param>
-    explicit QBaseMatrix3x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                            const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                            const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23);
+    explicit QBaseMatrix3x4(const float_q f00, const float_q f01, const float_q f02, const float_q f03,
+                            const float_q f10, const float_q f11, const float_q f12, const float_q f13,
+                            const float_q f20, const float_q f21, const float_q f22, const float_q f23);
 
     /// <summary>
     /// Constructor that receives a pointer to 12 floating point values.
@@ -105,7 +105,7 @@ public:
     /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3, parsed in this order.</param>
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3, parsed in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3, parsed in this order.</param>
-    QBaseMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2);
+    QBaseMatrix3x4(const vf32_q row0, const vf32_q row1, const vf32_q row2);
     
 
     // METHODS

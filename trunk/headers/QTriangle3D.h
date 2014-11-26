@@ -114,7 +114,7 @@ public:
     /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-    QTriangle3D(const vf32_q& valueA, const vf32_q& valueB, const vf32_q& valueC) :
+    QTriangle3D(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) :
                            QTriangle<VectorType>(valueA, valueB, valueC)
     {
     }
@@ -212,7 +212,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QTriangle3D<VectorType> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
     {
         QTriangle3D<VectorType> auxTriangle = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxTriangle, VectorType*), 3);
@@ -315,7 +315,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+    QTriangle3D<VectorType> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
     {
         QTriangle3D<VectorType> auxTriangle = *this;
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxTriangle, VectorType*), 3);
@@ -363,7 +363,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> ScaleWithPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot) const
+    QTriangle3D<VectorType> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType& vPivot) const
     {
         QTriangle3D<VectorType> auxTriangle = *this;
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
@@ -529,7 +529,7 @@ public:
     /// <returns>
     /// The extruded triangle.
     /// </returns>
-    QTriangle3D<VectorType> Extrude(const float_q &fAmount) const
+    QTriangle3D<VectorType> Extrude(const float_q fAmount) const
     {
         VectorType vLangthenedNormalVector = VectorType(this->GetNormal() * fAmount);
 

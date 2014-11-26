@@ -61,11 +61,11 @@ QBaseVector2::QBaseVector2(const QBaseVector2 &vVector)
     this->y = vVector.y;
 }
 
-QBaseVector2::QBaseVector2(const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY)
+QBaseVector2::QBaseVector2(const float_q fValueX, const float_q fValueY) : x(fValueX), y(fValueY)
 {
 }
 
-QBaseVector2::QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll)
+QBaseVector2::QBaseVector2(const float_q fValueAll) : x(fValueAll), y(fValueAll)
 {
 }
 
@@ -79,7 +79,7 @@ QBaseVector2::QBaseVector2(const float_q* arValues)
     y = arValues[1];
 }
 
-QBaseVector2::QBaseVector2(const vf32_q &value)
+QBaseVector2::QBaseVector2(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

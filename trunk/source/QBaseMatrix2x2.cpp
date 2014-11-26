@@ -77,13 +77,13 @@ QBaseMatrix2x2::QBaseMatrix2x2(const QBaseMatrix2x2 &matrix)
     memcpy(this->ij, matrix.ij, sizeof(float_q) * 4);
 }
 
-QBaseMatrix2x2::QBaseMatrix2x2(const float_q &fValueAll)
+QBaseMatrix2x2::QBaseMatrix2x2(const float_q fValueAll)
 {
     ij[0][0] = ij[0][1] =
     ij[1][0] = ij[1][1] = fValueAll;
 }
 
-QBaseMatrix2x2::QBaseMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11)
+QBaseMatrix2x2::QBaseMatrix2x2(const float_q f00, const float_q f01, const float_q f10, const float_q f11)
 {
     ij[0][0] = f00;
     ij[0][1] = f01;
@@ -115,7 +115,7 @@ QBaseMatrix2x2::QBaseMatrix2x2(const float_q* arValues)
 /// Each pack element is unpacked following the row x column convention.
 /// </summary>
 /// <param name="value">[IN] 4x32 values for the matrix.</param>
-QBaseMatrix2x2::QBaseMatrix2x2(const vf32_q &value)
+QBaseMatrix2x2::QBaseMatrix2x2(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 

@@ -102,7 +102,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    QOrb(const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
+    QOrb(const VectorType &vCenter, const float_q fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
     {
     }
 

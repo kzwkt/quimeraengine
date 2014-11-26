@@ -237,7 +237,7 @@ public:
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-    QQuadrilateral Rotate(const float_q &fRotationAngle) const;
+    QQuadrilateral Rotate(const float_q fRotationAngle) const;
 
     /// <summary>
     /// This method performs a translation of the resident quadrilateral given by the provided vector.
@@ -256,7 +256,7 @@ public:
     /// <returns>
     /// The translated quadrilateral.
     /// </returns>
-    QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
+    QQuadrilateral Translate(const float_q fTranslationX, const float_q fTranslationY) const;
 
     /// <summary>
     /// This method scales the resident quadrilateral by the scale contained in the provided vector.
@@ -275,7 +275,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-    QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const;
+    QQuadrilateral Scale(const float_q fScaleX, const float_q fScaleY) const;
 
     /// <summary>
     /// Receives a transformation matrix and applies the transformations to the resident quadrilateral.
@@ -298,7 +298,7 @@ public:
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-    QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
+    QQuadrilateral RotateWithPivot(const float_q fRotationAngle, const QVector2 &vPivot) const;
 
     /// <summary>
     /// This method scales the resident quadrilateral by the scale contained in the provided vector,
@@ -321,7 +321,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-    QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
+    QQuadrilateral ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations

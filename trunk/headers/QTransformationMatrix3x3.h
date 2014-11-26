@@ -47,7 +47,7 @@ class QBaseVector2;
 class QTransformationMatrix3x3;
 
 // Preventing friend global operator to be called.
-QTransformationMatrix3x3 operator*(const float_q &fScalar, const QTransformationMatrix3x3 &matrix);
+QTransformationMatrix3x3 operator*(const float_q fScalar, const QTransformationMatrix3x3 &matrix);
 
 /// <summary>
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
@@ -88,7 +88,7 @@ public:
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
     /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <param name="vScale">[IN] Vector with the scale values.</param>
-    QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q &fRotationAngle, const QBaseVector2 &vScale);
+    QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q fRotationAngle, const QBaseVector2 &vScale);
 
 
     // PROPERTIES
@@ -169,15 +169,15 @@ public:
 private:
 
     // Preventing the operators from base class to be used.
-    QMatrix3x3 operator*(const float_q &fScalar) const;
+    QMatrix3x3 operator*(const float_q fScalar) const;
     QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
     QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
-    QMatrix3x3 operator/(const float_q &fScalar) const;
+    QMatrix3x3 operator/(const float_q fScalar) const;
     QMatrix3x3 operator+(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3 operator-(const QBaseMatrix3x3 &matrix) const;
     QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
-    QMatrix3x3& operator*=(const float_q fScalar);
-    QMatrix3x3& operator/=(const float_q &fScalar);
+    QMatrix3x3& operator*=(const float_q Scalar);
+    QMatrix3x3& operator/=(const float_q fScalar);
     QMatrix3x3& operator+=(const QBaseMatrix3x3 &matrix);
     QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 

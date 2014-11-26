@@ -77,13 +77,13 @@ public:
     /// <param name="fValueY">[IN] The value for Y component.</param>
     /// <param name="fValueZ">[IN] The value for Z component.</param>
     /// <param name="fValueW">[IN] The value for W component.</param>
-    QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW);
+    QBaseVector4(const float_q fValueX, const float_q fValueY, const float_q fValueZ, const float_q fValueW);
 
     /// <summary>
     /// Constructor from a single value for all the vector's components.
     /// </summary>
     /// <param name="fValueAll">[IN] The value for all components.</param>
-    explicit QBaseVector4(const float_q &fValueAll);
+    explicit QBaseVector4(const float_q fValueAll);
 
     /// <summary>
     /// Constructor that receives an array of scalars.
@@ -99,7 +99,7 @@ public:
     /// Constructor that receives a pack of four scalars.
     /// </summary>
     /// <param name="value">[IN] 4x32 packed floating point value containing the three components.</param>
-    explicit QBaseVector4(const vf32_q &value);
+    explicit QBaseVector4(const vf32_q value);
 
 
     // METHODS

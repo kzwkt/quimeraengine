@@ -114,7 +114,7 @@ public:
     /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-    QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
+    QBaseTriangle(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) :
                              A(valueA), B(valueB), C(valueC)
     {
     }

@@ -63,11 +63,11 @@ QMatrix2x2::QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
 {
 }
 
-QMatrix2x2::QMatrix2x2(const float_q &fValueAll) : QBaseMatrix2x2(fValueAll)
+QMatrix2x2::QMatrix2x2(const float_q fValueAll) : QBaseMatrix2x2(fValueAll)
 {
 }
 
-QMatrix2x2::QMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11) :
+QMatrix2x2::QMatrix2x2(const float_q f00, const float_q f01, const float_q f10, const float_q f11) :
                         QBaseMatrix2x2(f00, f01, f10, f11)
 {
 }
@@ -76,7 +76,7 @@ QMatrix2x2::QMatrix2x2(const float_q* arValues) : QBaseMatrix2x2(arValues)
 {
 }
 
-QMatrix2x2::QMatrix2x2(const vf32_q &value) : QBaseMatrix2x2(value)
+QMatrix2x2::QMatrix2x2(const vf32_q value) : QBaseMatrix2x2(value)
 {
 }
 
@@ -90,7 +90,7 @@ QMatrix2x2::QMatrix2x2(const vf32_q &value) : QBaseMatrix2x2(value)
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMatrix2x2 QMatrix2x2::operator*(const float_q &fScalar) const
+QMatrix2x2 QMatrix2x2::operator*(const float_q fScalar) const
 {
     QMatrix2x2 aux;
 
@@ -102,7 +102,7 @@ QMatrix2x2 QMatrix2x2::operator*(const float_q &fScalar) const
     return aux;
 }
 
-QMatrix2x2 operator*(const float_q &fScalar, const QMatrix2x2 &matrix)
+QMatrix2x2 operator*(const float_q fScalar, const QMatrix2x2 &matrix)
 {
     QMatrix2x2 aux;
 
@@ -126,7 +126,7 @@ QMatrix2x2 QMatrix2x2::operator*(const QBaseMatrix2x2 &matrix) const
     return aux;
 }
 
-QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
+QMatrix2x2 QMatrix2x2::operator/(const float_q fScalar) const
 {
 
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
@@ -191,7 +191,7 @@ QMatrix2x2& QMatrix2x2::operator*=(const QBaseMatrix2x2 &matrix)
     return *this;
 }
 
-QMatrix2x2& QMatrix2x2::operator/=(const float_q &fScalar)
+QMatrix2x2& QMatrix2x2::operator/=(const float_q fScalar)
 {
     QE_ASSERT_WARNING(fScalar != SQFloat::_0, "Input value must not equal zero");
 

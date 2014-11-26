@@ -64,12 +64,12 @@ QBasePlane::QBasePlane(const QBasePlane &plane)
     this->d = plane.d;
 }
 
-QBasePlane::QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD) :
+QBasePlane::QBasePlane(const float_q fValueA, const float_q fValueB, const float_q fValueC, const float_q fValueD) :
                         a(fValueA), b(fValueB), c(fValueC), d(fValueD)
 {
 }
 
-QBasePlane::QBasePlane(const float_q &fValueAll) : a(fValueAll), b(fValueAll), c(fValueAll), d(fValueAll)
+QBasePlane::QBasePlane(const float_q fValueAll) : a(fValueAll), b(fValueAll), c(fValueAll), d(fValueAll)
 {
 }
 
@@ -85,7 +85,7 @@ QBasePlane::QBasePlane(const float_q* arValues)
     this->d = arValues[3];
 }
 
-QBasePlane::QBasePlane(const vf32_q &value)
+QBasePlane::QBasePlane(const vf32_q value)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
