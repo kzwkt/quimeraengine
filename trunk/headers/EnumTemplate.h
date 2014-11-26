@@ -86,7 +86,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQEnumeration(const EQEnumeration::EnumType &eValue) : m_value(eValue)
+    inline EQEnumeration(const EQEnumeration::EnumType eValue) : m_value(eValue)
     {
     }
 
@@ -94,7 +94,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    inline EQEnumeration(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQEnumeration::EnumType))
+    inline EQEnumeration(const enum_int_q nValue) : m_value(scast_q(nValue, const EQEnumeration::EnumType))
     {
     }
 
@@ -128,7 +128,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const enum_int_q &nValue)
+    inline EQEnumeration& operator=(const enum_int_q nValue)
     {
         m_value = scast_q(nValue, const EQEnumeration::EnumType);
         return *this;
@@ -158,7 +158,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const EQEnumeration::EnumType &eValue)
+    inline EQEnumeration& operator=(const EQEnumeration::EnumType eValue)
     {
         m_value = eValue;
         return *this;
@@ -212,7 +212,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const enum_int_q &nValue) const
+    inline bool operator==(const enum_int_q nValue) const
     {
         return m_value == scast_q(nValue, const EQEnumeration::EnumType);
     }
@@ -224,7 +224,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumeration::EnumType &eValue) const
+    bool operator==(const EQEnumeration::EnumType eValue) const
     {
         return m_value == eValue;
     }
@@ -308,7 +308,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQEnumeration::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQEnumeration::EnumType eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
