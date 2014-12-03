@@ -979,10 +979,13 @@ string_q QPath::GetFilenameWithoutExtension() const
         int nDotPosition = string_q::PATTERN_NOT_FOUND;
         nDotPosition = QPath::_GetLastIndexOfString(QPath::DOT, m_strFilename, m_strFilename.GetLength() - 1);
 
-        if(nDotPosition != string_q::PATTERN_NOT_FOUND)
-            strFilename = m_strFilename.Substring(0, nDotPosition - 1U);
-        else
-            strFilename = m_strFilename;
+        if(nDotPosition != 0)
+        {
+            if(nDotPosition != string_q::PATTERN_NOT_FOUND)
+                strFilename = m_strFilename.Substring(0, nDotPosition - 1U);
+            else
+                strFilename = m_strFilename;
+        }
     }
 
     return strFilename;

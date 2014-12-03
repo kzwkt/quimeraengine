@@ -1709,6 +1709,7 @@ QTEST_CASE ( Resolve_NormalCase006_Test )
     absoluteUri.Resolve(relativeUri);
     
     // [Verification]
+    string_q s = absoluteUri.ToString();
     BOOST_CHECK(absoluteUri == EXPECTED_RESULT);
 }
 
