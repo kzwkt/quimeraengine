@@ -409,25 +409,28 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
             // Percent-encoded values represent code units of UTF8 characters, 
             // so it is necessary to know where does the sequence starts at and how long it is
             // The sequence is interrupted when the next percent-encoded value is not contiguous to the last one
-            if(uCurrentPercentPosition == uLastPercentPosition && uCurrentPercentPosition != 0)
+            if(uCurrentPercentPosition != 0)
             {
-                // Next code unit in the sequence
-                ++uCurrentCodeUnit;
-            }
-            else
-            {
-                if(bPendingCharacters)
+                if(uCurrentPercentPosition == uLastPercentPosition)
                 {
-                    // Adds the characters without encoding
-                    strResult.Append( string_q(rcast_q(arCodeUnits, i8_q*), uCurrentCodeUnit + 1U, EQTextEncoding::E_UTF8) );
-                    bPendingCharacters = false;
+                    // Next code unit in the sequence
+                    ++uCurrentCodeUnit;
                 }
+                else
+                {
+                    if(bPendingCharacters)
+                    {
+                        // Adds the characters without encoding
+                        strResult.Append( string_q(rcast_q(arCodeUnits, i8_q*), uCurrentCodeUnit + 1U, EQTextEncoding::E_UTF8) );
+                        bPendingCharacters = false;
+                    }
 
-                // Resets the sequence length counter
-                uCurrentCodeUnit = 0;
+                    // Resets the sequence length counter
+                    uCurrentCodeUnit = 0;
 
-                // Adds all the text between the current percent sign and the last percen-encoded value
-                strResult.Append( strInput.Substring(uLastPercentPosition, uCurrentPercentPosition - 1U) );
+                    // Adds all the text between the current percent sign and the last percen-encoded value
+                    strResult.Append( strInput.Substring(uLastPercentPosition, uCurrentPercentPosition - 1U) );
+                }
             }
 
             // Gets the UTF8 code unit from the percent-encoded value
@@ -506,7 +509,8 @@ void QUri::DecomposeUri(const string_q &strInputUri)
     if(!((QUri::FLAG_SCHEME_IS_DEFINED | QUri::FLAG_AUTHORITY_IS_DEFINED) & m_definedComponents))
         nPathStartPosition = 0;
 
-    this->DecomposePath(strInputUri, nPathStartPosition, nQueryStartPosition, nFragmentStartPosition);
+    if(nQueryStartPosition != 0 && nFragmentStartPosition != 0)
+        this->DecomposePath(strInputUri, nPathStartPosition, nQueryStartPosition, nFragmentStartPosition);
     
     // Gets de query
     // If there is a query separator ("?")
