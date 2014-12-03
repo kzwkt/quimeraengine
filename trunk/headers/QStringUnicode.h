@@ -100,7 +100,7 @@ public:
         QConstCharIterator(const QConstCharIterator &iterator);
         
         /// <summary>
-        /// Constructor that receives the string to iterate.
+        /// Constructor that receives the string to iterate and initial position.
         /// </summary>
         /// <param name="strString">[IN] The string to iterate. If it is empty, the iterator will point to the end position.</param>
         /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to. If it is out of bounds, 
@@ -288,6 +288,7 @@ public:
         /// </returns>
         bool IsValid() const;
 
+
         // ATTRIBUTES
         // ---------------
     protected:
@@ -303,13 +304,15 @@ public:
         icu::StringCharacterIterator m_iterator;
 
         /// <summary>
-        /// A workaround to be able to point to the position before the first character in the string.
+        /// The index of the code point to which the iterator points.
         /// </summary>
         /// <remarks>
-        /// When it is True, the iterator points to that position; when it is False the iterator is pointing to whatever else.
-        /// Note that the other end position, after the last position, can be easily calculated using the current implementation.
+        /// Although ICU iterators already store this index, it's not actually the same index. ICU iterators traverse the string code unit by code unit,
+        /// and store an index to a code unit, not a code point. A code point may be encoded as 2 code units (UTF16) and the public interface of the
+        /// Quimera Engine string classes assume that all indices are code point indices. The only way to be consistent is to keep track of the current code point
+        /// the iterator is pointing to at any moment.
         /// </remarks>
-        bool m_bIsBeforeFirst;
+        unsigned int m_uIndex;
 
     }; // QConstCharIterator
 
@@ -339,6 +342,14 @@ public:
         /// </summary>
         /// <param name="iterator">[IN] The iterator to be copied.</param>
         QCharIterator(const QCharIterator &iterator);
+        
+        /// <summary>
+        /// Constructor that receives the string to iterate and the initial position.
+        /// </summary>
+        /// <param name="strString">[IN] The string to iterate. If it is empty, the iterator will point to the end position.</param>
+        /// <param name="uInitialPosition">[IN] The index (starting at zero) of the initial position the iterator will point to. If it is out of bounds, 
+        /// the iterator will point to the end position.</param>
+        QCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition);
 
 
         // METHODS
@@ -428,19 +439,19 @@ public:
     static const int LENGTH_NULL_TERMINATED;
 
     /// <summary>
-    /// The Byte Order Mark, used in Unicode-encoded streams to indicate that it follows a Little Endian order.
-    /// </summary>
-    static const QCharUnicode CHAR_BOM_LE;
-
-    /// <summary>
-    /// The Byte Order Mark, used in Unicode-encoded streams to indicate that it follows a Big Endian order.
-    /// </summary>
-    static const QCharUnicode CHAR_BOM_BE;
-
-    /// <summary>
     /// Position returned when the string pattern was not found.
     /// </summary>
     static const int PATTERN_NOT_FOUND;
+    
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the last character.
+    /// </summary>
+    static const unsigned int END_POSITION_FORWARD = -1;
+
+    /// <summary>
+    /// Constant to symbolize the end of the sequence near the first character.
+    /// </summary>
+    static const unsigned int END_POSITION_BACKWARD = -2;
 
 
     // CONSTRUCTORS
@@ -601,40 +612,44 @@ public:
     /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, starting from a given position to the last one.
     /// </summary>
-    /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.</param>
+    /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.
+    /// It must be lower than the length of the string.</param>
     /// <returns>
-    /// A subset of the resident string.
+    /// A subset of the resident string. If the input start position is out of bounds, an empty string is returned.
     /// </returns>
     QStringUnicode Substring(const unsigned int uStartPosition) const;
 
     /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
     /// </summary>
-    /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.</param>
+    /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.
+    /// It must be lower than the length of the string.</param>
     /// <param name="uLastPosition">[IN] The position (zero-based index) of the last character of the resultant substring. It must be 
     /// greater than the start position. If it is out bounds, the last position will be used instead.</param>
     /// <returns>
-    /// A subset of the resident string.
+    /// A subset of the resident string. If the input start position is out of bounds, an empty string is returned.
     /// </returns>
     QStringUnicode Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const;
     
     /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, starting from a given position to the last one.
     /// </summary>
-    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.</param>
+    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.
+    /// It must not point to an end position.</param>
     /// <returns>
-    /// A subset of the resident string.
+    /// A subset of the resident string. If the input start position is out of bounds, an empty string is returned.
     /// </returns>
     QStringUnicode Substring(const QStringUnicode::QConstCharIterator& startPosition) const;
 
     /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
     /// </summary>
-    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.</param>
+    /// <param name="startPosition">[IN] The position of the first character of the resultant substring.
+    /// It must not point to an end position.
     /// <param name="lastPosition">[IN] The position of the last character of the resultant substring. It must be 
     /// posterior to the start position. If it is out bounds, the last position will be used instead.</param>
     /// <returns>
-    /// A subset of the resident string.
+    /// A subset of the resident string. If the input start position is out of bounds, an empty string is returned.
     /// </returns>
     QStringUnicode Substring(const QStringUnicode::QConstCharIterator& startPosition, const QStringUnicode::QConstCharIterator& lastPosition) const;
 
@@ -674,7 +689,7 @@ public:
     /// will contain only the size of the occupied memory.<br/>
     /// When the encoding is UTF-16 or UTF-32 (without endianness), the U+FFFE or U+FEFF BYTE ORDER CHARACTER is added at the beginning of the sequence.
     /// Which of both depends on the local machine's endianness.<br/>
-    /// When using UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE encodings, the bytes of the output steam will be reordered depending on the
+    /// When using UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE encodings, the bytes of the output stream will be reordered depending on the
     /// local machine's endianness.<br/>
     /// When using the ASCII or ISO 8859-1 encodings, if there are characters that cannot be translated to such encodings, they will be
     /// replaced by Substitution characters (#26 in ASCII table).
@@ -980,7 +995,7 @@ private:
     /// <returns>
     /// A normalizer ready to be used.
     /// </returns>
-    static const icu::Normalizer2* GetNormalilzer(const EQNormalizationForm &eNormalizationForm);
+    static const icu::Normalizer2* GetNormalizer(const EQNormalizationForm &eNormalizationForm);
 
     /// <summary>
     /// Gets an ICU collator instance for a comparison type.
@@ -1029,6 +1044,11 @@ private:
     /// Internal string representation.
     /// </summary>
     icu::UnicodeString m_strString;
+    
+    /// <summary>
+    /// The string's length, in code points. It's necessary to store this value separately because calling countChar32 implies traversing the full string every time.
+    /// </summary>
+    unsigned int m_uLength;
 
 };
 

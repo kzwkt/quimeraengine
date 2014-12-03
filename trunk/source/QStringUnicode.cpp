@@ -58,8 +58,6 @@ namespace DataTypes
 //##################=======================================================##################
 
 const int QStringUnicode::LENGTH_NULL_TERMINATED = -1;
-const QCharUnicode QStringUnicode::CHAR_BOM_LE(0xFFFE);
-const QCharUnicode QStringUnicode::CHAR_BOM_BE(0xFEFF);
 const int QStringUnicode::PATTERN_NOT_FOUND = -1;
 
 
@@ -72,13 +70,14 @@ const int QStringUnicode::PATTERN_NOT_FOUND = -1;
 //##################                                                       ##################
 //##################=======================================================##################
 
-QStringUnicode::QStringUnicode() : m_strString()
+QStringUnicode::QStringUnicode() : m_strString(),
+                                   m_uLength(0)
 {
 }
 
-QStringUnicode::QStringUnicode(const QStringUnicode &strString)
+QStringUnicode::QStringUnicode(const QStringUnicode &strString) : m_strString(strString.m_strString),
+                                                                  m_uLength(strString.GetLength())
 {
-    m_strString = strString.m_strString;
 }
 
 QStringUnicode::QStringUnicode(const i8_q* arBytes)
@@ -116,9 +115,11 @@ QStringUnicode::QStringUnicode(const i8_q* arBytes,
         nActualLength = strlen(arBytes);
 
     m_strString = icu::UnicodeString(arBytes, nActualLength, pConverter, errorCode);
+    m_uLength = scast_q(m_strString.countChar32(), unsigned int);;
 }
 
-QStringUnicode::QStringUnicode(const QCharUnicode &character) : m_strString(UChar(character.GetCodePoint()))
+QStringUnicode::QStringUnicode(const QCharUnicode &character) : m_strString(UChar32(character.GetCodePoint())),
+                                                                m_uLength(1U)
 {
 }
 
@@ -137,17 +138,18 @@ QStringUnicode& QStringUnicode::operator=(const QStringUnicode &strString)
     // [TODO] Thund: Currently, this operator will invalidate any interator that may be pointing to the string.
     //               In the future we should look for a solution, if there is any.
     m_strString = strString.m_strString;
+    m_uLength = strString.GetLength();
     return *this;
 }
 
 bool QStringUnicode::operator==(const QStringUnicode &strString) const
 {
-    return (m_strString == strString.m_strString) != FALSE;
+    return m_uLength == strString.m_uLength && (m_strString == strString.m_strString) != FALSE;
 }
 
 bool QStringUnicode::operator!=(const QStringUnicode &strString) const
 {
-    return (m_strString != strString.m_strString) != FALSE;
+    return m_uLength != strString.m_uLength || (m_strString != strString.m_strString) != FALSE;
 }
 
 bool QStringUnicode::operator<(const QStringUnicode &strString) const
@@ -175,6 +177,7 @@ QStringUnicode QStringUnicode::operator+(const QStringUnicode &strString) const
     QStringUnicode strNewString;
     strNewString.m_strString =  m_strString;
     strNewString.m_strString += strString.m_strString;
+    strNewString.m_uLength = m_uLength + strString.m_uLength;
     return strNewString;
 }
 
@@ -185,15 +188,16 @@ QCharUnicode QStringUnicode::operator[](const unsigned int uIndex) const
 
     // Index out of bounds: The index must be lower than the length of the string
     QE_ASSERT_ERROR(!this->IsEmpty() && uIndex < this->GetLength(), "Index out of bounds: The index must be lower than the length of the string");
-
-    QCharUnicode charUnicode = m_strString.char32At(uIndex);
-    return charUnicode;
+    
+    return QStringUnicode::QConstCharIterator(*this, uIndex).GetChar();
 }
 
 QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition) const
 {
-    QStringUnicode strResult;
-    m_strString.extract(uStartPosition, this->GetLength(), strResult.m_strString);
+    string_q strResult;
+
+    if(uStartPosition < this->GetLength())
+        strResult = this->Substring(QStringUnicode::QConstCharIterator(*this, uStartPosition));
 
     return strResult;
 }
@@ -203,8 +207,16 @@ QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, cons
     // The start position index must be lower or equal than the last position index
     QE_ASSERT_ERROR(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
 
-    QStringUnicode strResult;
-    m_strString.extract(uStartPosition, uLastPosition - uStartPosition + 1, strResult.m_strString);
+    string_q strResult;
+
+    if(uStartPosition < this->GetLength())
+    {
+        unsigned int uClampedLastPosition = uLastPosition < this->GetLength() ? 
+                                                                                uLastPosition :
+                                                                                this->GetLength() - 1U;
+
+        strResult = this->Substring(QStringUnicode::QConstCharIterator(*this, uStartPosition), QStringUnicode::QConstCharIterator(*this, uClampedLastPosition));
+    }
 
     return strResult;
 }
@@ -214,7 +226,10 @@ QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterato
     QStringUnicode strResult;
 
     if(!startPosition.IsEnd())
-        m_strString.extract(startPosition.m_iterator.getIndex(), this->GetLength(), strResult.m_strString);
+    {
+        m_strString.extract(startPosition.m_iterator.getIndex(), m_strString.length(), strResult.m_strString);
+        strResult.m_uLength = scast_q(strResult.m_strString.countChar32(), unsigned int);
+    }
     else if(startPosition < this->GetConstCharIterator()) // Is backward end position
         strResult = *this;                                // Returns the entire string
 
@@ -230,32 +245,38 @@ QStringUnicode QStringUnicode::Substring(const QStringUnicode::QConstCharIterato
     int32_t nStartPosition = 0;
     int32_t nLastPosition = 0;
     
+    // These 3 lines are necessary to find the position of the second code unit, if any
+    icu::StringCharacterIterator itLastCodeUnit = lastPosition.m_iterator;
+    itLastCodeUnit.next32(); // Moves to the next character
+    itLastCodeUnit.previous(); // Moves to the previous code unit
+
     if(!startPosition.IsEnd())
     {
         nStartPosition = startPosition.m_iterator.getIndex();
-        nLastPosition = lastPosition.m_iterator.getIndex();
+        nLastPosition = itLastCodeUnit.getIndex();
     }
     else if(startPosition < this->GetConstCharIterator()) // Is backward end position
     {
         if(startPosition == lastPosition)
         {
             // Both iterators point to backward end position
-            nStartPosition = this->GetLength();
+            nStartPosition = m_strString.length();
             nLastPosition = nStartPosition;
         }
         else
         {
             nStartPosition = 0;
-            nLastPosition = lastPosition.m_iterator.getIndex();
+            nLastPosition = itLastCodeUnit.getIndex();
         }
     }
-    else if(startPosition.IsEnd()) // Is forward end position
+    else // Is forward end position
     {
-        nStartPosition = this->GetLength();
+        nStartPosition = m_strString.length();
         nLastPosition = nStartPosition;
     }
     
     m_strString.extract(nStartPosition, nLastPosition - nStartPosition + 1, strResult.m_strString);
+    strResult.m_uLength = scast_q(strResult.m_strString.countChar32(), unsigned int);
 
     return strResult;
 }
@@ -282,7 +303,7 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOu
     i8_q* pOutputBytes = null_q;
     uOutputLength = 0;
 
-    const unsigned int CHARACTERS_COUNT = m_strString.countChar32(); // It does not include the final null character
+    const unsigned int CHARACTERS_COUNT = scast_q(m_strString.countChar32(), unsigned int);; // It does not include the final null character
 
     if(CHARACTERS_COUNT > 0)
     {
@@ -444,12 +465,13 @@ QStringUnicode QStringUnicode::ToCaseFolded() const
 {
     QStringUnicode strFoldedCase(*this);
     strFoldedCase.m_strString.foldCase(U_FOLD_CASE_DEFAULT);
+    strFoldedCase.m_uLength = scast_q(strFoldedCase.m_strString.countChar32(), unsigned int);
     return strFoldedCase;
 }
 
 void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
 {
-    const icu::Normalizer2* pNormalizer = QStringUnicode::GetNormalilzer(eNormalizationForm);
+    const icu::Normalizer2* pNormalizer = QStringUnicode::GetNormalizer(eNormalizationForm);
     UErrorCode eErrorCode = U_ZERO_ERROR;
     
     UBool bIsNormalized = pNormalizer->isNormalized(m_strString, eErrorCode); // [TODO] Thund: Change this by a call to this->IsNormalized when implemented
@@ -463,11 +485,14 @@ void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
         QE_ASSERT_ERROR(U_SUCCESS(eErrorCode), "An error occurred when normalizing the string");
 
         if(U_SUCCESS(eErrorCode) != FALSE)
+        {
             m_strString = strNormalized;
+            m_uLength = scast_q(strNormalized.countChar32(), unsigned int);;
+        }
     }
 }
 
-const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm &eNormalizationForm)
+const icu::Normalizer2* QStringUnicode::GetNormalizer(const EQNormalizationForm &eNormalizationForm)
 {
     const icu::Normalizer2* pNormalizer = null_q;
     UErrorCode eErrorCode = U_ZERO_ERROR;
@@ -615,6 +640,9 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
             nPosition = QStringUnicode::PATTERN_NOT_FOUND;
     }
 
+    if(nPosition != QStringUnicode::PATTERN_NOT_FOUND)
+        nPosition = m_strString.countChar32(0, nPosition);
+
     return nPosition;
 }
 
@@ -661,9 +689,12 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
 
     if(!strPattern.IsEmpty() && !this->IsEmpty() && uStart < this->GetLength())
     {
+        QConstCharIterator iterator(*this, uStart);
+        int nStartCodeUnitIndex = iterator.m_iterator.getIndex();
+
         if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
         {
-            nPosition = m_strString.indexOf(strPattern.m_strString, scast_q(uStart, int32_t));
+            nPosition = m_strString.indexOf(strPattern.m_strString, nStartCodeUnitIndex);
         }
         else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
         {
@@ -672,7 +703,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
             strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
             icu::UnicodeString strPatternCopy = strPattern.m_strString;
             strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
-            nPosition = strResidentCopy.indexOf(strPatternCopy);
+            nPosition = strResidentCopy.indexOf(strPatternCopy, nStartCodeUnitIndex);
         }
         else
         {
@@ -682,7 +713,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
             icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
-            search.setOffset(scast_q(uStart, int32_t), errorCode);
+            search.setOffset(nStartCodeUnitIndex, errorCode);
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
 
             QStringUnicode::ConfigureSearch(eComparisonType, search);
@@ -694,6 +725,9 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
         if(nPosition == USEARCH_DONE)
             nPosition = QStringUnicode::PATTERN_NOT_FOUND;
     }
+
+    if(nPosition != QStringUnicode::PATTERN_NOT_FOUND)
+        nPosition = m_strString.countChar32(0, nPosition);
 
     return nPosition;
 }
@@ -719,7 +753,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
         }
         else
         {
-            resultIterator.m_iterator.setIndex32(nPatternPosition);
+            resultIterator = QCharIterator(*this, nPatternPosition);
         }
     }
 
@@ -735,7 +769,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
 
     if(!this->IsEmpty())
     {
-        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, startPosition.m_iterator.getIndex());
+        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, startPosition.m_uIndex);
 
         if(nPatternPosition == QStringUnicode::PATTERN_NOT_FOUND)
         {
@@ -745,7 +779,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
         }
         else
         {
-            resultIterator.m_iterator.setIndex32(nPatternPosition);
+            resultIterator = QCharIterator(*this, nPatternPosition);
         }
     }
 
@@ -762,6 +796,8 @@ void QStringUnicode::Replace(const QStringUnicode &strSearchedPattern, const QSt
             this->ReplaceBinaryCaseInsensitive(strSearchedPattern, strReplacement);
         else
             this->ReplaceCanonical(strSearchedPattern, strReplacement, eComparisonType);
+
+        m_uLength = scast_q(m_strString.countChar32(), unsigned int);;
     }
 }
 
@@ -825,6 +861,7 @@ void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, 
 void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
 {
     m_strString.append(strStringToAppend.m_strString);
+    m_uLength += strStringToAppend.GetLength();
 }
 
 QStringUnicode* QStringUnicode::Split(const QStringUnicode &strSeparator, unsigned int &uReturnedArrayLength) const
@@ -1005,12 +1042,12 @@ const icu::NumberFormat* QStringUnicode::GetFloatFormatter()
 
 unsigned int QStringUnicode::GetLength() const
 {
-    return scast_q(m_strString.countChar32(), unsigned int);
+    return m_uLength;
 }
 
 bool QStringUnicode::IsEmpty() const
 {
-    return m_strString.isEmpty() != FALSE;
+    return m_uLength == 0;
 }
 
 const QStringUnicode& QStringUnicode::GetEmpty()
