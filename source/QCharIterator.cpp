@@ -66,6 +66,10 @@ QStringUnicode::QCharIterator::QCharIterator(const QCharIterator &iterator) : QC
 {
 }
 
+QStringUnicode::QCharIterator::QCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition) : 
+                                                                                             QConstCharIterator(strString, uInitialPosition)
+{
+}
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -82,15 +86,25 @@ QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator++(int)
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_FORWARD, "It is not possible to move forward when pointing to the end position after the last character");
 
     QCharIterator previousState(*this);
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
-    if(m_bIsBeforeFirst)
-        m_bIsBeforeFirst = false;
-    else
-        m_iterator.next();
+    if(m_uIndex == QStringUnicode::END_POSITION_BACKWARD)
+    {
+        m_uIndex = 0;
+    }
+    else if(!m_pString->IsEmpty() && m_uIndex == m_pString->GetLength() - 1U)
+    {
+        m_iterator.next32();
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
+    }
+    else if(m_uIndex != QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.next32();
+        ++m_uIndex;
+    }
 
     return previousState;
 }
@@ -101,14 +115,24 @@ QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator--(int)
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_BACKWARD, "It is not possible to move forward when pointing to the end position before the first character");
 
     QCharIterator previousState(*this);
 
-    if(previousState.m_iterator.getIndex() == 0)
-        m_bIsBeforeFirst = true;
+    if(m_uIndex == 0)
+    {
+        m_uIndex = QStringUnicode::END_POSITION_BACKWARD;
+    }
+    else if(m_uIndex == QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.previous32();
+        m_uIndex = m_pString->m_uLength - 1U;
+    }
     else
-        m_iterator.previous();
+    {
+        m_iterator.previous32();
+        --m_uIndex;
+    }
 
     return previousState;
 }
@@ -119,13 +143,23 @@ QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator++()
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_FORWARD, "It is not possible to move forward when pointing to the end position after the last character");
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
-    if(m_bIsBeforeFirst)
-        m_bIsBeforeFirst = false;
-    else
-        m_iterator.next();
+    if(m_uIndex == QStringUnicode::END_POSITION_BACKWARD)
+    {
+        m_uIndex = 0;
+    }
+    else if(!m_pString->IsEmpty() && m_uIndex == m_pString->GetLength() - 1U)
+    {
+        m_iterator.next32();
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
+    }
+    else if(m_uIndex != QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.next32();
+        ++m_uIndex;
+    }
 
     return *this;
 }
@@ -136,12 +170,22 @@ QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator--()
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_BACKWARD, "It is not possible to move forward when pointing to the end position before the first character");
 
-    if(m_iterator.getIndex() == 0)
-        m_bIsBeforeFirst = true;
+    if(m_uIndex == 0)
+    {
+        m_uIndex = QStringUnicode::END_POSITION_BACKWARD;
+    }
+    else if(m_uIndex == QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.previous32();
+        m_uIndex = m_pString->m_uLength - 1U;
+    }
     else
-        m_iterator.previous();
+    {
+        m_iterator.previous32();
+        --m_uIndex;
+    }
 
     return *this;
 }

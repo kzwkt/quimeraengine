@@ -544,6 +544,7 @@ QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
+    static QCharUnicode CHAR_BOM_LE = 0xFFFE;
     //                                        BOM     ©       ?       ?       ?      \0
     const u16_q INPUT_STRING_CODE_UNITS[] = { 0xFFFE, 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
@@ -559,7 +560,7 @@ QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(strString.GetLength(), EXPECTED_RESULT.GetLength());
-    BOOST_CHECK(strString[0] != QStringUnicode::CHAR_BOM_LE);
+    BOOST_CHECK(strString[0] != CHAR_BOM_LE);
 }
 
 /// <summary>
@@ -573,6 +574,7 @@ QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // [Preparation]
+    static QCharUnicode CHAR_BOM_LE = 0xFFFE;
     //                                        BOM         ©           ?           ?           ?          \0
     const u32_q INPUT_STRING_CODE_UNITS[] = { 0x0000FEFF, 0x000000A9, 0x000016A1, 0x00000634, 0x00000416, 0x00000000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
@@ -588,7 +590,7 @@ QTEST_CASE ( Constructor5_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(strString.GetLength(), EXPECTED_RESULT.GetLength());
-    BOOST_CHECK(strString[0] != QStringUnicode::CHAR_BOM_LE);
+    BOOST_CHECK(strString[0] != CHAR_BOM_LE);
 }
 
 /// <summary>
@@ -1216,6 +1218,34 @@ QTEST_CASE ( OperatorArraySubscript_ReturnsExpectedCharacterWhenUsingCommonIndex
     BOOST_CHECK(charResult == EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QCharUnicode EXPECTED_RESULT1('E');
+    QCharUnicode EXPECTED_RESULT2(0x00011234);
+    const unsigned int POSITION1 = 5;
+    const unsigned int POSITION2 = 9;
+
+	// [Execution]
+    QCharUnicode character1 = SOURCE_STRING[POSITION1];
+    QCharUnicode character2 = SOURCE_STRING[POSITION2];
+
+    // [Verification]
+    BOOST_CHECK(character1 == EXPECTED_RESULT1);
+    BOOST_CHECK(character2 == EXPECTED_RESULT2);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
@@ -1366,6 +1396,30 @@ QTEST_CASE ( Substring1_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
 }
 
 /// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( Substring1_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    
+    QStringUnicode EXPECTED_RESULT("EFGH");
+    EXPECTED_RESULT.Append(QCharUnicode(0x00011234));
+    const unsigned int START_POSITION = 5;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that it returns the expected result when using common input positions.
 /// </summary>
 QTEST_CASE ( Substring2_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
@@ -1375,6 +1429,32 @@ QTEST_CASE ( Substring2_ReturnsExpectedResultWhenUsingCommonInputPositions_Test 
     const QStringUnicode EXPECTED_RESULT("EFGH");
     const unsigned int START_POSITION = 4;
     const unsigned int LAST_POSITION = START_POSITION + 3;
+
+	// [Execution]
+    QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( Substring2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKLMN");
+    
+    QStringUnicode EXPECTED_RESULT("EFGH");
+    EXPECTED_RESULT.Append(QCharUnicode(0x00011234));
+    const unsigned int START_POSITION = 5;
+    const unsigned int LAST_POSITION = START_POSITION + 4;
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
@@ -4020,6 +4100,36 @@ QTEST_CASE ( IndexOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 }
 
 /// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( IndexOf1_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const int EXPECTED_POSITION1 = 5;
+    const int EXPECTED_POSITION2 = 9;
+
+	// [Execution]
+    int uPosition1 = SOURCE_STRING.IndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive);
+    int uPosition2 = SOURCE_STRING.IndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
+    BOOST_CHECK_EQUAL(uPosition2, EXPECTED_POSITION2);
+}
+
+/// <summary>
 /// Checks that it returns "not found" when the pattern is empty.
 /// </summary>
 QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
@@ -4422,6 +4532,36 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStartPositionIsOutOfBounds_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( IndexOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const int EXPECTED_POSITION1 = 5;
+    const int EXPECTED_POSITION2 = 9;
+
+	// [Execution]
+    int uPosition1 = SOURCE_STRING.IndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
+    int uPosition2 = SOURCE_STRING.IndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
+    BOOST_CHECK_EQUAL(uPosition2, EXPECTED_POSITION2);
 }
 
 /// <summary>
@@ -5010,6 +5150,36 @@ QTEST_CASE ( PositionOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
 }
 
 /// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( PositionOf1_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const QStringUnicode::QConstCharIterator EXPECTED_POSITION1(SOURCE_STRING, 5);
+    const QStringUnicode::QConstCharIterator EXPECTED_POSITION2(SOURCE_STRING, 9);
+
+	// [Execution]
+    QStringUnicode::QConstCharIterator position1 = SOURCE_STRING.PositionOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive);
+    QStringUnicode::QConstCharIterator position2 = SOURCE_STRING.PositionOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive);
+
+    // [Verification]
+    BOOST_CHECK(position1 == EXPECTED_POSITION1);
+    BOOST_CHECK(position2 == EXPECTED_POSITION2);
+}
+
+/// <summary>
 /// Checks that it returns "not found" when the pattern is empty.
 /// </summary>
 QTEST_CASE ( PositionOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
@@ -5334,6 +5504,36 @@ QTEST_CASE ( PositionOf2_MatchesExactlyAtStartPositionAreFound_Test )
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( PositionOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const QStringUnicode::QConstCharIterator EXPECTED_POSITION1(SOURCE_STRING, 5);
+    const QStringUnicode::QConstCharIterator EXPECTED_POSITION2(SOURCE_STRING, 9);
+
+	// [Execution]
+    QStringUnicode::QConstCharIterator position1 = SOURCE_STRING.PositionOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
+    QStringUnicode::QConstCharIterator position2 = SOURCE_STRING.PositionOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+
+    // [Verification]
+    BOOST_CHECK(position1 == EXPECTED_POSITION1);
+    BOOST_CHECK(position2 == EXPECTED_POSITION2);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -6132,6 +6332,37 @@ QTEST_CASE ( Split_ReturnsEntireStringWhenSeparatorIsEmpty_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
     BOOST_CHECK(arStringParts[0] == EXPECTED_STRING);
+
+    // [Cleaning]
+    delete[] arStringParts;
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( Split_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode ORIGINAL_STRING = "123/";
+    ORIGINAL_STRING.Append(QCharUnicode(0x00010300));
+    ORIGINAL_STRING.Append("/789");
+    const unsigned int EXPECTED_SIZE = 3U;
+    const QStringUnicode EXPECTED_STRING1 = "123";
+    const QStringUnicode EXPECTED_STRING2 = QCharUnicode(0x00010300);
+    const QStringUnicode EXPECTED_STRING3 = "789";
+    const QStringUnicode SEPARATOR = "/";
+    unsigned int uArraySize = 0;
+
+	// [Execution]
+    QStringUnicode* arStringParts = ORIGINAL_STRING.Split(SEPARATOR, uArraySize);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uArraySize, EXPECTED_SIZE);
+    BOOST_CHECK(arStringParts[0] == EXPECTED_STRING1);
+    BOOST_CHECK(arStringParts[1] == EXPECTED_STRING2);
+    BOOST_CHECK(arStringParts[2] == EXPECTED_STRING3);
 
     // [Cleaning]
     delete[] arStringParts;
@@ -6992,6 +7223,29 @@ QTEST_CASE ( GetLength_ReturnsCorrectValueWhenUsingCommonString_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(nLength, EXPECTED_LENGTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( GetLength_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    const int EXPECTED_LENGTH = 14;
+
+	// [Execution]
+    unsigned int uLength = SOURCE_STRING.GetLength();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uLength, EXPECTED_LENGTH);
 }
 
 /// <summary>

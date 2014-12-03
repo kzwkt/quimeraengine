@@ -60,21 +60,32 @@ namespace DataTypes
 
 QStringUnicode::QConstCharIterator::QConstCharIterator(const QStringUnicode &strString) : m_pString(&strString),
                                                                                           m_iterator(strString.m_strString),
-                                                                                          m_bIsBeforeFirst(false)
+                                                                                          m_uIndex(0)
 {
+    if(m_pString->IsEmpty())
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
 }
 
 QStringUnicode::QConstCharIterator::QConstCharIterator(const QConstCharIterator &iterator) : m_pString(iterator.m_pString),
                                                                                              m_iterator(iterator.m_iterator),
-                                                                                             m_bIsBeforeFirst(iterator.m_bIsBeforeFirst)
+                                                                                             m_uIndex(iterator.m_uIndex)
 {
 }
 
 QStringUnicode::QConstCharIterator::QConstCharIterator(const QStringUnicode &strString, const unsigned int uInitialPosition) : 
                                                                                              m_pString(&strString),
-                                                                                             m_iterator(strString.m_strString, uInitialPosition),
-                                                                                             m_bIsBeforeFirst(false)
+                                                                                             m_iterator(strString.m_strString),
+                                                                                             m_uIndex(uInitialPosition)
 {
+    if(uInitialPosition < m_pString->GetLength())
+    {
+        m_iterator.move32(uInitialPosition, icu::CharacterIterator::kStart);
+    }
+    else
+    {
+        m_iterator.setToEnd();
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
+    }
 }
 
 //##################=======================================================##################
@@ -92,15 +103,25 @@ QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator+
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_FORWARD, "It is not possible to move forward when pointing to the end position after the last character");
 
     QConstCharIterator previousState(*this);
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
-    if(m_bIsBeforeFirst)
-        m_bIsBeforeFirst = false;
-    else
-        m_iterator.next();
+    if(m_uIndex == QStringUnicode::END_POSITION_BACKWARD)
+    {
+        m_uIndex = 0;
+    }
+    else if(!m_pString->IsEmpty() && m_uIndex == m_pString->GetLength() - 1U)
+    {
+        m_iterator.next32();
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
+    }
+    else if(m_uIndex != QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.next32();
+        ++m_uIndex;
+    }
 
     return previousState;
 }
@@ -111,14 +132,24 @@ QStringUnicode::QConstCharIterator QStringUnicode::QConstCharIterator::operator-
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_BACKWARD, "It is not possible to move forward when pointing to the end position before the first character");
 
     QConstCharIterator previousState(*this);
 
-    if(previousState.m_iterator.getIndex() == 0)
-        m_bIsBeforeFirst = true;
+    if(m_uIndex == 0)
+    {
+        m_uIndex = QStringUnicode::END_POSITION_BACKWARD;
+    }
+    else if(m_uIndex == QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.previous32();
+        m_uIndex = m_pString->m_uLength - 1U;
+    }
     else
-        m_iterator.previous();
+    {
+        m_iterator.previous32();
+        --m_uIndex;
+    }
 
     return previousState;
 }
@@ -129,13 +160,23 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator forward");
 
     // It is not possible to move forward when pointing to the end position after the last character
-    QE_ASSERT_WARNING(m_iterator.getIndex() != m_iterator.endIndex(), "It is not possible to move forward when pointing to the end position after the last character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_FORWARD, "It is not possible to move forward when pointing to the end position after the last character");
 
     // If the iterator is incremented, the result will never be pointing to the position before the first
-    if(m_bIsBeforeFirst)
-        m_bIsBeforeFirst = false;
-    else
-        m_iterator.next();
+    if(m_uIndex == QStringUnicode::END_POSITION_BACKWARD)
+    {
+        m_uIndex = 0;
+    }
+    else if(!m_pString->IsEmpty() && m_uIndex == m_pString->GetLength() - 1U)
+    {
+        m_iterator.next32();
+        m_uIndex = QStringUnicode::END_POSITION_FORWARD;
+    }
+    else if(m_uIndex != QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.next32();
+        ++m_uIndex;
+    }
 
     return *this;
 }
@@ -146,12 +187,22 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
     QE_ASSERT_ERROR(this->IsValid(), "It is not possible to move an invalid iterator backward");
 
     // It is not possible to move forward when pointing to the end position before the first character
-    QE_ASSERT_WARNING(!m_bIsBeforeFirst, "It is not possible to move forward when pointing to the end position before the first character");
+    QE_ASSERT_WARNING(m_uIndex != QStringUnicode::END_POSITION_BACKWARD, "It is not possible to move forward when pointing to the end position before the first character");
 
-    if(m_iterator.getIndex() == 0)
-        m_bIsBeforeFirst = true;
+    if(m_uIndex == 0)
+    {
+        m_uIndex = QStringUnicode::END_POSITION_BACKWARD;
+    }
+    else if(m_uIndex == QStringUnicode::END_POSITION_FORWARD)
+    {
+        m_iterator.previous32();
+        m_uIndex = m_pString->m_uLength - 1U;
+    }
     else
-        m_iterator.previous();
+    {
+        m_iterator.previous32();
+        --m_uIndex;
+    }
 
     return *this;
 }
@@ -167,7 +218,7 @@ QStringUnicode::QConstCharIterator& QStringUnicode::QConstCharIterator::operator
     if(&iterator != this && m_pString == iterator.m_pString)
     {
         m_iterator = iterator.m_iterator;
-        m_bIsBeforeFirst = iterator.m_bIsBeforeFirst;
+        m_uIndex = iterator.m_uIndex;
     }
 
     return *this;
@@ -181,9 +232,7 @@ bool QStringUnicode::QConstCharIterator::operator==(const QConstCharIterator &it
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    return ( (m_iterator == iterator.m_iterator) == TRUE ) &&
-           m_pString == iterator.m_pString &&
-           m_bIsBeforeFirst == iterator.m_bIsBeforeFirst;
+    return m_uIndex == iterator.m_uIndex && m_pString == iterator.m_pString;
 }
 
 bool QStringUnicode::QConstCharIterator::operator!=(const QConstCharIterator &iterator) const
@@ -194,9 +243,7 @@ bool QStringUnicode::QConstCharIterator::operator!=(const QConstCharIterator &it
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    return ( (m_iterator != iterator.m_iterator) == TRUE ) ||
-           m_pString != iterator.m_pString ||
-           m_bIsBeforeFirst != iterator.m_bIsBeforeFirst;
+    return m_uIndex != iterator.m_uIndex || m_pString != iterator.m_pString;
 }
 
 bool QStringUnicode::QConstCharIterator::operator>(const QConstCharIterator &iterator) const
@@ -207,8 +254,8 @@ bool QStringUnicode::QConstCharIterator::operator>(const QConstCharIterator &ite
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    return (m_iterator.getIndex() > iterator.m_iterator.getIndex() ||
-            (!m_bIsBeforeFirst && iterator.m_bIsBeforeFirst) ) &&
+    return ((m_uIndex != QStringUnicode::END_POSITION_BACKWARD && iterator.m_uIndex == QStringUnicode::END_POSITION_BACKWARD) ||
+            (m_uIndex > iterator.m_uIndex && m_uIndex != QStringUnicode::END_POSITION_BACKWARD)) &&
            m_pString == iterator.m_pString;
     // The position before the first is considered lower than any other position
 }
@@ -221,8 +268,8 @@ bool QStringUnicode::QConstCharIterator::operator<(const QConstCharIterator &ite
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    return (m_iterator.getIndex() < iterator.m_iterator.getIndex() ||
-            (m_bIsBeforeFirst && !iterator.m_bIsBeforeFirst) ) &&
+    return ((m_uIndex == QStringUnicode::END_POSITION_BACKWARD && iterator.m_uIndex != QStringUnicode::END_POSITION_BACKWARD) ||
+            (m_uIndex < iterator.m_uIndex && iterator.m_uIndex != QStringUnicode::END_POSITION_BACKWARD)) &&
            m_pString == iterator.m_pString;
 }
 
@@ -234,12 +281,9 @@ bool QStringUnicode::QConstCharIterator::operator>=(const QConstCharIterator &it
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    const int32_t& nResidentPosition = m_iterator.getIndex();
-    const int32_t& nInputPosition = iterator.m_iterator.getIndex();
-
-    return (nResidentPosition > nInputPosition ||
-            (!m_bIsBeforeFirst && iterator.m_bIsBeforeFirst) ||
-            (nResidentPosition == nInputPosition && m_bIsBeforeFirst == iterator.m_bIsBeforeFirst) ) &&
+    return (m_uIndex == iterator.m_uIndex ||
+            ((m_uIndex != QStringUnicode::END_POSITION_BACKWARD && iterator.m_uIndex == QStringUnicode::END_POSITION_BACKWARD) ||
+              (m_uIndex > iterator.m_uIndex && m_uIndex != QStringUnicode::END_POSITION_BACKWARD))) &&
            m_pString == iterator.m_pString;
 }
 
@@ -251,12 +295,9 @@ bool QStringUnicode::QConstCharIterator::operator<=(const QConstCharIterator &it
     // Both iterators must refer to the same string
     QE_ASSERT_ERROR(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
 
-    const int32_t& nResidentPosition = m_iterator.getIndex();
-    const int32_t& nInputPosition = iterator.m_iterator.getIndex();
-
-    return (nResidentPosition < nInputPosition ||
-            (m_bIsBeforeFirst && !iterator.m_bIsBeforeFirst) ||
-            (nResidentPosition == nInputPosition && m_bIsBeforeFirst == iterator.m_bIsBeforeFirst) ) &&
+    return (m_uIndex == iterator.m_uIndex ||
+            ((m_uIndex == QStringUnicode::END_POSITION_BACKWARD && iterator.m_uIndex != QStringUnicode::END_POSITION_BACKWARD) ||
+              (m_uIndex < iterator.m_uIndex && iterator.m_uIndex != QStringUnicode::END_POSITION_BACKWARD))) &&
            m_pString == iterator.m_pString;
 }
 
@@ -265,7 +306,7 @@ bool QStringUnicode::QConstCharIterator::IsEnd() const
     // The iterator must be valid to get a correct result
     QE_ASSERT_ERROR(this->IsValid(), "The iterator must be valid to get a correct result");
 
-    return m_bIsBeforeFirst || m_iterator.getIndex() == m_iterator.endIndex();
+    return m_uIndex == QStringUnicode::END_POSITION_BACKWARD || m_uIndex == QStringUnicode::END_POSITION_FORWARD;
 }
 
 QCharUnicode QStringUnicode::QConstCharIterator::GetChar() const
@@ -278,7 +319,7 @@ QCharUnicode QStringUnicode::QConstCharIterator::GetChar() const
 
     static const UChar32 NON_CHARACTER = 0xFFFF; // U+FFFF, the same returned by the current32() method when the iterator points to the end position
 
-    UChar32 character = m_bIsBeforeFirst ? NON_CHARACTER : m_iterator.current32();
+    UChar32 character = this->IsEnd() ? NON_CHARACTER : m_iterator.current32();
 
     return QCharUnicode(scast_q(character, codepoint_q));
 }
@@ -288,9 +329,8 @@ void QStringUnicode::QConstCharIterator::MoveFirst()
     // It is not possible to go to the first position of an empty string
     QE_ASSERT_WARNING(m_pString->GetLength() > 0, "It is not possible to go to the first position of an empty string");
 
-    m_bIsBeforeFirst = false;
-
-    m_iterator.first();
+    m_iterator.first32();
+    m_uIndex = m_pString->m_uLength == 0 ? QStringUnicode::END_POSITION_FORWARD : 0;
 }
 
 void QStringUnicode::QConstCharIterator::MoveLast()
@@ -298,16 +338,15 @@ void QStringUnicode::QConstCharIterator::MoveLast()
     // It is not possible to go to the last position of an empty string
     QE_ASSERT_WARNING(m_pString->GetLength() > 0, "It is not possible to go to the last position of an empty string");
 
-    m_bIsBeforeFirst = false;
-
-    m_iterator.last();
+    m_iterator.last32();
+    m_uIndex = m_pString->m_uLength == 0 ? QStringUnicode::END_POSITION_FORWARD : m_pString->m_uLength - 1U;
 }
 
 bool QStringUnicode::QConstCharIterator::IsValid() const
 {
     // If the index of the iterator is outside the bounds of the string, the iterator is not valid
     // The end position is valid
-    return scast_q(m_iterator.getIndex(), unsigned int) <= m_pString->GetLength();
+    return m_uIndex <= m_pString->GetLength() || m_uIndex == QStringUnicode::END_POSITION_BACKWARD || m_uIndex == QStringUnicode::END_POSITION_FORWARD;
 }
 
 

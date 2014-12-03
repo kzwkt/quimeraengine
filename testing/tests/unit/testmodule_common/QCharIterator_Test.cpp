@@ -107,6 +107,80 @@ QTEST_CASE ( Constructor2_IteratorIsCorrectlyCopiedWhenUsingInvalidIterator_Test
     BOOST_CHECK(!iterator.IsValid());
 }
 
+/// <summary>
+/// Checks that the iterator points to the given position.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToTheGivenPosition_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    const QCharUnicode EXPECTED_CHARACTER = 'F';
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator(SOURCE_STRING, 5);
+    
+    // [Verification]
+    QCharUnicode charPointedToByIterator = iterator.GetChar();
+    BOOST_CHECK(charPointedToByIterator == EXPECTED_CHARACTER);
+}
+
+/// <summary>
+/// Checks that the iterator points to end position (forward) when input initial position is out of bounds.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToEndPositionWhenInitialPositionIsOutOfBounds_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABCDEFGHIJKMN");
+    const bool POINTS_TO_END_POSITION = true;
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator(SOURCE_STRING, SOURCE_STRING.GetLength());
+    
+    // [Verification]
+    bool bPointsToEndPosition = iterator.IsEnd();
+    BOOST_CHECK_EQUAL(bPointsToEndPosition, POINTS_TO_END_POSITION);
+}
+
+/// <summary>
+/// Checks that the iterator points to end position (forward) when the string is empty.
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorPointsToEndPositionWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING = QStringUnicode::GetEmpty();
+    const bool POINTS_TO_END_POSITION = true;
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator(SOURCE_STRING, 0);
+    
+    // [Verification]
+    bool bPointsToEndPosition = iterator.IsEnd();
+    BOOST_CHECK_EQUAL(bPointsToEndPosition, POINTS_TO_END_POSITION);
+}
+
+/// <summary>
+/// Checks that the iterator points to the right position when using characters from the Supplementary Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( Constructor3_IteratorStepsOncePerCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING(QCharUnicode(0x00010300)); // A character from the SMP (will use more than one code unit internally)
+    SOURCE_STRING.Append("X");
+    SOURCE_STRING.Append(QCharUnicode(0x00010400));
+    const QCharUnicode EXPECTED_CHARACTER(QCharUnicode(0x00010400)); 
+
+	// [Execution]
+    QStringUnicode::QCharIterator iterator(SOURCE_STRING, 2U);
+    
+    // [Verification]
+    QCharUnicode currentChar = iterator.GetChar();
+    BOOST_CHECK(currentChar == EXPECTED_CHARACTER);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -233,6 +307,27 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
     BOOST_CHECK(currentChar == FIRST_CHARACTER);
+}
+
+/// <summary>
+/// Checks that the iterator steps once per code point, and not per code unit.
+/// </summary>
+QTEST_CASE ( OperatorPostIncrement_IteratorStepsOncePerCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING(QCharUnicode(0x00010300)); // A character from the SMP (will use more than one code unit internally)
+    SOURCE_STRING.Append("X");
+    QStringUnicode::QCharIterator ITERATOR(SOURCE_STRING);
+    const QCharUnicode EXPECTED_CHARACTER('X'); 
+
+	// [Execution]
+    ITERATOR++;
+    
+    // [Verification]
+    QCharUnicode currentChar = ITERATOR.GetChar();
+    BOOST_CHECK(currentChar == EXPECTED_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -362,6 +457,29 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
     BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);
 }
 
+/// <summary>
+/// Checks that the iterator steps once per code point, and not per code unit.
+/// </summary>
+QTEST_CASE ( OperatorPostDecrement_IteratorStepsOncePerCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING(QCharUnicode(0x00010300)); // A character from the SMP (will use more than one code unit internally)
+    SOURCE_STRING.Append("X");
+    SOURCE_STRING.Append(QCharUnicode(0x00010400));
+    QStringUnicode::QCharIterator ITERATOR(SOURCE_STRING, 2U);
+    const QCharUnicode EXPECTED_CHARACTER(QCharUnicode(0x00010300)); 
+
+	// [Execution]
+    ITERATOR--;
+    ITERATOR--;
+    
+    // [Verification]
+    QCharUnicode currentChar = ITERATOR.GetChar();
+    BOOST_CHECK(currentChar == EXPECTED_CHARACTER);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -489,6 +607,26 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
     BOOST_CHECK(iterator.GetChar() == FIRST_CHARACTER);
 }
 
+/// <summary>
+/// Checks that the iterator steps once per code point, and not per code unit.
+/// </summary>
+QTEST_CASE ( OperatorPreIncrement_IteratorStepsOncePerCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING(QCharUnicode(0x00010300)); // A character from the SMP (will use more than one code unit internally)
+    SOURCE_STRING.Append("X");
+    QStringUnicode::QCharIterator ITERATOR(SOURCE_STRING);
+    const QCharUnicode EXPECTED_CHARACTER('X'); 
+
+	// [Execution]
+    ++ITERATOR;
+    
+    // [Verification]
+    QCharUnicode currentChar = ITERATOR.GetChar();
+    BOOST_CHECK(currentChar == EXPECTED_CHARACTER);
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -615,6 +753,29 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     // [Verification]
     BOOST_CHECK(iteratorCurrentState.GetChar() == LAST_CHARACTER);
     BOOST_CHECK(iterator.GetChar() == LAST_CHARACTER);
+}
+
+/// <summary>
+/// Checks that the iterator steps once per code point, and not per code unit.
+/// </summary>
+QTEST_CASE ( OperatorPreDecrement_IteratorStepsOncePerCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING(QCharUnicode(0x00010300)); // A character from the SMP (will use more than one code unit internally)
+    SOURCE_STRING.Append("X");
+    SOURCE_STRING.Append(QCharUnicode(0x00010400));
+    QStringUnicode::QCharIterator ITERATOR(SOURCE_STRING, 2U);
+    const QCharUnicode EXPECTED_CHARACTER(QCharUnicode(0x00010300)); 
+
+	// [Execution]
+    --ITERATOR;
+    --ITERATOR;
+    
+    // [Verification]
+    QCharUnicode currentChar = ITERATOR.GetChar();
+    BOOST_CHECK(currentChar == EXPECTED_CHARACTER);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
