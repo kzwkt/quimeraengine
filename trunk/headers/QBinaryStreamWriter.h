@@ -24,13 +24,14 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QBINARYSTREAMREADER__
-#define __QBINARYSTREAMREADER__
+#ifndef __QBINARYSTREAMWRITER__
+#define __QBINARYSTREAMWRITER__
 
 #include "SystemDefinitions.h"
 
 #include "DataTypesDefinitions.h"
 #include "Assertions.h"
+
 
 namespace Kinesis
 {
@@ -42,94 +43,98 @@ namespace IO
 {
 
 /// <summary>
-/// Component that parses a stream and interprets its bytes as known type instances.
+/// Component that copies bytes from a known type instance to the stream.
 /// </summary>
-/// <typeparam name="StreamT">The type of the stream to be read (memory stream, file stream, etc.).</typeparam>
+/// <typeparam name="StreamT">The type of the stream to write to (memory stream, file stream, etc.).</typeparam>
 template<class StreamT>
-class QBinaryStreamReader
+class QBinaryStreamWriter
 {
+
     // CONSTRUCTORS
     // ---------------
 public:
-
+    
     /// <summary>
     /// Constructor that receives a stream and stores a reference to it.
     /// </summary>
     /// <param name="stream">[IN] The stream to be read.</param>
-    QBinaryStreamReader(StreamT &stream) : m_stream(stream)
+    QBinaryStreamWriter(StreamT& stream) : m_stream(stream)
     {
     }
 
 private:
 
-    // Not allowed
-    QBinaryStreamReader(const QBinaryStreamReader &);
+    // Hidden
+    QBinaryStreamWriter(const QBinaryStreamWriter&);
 
 
     // METHODS
     // ---------------
 private:
 
-    // Not allowed
-    QBinaryStreamReader operator=(const QBinaryStreamReader &);
+    // Hidden
+    QBinaryStreamWriter& operator=(const QBinaryStreamWriter&);
 
 public:
 
     /// <summary>
-    /// Bitwise operator that reads enough bytes from the stream to fill an instance of a given type.
+    /// Writes a concrete amount of bytes from an input buffer.
+    /// </summary>
+    /// <remarks>
+    /// Note that the read pointer of the stream is not restored after this operation.
+    /// </remarks>
+    /// <param name="pBuffer">[IN] The buffer from which to copy bytes to the stream. It must not be null.</param>
+    /// <param name="uSize">[IN] The size of the buffer, in bytes. The same number of bytes will be written. It must be greater than zero.</param>
+    void WriteBytes(const void* pBuffer, const Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q uSize)
+    {
+        QE_ASSERT_ERROR(pBuffer != null_q, "The input buffer cannot be null.");
+        QE_ASSERT_ERROR(uSize > 0, "The size of the buffer must be greater than zero.");
+
+        m_stream.Write(pBuffer, 0, uSize);
+    }
+    
+    /// <summary>
+    /// Writes enough bytes from an instance of a given type to the stream.
+    /// </summary>
+    /// <remarks>
+    /// Note that the read pointer of the stream is not restored after this operation.<br/>
+    /// The default constructor, the copy constructor and the destructor of the input instance will not be called.<br/>
+    /// This method does the same as the bitwise left shift operator ("<<"). It's provided with the only purpose of improving readability 
+    /// and/or usability in certain scenarios.
+    /// </remarks>
+    /// <typeparam name="T">The data type as which to interpret the bytes to write.</typeparam>
+    /// <param name="value">[IN] The instance to be copied to the stream.</param>
+    template<class T>
+    void Write(const T& value)
+    {
+        m_stream.Write(&value, 0, sizeof(T));
+    }
+    
+    /// <summary>
+    /// Bitwise left shift operator that writes enough bytes to the stream to copy an instance of a given type.
     /// </summary>
     /// <remarks>
     /// Note that the read pointer of the stream is not restored after this operation.<br/>
     /// No instance's constructors nor operators are called.
     /// </remarks>
-    /// <typeparam name="T">The data type as which to interpret the read bytes.</typeparam>
-    /// <param name="value">[OUT] The instance to be filled with stream's bytes.</param>
+    /// <typeparam name="T">The data type as which to interpret the bytes to write.</typeparam>
+    /// <param name="value">[IN] The instance to be copied to the stream.</param>
     /// <returns>
-    /// A reference to the resident binary stream reader.
+    /// A reference to the resident binary stream writer.
     /// </returns>
     template<class T>
-    QBinaryStreamReader& operator>>(T &value)
+    QBinaryStreamWriter& operator<<(const T& value)
     {
-        m_stream.Read(&value, 0, sizeof(T));
+        m_stream.Write(&value, 0, sizeof(T));
         return *this;
     }
     
     /// <summary>
-    /// Reads a concrete amount of bytes and fills an output buffer.
+    /// Empties all the intermediate buffers and sends the data to the final storage support.
     /// </summary>
-    /// <remarks>
-    /// Note that the read pointer of the stream is not restored after this operation.
-    /// </remarks>
-    /// <param name="pBuffer">[OUT] The buffer to be filled with the read bytes. It must not be null.</param>
-    /// <param name="uSize">[IN] The size of the buffer, in bytes. The same number of bytes will be read. It must be greater than zero.</param>
-    void ReadBytes(void* pBuffer, const Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q uSize)
+    void Flush()
     {
-        QE_ASSERT_ERROR(pBuffer != null_q, "The input buffer cannot be null.");
-        QE_ASSERT_ERROR(uSize > 0, "The size of the input buffer cannot equal zero.");
-
-        m_stream.Read(pBuffer, 0, uSize);
-    }
-    
-    /// <summary>
-    /// Reads enough bytes from the stream to fill an instance of a given type and returns it.
-    /// </summary>
-    /// <remarks>
-    /// Note that the read pointer of the stream is not restored after this operation.<br/>
-    /// The default constructor, the copy constructor and the destructor of the returned instance will be called.<br/>
-    /// This method does almost the same as the bitwise operator (">>") but in a slower manner due to the construction and the return-copy 
-    /// of the instance. It's provided with the only purpose of improving readability and/or usability in certain scenarios.
-    /// </remarks>
-    /// <typeparam name="T">The data type as which to interpret the read bytes.</typeparam>
-    /// <returns>
-    /// The instance constructed from the read bytes.
-    /// </returns>
-    template<class T>
-    T Read()
-    {
-        T instance;
-        m_stream.Read(&instance, 0, sizeof(T));
-
-        return instance;
+        m_stream.Flush();
     }
 
 
@@ -138,10 +143,10 @@ public:
 public:
     
     /// <summary>
-    /// Gets the stream being read.
+    /// Gets the stream to write to.
     /// </summary>
     /// <returns>
-    /// A reference to the stream being read.
+    /// A reference to the stream to write to.
     /// </returns>
     StreamT& GetStream() const
     {
@@ -154,7 +159,7 @@ public:
 protected:
     
     /// <summary>
-    /// The stream being read.
+    /// The stream to write to.
     /// </summary>
     StreamT& m_stream;
 
@@ -165,4 +170,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QBINARYSTREAMREADER__
+#endif // __QBINARYSTREAMWRITER__

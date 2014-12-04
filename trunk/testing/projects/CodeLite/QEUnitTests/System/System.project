@@ -94,6 +94,7 @@
       <VirtualDirectory Name="FileSystem">
         <File Name="../../../../tests/unit/testmodule_system/QPath_Test.cpp"/>
       </VirtualDirectory>
+      <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamWriter_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="DataTypes">
       <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.cpp"/>
