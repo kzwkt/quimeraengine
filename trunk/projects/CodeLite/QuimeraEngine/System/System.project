@@ -175,6 +175,7 @@
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="rt"/>

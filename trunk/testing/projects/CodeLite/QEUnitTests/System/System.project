@@ -150,6 +150,7 @@
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -214,6 +215,7 @@
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
