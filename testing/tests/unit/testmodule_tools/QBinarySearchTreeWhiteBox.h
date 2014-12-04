@@ -48,7 +48,7 @@ namespace Test
 /// <summary>
 /// Class intended to be used to expose protected methods of QBinarySearchTree for testing purposes.
 /// </summary>
-template <class T, class AllocatorT = QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
+template <class T, class AllocatorT = QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
 class QBinarySearchTreeWhiteBox : public QBinarySearchTree<T, AllocatorT, ComparatorT>
 {
 public:

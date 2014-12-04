@@ -186,7 +186,6 @@
   <VirtualDirectory Name="Containers">
     <File Name="../../../../headers/EQIterationDirection.h"/>
     <File Name="../../../../headers/EQTreeTraversalOrder.h"/>
-    <File Name="../../../../headers/QComparatorDefault.h"/>
     <File Name="../../../../headers/QFixedArray.h"/>
     <File Name="../../../../headers/QList.h"/>
     <File Name="../../../../source/EQIterationDirection.cpp"/>
@@ -194,6 +193,7 @@
     <File Name="../../../../headers/QNTree.h"/>
     <File Name="../../../../headers/QDynamicArray.h"/>
     <File Name="../../../../headers/QBinarySearchTree.h"/>
+    <File Name="../../../../headers/SQComparatorDefault.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

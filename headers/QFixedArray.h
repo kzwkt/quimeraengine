@@ -32,7 +32,7 @@
 #include "Assertions.h"
 #include "QPoolAllocator.h"
 #include "QAlignment.h"
-#include "QComparatorDefault.h"
+#include "SQComparatorDefault.h"
 #include "AllocationOperators.h"
 #include "EQIterationDirection.h"
 
@@ -55,14 +55,14 @@ namespace Containers
 /// <remarks>
 /// Elements are assured to be placed contiguously in memory.<br/>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
-/// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
+/// If SQComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of every element in the array.</typeparam>
 /// <typeparam name="AllocatorT">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will
 /// be used.</typeparam>
 /// <typeparam name="ComparatorT">Optional. The type of comparator to compare elements to each other, used in search and ordering
-/// algorithms. By default, QComparatorDefault will be used.</typeparam>
-template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
+/// algorithms. By default, SQComparatorDefault will be used.</typeparam>
+template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
 class QFixedArray
 {
 
@@ -1323,7 +1323,7 @@ public:
 
                 while(bAreEqual && !itThis.IsEnd())
                 {
-                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0;
+                    bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0;
                     ++itThis;
                     ++itInput;
                 }
@@ -1370,7 +1370,7 @@ public:
 
         while(uIndex < ARRAY_COUNT && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*pElement, element) == 0;
             ++pElement;
             ++uIndex;
         }
@@ -1399,7 +1399,7 @@ public:
 
         while(uIndex < ARRAY_COUNT && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*pElement, element) == 0;
             ++pElement;
             ++uIndex;
         }
@@ -1432,7 +1432,7 @@ public:
 
         while(uIndex < ARRAY_COUNT && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*pElement, element) == 0;
             ++pElement;
             ++uIndex;
         }
@@ -1460,7 +1460,7 @@ public:
 
         while(!position.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*pElement, element) == 0;
             ++pElement;
             ++position;
         }
@@ -1492,7 +1492,7 @@ public:
 
         while(!position.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*pElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*pElement, element) == 0;
             ++pElement;
             ++position;
         }
@@ -1587,11 +1587,6 @@ public:
     // ---------------
 
 protected:
-
-    /// <summary>
-    /// The Comparator.
-    /// </summary>
-    ComparatorT m_comparator;
 
     /// <summary>
     /// Index of the first element in the sequence. If the index points to an invalid position its value is the

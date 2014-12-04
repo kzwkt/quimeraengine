@@ -36,7 +36,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTree_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstArrayIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstListIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstNTreeIterator_Test.cpp" />
@@ -83,6 +82,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQComparatorDefault_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQTimeZoneFactory_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />

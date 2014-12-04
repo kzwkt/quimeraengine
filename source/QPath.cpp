@@ -777,7 +777,7 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
         (RESIDENT_PATH_HAS_DRIVE && !absolutePath.m_strPath.IsEmpty() && absolutePath.m_strPath[0] == QPath::PATH_SEPARATOR_CHAR) ||
         (INPUT_PATH_HAS_DRIVE && !m_strPath.IsEmpty() && m_strPath[0] == QPath::PATH_SEPARATOR_CHAR))
 #else
-       || // Both must start with tildes ("~") or none
+       && // Both must start with tildes ("~") or none
        ((m_strPath[0] == CHAR_TILDE) == (absolutePath.m_strPath[0] == CHAR_TILDE))
 #endif
        )

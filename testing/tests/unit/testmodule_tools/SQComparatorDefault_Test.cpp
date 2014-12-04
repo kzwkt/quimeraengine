@@ -30,10 +30,10 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QComparatorDefault.h"
+#include "SQComparatorDefault.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-using Kinesis::QuimeraEngine::Tools::Containers::QComparatorDefault;
+using Kinesis::QuimeraEngine::Tools::Containers::SQComparatorDefault;
 
 
 QTEST_SUITE_BEGIN( QComparatorDefault_TestSuite )
@@ -48,10 +48,8 @@ QTEST_CASE ( Compare_ReturnsPositiveOneWhenLeftOperandIsGreaterThanRightOperand_
     const i8_q LEFT_OPERAND = 10;
     const i8_q RIGHT_OPERAND = 5;
 
-    QComparatorDefault<const i8_q&> comparator;
-
     // [Execution]
-    i8_q comparisonResult = comparator.Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
     BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
@@ -67,10 +65,8 @@ QTEST_CASE ( Compare_ReturnsNegativeOneWhenLeftOperandIsLowerThanRightOperand_Te
     const i8_q LEFT_OPERAND = 5;
     const i8_q RIGHT_OPERAND = 10;
 
-    QComparatorDefault<i8_q> comparator;
-
     // [Execution]
-    i8_q comparisonResult = comparator.Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
     BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
@@ -87,10 +83,8 @@ QTEST_CASE ( Compare_ReturnsZeroWhenLeftOperandIsEqualToRightOperand_Test )
     const i8_q LEFT_OPERAND = 10;
     const i8_q RIGHT_OPERAND = 10;
 
-    QComparatorDefault<i8_q> comparator;
-
     // [Execution]
-    i8_q comparisonResult = comparator.Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
     BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );

@@ -79,7 +79,6 @@
       <File Name="../../../../tests/unit/testmodule_tools/ArrayElementMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/ListElementMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp" ExcludeProjConfig=""/>
-      <File Name="../../../../tests/unit/testmodule_tools/QComparatorDefault_Test.cpp" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h" ExcludeProjConfig=""/>
@@ -99,6 +98,7 @@
       <File Name="../../../../tests/unit/testmodule_tools/QConstNTreeIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIteratorMock.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQComparatorDefault_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>

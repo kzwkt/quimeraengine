@@ -32,7 +32,7 @@
 #include "Assertions.h"
 #include "QPoolAllocator.h"
 #include "QAlignment.h"
-#include "QComparatorDefault.h"
+#include "SQComparatorDefault.h"
 #include "AllocationOperators.h"
 #include "EQIterationDirection.h"
 
@@ -54,12 +54,12 @@ namespace Containers
 /// </summary>
 /// <remarks>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
-/// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
+/// If SQComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T"> The type of the list elements.</typeparam>
 /// <typeparam name="AllocatorT"> The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
-/// <typeparam name="ComparatorT"> The comparator. The default type is QComparatorDefault.</typeparam>
-template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
+/// <typeparam name="ComparatorT"> The comparator. The default type is SQComparatorDefault.</typeparam>
+template <class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
 class QList
 {
     // CONSTANTS
@@ -1193,7 +1193,7 @@ public:
 
                 while(bAreEqual && !itThis.IsEnd())
                 {
-                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0;
+                    bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0;
                     ++itThis;
                     ++itInput;
                 }
@@ -1850,7 +1850,7 @@ public:
 
         while(!itElement.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*itElement, element) == 0;
             ++itElement;
         }
 
@@ -1876,7 +1876,7 @@ public:
 
         while(!itElement.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*itElement, element) == 0;
             ++itElement;
             ++uIndex;
         }
@@ -1906,7 +1906,7 @@ public:
 
         while(!itElement.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*itElement, element) == 0;
             ++itElement;
             ++uIndex;
         }
@@ -1932,7 +1932,7 @@ public:
 
         while(!itElement.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*itElement, element) == 0;
             ++itElement;
         }
 
@@ -1962,7 +1962,7 @@ public:
 
         while(!itElement.IsEnd() && !bElementFound)
         {
-            bElementFound = m_comparator.Compare(*itElement, element) == 0;
+            bElementFound = ComparatorT::Compare(*itElement, element) == 0;
             ++itElement;
             ++uIndex;
         }
@@ -2191,11 +2191,6 @@ public:
     // ---------------
 
 protected:
-
-    /// <summary>
-    /// The comparator used to compare elements.
-    /// </summary>
-    ComparatorT m_comparator;
 
     /// <summary>
     /// Index of the first element in the sequence. If there is no first element, its value is END_POSITION_BACKWARD constant.
