@@ -89,6 +89,7 @@
     <File Name="../../../../headers/LoggingUtilities.h"/>
     <File Name="../../../../headers/SQInternalLogger.h"/>
     <File Name="../../../../headers/EQAssertionType.h"/>
+    <File Name="../../../../headers/QReferenceWrapper.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/CrossPlatformBasicTypes.h"/>
