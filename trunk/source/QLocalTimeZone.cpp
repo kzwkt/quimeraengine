@@ -293,7 +293,6 @@ const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
     
     static const unsigned int ENOUGH_LENGTH_FOR_TZ_ID = 256U;
     static const char* TIME_ZONE_CONFIGURATION_FILE = "/etc/localtime";
-    static const char* TIME_ZONE_REAL_PATH = "/usr/share/zoneinfo/";
     static const unsigned int TIME_ZONE_REAL_PATH_LENGTH = 20U;
     
     const QTimeZone* pTimeZone = null_q;

@@ -3004,7 +3004,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vC || vAux == vD) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3012,7 +3012,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vD || vAux == vA) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3037,7 +3037,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vA || vAux == vB) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3045,7 +3045,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vD || vAux == vA) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3070,7 +3070,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vC || vAux == vD) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3078,7 +3078,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             if (vAux == vA || vAux == vB) // Both intersections are in the same edge
                                 return EQIntersections::E_One;
@@ -3094,11 +3094,11 @@ protected:
                         EQIntersections value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux);
                         if (value2 == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux)) == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux))== EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux))== EQIntersections::E_One)
                             vIntersection1 = vAux;
 
                         return EQIntersections::E_One;
@@ -3116,7 +3116,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
                             vIntersection2 = segment.B;
@@ -3138,7 +3138,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
                             vIntersection2 = segment.B;
@@ -3160,7 +3160,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
                             vIntersection2 = segment.B;
@@ -3182,7 +3182,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
                             vIntersection2 = segment.B;
@@ -3208,7 +3208,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3218,7 +3218,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3248,7 +3248,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3258,7 +3258,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3288,7 +3288,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3298,7 +3298,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3328,7 +3328,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
@@ -3338,7 +3338,7 @@ protected:
                             vIntersection2 = segment.B;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection1 = vAux;
 
