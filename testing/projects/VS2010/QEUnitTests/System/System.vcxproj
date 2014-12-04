@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp" />
