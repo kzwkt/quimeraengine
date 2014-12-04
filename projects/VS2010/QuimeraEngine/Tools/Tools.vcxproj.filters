@@ -209,6 +209,9 @@
     <ClInclude Include="..\..\..\..\headers\SQComparatorDefault.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QKeyValuePair.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
