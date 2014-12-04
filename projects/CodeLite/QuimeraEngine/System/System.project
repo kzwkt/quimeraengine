@@ -129,6 +129,7 @@
       <File Name="../../../../headers/QDirectoryInfo.h"/>
       <File Name="../../../../source/QDirectoryInfo.cpp"/>
     </VirtualDirectory>
+    <File Name="../../../../headers/QBinaryStreamWriter.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
