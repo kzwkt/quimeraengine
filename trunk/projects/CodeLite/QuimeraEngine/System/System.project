@@ -139,6 +139,8 @@
   <VirtualDirectory Name="Diagnosis">
     <File Name="../../../../headers/QArgumentTrace.h"/>
     <File Name="../../../../source/QArgumentTrace.cpp"/>
+    <File Name="../../../../headers/QCallTrace.h"/>
+    <File Name="../../../../source/QCallTrace.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

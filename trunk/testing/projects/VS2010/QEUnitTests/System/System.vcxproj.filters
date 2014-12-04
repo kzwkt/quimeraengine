@@ -75,6 +75,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp">
       <Filter>Tests\Timing</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

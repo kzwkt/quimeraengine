@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
+    <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />
@@ -178,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />

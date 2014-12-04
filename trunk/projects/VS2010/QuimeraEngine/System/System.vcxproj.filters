@@ -73,6 +73,9 @@
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h">
       <Filter>IO\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp">
       <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallTrace.cpp">
+      <Filter>Diagnosis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

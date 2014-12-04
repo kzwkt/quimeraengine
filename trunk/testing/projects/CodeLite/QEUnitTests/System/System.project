@@ -103,6 +103,7 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Diagnosis">
       <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QCallTrace_Test.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
