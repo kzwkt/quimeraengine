@@ -194,6 +194,7 @@
     <File Name="../../../../headers/QDynamicArray.h"/>
     <File Name="../../../../headers/QBinarySearchTree.h"/>
     <File Name="../../../../headers/SQComparatorDefault.h"/>
+    <File Name="../../../../headers/QKeyValuePair.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

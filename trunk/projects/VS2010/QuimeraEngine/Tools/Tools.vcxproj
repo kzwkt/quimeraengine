@@ -195,6 +195,7 @@
     <ClInclude Include="..\..\..\..\headers\QDynamicArray.h" />
     <ClInclude Include="..\..\..\..\headers\QFixedArray.h" />
     <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
+    <ClInclude Include="..\..\..\..\headers\QKeyValuePair.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment3D.h" />
