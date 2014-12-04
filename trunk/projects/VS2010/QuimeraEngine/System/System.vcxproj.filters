@@ -25,6 +25,9 @@
     <Filter Include="Diagnosis">
       <UniqueIdentifier>{31a3958d-95b3-4f72-b86b-9433e422f0e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{2f46d2ff-b07d-4585-8806-8bf40cfef30c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QObject.h">
@@ -76,6 +79,9 @@
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QThread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -113,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QThread.cpp">
+      <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

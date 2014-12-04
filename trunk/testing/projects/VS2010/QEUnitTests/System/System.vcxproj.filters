@@ -25,6 +25,9 @@
     <Filter Include="Tests\IO\FileSystem">
       <UniqueIdentifier>{98ed1d2d-a486-448f-9e40-212febed37fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Threading">
+      <UniqueIdentifier>{578cf153-b2b9-4187-b023-e7a37a21bcbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QThread_Test.cpp">
+      <Filter>Tests\Threading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

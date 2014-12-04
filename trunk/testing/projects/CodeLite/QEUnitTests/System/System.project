@@ -105,6 +105,9 @@
       <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallTrace_Test.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Threading">
+      <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
@@ -132,7 +135,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -145,6 +148,7 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -196,7 +200,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -208,6 +212,7 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -254,7 +259,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -267,6 +272,8 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -318,7 +325,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -330,6 +337,8 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -375,7 +384,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -389,6 +398,8 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
@@ -435,7 +446,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -mwindows -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -mwindows -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -448,6 +459,8 @@
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
