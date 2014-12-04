@@ -26,6 +26,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMarkMocked.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMark_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QReferenceWrapper_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QType_Test.cpp" />

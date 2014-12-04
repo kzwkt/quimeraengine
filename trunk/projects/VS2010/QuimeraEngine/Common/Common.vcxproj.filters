@@ -70,6 +70,7 @@
       <Filter>Memory</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
+    <ClInclude Include="..\..\..\..\headers\QReferenceWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
