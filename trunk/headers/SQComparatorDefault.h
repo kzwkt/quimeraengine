@@ -48,8 +48,16 @@ namespace Containers
 /// </remarks>
 /// <typeparam name="T">The type of the elements to compare.</typeparam>
 template <class T>
-class QComparatorDefault
+class SQComparatorDefault
 {
+    // CONSTRUCTORS
+    // ---------------
+private:
+
+    // Hidden
+    SQComparatorDefault();
+
+
     // METHODS
     // --------------
 public:
@@ -62,7 +70,7 @@ public:
     /// <returns>
     /// Compare returns -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
     /// </returns>
-    Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand) const
+    static Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand)
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 

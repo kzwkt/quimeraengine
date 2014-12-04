@@ -176,9 +176,6 @@
     <ClInclude Include="..\..\..\..\headers\QTimeSpan.h">
       <Filter>Time</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\EQTreeTraversalOrder.h">
       <Filter>Containers</Filter>
     </ClInclude>
@@ -207,6 +204,9 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQComparatorDefault.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>

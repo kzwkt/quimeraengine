@@ -189,9 +189,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeSpan_Test.cpp">
       <Filter>Tests\Time</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp">
-      <Filter>Tests\Containers</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp">
       <Filter>Tests\Time</Filter>
     </ClCompile>
@@ -241,6 +238,9 @@
       <Filter>Tests\Containers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstNTreeIterator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQComparatorDefault_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
   </ItemGroup>

@@ -190,7 +190,6 @@
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h" />
     <ClInclude Include="..\..\..\..\headers\QCircle.h" />
-    <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QDynamicArray.h" />
@@ -230,6 +229,7 @@
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QVector4.h" />
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
+    <ClInclude Include="..\..\..\..\headers\SQComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
     <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />

@@ -32,7 +32,7 @@
 #include "Assertions.h"
 #include "QPoolAllocator.h"
 #include "QAlignment.h"
-#include "QComparatorDefault.h"
+#include "SQComparatorDefault.h"
 #include "EQTreeTraversalOrder.h"
 #include "EQIterationDirection.h"
 
@@ -61,12 +61,12 @@ namespace Containers
 /// In a binary search tree, elements cannot be modified, their position in the tree may become inconsistent since it depends on their value and the comparison algorithm.<br/>
 /// There is not a default way to traverse an binary search tree, the desired method will have to be specified when necessary.<br/>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
-/// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
+/// If SQComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of the tree elements.</typeparam>
 /// <typeparam name="AllocatorT">The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
-/// <typeparam name="ComparatorT">The comparator. The default type is QComparatorDefault.</typeparam>
-template<class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
+/// <typeparam name="ComparatorT">The comparator. The default type is SQComparatorDefault.</typeparam>
+template<class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
 class QBinarySearchTree
 {
     // INTERNAL CLASSES
@@ -1161,7 +1161,7 @@ public:
                     pCurrentNodeInput = pNodeBasePointerInput + uCurrentNodePositionInput;
 
                     // The value of the current element is checked
-                    bAreEqual = m_comparator.Compare(*itThis, *itInput) == 0
+                    bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0
                     // The relations of the current node are checked too
                                 && ((pCurrentNodeThis->GetParent() != QBinarySearchTree::END_POSITION_FORWARD) == (pCurrentNodeInput->GetParent() != QBinarySearchTree::END_POSITION_FORWARD))
                                 && ((pCurrentNodeThis->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD) == (pCurrentNodeInput->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD))
@@ -1254,7 +1254,7 @@ public:
             // Performs a binary search through the tree to determine the position of the new element
             while(pNewNode == null_q) // Until the new node is created
             {
-                nComparisonResult = m_comparator.Compare(newElement, *pCurrentElement);
+                nComparisonResult = ComparatorT::Compare(newElement, *pCurrentElement);
 
                 QE_ASSERT_ERROR(nComparisonResult != 0, "The input element already exists in the tree.");
 
@@ -1435,7 +1435,7 @@ public:
 
         while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
         {
-            nComparisonResult = m_comparator.Compare(value, *pCurrentElement);
+            nComparisonResult = ComparatorT::Compare(value, *pCurrentElement);
 
             if(nComparisonResult == INPUT_VALUE_IS_LOWER)
                 uCurrentPosition = pCurrentNode->GetLeftChild();
@@ -1523,7 +1523,7 @@ public:
 
         while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
         {
-            nComparisonResult = m_comparator.Compare(element, *pCurrentElement);
+            nComparisonResult = ComparatorT::Compare(element, *pCurrentElement);
 
             if(nComparisonResult == INPUT_VALUE_IS_LOWER)
                 uCurrentPosition = pCurrentNode->GetLeftChild();
@@ -1636,11 +1636,6 @@ protected:
     /// The position of the root node in the internal buffer.
     /// </summary>
     pointer_uint_q m_uRoot;
-    
-    /// <summary>
-    /// The comparator used to compare elements.
-    /// </summary>
-    ComparatorT m_comparator;
 };
 
 // ATTRIBUTE INITIALIZATION

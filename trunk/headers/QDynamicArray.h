@@ -48,14 +48,14 @@ namespace Containers
 /// <remarks>
 /// Elements are assured to be placed contiguously in memory.<br/>
 /// Elements are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
-/// If QComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
+/// If SQComparatorDefault is used as comparator, elements will be forced to implement operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of every element in the array.</typeparam>
 /// <typeparam name="AllocatorT">Optional. The type of allocator to store the elements of the array. By default, QPoolAllocator will
 /// be used.</typeparam>
 /// <typeparam name="ComparatorT">Optional. The type of comparator to compare elements to each other, used in search and ordering
-/// algorithms. By default, QComparatorDefault will be used.</typeparam>
-template<class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = QComparatorDefault<T> >
+/// algorithms. By default, SQComparatorDefault will be used.</typeparam>
+template<class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
 class QDynamicArray : public QFixedArray<T, AllocatorT, ComparatorT>
 {
     using QFixedArray<T, AllocatorT, ComparatorT>::m_allocator;
