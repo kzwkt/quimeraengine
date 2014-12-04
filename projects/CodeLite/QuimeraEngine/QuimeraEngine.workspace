@@ -5,7 +5,7 @@
   <Project Name="System" Path="System/System.project" Active="Yes"/>
   <Project Name="Core" Path="Core/Core.project" Active="No"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="yes">
+    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="no">
       <Project Name="Tools" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="System" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="Core" ConfigName="DebugWin32SharedrtStatic"/>
@@ -29,7 +29,7 @@
       <Project Name="Core" ConfigName="DebugLinux32SharedrtDynamic"/>
       <Project Name="Common" ConfigName="DebugLinux32SharedrtDynamic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="no">
+    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="yes">
       <Project Name="Tools" ConfigName="DebugMac32SharedrtStatic"/>
       <Project Name="System" ConfigName="DebugMac32SharedrtStatic"/>
       <Project Name="Core" ConfigName="DebugMac32SharedrtStatic"/>
