@@ -87,6 +87,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamWriter_Test.cpp">
       <Filter>Tests\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamReader_Test.cpp">
+      <Filter>Tests\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

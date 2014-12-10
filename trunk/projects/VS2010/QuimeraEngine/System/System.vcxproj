@@ -159,6 +159,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="..\..\..\..\headers\QPath.h" />
     <ClInclude Include="..\..\..\..\headers\QStopwatch.h" />
     <ClInclude Include="..\..\..\..\headers\QThread.h" />
+    <ClInclude Include="..\..\..\..\headers\QTextStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QUri.h" />
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />

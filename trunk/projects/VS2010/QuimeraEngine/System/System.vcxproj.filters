@@ -85,6 +85,12 @@
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTextStreamReader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -125,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QThread.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

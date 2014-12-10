@@ -130,6 +130,9 @@
       <File Name="../../../../source/QDirectoryInfo.cpp"/>
     </VirtualDirectory>
     <File Name="../../../../headers/QBinaryStreamWriter.h"/>
+    <File Name="../../../../headers/EQNewLineCharacters.h"/>
+    <File Name="../../../../headers/QTextStreamReader.h"/>
+    <File Name="../../../../source/EQNewLineCharacters.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="DataTypes">
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
