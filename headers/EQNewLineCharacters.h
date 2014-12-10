@@ -24,15 +24,15 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __EQENUMERATION__
-#define __EQENUMERATION__
+#ifndef __EQNEWLINECHARACTERS__
+#define __EQNEWLINECHARACTERS__
 
 #include <map>
 #include <vector>
 
 #include "Assertions.h"
 #include "DataTypesDefinitions.h"
-#include "<LayerName>Definitions.h"
+#include "SystemDefinitions.h"
 
 #ifdef QE_COMPILER_MSVC
     // This warning appears when instancing a template to create a data member and that template instance is not exported.
@@ -48,13 +48,15 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace NAMESPACE
+namespace System
+{
+namespace IO
 {
 
 /// <summary>
-/// [DOC]
+/// The character or combination of characters that mark the end of a line.
 /// </summary>
-class QE_LAYER_<LayerName>_SYMBOLS EQEnumeration
+class QE_LAYER_SYSTEM_SYMBOLS EQNewLineCharacters
 {
     // ENUMERATIONS
     // ---------------
@@ -65,7 +67,9 @@ public:
     /// </summary>
     enum EnumType
     {
-        E_<> = QE_ENUMERATION_MIN_VALUE, /*!< [DOC] */
+        E_CRLF = QE_ENUMERATION_MIN_VALUE, /*!< A carriage return (CR) followed by a line feed (LF). */
+        E_LF,                              /*!< Just a line feed. */
+        E_CR,                              /*!< Just a carriage return. */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
@@ -74,8 +78,8 @@ public:
     // ---------------
 public:
 
-    typedef std::map<string_q, EQEnumeration::EnumType> TNameValueMap;
-    typedef std::pair<string_q, EQEnumeration::EnumType> TNameValuePair;
+    typedef std::map<string_q, EQNewLineCharacters::EnumType> TNameValueMap;
+    typedef std::pair<string_q, EQNewLineCharacters::EnumType> TNameValuePair;
 
 
 	// CONSTRUCTORS
@@ -86,7 +90,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQEnumeration(const EQEnumeration::EnumType eValue) : m_value(eValue)
+    inline EQNewLineCharacters(const EQNewLineCharacters::EnumType eValue) : m_value(eValue)
     {
     }
 
@@ -94,7 +98,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    inline EQEnumeration(const enum_int_q nValue) : m_value(scast_q(nValue, const EQEnumeration::EnumType))
+    inline EQNewLineCharacters(const enum_int_q nValue) : m_value(scast_q(nValue, const EQNewLineCharacters::EnumType))
     {
     }
 
@@ -103,7 +107,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
-    inline explicit EQEnumeration(const string_q &strValueName)
+    inline explicit EQNewLineCharacters(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -112,7 +116,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQEnumeration(const EQEnumeration &eValue) : m_value(eValue.m_value)
+    inline EQNewLineCharacters(const EQNewLineCharacters &eValue) : m_value(eValue.m_value)
     {
     }
 
@@ -128,9 +132,9 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const enum_int_q nValue)
+    inline EQNewLineCharacters& operator=(const enum_int_q nValue)
     {
-        m_value = scast_q(nValue, const EQEnumeration::EnumType);
+        m_value = scast_q(nValue, const EQNewLineCharacters::EnumType);
         return *this;
     }
 
@@ -141,12 +145,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const string_q &strValueName)
+    inline EQNewLineCharacters& operator=(const string_q &strValueName)
     {
-        if(EQEnumeration::sm_mapValueName.find(strValueName) != EQEnumeration::sm_mapValueName.end())
+        if(EQNewLineCharacters::sm_mapValueName.find(strValueName) != EQNewLineCharacters::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = EQEnumeration::_NotEnumValue;
+            m_value = EQNewLineCharacters::_NotEnumValue;
 
         return *this;
     }
@@ -158,7 +162,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const EQEnumeration::EnumType eValue)
+    inline EQNewLineCharacters& operator=(const EQNewLineCharacters::EnumType eValue)
     {
         m_value = eValue;
         return *this;
@@ -171,7 +175,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const EQEnumeration &eValue)
+    inline EQNewLineCharacters& operator=(const EQNewLineCharacters &eValue)
     {
         m_value = eValue.m_value;
         return *this;
@@ -184,7 +188,7 @@ public:
     /// <returns>
     /// True if it equals the enumeration value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumeration &eValue) const
+    bool operator==(const EQNewLineCharacters &eValue) const
     {
         return m_value == eValue.m_value;
     }
@@ -199,7 +203,7 @@ public:
     /// </returns>
     inline bool operator==(const string_q &strValueName) const
     {
-        if(EQEnumeration::sm_mapValueName.find(strValueName) != EQEnumeration::sm_mapValueName.end())
+        if(EQNewLineCharacters::sm_mapValueName.find(strValueName) != EQNewLineCharacters::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -214,7 +218,7 @@ public:
     /// </returns>
     inline bool operator==(const enum_int_q nValue) const
     {
-        return m_value == scast_q(nValue, const EQEnumeration::EnumType);
+        return m_value == scast_q(nValue, const EQNewLineCharacters::EnumType);
     }
 
     /// <summary>
@@ -224,7 +228,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumeration::EnumType eValue) const
+    bool operator==(const EQNewLineCharacters::EnumType eValue) const
     {
         return m_value == eValue;
     }
@@ -242,13 +246,13 @@ public:
         // If it's not been initialized yet...
         if(arValues.empty())
         {
-            const size_t ENUM_ARRAY_COUNT = EQEnumeration::sm_mapValueName.size();
+            const size_t ENUM_ARRAY_COUNT = EQNewLineCharacters::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
             QE_ASSERT_ERROR(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
-                arValues.push_back(EQEnumeration::sm_arValueName[i].second);
+                arValues.push_back(EQNewLineCharacters::sm_arValueName[i].second);
         }
 
         return arValues;
@@ -260,7 +264,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQEnumeration::EnumType() const
+    inline operator EQNewLineCharacters::EnumType() const
     {
         return m_value;
     }
@@ -273,7 +277,7 @@ public:
     /// </returns>
     operator const string_q() const
     {
-        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
+        return ConvertToString(m_value, EQNewLineCharacters::sm_mapValueName);
     }
     
     /// <summary>
@@ -295,7 +299,7 @@ public:
     /// </returns>
     const string_q ToString() const
     {
-        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
+        return ConvertToString(m_value, EQNewLineCharacters::sm_mapValueName);
     }
 
 private:
@@ -308,7 +312,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQEnumeration::EnumType eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQNewLineCharacters::EnumType eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -333,38 +337,23 @@ private:
     /// <summary>
     /// A list of enumeration values with their names.
     /// </summary>
-    static TNameValuePair sm_arValueName[];  REMEMBER TO INITIALIZE IT IN THE CPP FILE
+    static TNameValuePair sm_arValueName[];
 
     /// <summary>
     /// The dictionary which contains each enumeration value by its name.
     /// </summary>
-    static TNameValueMap  sm_mapValueName;  REMEMBER TO INITIALIZE IT IN THE CPP FILE
+    static TNameValueMap  sm_mapValueName;
 
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    EQEnumeration::EnumType m_value;
+    EQNewLineCharacters::EnumType m_value;
 
 };
 
-
-// CONSTANTS INITIALIZATION
-// ----------------------------
-THIS MUST BE PLACED IN THE CPP FILE
-EQEnumeration::TNameValuePair EQEnumeration::sm_arValueName[] =
-    {
-        std::pair<string_q, EQEnumeration::EnumType>(QE_L("<>"),    EQEnumeration::E_<>),
-    };
-
-EQEnumeration::TNameValueMap EQEnumeration::sm_mapValueName(
-        EQEnumeration::sm_arValueName ,
-        &EQEnumeration::sm_arValueName[0] + sizeof(EQEnumeration::sm_arValueName) / sizeof(EQEnumeration::sm_arValueName[0])
-    );
-
-
-
-} //namespace NAMESPACE
+} //namespace IO
+} //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __EQENUMERATION__
+#endif // __EQNEWLINECHARACTERS__

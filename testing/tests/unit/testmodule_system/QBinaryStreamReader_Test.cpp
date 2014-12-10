@@ -60,7 +60,7 @@ QTEST_CASE ( Constructor_StreamIsCorrectlyStored_Test )
 /// <summary>
 /// Checks that the value is read correctly.
 /// </summary>
-QTEST_CASE ( OperatorBitwise_ValueIsReadCorrectly_Test )
+QTEST_CASE ( OperatorRightShift_ValueIsReadCorrectly_Test )
 {
     // [Preparation]
     const unsigned int EXPECTED_VALUE = 0xFEDCBA98;
@@ -78,7 +78,7 @@ QTEST_CASE ( OperatorBitwise_ValueIsReadCorrectly_Test )
 /// <summary>
 /// Checks that the stream pointer is moved forward.
 /// </summary>
-QTEST_CASE ( OperatorBitwise_StreamPointerIsMovedForward_Test )
+QTEST_CASE ( OperatorRightShift_StreamPointerIsMovedForward_Test )
 {
     // [Preparation]
     const unsigned int STREAM_VALUE = 0xFEDCBA98;
@@ -98,7 +98,7 @@ QTEST_CASE ( OperatorBitwise_StreamPointerIsMovedForward_Test )
 /// <summary>
 /// Checks that the method returns a reference to the resident instance.
 /// </summary>
-QTEST_CASE ( OperatorBitwise_ReturnsResidentInstance_Test )
+QTEST_CASE ( OperatorRightShift_ReturnsResidentInstance_Test )
 {
     // [Preparation]
     const unsigned int STREAM_VALUE = 0xFEDCBA98;
