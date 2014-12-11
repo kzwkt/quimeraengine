@@ -35,8 +35,8 @@
 #include <unicode/ucnv.h>
 #include <unicode/fmtable.h>
 #include <unicode/decimfmt.h>
-#include "unicode/locid.h"
-#include "unicode/uchar.h"
+#include <unicode/locid.h>
+#include <unicode/uchar.h>
 
 
 namespace Kinesis
@@ -298,10 +298,9 @@ QStringUnicode::QCharIterator QStringUnicode::GetCharIterator() const
     return QStringUnicode::QCharIterator(ccast_q(*this, QStringUnicode&));
 }
 
-i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const
+QBasicArray<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) const
 {
-    i8_q* pOutputBytes = null_q;
-    uOutputLength = 0;
+    QBasicArray<i8_q> arBytes(null_q, 0, false);
 
     const unsigned int CHARACTERS_COUNT = scast_q(m_strString.countChar32(), unsigned int);; // It does not include the final null character
 
@@ -350,9 +349,9 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOu
 
         // Conversion from native encoding (UTF16) to input encoding
         const UChar* pBuffer = m_strString.getBuffer();
-        pOutputBytes = new char[nRequiredLengthBytes];
+        i8_q* pOutputBytes = new char[nRequiredLengthBytes];
         ucnv_reset(pConverter);
-        uOutputLength = ucnv_fromUChars(pConverter, pOutputBytes, nRequiredLengthBytes, pBuffer, CODE_UNITS_COUNT, &errorCode);
+        pointer_uint_q uOutputLength = ucnv_fromUChars(pConverter, pOutputBytes, nRequiredLengthBytes, pBuffer, CODE_UNITS_COUNT, &errorCode);
 
         // If it was necessary to add a null terminator...
         if(ADD_NULL_TERMINATION == 1)
@@ -386,9 +385,11 @@ i8_q* QStringUnicode::ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOu
                 break;
             }
         }
+
+        arBytes = QBasicArray<i8_q>(pOutputBytes, uOutputLength, true);
     }
 
-    return pOutputBytes;
+    return arBytes;
 }
 
 UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
@@ -864,15 +865,15 @@ void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
     m_uLength += strStringToAppend.GetLength();
 }
 
-QStringUnicode* QStringUnicode::Split(const QStringUnicode &strSeparator, unsigned int &uReturnedArrayLength) const
+QBasicArray<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSeparator) const
 {
-    QStringUnicode* arParts = null_q;
+    QBasicArray<QStringUnicode> arParts(null_q, 0, false);
     unsigned int uNumberOfParts = 0;
 
     if(this->IsEmpty())
     {
         // Returns an empty string
-        arParts = new QStringUnicode[1];
+        arParts = QBasicArray<QStringUnicode>(new QStringUnicode[1], 1U, true);
     }
     else
     {
@@ -890,7 +891,7 @@ QStringUnicode* QStringUnicode::Split(const QStringUnicode &strSeparator, unsign
         }
 
         // Creates the output array of strings
-        arParts = new QStringUnicode[uNumberOfParts];
+        arParts = QBasicArray<QStringUnicode>(new QStringUnicode[uNumberOfParts], uNumberOfParts, true);
 
         // Extracts every part, searching for separators and getting the text in between, if any
 
@@ -915,7 +916,6 @@ QStringUnicode* QStringUnicode::Split(const QStringUnicode &strSeparator, unsign
         arParts[uNumberOfParts] = this->Substring(uLastFound);
     }
 
-    uReturnedArrayLength = uNumberOfParts + 1U;
     return arParts;
 }
 

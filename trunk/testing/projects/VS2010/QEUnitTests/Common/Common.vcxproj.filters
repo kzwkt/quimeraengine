@@ -90,6 +90,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QReferenceWrapper_Test.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBasicArray_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

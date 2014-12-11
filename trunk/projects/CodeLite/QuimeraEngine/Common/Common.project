@@ -116,6 +116,7 @@
     <File Name="../../../../source/SQInteger.cpp"/>
     <File Name="../../../../source/SQVF32.cpp"/>
     <File Name="../../../../source/QCharIterator.cpp"/>
+    <File Name="../../../../headers/QBasicArray.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Memory">
     <File Name="../../../../headers/AllocationOperators.h"/>

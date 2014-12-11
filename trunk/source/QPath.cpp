@@ -30,6 +30,7 @@
 #include "EQTextEncoding.h"
 #include "SQInteger.h"
 #include "QDynamicArray.h"
+#include "QBasicArray.h"
 #include "QUri.h"
 
 #if defined(QE_OS_WINDOWS)
@@ -382,6 +383,7 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
 
     static const codepoint_q CODEPOINT_FIRST_NUMBER           = '0';
     static const codepoint_q CODEPOINT_LAST_NUMBER            = '9';
@@ -411,12 +413,11 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 
         if(!MISSING_SQUARE_BRACKET)
         {
-            unsigned int uNumberOfParts = 0;
-            string_q* arParts = strIP.Split(DOT, uNumberOfParts);
+            QBasicArray<string_q> arParts = strIP.Split(DOT);
 
-            QE_ASSERT_WARNING(uNumberOfParts == PARTS_OF_IPV4, "The IP (v4) must be compound of four parts.");
+            QE_ASSERT_WARNING(arParts.GetCount() == PARTS_OF_IPV4, "The IP (v4) must be compound of four parts.");
 
-            if(uNumberOfParts == PARTS_OF_IPV4)
+            if(arParts.GetCount() == PARTS_OF_IPV4)
             {
                 bool bAllPartsAreValid = true;
 
@@ -466,8 +467,6 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 
                 bIsValid = bAllPartsAreValid;
             }
-
-            delete[] arParts;
         }
     }
 

@@ -128,7 +128,7 @@ QStringUnicode::QCharIterator QStringUnicode::QCharIterator::operator--(int)
         m_iterator.previous32();
         m_uIndex = m_pString->m_uLength - 1U;
     }
-    else
+    else if(m_uIndex != QStringUnicode::END_POSITION_BACKWARD)
     {
         m_iterator.previous32();
         --m_uIndex;
@@ -181,7 +181,7 @@ QStringUnicode::QCharIterator& QStringUnicode::QCharIterator::operator--()
         m_iterator.previous32();
         m_uIndex = m_pString->m_uLength - 1U;
     }
-    else
+    else if(m_uIndex != QStringUnicode::END_POSITION_BACKWARD)
     {
         m_iterator.previous32();
         --m_uIndex;

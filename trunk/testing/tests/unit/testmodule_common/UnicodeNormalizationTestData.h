@@ -140,14 +140,14 @@ public:
     /// <param name="strFilePath">[IN] The path of the file.</param>
     void ParseFile(const QStringUnicode &strFilePath)
     {
-        unsigned uLength = 0;
         std::fstream fileStream;
-        fileStream.open(strFilePath.ToBytes(EQTextEncoding::E_ISO88591, uLength));
+        fileStream.open(strFilePath.ToBytes(EQTextEncoding::E_ISO88591).Get());
 
         QE_ASSERT_ERROR(fileStream.is_open(), "The Normalization test file was not found");
 
         if(fileStream.is_open())
         {
+            unsigned uLength = 0;
             fileStream.seekg(0, fileStream.end);
             uLength = scast_q(fileStream.tellg(), unsigned int);
             fileStream.seekg(0, fileStream.beg);

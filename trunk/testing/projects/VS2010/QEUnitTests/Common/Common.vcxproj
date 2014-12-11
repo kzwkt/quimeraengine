@@ -17,6 +17,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBasicArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBlockHeader_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp" />
@@ -131,7 +132,8 @@
       <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
+copy $(TargetDir)..\..\NormalizationTest.txt $(TargetDir) /Y</Command>
       <Message>
       </Message>
     </PostBuildEvent>

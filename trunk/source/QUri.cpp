@@ -332,13 +332,13 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
     using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
 
     if(!strInput.IsEmpty())
     {
         string_q strResult;
 
-        unsigned int uUTF8CodeunitsCount = 0;
-        u8_q* arUTF8Codeunits = null_q;
         string_q strHexadecimal;
 
         string_q::QConstCharIterator it = strInput.GetConstCharIterator(0);
@@ -352,10 +352,11 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
             {
                 // Encodes the character in UTF8
                 string_q strCurrentCharacter(currentChar);
-                arUTF8Codeunits = rcast_q(strCurrentCharacter.ToBytes(EQTextEncoding::E_UTF8, uUTF8CodeunitsCount), u8_q*);
+                QBasicArray<i8_q> arBytes = strCurrentCharacter.ToBytes(EQTextEncoding::E_UTF8);
+                u8_q* arUTF8Codeunits = rcast_q(arBytes.Get(), u8_q*);
 
                 // Adds the code units as hexadecimal values
-                for(unsigned int iCodeunit = 0; iCodeunit < uUTF8CodeunitsCount - 1U; ++iCodeunit) // -1U to skip the null terminator
+                for(unsigned int iCodeunit = 0; iCodeunit < arBytes.GetCount() - 1U; ++iCodeunit) // -1U to skip the null terminator
                 {
                     // Adds the '%'
                     strResult.Append(QUri::CHAR_PERCENT_SIGN);
@@ -364,7 +365,6 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
                     strResult.Append(strHexadecimal);
                 }
 
-                delete[] arUTF8Codeunits;
                 arUTF8Codeunits = null_q;
             }
             else
@@ -617,6 +617,7 @@ void QUri::DecomposePath(const string_q &strInputUri,
     //       when the path ends with a slash, an empty segment is added at the end
 
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
 
     if(nPathStartPosition != string_q::PATTERN_NOT_FOUND)
     {
@@ -631,15 +632,12 @@ void QUri::DecomposePath(const string_q &strInputUri,
 
         string_q strPath(strInputUri.Substring(nPathStartPosition, nPathEndPosition));
 
-        unsigned int uSegments = 0;
-        string_q* arSegments = strPath.Split(QUri::CHAR_SLASH, uSegments);
+        QBasicArray<string_q> arSegments = strPath.Split(QUri::CHAR_SLASH);
 
         m_arPathSegments.Clear();
 
-        for(unsigned int i = 0; i < uSegments; ++i)
+        for(unsigned int i = 0; i < arSegments.GetCount(); ++i)
             m_arPathSegments.Add(arSegments[i]);
-
-        delete[] arSegments;
     }
 }
 
