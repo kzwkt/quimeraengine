@@ -37,6 +37,7 @@
 #include <unicode/numfmt.h>
 
 #include "QCharUnicode.h"
+#include "QBasicArray.h"
 
 
 namespace Kinesis
@@ -695,13 +696,11 @@ public:
     /// replaced by Substitution characters (#26 in ASCII table).
     /// </remarks>
     /// <param name="eEncoding">[IN] The encoding of the resultant text.</param>
-    /// <param name="uOutputLength">[OUT] The length, in number of bytes, of the output byte stream, counting the null terminator.
-    /// If the string is empty, it will be set to zero.</param>
     /// <returns>
-    /// An array of bytes that contains the encoded text. If the string is empty, null will be returned. Remember to delete the array when
-    /// do not need it anymore.
+    /// An array of bytes, which contains the encoded text, and the number of bytes (counting the null terminator). If the string is empty, a null array and a 
+    /// zero will be returned. The wrapper is attached to the array.
     /// </returns>
-    i8_q* ToBytes(const EQTextEncoding &eEncoding, unsigned int &uOutputLength) const;
+    QBasicArray<i8_q> ToBytes(const EQTextEncoding &eEncoding) const;
 
     /// <summary>
     /// Method that returns copy of the string with all its characters in lower case.
@@ -883,12 +882,11 @@ public:
     /// Binary case-sensitive comparison is performed to find matches of the separator in the string.
     /// </remarks>
     /// <param name="strSeparator">[IN] The string that will act as separator. If it is empty, the string will not be split and will be returned as is.</param>
-    /// <param name="uReturnedArrayLength">[OUT] The number of strings in the output array after the operation. It will never equal zero.</param>
     /// <returns>
-    /// Array compound of the parts in which the string is divided by the separators. The user is in charge of deleting the array manually. Its size is
-    /// given through the output parameter.
+    /// Array compound of the parts in which the string is divided by the separators, and the number of strings in it (always greater than zero).
+    /// The wrapper is attached to the array.
     /// </returns>
-    QStringUnicode* Split(const QStringUnicode &strSeparator, unsigned int &uReturnedArrayLength) const;
+    QBasicArray<QStringUnicode> Split(const QStringUnicode &strSeparator) const;
 
     /// <summary>
     /// Parses the complete string, which represents an integer number.

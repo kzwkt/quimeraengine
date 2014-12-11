@@ -107,6 +107,7 @@
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
+    <ClInclude Include="..\..\..\..\headers\QBasicArray.h" />
     <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
     <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h" />

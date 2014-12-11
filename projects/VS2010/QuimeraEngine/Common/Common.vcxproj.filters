@@ -71,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
     <ClInclude Include="..\..\..\..\headers\QReferenceWrapper.h" />
+    <ClInclude Include="..\..\..\..\headers\QBasicArray.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
