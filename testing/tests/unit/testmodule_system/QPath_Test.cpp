@@ -2522,25 +2522,7 @@ QTEST_CASE ( GetLastDirectory_ReturnsDotWhenPathIsOneDotAndOneSeparator_Test )
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
-#if defined(QE_OS_WINDOWS)
-
-/// <summary>
-/// Checks that it returns a drive when the path is compound of a drive and a separator only.
-/// </summary>
-QTEST_CASE ( GetLastDirectory_ReturnsDriveWhenPathIsJustADriveAndSeparator_Test )
-{
-    // [Preparation]
-    const QPath SOURCE_PATH("x:/");
-    const string_q EXPECTED_RESULT("x:");
-
-    // [Execution]
-    string_q strResult = SOURCE_PATH.GetLastDirectory();
-    
-    // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
-}
-
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
 /// <summary>
 /// Checks that it returns a tilde (~) when path is compound of a tilde followed by a separator only.

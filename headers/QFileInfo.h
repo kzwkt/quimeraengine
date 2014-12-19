@@ -116,7 +116,7 @@ public:
 
     // ATTRIBUTES
     // ---------------
-protected:
+private:
     
     /// <summary>
     /// The absolute path to the file.
