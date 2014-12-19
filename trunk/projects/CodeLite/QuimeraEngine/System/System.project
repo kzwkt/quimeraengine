@@ -128,6 +128,9 @@
       <File Name="../../../../source/QFileInfo.cpp"/>
       <File Name="../../../../headers/QDirectoryInfo.h"/>
       <File Name="../../../../source/QDirectoryInfo.cpp"/>
+      <File Name="../../../../headers/EQFileSystemError.h"/>
+      <File Name="../../../../headers/SQDirectory.h"/>
+      <File Name="../../../../source/SQDirectory.cpp"/>
     </VirtualDirectory>
     <File Name="../../../../headers/QBinaryStreamWriter.h"/>
     <File Name="../../../../headers/EQNewLineCharacters.h"/>
@@ -179,6 +182,7 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
         <Library Value="rt"/>
@@ -271,6 +275,7 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
       </Linker>
@@ -363,6 +368,7 @@
         <Library Value="icuin"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
       </Linker>

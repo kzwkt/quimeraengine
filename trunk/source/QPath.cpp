@@ -32,12 +32,8 @@
 #include "QDynamicArray.h"
 #include "QBasicArray.h"
 #include "QUri.h"
+#include "SQDirectory.h"
 
-#if defined(QE_OS_WINDOWS)
-    #include <Windows.h>
-#else
-    #include <unistd.h>
-#endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 
@@ -604,43 +600,6 @@ void QPath::AppendDirectory(const string_q &strDirectory)
     }
 }
 
-QPath QPath::_GetCurrentWorkingDirectory()
-{
-    // Note: Interesting article about the variable PATH_MAX http://insanecoding.blogspot.com.es/2007/11/pathmax-simply-isnt.html
-    // Note: Interesting article about working directories on Windows http://blogs.msdn.com/b/oldnewthing/archive/2010/10/11/10073890.aspx
-
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-
-    string_q strPath;
-
-#if defined(QE_OS_WINDOWS)
-    DWORD uPathLength = ::GetCurrentDirectoryW(0, null_q);
-    wchar_t* arCharacters = new wchar_t[uPathLength + 1U];
-    ::GetCurrentDirectoryW(uPathLength, arCharacters);
-
-    strPath = string_q(rcast_q(arCharacters, char*), uPathLength * sizeof(wchar_t), EQTextEncoding::E_UTF16LE);
-    delete[] arCharacters;
-#elif defined(_GNU_SOURCE)
-    char* arCharacters = ::get_current_dir_name();
-    pointer_uint_q uPathLength = strlen(arCharacters);
-    strPath = string_q(arCharacters, uPathLength, EQTextEncoding::E_UTF8);
-    free(arCharacters);
-#else
-    char* arCharacters = ::getcwd(null_q, 0);
-    pointer_uint_q uPathLength = strlen(arCharacters);
-    strPath = string_q(arCharacters, uPathLength, EQTextEncoding::E_UTF8);
-    free(arCharacters);
-#endif
-
-    // Adds a trailing slash if it does not end with one
-    static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
-
-    if(!strPath.IsEmpty() && strPath[strPath.GetLength() - 1U] != CHAR_SEPARATOR)
-        strPath.Append(QPath::PATH_SEPARATOR);
-
-    return QPath(strPath);
-}
-
 void QPath::Resolve(const QPath &relativePath)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
@@ -720,7 +679,7 @@ string_q QPath::GetAbsolutePath() const
     }
     else
     {
-        QPath targetPath = QPath::_GetCurrentWorkingDirectory();
+        QPath targetPath = SQDirectory::GetCurrentWorkingDirectory();
         targetPath.Resolve(*this);
         strResult = targetPath.ToString();
     }
@@ -730,7 +689,7 @@ string_q QPath::GetAbsolutePath() const
 
 string_q QPath::GetRelativePath() const
 {
-    return this->GetRelativePathTo(QPath::_GetCurrentWorkingDirectory());
+    return this->GetRelativePathTo(SQDirectory::GetCurrentWorkingDirectory());
 }
 
 string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
@@ -896,7 +855,7 @@ string_q QPath::GetLastDirectory() const
 
     string_q strResult;
 
-    if(m_strPath != QPath::PATH_SEPARATOR)
+    if(m_strPath != QPath::PATH_SEPARATOR && m_strPath != this->GetRoot())
     {
         if(m_strPath.GetLength() <= 1U)
         {

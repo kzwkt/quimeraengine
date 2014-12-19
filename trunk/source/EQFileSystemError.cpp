@@ -24,13 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QDIRECTORYINFO__
-#define __QDIRECTORYINFO__
-
-#include "SystemDefinitions.h"
-
-#include "QPath.h"
-#include "QDateTime.h"
+#include "EQFileSystemError.h"
 
 
 namespace Kinesis
@@ -44,65 +38,35 @@ namespace IO
 namespace FileSystem
 {
 
-/// <summary>
-/// Stores information about a directory in the file system.
-/// </summary>
-class QE_LAYER_SYSTEM_SYMBOLS QDirectoryInfo
-{
-    // CONSTRUCTORS
-    // ---------------
-public:
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |  ATTRIBUTES INITIALIZATION |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
 
-    /// <summary>
-    /// Constructor that receives all the information about the directory.
-    /// </summary>
-    /// <param name="path">[IN] The absolute path to the directory.</param>
-    /// <param name="creationDate">[IN] The date and time of the directory's creation.</param>
-    QDirectoryInfo(const Kinesis::QuimeraEngine::System::IO::FileSystem::QPath &path,
-                   const Kinesis::QuimeraEngine::Tools::Time::QDateTime &creationDate);
+EQFileSystemError::TNameValuePair EQFileSystemError::sm_arValueName[] =
+    {
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("Success"),          EQFileSystemError::E_Success),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("Unknown"),          EQFileSystemError::E_Unknown),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("DoesNotExist"),     EQFileSystemError::E_DoesNotExist),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("FileIsTooLarge"),   EQFileSystemError::E_FileIsTooLarge),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NameIsTooLong"),    EQFileSystemError::E_NameIsTooLong),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NoSpaceInDevice"),  EQFileSystemError::E_NoSpaceInDevice),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NoPermissions"),    EQFileSystemError::E_NoPermissions),
+        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("AlreadyExists"),    EQFileSystemError::E_AlreadyExists),
+    };
 
+EQFileSystemError::TNameValueMap EQFileSystemError::sm_mapValueName(
+        EQFileSystemError::sm_arValueName ,
+        &EQFileSystemError::sm_arValueName[0] + sizeof(EQFileSystemError::sm_arValueName) / sizeof(EQFileSystemError::sm_arValueName[0])
+    );
 
-    // PROPERTIES
-    // ---------------
-public:
-    
-    /// <summary>
-    /// Gets the absolute path to the directory.
-    /// </summary>
-    /// <returns>
-    /// The absolute path to the directory.
-    /// </returns>
-    const Kinesis::QuimeraEngine::System::IO::FileSystem::QPath& GetPath() const;
-    
-    /// <summary>
-    /// Gets the date and time of the directory's creation.
-    /// </summary>
-    /// <returns>
-    /// The date and time of the directory's creation.
-    /// </returns>
-    const Kinesis::QuimeraEngine::Tools::Time::QDateTime& GetCreationDate() const;
-
-
-    // ATTRIBUTES
-    // ---------------
-private:
-
-    /// <summary>
-    /// The absolute path to the directory.
-    /// </summary>
-    Kinesis::QuimeraEngine::System::IO::FileSystem::QPath m_path;
-
-    /// <summary>
-    /// The date and time of the directory's creation.
-    /// </summary>
-    Kinesis::QuimeraEngine::Tools::Time::QDateTime m_creationDate;
-
-};
 
 } //namespace FileSystem
 } //namespace IO
 } //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis
-
-#endif // __QDIRECTORYINFO__

@@ -91,6 +91,12 @@
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQDirectory.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -134,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQDirectory.cpp">
+      <Filter>IO\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

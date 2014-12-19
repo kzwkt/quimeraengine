@@ -93,6 +93,7 @@
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamReader_Test.cpp"/>
       <VirtualDirectory Name="FileSystem">
         <File Name="../../../../tests/unit/testmodule_system/QPath_Test.cpp"/>
+        <File Name="../../../../tests/unit/testmodule_system/SQDirectory_Test.cpp"/>
       </VirtualDirectory>
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamWriter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QTextStreamReader_Test.cpp"/>
@@ -152,6 +153,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -217,6 +219,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -278,6 +281,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -343,6 +347,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
@@ -404,6 +409,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
@@ -427,6 +433,8 @@
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineCommon.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineTools.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineSystem.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c if exist $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)\artifacts rmdir $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)\artifacts /s /q</Command>
+        <Command Enabled="yes">cmd /c xcopy $(EXECUTION_PATH)..\..\..\..\bin\artifacts $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName) /Y /I /E /K /O</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>
@@ -465,6 +473,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
@@ -485,6 +494,8 @@
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\TestConfig.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\NormalizationTest.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
         <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c if exist $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)\artifacts rmdir $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)\artifacts /s /q</Command>
+        <Command Enabled="yes">cmd /c xcopy $(EXECUTION_PATH)..\..\..\..\bin\artifacts $(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName) /Y /I /E /K /O</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>

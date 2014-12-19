@@ -256,7 +256,7 @@ public:
     /// The filename and the hostname, if any, are ignored.
     /// </remarks>
     /// <returns>
-    /// The name of the last directory, without separators. If the full directory is just a separator ("/"), the result is an empty string.
+    /// The name of the last directory, without separators. If the full directory is just a separator ("/") or a drive specifier ("x:/"), the result is an empty string.
     /// </returns>
     string_q GetLastDirectory() const;
     
@@ -330,14 +330,6 @@ protected:
     /// <param name="strPath">[IN/OUT] The full path from which the filename will be obtained and removed.</param>
     /// <param name="strFilename">[OUT] The obtained filename.</param>
     static void _ExtractFilenameFromPath(string_q &strPath, string_q &strFilename);
-
-    /// <summary>
-    /// Gets the current working directory of the process.
-    /// </summary>
-    /// <returns>
-    /// An absolute path that refers to the current working directory of the process.
-    /// </returns>
-    static QPath _GetCurrentWorkingDirectory();
 
     /// <summary>
     /// Checks whether a hostname is actually an IP or not.

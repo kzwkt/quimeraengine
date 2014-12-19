@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamReader_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQDirectory_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp" />
   </ItemGroup>
@@ -111,7 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;libboost_filesystem-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -121,7 +122,9 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)
+rmdir $(TargetDir)artifacts /s /q
+xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
@@ -157,7 +160,9 @@
       <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineCommon.dll $(TargetDir)
 copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineTools.dll $(TargetDir)
 copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineSystem.dll $(TargetDir)
-copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)
+rmdir $(TargetDir)artifacts /s /q
+xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y</Command>

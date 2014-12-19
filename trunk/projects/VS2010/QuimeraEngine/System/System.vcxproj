@@ -118,7 +118,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\DebugWin32SharedrtDynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;libboost_filesystem-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
       <Version>0.0.0</Version>
       <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
@@ -160,11 +160,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
+    <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
+    <ClInclude Include="..\..\..\..\headers\SQDirectory.h" />
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
@@ -183,9 +185,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQDirectory.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
