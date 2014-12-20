@@ -853,6 +853,8 @@ QTEST_CASE ( GetFileInfo_ReadyOnlyFlagIsTrueWhenFileIsReadOnly_Test )
 {
     using Kinesis::QuimeraEngine::System::IO::FileSystem::QFileInfo;
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
     // Assumes the existence of:
     // -./ReadOnlyFile.txt
@@ -862,6 +864,20 @@ QTEST_CASE ( GetFileInfo_ReadyOnlyFlagIsTrueWhenFileIsReadOnly_Test )
     const bool EXPECTED_READONLY_FLAG = true;
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError errorCode = EQFileSystemError::E_Success;
+
+    // Sets the file as read only
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF8;
+#elif defined(QE_OS_WINDOWS)
+    static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
+#endif
+
+    QBasicArray<i8_q> arBytesFile = FILE_PATH.ToString().ToBytes(PATH_ENCODING);
+    boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesFile.Get();
+    boost::filesystem::path filePath(szPath);
+
+    boost::system::error_code permissionsErrorCode;
+    boost::filesystem::permissions(filePath, boost::filesystem::remove_perms | boost::filesystem::owner_write, permissionsErrorCode);
 
     // [Execution]
     QFileInfo fileInfo = SQFile::GetFileInfo(FILE_PATH, errorCode);
