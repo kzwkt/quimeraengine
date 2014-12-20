@@ -270,9 +270,9 @@ boost::filesystem::path SQFile::_ConvertToBoostPath(const QPath &pathToConvert)
 string_q SQFile::_ConvertPathToString(const boost::filesystem::path &pathToConvert)
 {
 #if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
-    return string_q(pathToConvert.c_str(), strlen(pathToConvert.c_str()), EQTextEncoding::E_UTF8);
+    return string_q(pathToConvert.c_str(), strlen(pathToConvert.c_str()) + 1, EQTextEncoding::E_UTF8);
 #elif defined(QE_OS_WINDOWS)
-    return string_q((i8_q*)pathToConvert.c_str(), wcslen(pathToConvert.c_str()), string_q::GetLocalEncodingUTF16());
+    return string_q((i8_q*)pathToConvert.c_str(), (wcslen(pathToConvert.c_str()) + 1) * sizeof(boost::filesystem::path::value_type), string_q::GetLocalEncodingUTF16());
 #endif
 }
 
