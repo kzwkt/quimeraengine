@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 // The QMemoryStream type is used in all the tests
 #include "QMemoryStream.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QBinaryStreamReader;
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
@@ -174,7 +175,7 @@ QTEST_CASE ( ReadBytes_AssertionFailsWhenInputBufferIsNull_Test )
     {
         reader.ReadBytes(pNullPointer, sizeof(unsigned int));
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -204,7 +205,7 @@ QTEST_CASE ( ReadBytes_AssertionFailsWhenSizeEqualsZero_Test )
         unsigned int uValue;
         reader.ReadBytes(&uValue, ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

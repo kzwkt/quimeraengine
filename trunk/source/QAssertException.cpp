@@ -24,10 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QStackAllocator.h"
-#include "Assertions.h"
-
-using Kinesis::QuimeraEngine::Common::Memory::QStackAllocator;
+#include "QAssertException.h"
 
 
 namespace Kinesis
@@ -36,40 +33,57 @@ namespace QuimeraEngine
 {
 namespace Common
 {
-namespace Memory
+namespace Exceptions
 {
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
-QStackAllocator::QMark::QMark(void* pMemAddress) : m_pMemoryAddress(pMemAddress)
+QAssertException::QAssertException(const string_q &strCondition, const string_q &strMessage, const int nLineNumber, const string_q &strFileName) :
+                                                                                                m_strCondition(strCondition),
+                                                                                                m_strMessage(strMessage),
+                                                                                                m_nLineNumber(nLineNumber),
+                                                                                                m_strFileName(strFileName)
 {
-     QE_ASSERT_ERROR(null_q != pMemAddress, "The given memory address for the mark cannot be null.");
 }
 
 
 //##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |         PROPERTIES         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
 //##################=======================================================##################
 
-void* QStackAllocator::QMark::GetMemoryAddress() const
+string_q QAssertException::GetCondition() const
 {
-    return m_pMemoryAddress;
+    return m_strCondition;
 }
 
+string_q QAssertException::GetMessage() const
+{
+    return m_strMessage;
+}
 
-} //namespace Memory
+int QAssertException::GetLineNumber() const
+{
+    return m_nLineNumber;
+}
+
+string_q QAssertException::GetFileName() const
+{
+    return m_strFileName;
+}
+
+} //namespace Exceptions
 } //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis

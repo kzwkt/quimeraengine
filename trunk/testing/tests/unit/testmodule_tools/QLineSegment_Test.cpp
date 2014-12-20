@@ -37,6 +37,7 @@ using namespace boost::unit_test;
 #include "QVector3.h"
 #include "QVector4.h"
 #include "QBaseOrb.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -662,7 +663,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
     {
         LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -673,7 +674,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
     {
         LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1220,7 +1221,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
     {
         LINE_SEGMENT1.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1231,7 +1232,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
     {
         LINE_SEGMENT2.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1272,7 +1273,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
     {
         LINE_SEGMENT1.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1773,7 +1774,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
     {
         LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1784,7 +1785,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
     {
         LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -2575,7 +2576,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     {
         LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -2586,7 +2587,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     {
         LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -3403,7 +3404,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
     {
         LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -3414,7 +3415,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
     {
         LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -3464,7 +3465,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
     {
         LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4036,7 +4037,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
     {
         LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -4047,7 +4048,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
     {
         LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -4094,7 +4095,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
     {
         LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4544,7 +4545,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
     {
         LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -4555,7 +4556,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
     {
         LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -4824,7 +4825,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
     {
         LINE_SEGMENT1.MinDistance(POINT); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

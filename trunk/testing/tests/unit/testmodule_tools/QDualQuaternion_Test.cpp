@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 #include "SQFloat.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -631,7 +632,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointersAreNull_Test )
     {
         QDualQuaternion(arRealPartComponents, NULL_POINTER);
     }
-    catch(...) // TODO avillalba: A concrete exception should be caoght when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailedBecauseRealPartIsNull = true;
     }
@@ -640,7 +641,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointersAreNull_Test )
     {
         QDualQuaternion(NULL_POINTER, arDualPartComponents);
     }
-    catch(...) // TODO avillalba: A concrete exception should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailedBecauseDualPartIsNull = true;
     }
@@ -874,7 +875,7 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
     {
         DUALQUATERNION / SCALAR;
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1049,7 +1050,7 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
     {
         DUALQUATERNION / SCALAR;
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

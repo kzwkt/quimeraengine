@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "QVector3.h"
 #include "QVector4.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -199,7 +200,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle<T> triangleUT(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenAIsNull = true;
     }
@@ -210,7 +211,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle<T> triangleUT(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBIsNull = true;
     }
@@ -221,7 +222,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle<T> triangleUT(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCIsNull = true;
     }
@@ -343,7 +344,7 @@ QTEST_CASE_TEMPLATE ( GetSurface_AssertionFailsWhenAllPointsCoincide_Test, TQTem
     {
         triangleUT.GetSurface();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -433,7 +434,7 @@ QTEST_CASE_TEMPLATE ( GetAngleA_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     {
         triangleUT.GetAngleA();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -499,7 +500,7 @@ QTEST_CASE_TEMPLATE ( GetAngleB_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     {
         triangleUT.GetAngleB();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -565,7 +566,7 @@ QTEST_CASE_TEMPLATE ( GetAngleC_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     {
         triangleUT.GetAngleC();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -626,7 +627,7 @@ QTEST_CASE_TEMPLATE ( GetIncenter_AssertionFailsWhenAllPointsCoincide_Test, TQTe
     {
         triangleUT.GetIncenter();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -687,7 +688,7 @@ QTEST_CASE_TEMPLATE ( GetCentroid_AssertionFailsWhenAllPointsCoincide_Test, TQTe
     {
         triangleUT.GetCentroid();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

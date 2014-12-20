@@ -55,18 +55,19 @@
                                                         const Kinesis::QuimeraEngine::Common::EQAssertionType &eAssertionType);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
-        #include <exception>
-        // TODO [Thund]: Create an special exception class for this
-        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
-                {                                                                                                     \
-                    if(!(expression))                                                                                 \
-                    {                                                                                                 \
-                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                      \
-                        {                                                                                             \
-                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType); \
-                        }                                                                                             \
-                        throw new std::exception();                                                                   \
-                    }                                                                                                 \
+        #include "QAssertException.h"
+        using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;    
+
+        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                            \
+                {                                                                                                                                 \
+                    if(!(expression))                                                                                                             \
+                    {                                                                                                                             \
+                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                                                  \
+                        {                                                                                                                         \
+                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
+                        }                                                                                                                         \
+                        throw new Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__); \
+                    }                                                                                                                             \
                 }
     #else
 

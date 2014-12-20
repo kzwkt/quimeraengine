@@ -31,6 +31,7 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QMemoryStream.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
 
@@ -76,7 +77,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenInputSizeIsZero_Test )
     {
         QMemoryStream<> stream(INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -124,7 +125,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenInputSizeIsZero_Test )
     {
         QMemoryStream<> stream(&CONTENT, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -150,7 +151,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenBufferIsNull_Test )
     {
         QMemoryStream<> stream(pBuffer, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -292,7 +293,7 @@ QTEST_CASE ( Read_AssertionFailsWhenOutputBufferIsNull_Test )
     {
         stream.Read(pBuffer, 0, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -319,7 +320,7 @@ QTEST_CASE ( Read_AssertionFailsWhenOutputSizeIsZero_Test )
     {
         stream.Read(&nBuffer, 0, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -348,7 +349,7 @@ QTEST_CASE ( Read_AssertionFailsWhenTryingToReadOutOfBounds_Test )
     {
         stream.Read(pBuffer, OFFSET, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -507,7 +508,7 @@ QTEST_CASE ( Write_AssertionFailsWhenInputBufferIsNull_Test )
     {
         stream.Read(pBuffer, 0, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -534,7 +535,7 @@ QTEST_CASE ( Write_AssertionFailsWhenInputSizeIsZero_Test )
     {
         stream.Read(&nBuffer, 0, INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -731,7 +732,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenSourceOffsetIsOutOfBounds_Test )
     {
         sourceStream.CopyTo(destinationStream, SOURCE_OFFSET, 0);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -759,7 +760,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenDestinationOffsetIsOutOfBounds_Test )
     {
         sourceStream.CopyTo(destinationStream, 0, DESTINATION_OFFSET);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -844,7 +845,7 @@ QTEST_CASE ( MoveBackward_AssertionFailsWhenPointerPointsToFirstPosition_Test )
     {
         stream.MoveBackward(MOVEMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -943,7 +944,7 @@ QTEST_CASE ( MoveForward_AssertionFailsWhenPointerPointsOutsideOfTheBuffer_Test 
     {
         stream.MoveForward(MOVEMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1057,7 +1058,7 @@ QTEST_CASE ( SetPosition_AssertionFailsWhenTheInputPositionIsOutOfBounds_Test )
     {
         stream.SetPosition(NEW_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

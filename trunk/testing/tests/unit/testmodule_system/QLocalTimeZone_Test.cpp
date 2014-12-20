@@ -39,7 +39,9 @@ using namespace boost::unit_test;
 #include "QLocalTimeZoneWhiteBox.h"
 #include "QTimeZone.h"
 #include "EQTextEncoding.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::Timing::QLocalTimeZone;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 using Kinesis::QuimeraEngine::System::Timing::Test::QLocalTimeZoneWhiteBox;
@@ -82,7 +84,7 @@ QTEST_CASE ( GetWindowsEquivalentTimeZoneId_AssertionFailsWhenInputTimeZoneKeyIs
     {
         QLocalTimeZoneWhiteBox::GetWindowsEquivalentTimeZoneId(NOT_VALID_TIMEZONE_KEY);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

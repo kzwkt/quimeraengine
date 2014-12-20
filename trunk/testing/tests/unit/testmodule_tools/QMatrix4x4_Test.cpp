@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QMatrix4x3.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -374,7 +375,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     {
         QMatrix4x4 vMatrixUT(NULL_ARRAY);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -751,7 +752,7 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
         QMatrix4x4 vMatrixUT;
         vMatrixUT / ZERO_SCALAR;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1225,7 +1226,7 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
         QMatrix4x4 vMatrixUT;
         vMatrixUT /= ZERO_SCALAR;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

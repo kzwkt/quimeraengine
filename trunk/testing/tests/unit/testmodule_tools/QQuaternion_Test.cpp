@@ -42,6 +42,7 @@ using namespace boost::unit_test;
 #include "QScalingMatrix3x3.h"
 #include "SQVF32.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -351,7 +352,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     {
         QQuaternion qQuaternionUT(NULL_ARRAY);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -868,7 +869,7 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
     {
         QQuaternion qQuaternionUT(NULL_MATRIX);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1013,7 +1014,7 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
     {
         QQuaternion qQuaternionUT(NULL_MATRIX);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1092,7 +1093,7 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
     {
         QQuaternion quat(NULL_MATRIX);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2195,7 +2196,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
     {
         QUATERNION.Normalize();
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

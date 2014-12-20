@@ -97,7 +97,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenSizeEqualsZero_Test )
     {
         QLinearAllocator allocator(ZERO_SIZE, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -200,7 +200,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenSizeEqualsZero_Test )
     {
         QLinearAllocator allocator(ZERO_SIZE, pInputBuffer, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -230,7 +230,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenInputBufferIsNull_Test )
     {
         QLinearAllocator allocator(COMMON_SIZE, pInputBuffer);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -357,7 +357,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenSizeEqualsZero_Test )
     {
         QLinearAllocator allocator(ZERO_SIZE, pInputBuffer, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -387,7 +387,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenInputBufferIsNull_Test )
     {
         QLinearAllocator allocator(COMMON_SIZE, pInputBuffer, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -473,7 +473,7 @@ QTEST_CASE ( Allocate1_AssertionFailsWhenSizeEqualsZero_Test )
     {
         allocator.Allocate(ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -501,7 +501,7 @@ QTEST_CASE ( Allocate1_AssertionFailsWhenTheAllocatorIsFull_Test )
     {
         allocator.Allocate(COMMON_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -629,7 +629,7 @@ QTEST_CASE ( Allocate2_AssertionFailsWhenSizeEqualsZero_Test )
     {
         allocator.Allocate(ZERO_SIZE, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -657,7 +657,7 @@ QTEST_CASE ( Allocate2_AssertionFailsWhenTheAllocatorIsFull_Test )
     {
         allocator.Allocate(COMMON_SIZE, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -686,7 +686,7 @@ QTEST_CASE ( Allocate2_AssertionFailsWhenTheBlockDoesNotFitInTheBufferDueToAlign
     {
         allocator.Allocate(INPUT_SIZE, INPUT_ALIGNMENT); // 2 + 6 should fit into a 8 bytes buffer, but due to alignment adjustment, they do not
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -900,7 +900,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenAllocatorsHaveDifferentAlignment_Test )
     {
         sourceAllocator.CopyTo(destinationAllocator);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -927,7 +927,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenInputAllocatorIsSmaller_Test )
     {
         sourceAllocator.CopyTo(destinationAllocator);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1054,7 +1054,7 @@ QTEST_CASE ( Reallocate1_AssertionFailsWhenAllocatorUsesExternalBuffer_Test )
     {
         sourceAllocator.Reallocate(NEW_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1083,7 +1083,7 @@ QTEST_CASE ( Reallocate1_AssertionFailsWhenNewSizeIsNotBigger_Test )
     {
         sourceAllocator.Reallocate(NEW_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1259,7 +1259,7 @@ QTEST_CASE ( Reallocate2_AssertionFailsWhenAllocatorUsesInternalBuffer_Test )
     {
         sourceAllocator.Reallocate(NEW_SIZE, pNewBuffer);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1292,7 +1292,7 @@ QTEST_CASE ( Reallocate2_AssertionFailsWhenNewSizeIsNotBigger_Test )
     {
         sourceAllocator.Reallocate(NEW_SIZE, pNewBuffer);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1327,7 +1327,7 @@ QTEST_CASE ( Reallocate2_AssertionFailsWhenItIsNotPossibleToReallocateDueToAlign
     {
         sourceAllocator.Reallocate(NEW_SIZE, pNotAlignedBuffer);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1361,7 +1361,7 @@ QTEST_CASE ( Reallocate2_AssertionFailsWhenInputBufferIsNull_Test )
     {
         sourceAllocator.Reallocate(NEW_SIZE, NULL_BUFFER);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1462,7 +1462,7 @@ QTEST_CASE ( CanAllocate1_AssertionFailsWhenInputSizeIsZero_Test )
     {
         allocator.CanAllocate(INPUT_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1570,7 +1570,7 @@ QTEST_CASE ( CanAllocate2_AssertionFailsWhenInputSizeIsZero_Test )
     {
         allocator.CanAllocate(INPUT_SIZE, INPUT_ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "QVector3.h"
 #include "QVector4.h"
 #include "SQVF32.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -172,7 +173,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QBaseTriangle<T> triangleUT(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenAIsNull = true;
     }
@@ -183,7 +184,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QBaseTriangle<T> triangleUT(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBIsNull = true;
     }
@@ -194,7 +195,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QBaseTriangle<T> triangleUT(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCIsNull = true;
     }

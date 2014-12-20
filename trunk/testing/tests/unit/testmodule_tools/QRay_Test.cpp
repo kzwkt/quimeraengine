@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QVector2.h"
 #include "QVector3.h"
 #include "QBaseOrb.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -367,7 +368,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
     {
         NOT_NORMALIZED_RAY.GetPoint(DISTANCE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -648,7 +649,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusOfTheOrbEqualsZero_Te
     {
         RAY.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -690,7 +691,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
     {
         RAY.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -726,7 +727,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
     {
         NOT_NORMALIZED_RAY.Intersection(ORB);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1078,7 +1079,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     {
         RAY.IntersectionPoint(ORB, OUTPUT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1120,7 +1121,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
     {
         RAY.IntersectionPoint(ORB, OUTPUT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1157,7 +1158,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
     {
         NOT_NORMALIZED_RAY.IntersectionPoint(ORB, OUTPUT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1621,7 +1622,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     {
         RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1664,7 +1665,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
     {
         RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1702,7 +1703,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
     {
         NOT_NORMALIZED_RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used here when defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

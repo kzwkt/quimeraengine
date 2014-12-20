@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "QDualQuaternion.h"
 #include "SQAngle.h"
 #include "SQVF32.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -283,7 +284,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointerIsNull_Test )
     {
         QVector4 vVectorUT(NULL_ARRAY);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -900,7 +901,7 @@ QTEST_CASE ( OperatorDivision1_AssertionFailsWhenDivisorEqualsZero_Test )
         QVector4 vVectorUT;
         vVectorUT / SCALAR;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -999,7 +1000,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     {
         vVectorUT / OPERAND_WITH_ZERO_X;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenXEqualsZero = true;
     }
@@ -1008,7 +1009,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     {
         vVectorUT / OPERAND_WITH_ZERO_Y;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenYEqualsZero = true;
     }
@@ -1017,7 +1018,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     {
         vVectorUT / OPERAND_WITH_ZERO_Z;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenZEqualsZero = true;
     }
@@ -1026,7 +1027,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     {
         vVectorUT / OPERAND_WITH_ZERO_W;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenWEqualsZero = true;
     }
@@ -1459,7 +1460,7 @@ QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Te
         QVector4 vVectorUT;
         vVectorUT /= SCALAR;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1589,7 +1590,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     {
         vVectorUT /= OPERAND_WITH_ZERO_X;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenXEqualsZero = true;
     }
@@ -1598,7 +1599,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     {
         vVectorUT /= OPERAND_WITH_ZERO_Y;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenYEqualsZero = true;
     }
@@ -1607,7 +1608,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     {
         vVectorUT /= OPERAND_WITH_ZERO_Z;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenZEqualsZero = true;
     }
@@ -1616,7 +1617,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     {
         vVectorUT /= OPERAND_WITH_ZERO_W;
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenWEqualsZero = true;
     }
@@ -1747,7 +1748,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
     {
         VECTOR.Normalize();
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

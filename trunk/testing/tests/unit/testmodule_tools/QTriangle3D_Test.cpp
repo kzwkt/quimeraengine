@@ -42,6 +42,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -203,7 +204,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle3D<T> triangleUT(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenAIsNull = true;
     }
@@ -214,7 +215,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle3D<T> triangleUT(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBIsNull = true;
     }
@@ -225,7 +226,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     {
         QTriangle3D<T> triangleUT(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCIsNull = true;
     }
@@ -379,7 +380,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
     {
         TRIANGLE_A_AND_B.GetNormal();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenABCoincide = true;
     }
@@ -390,7 +391,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
     {
         TRIANGLE_B_AND_C.GetNormal();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBCCoincide = true;
     }
@@ -401,7 +402,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
     {
         TRIANGLE_C_AND_A.GetNormal();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCACoincide = true;
     }
@@ -433,7 +434,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
     {
         TRIANGLE.GetNormal();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -520,7 +521,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
     {
         TRIANGLE_A_AND_B.GetCircumcenter();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenABCoincide = true;
     }
@@ -531,7 +532,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
     {
         TRIANGLE_B_AND_C.GetCircumcenter();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBCCoincide = true;
     }
@@ -542,7 +543,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
     {
         TRIANGLE_C_AND_A.GetCircumcenter();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCACoincide = true;
     }
@@ -573,7 +574,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
     {
         TRIANGLE.GetCircumcenter();
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2535,7 +2536,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     {
         TRIANGLE.SpaceRelation(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2658,7 +2659,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
     {
         TRIANGLE_A_AND_B.Extrude(INPUT_VALUE);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenABCoincide = true;
     }
@@ -2669,7 +2670,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
     {
         TRIANGLE_B_AND_C.Extrude(INPUT_VALUE);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenBCCoincide = true;
     }
@@ -2680,7 +2681,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
     {
         TRIANGLE_C_AND_A.Extrude(INPUT_VALUE);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailedWhenCACoincide = true;
     }
@@ -2713,7 +2714,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
     {
         TRIANGLE.Extrude(INPUT_VALUE);
     }
-    catch(...) // [TODO] Thund: A concrete type of exception will be caught in the future
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2799,7 +2800,7 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test, T
     {
         TRIANGLE.GetOrthocenter();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2968,7 +2969,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         TRIANGLE.ProjectToPlane(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

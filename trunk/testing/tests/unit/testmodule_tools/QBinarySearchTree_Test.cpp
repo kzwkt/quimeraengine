@@ -119,7 +119,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
     {
         QBinarySearchTree<int> tree(INPUT_ZERO);
     }
-    catch(...) // [TODO] Thund: Replace with the appropiate exception type when exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1143,7 +1143,7 @@ QTEST_CASE ( Add_AssertionFailsWhenTheElementAlreadyExists_Test )
     {
         TREE.Add(ELEMENT, EQTreeTraversalOrder::E_DepthFirstInOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1478,7 +1478,7 @@ QTEST_CASE ( Remove_AssertionFailsWhenTheInputIteratorPointsToEndPosition_Test )
     {
         TREE.Remove(itEnd);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1677,7 +1677,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenTreeIsEmpty_Test )
     {
         TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1706,7 +1706,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstInOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

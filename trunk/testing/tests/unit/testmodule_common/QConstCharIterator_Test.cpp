@@ -31,7 +31,9 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QStringUnicode.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 
 
@@ -201,7 +203,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -230,7 +232,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
     {
         ITERATOR_END++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -326,7 +328,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -355,7 +357,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
     {
         ITERATOR_END--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -476,7 +478,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         ++INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -505,7 +507,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
     {
         ++ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -624,7 +626,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         --INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -653,7 +655,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
     {
         --ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -775,7 +777,7 @@ QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorIsNotValid_Test 
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator = INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -804,7 +806,7 @@ QTEST_CASE ( OperatorAssignation_AssertionFailsWhenInputIteratorPointsToDifferen
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator = ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -917,7 +919,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator == INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -929,7 +931,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR == iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -959,7 +961,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentStrings
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator == ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1051,7 +1053,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator != INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1063,7 +1065,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR != iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1093,7 +1095,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentStrin
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator != ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1185,7 +1187,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator > INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1197,7 +1199,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR > iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1227,7 +1229,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentStri
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator > ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1319,7 +1321,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator < INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1331,7 +1333,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsAreNotValid_Test )
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR < iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1361,7 +1363,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentString
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator < ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1453,7 +1455,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator >= INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1465,7 +1467,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR >= iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1495,7 +1497,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator >= ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1605,7 +1607,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         iterator <= INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1617,7 +1619,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsAreNotValid_Te
         QStringUnicode::QConstCharIterator iterator(SOURCE_STRING);
         INVALID_ITERATOR <= iterator;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1647,7 +1649,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
         QStringUnicode::QConstCharIterator iterator(STRING_B);
         iterator <= ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1756,7 +1758,7 @@ QTEST_CASE ( IsEnd_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR.IsEnd();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1868,7 +1870,7 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR.GetChar();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1897,7 +1899,7 @@ QTEST_CASE ( GetChar_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         ITERATOR.GetChar();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1973,7 +1975,7 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenStringIsEmpty_Test )
     {
         ITERATOR.MoveFirst();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2086,7 +2088,7 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenStringIsEmpty_Test )
     {
         ITERATOR.MoveLast();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

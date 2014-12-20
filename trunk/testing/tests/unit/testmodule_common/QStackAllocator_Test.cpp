@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QStackAllocatorWhiteBox.h"
 #include "QAlignment.h"
 #include "QAlignmentMocked.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
@@ -65,7 +66,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenPreallocationSizeIsZero_Test )
     {
         QStackAllocator stackAllocator(0);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -158,7 +159,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenPreallocationSizeIsZero_Test )
     {
         QStackAllocator stackAllocator( 0, QAlignment(VALID_ALIGNMENT_VALUE) );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -332,7 +333,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenPreallocationSizeIsZero_Test )
     {
         QStackAllocator stackAllocator( 0, NON_NULL_ADDRESS );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -365,7 +366,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenPointerToPreallocatedMemoryBlockIsNu
     {
         QStackAllocator stackAllocator( VALID_PREALLOCATION_SIZE, null_q );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -431,7 +432,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPreallocationSizeIsZero_Test )
     {
         QStackAllocator stackAllocator( 0, NON_NULL_ADDRESS, PREALLOCATION_ALIGNMENT );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -467,7 +468,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerToPreallocatedMemoryBlockIsNu
     {
         QStackAllocator stackAllocator( VALID_PREALLOCATION_SIZE, null_q, PREALLOCATION_ALIGNMENT );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -499,7 +500,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenAlignmentValueIsNotAPowerOfTwo_Test 
     {
         QStackAllocator stackAllocator( VALID_PREALLOCATION_SIZE, NON_NULL_ADDRESS, QAlignment(NON_VALID_ALIGNMENT_VALUE) );
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -770,7 +771,7 @@ QTEST_CASE (Allocate1_AssertionFailsWhenBlockSizeIsZero_Test)
                 case 5: pAllocation05 = stackAllocator05.Allocate(0); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -1023,7 +1024,7 @@ QTEST_CASE (Allocate2_AssertionFailsWhenBlockSizeIsZero_Test)
                 case 20: pAllocation20 = stackAllocator20.Allocate( 0, QAlignment(VALID_ALLOCATION_ALIGNMENT_VALUE04) ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -1233,7 +1234,7 @@ QTEST_CASE (Allocate2_AssertionFailsWhenAlignmentValueForBlockToAllocateIsNotAPo
                 case 5: pAllocation05 = stackAllocator05.Allocate( VALID_ALLOCATION_SIZE, QAlignment(NON_VALID_ALLOCATION_ALIGNMENT_VALUE) ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -1412,7 +1413,7 @@ QTEST_CASE(Deallocate1_AssertionFailsWhenPassedMarkIsNull_Test)
                 case 5:  stackAllocator05.Deallocate( markMocked05 ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -1522,7 +1523,7 @@ QTEST_CASE(Deallocate1_AssertionFailsWhenDeallocationOccursAndStackIsEmpty_Test)
                 case  5: stackAllocatorWhiteBox05.Deallocate(); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -1800,7 +1801,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenPassedMarkIsNull_Test)
                 case 20: stackAllocator20.Deallocate( markMocked20 ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -2147,7 +2148,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsLesserThanStackBase_Test)
                 case 25: stackAllocatorWhiteBox25.Deallocate( markMocked25 ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -2523,7 +2524,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenMarkIsGreaterThanStackTop_Test)
                 case 25: stackAllocator25.Deallocate( markMocked25 ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -2761,7 +2762,7 @@ QTEST_CASE(Deallocate2_AssertionFailsWhenDeallocationToAMarkAddressOccursAndStac
                 case  5: stackAllocator05.Deallocate(mark05); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -3241,7 +3242,7 @@ QTEST_CASE(GetSize_AssertionFailsWhenSizeOfAllAllocatedMemoryBlocksIsGreaterThan
                 case 25: uAux = stackAllocatorWhiteBox25.GetSize(); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -3491,7 +3492,7 @@ QTEST_CASE (CanAllocate1_AssertionFailsWhenSizeIsZero_Test)
                 break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -3806,7 +3807,7 @@ QTEST_CASE (CanAllocate2_AssertionFailsWhenSizeIsZero_Test)
                 case 20: stackAllocator20.CanAllocate( 0, QAlignment(VALID_ALLOCATION_ALIGNMENT_VALUE04) ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -4589,7 +4590,7 @@ QTEST_CASE(GetAllocatedBytes_AssertionFailsWhenSizeOfAllAllocatedMemoryBlocksIsG
                 case 25: uAux = stackAllocatorWhiteBox25.GetAllocatedBytes(); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {
@@ -4826,7 +4827,7 @@ QTEST_CASE(CopyTo_AssertionFailsWhenSizeOfResidentAllocatorIsZero_Test)
     {
         stackAllocatorWhiteBoxResident.CopyTo(stackAllocatorWhiteBoxInput);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4881,7 +4882,7 @@ QTEST_CASE(CopyTo_AssertionFailsWhenSizeOfInputAllocatorIsZero_Test)
     {
         stackAllocatorWhiteBoxResident.CopyTo(stackAllocatorWhiteBoxInput);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4936,7 +4937,7 @@ QTEST_CASE(CopyTo_AssertionFailsWhenSizeOfInputAllocatorIsLowerThanSizeOfTheResi
     {
         stackAllocatorResident.CopyTo(stackAllocatorInput);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5128,7 +5129,7 @@ QTEST_CASE (GetMark_AssertionFailsWhenTheStackAllocatorWasNotCorrectlyCreated_Te
     {
         QStackAllocatorWhiteBox::QMarkMocked markMocked( (stackAllocatorWhiteBox.GetMark()).GetMemoryAddress() ); 
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5291,7 +5292,7 @@ QTEST_CASE (Preallocate_AssertionFailsWhenNewPreallocationSizeIsZero_Test)
                 case 3: stackAllocatorWhiteBox04.PreallocatePublic( 0, QAlignment(VALID_PREALLOCATION_ALIGNMENT_VALUE04) ); break;
             }
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             switch (u)
             {

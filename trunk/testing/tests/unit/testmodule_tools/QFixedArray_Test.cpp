@@ -67,7 +67,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenCreatingArrayWithZeroElements_Test )
     {
         QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ZERO_ARRAY_COUNT, INITIAL_VALUE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -266,7 +266,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenArrayIsNull_Test )
     {
         QFixedArray<int> arArray = QFixedArray<int>(NULL_ARRAY, NON_ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -292,7 +292,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
     {
         QFixedArray<int> arArray = QFixedArray<int>(SOURCE_ARRAY, ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -501,7 +501,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToSetAValueToAPosi
     {
         fixedArray[POSITION_GREATER_THAN_ARRAY_SIZE] = INITIAL_VALUE;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -557,7 +557,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToGetTheValueFromA
     {
         fixedArray[POSITION_GREATER_THAN_ARRAY_SIZE];
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -612,7 +612,7 @@ QTEST_CASE ( GetValue_AssertionFailsWhenAttemptsToGetTheValueFromAPositionNotLes
     {
         fixedArray.GetValue(POSITION_GREATER_THAN_ARRAY_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -676,7 +676,7 @@ QTEST_CASE ( Clone_AssertionFailsWhenArrayCapacitiesAreDifferent_Test )
     {
         fixedArrayOrigin.Clone(fixedArrayDestination);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -742,7 +742,7 @@ QTEST_CASE ( SetValue_AssertionFailsWhenAttemptsToSetAValueToAPositionNotLessTha
     {
         fixedArray.SetValue(POSITION_GREATER_THAN_ARRAY_SIZE, INITIAL_VALUE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -794,7 +794,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
     {
         arFixedArray.GetIterator(INDEX);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1001,7 +1001,7 @@ QTEST_CASE( GetRange1_AssertionFailsWhenPositionsAreOutOfBounds_Test )
     {
         arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1029,7 +1029,7 @@ QTEST_CASE( GetRange1_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_T
     {
         arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1136,7 +1136,7 @@ QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsEnd_Test )
     {
         arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1165,7 +1165,7 @@ QTEST_CASE( GetRange2_AssertionFailsWhenLastPositionIsEnd_Test )
     {
         arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1194,7 +1194,7 @@ QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_T
     {
         arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1268,7 +1268,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenFirstPositionIsOutOfBounds_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1296,7 +1296,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSecondPositionIsOutOfBounds_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1324,7 +1324,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSwappingTheSameElement_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1422,7 +1422,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenFirstPositionIsEndPosition_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1451,7 +1451,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenSecondPositionIsEndPosition_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1479,7 +1479,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenSwappingTheSameElement_Test )
     {
         arFixedArray.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1920,7 +1920,7 @@ QTEST_CASE( IndexOf2_AssertionFailsWhenStartIndexIsNotLowerThanCount_Test )
     {
         arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2143,7 +2143,7 @@ QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
     {
         arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

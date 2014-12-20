@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix3x3.h"
 #include "SQFloat.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -360,7 +361,7 @@ QTEST_CASE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         QUAD.Contains(POINT);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -830,7 +831,7 @@ QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         QUAD1.Intersection(QUAD2);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -841,7 +842,7 @@ QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         QUAD2.Intersection(QUAD1);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1084,7 +1085,7 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD1.GetAngleA();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1095,7 +1096,7 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD2.GetAngleA();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1182,7 +1183,7 @@ QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD1.GetAngleB();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1193,7 +1194,7 @@ QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD2.GetAngleB();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1280,7 +1281,7 @@ QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD1.GetAngleC();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1291,7 +1292,7 @@ QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD2.GetAngleC();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1378,7 +1379,7 @@ QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD1.GetAngleD();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1389,7 +1390,7 @@ QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     {
         QUAD2.GetAngleD();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }

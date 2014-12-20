@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "SQVF32.h"
 #include "SQAngle.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -238,7 +239,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     {
         QPlane planeUT(NULL_ARRAY);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -325,7 +326,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenAnyOfThePointsCoincide_Test )
     {
         QPlane(SAME_POINT, SAME_POINT, DIFFERENT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -336,7 +337,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenAnyOfThePointsCoincide_Test )
     {
         QPlane(DIFFERENT_POINT, SAME_POINT, SAME_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -347,7 +348,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenAnyOfThePointsCoincide_Test )
     {
         QPlane(SAME_POINT, DIFFERENT_POINT, SAME_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed3 = true;
     }
@@ -379,7 +380,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointsAreCollinear_Test )
     {
         QPlane(POINT1, POINT2, POINT3);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -506,7 +507,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
     {
         QPlane(SAME_POINT, SAME_POINT, DIFFERENT_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -517,7 +518,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
     {
         QPlane(DIFFERENT_POINT, SAME_POINT, SAME_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -528,7 +529,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
     {
         QPlane(SAME_POINT, DIFFERENT_POINT, SAME_POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed3 = true;
     }
@@ -560,7 +561,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenPointsAreCollinear_Test )
     {
         QPlane(POINT1, POINT2, POINT3);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -906,7 +907,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullPlaneIsToBeNormalized_Test )
     {
         PLANE.Normalize();
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1332,7 +1333,7 @@ QTEST_CASE ( AngleBetween1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     {
         NULL_PLANE.AngleBetween(NONNULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1343,7 +1344,7 @@ QTEST_CASE ( AngleBetween1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     {
         NONNULL_PLANE.AngleBetween(NULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1550,7 +1551,7 @@ QTEST_CASE ( AngleBetween2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     {
         NULL_PLANE.AngleBetween(NONNULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1561,7 +1562,7 @@ QTEST_CASE ( AngleBetween2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     {
         NONNULL_PLANE.AngleBetween(NULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1816,7 +1817,7 @@ QTEST_CASE ( AngleBetween3_AssertionFailsWhenOnePlaneIsNull_Test )
     {
         NOT_NULL_PLANE.AngleBetween(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -1827,7 +1828,7 @@ QTEST_CASE ( AngleBetween3_AssertionFailsWhenOnePlaneIsNull_Test )
     {
         NULL_PLANE.AngleBetween(NOT_NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -1917,7 +1918,7 @@ QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVect
     {
         NULL_PLANE.PointProjection(POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2062,7 +2063,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes
     {
         NULL_PLANE.PointProjection(POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2363,7 +2364,7 @@ QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVector
     {
         NULL_PLANE.PointDistance(POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3164,7 +3165,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
     {
         PLANE1.IntersectionPoint(PLANE2, NULL_PLANE, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -3175,7 +3176,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
     {
         PLANE1.IntersectionPoint(NULL_PLANE, PLANE2, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -3186,7 +3187,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
     {
         NULL_PLANE.IntersectionPoint(PLANE2, PLANE1, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed3 = true;
     }
@@ -3340,7 +3341,7 @@ QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
     {
         PLANE.SpaceRelation(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -3351,7 +3352,7 @@ QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
     {
         NULL_PLANE.SpaceRelation(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -3620,7 +3621,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenPlaneIsNull_Test )
     {
         NULL_PLANE.Scale(TRANSFORMATION);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3650,7 +3651,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
     {
         PLANE.Scale(NULL_MATRIX);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3722,7 +3723,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenPlaneIsNull_Test )
     {
         NULL_PLANE.Scale(TRANSFORMATION);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3749,7 +3750,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
     {
         PLANE.Scale(NULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3827,7 +3828,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
     {
         NULL_PLANE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3856,7 +3857,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenVectorIsNull_Test )
     {
         PLANE.Scale(ZERO_SCALE_X, ZERO_SCALE_Y, ZERO_SCALE_Z);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4199,7 +4200,7 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformationMatrixIsNull_Te
     {
         PLANE.Transform(NULL_TRANSFORMATION);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4297,7 +4298,7 @@ QTEST_CASE( Transform2_AssertionFailsWhenMatrixIsNull_Test )
     {
         PLANE.Transform(NULL_TRANSFORMATION);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4622,7 +4623,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVect
     {
         NULL_PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4651,7 +4652,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
     {
         PLANE.ScaleWithPivot(NULL_VECTOR, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4759,7 +4760,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenPlaneIsNull_Test, TQVect
     {
         NULL_PLANE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4790,7 +4791,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
     {
         PLANE.ScaleWithPivot(ZERO_SCALE_X, ZERO_SCALE_Y, ZERO_SCALE_Z, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4898,7 +4899,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenPlaneIsNull_Test, TQVect
     {
         NULL_PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4930,7 +4931,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
     {
         PLANE.ScaleWithPivot(NULL_MATRIX, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5111,7 +5112,7 @@ void TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template()
     {
         PLANE.TransformWithPivot(NULL_TRANSFORMATION, POINT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

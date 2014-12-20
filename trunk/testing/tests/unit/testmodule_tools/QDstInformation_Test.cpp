@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QTimeZone.h"
 
 #include "QTimeSpan.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
@@ -80,7 +82,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenUsingNullInputData_Test )
     {
         QTimeZone::QDstInformation dstInfo(timeZoneFromDB);
     }
-    catch(...) // [TODO] Thund: Use appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -166,7 +168,7 @@ QTEST_CASE ( GetStartInYear_AssertionFailsWhenYearEqualsZero_Test )
     {
         dstInfo.GetStartInYear(YEAR_ZERO);
     }
-    catch(...) // [TODO] Thund: Use appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -198,7 +200,7 @@ QTEST_CASE ( GetEndInYear_AssertionFailsWhenYearEqualsZero_Test )
     {
         dstInfo.GetEndInYear(YEAR_ZERO);
     }
-    catch(...) // [TODO] Thund: Use appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

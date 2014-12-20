@@ -99,7 +99,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenMaximumChildrenEqualsZero_Test )
     {
         QNTree<int> tree(INPUT_ZERO);
     }
-    catch(...) // [TODO] Thund: Replace with the appropiate exception type when exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -171,7 +171,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenMaximumChildrenEqualsZero_Test )
     {
         QNTree<int> tree(INPUT_ZERO, CAPACITY);
     }
-    catch(...) // [TODO] Thund: Replace with the appropiate exception type when exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -197,7 +197,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
     {
         QNTree<int> tree(MAXIMUM_CHILDREN, INPUT_ZERO);
     }
-    catch(...) // [TODO] Thund: Replace with the appropiate exception type when exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -571,7 +571,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenTreesHaveDifferentMaximumChild
     {
         copiedTree = TREE;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1196,7 +1196,7 @@ QTEST_CASE ( AddChild_AssertionFailsWhenExceedingMaximumNodes_Test )
     {
         TREE.AddChild(itParent, 'D');
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1223,7 +1223,7 @@ QTEST_CASE ( AddChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
     {
         TREE.AddChild(itParent, 'B');
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1554,7 +1554,7 @@ QTEST_CASE ( Remove_AssertionFailsWhenInputIteratorPointsToEndPosition_Test )
     {
         TREE.Remove(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1581,7 +1581,7 @@ QTEST_CASE ( Remove_AssertionFailsWhenTreeIsEmpty_Test )
     {
         TREE.Remove(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1790,7 +1790,7 @@ QTEST_CASE ( RemoveChild_AssertionFailsWhenInputIteratorPointsToEndPosition_Test
     {
         TREE.RemoveChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1818,7 +1818,7 @@ QTEST_CASE ( RemoveChild_AssertionFailsWhenTreeIsEmpty_Test )
     {
         TREE.RemoveChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1847,7 +1847,7 @@ QTEST_CASE ( RemoveChild_AssertionFailsWhenPositionDoesNotExist_Test )
     {
         TREE.RemoveChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1874,7 +1874,7 @@ QTEST_CASE ( RemoveChild_AssertionFailsWhenNodeHasNoChildren_Test )
     {
         TREE.RemoveChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2079,7 +2079,7 @@ QTEST_CASE ( InsertChild_AssertionFailsWhenExceedingMaximumNodes_Test )
     {
         TREE.InsertChild(itParent, 'C', POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2108,7 +2108,7 @@ QTEST_CASE ( InsertChild_AssertionFailsWhenInputNodePointsToEndPosition_Test )
     {
         TREE.InsertChild(itParent, 'C', POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2256,7 +2256,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenTreeIsEmpty_Test )
     {
         TREE.GetIterator(INPUT_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2286,7 +2286,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         TREE.GetIterator(OUT_OF_BOUNDS_INDEX, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2477,7 +2477,7 @@ QTEST_CASE( GetChild_AssertionFailsWhenIndexIsNotLowerThanCount_Test )
     {
         TREE.GetChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2510,7 +2510,7 @@ QTEST_CASE( GetChild_AssertionFailsWhenIteratorPointsToEnd_Test )
     {
         TREE.GetChild(itRootNode, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2592,7 +2592,7 @@ QTEST_CASE( GetParent_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         TREE.GetParent(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2725,7 +2725,7 @@ QTEST_CASE( GetChildrenCount_AssertionFailsWhenIteratorPointsToEndPosition_Test 
     {
         TREE.GetChildrenCount(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2800,7 +2800,7 @@ QTEST_CASE( HasChildren_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         TREE.HasChildren(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2875,7 +2875,7 @@ QTEST_CASE( HasParent_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         TREE.HasParent(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3203,7 +3203,7 @@ QTEST_CASE ( PositionOf2_AssertionFailsWhenStartPositionPointsToEnd_Test )
     {
         TREE.PositionOf(INPUT_VALUE, EQTreeTraversalOrder::E_DepthFirstPreOrder, startPosition);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3257,7 +3257,7 @@ QTEST_CASE( GetFirstChild_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         TREE.GetFirstChild(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3333,7 +3333,7 @@ QTEST_CASE( GetLastChild_AssertionFailsWhenIteratorPointsToEndPosition_Test )
     {
         TREE.GetLastChild(itRootNode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3515,7 +3515,7 @@ QTEST_CASE ( Clone_AssertionFailsWhenTheMaximumNumberOfElementsInDestinationIsLo
     {
         sourceTree.Clone(destinationTree);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3571,7 +3571,7 @@ QTEST_CASE( Swap_AssertionFailsWhenFirstPositionIsEndPosition_Test )
     {
         tree.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3600,7 +3600,7 @@ QTEST_CASE( Swap_AssertionFailsWhenSecondPositionIsEndPosition_Test )
     {
         tree.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3628,7 +3628,7 @@ QTEST_CASE( Swap_AssertionFailsWhenSwappingTheSameElement_Test )
     {
         tree.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

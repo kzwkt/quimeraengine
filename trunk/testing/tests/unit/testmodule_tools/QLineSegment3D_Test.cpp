@@ -41,6 +41,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -352,7 +353,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenEndpointsOfSegmentCoincide
     {
         LINE_SEGMENT.Intersection(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -386,7 +387,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         LINE_SEGMENT.Intersection(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -822,7 +823,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheEndpointsCoincide_Test,
     {
         LINE_SEGMENT.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -861,7 +862,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenAllTriangleVerticesCoincid
     {
         LINE_SEGMENT.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1859,7 +1860,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenLineSegmentEndpointsCoinci
     {
         LINE_SEGMENT.Intersection(HEXAHEDRON);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1896,7 +1897,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenAllHexahedronVerticesCoinc
     {
         LINE_SEGMENT.Intersection(HEXAHEDRON);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2138,7 +2139,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenEndpointsOfSegmentCoi
     {
         LINE_SEGMENT.IntersectionPoint(PLANE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2173,7 +2174,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenPlaneIsNull_Test, TQT
     {
         LINE_SEGMENT.IntersectionPoint(PLANE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2878,7 +2879,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheEndpointsCoincide_
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2918,7 +2919,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenAllTriangleVerticesCo
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3825,7 +3826,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheEndpointsCoincide_
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3866,7 +3867,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenAllTriangleVerticesCo
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5359,7 +5360,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenLineSegmentEndpointsC
     {
         LINE_SEGMENT.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5397,7 +5398,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenAllHexahedronVertices
     {
         LINE_SEGMENT.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7084,7 +7085,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenLineSegmentEndpointsC
     {
         LINE_SEGMENT.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7123,7 +7124,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllHexahedronVertices
     {
         LINE_SEGMENT.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7346,7 +7347,7 @@ QTEST_CASE_TEMPLATE ( MaxDistance_AssertionFailsWhenPlaneIsNull, TQTemplateTypes
     {
         LINE_SEGMENT.MaxDistance(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7481,7 +7482,7 @@ QTEST_CASE_TEMPLATE ( MinDistance_AssertionFailsWhenPlaneIsNull, TQTemplateTypes
     {
         LINE_SEGMENT.MinDistance(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7632,7 +7633,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         LINE_SEGMENT.ProjectToPlane(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7882,7 +7883,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     {
         LINE_SEGMENT.SpaceRelation(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

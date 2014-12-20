@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 #include "QTransformationMatrix3x3.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -178,7 +179,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
     {
         QTriangle2D(NULL_POINTER, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
     }
-    catch(...) 
+    catch(const QAssertException&) 
     {
         bAssertionFailedWhenAIsNull = true;
     }
@@ -189,7 +190,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
     {
         QTriangle2D(VECTOR_COMPONENTS_A, NULL_POINTER, VECTOR_COMPONENTS_C);
     }
-    catch(...) 
+    catch(const QAssertException&) 
     {
         bAssertionFailedWhenBIsNull = true;
     }
@@ -200,7 +201,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
     {
         QTriangle2D(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, NULL_POINTER);
     }
-    catch(...) 
+    catch(const QAssertException&) 
     {
         bAssertionFailedWhenCIsNull = true;
     }
@@ -490,7 +491,7 @@ QTEST_CASE ( GetCircumcenter_AssertionFailsWhenAllPointsCoincide_Test )
     {
         TRIANGLE.GetCircumcenter();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -542,7 +543,7 @@ QTEST_CASE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test )
     {
         TRIANGLE.GetOrthocenter();
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

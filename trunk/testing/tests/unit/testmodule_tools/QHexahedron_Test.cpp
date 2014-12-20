@@ -41,6 +41,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -1434,7 +1435,7 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenAllVerticesCoincide_Test, TQTe
     {
         HEXAHEDRON.GetPlanes(arOutputPlanes);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1462,7 +1463,7 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenListOfPlanesIsNull_Test, TQTem
     {
         HEXAHEDRON.GetPlanes(pNullList);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1772,7 +1773,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test, TQTem
     {
         HEXAHEDRON.Contains(POINT);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2035,7 +2036,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenAllVerticesCoincide_Test, 
     {
         HEXAHEDRON.SpaceRelation(PLANE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2081,7 +2082,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
     {
         HEXAHEDRON.SpaceRelation(PLANE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3936,7 +3937,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, T
     {
         HEXAHEDRON1.Intersection(HEXAHEDRON2);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -3947,7 +3948,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, T
     {
         HEXAHEDRON2.Intersection(HEXAHEDRON1);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -4207,7 +4208,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenAllVerticesCoincide_Test,
     {
         HEXAHEDRON.ProjectToPlane(PLANE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4253,7 +4254,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
     {
         HEXAHEDRON.ProjectToPlane(PLANE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception type when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

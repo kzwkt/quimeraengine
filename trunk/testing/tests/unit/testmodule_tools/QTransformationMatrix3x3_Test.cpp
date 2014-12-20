@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QVector2.h"
 #include "SQFloat.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -503,7 +504,7 @@ QTEST_CASE ( Decompose_AssertionFailsWhenMatrixScaleIsNull_Test )
     {
         TRANSFORMATION_MATRIX.Decompose(vTranslation, fRotation, vScale);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -682,7 +683,7 @@ QTEST_CASE ( GetRotation_AssertionFailsWhenMatrixScaleIsNull_Test )
     {
         TRANSFORMATION_MATRIX.GetRotation(fRotation);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

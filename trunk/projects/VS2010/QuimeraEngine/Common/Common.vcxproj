@@ -108,6 +108,7 @@
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
+    <ClInclude Include="..\..\..\..\headers\QAssertException.h" />
     <ClInclude Include="..\..\..\..\headers\QBasicArray.h" />
     <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAssertException.cpp" />
     <ClCompile Include="..\..\..\..\source\QBlockHeader.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharIterator.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />

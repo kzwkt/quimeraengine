@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QDateTime.h"
 
 #include "SQTimeZoneFactory.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
@@ -401,7 +403,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenYearIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -439,7 +441,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenYearIsTooLow_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -477,7 +479,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenYearEqualsZero_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -515,7 +517,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMonthIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -553,7 +555,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMonthEqualsZero_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -591,7 +593,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDayIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -629,7 +631,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDayEqualsZero_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -667,7 +669,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDayIsNotValidForTheGivenMonthAndYear
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -705,7 +707,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenHourIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -743,7 +745,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMinuteIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -781,7 +783,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenSecondIsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -819,7 +821,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMillisecondIsTooHigh_Test )
                            NOT_ALLOWED_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -857,7 +859,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenMicrosecondIsTooHigh_Test )
                            COMMON_MILLISECOND, NOT_ALLOWED_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -895,7 +897,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenHundredsOfNanosecondsIsTooHigh_Test 
                            COMMON_MILLISECOND, COMMON_MICROSECOND, NOT_ALLOWED_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -934,7 +936,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
                            MAX_MILLISECOND, MAX_MICROSECOND, MAX_HNS_PLUS_ONE,
                            NULL_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -973,7 +975,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
                            MIN_MILLISECOND, MIN_MICROSECOND, MIN_HNS_MINUS_ONE,
                            NULL_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1912,7 +1914,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenYearIsTooHigh_Test )
         QDateTime dateTime(NOT_ALLOWED_YEAR, COMMON_MONTH, COMMON_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1942,7 +1944,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenYearIsTooLow_Test )
         QDateTime dateTime(NOT_ALLOWED_YEAR, COMMON_MONTH, COMMON_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1972,7 +1974,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenYearEqualsZero_Test )
         QDateTime dateTime(YEAR_ZERO, COMMON_MONTH, COMMON_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2002,7 +2004,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenMonthIsTooHigh_Test )
         QDateTime dateTime(COMMON_YEAR, NOT_ALLOWED_MONTH, COMMON_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2032,7 +2034,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenMonthEqualsZero_Test )
         QDateTime dateTime(COMMON_YEAR, MONTH_ZERO, COMMON_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2062,7 +2064,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDayIsTooHigh_Test )
         QDateTime dateTime(COMMON_YEAR, COMMON_MONTH, NOT_ALLOWED_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2092,7 +2094,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDayEqualsZero_Test )
         QDateTime dateTime(COMMON_YEAR, COMMON_MONTH, DAY_ZERO,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2122,7 +2124,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDayIsNotValidForTheGivenMonthAndYear
         QDateTime dateTime(COMMON_YEAR, COMMON_MONTH, NOT_ALLOWED_DAY,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2153,7 +2155,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsPosteriorToMaximum_Test )
         QDateTime dateTime(MAX_YEAR, MAX_MONTH, MAX_DAY_PLUS_ONE,
                            NULL_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2184,7 +2186,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenDateIsAnteriorToMinimum_Test )
         QDateTime dateTime(-MIN_YEAR, MIN_MONTH, MIN_DAY_MINUS_ONE,
                            NULL_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2945,7 +2947,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenHourTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2979,7 +2981,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenMinuteTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3013,7 +3015,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenSecondTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3047,7 +3049,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenMillisecondTooHigh_Test )
                            NOT_ALLOWED_MILLISECOND, COMMON_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3081,7 +3083,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenMicrosecondTooHigh_Test )
                            COMMON_MILLISECOND, NOT_ALLOWED_MICROSECOND, COMMON_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3115,7 +3117,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenHundredsOfNanosecondsTooHigh_Test )
                            COMMON_MILLISECOND, COMMON_MICROSECOND, NOT_ALLOWED_HNS,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3208,7 +3210,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenHourIsTooHigh_Test )
                            COMMON_MILLISECOND,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3240,7 +3242,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenMinuteIsTooHigh_Test )
                            COMMON_MILLISECOND,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3272,7 +3274,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenSecondIsTooHigh_Test )
                            COMMON_MILLISECOND,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3304,7 +3306,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenMillisecondIsTooHigh_Test )
                            NOT_ALLOWED_MILLISECOND,
                            COMMON_TIMEZONE);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4329,7 +4331,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenInputStringIsEmpty_Test )
     {
         QDateTime dateTime(EMPTY_TIMESTAMP);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4354,7 +4356,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenInputStringContainsWhitesSpaces_Test
     {
         QDateTime dateTime(TIMESTAMP);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4540,7 +4542,7 @@ QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenDateIsUndefined_Test )
         QDateTime dateTime(UNDEFINED_DATETIME);
         dateTime += ANY_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4569,7 +4571,7 @@ QTEST_CASE ( OperatorAdditionAssignment_AssertionFailsWhenAdditionOverflowsAllow
         QDateTime dateTime(MAXIMUM_DATETIME);
         dateTime += INPUT_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4741,7 +4743,7 @@ QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenDateIsUndefined_Tes
         QDateTime dateTime(UNDEFINED_DATETIME);
         dateTime -= ANY_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4770,7 +4772,7 @@ QTEST_CASE ( OperatorSubtractionAssignment_AssertionFailsWhenSubtractionOverflow
         QDateTime dateTime(MINIMUM_DATETIME);
         dateTime -= INPUT_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4918,7 +4920,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME + ANY_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4946,7 +4948,7 @@ QTEST_CASE ( OperatorAddition_AssertionFailsWhenAdditionOverflowsAllowedMaximumV
     {
         MAXIMUM_DATETIME + INPUT_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5092,7 +5094,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME - ANY_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5120,7 +5122,7 @@ QTEST_CASE ( OperatorSubtraction1_AssertionFailsWhenSubtractionOverflowsAllowedM
     {
         MINIMUM_DATETIME - INPUT_TIMESPAN;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5285,7 +5287,7 @@ QTEST_CASE ( OperatorSubtraction2_AssertionFailsWhenDatesAreUndefined_Test )
     {
         UNDEFINED_DATETIME - ANY_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -5296,7 +5298,7 @@ QTEST_CASE ( OperatorSubtraction2_AssertionFailsWhenDatesAreUndefined_Test )
     {
         ANY_DATETIME - UNDEFINED_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -5613,7 +5615,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenDatesAreUndefined_Test )
     {
         UNDEFINED_DATETIME < ANY_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -5624,7 +5626,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenDatesAreUndefined_Test )
     {
         ANY_DATETIME < UNDEFINED_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -5783,7 +5785,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenDatesAreUndefined_Test )
     {
         UNDEFINED_DATETIME > ANY_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -5794,7 +5796,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenDatesAreUndefined_Test )
     {
         ANY_DATETIME > UNDEFINED_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -5990,7 +5992,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefined_
     {
         UNDEFINED_DATETIME <= ANY_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -6001,7 +6003,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefined_
     {
         ANY_DATETIME <= UNDEFINED_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -6197,7 +6199,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefine
     {
         UNDEFINED_DATETIME >= ANY_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -6208,7 +6210,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefine
     {
         ANY_DATETIME >= UNDEFINED_DATETIME;
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -6330,7 +6332,7 @@ QTEST_CASE ( GetDaysInMonth_AssertionFailsWhenMonthIsNotValid_Test )
     {
         QDateTime::GetDaysInMonth(NOT_VALID_MONTH, INPUT_YEAR);
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7012,7 +7014,7 @@ QTEST_CASE ( Decompose_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.Decompose(uYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7505,7 +7507,7 @@ QTEST_CASE ( DecomposeDate_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.DecomposeDate(uYear, uMonth, uDay);
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7999,7 +8001,7 @@ QTEST_CASE ( DecomposeTime1_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.DecomposeTime(uHour, uMinute, uSecond);
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -8496,7 +8498,7 @@ QTEST_CASE ( DecomposeTime2_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.DecomposeTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -8583,7 +8585,7 @@ QTEST_CASE ( IsLeapYear_AssertionFailsWhenDateIsUndefined_Test )
     {
         QDateTime::GetUndefinedDate().IsLeapYear();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9312,7 +9314,7 @@ QTEST_CASE ( GetYear_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetYear();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10034,7 +10036,7 @@ QTEST_CASE ( GetMonth_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetMonth();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10756,7 +10758,7 @@ QTEST_CASE ( GetDay_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetDay();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -11478,7 +11480,7 @@ QTEST_CASE ( GetHour_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetHour();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -12200,7 +12202,7 @@ QTEST_CASE ( GetMinute_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetMinute();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -12900,7 +12902,7 @@ QTEST_CASE ( GetSecond_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetSecond();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -13600,7 +13602,7 @@ QTEST_CASE ( GetMillisecond_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetMillisecond();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -14300,7 +14302,7 @@ QTEST_CASE ( GetMicrosecond_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetMicrosecond();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -15000,7 +15002,7 @@ QTEST_CASE ( GetHundredOfNanosecond_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.GetHundredOfNanosecond();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -15154,7 +15156,7 @@ QTEST_CASE ( IsPositive_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.IsPositive();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -15269,7 +15271,7 @@ QTEST_CASE ( IsNegative_AssertionFailsWhenDateIsUndefined_Test )
     {
         UNDEFINED_DATETIME.IsNegative();
     }
-    catch(...) // [TODO] Thund: Use the concrete exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

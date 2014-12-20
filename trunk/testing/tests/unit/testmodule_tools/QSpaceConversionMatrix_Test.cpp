@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QMatrix4x3.h"
 #include "QBaseVector3.h"
 #include "QVector4.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -2487,7 +2488,7 @@ QTEST_CASE( SetViewSpaceMatrix1_AssertionFailsWhenUpVectorIsNull_Test )
     {
         matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2519,7 +2520,7 @@ QTEST_CASE( SetViewSpaceMatrix1_AssertionFailsWhenPointOfViewEqualsTarget_Test )
     {
         matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2604,7 +2605,7 @@ QTEST_CASE( SetViewSpaceMatrix2_AssertionFailsWhenUpVectorIsNull_Test )
     {
         matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2636,7 +2637,7 @@ QTEST_CASE( SetViewSpaceMatrix2_AssertionFailsWhenPointOfViewEqualsTarget_Test )
     {
         matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2725,7 +2726,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenNearAndFarClipPlanesAreTh
     {
         matrixUT.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, VERTICAL_FOV, ASPECT_RATIO);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFail = true;
     }
@@ -2755,7 +2756,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenVerticalFovEqualsZero_Tes
     {
         matrixUT.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, VERTICAL_FOV, ASPECT_RATIO);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFail = true;
     }
@@ -2785,7 +2786,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenAspectRatioEqualsZero_Tes
     {
         matrixUT.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, VERTICAL_FOV, ASPECT_RATIO);
     }
-    catch(...) // TODO Thund: A concrete exception type should be caught when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFail = true;
     }

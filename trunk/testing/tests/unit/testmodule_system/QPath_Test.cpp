@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
 
+
 QTEST_SUITE_BEGIN( QPath_TestSuite )
 
 /// <summary>
@@ -496,7 +497,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenHostnameIsEmpty_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -521,7 +522,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenHostnameIsEmptyAndPathIsSeparator_Tes
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -546,7 +547,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenHostnameStartsWithHyphen_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -571,7 +572,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenIpStartsWithSquareBracketButDoesNotEn
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -596,7 +597,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenIpEndsWithSquareBracketButDoesNotStar
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -621,7 +622,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenIpContainsLetters_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -646,7 +647,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenHostnameContainsDots_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -671,7 +672,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenIpContainsHyphen_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -696,7 +697,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenOneNumberOfIpIsGreaterThan255_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -721,7 +722,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenLengthOfOnePartOfIpIsGreaterThan3_Tes
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -746,7 +747,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenHostnameContainsSquareBracket_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -771,7 +772,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenOneNumberOfIpIsMissing_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -796,7 +797,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenNumbersOfTheIpAreEmpty_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -821,7 +822,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenFilenameIsTooLarge_Test )
     {
         QPath path(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -848,7 +849,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenFilenameIsTooLarge_Test )
         {
             QPath path(INPUT_STRING);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -1441,7 +1442,7 @@ QTEST_CASE ( AppendDirectory_AssertionFailsWhenInputIsEmpty_Test )
     {
         path.AppendDirectory(DIRECTORY);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1467,7 +1468,7 @@ QTEST_CASE ( AppendDirectory_AssertionFailsWhenContainsSlashes_Test )
     {
         path.AppendDirectory(DIRECTORY);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1495,7 +1496,7 @@ QTEST_CASE ( AppendDirectory_AssertionFailsWhenContainsSlashes_Test )
         {
             path.AppendDirectory(DIRECTORY);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -1521,7 +1522,7 @@ QTEST_CASE ( AppendDirectory_AssertionFailsWhenContainsSlashes_Test )
         {
             path.AppendDirectory(DIRECTORY);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -1960,7 +1961,7 @@ QTEST_CASE ( Resolve_AssertionFailsWhenInputPathIsNotRelative_Test )
     {
         absolutePath.Resolve(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1988,7 +1989,7 @@ QTEST_CASE ( Resolve_AssertionFailsWhenResidentPathIsNotAbsolute_Test )
     {
         relativePath.Resolve(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2016,7 +2017,7 @@ QTEST_CASE ( Resolve_AssertionFailsWhenInputIsEmpty_Test )
     {
         absolutePath.Resolve(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2175,7 +2176,7 @@ QTEST_CASE ( GetRelativePath_AssertionFailsWhenResidentPathIsNotAbsolute_Test )
     {
         absolutePath.GetRelativePath();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2201,7 +2202,7 @@ QTEST_CASE ( GetRelativePath_AssertionFailsWhenHostnamesAreDifferent_Test )
     {
         absolutePath.GetRelativePath();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2229,7 +2230,7 @@ QTEST_CASE ( GetRelativePath_AssertionFailsWhenHostnamesAreDifferent_Test )
         {
             absolutePath.GetRelativePath();
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -2363,7 +2364,7 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenResidentPathIsNotAbsolute_Test 
     {
         absolutePath.GetRelativePathTo(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2391,7 +2392,7 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenInputPathIsNotAbsolute_Test )
     {
         absolutePath.GetRelativePathTo(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2419,7 +2420,7 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenInputPathIsEmpty_Test )
     {
         absolutePath.GetRelativePathTo(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2447,7 +2448,7 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenHostnamesAreDifferent_Test )
     {
         absolutePath.GetRelativePathTo(inputPath);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2477,7 +2478,7 @@ QTEST_CASE ( GetRelativePathTo_AssertionFailsWhenHostnamesAreDifferent_Test )
         {
             absolutePath.GetRelativePathTo(inputPath);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -3532,7 +3533,7 @@ QTEST_CASE ( SetFilename_FilenameIsEmptyWhenUsingEmptyInputString_Test )
         {
             path.SetFilename(INPUT_STRING);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -3560,7 +3561,7 @@ QTEST_CASE ( SetFilename_AssertionFailsWhenFilenameIsTooLarge_Test )
     {
         path.SetFilename(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3586,7 +3587,7 @@ QTEST_CASE ( SetFilename_AssertionFailsWhenFilenameContainsSeparator_Test )
     {
         path.SetFilename(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3712,7 +3713,7 @@ QTEST_CASE ( SetFilenameAndExtension_HostnameIsEmptyWhenUsingEmptyInputString_Te
         {
             path.SetFilenameAndExtension(INPUT_STRING);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -3740,7 +3741,7 @@ QTEST_CASE ( SetFilenameAndExtension_AssertionFailsWhenFilenameIsTooLarge_Test )
     {
         path.SetFilenameAndExtension(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3766,7 +3767,7 @@ QTEST_CASE ( SetFilenameAndExtension_AssertionFailsWhenFilenameContainsSeparator
     {
         path.SetFilenameAndExtension(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3962,7 +3963,7 @@ QTEST_CASE ( SetHostname_HostnameIsEmptyWhenUsingEmptyInputString_Test )
         {
             SOURCE_PATH.SetHostname(INPUT_HOSTNAME);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -3990,7 +3991,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameStartsWithHyphen_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4016,7 +4017,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenIpStartsWithSquareBracketButDoesNotEn
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4042,7 +4043,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenIpEndsWithSquareBracketButDoesNotStar
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4068,7 +4069,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenIpContainsLetters_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4094,7 +4095,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameContainsDots_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4120,7 +4121,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenIpContainsHyphen_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4146,7 +4147,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenOneNumberOfIpIsGreaterThan255_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4172,7 +4173,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenLengthOfOnePartOfIpIsGreaterThan3_Tes
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4198,7 +4199,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenHostnameContainsSquareBracket_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4224,7 +4225,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenOneNumberOfIpIsMissing_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4250,7 +4251,7 @@ QTEST_CASE ( SetHostname_AssertionFailsWhenNumbersOfTheIpAreEmpty_Test )
     {
         path.SetHostname(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4527,7 +4528,7 @@ QTEST_CASE ( SetDirectory_ATrailingSeparatorIsAppendedWhenInputHasNotIt_Test )
         {
             path.SetDirectory(INPUT_STRING);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }
@@ -4552,7 +4553,7 @@ QTEST_CASE ( SetDirectory_ATrailingSeparatorIsAppendedWhenInputHasNotIt_Test )
         {
             SOURCE_PATH.SetDirectory(INPUT_DIRECTORY);
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             bAssertionFailed = true;
         }

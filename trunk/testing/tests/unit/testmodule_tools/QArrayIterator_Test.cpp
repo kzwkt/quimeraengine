@@ -89,7 +89,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputArrayIsNull_Test )
     {
         QFixedArray<int>::QArrayIterator INVALID_ITERATOR(SOURCE_ARRAY, 0);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -116,7 +116,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCount_Test
     {
         QFixedArray<int>::QArrayIterator INVALID_ITERATOR(&SOURCE_ARRAY, INVALID_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -212,7 +212,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
     {
         *INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -240,7 +240,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPos
     {
         *ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -268,7 +268,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
     {
         *ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -322,7 +322,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
     {
         INVALID_ITERATOR->m_nField;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -350,7 +350,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndP
     {
         ITERATOR->m_nField;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -378,7 +378,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEnd
     {
         ITERATOR->m_nField;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -457,7 +457,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -486,7 +486,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
     {
         ITERATOR_END++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -586,7 +586,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -615,7 +615,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
     {
         ITERATOR_END--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -715,7 +715,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         ++INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -744,7 +744,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
     {
         ++ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -844,7 +844,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         --INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -873,7 +873,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
     {
         --ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -972,7 +972,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
         QFixedArray<int>::QArrayIterator iterator(&SOURCE_ARRAY, 0);
         iterator = INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1001,7 +1001,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
         QFixedArray<int>::QArrayIterator iterator(&ARRAY_B, 0);
         iterator = ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1142,7 +1142,7 @@ QTEST_CASE ( MoveFirst_AssertionFailsWhenArrayIsEmpty_Test )
     {
         ITERATOR.MoveFirst();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1263,7 +1263,7 @@ QTEST_CASE ( MoveLast_AssertionFailsWhenArrayIsEmpty_Test )
     {
         ITERATOR.MoveLast();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1431,7 +1431,7 @@ QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         iterator.MoveForward(INCREMENT);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1461,7 +1461,7 @@ QTEST_CASE ( MoveForward_AssertionFailsWhenIteratorPointsToForwardEndPosition_Te
     {
         iterator.MoveForward(INCREMENT);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1608,7 +1608,7 @@ QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         iterator.MoveBackward(DECREMENT);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1637,7 +1637,7 @@ QTEST_CASE ( MoveBackward_AssertionFailsWhenIteratorPointsToBackwardEndPosition_
     {
         iterator.MoveBackward(DECREMENT);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

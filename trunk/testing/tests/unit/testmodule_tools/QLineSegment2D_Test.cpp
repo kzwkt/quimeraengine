@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix3x3.h"
 #include "QBaseQuadrilateral.h"
 #include "QBaseTriangle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -633,7 +634,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -666,7 +667,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1205,7 +1206,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.Intersection(QUAD);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1238,7 +1239,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.Intersection(QUAD);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2457,7 +2458,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2491,7 +2492,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3496,7 +3497,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3530,7 +3531,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4307,7 +4308,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(QUAD, vPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4341,7 +4342,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(QUAD, vPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5255,7 +5256,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenBothEndpointsCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5290,7 +5291,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
     {
         LINE_SEGMENT.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint);
     }
-    catch(...) // [TODO] Thund: Use a concrete exception when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

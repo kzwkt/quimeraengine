@@ -7,6 +7,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{582dca16-3437-4d29-b0f9-59a5fc38bcc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{5ca82d16-a774-4ff7-92ed-2734b6e87197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h">
@@ -75,6 +78,9 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\Endianness.h" />
+    <ClInclude Include="..\..\..\..\headers\QAssertException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -137,5 +143,8 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAssertException.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
