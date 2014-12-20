@@ -39,6 +39,7 @@ using namespace boost::unit_test;
 #include "QStopwatch.h"
 #include "QBasicArray.h"
 #include "EQTextEncoding.h"
+#include "SQFile.h"
 #include <boost/thread.hpp>
 #include <fstream>
 
@@ -51,7 +52,7 @@ using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
 static const string_q PATH_TO_ARTIFACTS("./artifacts/SQDirectory/");
 
 // Function that waits for a predefined amount of time for a file system operation to complete
-bool WaitForCreationOrDeletion_TestHelper(const QPath &directoryOrFile, const bool bTDeletionFCreation)
+bool WaitForCreationOrDeletion_SQDirectoryTestHelper(const QPath &directoryOrFile, const bool bTDeletionFCreation)
 {
     using Kinesis::QuimeraEngine::System::Timing::QStopwatch;
     using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
@@ -106,8 +107,8 @@ bool CheckDirectoryContent(const QBasicArray<const QPath> arContents, const stri
         else
         {
             // Checks that the file exists
-            // [TODO] Thund: Uncomment when SQFile exists
-            //bContentMatchesExpectations = bContentMatchesExpectations && SQFile::Exists(arContents[uContentIndex], errorCode);
+            bContentMatchesExpectations = bContentMatchesExpectations && 
+                                          Kinesis::QuimeraEngine::System::IO::FileSystem::SQFile::Exists(arContents[uContentIndex], errorCode);
 
             if(bContentMatchesExpectations)
             {
@@ -182,7 +183,7 @@ QTEST_CASE ( Delete_DirectoryAndContentAreDeleted_Test )
     EQFileSystemError errorCode = SQDirectory::Delete(DIRECTORY);
     
     // [Verification]
-    WaitForCreationOrDeletion_TestHelper(DIRECTORY, true);
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(DIRECTORY, true);
 
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDirectoryExists = SQDirectory::Exists(DIRECTORY, existsErrorCode);
@@ -286,7 +287,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationHasContentWith
     EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
-    WaitForCreationOrDeletion_TestHelper(EXPECTED_DIRECTORY, false);
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
 
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDestinationDirectoryExists = SQDirectory::Exists(EXPECTED_DIRECTORY, existsErrorCode);
@@ -365,7 +366,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationIsEmptyAndRepl
     EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
-    WaitForCreationOrDeletion_TestHelper(EXPECTED_DIRECTORY, false);
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
 
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDestinationDirectoryExists = SQDirectory::Exists(EXPECTED_DIRECTORY, existsErrorCode);
@@ -599,7 +600,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopiedWhenDestinationHasContentWit
     EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
-    WaitForCreationOrDeletion_TestHelper(EXPECTED_DIRECTORY, false);
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
 
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDestinationDirectoryExists = SQDirectory::Exists(EXPECTED_DIRECTORY, existsErrorCode);
@@ -680,7 +681,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopydWhenDestinationIsEmptyAndRepl
     EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
-    WaitForCreationOrDeletion_TestHelper(EXPECTED_DIRECTORY, false);
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
 
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDestinationDirectoryExists = SQDirectory::Exists(EXPECTED_DIRECTORY, existsErrorCode);
@@ -920,8 +921,7 @@ QTEST_CASE ( Exists_AssertionFailsWhenInputPathIsNotDirectory_Test )
     }
     
     // [Verification]
-    // [TODO] Thund: Uncomment when SQFile exists
-    //BOOST_CHECK(bAssertionFailed);
+    BOOST_CHECK(bAssertionFailed);
 }
 
 #endif

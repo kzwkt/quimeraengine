@@ -51,7 +51,7 @@ namespace FileSystem
 //##################=======================================================##################
 
 QFileInfo::QFileInfo(const QPath &path, 
-                     const pointer_uint_q uSize,
+                     const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uSize,
                      const QDateTime &creationDate,
                      const QDateTime &lastModificationDate,
                      const bool bIsReadOnly) :
@@ -88,7 +88,7 @@ const QDateTime& QFileInfo::GetCreationDate() const
     return m_creationDate;
 }
 
-const pointer_uint_q QFileInfo::GetSize() const
+const u64_q QFileInfo::GetSize() const
 {
     return m_uSize;
 }

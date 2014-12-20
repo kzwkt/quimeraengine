@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQDirectory_Test.cpp">
       <Filter>Tests\IO\FileSystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQFile_Test.cpp">
+      <Filter>Tests\IO\FileSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

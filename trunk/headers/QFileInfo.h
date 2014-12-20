@@ -63,7 +63,7 @@ public:
     /// <param name="lastModificationDate">[IN] The date and time of the file's last modification.</param>
     /// <param name="bIsReadOnly">[IN] The ability of the file to be modified. True if it is read-only, False otherwise.</param>
     QFileInfo(const QPath &path, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q uSize,
+              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uSize,
               const Kinesis::QuimeraEngine::Tools::Time::QDateTime &creationDate,
               const Kinesis::QuimeraEngine::Tools::Time::QDateTime &lastModificationDate,
               const bool bIsReadOnly);
@@ -103,7 +103,7 @@ public:
     /// <returns>
     /// The size of the file, in bytes.
     /// </returns>
-    const Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q GetSize() const;
+    const Kinesis::QuimeraEngine::Common::DataTypes::u64_q GetSize() const;
     
     /// <summary>
     /// Gets the absolute path to the file.
@@ -126,7 +126,7 @@ private:
     /// <summary>
     /// The size of the file, in bytes.
     /// </summary>
-    Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q m_uSize;
+    Kinesis::QuimeraEngine::Common::DataTypes::u64_q m_uSize;
 
     /// <summary>
     /// The date and time of the file's creation.
