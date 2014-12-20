@@ -179,6 +179,8 @@
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineSystem.so" "$(EXECUTION_PATH)."</Command>
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">if test -d "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)/artifacts/"; fi</Command>
+        <Command Enabled="yes">rsync -a --exclude='.*' $(EXECUTION_PATH)../../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes">rm *.so</Command>
@@ -240,6 +242,8 @@
         <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">if test -d "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)/artifacts/"; fi</Command>
+        <Command Enabled="yes">rsync -a --exclude='.*' $(EXECUTION_PATH)../../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
       </PreBuild>
       <PostBuild>
         <Command Enabled="yes"/>

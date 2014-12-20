@@ -335,14 +335,24 @@ QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSyste
 
 boost::filesystem::path SQDirectory::_ConvertToBoostPath(const QPath &pathToConvert)
 {
-    QBasicArray<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(EQTextEncoding::E_UTF16LE); // [TODO] Thund: Distinguish among LE and BE
-    wchar_t* szPath = (wchar_t*)arBytesDirectory.Get();
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF8;
+#elif defined(QE_OS_WINDOWS)
+    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Distinguish among LE and BE
+#endif
+
+    QBasicArray<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(PATH_ENCODING);
+    boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesDirectory.Get();
     return boost::filesystem::path(szPath);
 }
 
 string_q SQDirectory::_ConvertPathToString(const boost::filesystem::path &pathToConvert)
 {
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    return string_q(pathToConvert.c_str(), strlen(pathToConvert.c_str()), EQTextEncoding::E_UTF8);
+#elif defined(QE_OS_WINDOWS)
     return string_q((i8_q*)pathToConvert.c_str(), wcslen(pathToConvert.c_str()), EQTextEncoding::E_UTF16LE); // [TODO] Thund: Distinguish among LE and BE
+#endif
 }
 
 EQFileSystemError SQDirectory::_ConvertErrorCodeToFileSystemError(const boost::system::error_code &errorCode)

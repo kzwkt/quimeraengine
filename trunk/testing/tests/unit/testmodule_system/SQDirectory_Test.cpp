@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QBasicArray.h"
 #include "EQTextEncoding.h"
 #include <boost/thread.hpp>
+#include <fstream>
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQDirectory;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
@@ -59,8 +60,14 @@ bool WaitForCreationOrDeletion_TestHelper(const QPath &directoryOrFile, const bo
 
     static const u64_q MAXIMUM_WAIT_TIME = 600ULL; // milliseconds
 
-    QBasicArray<i8_q> arBytesDirectory = directoryOrFile.ToString().ToBytes(EQTextEncoding::E_UTF16LE); // [TODO] Thund: Distinguish among LE and BE
-    wchar_t* szPath = (wchar_t*)arBytesDirectory.Get();
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF8;
+#elif defined(QE_OS_WINDOWS)
+    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Distinguish among LE and BE
+#endif
+
+    QBasicArray<i8_q> arBytesDirectory = directoryOrFile.ToString().ToBytes(PATH_ENCODING);
+    boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesDirectory.Get();
     boost::filesystem::path directoryOrFilePath(szPath);
 
     QStopwatch elapsedTime;
