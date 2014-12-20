@@ -289,8 +289,7 @@ EQFileSystemError SQDirectory::SetCurrentWorkingDirectory(const QPath& newDirect
 
 bool SQDirectory::Exists(const QPath &directory, EQFileSystemError& errorInfo)
 {
-    // [TODO] Thund: Uncomment when SQFile exists.
-    //QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
 
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
 

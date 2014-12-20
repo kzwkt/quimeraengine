@@ -128,6 +128,8 @@
       <File Name="../../../../source/QFileInfo.cpp"/>
       <File Name="../../../../headers/QDirectoryInfo.h"/>
       <File Name="../../../../source/QDirectoryInfo.cpp"/>
+      <File Name="../../../../headers/SQFile.h"/>
+      <File Name="../../../../source/SQFile.cpp"/>
       <File Name="../../../../headers/EQFileSystemError.h"/>
       <File Name="../../../../headers/SQDirectory.h"/>
       <File Name="../../../../source/SQDirectory.cpp"/>
