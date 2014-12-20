@@ -41,6 +41,8 @@ prebuildDebugLinux32SharedrtDynamic:
 	cp "$(EXECUTION_PATH)../../../../bin/GCC/DebugLinux32SharedrtDynamic/libQuimeraEngineSystem.so" "$(EXECUTION_PATH)."
 	cp "$(EXECUTION_PATH)../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic"
 	cp "$(EXECUTION_PATH)../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic"
+	if test -d "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic/artifacts/"; fi
+	rsync -a --exclude='.*' $(EXECUTION_PATH)../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic
 
 
 DebugLinux32SharedrtDynamic: $(OBJECTS_DEBUGLINUX32SHAREDRTDYNAMIC)
@@ -141,6 +143,8 @@ prebuildDebugLinux32SharedrtStatic:
 	mkdir -p $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic
 	cp "$(EXECUTION_PATH)../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic"
 	cp "$(EXECUTION_PATH)../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic"
+	if test -d "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic/artifacts/"; fi
+	rsync -a --exclude='.*' $(EXECUTION_PATH)../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic
 
 
 DebugLinux32SharedrtStatic: $(OBJECTS_DEBUGLINUX32SHAREDRTSTATIC)
@@ -247,6 +251,8 @@ prebuildDebugMac32SharedrtDynamic:
 	cp "$(EXECUTION_PATH)../../../../bin/Clang/DebugMac32SharedrtDynamic/libQuimeraEngineSystem.dylib" "$(EXECUTION_PATH)."
 	cp "$(EXECUTION_PATH)../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic"
 	cp "$(EXECUTION_PATH)../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic"
+	if test -d "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic/artifacts/"; fi
+	rsync -a --exclude='.*' $(EXECUTION_PATH)../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic
 
 
 DebugMac32SharedrtDynamic: $(OBJECTS_DEBUGMAC32SHAREDRTDYNAMIC)
@@ -347,6 +353,8 @@ prebuildDebugMac32SharedrtStatic:
 	mkdir -p $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic
 	cp "$(EXECUTION_PATH)../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic"
 	cp "$(EXECUTION_PATH)../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic"
+	if test -d "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic/artifacts/"; then rm -rf "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic/artifacts/"; fi
+	rsync -a --exclude='.*' $(EXECUTION_PATH)../../../bin/artifacts/artifacts $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic
 
 
 DebugMac32SharedrtStatic: $(OBJECTS_DEBUGMAC32SHAREDRTSTATIC)
