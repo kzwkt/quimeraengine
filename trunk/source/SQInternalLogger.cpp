@@ -77,13 +77,8 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
     using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
     
-    #if defined(QE_OS_WINDOWS)
-        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF16LE;
-    #elif defined(QE_OS_LINUX)
-        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF32LE;
-    #elif defined(QE_OS_MAC)
-        static const EQTextEncoding OS_WCHAR_ENCODING = EQTextEncoding::E_UTF32LE;
-    #endif
+    static const EQTextEncoding OS_WCHAR_ENCODING = sizeof(wchar_t) == 2U ? string_q::GetLocalEncodingUTF16() : 
+                                                                            string_q::GetLocalEncodingUTF32();
     
     // Depending on the compiler, a different function is used to print the error message to the console
     
@@ -100,7 +95,7 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #elif defined(QE_COMPILER_GCC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
 
-            QBasicArray<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING); // [TODO] Thund: Change this to use either LE or BE depending on the machine
+            QBasicArray<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING);
             std::wcout << rcast_q(arBytes.Get(), wchar_t*);
             std::wcout.flush();
                 

@@ -58,27 +58,6 @@ namespace Configuration
 
 
 // --------------------------------------------------------------------------------------------------------
-// Machine endianess: Defines the machine endianess, this means, which order does the hardware follow to 
-// store and read bytes. This configuration value must be checked every time the project is compiled on
-// a different hardware architecture. A way to know the machine endianess is as follows:
-//
-// int i = 1;           // 0x0001 => 0x01000000 || 0x00000001 ?
-// char c = (char*)&i;  // 0x00 || 0x01 ?
-//
-// if(c == 1)           // Is c the most or the less relevant byte in i?
-//   Little-Endian
-// else
-//   Big-Endian
-//
-// How to use it: Write an endianess definition value as the default endianess definition.
-// --------------------------------------------------------------------------------------------------------
-#define QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN 0x0 // Little-endian
-#define QE_CONFIG_MACHINEENDIANESS_BIGENDIAN    0x1 // Big-endian
-
-#define QE_CONFIG_MACHINEENDIANESS_DEFAULT QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN // [Configurable]
-
-
-// --------------------------------------------------------------------------------------------------------
 // Character Set: Specifies the character set used throughout the engine. It can be ASCII: 8 bits 
 // per character (using 7 bits, actually), limited to the English alphabet; or Unicode (UTF-16): 16/32-bits wide
 // characters to represent all existent alphabets.

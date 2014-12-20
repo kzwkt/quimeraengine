@@ -74,6 +74,7 @@
     <ClInclude Include="..\..\..\..\headers\QBasicArray.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\Endianness.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">

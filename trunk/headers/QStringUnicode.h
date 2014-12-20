@@ -1033,6 +1033,22 @@ public:
     /// </returns>
     static const QStringUnicode& GetEmpty();
 
+    /// <summary>
+    /// Gets the UTF-16 text encoding for the local machine's endianness.
+    /// </summary>
+    /// <returns>
+    /// UTF16LE if the machine is little-endian; UTF16BE if the machine is big-endian.
+    /// </returns>
+    static EQTextEncoding GetLocalEncodingUTF16();
+    
+    /// <summary>
+    /// Gets the UTF-32 text encoding for the local machine's endianness.
+    /// </summary>
+    /// <returns>
+    /// UTF32LE if the machine is little-endian; UTF32BE if the machine is big-endian.
+    /// </returns>
+    static EQTextEncoding GetLocalEncodingUTF32();
+
 
     // ATTRIBUTES
     // ---------------

@@ -1056,6 +1056,17 @@ const QStringUnicode& QStringUnicode::GetEmpty()
     return EMPTY_STRING;
 }
 
+EQTextEncoding QStringUnicode::GetLocalEncodingUTF16()
+{
+    return QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN ? EQTextEncoding::E_UTF16LE :
+                                                         EQTextEncoding::E_UTF16BE;
+}
+
+EQTextEncoding QStringUnicode::GetLocalEncodingUTF32()
+{
+    return QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN ? EQTextEncoding::E_UTF32LE :
+                                                         EQTextEncoding::E_UTF32BE;
+}
 
 } //namespace DataTypes
 } //namespace Common

@@ -234,12 +234,12 @@ public:
         char_q correspondingChar(0);
 
         // Every half of every byte in the input variable is parsed and transformed to its textual hexadecimal representation
-#if QE_CONFIG_MACHINEENDIANESS_DEFAULT == QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN
+#if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
         pointer_uint_q uIndexCorrection = 1U;
 
         for(pointer_uint_q uMemOffset = sizeof(IntegerType); uMemOffset > 0; --uMemOffset)
         {
-#else
+#elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
         pointer_uint_q uIndexCorrection = 0;
 
         for(pointer_uint_q uMemOffset = 0; uMemOffset < sizeof(IntegerType); ++uMemOffset)

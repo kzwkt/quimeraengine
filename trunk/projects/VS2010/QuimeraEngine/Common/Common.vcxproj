@@ -99,6 +99,7 @@
     <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
+    <ClInclude Include="..\..\..\..\headers\Endianness.h" />
     <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
     <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />

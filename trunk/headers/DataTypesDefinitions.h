@@ -28,6 +28,7 @@
 #define __DATATYPESDEFINITIONS__
 
 #include "CrossPlatformBasicTypes.h"
+#include "Endianness.h"
 
 #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
     #include <string>
