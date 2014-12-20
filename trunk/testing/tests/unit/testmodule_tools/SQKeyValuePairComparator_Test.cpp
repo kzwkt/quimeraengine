@@ -30,64 +30,65 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "SQComparatorDefault.h"
+#include "SQKeyValuePairComparator.h"
 
+using Kinesis::QuimeraEngine::Tools::Containers::SQKeyValuePairComparator;
+using Kinesis::QuimeraEngine::Tools::Containers::QKeyValuePair;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-using Kinesis::QuimeraEngine::Tools::Containers::SQComparatorDefault;
 
 
-QTEST_SUITE_BEGIN( SQComparatorDefault_TestSuite )
+QTEST_SUITE_BEGIN( SQKeyValuePairComparator_TestSuite )
 
 /// <summary>
-/// Checks that method compare returns right value when left operand is greater than right operand.
+/// Checks that it returns one when left operand is greater than right operand.
 /// </summary>
 QTEST_CASE ( Compare_ReturnsPositiveOneWhenLeftOperandIsGreaterThanRightOperand_Test )
 {
     // [Preparation]
     const i8_q EXPECTED_VALUE_OF_COMPARISON = 1;
-    const i8_q LEFT_OPERAND = 10;
-    const i8_q RIGHT_OPERAND = 5;
+    const QKeyValuePair<int, int> RIGHT_OPERAND(5, 0);
+    const QKeyValuePair<int, int> LEFT_OPERAND(10, 0);
 
     // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q nComparisonResult = SQKeyValuePairComparator<int, int>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+    BOOST_CHECK_EQUAL( nComparisonResult, EXPECTED_VALUE_OF_COMPARISON );
 }
 
 /// <summary>
-/// Checks that method compare returns right value when left operand is lower than right operand.
+/// Checks that it returns minus one when left operand is lower than right operand.
 /// </summary>
 QTEST_CASE ( Compare_ReturnsNegativeOneWhenLeftOperandIsLowerThanRightOperand_Test )
 {
     // [Preparation]
     const i8_q EXPECTED_VALUE_OF_COMPARISON = -1;
-    const i8_q LEFT_OPERAND = 5;
-    const i8_q RIGHT_OPERAND = 10;
+    const QKeyValuePair<int, int> RIGHT_OPERAND(10, 0);
+    const QKeyValuePair<int, int> LEFT_OPERAND(5, 0);
 
     // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q nComparisonResult = SQKeyValuePairComparator<int, int>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+    BOOST_CHECK_EQUAL( nComparisonResult, EXPECTED_VALUE_OF_COMPARISON );
 }
 
 /// <summary>
-/// Checks that method compare returns right value when left operand is equal to right operand.
+/// Checks that it returns zero when left operand is equal to right operand.
 /// </summary>
 // [Preparation]
 QTEST_CASE ( Compare_ReturnsZeroWhenLeftOperandIsEqualToRightOperand_Test )
 {
     const i8_q EXPECTED_VALUE_OF_COMPARISON = 0;
-    const i8_q LEFT_OPERAND = 10;
-    const i8_q RIGHT_OPERAND = 10;
+    const QKeyValuePair<int, int> RIGHT_OPERAND(10, 1);
+    const QKeyValuePair<int, int> LEFT_OPERAND(10, 2);
 
     // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    i8_q nComparisonResult = SQKeyValuePairComparator<int, int>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
     // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+    BOOST_CHECK_EQUAL( nComparisonResult, EXPECTED_VALUE_OF_COMPARISON );
 }
 
-// End - Test Suite: SQComparatorDefault
+// End - Test Suite: SQKeyValuePairComparator
 QTEST_SUITE_END()

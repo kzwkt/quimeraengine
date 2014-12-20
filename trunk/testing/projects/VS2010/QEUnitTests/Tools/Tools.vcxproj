@@ -84,6 +84,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQComparatorDefault_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQKeyValuePairComparator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQTimeZoneFactory_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />

@@ -24,70 +24,66 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include <boost/test/auto_unit_test.hpp>
-#include <boost/test/unit_test_log.hpp>
-using namespace boost::unit_test;
+#ifndef __SQKEYVALUEPAIRCOMPARATOR__
+#define __SQKEYVALUEPAIRCOMPARATOR__
 
-#include "../../testsystem/TestingExternalDefinitions.h"
+#include "CommonDefinitions.h"
 
+#include "QKeyValuePair.h"
 #include "SQComparatorDefault.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-using Kinesis::QuimeraEngine::Tools::Containers::SQComparatorDefault;
-
-
-QTEST_SUITE_BEGIN( SQComparatorDefault_TestSuite )
+namespace Kinesis
+{
+namespace QuimeraEngine
+{
+namespace Tools
+{
+namespace Containers
+{
 
 /// <summary>
-/// Checks that method compare returns right value when left operand is greater than right operand.
+/// Implements functionality for comparing two key-value pairs of the same type.
 /// </summary>
-QTEST_CASE ( Compare_ReturnsPositiveOneWhenLeftOperandIsGreaterThanRightOperand_Test )
+/// <remarks>
+/// Type used as template parameter for the key MUST implement both operators "==" and "<".
+/// </remarks>
+/// <typeparam name="KeyT">The type of the key.</typeparam>
+/// <typeparam name="ValueT">The type of the value.</typeparam>
+/// <typeparam name="KeyComparatorT">The type of the comparator to be used to compare keys. It is SQComparatorDefault<KeyT> by default.</typeparam>
+template<class KeyT, class ValueT, class KeyComparatorT=SQComparatorDefault<KeyT> >
+class SQKeyValuePairComparator
 {
-    // [Preparation]
-    const i8_q EXPECTED_VALUE_OF_COMPARISON = 1;
-    const i8_q LEFT_OPERAND = 10;
-    const i8_q RIGHT_OPERAND = 5;
 
-    // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    // CONSTRUCTORS
+    // ---------------
+private:
 
-    // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
-}
+    // Hidden
+    SQKeyValuePairComparator();
 
-/// <summary>
-/// Checks that method compare returns right value when left operand is lower than right operand.
-/// </summary>
-QTEST_CASE ( Compare_ReturnsNegativeOneWhenLeftOperandIsLowerThanRightOperand_Test )
-{
-    // [Preparation]
-    const i8_q EXPECTED_VALUE_OF_COMPARISON = -1;
-    const i8_q LEFT_OPERAND = 5;
-    const i8_q RIGHT_OPERAND = 10;
 
-    // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
+    // METHODS
+    // ---------------
+public:
+    
+    /// <summary>
+    /// Compares two key-value pairs by their key.
+    /// </summary>
+    /// <param name="leftOperand">[IN] First operand to compare.</param>
+    /// <param name="rightOperand">[IN] Second operand to compare.</param>
+    /// <returns>
+    /// -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
+    /// </returns>
+    static Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare(const QKeyValuePair<KeyT, ValueT> &leftOperand, const QKeyValuePair<KeyT, ValueT> &rightOperand)
+    {
+        return KeyComparatorT::Compare(leftOperand.GetKey(), rightOperand.GetKey());
+    }
 
-    // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
-}
+};
 
-/// <summary>
-/// Checks that method compare returns right value when left operand is equal to right operand.
-/// </summary>
-// [Preparation]
-QTEST_CASE ( Compare_ReturnsZeroWhenLeftOperandIsEqualToRightOperand_Test )
-{
-    const i8_q EXPECTED_VALUE_OF_COMPARISON = 0;
-    const i8_q LEFT_OPERAND = 10;
-    const i8_q RIGHT_OPERAND = 10;
+} //namespace Containers
+} //namespace Tools
+} //namespace QuimeraEngine
+} //namespace Kinesis
 
-    // [Execution]
-    i8_q comparisonResult = SQComparatorDefault<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
-
-    // [Verification]
-    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
-}
-
-// End - Test Suite: SQComparatorDefault
-QTEST_SUITE_END()
+#endif // __SQKEYVALUEPAIRCOMPARATOR__
