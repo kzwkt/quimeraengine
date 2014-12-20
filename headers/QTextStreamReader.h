@@ -410,8 +410,7 @@ private:
 
             u16_q uLastCodeunit = rcast_q(arBytes, u16_q*)[uBufferSize / 2U - 1U]; // Last 16 bits code unit
 
-            if((eEncoding == EQTextEncoding::E_UTF16LE && QE_CONFIG_MACHINEENDIANESS_DEFAULT == QE_CONFIG_MACHINEENDIANESS_BIGENDIAN) ||
-               (eEncoding == EQTextEncoding::E_UTF16BE && QE_CONFIG_MACHINEENDIANESS_DEFAULT == QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN) )
+            if(eEncoding != string_q::GetLocalEncodingUTF16())
                uLastCodeunit = SQInteger::SwapEndianess(uLastCodeunit);
 
             // If it's a high surrogate
