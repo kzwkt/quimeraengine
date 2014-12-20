@@ -77,6 +77,17 @@ public:
     {
         return m_key;
     }
+    
+    /// <summary>
+    /// Gets the key.
+    /// </summary>
+    /// <returns>
+    /// A constant reference to the stored key.
+    /// </returns>
+    const KeyT& GetKey() const
+    {
+        return m_key;
+    }
 
     /// <summary>
     /// Sets the key.
@@ -94,6 +105,17 @@ public:
     /// A reference to the stored value.
     /// </returns>
     ValueT& GetValue()
+    {
+        return m_value;
+    }
+    
+    /// <summary>
+    /// Gets the value.
+    /// </summary>
+    /// <returns>
+    /// A constant reference to the stored value.
+    /// </returns>
+    const ValueT& GetValue() const
     {
         return m_value;
     }

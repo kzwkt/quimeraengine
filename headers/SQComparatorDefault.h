@@ -41,10 +41,10 @@ namespace Containers
 
 
 /// <summary>
-/// Class implementing functionality for comparing two objects of the same type.
+/// Implements functionality for comparing two objects of the same type.
 /// </summary>
 /// <remarks>
-/// Types used as template parameter MUST implement operators "==" and "<".
+/// Type used as template parameter MUST implement both operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of the elements to compare.</typeparam>
 template <class T>
@@ -90,7 +90,7 @@ public:
     }
 };
 
-} // namespace Time
+} // namespace Containers
 } // namespace Tools
 } // namespace QuimeraEngine
 } // namespace Kinesis

@@ -231,6 +231,7 @@
     <ClInclude Include="..\..\..\..\headers\QVector4.h" />
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
     <ClInclude Include="..\..\..\..\headers\SQComparatorDefault.h" />
+    <ClInclude Include="..\..\..\..\headers\SQKeyValuePairComparator.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
     <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
