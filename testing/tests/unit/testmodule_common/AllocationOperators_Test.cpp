@@ -32,6 +32,7 @@ using namespace boost::unit_test;
 
 #include "AllocationOperators.h"
 #include "QAlignment.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
@@ -105,7 +106,7 @@ QTEST_CASE ( OperatorDelete_AssertionFailsWhenReceivedANonAlignedMemoryBlock_Tes
             pFoo001 = null_q;
         }
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed01 = true;
     }
@@ -162,7 +163,7 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANonAlignedMemoryBloc
             pFoo002 = null_q;
         }
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed02 = true;
     }

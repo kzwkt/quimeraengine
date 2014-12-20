@@ -63,7 +63,7 @@ bool WaitForCreationOrDeletion_TestHelper(const QPath &directoryOrFile, const bo
 #if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF8;
 #elif defined(QE_OS_WINDOWS)
-    static const EQTextEncoding PATH_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Distinguish among LE and BE
+    static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
     QBasicArray<i8_q> arBytesDirectory = directoryOrFile.ToString().ToBytes(PATH_ENCODING);
@@ -210,7 +210,7 @@ QTEST_CASE ( Delete_AssertionFailsWhenInputPathIsNotDirectory_Test )
     {
         SQDirectory::Delete(DIRECTORY);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -398,7 +398,7 @@ QTEST_CASE ( Move_AssertionFailsWhenSourcePathIsNotDirectory_Test )
     {
         SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -425,7 +425,7 @@ QTEST_CASE ( Move_AssertionFailsWhenDestinationPathIsNotDirectory_Test )
     {
         SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -523,7 +523,7 @@ QTEST_CASE ( Rename_AssertionFailsWhenSourcePathIsNotDirectory_Test )
     {
         SQDirectory::Rename(sourceDirectory, NEW_NAME);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -713,7 +713,7 @@ QTEST_CASE ( Copy_AssertionFailsWhenSourcePathIsNotDirectory_Test )
     {
         SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -740,7 +740,7 @@ QTEST_CASE ( Copy_AssertionFailsWhenDestinationPathIsNotDirectory_Test )
     {
         SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -842,7 +842,7 @@ QTEST_CASE ( SetCurrentWorkingDirectory_AssertionFailsWhenInputPathIsNotDirector
     {
         SQDirectory::SetCurrentWorkingDirectory(NOT_A_DIRECTORY);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -914,7 +914,7 @@ QTEST_CASE ( Exists_AssertionFailsWhenInputPathIsNotDirectory_Test )
         EQFileSystemError errorCode = EQFileSystemError::E_Success;
         SQDirectory::Exists(NOT_A_DIRECTORY, errorCode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -995,7 +995,7 @@ QTEST_CASE ( GetDirectoryInfo_AssertionFailsWhenInputPathIsNotDirectory_Test )
         EQFileSystemError errorCode = EQFileSystemError::E_Success;
         SQDirectory::GetDirectoryInfo(NOT_A_DIRECTORY, errorCode);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

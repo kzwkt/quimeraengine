@@ -31,7 +31,9 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QAlignment.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 
@@ -58,7 +60,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenAlignmentValueIsNotPowerOfTwo_Test )
     {
         QAlignment align_001(ALIGNMENT_VALUE_NON_POWER_OF_TWO);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed01 = true;
     }

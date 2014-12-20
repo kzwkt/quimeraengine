@@ -25,6 +25,7 @@
 //-------------------------------------------------------------------------------//
 
 #include "QStackAllocator.h"
+#include "Assertions.h"
 
 using Kinesis::QuimeraEngine::Common::Memory::QStackAllocator;
 

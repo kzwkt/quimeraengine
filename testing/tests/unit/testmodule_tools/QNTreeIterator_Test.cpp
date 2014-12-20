@@ -152,7 +152,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTreeIsNull_Test )
     {
         QNTree<char>::QNTreeIterator INVALID_ITERATOR(SOURCE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -180,7 +180,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_T
     {
         QNTree<char>::QNTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INVALID_POSITION, EQTreeTraversalOrder::E_DepthFirstPreOrder);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -207,7 +207,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputTraversalOrderIsNotSupported_Tes
     {
         QNTree<char>::QNTreeIterator INVALID_ITERATOR(SAMPLE_TREE, INPUT_POSITION, UNSUPPORTED_TRAVERSAL_ORDER);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -305,7 +305,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorIsInvalid_Test )
     {
         *INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -334,7 +334,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPos
     {
         *ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -363,7 +363,7 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
     {
         *ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -435,7 +435,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorIsInvalid_Test )
     {
         INVALID_ITERATOR->m_field;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -474,7 +474,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndP
     {
         ITERATOR->m_field;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -513,7 +513,7 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEnd
     {
         ITERATOR->m_field;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -616,7 +616,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -646,7 +646,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
     {
         ITERATOR_END++;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -771,7 +771,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         INVALID_ITERATOR--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -801,7 +801,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
     {
         ITERATOR_END--;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -926,7 +926,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         ++INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -956,7 +956,7 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
     {
         ++ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1081,7 +1081,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
     {
         --INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1111,7 +1111,7 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
     {
         --ITERATOR_END;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1208,7 +1208,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorIsNotValid_Test )
         QNTree<char>::QNTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
         iterator = INVALID_ITERATOR;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1238,7 +1238,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
         QNTree<char>::QNTreeIterator iterator(TREE_B, 0, EQTreeTraversalOrder::E_DepthFirstPreOrder);
         iterator = ITERATOR_A;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

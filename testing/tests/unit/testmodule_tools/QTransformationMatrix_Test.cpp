@@ -42,6 +42,7 @@ using namespace boost::unit_test;
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -6794,7 +6795,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
     {
         ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationAux, qRotationAux, vScaleAux);
     }
-    catch(...) // TODO [avillalba]: A concrete exception should be used when it's implemented
+    catch(const QAssertException&) // TODO [avillalba]: A concrete exception should be used when it's implemented
     {
         bAssertionFailed = true;
     }

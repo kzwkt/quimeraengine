@@ -31,7 +31,9 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QTimeSpan.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
@@ -188,7 +190,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithParameterOccurs_Test )
         QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
     }
-    catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -222,7 +224,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenOverflowWithAdditionOccurs_Test )
         QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS,
                        VALUE_FOR_MSECONDS, VALUE_FOR_MICROSECONDS, VALUE_FOR_HUNDREDSNANOSECS);
     }
-    catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -305,7 +307,7 @@ QTEST_CASE ( AdditionAndAssignmentOperator_AssertionFailsWhenAdditionProvokesOve
     {
         timeSpanOriginal += timeSpanToAdd;
     }
-    catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -379,7 +381,7 @@ QTEST_CASE ( AdditionOperator_AssertionFailsWhenAdditionProvokesOverflow_Test )
     {
         timeSpanOriginal + timeSpanToAdd;
     }
-    catch(...) // [TODO] [raul]: Only must catch the proper exception class, not implemented yet.
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

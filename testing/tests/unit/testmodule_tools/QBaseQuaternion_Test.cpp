@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 #include "SQFloat.h"
 #include "SQVF32.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
@@ -155,7 +156,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
     {
         QBaseQuaternion qQuaternionUT(NULL_ARRAY);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

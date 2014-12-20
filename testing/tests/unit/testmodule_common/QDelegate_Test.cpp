@@ -1304,7 +1304,7 @@ QTEST_CASE ( OperatorParenthesis_AssertionFailsWhenDelegateIsNull_Test )
     {
         delegate(ARGUMENT, ARGUMENT);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

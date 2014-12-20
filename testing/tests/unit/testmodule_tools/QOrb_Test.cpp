@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QVector2.h"
 #include "QVector3.h"
 #include "QVector4.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -254,7 +255,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTempla
     {
         ORB.Contains(POINT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -432,7 +433,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     {
         ORB1.Intersection(ORB2);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -443,7 +444,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     {
         ORB2.Intersection(ORB1);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }

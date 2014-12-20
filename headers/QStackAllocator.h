@@ -31,7 +31,6 @@
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 #include "QAlignment.h"
-#include "Assertions.h"
 
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;

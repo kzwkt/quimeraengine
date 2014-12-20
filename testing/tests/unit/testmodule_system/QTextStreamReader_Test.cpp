@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 // The QMemoryStream type is used in all the tests
 #include "QMemoryStream.h"
 #include "QBasicArray.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QTextStreamReader;
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
@@ -381,7 +382,7 @@ QTEST_CASE ( ReadChars_AssertionFailsWhenInputNumberOfCharsEqualsZero_Test )
     {
         reader.ReadChars(strResult, NUMBER_OF_CHARS);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1193,7 +1194,7 @@ QTEST_CASE ( ReadBlock_AssertionFailsWhenInputNumberOfBytesEqualsZero_Test )
     {
         reader.ReadBlock(strResult, NUMBER_OF_BYTES);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1226,7 +1227,7 @@ QTEST_CASE ( ReadBlock_AssertionFailsWhenInputNumberOfBytesIsNotMultipleOfCharac
     {
         reader.ReadBlock(strResult, NUMBER_OF_BYTES);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

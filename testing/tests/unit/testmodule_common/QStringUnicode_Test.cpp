@@ -39,6 +39,7 @@ using namespace boost::unit_test;
 #include "EQComparisonType.h"
 #include "EQNormalizationForm.h"
 #include "AllocationOperators.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -688,7 +689,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenUsingIncorrectParameterValueCombinat
     {
         QStringUnicode strString(INPUT_STRING_BYTES, INVALID_LENGTH, INVALID_ENCODING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1302,7 +1303,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         STRING1[OUTOFBOUNDS_INDEX];
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1330,7 +1331,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenStringIsEmpty_Test )
     {
         EMPTY_STRING[COMMON_INDEX];
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1480,7 +1481,7 @@ QTEST_CASE ( Substring2_AssertionFailsWhenStartPositionIsGreaterThanLastPosition
     {
         SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1692,7 +1693,7 @@ QTEST_CASE ( Substring4_AssertionFailsWhenStartPositionIsGreaterThanLastPosition
     {
         SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5508,7 +5509,7 @@ QTEST_CASE ( PositionOf2_AssertionFailsWhenStartPositionIsOutOfBounds_Test )
     {
         QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6421,7 +6422,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenStringIsEmpty_Test )
     {
         STRING.ToInteger();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6446,7 +6447,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenStringStoresNoValidNumber_Test )
     {
         STRING.ToInteger();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6471,7 +6472,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenStringContainsATooBigPositiveNumber_Tes
     {
         STRING.ToInteger();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6496,7 +6497,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenStringContainsATooBigNegativeNumber_Tes
     {
         STRING.ToInteger();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6729,7 +6730,7 @@ QTEST_CASE ( ToBoolean_AssertionFailsWhenStringIsEmpty_Test )
     {
         STRING.ToBoolean();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6754,7 +6755,7 @@ QTEST_CASE ( ToBoolean_AssertionFailsWhenStringDoesNotContainValidValue_Test )
     {
         STRING.ToBoolean();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6923,7 +6924,7 @@ QTEST_CASE ( ToFloat_AssertionFailsWhenStringIsEmpty_Test )
     {
         STRING.ToFloat();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6948,7 +6949,7 @@ QTEST_CASE ( ToFloat_AssertionFailsWhenStringStoresNoValidNumber_Test )
     {
         STRING.ToFloat();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6973,7 +6974,7 @@ QTEST_CASE ( ToFloat_AssertionFailsWhenStringContainsATooBigPositiveNumber_Test 
     {
         STRING.ToFloat();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6998,7 +6999,7 @@ QTEST_CASE ( ToFloat_AssertionFailsWhenStringContainsATooBigNegativeNumber_Test 
     {
         STRING.ToFloat();
     }
-    catch(...) // [TODO] Thund: Use the corresponding exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

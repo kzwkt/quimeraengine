@@ -32,6 +32,7 @@ using namespace boost::unit_test;
 
 #include "QType.h"
 #include "SQVF32.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
@@ -408,7 +409,7 @@ QTEST_CASE ( FindType_AssertionThrownWithNonBasicType_Test )
     {
         QType::FindType<NonBasicType>();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

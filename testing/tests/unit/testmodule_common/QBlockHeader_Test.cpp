@@ -58,7 +58,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenBlockSizeIsZero_Test )
     {
         QStackAllocatorWhiteBox::QBlockHeader blockHeader(0, 0, 0);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

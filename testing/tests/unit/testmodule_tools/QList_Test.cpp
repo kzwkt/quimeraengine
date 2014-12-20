@@ -112,7 +112,7 @@ QTEST_CASE ( Constructor2_AssertionFailedWhenPassingZeroElementsAsInitialCapacit
     {
         QList<u64_q> list(INITIAL_CAPACITY_ZERO);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -214,7 +214,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenListIsNull_Test )
     {
         QList<int> list(NULL_ARRAY, NON_ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -240,7 +240,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
     {
         QList<int> list(SOURCE_ARRAY, ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -798,7 +798,7 @@ QTEST_CASE ( GetValue_AssertionFailedWhenPassingAnIndexBiggerThanNumberOfElement
     {
         list.GetValue(INDEX_POSITION_TO_RETURN);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -829,7 +829,7 @@ QTEST_CASE ( GetValue_AssertionFailedWhenListIsEmpty_Test )
     {
         list.GetValue(INDEX_POSITION_TO_RETURN);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -887,7 +887,7 @@ QTEST_CASE ( SetValue_AssertionFailedWhenListIsEmpty_Test )
     {
         list.SetValue(INDEX_POSITION_TO_SET, VALUE_TO_SET);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -925,7 +925,7 @@ QTEST_CASE ( SetValue_AssertionFailedWhenSettingValueInWrongIndex_Test )
     {
         list.SetValue(INDEX_POSITION_TO_SET, VALUE_TO_FILL_LIST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -990,7 +990,7 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenListIsEmpty_Test )
     {
         list[INDEX_POSITION_TO_RETURN];
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1028,7 +1028,7 @@ QTEST_CASE ( OperatorListSubscript_AssertionFailedWhenPassingAnIndexBiggerThanNu
     {
         list[INDEX_POSITION_TO_RETURN];
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1126,7 +1126,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenListIsEmpty_Test )
     {
         list.GetIterator(INPUT_INDEX);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1156,7 +1156,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         list.GetIterator(OUT_OF_BOUNDS_INDEX);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1647,7 +1647,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     {
         commonList.Insert(ELEMENT_VALUE, ITERATOR_END);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1821,7 +1821,7 @@ QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         commonList.Insert(ELEMENT_VALUE, OUT_OF_BOUNDS_INDEX);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2041,7 +2041,7 @@ QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     {
         commonList.Remove(ITERATOR_END);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2221,7 +2221,7 @@ QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         commonList.Remove(POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2492,7 +2492,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
     {
         commonList.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2520,7 +2520,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         commonList.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2548,7 +2548,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         commonList.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2702,7 +2702,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
     {
         commonList.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2729,7 +2729,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Test )
     {
         commonList.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2756,7 +2756,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
     {
         commonList.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2830,7 +2830,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenFirstPositionIsOutOfBounds_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2858,7 +2858,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSecondPositionIsOutOfBounds_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2886,7 +2886,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSwappingTheSameElement_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2984,7 +2984,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenFirstPositionIsEndPosition_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3013,7 +3013,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenSecondPositionIsEndPosition_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3041,7 +3041,7 @@ QTEST_CASE( Swap2_AssertionFailsWhenSwappingTheSameElement_Test )
     {
         list.Swap(POSITION_A, POSITION_B);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3334,7 +3334,7 @@ QTEST_CASE( IndexOf2_AssertionFailsWhenStartIndexIsNotLowerThanCount_Test )
     {
         list.IndexOf(INPUT_ELEMENT, START_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3557,7 +3557,7 @@ QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
     {
         list.PositionOf(INPUT_ELEMENT, START_POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3816,7 +3816,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test
     {
         commonList.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3846,7 +3846,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         commonList.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3876,7 +3876,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsEnd_Test )
     {
         commonList.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4098,7 +4098,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4129,7 +4129,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4160,7 +4160,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4190,7 +4190,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenInsertionPositionIsNotLowerThanCount
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4459,7 +4459,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4490,7 +4490,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4521,7 +4521,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsEnd_Test )
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4552,7 +4552,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenInsertionPositionIsEnd_Test )
     {
         commonList.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4775,7 +4775,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         commonList.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4803,7 +4803,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         commonList.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4831,7 +4831,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         commonList.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5004,7 +5004,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         commonList.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5031,7 +5031,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Tes
     {
         commonList.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5058,7 +5058,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test
     {
         commonList.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

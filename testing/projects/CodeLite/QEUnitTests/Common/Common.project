@@ -110,6 +110,9 @@
     <File Name="../../../../tests/unit/testmodule_common/QDelegate_Test.cpp"/>
     <File Name="../../../../tests/unit/testmodule_common/TestModule_Common.cpp"/>
     <File Name="../../../../tests/unit/testmodule_common/QReferenceWrapper_Test.cpp"/>
+    <VirtualDirectory Name="Exceptions">
+      <File Name="../../../../tests/unit/testmodule_common/QAssertException_Test.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>

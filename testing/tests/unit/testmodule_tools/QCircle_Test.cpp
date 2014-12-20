@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix3x3.h"
 #include "SQPoint.h"
 #include "SQAngle.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -943,7 +944,7 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
     {
         CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -953,7 +954,7 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
     {
         CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }

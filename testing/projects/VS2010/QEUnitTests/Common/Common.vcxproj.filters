@@ -16,6 +16,9 @@
     <Filter Include="Tests\Memory">
       <UniqueIdentifier>{c44c38bc-170e-42af-88f6-4c449d4ec840}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Exceptions">
+      <UniqueIdentifier>{c7b12705-d9e1-4276-8da4-37a6cee1cd58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBasicArray_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAssertException_Test.cpp">
+      <Filter>Tests\Exceptions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

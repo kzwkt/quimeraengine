@@ -32,6 +32,7 @@ using namespace boost::unit_test;
 
 #include "QBinaryStreamWriter.h"
 #include "QMemoryStream.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QBinaryStreamWriter;
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
@@ -116,7 +117,7 @@ QTEST_CASE ( WriteBytes_AssertionFailsWhenInputBufferIsNull_Test )
     {
         writer.WriteBytes(pNullPointer, sizeof(unsigned int));
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -146,7 +147,7 @@ QTEST_CASE ( WriteBytes_AssertionFailsWhenSizeEqualsZero_Test )
         unsigned int uValue;
         writer.WriteBytes(&uValue, ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

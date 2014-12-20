@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 #include "QUriWhiteBox.h"
 #include "QDynamicArray.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QUri;
 using Kinesis::QuimeraEngine::System::IO::Test::QUriWhiteBox;
@@ -58,7 +59,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenInputStringIsEmpty_Test )
     {
         QUri uri(INPUT_STRING);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2435,7 +2436,7 @@ QTEST_CASE ( Resolve_AssertionFailsWhenInputUriIsNotRelative_Test )
     {
         absoluteUri.Resolve(inputUri);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2463,7 +2464,7 @@ QTEST_CASE ( Resolve_AssertionFailsWhenResident6UriIsNotAbsolute_Test )
     {
         relativeUri.Resolve(inputUri);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3334,7 +3335,7 @@ QTEST_CASE ( CreateIntegerFromHexadecimalString_AssertionFailsWhenInputStringLen
     {
         QUriWhiteBox::CreateIntegerFromHexadecimalString(INPUT_STRING, uResult32Bits);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

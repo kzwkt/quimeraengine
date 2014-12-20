@@ -31,7 +31,9 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QStackAllocator.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::Memory::QStackAllocator;
 
 
@@ -56,7 +58,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenPassedAddressIsNull_Test )
     {
         QStackAllocator::QMark mark(null_q);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

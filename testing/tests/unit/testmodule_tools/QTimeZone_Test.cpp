@@ -35,7 +35,9 @@ using namespace boost::unit_test;
 #include <sstream>
 #include "QTimeSpan.h"
 #include "SQTimeZoneFactory.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
@@ -199,7 +201,7 @@ QTEST_CASE ( CalculateOffset_AssertionFailsWhenInputDateIsUndefined_Test )
         bool bOffsetIsNegative = true;
         TIME_ZONE->CalculateOffset(QDateTime::GetUndefinedDate(), offset, bOffsetIsNegative);
     }
-    catch(...) // [TODO] Thund: Use the appropiate exception type when it exists
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

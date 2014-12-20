@@ -41,6 +41,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -425,7 +426,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_T
     {
         RAY1.Intersection(RAY2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -436,7 +437,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_T
     {
         RAY2.Intersection(RAY1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -874,7 +875,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheDirectionVectorIsNull_T
     {
         RAY.Intersection(LINE_SEGMENT); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -913,7 +914,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfTheLineEqualsZe
     {
         RAY.Intersection(LINE_SEGMENT); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1249,7 +1250,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenRayDirectionIsNull_Test, T
     {
         RAY.Intersection(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1282,7 +1283,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         RAY.Intersection(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1634,7 +1635,7 @@ QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenRayDirectionIsNull_Test, T
     {
         RAY.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1672,7 +1673,7 @@ QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenAllTriangleVerticesCoincid
     {
         RAY.Intersection(TRIANGLE);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2401,7 +2402,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenRayDirectionIsNull_Test, T
     {
         RAY.Intersection(HEXAHEDRON);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2437,7 +2438,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenAllHexahedronVerticesCoinc
     {
         RAY.Intersection(HEXAHEDRON);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2661,7 +2662,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsN
     {
         RAY1.IntersectionPoint(RAY2, vIntersection1); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed1 = true;
     }
@@ -2673,7 +2674,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsN
     {
         RAY2.IntersectionPoint(RAY1, vIntersection2); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed2 = true;
     }
@@ -3220,7 +3221,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheDirectionVectorIsN
     {
         RAY.IntersectionPoint(LINE_SEGMENT, vIntersection); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3260,7 +3261,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfTheLineEqu
     {
         RAY.IntersectionPoint(LINE_SEGMENT, vIntersection); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3786,7 +3787,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheDirectionVectorIsN
     {
         RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3827,7 +3828,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfTheLineEqu
     {
         RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4254,7 +4255,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenRayDirectionIsNull_Te
     {
         RAY.IntersectionPoint(PLANE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4288,7 +4289,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenPlaneIsNull_Test, TQT
     {
         RAY.IntersectionPoint(PLANE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4780,7 +4781,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenRayDirectionIsNull_Te
     {
         RAY.IntersectionPoint(TRIANGLE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -4819,7 +4820,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllTriangleVerticesCo
     {
         RAY.IntersectionPoint(TRIANGLE, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5514,7 +5515,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_AssertionFailsWhenRayDirectionIsNull_Te
     {
         RAY.IntersectionPoint(TRIANGLE, vIntersection, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -5553,7 +5554,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_AssertionFailsWhenAllTriangleVerticesCo
     {
         RAY.IntersectionPoint(TRIANGLE, vIntersection, vIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -6989,7 +6990,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_AssertionFailsWhenRayDirectionIsNull_Te
     {
         RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -7026,7 +7027,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_AssertionFailsWhenAllHexahedronVertices
     {
         RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -8438,7 +8439,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_AssertionFailsWhenRayDirectionIsNull_Te
     {
         RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -8476,7 +8477,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_AssertionFailsWhenAllHexahedronVertices
     {
         RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
     }
-    catch(...) // [TODO] Thund: A concrete exception must be used when it's implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9136,7 +9137,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRayIsNull_Test, TQTemplateT
     {
         RAY.SpaceRelation(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9198,7 +9199,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     {
         RAY.SpaceRelation(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9553,7 +9554,7 @@ QTEST_CASE_TEMPLATE ( Scale1_AssertionFailsWhenTransformedByNullScalingVector_Te
     {
         RAY.Scale(NULL_VECTOR);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9664,7 +9665,7 @@ QTEST_CASE_TEMPLATE ( Scale2_AssertionFailsWhenTransformedByScalingValuesThatEqu
     {
         RAY.Scale(ZERO_VALUE, ZERO_VALUE, ZERO_VALUE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9786,7 +9787,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenTransformedByNullScaling
     {
         RAY.ScaleWithPivot(NULL_VECTOR, PIVOT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -9911,7 +9912,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenTransformedByNullScaling
     {
         RAY.ScaleWithPivot(ZERO_VALUE, ZERO_VALUE, ZERO_VALUE, PIVOT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10244,7 +10245,7 @@ QTEST_CASE_TEMPLATE ( Scale3_AssertionFailsWhenTransformedByNullScalingMatrix_Te
     {
         RAY.Scale(NULL_MATRIX);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10369,7 +10370,7 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformedByNullTransformati
     {
         RAY.Transform(NULL_MATRIX);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10504,7 +10505,7 @@ QTEST_CASE_TEMPLATE ( Transform2_AssertionFailsWhenTransformedByNullTransformati
     {
         RAY.Transform(NULL_MATRIX);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10808,7 +10809,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenTransformedByZeroScaling
     {
         RAY.ScaleWithPivot(NULL_MATRIX, PIVOT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -10954,7 +10955,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_AssertionFailsWhenTransformedByNullTra
     {
         RAY.TransformWithPivot(NULL_MATRIX, PIVOT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -11110,7 +11111,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_AssertionFailsWhenTransformedByNullTra
     {
         RAY.TransformWithPivot(NULL_MATRIX, PIVOT);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

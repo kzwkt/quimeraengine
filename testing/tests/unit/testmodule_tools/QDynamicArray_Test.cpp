@@ -126,7 +126,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenInputCapacityEqualsZero_Test )
     {
         QDynamicArray<int> arDynamicArray(ZERO_CAPACITY);;
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -385,7 +385,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenArrayIsNull_Test )
     {
         QDynamicArray<int> arArray = QDynamicArray<int>(NULL_ARRAY, NON_ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -411,7 +411,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenCountIsZero_Test )
     {
         QDynamicArray<int> arArray = QDynamicArray<int>(SOURCE_ARRAY, ZERO_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1178,7 +1178,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     {
         arCommonArray.Insert(ELEMENT_VALUE, ITERATOR_END);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1209,7 +1209,7 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorIsInvalid_Test )
     {
         arCommonArray.Insert(ELEMENT_VALUE, ITERATOR);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1383,7 +1383,7 @@ QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         arCommonArray.Insert(ELEMENT_VALUE, OUT_OF_BOUNDS_INDEX);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1561,7 +1561,7 @@ QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
     {
         arCommonArray.Remove(ITERATOR_END);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1591,7 +1591,7 @@ QTEST_CASE ( Remove1_AssertionFailsWhenInteratorIsInvalid_Test )
     {
         arCommonArray.Remove(ITERATOR);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1771,7 +1771,7 @@ QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         arCommonArray.Remove(POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2317,7 +2317,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test
     {
         arCommonArray.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2347,7 +2347,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         arCommonArray.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2377,7 +2377,7 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsEnd_Test )
     {
         arCommonArray.AddRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2578,7 +2578,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2609,7 +2609,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2640,7 +2640,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2670,7 +2670,7 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenInsertionPositionIsNotLowerThanCount
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2917,7 +2917,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2948,7 +2948,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -2979,7 +2979,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsEnd_Test )
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3010,7 +3010,7 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenInsertionPositionIsEnd_Test )
     {
         arCommonArray.InsertRange(itFirst, itLast, POSITION);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3235,7 +3235,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         arCommonArray.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3263,7 +3263,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         arCommonArray.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3291,7 +3291,7 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         arCommonArray.RemoveRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3464,7 +3464,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
     {
         arCommonArray.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3491,7 +3491,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Tes
     {
         arCommonArray.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3518,7 +3518,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test
     {
         arCommonArray.RemoveRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3672,7 +3672,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
     {
         arCommonArray.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3700,7 +3700,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenFirstElementIsEnd_Test )
     {
         arCommonArray.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3728,7 +3728,7 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsEnd_Test )
     {
         arCommonArray.GetRange(itFirst, itLast);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3882,7 +3882,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
     {
         arCommonArray.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3909,7 +3909,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Test )
     {
         arCommonArray.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -3936,7 +3936,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
     {
         arCommonArray.GetRange(FIRST, LAST);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QStopwatch.h"
 
 #include "QStopwatchWhiteBox.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::Timing::QStopwatch;
 
 
@@ -97,7 +99,7 @@ QTEST_CASE ( GetElapsedTimeAsFloat_AssertionFailsWhenStopWatchHasNotBeenSet_Test
     {
         stopWatch.GetElapsedTimeAsFloat();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -146,7 +148,7 @@ QTEST_CASE ( GetElapsedTimeAsInteger_AssertionFailsWhenStopWatchHasNotBeenSet_Te
     {
         stopWatch.GetElapsedTimeAsInteger();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -197,7 +199,7 @@ QTEST_CASE ( GetElapsedTimeAsTimeSpan_AssertionFailsWhenStopWatchHasNotBeenSet_T
     {
         stopWatch.GetElapsedTimeAsTimeSpan();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

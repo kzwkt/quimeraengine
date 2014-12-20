@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
@@ -1804,7 +1805,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     {
         SPHERE.SpaceRelation(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1836,7 +1837,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     {
         SPHERE.SpaceRelation(PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1984,7 +1985,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         SPHERE.ProjectToPlane(NULL_PLANE);
     }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

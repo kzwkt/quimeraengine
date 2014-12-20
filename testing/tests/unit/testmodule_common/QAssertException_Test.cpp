@@ -30,82 +30,32 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "SQTimeZoneFactory.h"
-
-#include "QTimeZone.h"
 #include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
-using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;
-using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
 
-
-QTEST_SUITE_BEGIN( SQTimeZoneFactory_TestSuite )
+QTEST_SUITE_BEGIN( QAssertException_TestSuite )
 
 /// <summary>
-/// Checks that it returns the expected time zone instance when using a common valid Id.
+/// Checks that all the input parameters are correctly stored.
 /// </summary>
-QTEST_CASE( GetTimeZoneById_ReturnsExpectedTimeZoneWhenUsingCommonId_Test )
+QTEST_CASE ( Constructor_AllInputDataIsCorrectlyStored_Test )
 {
     // [Preparation]
-    const string_q COMMON_TIMEZONE_ID = QE_L("Europe/Madrid");
-    const QTimeZone* NULL_TIMEZONE = null_q;
+    const string_q EXPECTED_CONDITION("Condition");
+    const string_q EXPECTED_MESSAGE("Message");
+    const int EXPECTED_LINE_NUMBER(123456);
+    const string_q EXPECTED_FILE_NAME("FileName");
 
-	// [Execution]
-    const QTimeZone* pTimeZone = SQTimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
-
+    // [Execution]
+    QAssertException assertException(EXPECTED_CONDITION, EXPECTED_MESSAGE, EXPECTED_LINE_NUMBER, EXPECTED_FILE_NAME);
+    
     // [Verification]
-    BOOST_CHECK_NE(pTimeZone, NULL_TIMEZONE);
-    BOOST_CHECK(pTimeZone->GetId() == COMMON_TIMEZONE_ID);
+    BOOST_CHECK(assertException.GetCondition() == EXPECTED_CONDITION);
+    BOOST_CHECK(assertException.GetMessage() == EXPECTED_MESSAGE);
+    BOOST_CHECK(assertException.GetLineNumber() == EXPECTED_LINE_NUMBER);
+    BOOST_CHECK(assertException.GetFileName() == EXPECTED_FILE_NAME);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when using an invalid Id.
-/// </summary>
-QTEST_CASE( GetTimeZoneById_AssertionFailsWhenIdIsNotValid_Test )
-{
-    // [Preparation]
-    const string_q INVALID_TIMEZONE_ID = QE_L("Not valid ID");
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        SQTimeZoneFactory::GetTimeZoneById(INVALID_TIMEZONE_ID);
-    }
-    catch(const QAssertException&)
-    {
-        bAssertionFailed = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-
-/// <summary>
-/// Checks that it returns null when using an invalid Id.
-/// </summary>
-QTEST_CASE( GetTimeZoneById_ReturnsNullWhenIdIsNotValid_Test )
-{
-    // [Preparation]
-    const string_q INVALID_TIMEZONE_ID = QE_L("Not valid ID");
-    const QTimeZone* NULL_TIMEZONE = null_q;
-
-	// [Execution]
-    const QTimeZone* pTimeZone = SQTimeZoneFactory::GetTimeZoneById(INVALID_TIMEZONE_ID);
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(pTimeZone, NULL_TIMEZONE);
-}
-
-#endif
-
-
-// End - Test Suite: SQTimeZoneFactory
+// End - Test Suite: QAssertException
 QTEST_SUITE_END()

@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QPoolAllocator.h"
 #include "QPoolAllocatorWhiteBox.h"
 #include "QAlignment.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
 using Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator;
@@ -69,7 +71,7 @@ QTEST_CASE( Constructor1_AssertionFailsWhenPoolSizeOrBlockSizeIsZero_Test )
     {
         QPoolAllocator pool(POOL_SIZE_TO_ASSERT, BLOCK_SIZE, ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bSizeAssertionFailed = true;
     }
@@ -78,7 +80,7 @@ QTEST_CASE( Constructor1_AssertionFailsWhenPoolSizeOrBlockSizeIsZero_Test )
     {
         QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE_TO_ASSERT, ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bBlockSizeAssertionFailed = true;
     }
@@ -141,7 +143,7 @@ QTEST_CASE( Constructor2_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE_TO_ASSERT, BLOCK_SIZE, pBuffer1);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bSizeAssertionFailed = true;
     }
@@ -150,7 +152,7 @@ QTEST_CASE( Constructor2_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE_TO_ASSERT, pBuffer2);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bBlockSizeAssertionFailed = true;
     }
@@ -159,7 +161,7 @@ QTEST_CASE( Constructor2_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE, pBufferToAssert);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bBufferAssertionFailed = true;
     }
@@ -227,7 +229,7 @@ QTEST_CASE( Constructor3_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE_TO_ASSERT, BLOCK_SIZE, pBuffer1, ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bSizeAssertionFailed = true;
     }
@@ -236,7 +238,7 @@ QTEST_CASE( Constructor3_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE_TO_ASSERT, pBuffer2, ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bBlockSizeAssertionFailed = true;
     }
@@ -245,7 +247,7 @@ QTEST_CASE( Constructor3_AssertionFailsWhenPoolSizeOrBlockSizeOrBufferAddressHas
     {
         QPoolAllocator pool(POOL_SIZE, BLOCK_SIZE_TO_ASSERT, pBufferToAssert, ALIGNMENT);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bBufferAssertionFailed = true;
     }
@@ -387,7 +389,7 @@ QTEST_CASE( Deallocate_AssertionFailsWhenBlockPointerIsInvalid_Test )
     {
         pool.Deallocate(pBufferToAssert1);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bNullBufferAssertionFailed = true;
     }
@@ -397,7 +399,7 @@ QTEST_CASE( Deallocate_AssertionFailsWhenBlockPointerIsInvalid_Test )
         pool.Deallocate(pBufferToAssert2);
 
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bInvalidBufferAssertionFailed = true;
     }
@@ -708,7 +710,7 @@ QTEST_CASE( CopyTo_AssertionFailsWhenDestinationBlocksCountAreMinorThanOrigin_Te
     {
         poolOrigin.CopyTo(poolDestination);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -747,7 +749,7 @@ QTEST_CASE( CopyTo_AssertionFailsWhenDestinationBlocksSizeAreMinorThanOrigin_Tes
     {
         poolOrigin.CopyTo(poolDestination);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1140,7 +1142,7 @@ QTEST_CASE( Reallocate1_AssertionFailsWhenInputSizeIsNotGreaterThanCurrentPoolSi
     {
         allocator.Reallocate(CURRENT_POOL_SIZE);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1276,7 +1278,7 @@ QTEST_CASE( Reallocate2_AssertionFailsWhenInputSizeIsNotGreaterThanCurrentPoolSi
     {
         allocator.Reallocate(CURRENT_POOL_SIZE, pInputBuffer);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1308,7 +1310,7 @@ QTEST_CASE( Reallocate2_AssertionFailsWhenInputBufferIsNull_Test )
     {
         allocator.Reallocate(CURRENT_POOL_SIZE, NULL_POINTER);
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

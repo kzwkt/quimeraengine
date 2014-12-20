@@ -31,6 +31,7 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "SQFloat.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -1623,7 +1624,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
     {
         SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1657,7 +1658,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
     {
         SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -1691,7 +1692,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
     {
         SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
     }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }

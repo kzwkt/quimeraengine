@@ -33,9 +33,11 @@ using namespace boost::unit_test;
 #include "QThread.h"
 #include "QStopwatch.h"
 #include "EQComparisonType.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::Threading::QThread;
 using Kinesis::QuimeraEngine::Common::QDelegate;
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 
 // Class whose methods are to be used in the tests of QThread
 class ThreadTestClass
@@ -93,12 +95,12 @@ public:
         {
             thread.Join();
         }
-        catch(...)
+        catch(const QAssertException&)
         {
             sm_bFunctionInterrupted = true;
         }
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         // This block silences the exception thrown in the destructor of the thread instance, don't remove it this time
     }
@@ -437,7 +439,7 @@ QTEST_CASE ( Destructor_AssertionFailsWhenInstanceIsDestroyedBeforeTheThreadHasF
 
     // [Execution]
     } // Destructor called
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -463,7 +465,7 @@ QTEST_CASE ( Interrupt_AssertionFailsWhenThreadIsNotRunning_Test )
     // [Execution]
         thread.Interrupt();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -562,7 +564,7 @@ QTEST_CASE ( ToString_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test
     {
         thread.ToString();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -675,7 +677,7 @@ QTEST_CASE ( GetId_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
     {
         thread.GetId();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
@@ -700,7 +702,7 @@ QTEST_CASE ( GetNativeHandle_AssertionFailsWhenMethodIsCalledAfterThreadHasStopp
     {
         thread.GetNativeHandle();
     }
-    catch(...)
+    catch(const QAssertException&)
     {
         bAssertionFailed = true;
     }
