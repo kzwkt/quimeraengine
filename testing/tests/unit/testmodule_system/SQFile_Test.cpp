@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QBasicArray.h"
 #include "EQTextEncoding.h"
 #include <boost/thread.hpp>
+#include <fstream>
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQFile;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
