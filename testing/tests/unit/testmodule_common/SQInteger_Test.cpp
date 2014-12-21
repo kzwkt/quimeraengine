@@ -682,6 +682,47 @@ QTEST_CASE ( FromHexadecimalString_CreatesIntegerFromHexadecimalValueWhenItEqual
 }
 
 /// <summary>
+/// Checks that a 0x-prefixed hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_CreatesIntegerFromHexadecimalValueWhenItHas0xPrefix_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING = "0xFFFFFFFF";
+    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the 0x prefix is case insensitive.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_ThePrefixIsCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING_LOWER_CASE = "0xFFFFFFFF";
+    const string_q INPUT_STRING_UPPER_CASE = "0XFFFFFFFF";
+    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
+    u32_q uResultLowerCase = 0;
+    u32_q uResultUpperCase = 0;
+
+    // [Execution]
+    uResultLowerCase = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING_LOWER_CASE);
+    uResultUpperCase = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING_UPPER_CASE);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResultLowerCase, uResultUpperCase);
+}
+
+/// <summary>
 /// Checks that it can create integers of different sizes.
 /// </summary>
 QTEST_CASE ( FromHexadecimalString_CreatesIntegersOfDifferentSizes_Test )
