@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
+    <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
     <ClCompile Include="..\..\..\..\source\SQDirectory.cpp" />

@@ -150,6 +150,8 @@
     <File Name="../../../../source/QArgumentTrace.cpp"/>
     <File Name="../../../../headers/QCallTrace.h"/>
     <File Name="../../../../source/QCallTrace.cpp"/>
+    <File Name="../../../../headers/QCallStackTrace.h"/>
+    <File Name="../../../../source/QCallStackTrace.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>

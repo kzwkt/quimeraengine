@@ -103,6 +103,9 @@
     <ClInclude Include="..\..\..\..\headers\SQThisThread.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -158,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQThisThread.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp">
+      <Filter>Diagnosis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
