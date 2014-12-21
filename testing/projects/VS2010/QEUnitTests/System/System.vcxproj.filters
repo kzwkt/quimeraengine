@@ -99,6 +99,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQThisThread_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTrace_Test.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
