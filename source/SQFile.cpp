@@ -35,6 +35,9 @@
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
+#elif defined(QE_OS_MAC)
+    #include <sys/attr.h>
+    #include <unistd.h>
 #endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
@@ -374,6 +377,32 @@ Kinesis::QuimeraEngine::Tools::Time::QDateTime SQFile::_GetFileCreationDateTime(
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    
+    // getattrlist returns the number of seconds since January 1, 1970 (UTC)
+    static const QDateTime SYSTEM_EPOCH(1970, 1, 1);
+
+    struct FileCreationDataStructure
+    {
+        uint32_t length;
+        timespec creationTime;
+    };
+
+    struct attrlist al;
+    al.bitmapcount = ATTR_BIT_MAP_COUNT;
+    al.reserved = 0;
+    al.commonattr = ATTR_CMN_CRTIME;
+    al.volattr = 0;
+    al.dirattr = 0;
+    al.fileattr = 0;
+    al.forkattr = 0;
+    
+    QBasicArray<i8_q> arPathString = file.ToString().ToBytes(EQTextEncoding::E_UTF8);
+    FileCreationDataStructure fileCreationData;
+    int nResult = getattrlist(arPathString.Get(), &al, &fileCreationData, sizeof(fileCreationData), FSOPT_REPORT_FULLSIZE);
+    
+    QE_ASSERT_ERROR(nResult == 0, "An unexpected error ocurred when obtaining the file attributes.");
+    
+    return SYSTEM_EPOCH + QTimeSpan(0, 0, 0, fileCreationData.creationTime.tv_sec, 0, 0, 0);
 }
 
 #endif
