@@ -31,6 +31,8 @@
 
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
+#include "Assertions.h"
+#include <math.h>
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
@@ -263,6 +265,57 @@ public:
         }
 
         return strResult;
+    }
+    
+    /// <summary>
+    /// Generates an integer value from an hexadecimal number contained in a string.
+    /// </summary>
+    /// <remarks>
+    /// The length of the input string must be equal or lower than the size, in bytes, of the integral type multiplied by 2 (every byte is represented by 2 cyphers).
+    /// </remarks>
+    /// <typeparam name="IntegerT">The unsigned integral type passed as argument.</typeparam>
+    /// <param name="strHexadecimal">[IN] The string that contains the hexadecimal number. It must contain hexadecimal cyphers only, 
+    /// without any space nor prefix. Letters can be uppercase or lowercase.</param>
+    /// <returns>
+    /// The obtained integer value.
+    /// </returns>
+    template<class IntegerT>
+    static IntegerT FromHexadecimalString(const string_q &strHexadecimal)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+        QE_ASSERT_ERROR(strHexadecimal.GetLength() <= sizeof(IntegerT) * 2U, "The string must contain 2 letters per byte of the integer.");
+
+        static const codepoint_q CODEPOINT_FIRST_NUMBER          = '0';
+        static const codepoint_q CODEPOINT_LAST_NUMBER           = '9';
+        static const codepoint_q CODEPOINT_FIRST_ALPHA_UPPERCASE = 'A';
+        static const codepoint_q CODEPOINT_LAST_ALPHA_UPPERCASE  = 'Z';
+        static const codepoint_q CODEPOINT_FIRST_ALPHA_LOWERCASE = 'a';
+        static const codepoint_q CODEPOINT_LAST_ALPHA_LOWERCASE  = 'z';
+
+        const unsigned int STRING_LENGTH = strHexadecimal.GetLength();
+        IntegerT uMultiplier = 0;
+        codepoint_q byteHalf = 0;
+        IntegerT value = 0;
+
+        for(unsigned int i = 0; i < STRING_LENGTH; ++i)
+        {
+            // It's a change of base (16 to 10), the exponent of the power of 16 is greater as the number occupies a more significant position in the string
+            uMultiplier = scast_q(powf(16.0f, scast_q(STRING_LENGTH - i - 1U, float)), IntegerT);
+
+            byteHalf = strHexadecimal[i].GetCodePoint();
+
+            if(byteHalf >= CODEPOINT_FIRST_NUMBER && byteHalf <= CODEPOINT_LAST_NUMBER)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_NUMBER); // 16^n * number
+            else if(byteHalf >= CODEPOINT_FIRST_ALPHA_UPPERCASE && byteHalf <= CODEPOINT_LAST_ALPHA_UPPERCASE)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_ALPHA_UPPERCASE + 10U); // 16^n * letter [A-F] (where letters start with a value of 10)
+            else if(byteHalf >= CODEPOINT_FIRST_ALPHA_LOWERCASE && byteHalf <= CODEPOINT_LAST_ALPHA_LOWERCASE)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_ALPHA_LOWERCASE + 10U); // 16^n * letter [a-f] (where letters start with a value of 10)
+            else
+                QE_ASSERT_ERROR(false, "The string contains invalid characters.");
+        }
+
+        return value;
     }
 
 };

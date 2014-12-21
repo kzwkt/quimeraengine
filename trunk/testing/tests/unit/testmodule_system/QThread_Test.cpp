@@ -31,16 +31,18 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QThread.h"
+
 #include "QStopwatch.h"
 #include "EQComparisonType.h"
 #include "QAssertException.h"
+#include "SQThisThread.h"
 
 using Kinesis::QuimeraEngine::System::Threading::QThread;
 using Kinesis::QuimeraEngine::Common::QDelegate;
 using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 
 // Class whose methods are to be used in the tests of QThread
-class ThreadTestClass
+class QThreadTestClass
 {
 public:
 
@@ -57,7 +59,7 @@ public:
     static bool sm_bFunction8Called;
     static bool sm_bFunctionInterrupted;
 
-    ThreadTestClass(int param) : m_nMember(param)
+    QThreadTestClass(int param) : m_nMember(param)
     {
     }
 
@@ -82,12 +84,15 @@ public:
 
     static void Wait(unsigned int milliseconds)
     {
-        boost::this_thread::sleep(boost::posix_time::millisec(milliseconds)); // [TODO] Thund: Replace this with SQThisThread::Sleep(QTimespan(0, 0, 0, 0, milliseconds, 0, 0));
+        using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
+        using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+
+        SQThisThread::Sleep(QTimeSpan(0, 0, 0, 0, milliseconds, 0, 0));
     }
 
     static void FunctionToBeInterrupted() try
     {
-        QDelegate<void()> function(&ThreadTestClass::WorkSomeTime);
+        QDelegate<void()> function(&QThreadTestClass::WorkSomeTime);
 
         QThread thread(function); // The function is assumed to take enough time
 
@@ -171,16 +176,16 @@ public:
     }
 };
 
-bool ThreadTestClass::sm_bFunction0Called = false;
-bool ThreadTestClass::sm_bFunction1Called = false;
-bool ThreadTestClass::sm_bFunction2Called = false;
-bool ThreadTestClass::sm_bFunction3Called = false;
-bool ThreadTestClass::sm_bFunction4Called = false;
-bool ThreadTestClass::sm_bFunction5Called = false;
-bool ThreadTestClass::sm_bFunction6Called = false;
-bool ThreadTestClass::sm_bFunction7Called = false;
-bool ThreadTestClass::sm_bFunction8Called = false;
-bool ThreadTestClass::sm_bFunctionInterrupted = false;
+bool QThreadTestClass::sm_bFunction0Called = false;
+bool QThreadTestClass::sm_bFunction1Called = false;
+bool QThreadTestClass::sm_bFunction2Called = false;
+bool QThreadTestClass::sm_bFunction3Called = false;
+bool QThreadTestClass::sm_bFunction4Called = false;
+bool QThreadTestClass::sm_bFunction5Called = false;
+bool QThreadTestClass::sm_bFunction6Called = false;
+bool QThreadTestClass::sm_bFunction7Called = false;
+bool QThreadTestClass::sm_bFunction8Called = false;
+bool QThreadTestClass::sm_bFunctionInterrupted = false;
 
 
 
@@ -192,8 +197,8 @@ QTEST_SUITE_BEGIN( QThread_TestSuite )
 QTEST_CASE ( Constructor1_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
 
     // [Execution]
     QThread thread(function);
@@ -201,7 +206,7 @@ QTEST_CASE ( Constructor1_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction0Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction0Called);
 }
 
 /// <summary>
@@ -210,8 +215,8 @@ QTEST_CASE ( Constructor1_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor2_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int)> function(&ThreadTestClass::FunctionWith1Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int)> function(&QThreadTestClass::FunctionWith1Params);
     int p1 = 0;
 
     // [Execution]
@@ -220,7 +225,7 @@ QTEST_CASE ( Constructor2_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction1Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction1Called);
 }
 
 /// <summary>
@@ -229,9 +234,9 @@ QTEST_CASE ( Constructor2_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor2_MethodOfCorrectObjectIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    ThreadTestClass object(0);
-    QDelegate<void(int)> function(&object, &ThreadTestClass::SetMember);
+    QThreadTestClass::ResetFlags();
+    QThreadTestClass object(0);
+    QDelegate<void(int)> function(&object, &QThreadTestClass::SetMember);
     const int EXPECTED_VALUE = 1;
 
     // [Execution]
@@ -249,8 +254,8 @@ QTEST_CASE ( Constructor2_MethodOfCorrectObjectIsCalled_Test )
 QTEST_CASE ( Constructor3_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int)> function(&ThreadTestClass::FunctionWith2Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int)> function(&QThreadTestClass::FunctionWith2Params);
     int p1 = 0;
     int p2 = 0;
 
@@ -260,7 +265,7 @@ QTEST_CASE ( Constructor3_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction2Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction2Called);
 }
 
 /// <summary>
@@ -269,8 +274,8 @@ QTEST_CASE ( Constructor3_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor4_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int)> function(&ThreadTestClass::FunctionWith3Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int)> function(&QThreadTestClass::FunctionWith3Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -281,7 +286,7 @@ QTEST_CASE ( Constructor4_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction3Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction3Called);
 }
 
 /// <summary>
@@ -290,8 +295,8 @@ QTEST_CASE ( Constructor4_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor5_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int, int)> function(&ThreadTestClass::FunctionWith4Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int, int)> function(&QThreadTestClass::FunctionWith4Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -303,7 +308,7 @@ QTEST_CASE ( Constructor5_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction4Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction4Called);
 }
 
 /// <summary>
@@ -312,8 +317,8 @@ QTEST_CASE ( Constructor5_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor6_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int, int, int)> function(&ThreadTestClass::FunctionWith5Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int, int, int)> function(&QThreadTestClass::FunctionWith5Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -326,7 +331,7 @@ QTEST_CASE ( Constructor6_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction5Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction5Called);
 }
 
 /// <summary>
@@ -335,8 +340,8 @@ QTEST_CASE ( Constructor6_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor7_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int, int, int, int)> function(&ThreadTestClass::FunctionWith6Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int, int, int, int)> function(&QThreadTestClass::FunctionWith6Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -350,7 +355,7 @@ QTEST_CASE ( Constructor7_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction6Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction6Called);
 }
 
 /// <summary>
@@ -359,8 +364,8 @@ QTEST_CASE ( Constructor7_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor8_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int, int, int, int, int)> function(&ThreadTestClass::FunctionWith7Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int, int, int, int, int)> function(&QThreadTestClass::FunctionWith7Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -375,7 +380,7 @@ QTEST_CASE ( Constructor8_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction7Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction7Called);
 }
 
 /// <summary>
@@ -384,8 +389,8 @@ QTEST_CASE ( Constructor8_FunctionIsCalled_Test )
 QTEST_CASE ( Constructor9_FunctionIsCalled_Test )
 {
     // [Preparation]
-    ThreadTestClass::ResetFlags();
-    QDelegate<void(int, int, int, int, int, int, int, int)> function(&ThreadTestClass::FunctionWith8Params);
+    QThreadTestClass::ResetFlags();
+    QDelegate<void(int, int, int, int, int, int, int, int)> function(&QThreadTestClass::FunctionWith8Params);
     int p1 = 0;
     int p2 = 0;
     int p3 = 0;
@@ -401,7 +406,7 @@ QTEST_CASE ( Constructor9_FunctionIsCalled_Test )
     // [Verification]
     thread.Join();
 
-    BOOST_CHECK(ThreadTestClass::sm_bFunction8Called);
+    BOOST_CHECK(QThreadTestClass::sm_bFunction8Called);
 }
 
 /// <summary>
@@ -411,7 +416,7 @@ QTEST_CASE ( Destructor_NothingHappensWhenThreadWasNotRunning_Test )
 {
     // [Preparation]
     const bool NO_EXCEPTIONS_THROWN = true;
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     {
         QThread thread(function);
         thread.Join();
@@ -430,7 +435,7 @@ QTEST_CASE ( Destructor_NothingHappensWhenThreadWasNotRunning_Test )
 QTEST_CASE ( Destructor_AssertionFailsWhenInstanceIsDestroyedBeforeTheThreadHasFinished_Test )
 {
     // [Preparation]
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     bool bAssertionFailed = false;
 
     try
@@ -454,7 +459,7 @@ QTEST_CASE ( Destructor_AssertionFailsWhenInstanceIsDestroyedBeforeTheThreadHasF
 QTEST_CASE ( Interrupt_AssertionFailsWhenThreadIsNotRunning_Test )
 {
     // [Preparation]
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 100;
     bool bAssertionFailed = false;
 
@@ -484,7 +489,7 @@ QTEST_CASE ( Join_WaitsUntilThreadFinishes_Test )
     using Kinesis::QuimeraEngine::System::Timing::QStopwatch;
 
     // [Preparation]
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 600;
 
     QStopwatch elapsedTime;
@@ -496,8 +501,8 @@ QTEST_CASE ( Join_WaitsUntilThreadFinishes_Test )
 
     // [Verification]
     u64_q uMilliseconds = elapsedTime.GetElapsedTimeAsInteger() / 1000000ULL;
-    BOOST_CHECK(uMilliseconds >= WAIT_TIME);
-    BOOST_CHECK(uMilliseconds < (WAIT_TIME + 50U)); // 50 ms tolerance
+    BOOST_CHECK(uMilliseconds >= WAIT_TIME - 10U); // 10 ms tolerance
+    BOOST_CHECK(uMilliseconds < (WAIT_TIME + 10U)); // 10 ms tolerance
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -508,8 +513,8 @@ QTEST_CASE ( Join_WaitsUntilThreadFinishes_Test )
 QTEST_CASE ( Join_AssertionFailsWhenThreadIsJoinedAfterItHasBeenInterrupted_Test )
 {
     // [Preparation]
-    QDelegate<void()> function(&ThreadTestClass::FunctionToBeInterrupted);
-    ThreadTestClass::ResetFlags();
+    QDelegate<void()> function(&QThreadTestClass::FunctionToBeInterrupted);
+    QThreadTestClass::ResetFlags();
 
     // [Execution]
     QThread thread(function); // The function is assumed to take enough time
@@ -517,7 +522,7 @@ QTEST_CASE ( Join_AssertionFailsWhenThreadIsJoinedAfterItHasBeenInterrupted_Test
     thread.Join();
 
     // [Verification]
-    BOOST_CHECK(ThreadTestClass::sm_bFunctionInterrupted);
+    BOOST_CHECK(QThreadTestClass::sm_bFunctionInterrupted);
 }
 
 #endif
@@ -532,7 +537,7 @@ QTEST_CASE ( ToString_FormatIsWhatExpected_Test )
     // [Preparation]
     const string_q EXPECTED_PART1("Thread(");
     const string_q EXPECTED_PART2(")");
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 200;
     QThread thread(function, WAIT_TIME);
 
@@ -554,7 +559,7 @@ QTEST_CASE ( ToString_FormatIsWhatExpected_Test )
 QTEST_CASE ( ToString_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
 {
     // [Preparation]
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     QThread thread(function);
     thread.Join();
     bool bAssertionFailed = false;
@@ -584,7 +589,7 @@ QTEST_CASE ( IsAlive_ReturnsTrueWhenThreadIsRunning_Test )
 
     // [Preparation]
     const bool EXPECTED_RESULT = true;
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 200;
     QThread thread(function, WAIT_TIME);
 
@@ -605,7 +610,7 @@ QTEST_CASE ( IsAlive_ReturnsFalseWhenThreadIsNotRunning_Test )
 
     // [Preparation]
     const bool EXPECTED_RESULT = false;
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     QThread thread(function);
     thread.Join();
 
@@ -625,7 +630,7 @@ QTEST_CASE ( IsInterrupted_ReturnsTrueWhenThreadWasInterrupted_Test )
 
     // [Preparation]
     const bool EXPECTED_RESULT = true;
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 200;
     QThread thread(function, WAIT_TIME);
     thread.Interrupt();
@@ -647,7 +652,7 @@ QTEST_CASE ( IsInterrupted_ReturnsFalseWhenThreadWasNotInterrupted_Test )
 
     // [Preparation]
     const bool EXPECTED_RESULT = false;
-    QDelegate<void(unsigned int)> function(&ThreadTestClass::Wait);
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
     const unsigned int WAIT_TIME = 200;
     QThread thread(function, WAIT_TIME);
 
@@ -667,7 +672,7 @@ QTEST_CASE ( IsInterrupted_ReturnsFalseWhenThreadWasNotInterrupted_Test )
 QTEST_CASE ( GetId_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
 {
     // [Preparation]
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     QThread thread(function);
     thread.Join();
     bool bAssertionFailed = false;
@@ -692,7 +697,7 @@ QTEST_CASE ( GetId_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
 QTEST_CASE ( GetNativeHandle_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
 {
     // [Preparation]
-    QDelegate<void()> function(&ThreadTestClass::FunctionWith0Params);
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
     QThread thread(function);
     thread.Join();
     bool bAssertionFailed = false;

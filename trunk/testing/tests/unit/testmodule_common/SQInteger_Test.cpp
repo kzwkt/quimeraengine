@@ -624,5 +624,132 @@ QTEST_CASE ( ToStringHexadecimal_ItReturnsExpectedValueWhenUsingEightBytes_Test 
     BOOST_CHECK(strResult == EXPECTED_STRING);
 }
 
+/// <summary>
+/// Checks that a common hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_CreatesIntegerFromCommonHexadecimalValue_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING = "6AC5FF01";
+    const u32_q EXPECTED_VALUE = 0x6AC5FF01;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a zero hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_CreatesIntegerFromHexadecimalValueWhenItEqualsZero_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING = "00000000";
+    const u32_q EXPECTED_VALUE = 0;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a maximum hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_CreatesIntegerFromHexadecimalValueWhenItEqualsMaximum_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING = "FFFFFFFF";
+    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it can create integers of different sizes.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_CreatesIntegersOfDifferentSizes_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING_8BITS  = "2A";
+    const string_q INPUT_STRING_16BITS = "6AC5";
+    const string_q INPUT_STRING_32BITS = "6AC5FF01";
+    const string_q INPUT_STRING_64BITS = "6AC5FF016AC5FF01";
+    const u8_q  EXPECTED_VALUE_8BITS  = 0x2AU;
+    const u16_q EXPECTED_VALUE_16BITS = 0x6AC5U;
+    const u32_q EXPECTED_VALUE_32BITS = 0x6AC5FF01U;
+    const u64_q EXPECTED_VALUE_64BITS = 0x6AC5FF016AC5FF01ULL;
+    u8_q  uResult8Bits  = 0;
+    u16_q uResult16Bits = 0;
+    u32_q uResult32Bits = 0;
+    u64_q uResult64Bits = 0;
+
+    // [Execution]
+    uResult8Bits = SQInteger::FromHexadecimalString<u8_q>(INPUT_STRING_8BITS);
+    uResult16Bits = SQInteger::FromHexadecimalString<u16_q>(INPUT_STRING_16BITS);
+    uResult32Bits = SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING_32BITS);
+    uResult64Bits = SQInteger::FromHexadecimalString<u64_q>(INPUT_STRING_64BITS);
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult8Bits,  EXPECTED_VALUE_8BITS);
+    BOOST_CHECK_EQUAL(uResult16Bits, EXPECTED_VALUE_16BITS);
+    BOOST_CHECK_EQUAL(uResult32Bits, EXPECTED_VALUE_32BITS);
+    BOOST_CHECK_EQUAL(uResult64Bits, EXPECTED_VALUE_64BITS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when string's length is greater than the integer type's size.
+/// </summary>
+QTEST_CASE ( FromHexadecimalString_AssertionFailsWhenInputStringLengthIsGreaterThanntegerSize_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const string_q INPUT_STRING = "A45FA45FA45FA45F";
+    const bool ASSERTION_FAILED = true;
+    u32_q uResult32Bits = 0;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        SQInteger::FromHexadecimalString<u32_q>(INPUT_STRING);
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#endif
+
+
 // End - Test Suite: SQInteger
 QTEST_SUITE_END()

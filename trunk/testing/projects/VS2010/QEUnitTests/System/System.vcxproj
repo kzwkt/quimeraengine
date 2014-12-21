@@ -31,6 +31,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQDirectory_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQFile_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQThisThread_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp" />
   </ItemGroup>

@@ -111,6 +111,7 @@
     </VirtualDirectory>
     <VirtualDirectory Name="Threading">
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/SQThisThread_Test.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
@@ -222,6 +223,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
@@ -354,6 +356,7 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>
@@ -483,6 +486,7 @@
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudt"/>
         <Library Value="icuuc"/>

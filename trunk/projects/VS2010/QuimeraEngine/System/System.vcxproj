@@ -180,6 +180,7 @@
     <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
     <ClInclude Include="..\..\..\..\headers\SQFile.h" />
+    <ClInclude Include="..\..\..\..\headers\SQThisThread.h" />
     <ClInclude Include="..\..\..\..\headers\SQTypeExtensions.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
     <ClCompile Include="..\..\..\..\source\QUri.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFile.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQThisThread.cpp" />
     <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
