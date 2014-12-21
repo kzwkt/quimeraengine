@@ -356,7 +356,6 @@
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
-        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="boost_unit_test_framework-mt-d"/>
         <Library Value="icudata"/>

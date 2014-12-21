@@ -186,7 +186,6 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
-        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
@@ -280,7 +279,6 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
-        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
