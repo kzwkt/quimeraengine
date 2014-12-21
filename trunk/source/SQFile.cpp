@@ -31,7 +31,7 @@
 #include "QDateTime.h"
 #include "QLocalTimeZone.h"
 #include "QStopwatch.h"
-#include <boost/thread.hpp>
+#include "SQThisThread.h"
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
@@ -322,6 +322,7 @@ EQFileSystemError SQFile::_ConvertErrorCodeToFileSystemError(const boost::system
 
 bool SQFile::_WaitForCreation(const boost::filesystem::path &filePath)
 {
+    using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
     using Kinesis::QuimeraEngine::System::Timing::QStopwatch;
     using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 
@@ -333,7 +334,7 @@ bool SQFile::_WaitForCreation(const boost::filesystem::path &filePath)
 
     while(!boost::filesystem::exists(filePath) && !bTooMuchTime)
     {
-        boost::this_thread::yield(); // [TODO] Thund: Use SQThisThread when it exists
+        SQThisThread::Yield(); // [TODO] Thund: Use SQThisThread when it exists
         bTooMuchTime = elapsedTime.GetElapsedTimeAsTimeSpan().GetMilliseconds() < MAXIMUM_WAIT_TIME;
     }
 
