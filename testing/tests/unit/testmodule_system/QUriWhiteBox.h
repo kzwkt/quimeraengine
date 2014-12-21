@@ -53,13 +53,6 @@ class QUriWhiteBox : public QUri
 public:
 
     // Protected method exposed for testing purposes
-    template<class IntegerT>
-    static void CreateIntegerFromHexadecimalString(const string_q &strHexadecimal, IntegerT &value)
-    {
-        QUri::CreateIntegerFromHexadecimalString(strHexadecimal, value);
-    }
-
-    // Protected method exposed for testing purposes
     static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
     {
         QUri::RemoveDotSegments(arPathSegments);

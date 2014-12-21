@@ -32,10 +32,6 @@
 #include "QTimeSpan.h"
 #include <boost/thread.hpp>
 
-#if defined(QE_OS_WINDOWS)
-    #include <Windows.h>
-    #undef Yield // This definition appears in Windows headers which prevents us to use the name "Yield" as the name of a method
-#endif
 
 namespace Kinesis
 {
@@ -446,9 +442,10 @@ public:
     QThread::Id GetId() const;
 
     /// <summary>
-    /// Gets the ID of the thread using the native type of the platform.
+    /// Gets a native handle of the thread using platform specific type.
     /// </summary>
     /// <remarks>
+    /// Examples of handle types: HANDLE on Windows, pthread_t on Unix-based systems like Linux or Mac.<br/>
     /// This method should not be called if the thread is not running.
     /// </remarks>
     /// <returns>

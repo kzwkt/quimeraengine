@@ -24,18 +24,16 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QThread.h"
+#include "SQThisThread.h"
 
 #include "SQInteger.h"
-#include "SQThisThread.h"
+#include <sstream>
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
 #elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     #include <pthread.h>
 #endif
-
-using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
 
 namespace Kinesis
@@ -47,30 +45,6 @@ namespace System
 namespace Threading
 {
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |  ATTRIBUTES INITIALIZATION |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-    
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |          DESTRUCTOR        |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-QThread::~QThread()
-{
-    QE_ASSERT_ERROR(!this->IsAlive(), "The thread handler was destroyed while the thread was still alive.");
-}
-
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -81,23 +55,20 @@ QThread::~QThread()
 //##################                                                       ##################
 //##################=======================================================##################
 
-void QThread::Interrupt()
+void SQThisThread::Yield()
 {
-    QE_ASSERT_ERROR(this->IsAlive(), "The thread cannot be interrupted, it is not running.");
+    boost::this_thread::yield();
+}
+
+void SQThisThread::Sleep(const Kinesis::QuimeraEngine::Tools::Time::QTimeSpan &duration)
+{
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(duration.GetMilliseconds()));
+}
     
-    m_thread.interrupt();
-}
-
-void QThread::Join()
+string_q SQThisThread::ToString()
 {
-    QE_ASSERT_ERROR(SQThisThread::GetId() != this->GetId(), "Deadlock detected: The thread is trying to wait for itself to finish.");
-    QE_ASSERT_ERROR(!SQThisThread::IsInterrupted(), "The thread that is calling this method of this instance was interrupted.");
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
-    m_thread.join();
-}
-
-string_q QThread::ToString() const
-{
 #if defined(QE_OS_WINDOWS)
     typedef DWORD IdInteger;
 #elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
@@ -109,13 +80,13 @@ string_q QThread::ToString() const
     string_q strResult = STRING_PART1;
     std::string strOutput;
     std::stringstream os(strOutput);
-    os << this->GetId();
+    os << SQThisThread::GetId();
     string_q strId(os.str().c_str());
     strResult.Append(SQInteger::ToString(SQInteger::FromHexadecimalString<IdInteger>(strId)));
     strResult.Append(STRING_PART3);
     return strResult;
 }
-
+    
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -126,31 +97,31 @@ string_q QThread::ToString() const
 //##################                                                       ##################
 //##################=======================================================##################
 
-bool QThread::IsAlive() const
+bool SQThisThread::IsInterrupted()
 {
-    return m_thread.joinable();
+    return boost::this_thread::interruption_requested();
 }
 
-bool QThread::IsInterrupted() const
+QThread::Id SQThisThread::GetId()
 {
-    return m_thread.interruption_requested();
+    return boost::this_thread::get_id();
 }
 
-QThread::Id QThread::GetId() const
-{
-    QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to get the Id of a not-running thread.");
+#if defined(QE_OS_WINDOWS)
 
-    return m_thread.get_id();
+QThread::NativeThreadHandle SQThisThread::GetNativeHandle()
+{
+    return ::GetCurrentThread();
 }
 
-QThread::NativeThreadHandle QThread::GetNativeHandle() const
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+QThread::NativeThreadHandle SQThisThread::GetNativeHandle()
 {
-    QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to get the native handle of a not-running thread.");
-
-    QThread* pNonConstThis = ccast_q(this, QThread*); // This cast is necessary because the function is const but the Boost's native_handle function is not (without known reason)
-
-    return pNonConstThis->m_thread.native_handle();
+    return pthread_self();
 }
+
+#endif
 
 
 } //namespace Threading

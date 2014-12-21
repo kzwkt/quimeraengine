@@ -154,6 +154,8 @@
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>
     <File Name="../../../../source/QThread.cpp"/>
+    <File Name="../../../../headers/SQThisThread.h"/>
+    <File Name="../../../../source/SQThisThread.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
@@ -184,6 +186,7 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
@@ -277,6 +280,7 @@
         <Library Value="icui18n"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>
@@ -370,6 +374,7 @@
         <Library Value="icuin"/>
         <Library Value="boost_thread-mt-d"/>
         <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
         <Library Value="boost_filesystem-mt-d"/>
         <Library Value="QuimeraEngineCommon"/>
         <Library Value="QuimeraEngineTools"/>

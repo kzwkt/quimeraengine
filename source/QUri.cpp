@@ -388,6 +388,7 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
     using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
     static unsigned int PERCENT_ENCODED_LENGTH = 3U; // "%FF"
     
@@ -434,9 +435,8 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
             }
 
             // Gets the UTF8 code unit from the percent-encoded value
-            QUri::CreateIntegerFromHexadecimalString(strInput.Substring(uCurrentPercentPosition + QUri::CHAR_PERCENT_SIGN.GetLength(), 
-                                                                        uCurrentPercentPosition + PERCENT_ENCODED_LENGTH - 1U), 
-                                                     arCodeUnits[uCurrentCodeUnit]);
+            arCodeUnits[uCurrentCodeUnit] = SQInteger::FromHexadecimalString<u8_q>(strInput.Substring(uCurrentPercentPosition + QUri::CHAR_PERCENT_SIGN.GetLength(), 
+                                                                                                      uCurrentPercentPosition + PERCENT_ENCODED_LENGTH - 1U));
 
             bPendingCharacters = true;
 
