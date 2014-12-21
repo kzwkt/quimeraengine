@@ -216,7 +216,7 @@ const QTimeZone* QLocalTimeZone::GetCurrentTimeZone()
     // Converts the time zone key name to a Unicode string
     string_q strWindowsTimeZoneId(rcast_q(tzInfo.TimeZoneKeyName, i8_q*), 
                                   wcslen(tzInfo.TimeZoneKeyName) * sizeof(wchar_t),
-                                  EQTextEncoding::E_UTF16LE); // [TODO] Thund: It would be necessary to distinguish between LE and BE
+                                  string_q::GetLocalEncodingUTF16());
 
     // Gets the equivalent time zone ID in the IANA/Olson database
     string_q strTimeZoneId = QLocalTimeZone::GetWindowsEquivalentTimeZoneId(strWindowsTimeZoneId);

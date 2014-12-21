@@ -30,7 +30,7 @@
 #include "QLocalTimeZone.h"
 #include "Assertions.h"
 #include "QStopwatch.h"
-#include <boost/thread.hpp>
+#include "SQThisThread.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
@@ -397,6 +397,7 @@ EQFileSystemError SQDirectory::_ConvertErrorCodeToFileSystemError(const boost::s
 
 bool SQDirectory::_WaitForCreationOrDeletion(const boost::filesystem::path &directoryOrFilePath, const bool bTDeletionFCreation)
 {
+    using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
     using Kinesis::QuimeraEngine::System::Timing::QStopwatch;
     using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 
@@ -408,7 +409,7 @@ bool SQDirectory::_WaitForCreationOrDeletion(const boost::filesystem::path &dire
 
     while(boost::filesystem::exists(directoryOrFilePath) == bTDeletionFCreation && !bTooMuchTime)
     {
-        boost::this_thread::yield(); // [TODO] Thund: Use SQThisThread when it exists
+        SQThisThread::Yield();
         bTooMuchTime = elapsedTime.GetElapsedTimeAsTimeSpan().GetMilliseconds() < MAXIMUM_WAIT_TIME;
     }
 
