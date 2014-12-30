@@ -66,7 +66,7 @@
                         {                                                                                                                         \
                             QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
                         }                                                                                                                         \
-                        throw new Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__); \
+                        throw Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__);     \
                     }                                                                                                                             \
                 }
     #else
