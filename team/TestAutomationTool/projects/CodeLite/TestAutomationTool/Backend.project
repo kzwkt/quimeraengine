@@ -181,6 +181,48 @@
         <SearchPaths/>
       </Completion>
     </Configuration>
+    <Configuration Name="DebugMac32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;`wx-config --cflags`" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
     <Configuration Name="DebugWin32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud"/>
@@ -224,6 +266,48 @@
       </Completion>
     </Configuration>
     <Configuration Name="ReleaseLinux32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="`wx-config --cflags`" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="ReleaseMac32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="`wx-config --cflags`" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu"/>
         <IncludePath Value="../../../headers"/>
