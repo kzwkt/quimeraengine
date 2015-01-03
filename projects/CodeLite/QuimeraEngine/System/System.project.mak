@@ -30,8 +30,8 @@ INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC = $(EXECUTION_PATH)../../../garbage/
 OBJECTS_DEBUGLINUX32SHAREDRTDYNAMIC = $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QObject.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QLocalTimeZone.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QDateTimeNow.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QStopwatch.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QUri.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.EQNewLineCharacters.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QPath.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QFileInfo.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QDirectoryInfo.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.SQFile.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.SQDirectory.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.SQAnyTypeToStringConverter.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.SQTypeExtensions.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QArgumentTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QCallTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QCallStackTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.QThread.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTDYNAMIC)__.__.__.source.SQThisThread.o
 
 prebuildDebugLinux32SharedrtDynamic:
-	test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic mkdir -p "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic"
-	test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic mkdir -p "$(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic"
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic) then mkdir -p "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic) then mkdir -p "$(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic"); fi
 
 
 DebugLinux32SharedrtDynamic: $(OBJECTS_DEBUGLINUX32SHAREDRTDYNAMIC)
@@ -99,8 +99,10 @@ buildDebugLinux32SharedrtDynamic: prebuildDebugLinux32SharedrtDynamic DebugLinux
 cleanDebugLinux32SharedrtDynamic:
 	rm -f $(OBJECTS_DEBUGLINUX32SHAREDRTDYNAMIC)
 	rm -f $(OUTPUT_DEBUGLINUX32SHAREDRTDYNAMIC)
-	test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic rmdir "$(EXECUTION_PATH)..\..\..\bin\GCC\DebugLinux32SharedrtDynamic"
-	test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic rmdir "$(EXECUTION_PATH)..\..\..\garbage\GCC\DebugLinux32SharedrtDynamic"
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic) then rm -rf "$(EXECUTION_PATH)../../../bin\GCC\DebugLinux32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic) then rmdir "$(EXECUTION_PATH)../../../bin\GCC\DebugLinux32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic) then rm -rf "$(EXECUTION_PATH)../../../garbage\GCC\DebugLinux32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtDynamic) then rmdir "$(EXECUTION_PATH)../../../garbage\GCC\DebugLinux32SharedrtDynamic"; fi
 
 
 #------------------------------------------------------------
@@ -117,8 +119,8 @@ INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC = $(EXECUTION_PATH)../../../garbage/G
 OBJECTS_DEBUGLINUX32SHAREDRTSTATIC = $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QObject.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QLocalTimeZone.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QDateTimeNow.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QStopwatch.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QUri.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.EQNewLineCharacters.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QPath.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QFileInfo.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QDirectoryInfo.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.SQFile.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.SQDirectory.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.SQAnyTypeToStringConverter.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.SQTypeExtensions.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QArgumentTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QCallTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QCallStackTrace.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.QThread.o $(INTERMEDIARYDIR_DEBUGLINUX32SHAREDRTSTATIC)__.__.__.source.SQThisThread.o
 
 prebuildDebugLinux32SharedrtStatic:
-	test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic mkdir -p "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic"
-	test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic mkdir -p "$(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic"
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic) then mkdir -p "$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic) then mkdir -p "$(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic"); fi
 
 
 DebugLinux32SharedrtStatic: $(OBJECTS_DEBUGLINUX32SHAREDRTSTATIC)
@@ -186,8 +188,10 @@ buildDebugLinux32SharedrtStatic: prebuildDebugLinux32SharedrtStatic DebugLinux32
 cleanDebugLinux32SharedrtStatic:
 	rm -f $(OBJECTS_DEBUGLINUX32SHAREDRTSTATIC)
 	rm -f $(OUTPUT_DEBUGLINUX32SHAREDRTSTATIC)
-	test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic rmdir "$(EXECUTION_PATH)..\..\..\bin\GCC\DebugLinux32SharedrtStatic"
-	test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic rmdir "$(EXECUTION_PATH)..\..\..\garbage\GCC\DebugLinux32SharedrtStatic"
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic) then rm -rf "$(EXECUTION_PATH)../../../bin\GCC\DebugLinux32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic) then rmdir "$(EXECUTION_PATH)../../../bin\GCC\DebugLinux32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic) then rm -rf "$(EXECUTION_PATH)../../../garbage\GCC\DebugLinux32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/GCC/DebugLinux32SharedrtStatic) then rmdir "$(EXECUTION_PATH)../../../garbage\GCC\DebugLinux32SharedrtStatic"; fi
 
 
 #------------------------------------------------------------
@@ -204,8 +208,8 @@ INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC = $(EXECUTION_PATH)../../../garbage/Cl
 OBJECTS_DEBUGMAC32SHAREDRTDYNAMIC = $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QObject.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QLocalTimeZone.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QDateTimeNow.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QStopwatch.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QUri.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.EQNewLineCharacters.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QPath.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QFileInfo.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QDirectoryInfo.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.SQFile.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.SQDirectory.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.SQAnyTypeToStringConverter.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.SQTypeExtensions.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QArgumentTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QCallTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QCallStackTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.QThread.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTDYNAMIC)__.__.__.source.SQThisThread.o
 
 prebuildDebugMac32SharedrtDynamic:
-	test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic mkdir -p "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic"
-	test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic mkdir -p "$(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic"
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic) then mkdir -p "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic) then mkdir -p "$(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic"); fi
 
 
 DebugMac32SharedrtDynamic: $(OBJECTS_DEBUGMAC32SHAREDRTDYNAMIC)
@@ -273,8 +277,10 @@ buildDebugMac32SharedrtDynamic: prebuildDebugMac32SharedrtDynamic DebugMac32Shar
 cleanDebugMac32SharedrtDynamic:
 	rm -f $(OBJECTS_DEBUGMAC32SHAREDRTDYNAMIC)
 	rm -f $(OUTPUT_DEBUGMAC32SHAREDRTDYNAMIC)
-	test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic rmdir "$(EXECUTION_PATH)..\..\..\bin\Clang\DebugMac32SharedrtDynamic"
-	test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic rmdir "$(EXECUTION_PATH)..\..\..\garbage\Clang\DebugMac32SharedrtDynamic"
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic) then rm -rf "$(EXECUTION_PATH)../../../bin\Clang\DebugMac32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic) then rmdir "$(EXECUTION_PATH)../../../bin\Clang\DebugMac32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic) then rm -rf "$(EXECUTION_PATH)../../../garbage\Clang\DebugMac32SharedrtDynamic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtDynamic) then rmdir "$(EXECUTION_PATH)../../../garbage\Clang\DebugMac32SharedrtDynamic"; fi
 
 
 #------------------------------------------------------------
@@ -291,8 +297,8 @@ INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC = $(EXECUTION_PATH)../../../garbage/Cla
 OBJECTS_DEBUGMAC32SHAREDRTSTATIC = $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QObject.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QLocalTimeZone.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QDateTimeNow.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QStopwatch.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QUri.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.EQNewLineCharacters.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QPath.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QFileInfo.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QDirectoryInfo.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.SQFile.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.SQDirectory.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.SQAnyTypeToStringConverter.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.SQTypeExtensions.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QArgumentTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QCallTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QCallStackTrace.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.QThread.o $(INTERMEDIARYDIR_DEBUGMAC32SHAREDRTSTATIC)__.__.__.source.SQThisThread.o
 
 prebuildDebugMac32SharedrtStatic:
-	test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic mkdir -p "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic"
-	test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic mkdir -p "$(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic"
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic) then mkdir -p "$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic) then mkdir -p "$(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic"); fi
 
 
 DebugMac32SharedrtStatic: $(OBJECTS_DEBUGMAC32SHAREDRTSTATIC)
@@ -360,8 +366,10 @@ buildDebugMac32SharedrtStatic: prebuildDebugMac32SharedrtStatic DebugMac32Shared
 cleanDebugMac32SharedrtStatic:
 	rm -f $(OBJECTS_DEBUGMAC32SHAREDRTSTATIC)
 	rm -f $(OUTPUT_DEBUGMAC32SHAREDRTSTATIC)
-	test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic rmdir "$(EXECUTION_PATH)..\..\..\bin\Clang\DebugMac32SharedrtStatic"
-	test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic rmdir "$(EXECUTION_PATH)..\..\..\garbage\Clang\DebugMac32SharedrtStatic"
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic) then rm -rf "$(EXECUTION_PATH)../../../bin\Clang\DebugMac32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic) then rmdir "$(EXECUTION_PATH)../../../bin\Clang\DebugMac32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic) then rm -rf "$(EXECUTION_PATH)../../../garbage\Clang\DebugMac32SharedrtStatic"; fi
+	if (test -d $(EXECUTION_PATH)../../../garbage/Clang/DebugMac32SharedrtStatic) then rmdir "$(EXECUTION_PATH)../../../garbage\Clang\DebugMac32SharedrtStatic"; fi
 
 
 #------------------------------------------------------------
