@@ -1,10 +1,6 @@
 #------------------------------------------------------------------------------------------------------------#
 #------------------------------------System------------------------------------#
 #------------------------------------------------------------------------------------------------------------#
-CXX = g++.exe
-AR = ar.exe
-LD = g++.exe
-AS = as.exe
 
 #------------------------------------------------------------
 #----------------------- GLOBAL ---------------------
@@ -19,6 +15,10 @@ DEFINITIONS_GLOBAL =
 #------------------------------------------------------------
 #------------- DebugLinux32SharedrtDynamic --------------
 #------------------------------------------------------------
+CXX = g++
+AR = ar
+LD = g++
+AS = as
 INCLUDES_DEBUGLINUX32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include -I$(EXECUTION_PATH)J:/WindowsKit/8.0/Include/um -I$(EXECUTION_PATH)J:/WindowsKit/8.0/Include/shared -I$(EXECUTION_PATH)_M_IX86
 LIBRARYDIRS_DEBUGLINUX32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic -L$(EXECUTION_PATH)../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic
 LIBRARIES_DEBUGLINUX32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -licudata -licuuc -licui18n -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lQuimeraEngineCommon -lQuimeraEngineTools -lrt
@@ -108,6 +108,10 @@ cleanDebugLinux32SharedrtDynamic:
 #------------------------------------------------------------
 #------------- DebugLinux32SharedrtStatic --------------
 #------------------------------------------------------------
+CXX = g++
+AR = ar
+LD = g++
+AS = as
 INCLUDES_DEBUGLINUX32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGLINUX32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL)
 LIBRARIES_DEBUGLINUX32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL)
@@ -197,6 +201,10 @@ cleanDebugLinux32SharedrtStatic:
 #------------------------------------------------------------
 #------------- DebugMac32SharedrtDynamic --------------
 #------------------------------------------------------------
+CXX = clang++
+AR = ar rcu
+LD = clang++
+AS = llvm-as
 INCLUDES_DEBUGMAC32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGMAC32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic -L$(EXECUTION_PATH)../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic
 LIBRARIES_DEBUGMAC32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -licudata -licuuc -licui18n -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lQuimeraEngineCommon -lQuimeraEngineTools
@@ -286,6 +294,10 @@ cleanDebugMac32SharedrtDynamic:
 #------------------------------------------------------------
 #------------- DebugMac32SharedrtStatic --------------
 #------------------------------------------------------------
+CXX = clang++
+AR = ar rcu
+LD = clang++
+AS = llvm-as
 INCLUDES_DEBUGMAC32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGMAC32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL)
 LIBRARIES_DEBUGMAC32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL)
@@ -375,6 +387,10 @@ cleanDebugMac32SharedrtStatic:
 #------------------------------------------------------------
 #------------- DebugWin32SharedrtDynamic --------------
 #------------------------------------------------------------
+CXX = g++.exe
+AR = ar.exe
+LD = g++.exe
+AS = as.exe
 INCLUDES_DEBUGWIN32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGWIN32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW -L$(EXECUTION_PATH)../../../bin/MinGW/DebugWin32SharedrtDynamic -L$(EXECUTION_PATH)../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic
 LIBRARIES_DEBUGWIN32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -licudt -licuuc -licuin -lboost_thread-mt-d -lboost_system-mt-d -lboost_chrono-mt-d -lboost_filesystem-mt-d -lQuimeraEngineCommon -lQuimeraEngineTools
@@ -462,6 +478,10 @@ cleanDebugWin32SharedrtDynamic:
 #------------------------------------------------------------
 #------------- DebugWin32SharedrtStatic --------------
 #------------------------------------------------------------
+CXX = g++.exe
+AR = ar.exe
+LD = g++.exe
+AS = as.exe
 INCLUDES_DEBUGWIN32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../headers -I$(EXECUTION_PATH)../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGWIN32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL)
 LIBRARIES_DEBUGWIN32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL)
