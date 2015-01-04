@@ -90,10 +90,6 @@ namespace MakefileFromCodeLite
             string result = "#------------------------------------------------------------------------------------------------------------#\n";
             result += "#------------------------------------" + projectModel.Name + "------------------------------------#\n";
             result += "#------------------------------------------------------------------------------------------------------------#\n";
-            result += "CXX = g++.exe\n";
-            result += "AR = ar.exe\n";
-            result += "LD = g++.exe\n";
-            result += "AS = as.exe\n";
             result += "\n";
 
             string phony = ".PHONY:";
@@ -167,6 +163,33 @@ namespace MakefileFromCodeLite
                 projectResult += "#------------------------------------------------------------\n";
                 projectResult += "#------------- " + config.Name + " --------------\n";
                 projectResult += "#------------------------------------------------------------\n";
+
+                switch (OPERATING_SYSTEM)
+                {
+                    case ConfigurationOS.Windows:
+                        projectResult += "CXX_" + CONFIG_NAME + " = g++.exe\n";
+                        projectResult += "AR_" + CONFIG_NAME + " = ar.exe\n";
+                        projectResult += "LD_" + CONFIG_NAME + " = g++.exe\n";
+                        projectResult += "AS_" + CONFIG_NAME + " = as.exe\n";
+                        break;
+                    case ConfigurationOS.Linux:
+                        projectResult += "CXX_" + CONFIG_NAME + " = g++\n";
+                        projectResult += "AR_" + CONFIG_NAME + " = ar\n";
+                        projectResult += "LD_" + CONFIG_NAME + " = g++\n";
+                        projectResult += "AS_" + CONFIG_NAME + " = as\n";
+                        break;
+                    case ConfigurationOS.Mac:
+                        projectResult += "CXX_" + CONFIG_NAME + " = clang++\n";
+                        projectResult += "AR_" + CONFIG_NAME + " = ar rcu\n";
+                        projectResult += "LD_" + CONFIG_NAME + " = clang++\n";
+                        projectResult += "AS_" + CONFIG_NAME + " = llvm-as\n";
+                        break;
+                    case ConfigurationOS.WTF:
+                        break;
+                    default:
+                        break;
+                }
+
                 projectResult += "INCLUDES_" + CONFIG_NAME + " = $(INCLUDES_" + GLOBAL_CONFIG + ")";
 
                 foreach (string includePath in config.IncludePaths)
@@ -226,9 +249,9 @@ namespace MakefileFromCodeLite
                 else
                 {
                     string directory = (EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.OutputFile))).Replace("\\", "/");
-                    projectResult += "\ttest -d " + directory + " mkdir -p \"" + directory + "\"\n";
+                    projectResult += "\tif ! (test -d " + directory + ") then mkdir -p \"" + directory + "\"; fi\n";
                     directory = (EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.IntermediateDirectory + "/"))).Replace("\\", "/");
-                    projectResult += "\ttest -d " + directory + " mkdir -p \"" + directory + "\"\n";
+                    projectResult += "\tif ! (test -d " + directory + ") then mkdir -p \"" + directory + "\"; fi\n";
                 }
 
                 // Prebuild commands
@@ -249,13 +272,13 @@ namespace MakefileFromCodeLite
                 switch (config.Type)
                 {
                     case MakefileFromCodeLite.Model.OutputType.Executable:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD) $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
                         break;
                     case MakefileFromCodeLite.Model.OutputType.DynamicLibrary:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD) -shared $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") -shared $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
                         break;
                     case MakefileFromCodeLite.Model.OutputType.StaticLibrary:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(AR) rcs $(OUTPUT_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(AR_" + CONFIG_NAME + ") rcs $(OUTPUT_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ")\n\n";
                         break;
                     default:
                         MessageBox.Show("Invalid output type");
@@ -266,7 +289,7 @@ namespace MakefileFromCodeLite
                 foreach (string codeFile in projectModel.CodeFiles.Where(c => c.Contains(".cpp")))
                 {
                     projectResult += "$(INTERMEDIARYDIR_" + CONFIG_NAME + ")" + ManglePath(AdjustPath(codeFile.Replace(".cpp", ".o"))) + ": " + EXECUTION_PATH + AdjustPath(codeFile) + "\n";
-                    projectResult += "\t$(CXX) $(COMPILEROPTIONS_" + CONFIG_NAME + ") $(INCLUDES_" + CONFIG_NAME + ") -c " + EXECUTION_PATH + AdjustPath(codeFile) + " -o " + "$(INTERMEDIARYDIR_" + CONFIG_NAME + ")" + ManglePath(AdjustPath(codeFile.Replace(".cpp", ".o"))) + "\n\n";
+                    projectResult += "\t$(CXX_" + CONFIG_NAME + ") $(COMPILEROPTIONS_" + CONFIG_NAME + ") $(INCLUDES_" + CONFIG_NAME + ") -c " + EXECUTION_PATH + AdjustPath(codeFile) + " -o " + "$(INTERMEDIARYDIR_" + CONFIG_NAME + ")" + ManglePath(AdjustPath(codeFile.Replace(".cpp", ".o"))) + "\n\n";
                 }
 
                 // Postbuild commands
@@ -305,10 +328,12 @@ namespace MakefileFromCodeLite
                 else
                 {
                     string directory = (EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.OutputFile))).Replace("\\", "/");
-                    projectResult += "\ttest -d " + directory + " rmdir \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.OutputFile)) + "\"\n";
+                    projectResult += "\tif (test -d " + directory + ") then rm -rf \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.OutputFile)).Replace("\\", "/") + "\"; fi\n";
+                    projectResult += "\tif (test -d " + directory + ") then rmdir \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.OutputFile)).Replace("\\", "/") + "\"; fi\n";
 
                     directory = (EXECUTION_PATH + AdjustPath(config.IntermediateDirectory)).Replace("\\", "/");
-                    projectResult += "\ttest -d " + directory + " rmdir \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.IntermediateDirectory + "/")) + "\"\n";
+                    projectResult += "\tif (test -d " + directory + ") then rm -rf \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.IntermediateDirectory + "/")).Replace("\\", "/") + "\"; fi\n";
+                    projectResult += "\tif (test -d " + directory + ") then rmdir \"" + EXECUTION_PATH + Path.GetDirectoryName(AdjustPath(config.IntermediateDirectory + "/")).Replace("\\", "/") + "\"; fi\n";
                 }
 
                 projectResult += "\n\n";
