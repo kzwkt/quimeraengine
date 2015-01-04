@@ -82,9 +82,15 @@ void TestAutomationToolUIApp::InitializeI18n(wxLanguage currentLang)
 
 void TestAutomationToolUIApp::ShowSplashScreen()
 {
+    // Log must be silenced when PNG files are loaded so they 
+    const wxLogLevel LOG_LEVEL = wxLog::GetLogLevel();
+    wxLog::SetLogLevel(0);
+
     m_pSplashScreen = new TATSplashScreen(0L);
     m_pSplashScreen->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(TestAutomationToolUIApp::OnSplashScreenClose));
     m_pSplashScreen->Show();
+
+    wxLog::SetLogLevel(LOG_LEVEL);
 }
 
 void TestAutomationToolUIApp::ShowFirstWindow()
