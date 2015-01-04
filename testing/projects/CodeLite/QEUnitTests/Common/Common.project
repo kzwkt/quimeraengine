@@ -174,7 +174,7 @@
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
-        <Command Enabled="yes">rm *.so</Command>
+        <Command Enabled="yes">rm -f *.so</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>
@@ -287,7 +287,7 @@
         <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
       </PreBuild>
       <PostBuild>
-        <Command Enabled="yes">rm *.dylib</Command>
+        <Command Enabled="yes">rm -f *.dylib</Command>
       </PostBuild>
       <CustomBuild Enabled="no">
         <RebuildCommand/>
