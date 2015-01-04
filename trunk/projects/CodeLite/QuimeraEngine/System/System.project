@@ -173,9 +173,6 @@
       <Compiler Options="-g -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
-        <IncludePath Value="J:/WindowsKit/8.0/Include/um"/>
-        <IncludePath Value="J:/WindowsKit/8.0/Include/shared"/>
-        <IncludePath Value="_M_IX86"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_SYSTEM"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
