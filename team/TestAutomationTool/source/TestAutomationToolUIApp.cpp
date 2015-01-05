@@ -82,7 +82,7 @@ void TestAutomationToolUIApp::InitializeI18n(wxLanguage currentLang)
 
 void TestAutomationToolUIApp::ShowSplashScreen()
 {
-    // Log must be silenced when PNG files are loaded so they 
+    // Log must be silenced when PNG files are loaded so they do not send a warning to the user with the message: iCCP: known incorrect sRGB profile
     const wxLogLevel LOG_LEVEL = wxLog::GetLogLevel();
     wxLog::SetLogLevel(0);
 
