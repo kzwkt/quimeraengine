@@ -56,6 +56,10 @@ namespace DataTypes
 //##################                                                       ##################
 //##################=======================================================##################
 
+QCharUnicode::QCharUnicode() : m_value(0)
+{
+}
+
 QCharUnicode::QCharUnicode(const codepoint_q codepoint) : m_value(codepoint)
 {
 }
