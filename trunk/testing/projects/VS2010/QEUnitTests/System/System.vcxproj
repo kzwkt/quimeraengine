@@ -21,6 +21,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamWriter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QFileStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QFileStreamWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h" />

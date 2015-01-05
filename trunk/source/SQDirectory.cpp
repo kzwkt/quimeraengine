@@ -63,20 +63,20 @@ EQFileSystemError SQDirectory::Delete(const QPath &directory)
 
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
     boost::system::error_code removeErrorCode;
 
-    if(SQDirectory::Exists(directory, errorCode) && errorCode == EQFileSystemError::E_Success) // This check is necessary because remove_all does not return an error when the directory does not exist
+    if(SQDirectory::Exists(directory, eErrorCode) && eErrorCode == EQFileSystemError::E_Success) // This check is necessary because remove_all does not return an error when the directory does not exist
     {
         boost::filesystem::remove_all(directoryPath, removeErrorCode);
-        errorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(removeErrorCode);
+        eErrorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(removeErrorCode);
     }
     else
     {
-        errorCode = EQFileSystemError::E_DoesNotExist;
+        eErrorCode = EQFileSystemError::E_DoesNotExist;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQDirectory::Move(const QPath &directory, const QPath &newLocation, const bool bReplaceContent)
@@ -89,32 +89,32 @@ EQFileSystemError SQDirectory::Move(const QPath &directory, const QPath &newLoca
     QPath destination = newLocation;
     destination.AppendDirectory(directory.GetLastDirectory());
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
-    if(!SQDirectory::Exists(destination, errorCode) || bReplaceContent)
+    if(!SQDirectory::Exists(destination, eErrorCode) || bReplaceContent)
     {
         // Moves and replaces the directory
-        if(errorCode == EQFileSystemError::E_Success)
+        if(eErrorCode == EQFileSystemError::E_Success)
         {
             // The copy first
-            errorCode = SQDirectory::Copy(directory, newLocation, bReplaceContent);
+            eErrorCode = SQDirectory::Copy(directory, newLocation, bReplaceContent);
 
             // Then the deletion of the original directory
-            if(errorCode == EQFileSystemError::E_Success)
+            if(eErrorCode == EQFileSystemError::E_Success)
             {
                 static const bool WAIT_FOR_DIRECTORY_CREATION = false;
                 SQDirectory::_WaitForCreationOrDeletion(SQDirectory::_ConvertToBoostPath(destination), WAIT_FOR_DIRECTORY_CREATION);
 
-                errorCode = SQDirectory::Delete(directory);
+                eErrorCode = SQDirectory::Delete(directory);
             }
         }
     }
     else
     {
-        errorCode = EQFileSystemError::E_AlreadyExists;
+        eErrorCode = EQFileSystemError::E_AlreadyExists;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQDirectory::Rename(QPath &directory, const string_q &strNewDirectoryName)
@@ -125,9 +125,9 @@ EQFileSystemError SQDirectory::Rename(QPath &directory, const string_q &strNewDi
     renamedPath.RemoveLastDirectory();
     renamedPath.AppendDirectory(strNewDirectoryName);
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
-    if(!SQDirectory::Exists(renamedPath, errorCode)) // This check is necessary because rename returns "no permissions" instead of "already exists" when there is already a directory with the target name
+    if(!SQDirectory::Exists(renamedPath, eErrorCode)) // This check is necessary because rename returns "no permissions" instead of "already exists" when there is already a directory with the target name
     {
         boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
         boost::filesystem::path newDirectoryPath = SQDirectory::_ConvertToBoostPath(renamedPath);
@@ -140,14 +140,14 @@ EQFileSystemError SQDirectory::Rename(QPath &directory, const string_q &strNewDi
             directory = renamedPath;
         }
 
-        errorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(renameErrorCode);
+        eErrorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(renameErrorCode);
     }
     else
     {
-        errorCode = EQFileSystemError::E_AlreadyExists;
+        eErrorCode = EQFileSystemError::E_AlreadyExists;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locationToCopyTo, const bool bReplaceContent)
@@ -163,18 +163,18 @@ EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locatio
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(absoluteDirectory);
     boost::filesystem::path newLocationPath = SQDirectory::_ConvertToBoostPath(absoluteLocationToCopyTo);
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // Copies the directory
     boost::system::error_code copyErrorCode;
     boost::filesystem::copy_directory(directoryPath, newLocationPath, copyErrorCode);
 
     // If the destination folder already exists, it is not cosidered an error
-    errorCode = copyErrorCode.default_error_condition() == boost::system::posix_error::file_exists ? 
+    eErrorCode = copyErrorCode.default_error_condition() == boost::system::posix_error::file_exists ? 
                                                                         EQFileSystemError(EQFileSystemError::E_Success) : 
                                                                         SQDirectory::_ConvertErrorCodeToFileSystemError(copyErrorCode);
     
-    if(errorCode == EQFileSystemError::E_Success)
+    if(eErrorCode == EQFileSystemError::E_Success)
     {
         // Copies the content of the directory
         boost::filesystem::recursive_directory_iterator currentDirOrFile(directoryPath);
@@ -183,7 +183,7 @@ EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locatio
                                                                            boost::filesystem::copy_option::fail_if_exists
                                                         );
 
-        while((errorCode == EQFileSystemError::E_Success || errorCode == EQFileSystemError::E_AlreadyExists) && currentDirOrFile != endOfContent) 
+        while((eErrorCode == EQFileSystemError::E_Success || eErrorCode == EQFileSystemError::E_AlreadyExists) && currentDirOrFile != endOfContent) 
         {
             boost::filesystem::path currentDirOrFilePath = currentDirOrFile->path();
 
@@ -202,7 +202,7 @@ EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locatio
             boost::filesystem::path destinationPath = SQDirectory::_ConvertToBoostPath(destinationFileOrDir);
             copyErrorCode.clear();
 
-            if(bIsDirectory && !SQDirectory::Exists(destinationFileOrDir, errorCode) && errorCode == EQFileSystemError::E_Success)
+            if(bIsDirectory && !SQDirectory::Exists(destinationFileOrDir, eErrorCode) && eErrorCode == EQFileSystemError::E_Success)
                 // Copies the directory if it does not exist
                 boost::filesystem::copy_directory(currentDirOrFilePath, destinationPath, copyErrorCode);
             else if(!bIsDirectory)
@@ -213,7 +213,7 @@ EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locatio
 
             if(copyErrorCode != boost::system::posix_error::success)
                 // An error occurred
-                errorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(copyErrorCode);
+                eErrorCode = SQDirectory::_ConvertErrorCodeToFileSystemError(copyErrorCode);
             else if(bIsDirectory)
                 // Waits until the directory has been created
                 SQDirectory::_WaitForCreationOrDeletion(destinationPath, WAIT_FOR_DIRECTORY_CREATION);
@@ -222,7 +222,7 @@ EQFileSystemError SQDirectory::Copy(const QPath &directory, const QPath& locatio
         }
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 QPath SQDirectory::GetCurrentWorkingDirectory()
@@ -267,10 +267,10 @@ QPath SQDirectory::GetCurrentWorkingDirectory()
     //
     //    return QPath(strPath);
 
-    boost::system::error_code errorCode;
-    boost::filesystem::path directoryPath = boost::filesystem::current_path(errorCode);
+    boost::system::error_code eErrorCode;
+    boost::filesystem::path directoryPath = boost::filesystem::current_path(eErrorCode);
 
-    QE_ASSERT_ERROR(errorCode == boost::system::posix_error::success, "An unexpected error occurred when retrieving the current working directory.");
+    QE_ASSERT_ERROR(eErrorCode == boost::system::posix_error::success, "An unexpected error occurred when retrieving the current working directory.");
 
     return QPath(SQDirectory::_ConvertPathToString(directoryPath) + QPath::GetPathSeparator());
 }
@@ -281,30 +281,30 @@ EQFileSystemError SQDirectory::SetCurrentWorkingDirectory(const QPath& newDirect
 
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(newDirectory);
 
-    boost::system::error_code errorCode;
-    boost::filesystem::current_path(directoryPath, errorCode);
+    boost::system::error_code eErrorCode;
+    boost::filesystem::current_path(directoryPath, eErrorCode);
 
-    return SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
+    return SQDirectory::_ConvertErrorCodeToFileSystemError(eErrorCode);
 }
 
-bool SQDirectory::Exists(const QPath &directory, EQFileSystemError& errorInfo)
+bool SQDirectory::Exists(const QPath &directory, EQFileSystemError& eErrorInfo)
 {
     QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
 
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
 
-    boost::system::error_code errorCode;
-    bool bExists = boost::filesystem::exists(directoryPath, errorCode);
+    boost::system::error_code eErrorCode;
+    bool bExists = boost::filesystem::exists(directoryPath, eErrorCode);
 
-    errorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
+    eErrorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(eErrorCode);
 
-    if(errorInfo == EQFileSystemError::E_DoesNotExist)
-        errorInfo = EQFileSystemError::E_Success;
+    if(eErrorInfo == EQFileSystemError::E_DoesNotExist)
+        eErrorInfo = EQFileSystemError::E_Success;
 
     return bExists;
 }
 
-QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSystemError& errorInfo)
+QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSystemError& eErrorInfo)
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
@@ -317,17 +317,17 @@ QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSyste
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
 
     // Number of seconds passed since 01/01/1970
-    boost::system::error_code errorCode;
-    time_t creationTime = boost::filesystem::last_write_time(directoryPath, errorCode);
+    boost::system::error_code eErrorCode;
+    time_t creationTime = boost::filesystem::last_write_time(directoryPath, eErrorCode);
 
-    if(errorCode == boost::system::posix_error::success)
+    if(eErrorCode == boost::system::posix_error::success)
     {
         QTimeSpan seconds(0, 0, 0, creationTime, 0, 0, 0);
         static const QDateTime EPOCH(1970, 1, 1);
         creationDateTime = QDateTime(EPOCH + seconds, QLocalTimeZone().Get());
     }
 
-    errorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
+    eErrorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(eErrorCode);
 
     return QDirectoryInfo(directory, creationDateTime);
 }
@@ -354,45 +354,45 @@ string_q SQDirectory::_ConvertPathToString(const boost::filesystem::path &pathTo
 #endif
 }
 
-EQFileSystemError SQDirectory::_ConvertErrorCodeToFileSystemError(const boost::system::error_code &errorCode)
+EQFileSystemError SQDirectory::_ConvertErrorCodeToFileSystemError(const boost::system::error_code &eErrorCode)
 {
-    EQFileSystemError errorInfo = EQFileSystemError::E_Unknown;
-    boost::system::error_condition posixError = errorCode.default_error_condition();
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
+    boost::system::error_condition posixError = eErrorCode.default_error_condition();
 
     if(posixError == boost::system::posix_error::success)
     {
-        errorInfo = EQFileSystemError::E_Success;
+        eErrorInfo = EQFileSystemError::E_Success;
     }
     else if(posixError == boost::system::posix_error::no_such_file_or_directory)
     {
-        errorInfo = EQFileSystemError::E_DoesNotExist;
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
     }
     else if(posixError == boost::system::posix_error::file_exists)
     {
-        errorInfo = EQFileSystemError::E_AlreadyExists;
+        eErrorInfo = EQFileSystemError::E_AlreadyExists;
     }
     else if(posixError == boost::system::posix_error::filename_too_long)
     {
-        errorInfo = EQFileSystemError::E_NameIsTooLong;
+        eErrorInfo = EQFileSystemError::E_NameIsTooLong;
     }
     else if(posixError == boost::system::posix_error::permission_denied)
     {
-        errorInfo = EQFileSystemError::E_NoPermissions;
+        eErrorInfo = EQFileSystemError::E_NoPermissions;
     }
     else if(posixError == boost::system::posix_error::file_too_large)
     {
-        errorInfo = EQFileSystemError::E_FileIsTooLarge;
+        eErrorInfo = EQFileSystemError::E_FileIsTooLarge;
     }
     else if(posixError == boost::system::posix_error::no_space_on_device)
     {
-        errorInfo = EQFileSystemError::E_NoSpaceInDevice;
+        eErrorInfo = EQFileSystemError::E_NoSpaceInDevice;
     }
     else
     {
-        errorInfo = EQFileSystemError::E_Unknown;
+        eErrorInfo = EQFileSystemError::E_Unknown;
     }
 
-    return errorInfo;
+    return eErrorInfo;
 }
 
 bool SQDirectory::_WaitForCreationOrDeletion(const boost::filesystem::path &directoryOrFilePath, const bool bTDeletionFCreation)

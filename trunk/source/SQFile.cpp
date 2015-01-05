@@ -71,20 +71,20 @@ EQFileSystemError SQFile::Delete(const QPath &file)
 
     boost::filesystem::path filePath = SQFile::_ConvertToBoostPath(file);
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
-    if(SQFile::Exists(file, errorCode) && errorCode == EQFileSystemError::E_Success) // This check is necessary because remove does not return an error when the file does not exist
+    if(SQFile::Exists(file, eErrorCode) && eErrorCode == EQFileSystemError::E_Success) // This check is necessary because remove does not return an error when the file does not exist
     {
         boost::system::error_code removeErrorCode;
         boost::filesystem::remove(filePath, removeErrorCode);
-        errorCode = SQFile::_ConvertErrorCodeToFileSystemError(removeErrorCode);
+        eErrorCode = SQFile::_ConvertErrorCodeToFileSystemError(removeErrorCode);
     }
-    else if(errorCode == EQFileSystemError::E_Success)
+    else if(eErrorCode == EQFileSystemError::E_Success)
     {
-        errorCode = EQFileSystemError::E_DoesNotExist;
+        eErrorCode = EQFileSystemError::E_DoesNotExist;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQFile::Move(const QPath &file, const QPath& newLocation, const bool bReplace)
@@ -95,31 +95,31 @@ EQFileSystemError SQFile::Move(const QPath &file, const QPath& newLocation, cons
     QPath destination = newLocation;
     destination.SetFilenameAndExtension(file.GetFilename());
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
     
-    if(!SQFile::Exists(destination, errorCode) || bReplace)
+    if(!SQFile::Exists(destination, eErrorCode) || bReplace)
     {
         // Moves and replaces the file
-        if(errorCode == EQFileSystemError::E_Success)
+        if(eErrorCode == EQFileSystemError::E_Success)
         {
             // The copy first
-            errorCode = SQFile::Copy(file, newLocation, bReplace);
+            eErrorCode = SQFile::Copy(file, newLocation, bReplace);
 
             // Then the deletion of the original directory
-            if(errorCode == EQFileSystemError::E_Success)
+            if(eErrorCode == EQFileSystemError::E_Success)
             {
                 SQFile::_WaitForCreation(SQFile::_ConvertToBoostPath(destination));
 
-                errorCode = SQFile::Delete(file);
+                eErrorCode = SQFile::Delete(file);
             }
         }
     }
     else
     {
-        errorCode = EQFileSystemError::E_AlreadyExists;
+        eErrorCode = EQFileSystemError::E_AlreadyExists;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQFile::Rename(QPath &file, const string_q &strNewFileName, const bool bRenameExtension)
@@ -133,9 +133,9 @@ EQFileSystemError SQFile::Rename(QPath &file, const string_q &strNewFileName, co
     else
         renamedPath.SetFilename(strNewFileName);
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
-    if(!SQFile::Exists(renamedPath, errorCode)) // This check is necessary because rename returns "success" instead of "already exists" when there is already a file with the target name
+    if(!SQFile::Exists(renamedPath, eErrorCode)) // This check is necessary because rename returns "success" instead of "already exists" when there is already a file with the target name
     {
         boost::filesystem::path filePath = SQFile::_ConvertToBoostPath(file);
         boost::filesystem::path newFilePath = SQFile::_ConvertToBoostPath(renamedPath);
@@ -148,14 +148,14 @@ EQFileSystemError SQFile::Rename(QPath &file, const string_q &strNewFileName, co
             file = renamedPath;
         }
 
-        errorCode = SQFile::_ConvertErrorCodeToFileSystemError(renameErrorCode);
+        eErrorCode = SQFile::_ConvertErrorCodeToFileSystemError(renameErrorCode);
     }
     else
     {
-        errorCode = EQFileSystemError::E_AlreadyExists;
+        eErrorCode = EQFileSystemError::E_AlreadyExists;
     }
 
-    return errorCode;
+    return eErrorCode;
 }
 
 EQFileSystemError SQFile::Copy(const QPath &file, const QPath& locationToCopyTo, const bool bReplace)
@@ -180,7 +180,7 @@ EQFileSystemError SQFile::Copy(const QPath &file, const QPath& locationToCopyTo,
     return SQFile::_ConvertErrorCodeToFileSystemError(copyErrorCode);
 }
 
-bool SQFile::Exists(const QPath &file, EQFileSystemError& errorInfo)
+bool SQFile::Exists(const QPath &file, EQFileSystemError& eErrorInfo)
 {
     QE_ASSERT_ERROR(file.IsFile(), string_q("The input path (\"") + file.ToString() + "\") must refer to a file.");
 
@@ -189,15 +189,15 @@ bool SQFile::Exists(const QPath &file, EQFileSystemError& errorInfo)
     boost::system::error_code errorCode;
     bool bExists = boost::filesystem::exists(filePath, errorCode);
 
-    errorInfo = SQFile::_ConvertErrorCodeToFileSystemError(errorCode);
+    eErrorInfo = SQFile::_ConvertErrorCodeToFileSystemError(errorCode);
 
-    if(errorInfo == EQFileSystemError::E_DoesNotExist)
-        errorInfo = EQFileSystemError::E_Success;
+    if(eErrorInfo == EQFileSystemError::E_DoesNotExist)
+        eErrorInfo = EQFileSystemError::E_Success;
 
     return bExists;
 }
 
-QFileInfo SQFile::GetFileInfo(const QPath &file, EQFileSystemError &errorInfo)
+QFileInfo SQFile::GetFileInfo(const QPath &file, EQFileSystemError &eErrorInfo)
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
@@ -252,7 +252,7 @@ QFileInfo SQFile::GetFileInfo(const QPath &file, EQFileSystemError &errorInfo)
         }
     }
 
-    errorInfo = SQFile::_ConvertErrorCodeToFileSystemError(errorCode);
+    eErrorInfo = SQFile::_ConvertErrorCodeToFileSystemError(errorCode);
 
     return QFileInfo(file, uFileSize, creationDateTime, lastModificationDateTime, bIsReadOnly);
 }
@@ -281,43 +281,43 @@ string_q SQFile::_ConvertPathToString(const boost::filesystem::path &pathToConve
 
 EQFileSystemError SQFile::_ConvertErrorCodeToFileSystemError(const boost::system::error_code &errorCode)
 {
-    EQFileSystemError errorInfo = EQFileSystemError::E_Unknown;
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
     boost::system::error_condition posixError = errorCode.default_error_condition();
 
     if(posixError == boost::system::posix_error::success)
     {
-        errorInfo = EQFileSystemError::E_Success;
+        eErrorInfo = EQFileSystemError::E_Success;
     }
     else if(posixError == boost::system::posix_error::no_such_file_or_directory)
     {
-        errorInfo = EQFileSystemError::E_DoesNotExist;
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
     }
     else if(posixError == boost::system::posix_error::file_exists)
     {
-        errorInfo = EQFileSystemError::E_AlreadyExists;
+        eErrorInfo = EQFileSystemError::E_AlreadyExists;
     }
     else if(posixError == boost::system::posix_error::filename_too_long)
     {
-        errorInfo = EQFileSystemError::E_NameIsTooLong;
+        eErrorInfo = EQFileSystemError::E_NameIsTooLong;
     }
     else if(posixError == boost::system::posix_error::permission_denied)
     {
-        errorInfo = EQFileSystemError::E_NoPermissions;
+        eErrorInfo = EQFileSystemError::E_NoPermissions;
     }
     else if(posixError == boost::system::posix_error::file_too_large)
     {
-        errorInfo = EQFileSystemError::E_FileIsTooLarge;
+        eErrorInfo = EQFileSystemError::E_FileIsTooLarge;
     }
     else if(posixError == boost::system::posix_error::no_space_on_device)
     {
-        errorInfo = EQFileSystemError::E_NoSpaceInDevice;
+        eErrorInfo = EQFileSystemError::E_NoSpaceInDevice;
     }
     else
     {
-        errorInfo = EQFileSystemError::E_Unknown;
+        eErrorInfo = EQFileSystemError::E_Unknown;
     }
 
-    return errorInfo;
+    return eErrorInfo;
 }
 
 bool SQFile::_WaitForCreation(const boost::filesystem::path &filePath)

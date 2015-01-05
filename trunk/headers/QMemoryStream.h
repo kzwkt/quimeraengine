@@ -62,7 +62,12 @@ private:
     /// <summary>
     /// The reallocation factor to be applied to calculate the new capacity on every reallocation. It must be greater than or equal to 1.
     /// </summary>
-    static float REALLOCATION_FACTOR;
+    static float _REALLOCATION_FACTOR;
+
+    /// <summary>
+    /// The default size (in bytes) of the batches used in the copy operation.
+    /// </summary>
+    static const pointer_uint_q _COPY_BATCH_SIZE = 4096U; // 4096 bytes is apparently the most common cluster size in a file system. It should be tuned to improve performance
 
 
     // CONSTRUCTORS
@@ -76,11 +81,11 @@ public:
     /// The internal pointer's position is set to zero.<br/>
     /// The buffer is 1-byte aligned.
     /// </remarks>
-    /// <param name="uCapacity">[IN] The initial capacity of the buffer, in bytes. It must not equal zero.</param>
-    QMemoryStream(const pointer_uint_q uCapacity) : m_buffer(uCapacity, Kinesis::QuimeraEngine::Common::Memory::QAlignment(1U)),
-                                                    m_uPositionPointer(0)
+    /// <param name="uInitialCapacity">[IN] The initial capacity of the buffer, in bytes. It must not equal zero.</param>
+    QMemoryStream(const pointer_uint_q uInitialCapacity) : m_buffer(uInitialCapacity, Kinesis::QuimeraEngine::Common::Memory::QAlignment(1U)),
+                                                           m_uPositionPointer(0)
     {
-        QE_ASSERT_ERROR(uCapacity != 0, "The buffer capacity cannot be zero.");
+        QE_ASSERT_ERROR(uInitialCapacity != 0, "The buffer capacity cannot be zero.");
     }
     
     /// <summary>
@@ -141,7 +146,7 @@ public:
     /// to read from the current position exceed the buffer's limits, the pointer will be moved to the lastest valid position.
     /// </remarks>
     /// <param name="pOutput">[OUT] The output buffer where bytes are to be copied. Is must not be null.</param>
-    /// <param name="uOutputOffset">[IN] The offset, in bytes, from where to start writing to the output buffer..</param>
+    /// <param name="uOutputOffset">[IN] The offset, in bytes, from where to start writing to the output buffer.</param>
     /// <param name="uOutputSize">[IN] The number of bytes to be read. It must not equal zero.</param>
     void Read(void* pOutput, const pointer_uint_q uOutputOffset, const pointer_uint_q uOutputSize)
     {
@@ -209,40 +214,45 @@ public:
     /// Copies the content of the stream to another stream of any other kind.
     /// </summary>
     /// <remarks>
-    /// Bytes are copied sequentially as batches of an arbitrary size until the end of the source stream is reached.<br/>
-    /// The internal pointer of the resident stream is not moved during this operation, unlike the destination stream's, which is moved forward by 
-    /// the number of bytes copied, after the operation.<br/>
-    /// The destination stream will grow as more memory is required to store new data.
+    /// Bytes are copied sequentially as batches of an arbitrary size, starting at the specified offset.<br/>
+    /// The internal pointer of both streams is moved forward by the number of bytes copied.<br/>
+    /// The destination stream will grow as more memory is required to store new data.<br/>
+    /// The Flush method will not be called during this operation.
     /// </remarks>
     /// <typeparam name="StreamT">The type of the destination stream.</typeparam>
     /// <param name="destinationStream">[OUT] The destination stream to which the content will be copied.</param>
-    /// <param name="uSourceOffset">[IN] The offset, in bytes, from where to start reading from the source stream. It must be lower than the length of 
-    /// the source stream.</param>
-    /// <param name="uDestinationOffset">[IN] The offset, in bytes, from where to start writing to the destination stream. It must be lower than or equal to
-    /// the length of the destination stream.</param>
+    /// <param name="uSourceOffset">[IN] The offset, in bytes, from where to start reading from the source stream (zero means the first position). 
+    /// It must be lower than the length of the source stream.</param>
+    /// <param name="uDestinationOffset">[IN] The offset, in bytes, from where to start writing to the destination stream (zero means the first position). 
+    /// It must be lower than or equal to the length of the destination stream.</param>
+    /// <param name="uNumberOfBytes">[IN] The number of bytes to copy. It must be lower than the length of the source stream minus the source offset.</param>
+    /// <param name="uBatchSize">[IN] The size, in bytes, of every copied batch. It may affect the performance of the operation.</param>
     template<class StreamT>
-    void CopyTo(StreamT &destinationStream, const pointer_uint_q uSourceOffset, const pointer_uint_q uDestinationOffset) const
+    void CopyTo(StreamT &destinationStream, const pointer_uint_q uSourceOffset, const pointer_uint_q uDestinationOffset, 
+                                            const pointer_uint_q uNumberOfBytes, const pointer_uint_q uBatchSize=QMemoryStream::_COPY_BATCH_SIZE)
     {
-        static const pointer_uint_q BATCH_SIZE = 4096; // This is an arbitrary value, it should be tuned to improve performance
-
+        QE_ASSERT_ERROR(uBatchSize > 0, "The number of bytes per batch must be greater than zero.");
         QE_ASSERT_ERROR(uSourceOffset < this->GetLength(), "The offset of the source stream is out of bounds.");
         QE_ASSERT_ERROR(uDestinationOffset <= destinationStream.GetLength(), "The offset of the destination stream is out of bounds.");
+        QE_ASSERT_ERROR(uSourceOffset + uNumberOfBytes <= this->GetLength(), "The number of bytes to copy from the source, starting at the given offset, exceeds the limits of the stream.");
 
         // If offsets point to valid positions
         if(uSourceOffset < this->GetLength() && uDestinationOffset <= destinationStream.GetLength())
         {
             // The stream is copied batch by batch
-            const pointer_uint_q NUMBER_OF_BATCHES = (m_buffer.GetAllocatedBytes() - uSourceOffset) / BATCH_SIZE;
+            const pointer_uint_q NUMBER_OF_BATCHES = uNumberOfBytes / uBatchSize;
 
             destinationStream.SetPosition(uDestinationOffset);
 
             for(pointer_uint_q i = 0; i < NUMBER_OF_BATCHES; ++i)
-                destinationStream.Write(m_buffer.GetPointer(), uSourceOffset + i * BATCH_SIZE, BATCH_SIZE);
+                destinationStream.Write(m_buffer.GetPointer(), uSourceOffset + i * uBatchSize, uBatchSize);
 
-            const pointer_uint_q REST_OF_BYTES = (m_buffer.GetAllocatedBytes() - uSourceOffset) % BATCH_SIZE;
+            const pointer_uint_q REST_OF_BYTES = uNumberOfBytes % uBatchSize;
 
             if(REST_OF_BYTES != 0)
-                destinationStream.Write(m_buffer.GetPointer(), NUMBER_OF_BATCHES * BATCH_SIZE, REST_OF_BYTES);
+                destinationStream.Write(m_buffer.GetPointer(), NUMBER_OF_BATCHES * uBatchSize, REST_OF_BYTES);
+
+            this->SetPosition(uSourceOffset + uNumberOfBytes);
         }
     }
 
@@ -260,7 +270,7 @@ public:
     /// <param name="uAmount">[IN] The number of bytes to move back the internal pointer's position. If it is already at the first position, it does nothing.</param>
     void MoveBackward(const pointer_uint_q uAmount)
     {
-        QE_ASSERT_WARNING(uAmount <= m_uPositionPointer, "It is not possible to move backward, it would be out of bounds.");
+        QE_ASSERT_WARNING(uAmount <= m_uPositionPointer, "It is not possible to move backward the specified amount, it would be out of bounds.");
 
         if(uAmount <= m_uPositionPointer)
             m_uPositionPointer -= uAmount;
@@ -272,7 +282,7 @@ public:
     /// <param name="uAmount">[IN] The number of bytes to move forward the internal pointer's position. If it is already at the latest position, it does nothing.</param>
     void MoveForward(const pointer_uint_q uAmount)
     {
-        QE_ASSERT_WARNING(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes(), "It is not possible to move forward, it would be out of bounds.");
+        QE_ASSERT_WARNING(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes(), "It is not possible to move forward the specified amount, it would be out of bounds.");
 
         if(m_uPositionPointer + uAmount <= m_buffer.GetAllocatedBytes())
             m_uPositionPointer += uAmount;
@@ -287,7 +297,7 @@ private:
     /// current capacity or nothing will happen.</param>
     void ReallocateByFactor(const pointer_uint_q uBytes)
     {
-        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uBytes, float) * QMemoryStream::REALLOCATION_FACTOR, pointer_uint_q);
+        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uBytes, float) * QMemoryStream::_REALLOCATION_FACTOR, pointer_uint_q);
         m_buffer.Reallocate(FINAL_CAPACITY);
     }
 
@@ -364,7 +374,7 @@ protected:
 // ATTRIBUTE INITIALIZATION
 // ----------------------------
 template<class AllocatorT>
-float QMemoryStream<AllocatorT>::REALLOCATION_FACTOR = 1.5f;
+float QMemoryStream<AllocatorT>::_REALLOCATION_FACTOR = 1.5f;
 
 
 } //namespace IO

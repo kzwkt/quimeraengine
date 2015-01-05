@@ -105,7 +105,7 @@ public:
             sm_bFunctionInterrupted = true;
         }
     }
-    catch(const QAssertException&)
+    catch(...)
     {
         // This block silences the exception thrown in the destructor of the thread instance, don't remove it this time
     }

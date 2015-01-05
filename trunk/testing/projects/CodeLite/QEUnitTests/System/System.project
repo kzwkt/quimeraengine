@@ -95,6 +95,8 @@
         <File Name="../../../../tests/unit/testmodule_system/QPath_Test.cpp"/>
         <File Name="../../../../tests/unit/testmodule_system/SQDirectory_Test.cpp"/>
         <File Name="../../../../tests/unit/testmodule_system/SQFile_Test.cpp"/>
+        <File Name="../../../../tests/unit/testmodule_system/QFileStream_Test.cpp"/>
+        <File Name="../../../../tests/unit/testmodule_system/QFileStreamWhiteBox.h"/>
       </VirtualDirectory>
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamWriter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QTextStreamReader_Test.cpp"/>

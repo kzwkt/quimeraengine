@@ -506,7 +506,7 @@ QTEST_CASE ( Write_AssertionFailsWhenInputBufferIsNull_Test )
 
     try
     {
-        stream.Read(pBuffer, 0, INPUT_SIZE);
+        stream.Write(pBuffer, 0, INPUT_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -533,7 +533,7 @@ QTEST_CASE ( Write_AssertionFailsWhenInputSizeIsZero_Test )
 
     try
     {
-        stream.Read(&nBuffer, 0, INPUT_SIZE);
+        stream.Write(&nBuffer, 0, INPUT_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -565,8 +565,8 @@ QTEST_CASE ( CopyTo_SourceOffsetAffectsTheResult_Test )
     QMemoryStream<> stream2(&ORIGINAL_CONTENT, BUFFER_SIZE);
 
     // [Execution]
-    sourceStream.CopyTo(stream1, OFFSET1, DESTINATION_OFFSET);
-    sourceStream.CopyTo(stream2, OFFSET2, DESTINATION_OFFSET);
+    sourceStream.CopyTo(stream1, OFFSET1, DESTINATION_OFFSET, BUFFER_SIZE - OFFSET1);
+    sourceStream.CopyTo(stream2, OFFSET2, DESTINATION_OFFSET, BUFFER_SIZE - OFFSET2);
     
     // [Verification]
     u32_q nContentOffset1 = 0;
@@ -598,8 +598,8 @@ QTEST_CASE ( CopyTo_DestinationOffsetAffectsTheResult_Test )
     QMemoryStream<> stream2(&ORIGINAL_CONTENT, BUFFER_SIZE);
 
     // [Execution]
-    sourceStream.CopyTo(stream1, SOURCE_OFFSET, OFFSET1);
-    sourceStream.CopyTo(stream2, SOURCE_OFFSET, OFFSET2);
+    sourceStream.CopyTo(stream1, SOURCE_OFFSET, OFFSET1, BUFFER_SIZE);
+    sourceStream.CopyTo(stream2, SOURCE_OFFSET, OFFSET2, BUFFER_SIZE);
     
     // [Verification]
     u32_q nContentOffset1 = 0;
@@ -630,7 +630,7 @@ QTEST_CASE ( CopyTo_StreamCanBeCompletelyCopied_Test )
     QMemoryStream<> stream(4U);
 
     // [Execution]
-    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET);
+    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET, BUFFER_SIZE);
     
     // [Verification]
     u8_q arContent[10000];
@@ -657,7 +657,7 @@ QTEST_CASE ( CopyTo_DestinationStreamGrowsWhenNecessary_Test )
     QMemoryStream<> stream(DESTINATION_BUFFER_SIZE);
 
     // [Execution]
-    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET);
+    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET, SOURCE_BUFFER_SIZE);
     
     // [Verification]
     pointer_uint_q uDestinationLength = stream.GetLength();
@@ -665,15 +665,16 @@ QTEST_CASE ( CopyTo_DestinationStreamGrowsWhenNecessary_Test )
 }
 
 /// <summary>
-/// Checks that the internal pointer of the source stream does not change.
+/// Checks that the internal pointer of the source stream is moved forward.
 /// </summary>
-QTEST_CASE ( CopyTo_SourceStreamInternalPointerDoesNotChange_Test )
+QTEST_CASE ( CopyTo_SourceStreamInternalPointerIsMovedForward_Test )
 {
     // [Preparation]
     const u64_q NEW_CONTENT = 0x0102030405060708;
     const pointer_uint_q DESTINATION_OFFSET = 0;
     const pointer_uint_q SOURCE_OFFSET = 0;
     const pointer_uint_q BUFFER_SIZE = sizeof(NEW_CONTENT);
+    const pointer_uint_q EXPECTED_POSITION = BUFFER_SIZE;
 
     QMemoryStream<> sourceStream(&NEW_CONTENT, BUFFER_SIZE);
     void* pOriginalPointer = sourceStream.GetCurrentPointer();
@@ -681,11 +682,11 @@ QTEST_CASE ( CopyTo_SourceStreamInternalPointerDoesNotChange_Test )
     QMemoryStream<> stream(BUFFER_SIZE);
 
     // [Execution]
-    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET);
+    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET, BUFFER_SIZE);
     
     // [Verification]
-    void* pCurrentPointer = sourceStream.GetCurrentPointer();
-    BOOST_CHECK_EQUAL(pOriginalPointer, pCurrentPointer);
+    pointer_uint_q uPosition = sourceStream.GetPosition();
+    BOOST_CHECK_EQUAL(uPosition, EXPECTED_POSITION);
 }
 
 /// <summary>
@@ -704,11 +705,37 @@ QTEST_CASE ( CopyTo_DestinationStreamInternalPointerIsMovedForward_Test )
     void* pOriginalPointer = stream.GetCurrentPointer();
 
     // [Execution]
-    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET);
+    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET, BUFFER_SIZE);
     
     // [Verification]
     void* pCurrentPointer = stream.GetCurrentPointer();
     BOOST_CHECK_NE(pOriginalPointer, pCurrentPointer);
+}
+
+/// <summary>
+/// Checks that the internal pointer of the source stream is moved to the source offset when the number of bytes to copy is zero.
+/// </summary>
+QTEST_CASE ( CopyTo_SourceStreamInternalPointerIsMovedToOffsetWhenNumberOfBytesToCopyEqualsZero_Test )
+{
+    // [Preparation]
+    const u64_q NEW_CONTENT = 0x0102030405060708;
+    const pointer_uint_q DESTINATION_OFFSET = 0;
+    const pointer_uint_q SOURCE_OFFSET = 1U;
+    const pointer_uint_q BUFFER_SIZE = sizeof(NEW_CONTENT);
+    const pointer_uint_q EXPECTED_POSITION = SOURCE_OFFSET;
+    const pointer_uint_q NUMBER_OF_BYTES = 0;
+
+    QMemoryStream<> sourceStream(&NEW_CONTENT, BUFFER_SIZE);
+    void* pOriginalPointer = sourceStream.GetCurrentPointer();
+
+    QMemoryStream<> stream(BUFFER_SIZE);
+
+    // [Execution]
+    sourceStream.CopyTo(stream, SOURCE_OFFSET, DESTINATION_OFFSET, NUMBER_OF_BYTES);
+    
+    // [Verification]
+    pointer_uint_q uPosition = sourceStream.GetPosition();
+    BOOST_CHECK_EQUAL(uPosition, EXPECTED_POSITION);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -730,7 +757,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenSourceOffsetIsOutOfBounds_Test )
 
     try
     {
-        sourceStream.CopyTo(destinationStream, SOURCE_OFFSET, 0);
+        sourceStream.CopyTo(destinationStream, SOURCE_OFFSET, 0, 4U);
     }
     catch(const QAssertException&)
     {
@@ -758,7 +785,66 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenDestinationOffsetIsOutOfBounds_Test )
 
     try
     {
-        sourceStream.CopyTo(destinationStream, 0, DESTINATION_OFFSET);
+        sourceStream.CopyTo(destinationStream, 0, DESTINATION_OFFSET, 4U);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the number of bytes to copy exceeds the limits of the source stream.
+/// </summary>
+QTEST_CASE ( CopyTo_AssertionFailsWhenNumberOfBytesExceedsSourceStreamBounds_Test )
+{
+    // [Preparation]
+    const pointer_uint_q SOURCE_OFFSET = 2U;
+    u32_q nBuffer;
+    QMemoryStream<> sourceStream(&nBuffer, 4U);
+    QMemoryStream<> destinationStream(&nBuffer, 4U);
+    const pointer_uint_q NUMBER_OF_BYTES = 3U;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        sourceStream.CopyTo(destinationStream, SOURCE_OFFSET, 0, NUMBER_OF_BYTES);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the batch size equals zero.
+/// </summary>
+QTEST_CASE ( CopyTo_AssertionFailsWhenBatchSizeIsZero_Test )
+{
+    // [Preparation]
+    const pointer_uint_q SOURCE_OFFSET = 2U;
+    u32_q nBuffer;
+    QMemoryStream<> sourceStream(&nBuffer, 4U);
+    QMemoryStream<> destinationStream(&nBuffer, 4U);
+    const pointer_uint_q NUMBER_OF_BYTES = 2U;
+    const pointer_uint_q BATCH_SIZE = 0;
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        sourceStream.CopyTo(destinationStream, SOURCE_OFFSET, 0, NUMBER_OF_BYTES, BATCH_SIZE);
     }
     catch(const QAssertException&)
     {

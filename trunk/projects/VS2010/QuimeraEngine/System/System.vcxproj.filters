@@ -106,6 +106,12 @@
     <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFileStream.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -164,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QFileStream.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp">
+      <Filter>IO\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

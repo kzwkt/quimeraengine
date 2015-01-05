@@ -117,11 +117,11 @@ public:
     /// Checks whether a file exists or not.
     /// </summary>
     /// <param name="file">[IN] The path to a file that may or may not exist.</param>
-    /// <param name="errorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
     /// <returns>
     /// True if the file exists; False otherwise.
     /// </returns>
-    static bool Exists(const QPath &file, EQFileSystemError& errorInfo);
+    static bool Exists(const QPath &file, EQFileSystemError& eErrorInfo);
     
     /// <summary>
     /// Gets information about a file.
@@ -132,11 +132,11 @@ public:
     /// The "read-only" flag will be True if the owner of the file does not have write permissions.
     /// </remarks>
     /// <param name="file">[IN] The path to a file whose properties are to be retrieved.</param>
-    /// <param name="errorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
     /// <returns>
     /// Information about the file, like its creation date or its size.
     /// </returns>
-    static QFileInfo GetFileInfo(const QPath &file, EQFileSystemError &errorInfo);
+    static QFileInfo GetFileInfo(const QPath &file, EQFileSystemError &eErrorInfo);
     
 protected:
     

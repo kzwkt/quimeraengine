@@ -133,6 +133,10 @@
       <File Name="../../../../headers/EQFileSystemError.h"/>
       <File Name="../../../../headers/SQDirectory.h"/>
       <File Name="../../../../source/SQDirectory.cpp"/>
+      <File Name="../../../../headers/EQFileOpenMode.h"/>
+      <File Name="../../../../headers/QFileStream.h"/>
+      <File Name="../../../../source/EQFileOpenMode.cpp"/>
+      <File Name="../../../../source/QFileStream.cpp"/>
     </VirtualDirectory>
     <File Name="../../../../headers/QBinaryStreamWriter.h"/>
     <File Name="../../../../headers/EQNewLineCharacters.h"/>
