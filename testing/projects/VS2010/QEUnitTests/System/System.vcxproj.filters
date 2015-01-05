@@ -102,6 +102,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTrace_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QFileStream_Test.cpp">
+      <Filter>Tests\IO\FileSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h">
       <Filter>Tests\Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QFileStreamWhiteBox.h">
+      <Filter>Tests\IO\FileSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

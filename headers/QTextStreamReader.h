@@ -452,12 +452,14 @@ public:
     /// In normal circumstances, the read pointer of the stream will point to the position of the character right after the read block.
     /// </remarks>
     /// <param name="strOutput">[OUT] The output string to which the read characters will be appended.</param>
-    /// <param name="uNumberOfBytes">[IN] The amount of bytes to read. It should be multiple of the character size for the current encoding.</param>
+    /// <param name="uNumberOfBytes">[IN] The amount of bytes to read. It must be greater than zero and should be multiple of the character size for 
+    /// the current encoding.</param>
     void ReadBlock(string_q &strOutput, const pointer_uint_q uNumberOfBytes)
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
+        QE_ASSERT_ERROR(uNumberOfBytes > 0, "The number of bytes to read must be greater than zero.");
         QE_ASSERT_WARNING(uNumberOfBytes % m_uCharSize == 0, string_q("The number of bytes to read should be multiple of the character size for the current encoding (") + SQInteger::ToString(m_uCharSize)  + ").");
 
         i8_q* arBytes = new i8_q[uNumberOfBytes];

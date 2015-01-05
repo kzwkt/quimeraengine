@@ -148,11 +148,11 @@ public:
     /// Checks whether a directory exists or not.
     /// </summary>
     /// <param name="directory">[IN] The path to a directory that may or may not exist.</param>
-    /// <param name="errorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
     /// <returns>
     /// True if the directory exists; False otherwise.
     /// </returns>
-    static bool Exists(const QPath &directory, EQFileSystemError& errorInfo);
+    static bool Exists(const QPath &directory, EQFileSystemError& eErrorInfo);
     
     /// <summary>
     /// Gets information about a directory.
@@ -162,11 +162,11 @@ public:
     /// The "creation date" concept did not exist on Linux until the ext4 file system was introduced. Therefore, the last modification date will be returned instead on that platform.
     /// </remarks>
     /// <param name="directory">[IN] The path to a directory whose properties are to be retrieved.</param>
-    /// <param name="errorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
     /// <returns>
     /// Information about the directory, like its creation date.
     /// </returns>
-    static QDirectoryInfo GetDirectoryInfo(const QPath& directory, EQFileSystemError& errorInfo);
+    static QDirectoryInfo GetDirectoryInfo(const QPath& directory, EQFileSystemError& eErrorInfo);
 
 protected:
     

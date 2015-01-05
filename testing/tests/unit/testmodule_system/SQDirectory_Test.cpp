@@ -40,7 +40,7 @@ using namespace boost::unit_test;
 #include "QBasicArray.h"
 #include "EQTextEncoding.h"
 #include "SQFile.h"
-#include <boost/thread.hpp>
+#include "SQThisThread.h"
 #include <fstream>
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQDirectory;
@@ -58,6 +58,7 @@ bool WaitForCreationOrDeletion_SQDirectoryTestHelper(const QPath &directoryOrFil
     using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+    using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
 
     static const u64_q MAXIMUM_WAIT_TIME = 600ULL; // milliseconds
 
@@ -77,7 +78,7 @@ bool WaitForCreationOrDeletion_SQDirectoryTestHelper(const QPath &directoryOrFil
 
     while(boost::filesystem::exists(directoryOrFilePath) == bTDeletionFCreation && !bTooMuchTime)
     {
-        boost::this_thread::yield(); // [TODO] Thund: Use SQThisThread when it exists
+        SQThisThread::Yield();
         bTooMuchTime = elapsedTime.GetElapsedTimeAsTimeSpan().GetMilliseconds() < MAXIMUM_WAIT_TIME;
     }
 

@@ -161,12 +161,14 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
+    <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
+    <ClInclude Include="..\..\..\..\headers\QFileStream.h" />
     <ClInclude Include="..\..\..\..\headers\SQDirectory.h" />
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />
@@ -187,12 +189,14 @@
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
+    <ClCompile Include="..\..\..\..\source\QFileStream.cpp" />
     <ClCompile Include="..\..\..\..\source\SQDirectory.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />

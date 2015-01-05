@@ -182,7 +182,7 @@ QTEST_CASE ( GetId_NoErrorOccurs_Test )
     const bool NO_ERRORS_OCCURRED = true;
 
     // [Execution]
-    QThread::Id threadId = SQThisThread::GetId();
+    SQThisThread::GetId();
 
     // [Verification]
     BOOST_CHECK(NO_ERRORS_OCCURRED);
@@ -197,7 +197,7 @@ QTEST_CASE ( GetNativeHandle_NoErrorOccurs_Test )
     const bool NO_ERRORS_OCCURRED = true;
 
     // [Execution]
-    QThread::NativeThreadHandle threadHandle = SQThisThread::GetNativeHandle();
+    SQThisThread::GetNativeHandle();
 
     // [Verification]
     BOOST_CHECK(NO_ERRORS_OCCURRED);
