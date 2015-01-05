@@ -58,6 +58,11 @@ class QE_LAYER_COMMON_SYMBOLS QCharUnicode
 public:
 
     /// <summary>
+    /// Default constructor that initializes the character to U+0000.
+    /// </summary>
+    QCharUnicode();
+
+    /// <summary>
     /// Constructor that receives a Unicode code point.
     /// </summary>
     /// <param name="codepoint">[IN] A code point that represents the character in the Unicode code space.</param>

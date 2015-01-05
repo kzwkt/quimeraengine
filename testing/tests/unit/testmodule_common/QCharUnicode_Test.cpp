@@ -35,11 +35,28 @@ using namespace boost::unit_test;
 using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
 QTEST_SUITE_BEGIN( QCharUnicode_TestSuite )
+    
+/// <summary>
+/// Checks that the character is properly initialized to U+0000
+/// </summary>
+QTEST_CASE ( Constructor1_CharacterIsProperlyInitializedToZero_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    QCharUnicode EXPECTED_RESULT(0); 
+
+	// [Execution]
+    QCharUnicode character;
+    
+    // [Verification]
+    BOOST_CHECK(character == EXPECTED_RESULT);
+}
 
 /// <summary>
 /// Checks that the character is properly initialized using a common code point.
 /// </summary>
-QTEST_CASE ( Constructor1_CharacterIsProperlyInitialized_Test )
+QTEST_CASE ( Constructor2_CharacterIsProperlyInitialized_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
 
@@ -57,7 +74,7 @@ QTEST_CASE ( Constructor1_CharacterIsProperlyInitialized_Test )
 /// <summary>
 /// Checks that the copy of a character is equal to the original.
 /// </summary>
-QTEST_CASE ( Constructor2_CopiedCharacterIsEqualToOriginal_Test )
+QTEST_CASE ( Constructor3_CopiedCharacterIsEqualToOriginal_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
 
