@@ -147,63 +147,65 @@ int SQThisThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
 
 EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePriority, const int nPolicy)
 {
+    // On Linux, there are different thread scheduling policies which have different priority ranges. In order to provide a concrete and unified set of priorities,
+    // we sacrified configuration flexibility (only SCHED_OTHER is used) and "accuracy", so different priorities for different policies may be the same when seen from
+    // the user interface point of view. Priority ranges are obtained from the OS and then divided in 3 parts: High, Normal and Low, with two ends: Highest and Lowest
+    // for either the maximum and the minimum priority, respectively.
+
+    // The priority range available depends on the Linux distribution
+    static const int MIN_PRIORITY = sched_get_priority_min(nPolicy);
+    static const int MAX_PRIORITY = sched_get_priority_max(nPolicy);
+
     EQThreadPriority ePriority = EQThreadPriority::E_Normal;
 
-    if(nPolicy == SCHED_OTHER)
+    // Maximum is not assured to be higher than minimum
+    if(MAX_PRIORITY >= MIN_PRIORITY)
     {
-        if(nNativePriority > -10 && nNativePriority < 10)
+        if(nNativePriority > MIN_PRIORITY / 2 && nNativePriority < MAX_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
-        else if(nNativePriority == -20)
+        else if(nNativePriority == MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority > -20 && nNativePriority < -9)
+        else if(nNativePriority >= MAX_PRIORITY / 2 && nNativePriority < MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority > 9 && nNativePriority < 19)
+        else if(nNativePriority > MIN_PRIORITY && nNativePriority <= MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Low;
         }
-        else if(nNativePriority == 19)
+        else if(nNativePriority == MIN_PRIORITY)
         {
             ePriority = EQThreadPriority::E_Lowest;
         }
     }
-    else if(nPolicy == SCHED_BATCH)
+    else // MAX_PRIORITY < MIN_PRIORITY
     {
-        ePriority = EQThreadPriority::E_Normal;
-    }
-    else if(nPolicy == SCHED_IDLE)
-    {
-        ePriority = EQThreadPriority::E_Lowest;
-    }
-    else if(nPolicy == SCHED_FIFO || nPolicy == SCHED_RR)
-    {
-        if(nNativePriority > 33 && nNativePriority < 66)
+        if(nNativePriority > MAX_PRIORITY / 2 && nNativePriority < MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
-        else if(nNativePriority == 99)
+        else if(nNativePriority == MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority > 65 && nNativePriority < 99)
+        else if(nNativePriority > MAX_PRIORITY && nNativePriority <= MAX_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority > 1 && nNativePriority < 34)
+        else if(nNativePriority < MIN_PRIORITY && nNativePriority >= MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Low;
         }
-        else if(nNativePriority == 1)
+        else if(nNativePriority == MIN_PRIORITY)
         {
             ePriority = EQThreadPriority::E_Lowest;
         }
     }
-    
+
     return ePriority;
 }
 
