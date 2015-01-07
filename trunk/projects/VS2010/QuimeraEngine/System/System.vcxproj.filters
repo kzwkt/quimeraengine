@@ -183,5 +183,8 @@
     <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
       <Filter>Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

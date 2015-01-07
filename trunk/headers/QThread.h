@@ -30,6 +30,7 @@
 #include "SystemDefinitions.h"
 #include "QDelegate.h"
 #include "QTimeSpan.h"
+#include "EQThreadPriority.h"
 #include <boost/thread.hpp>
 
 
@@ -409,6 +410,26 @@ public:
     /// </returns>
     string_q ToString() const;
     
+private:
+
+    /// <summary>
+    /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
+    /// </summary>
+    /// <param name="nNativePriority">[IN] A native priority value.</param>
+    /// <returns>
+    /// The corresponding thread priority value.
+    /// </returns>
+    static EQThreadPriority _ConvertFromNativePriority(const int nNativePriority);
+    
+    /// <summary>
+    /// Converts a priority value coming from the engine to the operating system API's equivalent.
+    /// </summary>
+    /// <param name="ePriority">[IN] A thread priority.</param>
+    /// <returns>
+    /// The corresponding native priority value.
+    /// </returns>
+    static int _ConvertToNativePriority(const EQThreadPriority ePriority);
+
 
     // PROPERTIES
     // ---------------
@@ -452,6 +473,23 @@ public:
     /// The thread's ID.
     /// </returns>
     QThread::NativeThreadHandle GetNativeHandle() const;
+
+    /// <summary>
+    /// Gets the priority the operating system gives to the thread.
+    /// </summary>
+    /// <returns>
+    /// The priority of the thread.
+    /// </returns>
+    EQThreadPriority GetPriority() const;
+    
+    /// <summary>
+    /// Sets the priority the operating system must give to the thread.
+    /// </summary>
+    /// <remarks>
+    /// The current user must have permissions to adjust thread priorities.
+    /// </remarks>
+    /// <param name="ePriority">[IN] The new priority of the thread.</param>
+    void SetPriority(const EQThreadPriority &ePriority);
 
 
     // ATTRIBUTES
