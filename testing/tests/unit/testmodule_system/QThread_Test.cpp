@@ -718,5 +718,206 @@ QTEST_CASE ( GetNativeHandle_AssertionFailsWhenMethodIsCalledAfterThreadHasStopp
 
 #endif
 
+/// <summary>
+/// Checks that the priority is correctly set when it is the Lowest.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLowest_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Lowest;
+
+    // [Execution]
+    thread.SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = thread.GetPriority();
+    thread.Join();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is Low.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLow_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Low;
+
+    // [Execution]
+    thread.SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = thread.GetPriority();
+    thread.Join();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is Normal.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsNormal_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Normal;
+
+    // [Execution]
+    thread.SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = thread.GetPriority();
+    thread.Join();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is High.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHigh_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_High;
+
+    // [Execution]
+    thread.SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = thread.GetPriority();
+    thread.Join();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is the Highest.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHighest_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Highest;
+
+    // [Execution]
+    thread.SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = thread.GetPriority();
+    thread.Join();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the method is called after the thread has stopped.
+/// </summary>
+QTEST_CASE ( SetPriority_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
+    QThread thread(function);
+    thread.Join();
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        thread.SetPriority(EQThreadPriority::E_Normal);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the priority is correctly obtained.
+/// </summary>
+QTEST_CASE ( GetPriority_PriorityIsCorrectlyObtained_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    unsigned int uWaitTime = 100;
+    QThread thread(function, uWaitTime);
+
+    // [Execution]
+    EQThreadPriority ePriority = thread.GetPriority();
+
+    // [Verification]
+    thread.Join();
+    BOOST_CHECK(ePriority == EQThreadPriority::E_Lowest ||
+                ePriority == EQThreadPriority::E_Low    ||
+                ePriority == EQThreadPriority::E_Normal ||
+                ePriority == EQThreadPriority::E_High   ||
+                ePriority == EQThreadPriority::E_Highest);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the method is called after the thread has stopped.
+/// </summary>
+QTEST_CASE ( GetPriority_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    QDelegate<void()> function(&QThreadTestClass::FunctionWith0Params);
+    QThread thread(function);
+    thread.Join();
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        thread.GetPriority();
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
 // End - Test Suite: QThread
 QTEST_SUITE_END()
