@@ -31,11 +31,15 @@
 
 #include "QThread.h"
 #include "QTimeSpan.h"
+#include "QDelegate.h"
+#include "EQThreadPriority.h"
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
     #undef Yield // This definition appears in Windows headers which prevents us to use the name "Yield" as the name of a method
 #endif
+
+using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 
 
 namespace Kinesis
@@ -87,6 +91,26 @@ public:
     /// </returns>
     static string_q ToString();
 
+private:
+
+    /// <summary>
+    /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
+    /// </summary>
+    /// <param name="nNativePriority">[IN] A native priority value.</param>
+    /// <returns>
+    /// The corresponding thread priority value.
+    /// </returns>
+    static EQThreadPriority _ConvertFromNativePriority(const int nNativePriority);
+    
+    /// <summary>
+    /// Converts a priority value coming from the engine to the operating system API's equivalent.
+    /// </summary>
+    /// <param name="ePriority">[IN] A thread priority.</param>
+    /// <returns>
+    /// The corresponding native priority value.
+    /// </returns>
+    static int _ConvertToNativePriority(const EQThreadPriority &ePriority);
+
 
     // PROPERTIES
     // ---------------
@@ -118,7 +142,29 @@ public:
     /// The thread's handle.
     /// </returns>
     static QThread::NativeThreadHandle GetNativeHandle();
-
+    
+    /// <summary>
+    /// Stores a function to be called when the thread finishes.
+    /// </summary>
+    /// <param name="function">[IN] The function to be executed, with neither parameters nor return value.</param>
+    static void SetExitFunction(const Kinesis::QuimeraEngine::Common::QDelegate<void()> function);
+    
+    /// <summary>
+    /// Gets the priority the operating system gives to the calling thread.
+    /// </summary>
+    /// <returns>
+    /// The priority of the thread.
+    /// </returns>
+    static EQThreadPriority GetPriority();
+    
+    /// <summary>
+    /// Sets the priority the operating system must give to the calling thread.
+    /// </summary>
+    /// <remarks>
+    /// The current user must have permissions to adjust thread priorities.
+    /// </remarks>
+    /// <param name="ePriority">[IN] The new priority of the thread.</param>
+    static void SetPriority(const EQThreadPriority &ePriority);
 };
 
 } //namespace Threading

@@ -45,27 +45,40 @@ class SQThisThreadTestClass
 {
 public:
 
+    static bool sm_bContinue;
     static bool sm_bFunctionInterrupted;
+    static bool sm_bExitFunctionCalled;
 
     static void ResetFlags()
     {
         sm_bFunctionInterrupted = false;
+        sm_bExitFunctionCalled = false;
     }
 
     static void FunctionToBeInterrupted()
     {
         using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
         
-        // Waits for a little amount of time
-        int i = 0;
-        while(i < 1000000)
-            i = i + i - i * 10 + 10;
+        while(!sm_bContinue)
+            ;
 
         sm_bFunctionInterrupted = SQThisThread::IsInterrupted();
     }
+
+    static void ExitFunction()
+    {
+        sm_bExitFunctionCalled = true;
+    }
+
+    static void FunctionExecutedInAnotherThread()
+    {
+        SQThisThread::SetExitFunction(&SQThisThreadTestClass::ExitFunction);
+    }
 };
 
+bool SQThisThreadTestClass::sm_bContinue = false;
 bool SQThisThreadTestClass::sm_bFunctionInterrupted = false;
+bool SQThisThreadTestClass::sm_bExitFunctionCalled = false;
 
 
 
@@ -135,13 +148,17 @@ QTEST_CASE ( IsInterrupted_ReturnsTrueWhenThreadWasInterrupted_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
     using Kinesis::QuimeraEngine::Common::QDelegate;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // [Preparation]
     const bool EXPECTED_RESULT = true;
     QDelegate<void()> function(&SQThisThreadTestClass::FunctionToBeInterrupted);
+    SQThisThreadTestClass::sm_bContinue = false;
     QThread thread(function);
     SQThisThreadTestClass::ResetFlags();
+    SQThisThread::Sleep(QTimeSpan(0, 0, 0, 0, 10, 0, 0));
     thread.Interrupt();
+    SQThisThreadTestClass::sm_bContinue = true;
 
     // [Execution]
     thread.Join();
@@ -203,6 +220,135 @@ QTEST_CASE ( GetNativeHandle_NoErrorOccurs_Test )
     BOOST_CHECK(NO_ERRORS_OCCURRED);
 }
 
+/// <summary>
+/// Checks that the function is called when the thread exits.
+/// </summary>
+QTEST_CASE ( SetExitFunction_FunctionIsCalledWhenThreadExits_Test )
+{
+    using Kinesis::QuimeraEngine::Common::QDelegate;
+
+    // [Preparation]
+    SQThisThreadTestClass::ResetFlags();
+    QDelegate<void()> function(&SQThisThreadTestClass::FunctionExecutedInAnotherThread);
+    
+    // [Execution]
+    QThread thread(function); // Calls the exit function when finishes
+
+    // [Verification]
+    thread.Join();
+
+    BOOST_CHECK(SQThisThreadTestClass::sm_bExitFunctionCalled);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is the Lowest.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLowest_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Lowest;
+
+    // [Execution]
+    SQThisThread::SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is Low.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLow_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Low;
+
+    // [Execution]
+    SQThisThread::SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is Normal.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsNormal_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Normal;
+
+    // [Execution]
+    SQThisThread::SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is High.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHigh_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_High;
+
+    // [Execution]
+    SQThisThread::SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly set when it is the Highest.
+/// </summary>
+QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHighest_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Highest;
+
+    // [Execution]
+    SQThisThread::SetPriority(INPUT_PRIORITY);
+
+    // [Verification]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+}
+
+/// <summary>
+/// Checks that the priority is correctly obtained.
+/// </summary>
+QTEST_CASE ( GetPriority_PriorityIsCorrectlyObtained_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::EQThreadPriority;
+
+    // [Preparation]
+    
+    // [Execution]
+    EQThreadPriority ePriority = SQThisThread::GetPriority();
+
+    // [Verification]
+    BOOST_CHECK(ePriority == EQThreadPriority::E_Lowest ||
+                ePriority == EQThreadPriority::E_Low    ||
+                ePriority == EQThreadPriority::E_Normal ||
+                ePriority == EQThreadPriority::E_High   ||
+                ePriority == EQThreadPriority::E_Highest);
+}
 
 // End - Test Suite: SQThisThread
 QTEST_SUITE_END()

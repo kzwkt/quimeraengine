@@ -112,6 +112,9 @@
     <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h">
       <Filter>IO\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -176,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp">
       <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
+      <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
