@@ -162,6 +162,7 @@
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h" />
+    <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
