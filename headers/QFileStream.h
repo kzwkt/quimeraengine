@@ -38,9 +38,8 @@
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     #include <unistd.h>
-#elif defined(QE_OS_MAC)
 #endif
     
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
@@ -85,11 +84,10 @@ public:
 
     typedef HANDLE NativeHandle;
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
     typedef int NativeHandle;
 
-#elif defined(QE_OS_MAC)
 #endif
     
     // CONSTANTS

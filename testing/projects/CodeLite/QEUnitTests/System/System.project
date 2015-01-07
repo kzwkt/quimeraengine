@@ -297,7 +297,7 @@
         <Library Value="icui18n"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).h" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
@@ -365,7 +365,7 @@
         <Library Value="icui18n"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).h" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
