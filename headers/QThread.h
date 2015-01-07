@@ -412,6 +412,8 @@ public:
     
 private:
 
+#if defined(QE_OS_WINDOWS)
+
     /// <summary>
     /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
     /// </summary>
@@ -428,7 +430,30 @@ private:
     /// <returns>
     /// The corresponding native priority value.
     /// </returns>
-    static int _ConvertToNativePriority(const EQThreadPriority ePriority);
+    static int _ConvertToNativePriority(const EQThreadPriority &ePriority);
+    
+#elif defined(QE_OS_LINUX)
+
+    /// <summary>
+    /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
+    /// </summary>
+    /// <param name="nNativePriority">[IN] A native priority value.</param>
+    /// <param name="nPolicy">[IN] The scheduling policy. Depending on whether it is FIFO, RoundRobin, OTHER or NORMAL, the range of priority values change.</param>
+    /// <returns>
+    /// The corresponding thread priority value.
+    /// </returns>
+    static EQThreadPriority _ConvertFromNativePriority(const int nNativePriority, const int nPolicy);
+    
+    /// <summary>
+    /// Converts a priority value coming from the engine to the operating system API's equivalent.
+    /// </summary>
+    /// <param name="ePriority">[IN] A thread priority.</param>
+    /// <returns>
+    /// The corresponding native priority value for a NORMAL or OTHER policy.
+    /// </returns>
+    static int _ConvertToNativePriority(const EQThreadPriority &ePriority);
+
+#endif
 
 
     // PROPERTIES

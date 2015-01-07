@@ -33,6 +33,7 @@
     #include <Windows.h>
 #elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     #include <pthread.h>
+    #include <errno.h>
 #endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
@@ -174,52 +175,94 @@ int QThread::_ConvertToNativePriority(const EQThreadPriority ePriority)
 
 #elif defined(QE_OS_LINUX)
 
-EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority)
+EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority, const int nPolicy)
 {
     EQThreadPriority ePriority = EQThreadPriority::E_Normal;
 
-    switch(nNativePriority)
+    if(nPolicy == SCHED_OTHER)
     {
-    case THREAD_PRIORITY_HIGHEST:
-        ePriority = EQThreadPriority::E_Highest;
-        break;
-    case THREAD_PRIORITY_ABOVE_NORMAL:
-        ePriority = EQThreadPriority::E_High;
-        break;
-    case THREAD_PRIORITY_NORMAL:
-        ePriority = EQThreadPriority::E_Normal;
-        break;
-    case THREAD_PRIORITY_BELOW_NORMAL:
-        ePriority = EQThreadPriority::E_Low;
-        break;
-    case THREAD_PRIORITY_LOWEST:
-        ePriority = EQThreadPriority::E_Lowest;
-        break;
+        if(nNativePriority > -10 && nNativePriority < 10)
+        {
+            ePriority = EQThreadPriority::E_Normal;
+        }
+        else if(nNativePriority == -20)
+        {
+            ePriority = EQThreadPriority::E_Highest;
+        }
+        else if(nNativePriority > -20 && nNativePriority < -9)
+        {
+            ePriority = EQThreadPriority::E_High;
+        }
+        else if(nNativePriority > 9 && nNativePriority < 19)
+        {
+            ePriority = EQThreadPriority::E_Low;
+        }
+        else if(nNativePriority == 19)
+        {
+            ePriority = EQThreadPriority::E_Lowest;
+        }
     }
-
+    else if(nPolicy == SCHED_BATCH)
+    {
+        ePriority = EQThreadPriority::E_Normal;
+    }
+    else if(nPolicy == SCHED_IDLE)
+    {
+        ePriority = EQThreadPriority::E_Lowest;
+    }
+    else if(nPolicy == SCHED_FIFO || nPolicy == SCHED_RR)
+    {
+        if(nNativePriority > 33 && nNativePriority < 66)
+        {
+            ePriority = EQThreadPriority::E_Normal;
+        }
+        else if(nNativePriority == 99)
+        {
+            ePriority = EQThreadPriority::E_Highest;
+        }
+        else if(nNativePriority > 65 && nNativePriority < 99)
+        {
+            ePriority = EQThreadPriority::E_High;
+        }
+        else if(nNativePriority > 1 && nNativePriority < 34)
+        {
+            ePriority = EQThreadPriority::E_Low;
+        }
+        else if(nNativePriority == 1)
+        {
+            ePriority = EQThreadPriority::E_Lowest;
+        }
+    }
+    
     return ePriority;
 }
 
-int QThread::_ConvertToNativePriority(const EQThreadPriority ePriority)
+int QThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
 {
     int nNativePriority = 0;
+
+    // The priority range available depends on the Linux distribution
+    static const int MIN_PRIORITY = sched_get_priority_min(SCHED_OTHER);
+    static const int MAX_PRIORITY = sched_get_priority_max(SCHED_OTHER);
 
     switch(ePriority)
     {
     case EQThreadPriority::E_Highest:
-        nNativePriority = THREAD_PRIORITY_HIGHEST;
+        nNativePriority = MAX_PRIORITY;
         break;
     case EQThreadPriority::E_High:
-        nNativePriority = THREAD_PRIORITY_ABOVE_NORMAL;
+        nNativePriority = MAX_PRIORITY / 2;
         break;
     case EQThreadPriority::E_Normal:
-        nNativePriority = THREAD_PRIORITY_NORMAL;
+        nNativePriority = 0;
         break;
     case EQThreadPriority::E_Low:
-        nNativePriority = THREAD_PRIORITY_BELOW_NORMAL;
+        nNativePriority = MIN_PRIORITY / 2;
         break;
     case EQThreadPriority::E_Lowest:
-        nNativePriority = THREAD_PRIORITY_LOWEST;
+        nNativePriority = MIN_PRIORITY;
+        break;
+    default:
         break;
     }
 
@@ -254,7 +297,7 @@ EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority)
     return ePriority;
 }
 
-int QThread::_ConvertToNativePriority(const EQThreadPriority ePriority)
+int QThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
 {
     int nNativePriority = 0;
 
@@ -342,29 +385,46 @@ void QThread::SetPriority(const EQThreadPriority &ePriority)
 
 #elif defined(QE_OS_LINUX)
 
-EQThreadPriority QThread::GetPriority()
+EQThreadPriority QThread::GetPriority() const
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+    
+    QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to get the priority of a not-running thread.");
+    
+    sched_param schedulingPolicy;
+    int nPolicy;
+    
+    int nResult = pthread_getschedparam(this->GetNativeHandle(), &nPolicy, &schedulingPolicy);
+    int nNativePriority = schedulingPolicy.__sched_priority;
+    
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + this->ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    
+    return QThread::_ConvertFromNativePriority(nNativePriority, nPolicy);
 }
 
 void QThread::SetPriority(const EQThreadPriority &ePriority)
 {
-}
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+    
+    QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to set the priority of a not-running thread.");
 
-EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority)
-{
+    int nNativePriority = QThread::_ConvertToNativePriority(ePriority);
+    
+    sched_param schedulingPolicy;
+    schedulingPolicy.__sched_priority = nNativePriority;
+    
+    int nResult = pthread_setschedparam(this->GetNativeHandle(), SCHED_OTHER, &schedulingPolicy);
+    
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
 }
 
 #elif defined(QE_OS_MAC)
 
-EQThreadPriority QThread::GetPriority()
+EQThreadPriority QThread::GetPriority() const
 {
 }
 
 void QThread::SetPriority(const EQThreadPriority &ePriority)
-{
-}
-
-EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority)
 {
 }
 
