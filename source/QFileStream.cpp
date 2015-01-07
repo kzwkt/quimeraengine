@@ -173,7 +173,7 @@ void QFileStream::Read(void* pOutput, const pointer_uint_q uOutputOffset, const 
 
     // Reads the data from the file
     // Only the bytes that are not in the buffer yet are read directly from the file
-    bool bAbortOperation = false;
+    bool bOperationSuccessful = true;
     pointer_uint_q uBytesFromPositionToEndOfBuffer = m_uBufferVirtualSize - uPositionInBuffer;
 
     if(uBytesFromPositionToEndOfBuffer < uClampedOutputSize)
@@ -182,57 +182,16 @@ void QFileStream::Read(void* pOutput, const pointer_uint_q uOutputOffset, const 
         pointer_uint_q uPositionAtEndOfBuffer = m_uPositionPointer + uBytesFromPositionToEndOfBuffer;
         u8_q* pPositionAtEndOfBuffer = pPositionInBuffer + uBytesFromPositionToEndOfBuffer;
 
-#if defined(QE_OS_WINDOWS)
+        bOperationSuccessful = QFileStream::_ReadPlatformImplementation(pPositionAtEndOfBuffer, uExceedingBytesToReadFromFile, uPositionAtEndOfBuffer, m_nativeHandle, m_path);
 
-        OVERLAPPED offsets;
-        memset(&offsets, 0, sizeof(OVERLAPPED)); // The structure MUST be zero-initialized
-
-        // Sets the offset from where to start reading
-    #if QE_OS_WINDOWS == 32
-            offsets.Offset = uPositionAtEndOfBuffer;
-            offsets.OffsetHigh = 0;
-    #elif QE_OS_WINDOWS == 64
-            const u32_q* pPosition = rcast_q(&uPositionAtEndOfBuffer, const u32_q*);
-        #if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
-            offsets.Offset = pPosition[1];
-            offsets.OffsetHigh = pPosition[0];
-        #elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
-            offsets.Offset = pPosition[0];
-            offsets.OffsetHigh = pPosition[1];
-        #endif
-    #endif
-
-        static const BOOL READ_OPERATION_FAILED = 0;
-        BOOL uReadFileResult = ::ReadFile(m_nativeHandle, pPositionAtEndOfBuffer, uExceedingBytesToReadFromFile, NULL, &offsets);
-
-        if(uReadFileResult == READ_OPERATION_FAILED)
-        {
-            bAbortOperation = true;
-            DWORD uReadFileLastError = ::GetLastError();
-            QE_ASSERT_ERROR(uReadFileResult != 0, string_q("An unexpected error occurred when reading from the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uReadFileLastError) + ".");
-        }
-
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
-
-        ssize_t nResult = pread(m_nativeHandle, pPositionAtEndOfBuffer, uExceedingBytesToReadFromFile, uPositionAtEndOfBuffer);
-        
-        if(nResult < 0)
-        {
-            bAbortOperation = true;
-            error_t lastError = errno;
-            QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when reading from the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
-        }
-
-#endif
-
-        if(!bAbortOperation)
+        if(bOperationSuccessful)
         {
             m_uBufferVirtualSize += uExceedingBytesToReadFromFile;
         }
         
     } // if(uBytesFromPositionToEndOfBuffer < uClampedOutputSize)
             
-    if(!bAbortOperation)
+    if(bOperationSuccessful)
     {
         // Copies the content of the read/write buffer to the output buffer from the current position
         memcpy(pOutputPosition, pPositionInBuffer, uClampedOutputSize);
@@ -286,58 +245,15 @@ void QFileStream::Flush()
     QE_ASSERT_ERROR(m_bIsOpen == true, "The file is not open.");
     QE_ASSERT_ERROR(!m_bIsWritePending || m_bWritingIsAllowed, "It is not possible to write to the file, it is read-only.");
 
-    bool bAbortOperation = false;
+    bool bOperationSuccessful = true;
 
     if(m_bIsWritePending)
     {
         // Writes the full buffer
-
-#if defined(QE_OS_WINDOWS)
-        
-        OVERLAPPED offsets;
-        memset(&offsets, 0, sizeof(OVERLAPPED)); // The structure MUST be zero-initialized
-
-        // Sets the offset from where to start reading
-    #if QE_OS_WINDOWS == 32
-            offsets.Offset = m_uBufferStartPosition;
-            offsets.OffsetHigh = 0;
-    #elif QE_OS_WINDOWS == 64
-            const u32_q* pPosition = rcast_q(&m_uBufferStartPosition, const u32_q*);
-        #if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
-            offsets.Offset = pPosition[1];
-            offsets.OffsetHigh = pPosition[0];
-        #elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
-            offsets.Offset = pPosition[0];
-            offsets.OffsetHigh = pPosition[1];
-        #endif
-    #endif
-
-        static const BOOL WRITE_OPERATION_FAILED = 0;
-        BOOL uWriteFileResult = ::WriteFile(m_nativeHandle, m_rwBuffer.GetPointer(), m_uBufferVirtualSize, NULL, &offsets);
-
-        if(uWriteFileResult == WRITE_OPERATION_FAILED)
-        {
-            bAbortOperation = true;
-            
-            DWORD uWriteFileLastError = ::GetLastError();
-            QE_ASSERT_WARNING(!bAbortOperation, string_q("An unexpected error occurred when writing to the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uWriteFileLastError) + ".");
-        }
-
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
-
-        ssize_t nResult = pwrite(m_nativeHandle, m_rwBuffer.GetPointer(), m_uBufferVirtualSize, m_uBufferStartPosition);
-        
-        if(nResult < 0)
-        {
-            bAbortOperation = true;
-            error_t lastError = errno;
-            QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when writing to the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
-        }
-
-#endif
+        bOperationSuccessful = QFileStream::_WritePlatformImplementation(m_rwBuffer.GetPointer(), m_uBufferVirtualSize, m_uBufferStartPosition, m_nativeHandle, m_path);
     }
 
-    if(!bAbortOperation)
+    if(bOperationSuccessful)
     {
         m_uBufferStartPosition = m_uPositionPointer;
         m_uBufferVirtualSize = 0;
@@ -393,101 +309,9 @@ EQFileSystemError QFileStream::Open(const QPath &filePath, const EQFileOpenMode 
 
         m_path = filePath;
 
-#if defined(QE_OS_WINDOWS)
-
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
-        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-
-        QBasicArray<i8_q> arPath = filePath.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
-        const wchar_t* szPath = rcast_q(arPath.Get(), wchar_t*);
-        DWORD uAccess = m_bWritingIsAllowed ? GENERIC_READ | GENERIC_WRITE : 
-                                              GENERIC_READ;
-        DWORD uOpenMode = 0;
-
-        switch(eOpenMode)
-        {
-        case EQFileOpenMode::E_Append:
-        case EQFileOpenMode::E_Open:
-            uOpenMode = OPEN_EXISTING;
-            break;
-        case EQFileOpenMode::E_Create:
-            uOpenMode = CREATE_NEW;
-            break;
-        case EQFileOpenMode::E_CreateOrOverwrite:
-            uOpenMode = CREATE_ALWAYS;
-            break;
-        case EQFileOpenMode::E_OpenOrCreate:
-            uOpenMode = OPEN_ALWAYS;
-            break;
-        default:
-            break;
-        }
-
-        m_nativeHandle = ::CreateFileW(szPath, uAccess, FILE_SHARE_READ, NULL, uOpenMode, FILE_FLAG_RANDOM_ACCESS, NULL);
-
-        const bool FILE_OPENED_SUCCESSFULLY = m_nativeHandle != INVALID_HANDLE_VALUE;
-
-        if(!FILE_OPENED_SUCCESSFULLY)
-        {
-            DWORD uCreateFileWLastError = ::GetLastError();
-            QE_ASSERT_ERROR(m_nativeHandle != INVALID_HANDLE_VALUE, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCreateFileWLastError) + ".");
-
-            if(uCreateFileWLastError == ERROR_ACCESS_DENIED)
-                eErrorInfo = EQFileSystemError::E_NoPermissions;
-            else
-                eErrorInfo = EQFileSystemError::E_Unknown;
-        }
-
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
-
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
-        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-        using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-
-        QBasicArray<i8_q> szPath = filePath.ToString().ToBytes(EQTextEncoding::E_UTF8);
+        bool bOperationSuccessful = QFileStream::_OpenPlatformImplementation(m_path, eOpenMode, m_bWritingIsAllowed, m_nativeHandle, eErrorInfo);
         
-        int nAccess = m_bWritingIsAllowed ? O_RDWR: 
-                                            O_RDONLY;
-        int nPermissions = S_IRWXU; // Read, write and execution permissions for the owner
-        int nOpenMode = 0;
-
-        switch(eOpenMode)
-        {
-        case EQFileOpenMode::E_Append:
-        case EQFileOpenMode::E_Open:
-            nOpenMode = 0;
-            break;
-        case EQFileOpenMode::E_Create:
-            nOpenMode = O_CREAT | O_EXCL;
-            break;
-        case EQFileOpenMode::E_CreateOrOverwrite:
-            nOpenMode = O_CREAT | O_TRUNC;
-            break;
-        case EQFileOpenMode::E_OpenOrCreate:
-            nOpenMode = O_CREAT;
-            break;
-        default:
-            break;
-        }
-        
-        m_nativeHandle = open(szPath.Get(), nAccess | nOpenMode, nPermissions);
-
-        const bool FILE_OPENED_SUCCESSFULLY = m_nativeHandle >= 0;
-        
-        if(!FILE_OPENED_SUCCESSFULLY)
-        {
-            error_t lastError = errno;
-            QE_ASSERT_ERROR(m_nativeHandle >= 0, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
-            
-            if(lastError == EACCES)
-                eErrorInfo = EQFileSystemError::E_NoPermissions;
-            else
-                eErrorInfo = EQFileSystemError::E_Unknown;
-        }
-
-#endif
-        
-        if(FILE_OPENED_SUCCESSFULLY)
+        if(bOperationSuccessful)
         {
             m_bIsOpen = true;
             eErrorInfo = EQFileSystemError::E_Success;
@@ -526,33 +350,9 @@ void QFileStream::Close()
         if(m_bIsWritePending)
             this->Flush();
 
-        bool bOperationFailed = false;
-        
-#if defined(QE_OS_WINDOWS)
+        bool bOperationSuccessful = QFileStream::_ClosePlarformImplementation(m_nativeHandle, m_path);
 
-        static const BOOL CLOSE_OPERATION_FAILED = 0;
-        BOOL uCloseHandleResult = ::CloseHandle(m_nativeHandle);
-
-        if(uCloseHandleResult == CLOSE_OPERATION_FAILED)
-        {
-            bOperationFailed = true;
-            DWORD uCloseHandleLastError = ::GetLastError();
-            QE_ASSERT_ERROR(uCloseHandleResult != 0, string_q("An unexpected error occurred when closing the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCloseHandleLastError) + ".");
-        }
-
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
-
-        int nResult = close(m_nativeHandle);
-
-        if(nResult < 0)
-        {
-            bOperationFailed = true;
-            error_t lastError = errno;
-            QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when closing the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
-        }
-
-#endif
-        if(!bOperationFailed)
+        if(bOperationSuccessful)
         {
             m_bIsOpen = false;
         }
@@ -575,6 +375,253 @@ bool QFileStream::_FlushIfPositionDoesNotBelongToBuffer()
 
     return bPositionDoesNotBelongToBuffer;
 }
+
+#if defined(QE_OS_WINDOWS)
+
+bool QFileStream::_ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    OVERLAPPED offsets;
+    memset(&offsets, 0, sizeof(OVERLAPPED)); // The structure MUST be zero-initialized
+
+    // Sets the offset from where to start reading
+#if QE_OS_WINDOWS == 32
+        offsets.Offset = uFileOffset;
+        offsets.OffsetHigh = 0;
+#elif QE_OS_WINDOWS == 64
+        const u32_q* pPosition = rcast_q(&uFileOffset, const u32_q*);
+    #if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
+        offsets.Offset = pPosition[1];
+        offsets.OffsetHigh = pPosition[0];
+    #elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
+        offsets.Offset = pPosition[0];
+        offsets.OffsetHigh = pPosition[1];
+    #endif
+#endif
+
+    static const BOOL READ_OPERATION_FAILED = 0;
+    BOOL uReadFileResult = ::ReadFile(handle, pOutputBuffer, uNumberOfBytes, NULL, &offsets);
+
+    if(uReadFileResult == READ_OPERATION_FAILED)
+    {
+        bSuccess = false;
+        DWORD uReadFileLastError = ::GetLastError();
+        QE_ASSERT_ERROR(uReadFileResult != 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uReadFileLastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_WritePlatformImplementation(const void* pInputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    OVERLAPPED offsets;
+    memset(&offsets, 0, sizeof(OVERLAPPED)); // The structure MUST be zero-initialized
+
+    // Sets the offset from where to start reading
+#if QE_OS_WINDOWS == 32
+        offsets.Offset = uFileOffset;
+        offsets.OffsetHigh = 0;
+#elif QE_OS_WINDOWS == 64
+        const u32_q* pPosition = rcast_q(&uFileOffset, const u32_q*);
+    #if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
+        offsets.Offset = pPosition[1];
+        offsets.OffsetHigh = pPosition[0];
+    #elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
+        offsets.Offset = pPosition[0];
+        offsets.OffsetHigh = pPosition[1];
+    #endif
+#endif
+
+    static const BOOL WRITE_OPERATION_FAILED = 0;
+    BOOL uWriteFileResult = ::WriteFile(handle, pInputBuffer, uNumberOfBytes, NULL, &offsets);
+
+    if(uWriteFileResult == WRITE_OPERATION_FAILED)
+    {
+        bSuccess = false;
+            
+        DWORD uWriteFileLastError = ::GetLastError();
+        QE_ASSERT_WARNING(uWriteFileResult != WRITE_OPERATION_FAILED, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uWriteFileLastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFileOpenMode &eOpenMode, const bool bIsWritingAllowed, QFileStream::NativeHandle &handle, EQFileSystemError &eErrorInfo)
+{
+    bool bSuccess = true;
+
+    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+
+    QBasicArray<i8_q> arPath = filePath.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
+    const wchar_t* szPath = rcast_q(arPath.Get(), wchar_t*);
+    DWORD uAccess = bIsWritingAllowed ? GENERIC_READ | GENERIC_WRITE : 
+                                        GENERIC_READ;
+    DWORD uOpenMode = 0;
+
+    switch(eOpenMode)
+    {
+    case EQFileOpenMode::E_Append:
+    case EQFileOpenMode::E_Open:
+        uOpenMode = OPEN_EXISTING;
+        break;
+    case EQFileOpenMode::E_Create:
+        uOpenMode = CREATE_NEW;
+        break;
+    case EQFileOpenMode::E_CreateOrOverwrite:
+        uOpenMode = CREATE_ALWAYS;
+        break;
+    case EQFileOpenMode::E_OpenOrCreate:
+        uOpenMode = OPEN_ALWAYS;
+        break;
+    default:
+        break;
+    }
+
+    handle = ::CreateFileW(szPath, uAccess, FILE_SHARE_READ, NULL, uOpenMode, FILE_FLAG_RANDOM_ACCESS, NULL);
+
+    const bool FILE_OPENED_SUCCESSFULLY = handle != INVALID_HANDLE_VALUE;
+
+    if(!FILE_OPENED_SUCCESSFULLY)
+    {
+        bSuccess = false;
+        DWORD uCreateFileWLastError = ::GetLastError();
+        QE_ASSERT_ERROR(handle != INVALID_HANDLE_VALUE, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCreateFileWLastError) + ".");
+
+        if(uCreateFileWLastError == ERROR_ACCESS_DENIED)
+            eErrorInfo = EQFileSystemError::E_NoPermissions;
+        else
+            eErrorInfo = EQFileSystemError::E_Unknown;
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_ClosePlarformImplementation(const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    static const BOOL CLOSE_OPERATION_FAILED = 0;
+    BOOL uCloseHandleResult = ::CloseHandle(handle);
+
+    if(uCloseHandleResult == CLOSE_OPERATION_FAILED)
+    {
+        bSuccess = false;
+        DWORD uCloseHandleLastError = ::GetLastError();
+        QE_ASSERT_ERROR(uCloseHandleResult != 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCloseHandleLastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+
+bool QFileStream::_ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    ssize_t nResult = pread(handle, pOutputBuffer, uNumberOfBytes, uFileOffset);
+        
+    if(nResult < 0)
+    {
+        bSuccess = false;
+        error_t lastError = errno;
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_WritePlatformImplementation(const u8_q* pInputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    ssize_t nResult = pwrite(handle, pInputBuffer, uNumberOfBytes, uFileOffset);
+        
+    if(nResult < 0)
+    {
+        bSuccess = false;
+        error_t lastError = errno;
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFileOpenMode &eOpenMode, const bool bIsWritingAllowed, QFileStream::NativeHandle &handle, EQFileSystemError &eErrorInfo)
+{
+    bool bSuccess = true;
+
+    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    QBasicArray<i8_q> szPath = filePath.ToString().ToBytes(EQTextEncoding::E_UTF8);
+        
+    int nAccess = bIsWritingAllowed ? O_RDWR: 
+                                      O_RDONLY;
+    int nPermissions = S_IRWXU; // Read, write and execution permissions for the owner
+    int nOpenMode = 0;
+
+    switch(eOpenMode)
+    {
+    case EQFileOpenMode::E_Append:
+    case EQFileOpenMode::E_Open:
+        nOpenMode = 0;
+        break;
+    case EQFileOpenMode::E_Create:
+        nOpenMode = O_CREAT | O_EXCL;
+        break;
+    case EQFileOpenMode::E_CreateOrOverwrite:
+        nOpenMode = O_CREAT | O_TRUNC;
+        break;
+    case EQFileOpenMode::E_OpenOrCreate:
+        nOpenMode = O_CREAT;
+        break;
+    default:
+        break;
+    }
+        
+    handle = open(szPath.Get(), nAccess | nOpenMode, nPermissions);
+
+    const bool FILE_OPENED_SUCCESSFULLY = handle >= 0;
+        
+    if(!FILE_OPENED_SUCCESSFULLY)
+    {
+        bSuccess = false;
+        error_t lastError = errno;
+        QE_ASSERT_ERROR(handle >= 0, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+            
+        if(lastError == EACCES)
+            eErrorInfo = EQFileSystemError::E_NoPermissions;
+        else
+            eErrorInfo = EQFileSystemError::E_Unknown;
+    }
+
+    return bSuccess;
+}
+
+bool QFileStream::_ClosePlarformImplementation(const QFileStream::NativeHandle &handle, const QPath &filePath)
+{
+    bool bSuccess = true;
+
+    int nResult = close(handle);
+
+    if(nResult < 0)
+    {
+        bSuccess = false;
+        error_t lastError = errno;
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+    }
+
+    return bSuccess;
+}
+
+#endif
+
 
 //##################=======================================================##################
 //##################             ____________________________              ##################

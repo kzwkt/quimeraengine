@@ -1263,7 +1263,7 @@ QTEST_CASE ( CopyTo_DestinationOffsetAffectsTheResult_Test )
     const EQFileOpenMode OPEN_MODE = EQFileOpenMode::E_Open;
     EQFileSystemError errorInfo = EQFileSystemError::E_Unknown;
     QFileStream sourceStream(INPUT_PATH, OPEN_MODE, BUFFER_SIZE, errorInfo);
-
+    
     const QPath INPUT_PATH2(PATH_TO_ARTIFACTS + "./WrittenFile1.txt");
     const QPath INPUT_PATH3(PATH_TO_ARTIFACTS + "./WrittenFile2.txt");
     const EQFileOpenMode OPEN_MODE2 = EQFileOpenMode::E_CreateOrOverwrite;
@@ -1272,7 +1272,7 @@ QTEST_CASE ( CopyTo_DestinationOffsetAffectsTheResult_Test )
     const char ORIGINAL_CONTENT[] = {0, 0, 0, 0};
     stream1.Write(ORIGINAL_CONTENT, 0, sizeof(ORIGINAL_CONTENT));
     stream2.Write(ORIGINAL_CONTENT, 0, sizeof(ORIGINAL_CONTENT));
-
+    
     const pointer_uint_q SOURCE_OFFSET = 0;
     const pointer_uint_q OFFSET1 = 1U;
     const pointer_uint_q OFFSET2 = 2U;
@@ -1638,7 +1638,7 @@ QTEST_CASE ( CopyTo_AssertionFailsWhenBatchSizeIsZero_Test )
     const pointer_uint_q BATCH_SIZE = 0;
     const bool ASSERTION_FAILED = true;
 
-    // [Execution]0
+    // [Execution]
     bool bAssertionFailed = false;
 
     try
