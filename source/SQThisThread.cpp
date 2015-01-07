@@ -161,7 +161,7 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
     // Maximum is not assured to be higher than minimum
     if(MAX_PRIORITY >= MIN_PRIORITY)
     {
-        if(nNativePriority > MIN_PRIORITY / 2 && nNativePriority < MAX_PRIORITY / 2)
+        if(nNativePriority >= MIN_PRIORITY / 2 && nNativePriority <= MAX_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
@@ -169,11 +169,11 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority >= MAX_PRIORITY / 2 && nNativePriority < MAX_PRIORITY)
+        else if(nNativePriority > MAX_PRIORITY / 2 && nNativePriority < MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority > MIN_PRIORITY && nNativePriority <= MIN_PRIORITY / 2)
+        else if(nNativePriority > MIN_PRIORITY && nNativePriority < MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Low;
         }
@@ -184,7 +184,7 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
     }
     else // MAX_PRIORITY < MIN_PRIORITY
     {
-        if(nNativePriority > MAX_PRIORITY / 2 && nNativePriority < MIN_PRIORITY / 2)
+        if(nNativePriority >= MAX_PRIORITY / 2 && nNativePriority <= MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
@@ -192,11 +192,11 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority > MAX_PRIORITY && nNativePriority <= MAX_PRIORITY / 2)
+        else if(nNativePriority > MAX_PRIORITY && nNativePriority < MAX_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority < MIN_PRIORITY && nNativePriority >= MIN_PRIORITY / 2)
+        else if(nNativePriority < MIN_PRIORITY && nNativePriority > MIN_PRIORITY / 2)
         {
             ePriority = EQThreadPriority::E_Low;
         }
