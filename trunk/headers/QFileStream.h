@@ -43,6 +43,7 @@
 #endif
     
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 
 
 namespace Kinesis
@@ -309,6 +310,55 @@ private:
     /// True if the Flush method was called; False otherwise.
     /// </returns>
     bool _FlushIfPositionDoesNotBelongToBuffer();
+    
+    /// <summary>
+    /// The platform-specific implementation of the Read operation.
+    /// </summary>
+    /// <param name="pOutputBuffer">[OUT] The output buffer to which read bytes are to be copied.</param>
+    /// <param name="uNumberOfBytes">[IN] The number of bytes to copy to the output buffer.</param>
+    /// <param name="uFileOffset">[IN] The position to start copying from the file.</param>
+    /// <param name="handle">[IN] The operating system file handle.</param>
+    /// <param name="filePath">[IN] The path to the file.</param>
+    /// <returns>
+    /// True if the operation succeed; False otherwise.
+    /// </returns>
+    static bool _ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath);
+    
+    /// <summary>
+    /// The platform-specific implementation of the Write operation.
+    /// </summary>
+    /// <param name="pInputBuffer">[IN] The input buffer whose content is to be written to the file.</param>
+    /// <param name="uNumberOfBytes">[IN] The number of bytes to copy to the file.</param>
+    /// <param name="uFileOffset">[IN] The position to start copying to the file.</param>
+    /// <param name="handle">[IN] The operating system file handle.</param>
+    /// <param name="filePath">[IN] The path to the file.</param>
+    /// <returns>
+    /// True if the operation succeed; False otherwise.
+    /// </returns>
+    static bool _WritePlatformImplementation(const void* pInputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath);
+    
+    /// <summary>
+    /// The platform-specific implementation of the Open operation.
+    /// </summary>
+    /// <param name="filePath">[IN] The path to the file.</param>
+    /// <param name="eOpenMode">[IN] The way the operating system will open the file.</param>
+    /// <param name="bIsWritingAllowed">[IN] Indicates whether the current user has enough permissions to open the file.</param>
+    /// <param name="handle">[OUT] The operating system file handle.</param>
+    /// <param name="eErrorInfo">[OUT] The result of the operation.</param>
+    /// <returns>
+    /// True if the operation succeed; False otherwise.
+    /// </returns>
+    static bool _OpenPlatformImplementation(const QPath &filePath, const EQFileOpenMode &eOpenMode, const bool bIsWritingAllowed, QFileStream::NativeHandle &handle, EQFileSystemError &eErrorInfo);
+    
+    /// <summary>
+    /// The platform-specific implementation of the Close operation.
+    /// </summary>
+    /// <param name="handle">[IN] The operating system file handle.</param>
+    /// <param name="filePath">[IN] The path to the file.</param>
+    /// <returns>
+    /// True if the operation succeed; False otherwise.
+    /// </returns>
+    static bool _ClosePlarformImplementation(const QFileStream::NativeHandle &handle, const QPath &filePath);
 
 
     // PROPERTIES

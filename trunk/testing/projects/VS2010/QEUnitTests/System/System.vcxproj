@@ -127,12 +127,12 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)
-rmdir $(TargetDir)artifacts /s /q
-xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
+      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
+rmdir $(TargetDir)artifacts /s /q
+xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
       <Message>
       </Message>
     </PostBuildEvent>
@@ -166,11 +166,12 @@ xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
 copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineTools.dll $(TargetDir)
 copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineSystem.dll $(TargetDir)
 copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)
-rmdir $(TargetDir)artifacts /s /q
-xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
+</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y</Command>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y
+rmdir $(TargetDir)artifacts /s /q
+xcopy $(TargetDir)..\..\artifacts $(TargetDir) /Y /I /E /K /O</Command>
       <Message>
       </Message>
     </PostBuildEvent>
