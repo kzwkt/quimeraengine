@@ -731,6 +731,11 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLowest_Test )
     QThread thread(function, uWaitTime);
 
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Lowest;
+#if defined(QE_OS_WINDOWS)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Lowest;
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
+#endif
 
     // [Execution]
     thread.SetPriority(INPUT_PRIORITY);
@@ -738,7 +743,7 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLowest_Test )
     // [Verification]
     EQThreadPriority ePriority = thread.GetPriority();
     thread.Join();
-    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+    BOOST_CHECK(ePriority == EXPECTED_PRIORITY);
 }
 
 /// <summary>
@@ -754,6 +759,11 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLow_Test )
     QThread thread(function, uWaitTime);
 
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Low;
+#if defined(QE_OS_WINDOWS)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Low;
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
+#endif
 
     // [Execution]
     thread.SetPriority(INPUT_PRIORITY);
@@ -761,7 +771,7 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLow_Test )
     // [Verification]
     EQThreadPriority ePriority = thread.GetPriority();
     thread.Join();
-    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+    BOOST_CHECK(ePriority == EXPECTED_PRIORITY);
 }
 
 /// <summary>
@@ -800,6 +810,11 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHigh_Test )
     QThread thread(function, uWaitTime);
 
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_High;
+#if defined(QE_OS_WINDOWS)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_High;
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
+#endif
 
     // [Execution]
     thread.SetPriority(INPUT_PRIORITY);
@@ -807,7 +822,7 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHigh_Test )
     // [Verification]
     EQThreadPriority ePriority = thread.GetPriority();
     thread.Join();
-    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+    BOOST_CHECK(ePriority == EXPECTED_PRIORITY);
 }
 
 /// <summary>
@@ -823,6 +838,11 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHighest_Test )
     QThread thread(function, uWaitTime);
 
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Highest;
+#if defined(QE_OS_WINDOWS)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Highest;
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+    const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
+#endif
 
     // [Execution]
     thread.SetPriority(INPUT_PRIORITY);
@@ -830,7 +850,7 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHighest_Test )
     // [Verification]
     EQThreadPriority ePriority = thread.GetPriority();
     thread.Join();
-    BOOST_CHECK(ePriority == INPUT_PRIORITY);
+    BOOST_CHECK(ePriority == EXPECTED_PRIORITY);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
