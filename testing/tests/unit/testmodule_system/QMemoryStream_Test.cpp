@@ -677,7 +677,7 @@ QTEST_CASE ( CopyTo_SourceStreamInternalPointerIsMovedForward_Test )
     const pointer_uint_q EXPECTED_POSITION = BUFFER_SIZE;
 
     QMemoryStream<> sourceStream(&NEW_CONTENT, BUFFER_SIZE);
-    void* pOriginalPointer = sourceStream.GetCurrentPointer();
+    sourceStream.GetCurrentPointer();
 
     QMemoryStream<> stream(BUFFER_SIZE);
 
@@ -726,7 +726,7 @@ QTEST_CASE ( CopyTo_SourceStreamInternalPointerIsMovedToOffsetWhenNumberOfBytesT
     const pointer_uint_q NUMBER_OF_BYTES = 0;
 
     QMemoryStream<> sourceStream(&NEW_CONTENT, BUFFER_SIZE);
-    void* pOriginalPointer = sourceStream.GetCurrentPointer();
+    sourceStream.GetCurrentPointer();
 
     QMemoryStream<> stream(BUFFER_SIZE);
 
