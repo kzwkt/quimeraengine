@@ -32,10 +32,14 @@
 #include "EQTextEncoding.h"
 #include <cstring>
 
-#if defined(QE_OS_LINUX)
+#if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
     #include <sys/stat.h>
     #include <fcntl.h>
     #include <errno.h>
+#endif
+
+#if defined(QE_OS_MAC)
+    typedef int error_t; // It exists on Linux but not on MacOSX
 #endif
 
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
@@ -208,7 +212,7 @@ void QFileStream::Read(void* pOutput, const pointer_uint_q uOutputOffset, const 
             QE_ASSERT_ERROR(uReadFileResult != 0, string_q("An unexpected error occurred when reading from the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uReadFileLastError) + ".");
         }
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
         ssize_t nResult = pread(m_nativeHandle, pPositionAtEndOfBuffer, uExceedingBytesToReadFromFile, uPositionAtEndOfBuffer);
         
@@ -219,7 +223,6 @@ void QFileStream::Read(void* pOutput, const pointer_uint_q uOutputOffset, const 
             QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when reading from the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
         }
 
-#elif defined(QE_OS_MAC)
 #endif
 
         if(!bAbortOperation)
@@ -320,7 +323,7 @@ void QFileStream::Flush()
             QE_ASSERT_WARNING(!bAbortOperation, string_q("An unexpected error occurred when writing to the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uWriteFileLastError) + ".");
         }
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
         ssize_t nResult = pwrite(m_nativeHandle, m_rwBuffer.GetPointer(), m_uBufferVirtualSize, m_uBufferStartPosition);
         
@@ -330,8 +333,7 @@ void QFileStream::Flush()
             error_t lastError = errno;
             QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when writing to the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
         }
-        
-#elif defined(QE_OS_MAC)
+
 #endif
     }
 
@@ -436,7 +438,7 @@ EQFileSystemError QFileStream::Open(const QPath &filePath, const EQFileOpenMode 
                 eErrorInfo = EQFileSystemError::E_Unknown;
         }
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
         using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -482,8 +484,7 @@ EQFileSystemError QFileStream::Open(const QPath &filePath, const EQFileOpenMode 
             else
                 eErrorInfo = EQFileSystemError::E_Unknown;
         }
-        
-#elif defined(QE_OS_MAC)
+
 #endif
         
         if(FILE_OPENED_SUCCESSFULLY)
@@ -539,7 +540,7 @@ void QFileStream::Close()
             QE_ASSERT_ERROR(uCloseHandleResult != 0, string_q("An unexpected error occurred when closing the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCloseHandleLastError) + ".");
         }
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
         int nResult = close(m_nativeHandle);
 
@@ -549,8 +550,7 @@ void QFileStream::Close()
             error_t lastError = errno;
             QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when closing the file \"") + m_path.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
         }
-        
-#elif defined(QE_OS_MAC)
+
 #endif
         if(!bOperationFailed)
         {

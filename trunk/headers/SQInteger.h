@@ -298,7 +298,7 @@ public:
                                                                                                                              0;
         const unsigned int STRING_LENGTH = strHexadecimal.GetLength();
 
-        QE_ASSERT_ERROR(STRING_LENGTH - START_POSITION - 1U <= sizeof(IntegerT) * 2U, "The string must contain 2 letters per byte of the integer (apart from the prefix, if it has any).");
+        QE_ASSERT_ERROR(STRING_LENGTH - START_POSITION - 1U <= sizeof(IntegerT) * 2U, string_q("The string (\"") + strHexadecimal + "\") must contain 2 letters per byte of the integer (apart from the prefix, if it has any).");
 
         IntegerT uMultiplier = 0;
         codepoint_q byteHalf = 0;
