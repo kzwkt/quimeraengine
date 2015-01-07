@@ -535,7 +535,7 @@ bool QFileStream::_ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer
     return bSuccess;
 }
 
-bool QFileStream::_WritePlatformImplementation(const u8_q* pInputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
+bool QFileStream::_WritePlatformImplementation(const void* pInputBuffer, const pointer_uint_q uNumberOfBytes, const pointer_uint_q uFileOffset, const QFileStream::NativeHandle &handle, const QPath &filePath)
 {
     bool bSuccess = true;
 
