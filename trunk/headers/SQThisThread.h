@@ -113,7 +113,7 @@ private:
     /// </returns>
     static int _ConvertToNativePriority(const EQThreadPriority &ePriority);
     
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
     /// <summary>
     /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
