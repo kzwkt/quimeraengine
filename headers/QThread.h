@@ -102,7 +102,7 @@ public:
     /// <param name="function">[IN] A delegate that contains the function to be executed. It must not be null.</param>
     /// <param name="p1">[IN] A value to be passed as function argument.</param>
     template<class ReturnValueT, class Param1T, class Argument1T>
-    QThread(const Kinesis::QuimeraEngine::Common::QDelegate<ReturnValueT (Param1T)> function, Argument1T& p1) : 
+    QThread(const Kinesis::QuimeraEngine::Common::QDelegate<ReturnValueT (Param1T)> function, Argument1T p1) : 
                                                                                             m_thread(function, p1)
     {
         QE_ASSERT_ERROR(!function.IsNull(), "The input delegate cannot be null, the thread will not execute.");

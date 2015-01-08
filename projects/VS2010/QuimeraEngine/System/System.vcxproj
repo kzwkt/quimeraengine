@@ -172,6 +172,7 @@
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QFileStream.h" />
+    <ClInclude Include="..\..\..\..\headers\QMutex.h" />
     <ClInclude Include="..\..\..\..\headers\SQDirectory.h" />
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileStream.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMutex.cpp" />
     <ClCompile Include="..\..\..\..\source\SQDirectory.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />

@@ -116,6 +116,8 @@
     <VirtualDirectory Name="Threading">
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/SQThisThread_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QMutex_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QThreadWhiteBox.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
