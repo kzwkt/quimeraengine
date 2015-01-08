@@ -24,16 +24,18 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QObject.h"
+#include "QCallStackTracePlainTextFormatter.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::QType;
+#include "SQInteger.h"
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Core
+namespace System
+{
+namespace Diagnosis
 {
 
 //##################=======================================================##################
@@ -45,23 +47,9 @@ namespace Core
 //##################                                                       ##################
 //##################=======================================================##################
 
-const QType* QObject::sm_OBJECT_TYPE = new QType(QE_L("QObject"));
-
-
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |       CONSTRUCTORS         |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-QObject::QObject()
-{
-}
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QCallStackTracePlainTextFormatter);
     
-    
+
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -71,7 +59,7 @@ QObject::QObject()
 //##################                                                       ##################
 //##################=======================================================##################
 
-QObject::~QObject()
+QCallStackTracePlainTextFormatter::~QCallStackTracePlainTextFormatter()
 {
 }
 
@@ -79,18 +67,79 @@ QObject::~QObject()
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |         PROPERTIES         |             ##################
+//##################            |           METHODS          |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
 
-const QType* QObject::GetTypeClass()
+void QCallStackTracePlainTextFormatter::FormatCallStackTraceFooter(const QCallStackTrace &trace, string_q &strFormattedTrace) const
 {
-    return QObject::sm_OBJECT_TYPE;
+    static const string_q FOOTER("End of call stack trace information.");
+    strFormattedTrace.Append(FOOTER);
 }
 
+void QCallStackTracePlainTextFormatter::FormatCallStackTraceHeader(const QCallStackTrace &trace, string_q &strFormattedTrace) const
+{
+    static const string_q HEADER("Call stack trace for ");
+    strFormattedTrace.Append(HEADER);
+    strFormattedTrace.Append(trace.GetThreadId());
+}
 
-} //namespace Core
+void QCallStackTracePlainTextFormatter::FormatCallTrace(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+        
+    static const string_q ONE_LEVEL("  ");
+    string_q strIndentation;
+    for(unsigned int i = 0; i < uDepthLevel; ++i)
+        strIndentation.Append(ONE_LEVEL);
+
+    static const string_q NEW_LINE("\n");
+    strFormattedTrace.Append(trace.GetFunctionSignature());
+    strFormattedTrace.Append(NEW_LINE);
+
+    static const string_q ARGUMENT_PREFIX1("  | -{");
+    static const string_q ARGUMENT_PREFIX2("}");
+    static const string_q EQUAL_SIGN("=");
+    const QArgumentTrace* arArguments = trace.GetArguments();
+
+    for(unsigned int i = 0; i < trace.GetArgumentsCount(); ++i)
+    {
+        strFormattedTrace.Append(strIndentation);
+        strFormattedTrace.Append(ARGUMENT_PREFIX1);
+        strFormattedTrace.Append(SQInteger::ToString(i));
+        strFormattedTrace.Append(ARGUMENT_PREFIX2);
+        strFormattedTrace.Append(arArguments[i].GetTypeName());
+        strFormattedTrace.Append(EQUAL_SIGN);
+        strFormattedTrace.Append(arArguments[i].GetValue());
+        strFormattedTrace.Append(NEW_LINE);
+    }
+}
+
+void QCallStackTracePlainTextFormatter::FormatCallTraceFooter(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
+{
+    // Nothing
+}
+
+void QCallStackTracePlainTextFormatter::FormatCallTraceHeader(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
+{
+    static const string_q HEADER("-->");
+    static const string_q ONE_LEVEL("  ");
+
+    for(unsigned int i = 0; i < uDepthLevel; ++i)
+        strFormattedTrace.Append(ONE_LEVEL);
+
+    strFormattedTrace.Append(HEADER);
+}
+
+string_q QCallStackTracePlainTextFormatter::ToString() const
+{
+    static const string_q CLASS_NAME("QCallStackTracePlainTextFormatter");
+    return CLASS_NAME;
+}
+
+} //namespace Diagnosis
+} //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis

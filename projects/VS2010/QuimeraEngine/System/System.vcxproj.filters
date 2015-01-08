@@ -115,6 +115,12 @@
     <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\IQCallStackTraceFormatter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTracePlainTextFormatter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -185,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\IQCallStackTraceFormatter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTracePlainTextFormatter.cpp">
+      <Filter>Diagnosis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

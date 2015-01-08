@@ -111,6 +111,7 @@
       <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallTrace_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallStackTrace_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QCallStackTracePlainTextFormatter_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Threading">
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>

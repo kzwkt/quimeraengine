@@ -97,9 +97,9 @@ public:
     template<class DestinationT>
     DestinationT* As()
     {
-        return this->OverrideIs(DestinationT::GetTypeClass()) ?
-                                                              rcast_q(this, DestinationT*) :
-                                                              null_q;
+        return this->_OverrideIs(DestinationT::GetTypeClass()) ?
+                                                               rcast_q(this, DestinationT*) :
+                                                               null_q;
     }
 
     /// <summary>
@@ -117,9 +117,9 @@ public:
     template<class DestinationT>
     const DestinationT* As() const
     {
-        return this->OverrideIs(DestinationT::GetTypeClass()) ?
-                                                              rcast_q(this, const DestinationT*) :
-                                                              null_q;
+        return this->_OverrideIs(DestinationT::GetTypeClass()) ?
+                                                               rcast_q(this, const DestinationT*) :
+                                                               null_q;
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public:
     template<class T>
     bool Is() const
     {
-        return this->OverrideIs(T::GetTypeClass());
+        return this->_OverrideIs(T::GetTypeClass());
     }
     
     /// <summary>
@@ -155,7 +155,7 @@ protected:
     /// <returns>
     /// True if the object is an instance of the class or any of its ancestors; False otherwise.
     /// </returns>
-    virtual bool OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const=0;
+    virtual bool _OverrideIs(const Kinesis::QuimeraEngine::Common::DataTypes::QType* pType) const=0;
 
 
     // PROPERTIES
@@ -189,7 +189,7 @@ private:
     /// <summary>
     /// The information about the data type of the class. It is unique during the application's lifecycle.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* OBJECT_TYPE;
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QType* sm_OBJECT_TYPE;
 
 };
 

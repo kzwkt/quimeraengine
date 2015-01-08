@@ -65,7 +65,7 @@ public:
     /// <summary>
     /// Constructor that receives the type's information.
     /// </summary>
-    /// <param name="strName">The unqualified name of the type.</param>
+    /// <param name="strName">[IN] The unqualified name of the type.</param>
     explicit QType(const string_q &strName);
 
 
@@ -76,7 +76,7 @@ public:
     /// <summary>
     /// Equality operator that checks if two instances are the same or not.
     /// </summary>
-    /// <param name="type">The other instance to compare to.</param>
+    /// <param name="type">[IN] The other instance to compare to.</param>
     /// <returns>
     /// True if both instances are equal (same memory address); False otherwise.
     /// </returns>
@@ -85,7 +85,7 @@ public:
     /// <summary>
     /// Inequality operator that checks if two instances are different or not.
     /// </summary>
-    /// <param name="type">The other instance to compare to.</param>
+    /// <param name="type">[IN] The other instance to compare to.</param>
     /// <returns>
     /// True if instances are not equal (different memory address); False otherwise.
     /// </returns>
