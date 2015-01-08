@@ -143,7 +143,7 @@ int SQThisThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
     return nNativePriority;
 }
 
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
 EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePriority, const int nPolicy)
 {
@@ -158,10 +158,14 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
 
     EQThreadPriority ePriority = EQThreadPriority::E_Normal;
 
-    // Maximum is not assured to be higher than minimum
-    if(MAX_PRIORITY >= MIN_PRIORITY)
+    // Maximum is not assured to be higher than minimum, and they may be negative or positive
+    if(MAX_PRIORITY > MIN_PRIORITY)
     {
-        if(nNativePriority >= MIN_PRIORITY / 2 && nNativePriority <= MAX_PRIORITY / 2)
+        const int RANGE_PART = (MAX_PRIORITY - MIN_PRIORITY) / 3;
+        const int LOW_PRIORITY_LIMIT = MIN_PRIORITY + RANGE_PART;
+        const int HIGH_PRIORITY_LIMIT = MAX_PRIORITY - RANGE_PART;
+        
+        if(nNativePriority > LOW_PRIORITY_LIMIT && nNativePriority < HIGH_PRIORITY_LIMIT)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
@@ -169,11 +173,11 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority > MAX_PRIORITY / 2 && nNativePriority < MAX_PRIORITY)
+        else if(nNativePriority >= HIGH_PRIORITY_LIMIT && nNativePriority < MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority > MIN_PRIORITY && nNativePriority < MIN_PRIORITY / 2)
+        else if(nNativePriority > MIN_PRIORITY && nNativePriority <= LOW_PRIORITY_LIMIT)
         {
             ePriority = EQThreadPriority::E_Low;
         }
@@ -182,9 +186,13 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
             ePriority = EQThreadPriority::E_Lowest;
         }
     }
-    else // MAX_PRIORITY < MIN_PRIORITY
+    else if(MAX_PRIORITY < MIN_PRIORITY)
     {
-        if(nNativePriority >= MAX_PRIORITY / 2 && nNativePriority <= MIN_PRIORITY / 2)
+        const int RANGE_PART = (MIN_PRIORITY - MAX_PRIORITY) / 3;
+        const int LOW_PRIORITY_LIMIT = MIN_PRIORITY - RANGE_PART;
+        const int HIGH_PRIORITY_LIMIT = MAX_PRIORITY + RANGE_PART;
+        
+        if(nNativePriority > HIGH_PRIORITY_LIMIT && nNativePriority < LOW_PRIORITY_LIMIT / 2)
         {
             ePriority = EQThreadPriority::E_Normal;
         }
@@ -192,11 +200,11 @@ EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePrior
         {
             ePriority = EQThreadPriority::E_Highest;
         }
-        else if(nNativePriority > MAX_PRIORITY && nNativePriority < MAX_PRIORITY / 2)
+        else if(nNativePriority <= HIGH_PRIORITY_LIMIT && nNativePriority > MAX_PRIORITY)
         {
             ePriority = EQThreadPriority::E_High;
         }
-        else if(nNativePriority < MIN_PRIORITY && nNativePriority > MIN_PRIORITY / 2)
+        else if(nNativePriority < MIN_PRIORITY && nNativePriority >= LOW_PRIORITY_LIMIT)
         {
             ePriority = EQThreadPriority::E_Low;
         }
@@ -216,79 +224,42 @@ int SQThisThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
     // The priority range available depends on the Linux distribution
     static const int MIN_PRIORITY = sched_get_priority_min(SCHED_OTHER);
     static const int MAX_PRIORITY = sched_get_priority_max(SCHED_OTHER);
-
+    
+    int nRangePart = 0;
+    int nLowPriorityLimit = 0;
+    int nHighPriorityLimit = 0;
+    
+    if(MAX_PRIORITY >= MIN_PRIORITY)
+    {
+        nRangePart = (MAX_PRIORITY - MIN_PRIORITY) / 3;
+        nLowPriorityLimit = MIN_PRIORITY + nRangePart;
+        nHighPriorityLimit = MAX_PRIORITY - nRangePart;
+    }
+    else
+    {
+        nRangePart = (MIN_PRIORITY - MAX_PRIORITY) / 3;
+        nLowPriorityLimit = MIN_PRIORITY - nRangePart;
+        nHighPriorityLimit = MAX_PRIORITY + nRangePart;
+    }
+    
     switch(ePriority)
     {
     case EQThreadPriority::E_Highest:
         nNativePriority = MAX_PRIORITY;
         break;
     case EQThreadPriority::E_High:
-        nNativePriority = MAX_PRIORITY / 2;
+        nNativePriority = nHighPriorityLimit;
         break;
     case EQThreadPriority::E_Normal:
         nNativePriority = 0;
         break;
     case EQThreadPriority::E_Low:
-        nNativePriority = MIN_PRIORITY / 2;
+        nNativePriority = nLowPriorityLimit;
         break;
     case EQThreadPriority::E_Lowest:
         nNativePriority = MIN_PRIORITY;
         break;
     default:
-        break;
-    }
-
-    return nNativePriority;
-}
-
-#elif defined(QE_OS_MAC)
-
-EQThreadPriority SQThisThread::_ConvertFromNativePriority(const int nNativePriority)
-{
-    EQThreadPriority ePriority = EQThreadPriority::E_Normal;
-
-    switch(nNativePriority)
-    {
-    case THREAD_PRIORITY_HIGHEST:
-        ePriority = EQThreadPriority::E_Highest;
-        break;
-    case THREAD_PRIORITY_ABOVE_NORMAL:
-        ePriority = EQThreadPriority::E_High;
-        break;
-    case THREAD_PRIORITY_NORMAL:
-        ePriority = EQThreadPriority::E_Normal;
-        break;
-    case THREAD_PRIORITY_BELOW_NORMAL:
-        ePriority = EQThreadPriority::E_Low;
-        break;
-    case THREAD_PRIORITY_LOWEST:
-        ePriority = EQThreadPriority::E_Lowest;
-        break;
-    }
-
-    return ePriority;
-}
-
-int SQThisThread::_ConvertToNativePriority(const EQThreadPriority ePriority)
-{
-    int nNativePriority = 0;
-
-    switch(ePriority)
-    {
-    case EQThreadPriority::E_Highest:
-        nNativePriority = THREAD_PRIORITY_HIGHEST;
-        break;
-    case EQThreadPriority::E_High:
-        nNativePriority = THREAD_PRIORITY_ABOVE_NORMAL;
-        break;
-    case EQThreadPriority::E_Normal:
-        nNativePriority = THREAD_PRIORITY_NORMAL;
-        break;
-    case EQThreadPriority::E_Low:
-        nNativePriority = THREAD_PRIORITY_BELOW_NORMAL;
-        break;
-    case EQThreadPriority::E_Lowest:
-        nNativePriority = THREAD_PRIORITY_LOWEST;
         break;
     }
 
@@ -390,10 +361,31 @@ void SQThisThread::SetPriority(const EQThreadPriority &ePriority)
 
 EQThreadPriority SQThisThread::GetPriority()
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+    
+    sched_param schedulingPolicy;
+    int nPolicy;
+    
+    int nResult = pthread_getschedparam(SQThisThread::GetNativeHandle(), &nPolicy, &schedulingPolicy);
+    int nNativePriority = schedulingPolicy.sched_priority;
+    
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + SQThisThread::ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    
+    return SQThisThread::_ConvertFromNativePriority(nNativePriority, nPolicy);
 }
 
 void SQThisThread::SetPriority(const EQThreadPriority &ePriority)
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+    int nNativePriority = SQThisThread::_ConvertToNativePriority(ePriority);
+    
+    sched_param schedulingPolicy;
+    schedulingPolicy.sched_priority = nNativePriority;
+    
+    int nResult = pthread_setschedparam(SQThisThread::GetNativeHandle(), SCHED_OTHER, &schedulingPolicy);
+    
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + SQThisThread::ToString() + " to " + ePriority.ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
 }
 
 #endif

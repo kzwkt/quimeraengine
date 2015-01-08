@@ -432,7 +432,7 @@ private:
     /// </returns>
     static int _ConvertToNativePriority(const EQThreadPriority &ePriority);
     
-#elif defined(QE_OS_LINUX)
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
 
     /// <summary>
     /// Converts a priority value coming from the operating system API to EQThreadPriority equivalent.
@@ -511,7 +511,8 @@ public:
     /// Sets the priority the operating system must give to the thread.
     /// </summary>
     /// <remarks>
-    /// The current user must have permissions to adjust thread priorities.
+    /// The current user must have permissions to adjust thread priorities.<br/>
+    /// On Linux, depending on which distribution the program is running, setting a priority different from Normal may not take effect.
     /// </remarks>
     /// <param name="ePriority">[IN] The new priority of the thread.</param>
     void SetPriority(const EQThreadPriority &ePriority);

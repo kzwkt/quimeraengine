@@ -249,9 +249,9 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLowest_Test )
 
     // [Preparation]
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Lowest;
-#if defined(QE_OS_WINDOWS)
+#if defined(QE_OS_WINDOWS) || defined(QE_OS_MAC)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Lowest;
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+#elif defined(QE_OS_LINUX)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
 #endif
 
@@ -272,9 +272,9 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsLow_Test )
 
     // [Preparation]
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Low;
-#if defined(QE_OS_WINDOWS)
+#if defined(QE_OS_WINDOWS) || defined(QE_OS_MAC)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Low;
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+#elif defined(QE_OS_LINUX)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
 #endif
 
@@ -313,9 +313,9 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHigh_Test )
 
     // [Preparation]
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_High;
-#if defined(QE_OS_WINDOWS)
+#if defined(QE_OS_WINDOWS) || defined(QE_OS_MAC)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_High;
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+#elif defined(QE_OS_LINUX)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
 #endif
 
@@ -336,9 +336,9 @@ QTEST_CASE ( SetPriority_PriorityIsCorrectlySetWhenItIsHighest_Test )
 
     // [Preparation]
     const EQThreadPriority INPUT_PRIORITY = EQThreadPriority::E_Highest;
-#if defined(QE_OS_WINDOWS)
+#if defined(QE_OS_WINDOWS) || defined(QE_OS_MAC)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Highest;
-#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+#elif defined(QE_OS_LINUX)
     const EQThreadPriority EXPECTED_PRIORITY = EQThreadPriority::E_Normal;
 #endif
 
