@@ -723,7 +723,7 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
     QE_ASSERT_WARNING((m_strPath[0] == CHAR_TILDE) == (absolutePath.m_strPath[0] == CHAR_TILDE), "When paths start with a tilde ('~'), both must start with it.");
 #endif
 
-    string_q strAbsolutePath;
+    string_q strRelativePath;
 
     if(absolutePath.m_strHostname.CompareTo(m_strHostname, COMPARISON_TYPE) == 0 &&
        absolutePath.IsAbsolute() && 
@@ -755,7 +755,7 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
 
         int nFirstDifferentDirectory = string_q::PATTERN_NOT_FOUND;
 
-        strAbsolutePath.Append(SINGLE_DOT);
+        strRelativePath.Append(SINGLE_DOT);
 
 #if defined(QE_OS_WINDOWS)
 
@@ -797,7 +797,7 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
                         if(nFirstDifferentDirectory == string_q::PATTERN_NOT_FOUND)
                             nFirstDifferentDirectory = nPreviousSlashPosition2 + 1;
 
-                        strAbsolutePath.Append(DOUBLE_DOT);
+                        strRelativePath.Append(DOUBLE_DOT);
                     }
 
                     nPreviousSlashPosition2 = nSlashPosition2;
@@ -806,12 +806,12 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
                 else
                 {
                     // There one segment more in the resident path than in the input path
-                    strAbsolutePath.Append(DOUBLE_DOT);
+                    strRelativePath.Append(DOUBLE_DOT);
                 }
             }
             else
             {
-                strAbsolutePath.Append(DOUBLE_DOT);
+                strRelativePath.Append(DOUBLE_DOT);
             }
 
             nPreviousSlashPosition1 = nSlashPosition1;
@@ -822,16 +822,16 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
         if(nFirstDifferentDirectory != string_q::PATTERN_NOT_FOUND && nFirstDifferentDirectory < scast_q(absolutePath.m_strPath.GetLength(), int))
         {
             // If there are differences between paths, it adds the segments that are different
-            strAbsolutePath.Append(absolutePath.m_strPath.Substring(nFirstDifferentDirectory));
+            strRelativePath.Append(absolutePath.m_strPath.Substring(nFirstDifferentDirectory));
         }
         else if(absolutePath.m_strPath.GetLength() > m_strPath.GetLength())
         {
             // If there are more segments in the input path than in the resident path, adds the rest
-            strAbsolutePath.Append(absolutePath.m_strPath.Substring(m_strPath.GetLength()));
+            strRelativePath.Append(absolutePath.m_strPath.Substring(m_strPath.GetLength()));
         }
     }
 
-    return strAbsolutePath;
+    return strRelativePath;
 }
 
 int QPath::_GetLastIndexOfString(const char_q &pattern, const string_q &strSource, const int nFromIndex)

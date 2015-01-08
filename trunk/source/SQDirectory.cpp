@@ -27,6 +27,7 @@
 #include "SQDirectory.h"
 
 #include "EQTextEncoding.h"
+#include "EQComparisonType.h"
 #include "QLocalTimeZone.h"
 #include "Assertions.h"
 #include "QStopwatch.h"
@@ -275,16 +276,16 @@ QPath SQDirectory::GetCurrentWorkingDirectory()
     return QPath(SQDirectory::_ConvertPathToString(directoryPath) + QPath::GetPathSeparator());
 }
 
-EQFileSystemError SQDirectory::SetCurrentWorkingDirectory(const QPath& newDirectory)
+void SQDirectory::SetCurrentWorkingDirectory(const QPath& newDirectory, EQFileSystemError& eErrorInfo)
 {
     QE_ASSERT_ERROR(newDirectory.IsDirectory(), string_q("The input path (\"") + newDirectory.ToString() + "\") must refer to a directory.");
 
     boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(newDirectory);
 
-    boost::system::error_code eErrorCode;
-    boost::filesystem::current_path(directoryPath, eErrorCode);
+    boost::system::error_code errorCode;
+    boost::filesystem::current_path(directoryPath, errorCode);
 
-    return SQDirectory::_ConvertErrorCodeToFileSystemError(eErrorCode);
+    eErrorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
 }
 
 bool SQDirectory::Exists(const QPath &directory, EQFileSystemError& eErrorInfo)
@@ -330,6 +331,150 @@ QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSyste
     eErrorInfo = SQDirectory::_ConvertErrorCodeToFileSystemError(eErrorCode);
 
     return QDirectoryInfo(directory, creationDateTime);
+}
+
+EQFileSystemError SQDirectory::Create(const QPath &directory, const string_q &strDirectoryName)
+{
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+
+    boost::system::error_code errorCode;
+    QPath newDirectory = directory;
+    newDirectory.AppendDirectory(strDirectoryName);
+    boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(newDirectory);
+    boost::filesystem::create_directory(directoryPath, errorCode);
+
+    return SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
+}
+
+EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles)
+{
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Success;
+
+    if(SQDirectory::Exists(directory, eErrorInfo))
+    {
+        boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
+
+        boost::filesystem::directory_iterator currentDirOrFile(directoryPath);
+        boost::filesystem::directory_iterator endOfContent;
+
+        while(currentDirOrFile != endOfContent) 
+        {
+            boost::filesystem::path currentDirOrFilePath = currentDirOrFile->path();
+
+            if(!boost::filesystem::is_directory(currentDirOrFilePath))
+            {
+                string_q strCurrentDirOrFilePath = SQDirectory::_ConvertPathToString(currentDirOrFilePath);
+                arFiles.Add(strCurrentDirOrFilePath);
+            }
+
+            ++currentDirOrFile;
+        }
+    }
+    else if(eErrorInfo == EQFileSystemError::E_Success)
+    {
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
+    }
+
+    return eErrorInfo;
+}
+
+EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles, const string_q &strExtensionFilter)
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Success;
+
+    if(SQDirectory::Exists(directory, eErrorInfo))
+    {
+        boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
+
+        boost::filesystem::directory_iterator currentDirOrFile(directoryPath);
+        boost::filesystem::directory_iterator endOfContent;
+
+        while(currentDirOrFile != endOfContent) 
+        {
+            boost::filesystem::path currentDirOrFilePath = currentDirOrFile->path();
+
+            QPath fileOrDirectory(SQDirectory::_ConvertPathToString(currentDirOrFilePath));
+
+#if defined(QE_OS_WINDOWS)
+            static const EQComparisonType STRING_COMPARISON = EQComparisonType::E_CanonicalCaseInsensitive;
+#elif defined(QE_OS_LINUX) || defined(QE_OS_MAC)
+            static const EQComparisonType STRING_COMPARISON = EQComparisonType::E_CanonicalCaseSensitive;
+#endif
+
+            if(!boost::filesystem::is_directory(currentDirOrFilePath) && 
+               fileOrDirectory.GetFileExtension().CompareTo(strExtensionFilter, STRING_COMPARISON) == 0)
+                arFiles.Add(fileOrDirectory);
+
+            ++currentDirOrFile;
+        }
+    }
+    else if(eErrorInfo == EQFileSystemError::E_Success)
+    {
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
+    }
+
+    return eErrorInfo;
+}
+
+EQFileSystemError SQDirectory::GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arDirectories)
+{
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Success;
+
+    if(SQDirectory::Exists(directory, eErrorInfo))
+    {
+        boost::filesystem::path directoryPath = SQDirectory::_ConvertToBoostPath(directory);
+
+        boost::filesystem::directory_iterator currentDirOrFile(directoryPath);
+        boost::filesystem::directory_iterator endOfContent;
+
+        while(currentDirOrFile != endOfContent) 
+        {
+            boost::filesystem::path currentDirOrFilePath = currentDirOrFile->path();
+
+            if(boost::filesystem::is_directory(currentDirOrFilePath))
+            {
+                string_q strCurrentDirOrFilePath = SQDirectory::_ConvertPathToString(currentDirOrFilePath);
+                strCurrentDirOrFilePath.Append(QPath::GetPathSeparator());
+                arDirectories.Add(strCurrentDirOrFilePath);
+            }
+
+            ++currentDirOrFile;
+        }
+    }
+    else if(eErrorInfo == EQFileSystemError::E_Success)
+    {
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
+    }
+
+    return eErrorInfo;
+}
+
+QPath SQDirectory::GetParentDirectory(const QPath &directory, EQFileSystemError &eErrorInfo)
+{
+    QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
+
+    eErrorInfo = EQFileSystemError::E_Success;
+    QPath parentPath("./");
+
+    if(SQDirectory::Exists(directory, eErrorInfo))
+    {
+        parentPath = QPath(directory.GetAbsolutePath());
+        parentPath.RemoveLastDirectory();
+    }
+    else if(eErrorInfo == EQFileSystemError::E_Success)
+    {
+        eErrorInfo = EQFileSystemError::E_DoesNotExist;
+    }
+
+    return parentPath;
 }
 
 boost::filesystem::path SQDirectory::_ConvertToBoostPath(const QPath &pathToConvert)

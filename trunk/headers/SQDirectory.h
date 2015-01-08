@@ -33,6 +33,7 @@
 
 #include "QDirectoryInfo.h"
 #include "EQFileSystemError.h"
+#include "QDynamicArray.h"
 
 
 namespace Kinesis
@@ -139,10 +140,8 @@ public:
     /// Sets the current working directory of the calling process.
     /// </summary>
     /// <param name="newDirectory">[IN] The path to a directory to be set as current working directory.</param>
-    /// <returns>
-    /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
-    /// </returns>
-    static EQFileSystemError SetCurrentWorkingDirectory(const QPath& newDirectory);
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    static void SetCurrentWorkingDirectory(const QPath& newDirectory, EQFileSystemError& eErrorInfo);
     
     /// <summary>
     /// Checks whether a directory exists or not.
@@ -167,6 +166,69 @@ public:
     /// Information about the directory, like its creation date.
     /// </returns>
     static QDirectoryInfo GetDirectoryInfo(const QPath& directory, EQFileSystemError& eErrorInfo);
+    
+    /// <summary>
+    /// Creates a directory.
+    /// </summary>
+    /// <param name="directory">[IN] The path to a directory inside which the new directory is to be created.</param>
+    /// <param name="strDirectoryName">[IN] The name of the new directory. It must neither be empty nor contain invalid characters. If it already exists, 
+    /// the operation is considered a success.</param>
+    /// <returns>
+    /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
+    /// </returns>
+    static EQFileSystemError Create(const QPath &directory, const string_q &strDirectoryName);
+    
+    /// <summary>
+    /// Gets the path to all the files inside a directory.
+    /// </summary>
+    /// <remarks>
+    /// It is not recursive. The order of appearance of the file paths in the output container is undefined.
+    /// </remarks>
+    /// <param name="directory">[IN] The path to a directory whose files are to be retrieved. If it does not contain files, nothing will be done.</param>
+    /// <param name="arFiles">[OUT] The container that will store the paths to every file in the directory. Elements are appended.</param>
+    /// <returns>
+    /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
+    /// </returns>
+    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles);
+    
+    /// <summary>
+    /// Gets the path to all the files inside a directory, filtered by extension.
+    /// </summary>
+    /// <remarks>
+    /// It is not recursive. The order of appearance of the file paths in the output container is undefined.
+    /// </remarks>
+    /// <param name="directory">[IN] The path to a directory whose files are to be retrieved. If it does not contain files, nothing will be done.</param>
+    /// <param name="arFiles">[OUT] The container that will store the paths to every file in the directory. Elements are appended.</param>
+    /// <param name="strExtensionFilter">[IN] The extension that files must have in order to be included in the container. It must neither contain the separation dot nor any 
+    /// invalid character. Depending on the operating system, the string comparison will be case-sensitive (Unix-based systems) or case-insensitive (Windows); in any case, 
+    /// it will be performed in the canonical form.</param>
+    /// <returns>
+    /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
+    /// </returns>
+    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles, const string_q &strExtensionFilter);
+    
+    /// <summary>
+    /// Gets the path to all the subdirectories of a directory.
+    /// </summary>
+    /// <remarks>
+    /// It is not recursive. The order of appearance of the directory paths in the output container is undefined.
+    /// </remarks>
+    /// <param name="directory">[IN] The path to a directory whose subdirectories are to be retrieved. If it does not contain files, nothing will be done.</param>
+    /// <param name="arDirectories">[OUT] The container that will store the paths to every subdirectory in the directory. Elements are appended.</param>
+    /// <returns>
+    /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
+    /// </returns>
+    static EQFileSystemError GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arDirectories);
+    
+    /// <summary>
+    /// Gets the parent of a directory.
+    /// </summary>
+    /// <param name="directory">[IN] The path to a directory whose parent is to be obtained.</param>
+    /// <param name="eErrorInfo">[OUT] An error code depending on the result of the operation. If nothing unexpected ocurred, its value will be Success.</param>
+    /// <returns>
+    /// An absolute path to the parent directory. If the directory has no parent (it is a drive letter "x:/" on Windows, for example), the returned parent will be itself.
+    /// </returns>
+    static QPath GetParentDirectory(const QPath &directory, EQFileSystemError &eErrorInfo);
 
 protected:
     
