@@ -168,6 +168,8 @@
     <File Name="../../../../source/SQThisThread.cpp"/>
     <File Name="../../../../headers/EQThreadPriority.h"/>
     <File Name="../../../../source/EQThreadPriority.cpp"/>
+    <File Name="../../../../headers/QMutex.h"/>
+    <File Name="../../../../source/QMutex.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

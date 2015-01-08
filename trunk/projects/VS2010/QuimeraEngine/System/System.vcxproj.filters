@@ -121,6 +121,9 @@
     <ClInclude Include="..\..\..\..\headers\QCallStackTracePlainTextFormatter.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QMutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCallStackTracePlainTextFormatter.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QMutex.cpp">
+      <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
