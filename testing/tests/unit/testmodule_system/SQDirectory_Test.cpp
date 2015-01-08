@@ -41,6 +41,7 @@ using namespace boost::unit_test;
 #include "EQTextEncoding.h"
 #include "SQFile.h"
 #include "SQThisThread.h"
+#include "QDynamicArray.h"
 #include <fstream>
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQDirectory;
@@ -94,7 +95,7 @@ bool CheckDirectoryContent(const QBasicArray<const QPath> arContents, const stri
     using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
     bool bContentMatchesExpectations = true;
     pointer_uint_q uContentIndex = 0;
 
@@ -103,13 +104,13 @@ bool CheckDirectoryContent(const QBasicArray<const QPath> arContents, const stri
         if(arContents[uContentIndex].IsDirectory())
         {
             // Checks that the directory exists
-            bContentMatchesExpectations = bContentMatchesExpectations && SQDirectory::Exists(arContents[uContentIndex], errorCode);
+            bContentMatchesExpectations = bContentMatchesExpectations && SQDirectory::Exists(arContents[uContentIndex], eErrorCode);
         }
         else
         {
             // Checks that the file exists
             bContentMatchesExpectations = bContentMatchesExpectations && 
-                                          Kinesis::QuimeraEngine::System::IO::FileSystem::SQFile::Exists(arContents[uContentIndex], errorCode);
+                                          Kinesis::QuimeraEngine::System::IO::FileSystem::SQFile::Exists(arContents[uContentIndex], eErrorCode);
 
             if(bContentMatchesExpectations)
             {
@@ -160,10 +161,10 @@ QTEST_CASE ( Delete_DirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Delete(DIRECTORY);
+    EQFileSystemError eErrorCode = SQDirectory::Delete(DIRECTORY);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -181,7 +182,7 @@ QTEST_CASE ( Delete_DirectoryAndContentAreDeleted_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_Success;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Delete(DIRECTORY);
+    EQFileSystemError eErrorCode = SQDirectory::Delete(DIRECTORY);
     
     // [Verification]
     WaitForCreationOrDeletion_SQDirectoryTestHelper(DIRECTORY, true);
@@ -189,7 +190,7 @@ QTEST_CASE ( Delete_DirectoryAndContentAreDeleted_Test )
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bDirectoryExists = SQDirectory::Exists(DIRECTORY, existsErrorCode);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(!bDirectoryExists);
 }
 
@@ -234,10 +235,10 @@ QTEST_CASE ( Move_SourceDirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
+    EQFileSystemError eErrorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -251,10 +252,10 @@ QTEST_CASE ( Move_DestinationDirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
+    EQFileSystemError eErrorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -285,7 +286,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationHasContentWith
     const bool INPUT_REPLACE = true;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
@@ -295,7 +296,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationHasContentWith
     bool bSourceDirectoryDoesntExist = !SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
     bool bContentExists = CheckDirectoryContent(QBasicArray<const QPath>(EXPECTED_CONTENT, 3), EXPECTED_FILE_CONTENT);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bDestinationDirectoryExists);
     BOOST_CHECK(bSourceDirectoryDoesntExist);
     BOOST_CHECK(bContentExists);
@@ -326,7 +327,7 @@ QTEST_CASE ( Move_SourceDirectoryIsNotMovedWhenDestinationHasContentWithSameName
     const bool INPUT_REPLACE = false;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
@@ -334,7 +335,7 @@ QTEST_CASE ( Move_SourceDirectoryIsNotMovedWhenDestinationHasContentWithSameName
     bool bContentIsNotMixed = !CheckDirectoryContent(QBasicArray<const QPath>(NOT_EXPECTED_CONTENT, 1), EXPECTED_FILE_CONTENT);
     bool bSourceDirectoryStillExists = SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bSourceDirectoryStillExists);
     BOOST_CHECK(bContentIsNotMixed);
     BOOST_CHECK(bDestinationFileContentHasNotChanged);
@@ -364,7 +365,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationIsEmptyAndRepl
     const bool INPUT_REPLACE = false;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Move(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
@@ -374,7 +375,7 @@ QTEST_CASE ( Move_SourceDirectoryAndContentAreMovedWhenDestinationIsEmptyAndRepl
     bool bSourceDirectoryDoesntExist = !SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
     bool bContentExists = CheckDirectoryContent(QBasicArray<const QPath>(EXPECTED_CONTENT, 3), EXPECTED_FILE_CONTENT);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bDestinationDirectoryExists);
     BOOST_CHECK(bSourceDirectoryDoesntExist);
     BOOST_CHECK(bContentExists);
@@ -450,10 +451,10 @@ QTEST_CASE ( Rename_SourceDirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
+    EQFileSystemError eErrorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(sourceDirectory == EXPECTED_NEW_DIRECTORY);
 }
 
@@ -473,10 +474,10 @@ QTEST_CASE ( Rename_ADirectoryWithSameNameAlreadyExists_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_AlreadyExists;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
+    EQFileSystemError eErrorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(sourceDirectory == EXPECTED_NEW_DIRECTORY);
 }
 
@@ -495,13 +496,13 @@ QTEST_CASE ( Rename_ItReturnsNewPathWhenDirectoryIsRenamed_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_Success;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
+    EQFileSystemError eErrorCode = SQDirectory::Rename(sourceDirectory, NEW_NAME);
     
     // [Verification]
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
     bool bRenamedDirectoryExists = SQDirectory::Exists(sourceDirectory, existsErrorCode);
     BOOST_CHECK(bRenamedDirectoryExists);
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(sourceDirectory == EXPECTED_NEW_DIRECTORY);
 }
 
@@ -547,10 +548,10 @@ QTEST_CASE ( Copy_SourceDirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
+    EQFileSystemError eErrorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -564,10 +565,10 @@ QTEST_CASE ( Copy_DestinationDirectoryDoesNotExist_Test )
     const EQFileSystemError EXPECTED_RESULT = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
+    EQFileSystemError eErrorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, true);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -598,7 +599,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopiedWhenDestinationHasContentWit
     const bool INPUT_REPLACE = true;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
@@ -608,7 +609,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopiedWhenDestinationHasContentWit
     bool bSourceDirectoryStillExists = SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
     bool bContentExists = CheckDirectoryContent(QBasicArray<const QPath>(EXPECTED_CONTENT, 3), EXPECTED_FILE_CONTENT);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bDestinationDirectoryExists);
     BOOST_CHECK(bSourceDirectoryStillExists);
     BOOST_CHECK(bContentExists);
@@ -641,7 +642,7 @@ QTEST_CASE ( Copy_SourceDirectoryIsCopiedWithoutReplacingWhenDestinationHasConte
     const bool INPUT_REPLACE = false;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
@@ -649,7 +650,7 @@ QTEST_CASE ( Copy_SourceDirectoryIsCopiedWithoutReplacingWhenDestinationHasConte
     bool bNotExistingFilesHaveBeenCopied = CheckDirectoryContent(QBasicArray<const QPath>(EXPECTED_NEW_CONTENT, 1), EXPECTED_COPIED_FILE_CONTENT);
     bool bSourceDirectoryStillExists = SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bSourceDirectoryStillExists);
     BOOST_CHECK(bNotExistingFilesHaveBeenCopied);
     BOOST_CHECK(bDestinationFileContentHasNotChanged);
@@ -679,7 +680,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopydWhenDestinationIsEmptyAndRepl
     const bool INPUT_REPLACE = true;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
+    EQFileSystemError eErrorCode = SQDirectory::Copy(SOURCE_DIRECTORY, DESTINATION_DIRECTORY, INPUT_REPLACE);
     
     // [Verification]
     WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
@@ -689,7 +690,7 @@ QTEST_CASE ( Copy_SourceDirectoryAndContentAreCopydWhenDestinationIsEmptyAndRepl
     bool bSourceDirectoryStillExists = SQDirectory::Exists(SOURCE_DIRECTORY, existsErrorCode);
     bool bContentExists = CheckDirectoryContent(QBasicArray<const QPath>(EXPECTED_CONTENT, 3), EXPECTED_FILE_CONTENT);
 
-    BOOST_CHECK(errorCode == EXPECTED_RESULT);
+    BOOST_CHECK(eErrorCode == EXPECTED_RESULT);
     BOOST_CHECK(bDestinationDirectoryExists);
     BOOST_CHECK(bSourceDirectoryStillExists);
     BOOST_CHECK(bContentExists);
@@ -764,8 +765,8 @@ QTEST_CASE ( GetCurrentWorkingDirectory_ReturnsExistingPath_Test )
     QPath currentDir = SQDirectory::GetCurrentWorkingDirectory();
     
     // [Verification]
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
-    bool bExists = SQDirectory::Exists(currentDir, errorCode);
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    bool bExists = SQDirectory::Exists(currentDir, eErrorCode);
     BOOST_CHECK(bExists);
 }
 
@@ -793,17 +794,18 @@ QTEST_CASE ( SetCurrentWorkingDirectory_PathIsCorrectlyStoredWhenItExists_Test )
     const QPath ORIGINAL_CWD = SQDirectory::GetCurrentWorkingDirectory();
     const QPath NEW_CWD(ORIGINAL_CWD.ToString() + PATH_TO_ARTIFACTS + "./ExistingPath/");
     const EQFileSystemError EXPECTED_ERROR_CODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::SetCurrentWorkingDirectory(NEW_CWD);
+    SQDirectory::SetCurrentWorkingDirectory(NEW_CWD, eErrorCode);
     
     // [Verification]
     QPath currentDir = SQDirectory::GetCurrentWorkingDirectory();
     BOOST_CHECK(currentDir == NEW_CWD);
-    BOOST_CHECK(errorCode == EXPECTED_ERROR_CODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERROR_CODE);
 
     // [Cleaning]
-    SQDirectory::SetCurrentWorkingDirectory(ORIGINAL_CWD);
+    SQDirectory::SetCurrentWorkingDirectory(ORIGINAL_CWD, eErrorCode);
 }
 
 /// <summary>
@@ -815,14 +817,15 @@ QTEST_CASE ( SetCurrentWorkingDirectory_PathIsNotStoredWhenItDoesNotExist_Test )
     const QPath ORIGINAL_CWD = SQDirectory::GetCurrentWorkingDirectory();
     const QPath NEW_CWD(PATH_TO_ARTIFACTS + "./NotExistingPath/");
     const EQFileSystemError EXPECTED_ERROR_CODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // [Execution]
-    EQFileSystemError errorCode = SQDirectory::SetCurrentWorkingDirectory(NEW_CWD);
+    SQDirectory::SetCurrentWorkingDirectory(NEW_CWD, eErrorCode);
     
     // [Verification]
     QPath currentDir = SQDirectory::GetCurrentWorkingDirectory();
     BOOST_CHECK(currentDir == ORIGINAL_CWD);
-    BOOST_CHECK(errorCode == EXPECTED_ERROR_CODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERROR_CODE);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -837,12 +840,13 @@ QTEST_CASE ( SetCurrentWorkingDirectory_AssertionFailsWhenInputPathIsNotDirector
 
     // [Preparation]
     const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
     bool bAssertionFailed = false;
 
     // [Execution]
     try
     {
-        SQDirectory::SetCurrentWorkingDirectory(NOT_A_DIRECTORY);
+        SQDirectory::SetCurrentWorkingDirectory(NOT_A_DIRECTORY, eErrorCode);
     }
     catch(const QAssertException&)
     {
@@ -864,13 +868,13 @@ QTEST_CASE ( Exists_ReturnsFalseWhenDirectoryDoesNotExist_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./XXXThisDirectoryDoesNotExistXXX/");
     const bool EXPECTED_VALUE = false;
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // [Execution]
-    bool bReturnedValue = SQDirectory::Exists(DIRECTORY, errorCode);
+    bool bReturnedValue = SQDirectory::Exists(DIRECTORY, eErrorCode);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
     BOOST_CHECK_EQUAL(bReturnedValue, EXPECTED_VALUE);
 }
 
@@ -886,13 +890,13 @@ QTEST_CASE ( Exists_ReturnsTrueWhenDirectoryExists_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./ExistingPath/");
     const bool EXPECTED_VALUE = true;
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // [Execution]
-    bool bReturnedValue = SQDirectory::Exists(DIRECTORY, errorCode);
+    bool bReturnedValue = SQDirectory::Exists(DIRECTORY, eErrorCode);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
     BOOST_CHECK_EQUAL(bReturnedValue, EXPECTED_VALUE);
 }
 
@@ -913,8 +917,8 @@ QTEST_CASE ( Exists_AssertionFailsWhenInputPathIsNotDirectory_Test )
     // [Execution]
     try
     {
-        EQFileSystemError errorCode = EQFileSystemError::E_Success;
-        SQDirectory::Exists(NOT_A_DIRECTORY, errorCode);
+        EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+        SQDirectory::Exists(NOT_A_DIRECTORY, eErrorCode);
     }
     catch(const QAssertException&)
     {
@@ -939,13 +943,13 @@ QTEST_CASE ( GetDirectoryInfo_DirectoryDoesNotExist_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./XXXThisDirectoryDoesNotExistXXX/");
 
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
-    EQFileSystemError errorCode = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_DoesNotExist;
 
     // [Execution]
-    QDirectoryInfo dirInfo = SQDirectory::GetDirectoryInfo(DIRECTORY, errorCode);
+    QDirectoryInfo dirInfo = SQDirectory::GetDirectoryInfo(DIRECTORY, eErrorCode);
     
     // [Verification]
-    BOOST_CHECK(errorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
 }
 
 /// <summary>
@@ -962,16 +966,16 @@ QTEST_CASE ( GetDirectoryInfo_ReturnsExpectedInformationWhenDirectoryExists_Test
     // [Preparation]
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./ExistingPath/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
-    EQFileSystemError errorCode = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
 
     // [Execution]
-    QDirectoryInfo dirInfo = SQDirectory::GetDirectoryInfo(DIRECTORY, errorCode);
+    QDirectoryInfo dirInfo = SQDirectory::GetDirectoryInfo(DIRECTORY, eErrorCode);
     
     // [Verification]
     bool bContainsCorrectPath = dirInfo.GetPath() == DIRECTORY;
     bool bCreationDateTimeIsNotUndefined = !dirInfo.GetCreationDate().IsUndefined();
     
-    BOOST_CHECK(errorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
     BOOST_CHECK(bContainsCorrectPath);
     BOOST_CHECK(bCreationDateTimeIsNotUndefined);
 }
@@ -993,8 +997,672 @@ QTEST_CASE ( GetDirectoryInfo_AssertionFailsWhenInputPathIsNotDirectory_Test )
     // [Execution]
     try
     {
-        EQFileSystemError errorCode = EQFileSystemError::E_Success;
-        SQDirectory::GetDirectoryInfo(NOT_A_DIRECTORY, errorCode);
+        EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+        SQDirectory::GetDirectoryInfo(NOT_A_DIRECTORY, eErrorCode);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns Success and the directory is created when the input directory exists and the new directory does not exist.
+/// </summary>
+QTEST_CASE ( Create_ReturnsSuccessWhenInputDirectoryExistsAndNewDirectoryDoesNotExist_Test )
+{
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./");
+    const string_q NEW_DIRECTORY_NAME("NewDirectory");
+    QPath EXPECTED_DIRECTORY(DIRECTORY);
+    EXPECTED_DIRECTORY.AppendDirectory(NEW_DIRECTORY_NAME);
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+
+    // [Execution]
+    eErrorCode = SQDirectory::Create(DIRECTORY, NEW_DIRECTORY_NAME);
+    
+    // [Verification]
+    WaitForCreationOrDeletion_SQDirectoryTestHelper(EXPECTED_DIRECTORY, false);
+    
+    EQFileSystemError existsErrorCode = EQFileSystemError::E_Success;
+    bool bDirectoryWasCreated = SQDirectory::Exists(EXPECTED_DIRECTORY, existsErrorCode);
+    BOOST_CHECK(bDirectoryWasCreated);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that it returns Success and the directory is created when the input directory exists and the new directory already exists.
+/// </summary>
+QTEST_CASE ( Create_ReturnsSuccessWhenInputDirectoryExistsAndNewDirectoryAlreadyExists_Test )
+{
+    // Assumes the existence of:
+    // -./ExistingPath/
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./");
+    const string_q NEW_DIRECTORY_NAME("ExistingPath");
+    QPath EXPECTED_DIRECTORY(DIRECTORY);
+    EXPECTED_DIRECTORY.AppendDirectory(NEW_DIRECTORY_NAME);
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+
+    // [Execution]
+    eErrorCode = SQDirectory::Create(DIRECTORY, NEW_DIRECTORY_NAME);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that it returns DoesNotExist when the input directory does not exist.
+/// </summary>
+QTEST_CASE ( Create_ReturnsDoesNotExistWhenInputDirectoryExistsAndNewDirectoryAlreadyExists_Test )
+{
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./NonExistingPath/");
+    const string_q NEW_DIRECTORY_NAME("Whatever");
+    QPath EXPECTED_DIRECTORY(DIRECTORY);
+    EXPECTED_DIRECTORY.AppendDirectory(NEW_DIRECTORY_NAME);
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+
+    // [Execution]
+    eErrorCode = SQDirectory::Create(DIRECTORY, NEW_DIRECTORY_NAME);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input path does not refer to a directory.
+/// </summary>
+QTEST_CASE ( Create_AssertionFailsWhenInputPathIsNotDirectory_Test )
+{
+    // Assuming the existence of:
+    // -./NotADirectory.txt
+
+    // [Preparation]
+    const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        SQDirectory::Create(NOT_A_DIRECTORY, "DirectoryName");
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns Success and fills the container with expected file paths when the input directory exists.
+/// </summary>
+QTEST_CASE ( GetFiles1_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_FILES[] = { "File1.txt",
+                                        "File2.txt",
+                                        "File4.log "};
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that found file paths are appended to the existing elements in the container.
+/// </summary>
+QTEST_CASE ( GetFiles1_PathsAreAppended_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_FILES[] = { "ExistingElement1",
+                                        "ExistingElement2",
+                                        "File1.txt",
+                                        "File2.txt",
+                                        "File4.log "};
+    QDynamicArray<QPath> arFiles;
+    arFiles.Add(QPath("ExistingElement1"));
+    arFiles.Add(QPath("ExistingElement2"));
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that it returns Success when the directory is empty.
+/// </summary>
+QTEST_CASE ( GetFiles1_ReturnsSuccessWhenDirectoryIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./EmptyDirectory/
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./EmptyDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(arFiles.IsEmpty());
+}
+
+/// <summary>
+/// Checks that it returns DoesNotExist when the directory does not exist.
+/// </summary>
+QTEST_CASE ( GetFiles1_ReturnsDoesNotExistWhenTheDirectoryDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./NonExistentDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input path does not refer to a directory.
+/// </summary>
+QTEST_CASE ( GetFiles1_AssertionFailsWhenInputPathIsNotDirectory_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assuming the existence of:
+    // -./NotADirectory.txt
+
+    // [Preparation]
+    const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    QDynamicArray<QPath> arFiles;
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        SQDirectory::GetFiles(NOT_A_DIRECTORY, arFiles);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns Success and fills the container with expected file paths when the input directory exists.
+/// </summary>
+QTEST_CASE ( GetFiles2_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const string_q EXTENSION_FILTER("txt");
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_FILES[] = { "File1.txt",
+                                        "File2.txt" };
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles, EXTENSION_FILTER);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that found file paths are appended to the existing elements in the container.
+/// </summary>
+QTEST_CASE ( GetFiles2_PathsAreAppended_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const string_q EXTENSION_FILTER("txt");
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_FILES[] = { "ExistingElement1",
+                                        "ExistingElement2",
+                                        "File1.txt",
+                                        "File2.txt" };
+    QDynamicArray<QPath> arFiles;
+    arFiles.Add(QPath("ExistingElement1"));
+    arFiles.Add(QPath("ExistingElement2"));
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles, EXTENSION_FILTER);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that it returns Success when the directory is empty.
+/// </summary>
+QTEST_CASE ( GetFiles2_ReturnsSuccessWhenDirectoryIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./EmptyDirectory/
+
+    // [Preparation]
+    const string_q EXTENSION_FILTER("txt");
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./EmptyDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles, EXTENSION_FILTER);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(arFiles.IsEmpty());
+}
+
+/// <summary>
+/// Checks that it returns DoesNotExist when the directory does not exist.
+/// </summary>
+QTEST_CASE ( GetFiles2_ReturnsDoesNotExistWhenTheDirectoryDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const string_q EXTENSION_FILTER("txt");
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./NonExistentDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arFiles;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetFiles(DIRECTORY, arFiles, EXTENSION_FILTER);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input path does not refer to a directory.
+/// </summary>
+QTEST_CASE ( GetFiles2_AssertionFailsWhenInputPathIsNotDirectory_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assuming the existence of:
+    // -./NotADirectory.txt
+
+    // [Preparation]
+    const string_q EXTENSION_FILTER("txt");
+    const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    QDynamicArray<QPath> arFiles;
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        SQDirectory::GetFiles(NOT_A_DIRECTORY, arFiles, EXTENSION_FILTER);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns Success and fills the container with expected directory paths when the input directory exists.
+/// </summary>
+QTEST_CASE ( GetSubdirectories_ReturnsSuccessAndExpectedDirectoriesWhenInputDirectoryExists_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_DIRS[] = { "Directory1",
+                                       "Directory2" };
+    QDynamicArray<QPath> arDirectories;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_DIRS) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arDirectories[i].GetLastDirectory() == EXPECTED_DIRS[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that found directory paths are appended to the existing elements in the container.
+/// </summary>
+QTEST_CASE ( GetSubdirectories_PathsAreAppended_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+    // -./DirectoryWithContent/Directory1/File3.txt
+    // -./DirectoryWithContent/Directory2/
+    // -./DirectoryWithContent/File1.txt
+    // -./DirectoryWithContent/File2.txt
+    // -./DirectoryWithContent/File4.log
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_DIRS[] = { "ExistingElement1",
+                                       "ExistingElement2",
+                                       "Directory1",
+                                       "Directory2" };
+    QDynamicArray<QPath> arDirectories;
+    arDirectories.Add(QPath("ExistingElement1"));
+    arDirectories.Add(QPath("ExistingElement2"));
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
+    
+    // [Verification]
+    bool bAllExpectedFilesRetrieved = true;
+
+    for(pointer_uint_q i = 0; i < sizeof(EXPECTED_DIRS) / sizeof(string_q); ++i)
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arDirectories[i].GetLastDirectory() == EXPECTED_DIRS[i];
+    
+    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+/// <summary>
+/// Checks that it returns Success when the directory is empty.
+/// </summary>
+QTEST_CASE ( GetSubdirectories_ReturnsSuccessWhenDirectoryIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assumes the existence of:
+    // -./EmptyDirectory/
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./EmptyDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arDirectories;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(arDirectories.IsEmpty());
+}
+
+/// <summary>
+/// Checks that it returns DoesNotExist when the directory does not exist.
+/// </summary>
+QTEST_CASE ( GetSubdirectories_ReturnsDoesNotExistWhenTheDirectoryDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./NonExistentDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    QDynamicArray<QPath> arDirectories;
+
+    // [Execution]
+    eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input path does not refer to a directory.
+/// </summary>
+QTEST_CASE ( GetSubdirectories_AssertionFailsWhenInputPathIsNotDirectory_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assuming the existence of:
+    // -./NotADirectory.txt
+
+    // [Preparation]
+    const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    QDynamicArray<QPath> arDirectories;
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        SQDirectory::GetSubdirectories(NOT_A_DIRECTORY, arDirectories);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns Success when the directory exists and has parent.
+/// </summary>
+QTEST_CASE ( GetParentDirectory_ReturnsSuccessWhenDirectoryExistsAndHasParent_Test )
+{
+    // Assumes the existence of:
+    // -./DirectoryWithContent/
+    // -./DirectoryWithContent/Directory1/
+
+    // [Preparation]
+    const QPath DIRECTORY(QPath(PATH_TO_ARTIFACTS + "./DirectoryWithContent/Directory1/").GetAbsolutePath());
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const string_q EXPECTED_RELATIVE_PATH("./Directory1/");
+
+    // [Execution]
+    QPath parentPath = SQDirectory::GetParentDirectory(DIRECTORY, eErrorCode);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(parentPath.GetRelativePathTo(DIRECTORY) == EXPECTED_RELATIVE_PATH);
+}
+
+/// <summary>
+/// Checks that it returns Success and the same path when the directory exists and does not have parent.
+/// </summary>
+QTEST_CASE ( GetParentDirectory_ReturnsSuccessAndSamePathWhenDirectoryExistsAndDoesNotHaveParent_Test )
+{
+    // [Preparation]
+    const QPath DIRECTORY = SQDirectory::GetCurrentWorkingDirectory().GetRoot();
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const QPath EXPECTED_PATH = DIRECTORY;
+
+    // [Execution]
+    QPath parentPath = SQDirectory::GetParentDirectory(DIRECTORY, eErrorCode);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(parentPath == EXPECTED_PATH);
+}
+
+/// <summary>
+/// Checks that it returns DoesNotExist when the directory does not exist.
+/// </summary>
+QTEST_CASE ( GetParentDirectory_ReturnsDoesNotExistWhenDirectoryDoesNotExist_Test )
+{
+    // [Preparation]
+    const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./NonExistentDirectory/");
+    const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_DoesNotExist;
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    const QPath EXPECTED_PATH("./");
+
+    // [Execution]
+    QPath parentPath = SQDirectory::GetParentDirectory(DIRECTORY, eErrorCode);
+    
+    // [Verification]
+    BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
+    BOOST_CHECK(parentPath == EXPECTED_PATH);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input path does not refer to a directory.
+/// </summary>
+QTEST_CASE ( GetParentDirectory_AssertionFailsWhenInputPathIsNotDirectory_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+
+    // Assuming the existence of:
+    // -./NotADirectory.txt
+
+    // [Preparation]
+    const QPath NOT_A_DIRECTORY(PATH_TO_ARTIFACTS + "./NotADirectory.txt");
+    EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
+    bool bAssertionFailed = false;
+
+    // [Execution]
+    try
+    {
+        SQDirectory::GetParentDirectory(NOT_A_DIRECTORY, eErrorCode);
     }
     catch(const QAssertException&)
     {
