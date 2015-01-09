@@ -1129,9 +1129,11 @@ QTEST_CASE ( GetFiles1_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Te
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_FILES[] = { "File1.txt",
-                                        "File2.txt",
-                                        "File4.log "};
+    QDynamicArray<string_q> EXPECTED_FILES;
+    EXPECTED_FILES.Add("File1.txt");
+    EXPECTED_FILES.Add("File2.txt");
+    EXPECTED_FILES.Add("File4.log");
+
     QDynamicArray<QPath> arFiles;
 
     // [Execution]
@@ -1141,7 +1143,7 @@ QTEST_CASE ( GetFiles1_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Te
     bool bAllExpectedFilesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && EXPECTED_FILES.Contains(arFiles[i].GetFilename());
     
     BOOST_CHECK(bAllExpectedFilesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
@@ -1167,11 +1169,13 @@ QTEST_CASE ( GetFiles1_PathsAreAppended_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_FILES[] = { "ExistingElement1",
-                                        "ExistingElement2",
-                                        "File1.txt",
-                                        "File2.txt",
-                                        "File4.log "};
+    QDynamicArray<string_q> EXPECTED_FILES;
+    EXPECTED_FILES.Add("ExistingElement1");
+    EXPECTED_FILES.Add("ExistingElement2");
+    EXPECTED_FILES.Add("File1.txt");
+    EXPECTED_FILES.Add("File2.txt");
+    EXPECTED_FILES.Add("File4.log");
+
     QDynamicArray<QPath> arFiles;
     arFiles.Add(QPath("ExistingElement1"));
     arFiles.Add(QPath("ExistingElement2"));
@@ -1183,7 +1187,7 @@ QTEST_CASE ( GetFiles1_PathsAreAppended_Test )
     bool bAllExpectedFilesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && EXPECTED_FILES.Contains(arFiles[i].GetFilename());
     
     BOOST_CHECK(bAllExpectedFilesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
@@ -1287,8 +1291,10 @@ QTEST_CASE ( GetFiles2_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Te
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_FILES[] = { "File1.txt",
-                                        "File2.txt" };
+    QDynamicArray<string_q> EXPECTED_FILES;
+    EXPECTED_FILES.Add("File1.txt");
+    EXPECTED_FILES.Add("File2.txt");
+
     QDynamicArray<QPath> arFiles;
 
     // [Execution]
@@ -1298,7 +1304,7 @@ QTEST_CASE ( GetFiles2_ReturnsSuccessAndExpectedFilesWhenInputDirectoryExists_Te
     bool bAllExpectedFilesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && EXPECTED_FILES.Contains(arFiles[i].GetFilename());
     
     BOOST_CHECK(bAllExpectedFilesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
@@ -1325,10 +1331,12 @@ QTEST_CASE ( GetFiles2_PathsAreAppended_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_FILES[] = { "ExistingElement1",
-                                        "ExistingElement2",
-                                        "File1.txt",
-                                        "File2.txt" };
+    QDynamicArray<string_q> EXPECTED_FILES;
+    EXPECTED_FILES.Add("ExistingElement1");
+    EXPECTED_FILES.Add("ExistingElement2");
+    EXPECTED_FILES.Add("File1.txt");
+    EXPECTED_FILES.Add("File2.txt");
+
     QDynamicArray<QPath> arFiles;
     arFiles.Add(QPath("ExistingElement1"));
     arFiles.Add(QPath("ExistingElement2"));
@@ -1340,7 +1348,7 @@ QTEST_CASE ( GetFiles2_PathsAreAppended_Test )
     bool bAllExpectedFilesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_FILES) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arFiles[i].GetFilename() == EXPECTED_FILES[i];
+        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && EXPECTED_FILES.Contains(arFiles[i].GetFilename());
     
     BOOST_CHECK(bAllExpectedFilesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
@@ -1446,20 +1454,22 @@ QTEST_CASE ( GetSubdirectories_ReturnsSuccessAndExpectedDirectoriesWhenInputDire
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_DIRS[] = { "Directory1",
-                                       "Directory2" };
+    QDynamicArray<string_q> EXPECTED_DIRS;
+    EXPECTED_DIRS.Add("Directory1");
+    EXPECTED_DIRS.Add("Directory2");
+
     QDynamicArray<QPath> arDirectories;
 
     // [Execution]
     eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
     
     // [Verification]
-    bool bAllExpectedFilesRetrieved = true;
+    bool bAllExpectedDirectoriesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_DIRS) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arDirectories[i].GetLastDirectory() == EXPECTED_DIRS[i];
+        bAllExpectedDirectoriesRetrieved = bAllExpectedDirectoriesRetrieved && EXPECTED_DIRS.Contains(arDirectories[i].GetLastDirectory());
     
-    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(bAllExpectedDirectoriesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
 }
 
@@ -1483,24 +1493,26 @@ QTEST_CASE ( GetSubdirectories_PathsAreAppended_Test )
     const QPath DIRECTORY(PATH_TO_ARTIFACTS + "./DirectoryWithContent/");
     const EQFileSystemError EXPECTED_ERRORCODE = EQFileSystemError::E_Success;
     EQFileSystemError eErrorCode = EQFileSystemError::E_Success;
-    const string_q EXPECTED_DIRS[] = { "ExistingElement1",
-                                       "ExistingElement2",
-                                       "Directory1",
-                                       "Directory2" };
+    QDynamicArray<string_q> EXPECTED_DIRS;
+    EXPECTED_DIRS.Add("ExistingElement1");
+    EXPECTED_DIRS.Add("ExistingElement2");
+    EXPECTED_DIRS.Add("Directory1");
+    EXPECTED_DIRS.Add("Directory2");
+
     QDynamicArray<QPath> arDirectories;
-    arDirectories.Add(QPath("ExistingElement1"));
-    arDirectories.Add(QPath("ExistingElement2"));
+    arDirectories.Add(QPath("/ExistingElement1/"));
+    arDirectories.Add(QPath("/ExistingElement2/"));
 
     // [Execution]
     eErrorCode = SQDirectory::GetSubdirectories(DIRECTORY, arDirectories);
     
     // [Verification]
-    bool bAllExpectedFilesRetrieved = true;
+    bool bAllExpectedDirectoriesRetrieved = true;
 
     for(pointer_uint_q i = 0; i < sizeof(EXPECTED_DIRS) / sizeof(string_q); ++i)
-        bAllExpectedFilesRetrieved = bAllExpectedFilesRetrieved && arDirectories[i].GetLastDirectory() == EXPECTED_DIRS[i];
+        bAllExpectedDirectoriesRetrieved = bAllExpectedDirectoriesRetrieved && EXPECTED_DIRS.Contains(arDirectories[i].GetLastDirectory());
     
-    BOOST_CHECK(bAllExpectedFilesRetrieved);
+    BOOST_CHECK(bAllExpectedDirectoriesRetrieved);
     BOOST_CHECK(eErrorCode == EXPECTED_ERRORCODE);
 }
 
