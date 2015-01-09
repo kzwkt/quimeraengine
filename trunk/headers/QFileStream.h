@@ -130,7 +130,7 @@ public:
     /// If the current user has no writing permissions on the file, it will be opened as read-only.
     /// </remarks>
     /// <param name="filePath">[IN] The path of a file in the file system. It must neither be empty nor contain invalid characters.</param>
-    /// <param name="eOpenMode">[IN] The way the file will be opened (<seealso ref="Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileOpenMode">).</param>
+    /// <param name="eOpenMode">[IN] The way the file will be opened (<seealso cref="Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileOpenMode"/>).</param>
     /// <param name="uInitialCapacity">[IN] The initial capacity of the internal buffer, in bytes. It must not equal zero.</param>
     /// <param name="eErrorInfo">[OUT] An error code representing the result of the operation. If nothing unexpected occurred, its value will be Success.</param>
     QFileStream(const QPath &filePath, const EQFileOpenMode &eOpenMode, const pointer_uint_q uInitialCapacity, EQFileSystemError &eErrorInfo);
@@ -280,7 +280,7 @@ public:
     /// If the current user has no writing permissions on the file, it will be opened as read-only.
     /// </remarks>
     /// <param name="filePath">[IN] The path of a file in the file system. It must neither be empty nor contain invalid characters.</param>
-    /// <param name="eOpenMode">[IN] The way the file will be opened (<seealso ref="Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileOpenMode">).</param>
+    /// <param name="eOpenMode">[IN] The way the file will be opened (<seealso cref="Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileOpenMode"/>).</param>
     /// <returns>
     /// An error code representing the result of the operation. If nothing unexpected occurred, it returns Success.
     /// </returns>
