@@ -65,22 +65,22 @@ public:
     // ---------------
 public:
 
-    /// @copydoc
+    /// @copydoc IQCallStackTraceFormatter::FormatCallStackTraceFooter
     virtual void FormatCallStackTraceFooter(const QCallStackTrace &trace, string_q &strFormattedTrace) const;
 
-    /// @copydoc
+    /// @copydoc IQCallStackTraceFormatter::FormatCallStackTraceHeader
     virtual void FormatCallStackTraceHeader(const QCallStackTrace &trace, string_q &strFormattedTrace) const;
 
-    /// @copydoc
+    /// @copydoc IQCallStackTraceFormatter::FormatCallTrace
     virtual void FormatCallTrace(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const;
 
-    /// @copydoc
+    /// @copydoc IQCallStackTraceFormatter::FormatCallTraceFooter
     virtual void FormatCallTraceFooter(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const;
 
-    /// @copydoc
+    /// @copydoc IQCallStackTraceFormatter::FormatCallTraceHeader
     virtual void FormatCallTraceHeader(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const;
 
-    /// @copydoc
+    /// @copydoc Kinesis::QuimeraEngine::Core::QObject::ToString
     virtual string_q ToString() const;
 
 };
