@@ -471,13 +471,15 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 
 void QPath::_ExtractFilenameFromPath(string_q &strPath, string_q &strFilename)
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
     static const char_q CHAR_SEPARATOR(QPath::PATH_SEPARATOR_CHAR);
 
     const int STRING_LAST_POSITION = strPath.GetLength() - 1;
 
     if(!strPath.IsEmpty() && strPath[STRING_LAST_POSITION] != CHAR_SEPARATOR)
     {
-        int nLastSlashPosition = QPath::_GetLastIndexOfString(CHAR_SEPARATOR, strPath, STRING_LAST_POSITION);
+        int nLastSlashPosition = strPath.LastIndexOf(CHAR_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive);
 
         if(nLastSlashPosition != string_q::PATTERN_NOT_FOUND)
         {
@@ -547,7 +549,7 @@ void QPath::RemoveLastDirectory()
         m_strPath != LEADING_DOT &&
         m_strPath != QPath::PATH_SEPARATOR)
     {
-        int nPreviousDirectorySlash = QPath::_GetLastIndexOfString(CHAR_SEPARATOR, m_strPath, m_strPath.GetLength() - 2);
+        int nPreviousDirectorySlash = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, m_strPath.GetLength() - 2);
 
         // If it is not a relative path with only one directory
         if(nPreviousDirectorySlash != string_q::PATTERN_NOT_FOUND)
@@ -834,20 +836,6 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
     return strRelativePath;
 }
 
-int QPath::_GetLastIndexOfString(const char_q &pattern, const string_q &strSource, const int nFromIndex)
-{
-    int nLastDotPosition = string_q::PATTERN_NOT_FOUND;
-    int i = nFromIndex;
-
-    while(i >= 0 && strSource[i] != pattern)
-        --i;
-
-    if(i >= 0)
-        nLastDotPosition = i;
-
-    return nLastDotPosition;
-}
-
 string_q QPath::GetLastDirectory() const
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
@@ -863,7 +851,7 @@ string_q QPath::GetLastDirectory() const
         }
         else
         {
-            int nLastSeparatorPosition = QPath::_GetLastIndexOfString(QPath::PATH_SEPARATOR_CHAR, m_strPath, m_strPath.GetLength() - 2U);
+            int nLastSeparatorPosition = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, m_strPath.GetLength() - 2U);
 
             if(nLastSeparatorPosition != string_q::PATTERN_NOT_FOUND)
                 strResult = m_strPath.Substring(nLastSeparatorPosition + 1, m_strPath.GetLength() - 2U);
@@ -929,13 +917,15 @@ bool QPath::IsAbsolute() const
 
 string_q QPath::GetFilenameWithoutExtension() const
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
     string_q strFilename;
 
     if(!m_strFilename.IsEmpty())
     {
         // Searches for the last dot
         int nDotPosition = string_q::PATTERN_NOT_FOUND;
-        nDotPosition = QPath::_GetLastIndexOfString(QPath::DOT, m_strFilename, m_strFilename.GetLength() - 1);
+        nDotPosition = m_strFilename.LastIndexOf(QPath::DOT, EQComparisonType::E_BinaryCaseSensitive);
 
         if(nDotPosition != 0)
         {
@@ -956,13 +946,15 @@ string_q QPath::GetFilename() const
 
 string_q QPath::GetFileExtension() const
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
     string_q strExtension;
 
     if(!m_strFilename.IsEmpty())
     {
         // Searches for the last dot
         int nDotPosition = string_q::PATTERN_NOT_FOUND;
-        nDotPosition = QPath::_GetLastIndexOfString(QPath::DOT, m_strFilename, m_strFilename.GetLength() - 1);
+        nDotPosition = m_strFilename.LastIndexOf(QPath::DOT, EQComparisonType::E_BinaryCaseSensitive);
 
         if(nDotPosition != string_q::PATTERN_NOT_FOUND && scast_q(nDotPosition + 1, unsigned int) < m_strFilename.GetLength())
             strExtension = m_strFilename.Substring(nDotPosition + 1);
@@ -1137,7 +1129,7 @@ void QPath::SetFilename(const string_q &strFilename)
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // Replaces only the name
-    int nLastDotPosition = QPath::_GetLastIndexOfString(QPath::DOT, m_strFilename, m_strFilename.GetLength() - 2U);
+    int nLastDotPosition = m_strFilename.LastIndexOf(QPath::DOT, EQComparisonType::E_BinaryCaseSensitive, m_strFilename.GetLength() - 2U);
     string_q strReplacedName;
     
     if(nLastDotPosition != string_q::PATTERN_NOT_FOUND)

@@ -631,7 +631,7 @@ QTEST_CASE ( IsInterrupted_ReturnsTrueWhenThreadWasInterrupted_Test )
     // [Preparation]
     const bool EXPECTED_RESULT = true;
     QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
-    const unsigned int WAIT_TIME = 200;
+    const unsigned int WAIT_TIME = 300;
     QThread thread(function, WAIT_TIME);
     thread.Interrupt();
 
