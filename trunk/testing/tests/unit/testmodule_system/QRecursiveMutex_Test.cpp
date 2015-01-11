@@ -32,15 +32,15 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QMutex.h"
+#include "QRecursiveMutex.h"
 
 #include "QThreadWhiteBox.h"
 #include "QThread.h"
 #include "SQThisThread.h"
 
-using Kinesis::QuimeraEngine::System::Threading::QMutex;
+using Kinesis::QuimeraEngine::System::Threading::QRecursiveMutex;
 
-class QMutexTestClass
+class QRecursiveMutexTestClass
 {
 public:
 
@@ -49,6 +49,7 @@ public:
         sm_uThreadCounter = 0;
         sm_uSharedResource = 0;
         sm_bOneThreadAtATime = true;
+        sm_bNoErrorsOccurred = false;
     }
 
     static void Function(unsigned int uCheckValue)
@@ -78,20 +79,34 @@ public:
         --sm_uThreadCounter;
     }
 
+    static void RecursiveFunction(unsigned int uRecursionDepth)
+    {
+        if(uRecursionDepth > 0)
+        {
+            sm_bNoErrorsOccurred = false;
+            sm_mutex.Lock();
+            QRecursiveMutexTestClass::RecursiveFunction(uRecursionDepth - 1U);
+            sm_mutex.Unlock();
+            sm_bNoErrorsOccurred = true;
+        }
+    }
+
     static unsigned int sm_uSharedResource;
     static bool sm_bOneThreadAtATime;
-    static QMutex sm_mutex;
+    static bool sm_bNoErrorsOccurred;
+    static QRecursiveMutex sm_mutex;
     static unsigned int sm_uThreadCounter;
 };
 
-QMutex QMutexTestClass::sm_mutex;
-unsigned int QMutexTestClass::sm_uThreadCounter = 0;
-unsigned int QMutexTestClass::sm_uSharedResource;
-bool QMutexTestClass::sm_bOneThreadAtATime = true;
+QRecursiveMutex QRecursiveMutexTestClass::sm_mutex;
+unsigned int QRecursiveMutexTestClass::sm_uSharedResource;
+unsigned int QRecursiveMutexTestClass::sm_uThreadCounter = 0;
+bool QRecursiveMutexTestClass::sm_bOneThreadAtATime = true;
+bool QRecursiveMutexTestClass::sm_bNoErrorsOccurred = false;
 
 
-QTEST_SUITE_BEGIN( QMutex_TestSuite )
-    
+QTEST_SUITE_BEGIN( QRecursiveMutex_TestSuite )
+
 /// <summary>
 /// Checks that only one thread can own the mutex at a time.
 /// </summary>
@@ -104,21 +119,41 @@ QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
 
     // [Preparation]
     static const unsigned int NUMBER_OF_THREADS = 100U;
-    QMutexTestClass::Reset();
-    QMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
+    QRecursiveMutexTestClass::Reset();
+    QRecursiveMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
 
     // [Execution]
     for(unsigned int uValue = 0; uValue < NUMBER_OF_THREADS; ++uValue)
     {
-        QThreadWhiteBox thread(QDelegate<void(unsigned int)>(QMutexTestClass::Function), uValue);
+        QThreadWhiteBox thread(QDelegate<void(unsigned int)>(QRecursiveMutexTestClass::Function), uValue);
         thread.Detach();
     }
     
     // [Verification]
-    while(QMutexTestClass::sm_uThreadCounter > 0)
+    while(QRecursiveMutexTestClass::sm_uThreadCounter > 0)
         SQThisThread::Yield();
 
-    BOOST_CHECK(QMutexTestClass::sm_bOneThreadAtATime);
+    BOOST_CHECK(QRecursiveMutexTestClass::sm_bOneThreadAtATime);
+}
+
+/// <summary>
+/// Checks that it can be called many times in recursive function calls.
+/// </summary>
+QTEST_CASE ( Lock_ItCanBeCalledManyTimesInRecursiveFunctions_Test )
+{
+    using Kinesis::QuimeraEngine::System::Threading::QThread;
+    using Kinesis::QuimeraEngine::Common::QDelegate;
+
+    // [Preparation]
+    const bool NO_ERRORS_OCCURRED = true;
+    QRecursiveMutexTestClass::Reset();
+
+    // [Execution]
+    QThread thread(QDelegate<void(unsigned int)>(QRecursiveMutexTestClass::RecursiveFunction), 5);
+    
+    // [Verification]
+    thread.Join();
+    BOOST_CHECK_EQUAL(QRecursiveMutexTestClass::sm_bNoErrorsOccurred, NO_ERRORS_OCCURRED);
 }
 
 /// <summary>
@@ -128,7 +163,7 @@ QTEST_CASE ( TryLock_ReturnsTrueWhenMutexCanBeLocked_Test )
 {
     // [Preparation]
     const bool EXPECTED_VALUE = true;
-    QMutex mutex;
+    QRecursiveMutex mutex;
 
     // [Execution]
     bool bResult = mutex.TryLock();
@@ -147,7 +182,7 @@ QTEST_CASE ( TryLock_ReturnsFalseWhenMutexCannotBeLocked_Test )
 {
     // [Preparation]
     const bool EXPECTED_VALUE = false;
-    QMutex mutex;
+    QRecursiveMutex mutex;
     mutex.Lock();
 
     // [Execution]
@@ -160,5 +195,5 @@ QTEST_CASE ( TryLock_ReturnsFalseWhenMutexCannotBeLocked_Test )
     mutex.Unlock();
 }
 
-// End - Test Suite: QMutex
+// End - Test Suite: QRecursiveMutex
 QTEST_SUITE_END()

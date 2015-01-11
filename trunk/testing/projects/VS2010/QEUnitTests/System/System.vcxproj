@@ -29,6 +29,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QSharedThread_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QRecursiveMutex_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QThread_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamReader_Test.cpp" />
