@@ -117,6 +117,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QRecursiveMutex_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QScopedExclusiveLock_Test.cpp">
+      <Filter>Tests\Threading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

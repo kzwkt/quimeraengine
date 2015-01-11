@@ -130,6 +130,9 @@
     <ClInclude Include="..\..\..\..\headers\QRecursiveMutex.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedExclusiveLock.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
