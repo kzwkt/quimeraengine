@@ -24,10 +24,10 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QCallStackTracePlainTextFormatter.h"
+#include "QCallStackTraceConsolePrinter.h"
 
 #include "SQInteger.h"
-
+#include "SQInternalLogger.h"
 
 namespace Kinesis
 {
@@ -47,8 +47,23 @@ namespace Diagnosis
 //##################                                                       ##################
 //##################=======================================================##################
 
-QE_RTTI_SUPPORT_TYPE_DEFINITION(QCallStackTracePlainTextFormatter);
+QE_RTTI_SUPPORT_TYPE_DEFINITION(QCallStackTraceConsolePrinter);
     
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+QCallStackTraceConsolePrinter::QCallStackTraceConsolePrinter(boost::shared_ptr<IQCallStackTraceFormatter> pFormatter)
+{
+    m_pFormatter = pFormatter;
+}
+
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -59,7 +74,7 @@ QE_RTTI_SUPPORT_TYPE_DEFINITION(QCallStackTracePlainTextFormatter);
 //##################                                                       ##################
 //##################=======================================================##################
 
-QCallStackTracePlainTextFormatter::~QCallStackTracePlainTextFormatter()
+QCallStackTraceConsolePrinter::~QCallStackTraceConsolePrinter()
 {
 }
 
@@ -73,74 +88,19 @@ QCallStackTracePlainTextFormatter::~QCallStackTracePlainTextFormatter()
 //##################                                                       ##################
 //##################=======================================================##################
 
-void QCallStackTracePlainTextFormatter::FormatCallStackTraceFooter(const QCallStackTrace &trace, string_q &strFormattedTrace) const
+void QCallStackTraceConsolePrinter::PrintString(const string_q &strText)
 {
-    static const string_q FOOTER("End of call stack trace information.");
-    strFormattedTrace.Append(FOOTER);
+    using Kinesis::QuimeraEngine::Common::SQInternalLogger;
+
+    SQInternalLogger::DefaultLogFunction(strText);
 }
 
-void QCallStackTracePlainTextFormatter::FormatCallStackTraceHeader(const QCallStackTrace &trace, string_q &strFormattedTrace) const
+string_q QCallStackTraceConsolePrinter::ToString() const
 {
-    static const string_q HEADER("Call stack trace for ");
-    static const string_q NEW_LINE("\n");
-
-    strFormattedTrace.Append(HEADER);
-    strFormattedTrace.Append(trace.GetThreadId());
-    strFormattedTrace.Append(NEW_LINE);
-}
-
-void QCallStackTracePlainTextFormatter::FormatCallTrace(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-        
-    static const string_q ONE_LEVEL("  ");
-    string_q strIndentation;
-    for(unsigned int i = 0; i < uDepthLevel; ++i)
-        strIndentation.Append(ONE_LEVEL);
-
-    static const string_q NEW_LINE("\n");
-    strFormattedTrace.Append(trace.GetFunctionSignature());
-    strFormattedTrace.Append(NEW_LINE);
-
-    static const string_q ARGUMENT_PREFIX1("  | -{");
-    static const string_q ARGUMENT_PREFIX2("}");
-    static const string_q EQUAL_SIGN("=");
-    const QArgumentTrace* arArguments = trace.GetArguments();
-
-    for(unsigned int i = 0; i < trace.GetArgumentsCount(); ++i)
-    {
-        strFormattedTrace.Append(strIndentation);
-        strFormattedTrace.Append(ARGUMENT_PREFIX1);
-        strFormattedTrace.Append(SQInteger::ToString(i));
-        strFormattedTrace.Append(ARGUMENT_PREFIX2);
-        strFormattedTrace.Append(arArguments[i].GetTypeName());
-        strFormattedTrace.Append(EQUAL_SIGN);
-        strFormattedTrace.Append(arArguments[i].GetValue());
-        strFormattedTrace.Append(NEW_LINE);
-    }
-}
-
-void QCallStackTracePlainTextFormatter::FormatCallTraceFooter(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
-{
-    // Nothing
-}
-
-void QCallStackTracePlainTextFormatter::FormatCallTraceHeader(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const
-{
-    static const string_q HEADER("-->");
-    static const string_q ONE_LEVEL("  ");
-
-    for(unsigned int i = 0; i < uDepthLevel; ++i)
-        strFormattedTrace.Append(ONE_LEVEL);
-
-    strFormattedTrace.Append(HEADER);
-}
-
-string_q QCallStackTracePlainTextFormatter::ToString() const
-{
-    static const string_q CLASS_NAME("QCallStackTracePlainTextFormatter");
+    static const string_q CLASS_NAME("QCallStackTraceConsolePrinter");
     return CLASS_NAME;
 }
+
 
 } //namespace Diagnosis
 } //namespace System

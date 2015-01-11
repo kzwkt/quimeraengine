@@ -136,6 +136,12 @@
     <ClInclude Include="..\..\..\..\headers\QConditionVariable.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTraceConsolePrinter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QAbstractCallStackTracePrinter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -224,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QConditionVariable.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTraceConsolePrinter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QAbstractCallStackTracePrinter.cpp">
+      <Filter>Diagnosis</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
