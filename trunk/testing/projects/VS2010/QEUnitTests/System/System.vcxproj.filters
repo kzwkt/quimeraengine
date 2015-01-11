@@ -111,9 +111,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMutex_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QSharedThread_Test.cpp">
-      <Filter>Tests\Threading</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QRecursiveMutex_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
@@ -121,6 +118,9 @@
       <Filter>Tests\Threading</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QConditionVariable_Test.cpp">
+      <Filter>Tests\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QSharedMutex_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
   </ItemGroup>
