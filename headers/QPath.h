@@ -355,19 +355,6 @@ protected:
     /// </returns>
     static bool _ValidateIP(const string_q &strHostname);
 
-private:
-    
-    /// <summary>
-    /// Gets the latest occurrence of a given pattern in a source string, starting from a concrete position.
-    /// </summary>
-    /// <param name="pattern">[IN] The pattern to search for.</param>
-    /// <param name="strSource">[IN] The string where the pattern is to be searched.</param>
-    /// <param name="nFromIndex">[IN] The index (zero-based) from which to start searching backwards.</param>
-    /// <returns>
-    /// The index (zero-based) of the last occurrence found. If the pattern is not found, string_q::PATTERN_NOT_FOUND is returned.
-    /// </returns>
-    static int _GetLastIndexOfString(const Kinesis::QuimeraEngine::Common::DataTypes::char_q &pattern, const string_q &strSource, const int nFromIndex);
-
 
     // PROPERTIES
     // ---------------

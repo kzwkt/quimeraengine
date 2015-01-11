@@ -733,6 +733,100 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
     return nPosition;
 }
 
+int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+{
+    int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+
+    if(!strPattern.IsEmpty() && !this->IsEmpty())
+    {
+        if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
+        {
+            nPosition = m_strString.lastIndexOf(strPattern.m_strString);
+        }
+        else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
+        {
+            // There is no case insensitive indexOf in ICU so both strings are case-folded before searching
+            icu::UnicodeString strResidentCopy = m_strString;
+            strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            icu::UnicodeString strPatternCopy = strPattern.m_strString;
+            strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            nPosition = strResidentCopy.lastIndexOf(strPatternCopy);
+        }
+        else
+        {
+            UErrorCode errorCode = U_ZERO_ERROR;
+
+            // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
+            icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
+
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+
+            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            nPosition = search.last(errorCode);
+            
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+        }
+
+        if(nPosition == USEARCH_DONE)
+            nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+    }
+
+    if(nPosition != QStringUnicode::PATTERN_NOT_FOUND)
+        nPosition = m_strString.countChar32(0, nPosition);
+
+    return nPosition;
+}
+
+int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const
+{
+    int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+
+    if(!strPattern.IsEmpty() && !this->IsEmpty())
+    {
+        // Note: It's necessary to increment the start position by the length of the pattern since ICU classes don't find the pattern if the index inside the occurrence
+        QConstCharIterator iterator(*this, uStart + strPattern.m_strString.length());
+        int nStartCodeUnitIndex = iterator.m_iterator.getIndex();
+
+        if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
+        {
+            nPosition = m_strString.lastIndexOf(strPattern.m_strString, 0, nStartCodeUnitIndex);
+        }
+        else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
+        {
+            // There is no case insensitive indexOf in ICU so both strings are converted to lowercase before searching
+            icu::UnicodeString strResidentCopy = m_strString;
+            strResidentCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            icu::UnicodeString strPatternCopy = strPattern.m_strString;
+            strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
+            nPosition = strResidentCopy.lastIndexOf(strPatternCopy, 0, nStartCodeUnitIndex);
+        }
+        else
+        {
+            UErrorCode errorCode = U_ZERO_ERROR;
+
+            // About string search with ICU: http://userguide.icu-project.org/collation/icu-string-search-service
+            icu::StringSearch search(strPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
+
+            search.setOffset(nStartCodeUnitIndex, errorCode);
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
+
+            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            nPosition = search.previous(errorCode);
+
+            QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
+        }
+
+        if(nPosition == USEARCH_DONE)
+            nPosition = QStringUnicode::PATTERN_NOT_FOUND;
+    }
+
+    if(nPosition != QStringUnicode::PATTERN_NOT_FOUND)
+        nPosition = m_strString.countChar32(0, nPosition);
+
+    return nPosition;
+}
+
 bool QStringUnicode::Contains(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
 {
     return this->IndexOf(strPattern, eComparisonType) != QStringUnicode::PATTERN_NOT_FOUND;

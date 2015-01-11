@@ -780,7 +780,7 @@ public:
     /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
     /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
     /// <returns>
-    /// If the pattern is found, it returns the position of the Unicode character (zero-based); if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// If the pattern is found, it returns the position of the first Unicode character (zero-based) of the found pattern; if it is not found, it returns the PATTERN_NOT_FOUND constant.
     /// </returns>
     int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
 
@@ -797,9 +797,41 @@ public:
     /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident
     /// string, the pattern will not be found.</param>
     /// <returns>
-    /// If the pattern is found, it returns the position of the Unicode character (zero-based); if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// If the pattern is found, it returns the position of the first Unicode character (zero-based) of the found pattern; if it is not found, it returns the PATTERN_NOT_FOUND constant.
     /// </returns>
     int IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const;
+    
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string from the end to the beginning and returns the character position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <returns>
+    /// If the pattern is found, it returns the position of the first Unicode character (zero-based) of the found pattern; if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// </returns>
+    int LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const;
+
+    /// <summary>
+    /// Searches for a string pattern throughout the resident string from the end to the beginning, starting from a given position, and returns the character
+    /// position of the first occurrence.
+    /// </summary>
+    /// <remarks>
+    /// Note that, if the start position coincides with any of the characters of an occurrence of the pattern in the string, such occurrence will be found.<br/>
+    /// The result may be different depending on whether the resident string is normalized (NFD) or not, when performing canonical comparisons;
+    /// it will not be normalized when comparing.
+    /// </remarks>
+    /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
+    /// <param name="eComparisonType">[IN] The type of comparison to perform during the search.</param>
+    /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident
+    /// string, the pattern will be searched starting at the last character.</param>
+    /// <returns>
+    /// If the pattern is found, it returns the position of the first Unicode character (zero-based) of the found pattern; if it is not found, it returns the PATTERN_NOT_FOUND constant.
+    /// </returns>
+    int LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const;
 
     /// <summary>
     /// Searches for a string pattern throughout the resident string and indicates whether such pattern exists or not.

@@ -710,7 +710,6 @@ QTEST_CASE ( FromHexadecimalString_ThePrefixIsCaseInsensitive_Test )
     // [Preparation]
     const string_q INPUT_STRING_LOWER_CASE = "0xFFFFFFFF";
     const string_q INPUT_STRING_UPPER_CASE = "0XFFFFFFFF";
-    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
     u32_q uResultLowerCase = 0;
     u32_q uResultUpperCase = 0;
 

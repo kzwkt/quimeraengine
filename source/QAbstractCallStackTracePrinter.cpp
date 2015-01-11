@@ -57,7 +57,7 @@ QE_RTTI_SUPPORT_TYPE_DEFINITION(QAbstractCallStackTracePrinter);
 //##################                                                       ##################
 //##################=======================================================##################
 
-QAbstractCallStackTracePrinter::QAbstractCallStackTracePrinter() : m_pFormatter(null_q)
+QAbstractCallStackTracePrinter::QAbstractCallStackTracePrinter() : m_pFormatter((IQCallStackTraceFormatter*)null_q)
 {
 }
 

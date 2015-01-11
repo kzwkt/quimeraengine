@@ -4512,6 +4512,859 @@ QTEST_CASE ( IndexOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
 }
 
 /// <summary>
+/// Checks that it returns "not found" when the pattern is empty.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_ReturnsNotFoundWhenPatternIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the resident string is empty.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns -1 when the result is not found.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_ReturnsMinusOneWhenPatternIsNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("A");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = -1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence, from right to left.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_ReturnsTheFirstOccurrence_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 3;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z'}; // áÁñ¨ CX`*ºZ
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 22, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b'}; // áÁñ¨ CX`*ºZab
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z'}; // áÁñ¨ CX`*ºZ
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 22, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsNotFoundWhenStringsDoesNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b'}; // áÁñ¨ CX`*ºZab
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xE1, 0xD1, 0xA8, ' '}; // áÑ¨ 
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 8, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b', 'c'}; // áÁñ¨ CX`*ºZabc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xC1, 0xF1, 0xA8, ' '}; // Áñ¨ 
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 8, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("Ab");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the normalization form of resident string affects the result.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_NormalizationAffectsTheResultWhenUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    //                                          B       A       ?        _        C
+    u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
+    const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), string_q::GetLocalEncodingUTF16());
+    //                                         A       _        ?
+    u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
+    const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), string_q::GetLocalEncodingUTF16());
+
+    QStringUnicode NORMALIZED_RESIDENT_STRING(NONNORMALIZED_RESIDENT_STRING);
+    NORMALIZED_RESIDENT_STRING.Normalize(EQNormalizationForm::E_D);
+
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+
+	// [Execution]
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
+}
+
+/// <summary>
+/// Checks that the pattern is found at zero index.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_MatchesExactlyAtZeroIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xE1, 0xC1}; // áÁ
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 4, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 0;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found at last position possible.
+/// </summary>
+QTEST_CASE ( LastIndexOf1_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( LastIndexOf1_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const int EXPECTED_POSITION1 = 5;
+    const int EXPECTED_POSITION2 = 9;
+
+	// [Execution]
+    int uPosition1 = SOURCE_STRING.LastIndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive);
+    int uPosition2 = SOURCE_STRING.LastIndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
+    BOOST_CHECK_EQUAL(uPosition2, EXPECTED_POSITION2);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the pattern is empty.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("ABC");
+    const QStringUnicode PATTERN("");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns "not found" when the resident string is empty.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns -1 when the result is not found.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode RESIDENT_STRING("A");
+    const QStringUnicode PATTERN("DEF");
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = -1;
+    const unsigned int START_INDEX = 1;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence, from right to left.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsTheFirstOccurrence_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 3;
+    const unsigned int START_INDEX = 4;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the first occurrence after the index, from right to left.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsTheFirstOccurrenceAfterIndex_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const QStringUnicode RESIDENT_STRING = QStringUnicode("B") + PATTERN + "B" + PATTERN + "B";
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 2;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z'}; // áÁñ¨ CX`*ºZ
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 22, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 10;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b'}; // áÁñ¨ CX`*ºZab
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 10;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z'}; // áÁñ¨ CX`*ºZ
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 22, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 10;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is not found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("A");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b'}; // áÁñ¨ CX`*ºZab
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 12;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xE1, 0xD1, 0xA8, ' '}; // áÑ¨ 
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 8, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'a', 'b', 'c'}; // áÁñ¨ CX`*ºZabc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 13;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using canonical case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonTypeIsCanonicalCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xC1, 0xF1, 0xA8, ' '}; // Áñ¨ 
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 8, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const int EXPECTED_RESULT = 1;
+    const unsigned int START_INDEX = 13;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case sensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseSensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("Ab");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 12;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when it does not match any substring of the resident string, using binary case insensitive comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBinaryCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b', 'c'}; // áÁñ¨ CX`*ºZAbc
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 28, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 12;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the normalization form of strings affects the result.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+
+    // [Preparation]
+    //                                          B       A       ?        _        C
+    u16_q NONNORMALIZED_RESIDENT_SEQUENCE[] = { 0x0042, 0x0041, 0x0341, 0x0331, 0x0043 }; // BÁ_C
+    const QStringUnicode NONNORMALIZED_RESIDENT_STRING((char*)NONNORMALIZED_RESIDENT_SEQUENCE, sizeof(NONNORMALIZED_RESIDENT_SEQUENCE), string_q::GetLocalEncodingUTF16());
+    //                                         A       _        ?
+    u16_q NONNORMALIZED_PATTERN_SEQUENCE[] = { 0x0041, 0x0331, 0x0341 }; // Á_
+    const QStringUnicode NONNORMALIZED_PATTERN((char*)NONNORMALIZED_PATTERN_SEQUENCE, sizeof(NONNORMALIZED_PATTERN_SEQUENCE), string_q::GetLocalEncodingUTF16());
+
+    QStringUnicode NORMALIZED_RESIDENT_STRING(NONNORMALIZED_RESIDENT_STRING);
+    NORMALIZED_RESIDENT_STRING.Normalize(EQNormalizationForm::E_D);
+
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseSensitive;
+    const unsigned int START_INDEX = 4;
+
+	// [Execution]
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
+}
+
+/// <summary>
+/// Checks that the pattern is found at zero index.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {0xE1, 0xC1}; // áÁ
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 4, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 0;
+    const unsigned int START_INDEX = 12;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found at last position possible.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("aB");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 11;
+    const unsigned int START_INDEX = 12;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the matches that are previous to the start position are not returned.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const u16_q PATTERN_CHARS[] = {'A', 'b'}; // Ab
+    const QStringUnicode PATTERN((const char*)PATTERN_CHARS, 4, string_q::GetLocalEncodingUTF16());
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = QStringUnicode::PATTERN_NOT_FOUND;
+    const unsigned int START_INDEX = 9;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the matches are found at the start index.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("CX");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 5;
+    const unsigned int START_INDEX = 5;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when the start position is out of bounds.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStartPositionIsOutOfBounds_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("CX");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 0xBA, 'Z', 'A', 'b'}; // áÁñ¨ CX`*ºZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 5;
+    const unsigned int START_INDEX = 50;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when using characters from the Supplementaty Multilingual Plane (SMP).
+/// </summary>
+QTEST_CASE ( LastIndexOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCD");
+    SOURCE_STRING.Append(QCharUnicode(0x00010300));
+    SOURCE_STRING.Append("EFGH");
+    SOURCE_STRING.Append(QCharUnicode(0x00011234));
+    SOURCE_STRING.Append("IJKL");
+    
+    QStringUnicode PATTERN1("EFGH");
+    PATTERN1.Append(QCharUnicode(0x00011234));
+    QStringUnicode PATTERN2(QCharUnicode(0x00011234));
+    const int EXPECTED_POSITION1 = 5;
+    const int EXPECTED_POSITION2 = 9;
+
+	// [Execution]
+    int uPosition1 = SOURCE_STRING.LastIndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
+    int uPosition2 = SOURCE_STRING.LastIndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
+    BOOST_CHECK_EQUAL(uPosition2, EXPECTED_POSITION2);
+}
+
+/// <summary>
+/// Checks that the pattern is found when the index lays inside of an occurrence, using canonical comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenIndexIsInsideAnOccurrenceUsingCanonicalComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("xZA");
+    const u16_q RESIDENT_CHARS[] = {0xE1, 0xC1, 0xF1, 0xA8, ' ', 'C', 'X', '`', '*', 'x', 'Z', 'A', 'b'}; // áÁñ¨ CX`*xZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_CanonicalCaseInsensitive;
+    const int EXPECTED_RESULT = 9;
+    const unsigned int START_INDEX = 10;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the pattern is found when the index lays inside of an occurrence, using canonical comparison.
+/// </summary>
+QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenIndexIsInsideAnOccurrenceUsingBinaryComparison_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const QStringUnicode PATTERN("xZA");
+    const u16_q RESIDENT_CHARS[] = {'A', 'B', 'C', '*', 'x', 'Z', 'A', 'b'}; // ABC*xZAb
+    const QStringUnicode RESIDENT_STRING((const char*)RESIDENT_CHARS, 26, string_q::GetLocalEncodingUTF16());
+    const EQComparisonType COMPARISON_TYPE = EQComparisonType::E_BinaryCaseSensitive;
+    const int EXPECTED_RESULT = 4;
+    const unsigned int START_INDEX = 5;
+
+	// [Execution]
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that it returns False when the pattern is empty.
 /// </summary>
 QTEST_CASE ( Contains_ReturnsFalseWhenPatternIsEmpty_Test )
