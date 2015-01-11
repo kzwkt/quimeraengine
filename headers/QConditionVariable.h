@@ -24,13 +24,11 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QSCOPEDEXCLUSIVELOCK__
-#define __QSCOPEDEXCLUSIVELOCK__
+#ifndef __QCONDITIONVARIABLE__
+#define __QCONDITIONVARIABLE__
 
 #include "SystemDefinitions.h"
-#include "QMutex.h"
-#include "Assertions.h"
-#include <boost/thread/locks.hpp>
+#include <boost/thread/condition_variable.hpp>
 
 namespace Kinesis
 {
@@ -42,116 +40,57 @@ namespace Threading
 {
 
 /// <summary>
-/// Wraps a mutex which will be unlocked when the control flow leaves the scope where the wrapping instance was declared. Mutexes are locked/unlocked in an exclusive way.
+/// Represents a mechanism with which threads can wait for a condition to be fulfilled until
+/// another thread sends a notification to either one or all the threads waiting for the same condition. When a thread gets notified, it continues its execution
+/// and can check if the condition is met; if it does not, it should wait again for a new notification.
 /// </summary>
-/// <remarks>
-/// This class is not thread-safe.<br/>
-/// It is a wrapper for the unique_lock class, from Boost libraries.
-/// </remarks>
-/// <typeparam name="MutexT">Optional. The type of the mutex to be locked. By default, it is QMutex.</typeparam>
-template<class MutexT=QMutex>
-class QScopedExclusiveLock
+class QConditionVariable
 {
-    // TYPEDEFS
-    // ---------------
-public:
-
-    typedef boost::unique_lock<typename MutexT::WrappedType> WrappedType;
-
-
-    // CONSTRUCTORS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Constructor that receives a mutex, optionally locking it.
-    /// </summary>
-    /// <param name="mutex">[IN] A mutex to be wrapped into a scope.</param>
-    /// <param name="bLock">[Optional][IN] Indicates whether the mutex has to be locked when the wrapper is created; if not, it can be locked later. 
-    /// By default, the mutex is locked.</param>
-    QScopedExclusiveLock(MutexT &mutex, bool bLock=true) : m_lock(mutex.GetWrappedObject(), boost::defer_lock_t())
-    {
-        if(bLock)
-            this->Lock();
-    }
-    
-
-    // DESTRUCTOR
-    // ---------------
-public:
-
-    /// <summary>
-    /// Destructor. If the mutex was locked, it will be unlocked.
-    /// </summary>
-    ~QScopedExclusiveLock()
-    {
-    }
-
-
     // METHODS
     // ---------------
 public:
     
     /// <summary>
-    /// Locks the mutex in an exclusive way.
+    /// Blocks the thread until it gets notified from another thread.
     /// </summary>
     /// <remarks>
-    /// If the mutex is already locked, this method cannot be called again.
+    /// When the thread blocks, the input lock unlocks its associated mutex. When the thread is notified, the mutex will be locked again.<br/>
+    /// According to that just stated, it is recommended to call this method as the first statement of a critical section; otherwise, another thread could modify the
+    /// shared resource while the waiting thread is blocked.
     /// </remarks>
-    void Lock()
+    /// <typeparam name="ScopedLockT">The type of scoped lock, like QScopedExclusiveLock or QScopedSharedLock, used by waiting threads.</typeparam>
+    /// <param name="lock">[IN] A lock that owns its associated mutex.</param>
+    template<class ScopedLockT>
+    void Wait(ScopedLockT &lock)
     {
-        QE_ASSERT_ERROR(!this->IsOwner(), "The lock already owns the mutex. This operation could lead to a dead-lock.");
-
-        m_lock.lock();
+        m_conditionVariable.wait(lock.GetWrappedObject());
     }
     
     /// <summary>
-    /// Unlocks the mutex in an exclusive way.
+    /// Sends a notification to only one of the threads that wait for the condition, if any.
     /// </summary>
     /// <remarks>
-    /// Locks can only unlock mutexes they locked before.
+    /// The order in which waiting threads are notified is undefined.<br/>
+    /// When a thread is notified, the lock passed as parameter to Wait is locked again before it continues.
     /// </remarks>
-    void Unlock()
-    {
-        QE_ASSERT_ERROR(this->IsOwner(), "The lock does not own the mutex. Locks can only unlock mutexes they locked before.");
+    void NotifyOne();
 
-        m_lock.unlock();
-    }
-    
     /// <summary>
-    /// Locks the mutex in an exclusive way. If the mutex is already locked by another thread, it returns immediately.
+    /// Sends a notification to all the threads that wait for the condition, if any.
     /// </summary>
     /// <remarks>
-    /// If the mutex is already locked, this method cannot be called again.
+    /// The order in which waiting threads are notified is undefined.<br/>
+    /// When a thread is notified, the lock passed as parameter to Wait is locked again before it continues.
     /// </remarks>
-    /// <returns>
-    /// True if the mutex has been locked by the calling thread; False otherwise.
-    /// </returns>
-    bool TryLock()
-    {
-        QE_ASSERT_ERROR(!this->IsOwner(), "The lock already owns the mutex. This operation could lead to a dead-lock.");
-
-        return m_lock.try_lock();
-    }
+    void NotifyAll();
 
 
     // PROPERTIES
     // ---------------
 public:
-    
-    /// <summary>
-    /// Indicates whether the lock owns the mutex.
-    /// </summary>
-    /// <returns>
-    /// True if the lock owns the mutex; False otherwise.
-    /// </returns>
-    bool IsOwner() const
-    {
-        return m_lock.owns_lock();
-    }
 
     /// <summary>
-    /// Gets the wrapped lock instance.
+    /// Gets the wrapped condition variable instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -159,13 +98,10 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    typename QScopedExclusiveLock::WrappedType& GetWrappedObject()
-    {
-        return m_lock;
-    }
+    boost::condition_variable_any& GetWrappedObject();
     
     /// <summary>
-    /// Gets the wrapped lock instance.
+    /// Gets the wrapped condition variable instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -173,20 +109,17 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    const typename QScopedExclusiveLock::WrappedType& GetWrappedObject() const
-    {
-        return m_lock;
-    }
+    const boost::condition_variable_any& GetWrappedObject() const;
 
 
     // ATTRIBUTES
     // ---------------
 protected:
-
+    
     /// <summary>
-    /// The wrapped lock instance.
+    /// The wrapped instance.
     /// </summary>
-    typename QScopedExclusiveLock::WrappedType m_lock;
+    boost::condition_variable_any m_conditionVariable;
 };
 
 } //namespace Threading
@@ -194,4 +127,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QSCOPEDEXCLUSIVELOCK__
+#endif // __QCONDITIONVARIABLE__

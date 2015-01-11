@@ -103,7 +103,7 @@ QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
     using Kinesis::QuimeraEngine::Common::QDelegate;
 
     // [Preparation]
-    static const unsigned int NUMBER_OF_THREADS = 100U;
+    static const unsigned int NUMBER_OF_THREADS = 50U;
     QMutexTestClass::Reset();
     QMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
 

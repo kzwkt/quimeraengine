@@ -175,6 +175,8 @@
     <File Name="../../../../headers/QRecursiveMutex.h"/>
     <File Name="../../../../source/QRecursiveMutex.cpp"/>
     <File Name="../../../../headers/QScopedExclusiveLock.h"/>
+    <File Name="../../../../headers/QConditionVariable.h"/>
+    <File Name="../../../../source/QConditionVariable.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
