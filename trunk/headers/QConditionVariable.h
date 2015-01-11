@@ -44,7 +44,7 @@ namespace Threading
 /// another thread sends a notification to either one or all the threads waiting for the same condition. When a thread gets notified, it continues its execution
 /// and can check if the condition is met; if it does not, it should wait again for a new notification.
 /// </summary>
-class QConditionVariable
+class QE_LAYER_SYSTEM_SYMBOLS QConditionVariable
 {
     // METHODS
     // ---------------
