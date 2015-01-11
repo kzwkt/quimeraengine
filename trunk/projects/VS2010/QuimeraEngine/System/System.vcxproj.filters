@@ -133,6 +133,9 @@
     <ClInclude Include="..\..\..\..\headers\QScopedExclusiveLock.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QConditionVariable.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -217,6 +220,9 @@
       <Filter>Threading</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QRecursiveMutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QConditionVariable.cpp">
       <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>

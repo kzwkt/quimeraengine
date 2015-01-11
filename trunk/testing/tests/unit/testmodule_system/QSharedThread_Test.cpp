@@ -101,6 +101,8 @@ public:
         sm_mutex.UnlockShared();
 
         SQThisThread::Sleep(Pause50ms);
+
+        --sm_uThreadCounter;
     }
 
     static unsigned int sm_uSharedResource;
@@ -128,7 +130,7 @@ QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
     using Kinesis::QuimeraEngine::Common::QDelegate;
 
     // [Preparation]
-    static const unsigned int NUMBER_OF_THREADS = 100U;
+    static const unsigned int NUMBER_OF_THREADS = 50U;
     QSharedMutexTestClass::Reset();
     QSharedMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
 
@@ -157,7 +159,7 @@ QTEST_CASE ( LockShared_ManyThreadsOwnTheMutexAtATime_Test )
     using Kinesis::QuimeraEngine::Common::QDelegate;
 
     // [Preparation]
-    static const unsigned int NUMBER_OF_THREADS = 100U;
+    static const unsigned int NUMBER_OF_THREADS = 50U;
     QSharedMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
     QSharedMutexTestClass::sm_bOneThreadAtATime = true;
     const bool EXPECTED_VALUE = false;

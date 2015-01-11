@@ -118,7 +118,7 @@ QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
     using Kinesis::QuimeraEngine::Common::QDelegate;
 
     // [Preparation]
-    static const unsigned int NUMBER_OF_THREADS = 100U;
+    static const unsigned int NUMBER_OF_THREADS = 50U;
     QRecursiveMutexTestClass::Reset();
     QRecursiveMutexTestClass::sm_uThreadCounter = NUMBER_OF_THREADS;
 
@@ -176,12 +176,12 @@ QTEST_CASE ( TryLock_ReturnsTrueWhenMutexCanBeLocked_Test )
 }
 
 /// <summary>
-/// Checks that it returns False when the mutex cannot be locked.
+/// Checks that it returns True when the mutex has been locked already.
 /// </summary>
-QTEST_CASE ( TryLock_ReturnsFalseWhenMutexCannotBeLocked_Test )
+QTEST_CASE ( TryLock_ReturnsTrueWhenMutexHasBeenAlreadyLocked_Test )
 {
     // [Preparation]
-    const bool EXPECTED_VALUE = false;
+    const bool EXPECTED_VALUE = true;
     QRecursiveMutex mutex;
     mutex.Lock();
 
@@ -192,6 +192,7 @@ QTEST_CASE ( TryLock_ReturnsFalseWhenMutexCannotBeLocked_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
 
     // [Cleaning]
+    mutex.Unlock();
     mutex.Unlock();
 }
 

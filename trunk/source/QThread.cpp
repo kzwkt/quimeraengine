@@ -91,7 +91,7 @@ void QThread::Interrupt()
 
 void QThread::Join()
 {
-    QE_ASSERT_ERROR(SQThisThread::GetId() != this->GetId(), "Deadlock detected: The thread is trying to wait for itself to finish.");
+    QE_ASSERT_ERROR(!this->IsAlive() || SQThisThread::GetId() != this->GetId(), "Deadlock detected: The thread is trying to wait for itself to finish.");
     QE_ASSERT_ERROR(!SQThisThread::IsInterrupted(), "The thread that is calling this method of this instance was interrupted.");
 
     m_thread.join();

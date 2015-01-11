@@ -20,6 +20,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamWriter_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QConditionVariable_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QFileStream_Test.cpp" />
