@@ -24,7 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QMutex.h"
+#include "QSharedMutex.h"
 
 
 namespace Kinesis
@@ -35,7 +35,7 @@ namespace System
 {
 namespace Threading
 {
-        
+
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -45,7 +45,7 @@ namespace Threading
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMutex::~QMutex()
+QSharedMutex::~QSharedMutex()
 {
 }
 
@@ -59,19 +59,34 @@ QMutex::~QMutex()
 //##################                                                       ##################
 //##################=======================================================##################
 
-void QMutex::Lock()
+void QSharedMutex::Lock()
 {
-    m_mutex.lock();
+    m_sharedMutex.lock();
 }
 
-void QMutex::Unlock()
+void QSharedMutex::LockShared()
 {
-    m_mutex.unlock();
+    m_sharedMutex.lock_shared();
 }
 
-bool QMutex::TryLock()
+void QSharedMutex::Unlock()
 {
-    return m_mutex.try_lock();
+    m_sharedMutex.unlock();
+}
+
+void QSharedMutex::UnlockShared()
+{
+    m_sharedMutex.unlock_shared();
+}
+
+bool QSharedMutex::TryLock()
+{
+    return m_sharedMutex.try_lock();
+}
+
+bool QSharedMutex::TryLockShared()
+{
+    return m_sharedMutex.try_lock_shared();
 }
 
 
@@ -84,15 +99,16 @@ bool QMutex::TryLock()
 //##################                                                       ##################
 //##################=======================================================##################
 
-boost::mutex& QMutex::GetWrappedObject()
+boost::shared_mutex& QSharedMutex::GetWrappedObject()
 {
-    return m_mutex;
+    return m_sharedMutex;
 }
 
-const boost::mutex& QMutex::GetWrappedObject() const
+const boost::shared_mutex& QSharedMutex::GetWrappedObject() const
 {
-    return m_mutex;
+    return m_sharedMutex;
 }
+
 
 } //namespace Threading
 } //namespace System
