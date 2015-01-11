@@ -172,6 +172,8 @@
     <File Name="../../../../source/QMutex.cpp"/>
     <File Name="../../../../headers/QSharedMutex.h"/>
     <File Name="../../../../source/QSharedMutex.cpp"/>
+    <File Name="../../../../headers/QRecursiveMutex.h"/>
+    <File Name="../../../../source/QRecursiveMutex.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
