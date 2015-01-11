@@ -170,6 +170,8 @@
     <File Name="../../../../source/EQThreadPriority.cpp"/>
     <File Name="../../../../headers/QMutex.h"/>
     <File Name="../../../../source/QMutex.cpp"/>
+    <File Name="../../../../headers/QSharedMutex.h"/>
+    <File Name="../../../../source/QSharedMutex.cpp"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

@@ -124,6 +124,9 @@
     <ClInclude Include="..\..\..\..\headers\QMutex.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QSharedMutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QObject.cpp">
@@ -202,6 +205,9 @@
       <Filter>Diagnosis</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QMutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QSharedMutex.cpp">
       <Filter>Threading</Filter>
     </ClCompile>
   </ItemGroup>

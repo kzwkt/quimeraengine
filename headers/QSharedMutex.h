@@ -24,12 +24,11 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QMUTEX__
-#define __QMUTEX__
+#ifndef __QSHAREDMUTEX__
+#define __QSHAREDMUTEX__
 
 #include "SystemDefinitions.h"
-#include <boost/thread/mutex.hpp>
-
+#include <boost/thread/shared_mutex.hpp>
 
 namespace Kinesis
 {
@@ -41,14 +40,22 @@ namespace Threading
 {
 
 /// <summary>
-/// Represents a mechanism to synchronize the access from different threads to a shared resource so only one thread can own it at a time.
+/// Represents a mechanism to synchronize the access from different threads to a shared resource. Threads can either own the resource preventing others from owning it at the same time or share
+/// it with other threads. Shared mutexes can be used to implement a model in which a resource can be read by many but modified by only one at a time.
 /// </summary>
 /// <remarks>
 /// This class is thread-safe.<br/>
-/// It is a wrapper for the mutex class, from Boost libraries.
+/// It is a wrapper for the shared_mutex class, from Boost libraries.
 /// </remarks>
-class QE_LAYER_SYSTEM_SYMBOLS QMutex
+class QE_LAYER_SYSTEM_SYMBOLS QSharedMutex
 {
+    // TYPEDEFS
+    // ---------------
+public:
+
+    typedef boost::shared_mutex WrappedType;
+
+
     // DESTRUCTOR
     // ---------------
 public:
@@ -56,7 +63,7 @@ public:
     /// <summary>
     /// Destructor. The mutex must be unlocked before it is destroyed.
     /// </summary>
-    ~QMutex();
+    ~QSharedMutex();
 
 
     // METHODS
@@ -64,8 +71,9 @@ public:
 public:
 
     /// <summary>
-    /// Blocks the calling thread if another thread already locked the mutex. When the other thread unlocks the mutex, the calling thread may or may not resume immediately; 
-    /// the order of execution of several waiting threads is not deterministic. When it is calling thread's turn, it locks the mutex so no other thread can execute the same code until Unlock is called.
+    /// Blocks the calling thread if another thread already locked the shared mutex, no matter whether it was exclusive or shared locking. When the other thread unlocks the shared mutex, the 
+    /// calling thread may or may not resume immediately; the order of execution of several waiting threads is not deterministic. When it is calling thread's turn, it locks the mutex so no other thread 
+    /// can execute the same code until Unlock is called.
     /// </summary>
     /// <remarks>
     /// If the mutex is locked by a thread which is killed before calling Unlock, its state depends on the operating system. On Windows, it will stay in an special state until it is locked and unlocked again;
@@ -75,17 +83,37 @@ public:
     void Lock();
 
     /// <summary>
-    /// Releases the mutex so it can be owned by another thread.
+    /// Blocks the calling thread if another thread already performed an exclusive lock on the shared mutex. When another thread performs an exclusive unlock on the shared mutex, the 
+    /// calling thread may or may not resume immediately; the order of execution of several waiting threads is not deterministic. If other threads performed a shared lock, the calling thread will also lock 
+    /// the shared mutex and continue.
+    /// </summary>
+    void LockShared();
+    
+    /// <summary>
+    /// Releases the shared mutex so it can be owned by another thread.
     /// </summary>
     void Unlock();
-
+    
     /// <summary>
-    /// Locks the mutex. If the mutex is already locked by another thread, it returns immediately.
+    /// Releases the shared mutex so another thread can perform an exclusive lock.
+    /// </summary>
+    void UnlockShared();
+    
+    /// <summary>
+    /// Locks the shared mutex in the exclusive way. If the mutex is already locked by another thread, either in an exclusive or shared manner, it returns immediately.
     /// </summary>
     /// <returns>
-    /// True if the mutex has been locked by the calling thread; False otherwise.
+    /// True if the shared mutex has been locked by the calling thread; False otherwise.
     /// </returns>
     bool TryLock();
+    
+    /// <summary>
+    /// Locks the shared mutex in the shared way. If the mutex is already locked by another thread in an exclusive manner, it returns immediately.
+    /// </summary>
+    /// <returns>
+    /// True if the shared mutex has been locked by the calling thread; False otherwise.
+    /// </returns>
+    bool TryLockShared();
 
 
     // PROPERTIES
@@ -93,7 +121,7 @@ public:
 public:
     
     /// <summary>
-    /// Gets the wrapped mutex instance.
+    /// Gets the wrapped shared mutex instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -101,10 +129,10 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    boost::mutex& GetWrappedObject();
+    WrappedType& GetWrappedObject();
     
     /// <summary>
-    /// Gets the wrapped mutex instance.
+    /// Gets the wrapped shared mutex instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -112,17 +140,18 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    const boost::mutex& GetWrappedObject() const;
+    const WrappedType& GetWrappedObject() const;
 
 
     // ATTRIBUTES
     // ---------------
 protected:
-
+    
     /// <summary>
-    /// The wrapped mutex instance.
+    /// The wrapped shared mutex instance.
     /// </summary>
-    boost::mutex m_mutex;
+    WrappedType m_sharedMutex;
+
 };
 
 } //namespace Threading
@@ -130,4 +159,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QMUTEX__
+#endif // __QSHAREDMUTEX__
