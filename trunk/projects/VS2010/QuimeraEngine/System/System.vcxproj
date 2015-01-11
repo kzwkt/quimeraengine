@@ -164,10 +164,12 @@
     <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h" />
     <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h" />
     <ClInclude Include="..\..\..\..\headers\IQCallStackTraceFormatter.h" />
+    <ClInclude Include="..\..\..\..\headers\QAbstractCallStackTracePrinter.h" />
     <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTracePlainTextFormatter.h" />
+    <ClInclude Include="..\..\..\..\headers\QCallStackTraceConsolePrinter.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QConditionVariable.h" />
@@ -201,9 +203,11 @@
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
     <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAbstractCallStackTracePrinter.cpp" />
     <ClCompile Include="..\..\..\..\source\IQCallStackTraceFormatter.cpp" />
     <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCallStackTraceConsolePrinter.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTracePlainTextFormatter.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QConditionVariable.cpp" />

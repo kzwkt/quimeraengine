@@ -160,6 +160,10 @@
     <File Name="../../../../headers/QCallStackTracePlainTextFormatter.h"/>
     <File Name="../../../../source/IQCallStackTraceFormatter.cpp"/>
     <File Name="../../../../source/QCallStackTracePlainTextFormatter.cpp"/>
+    <File Name="../../../../headers/QCallStackTraceConsolePrinter.h"/>
+    <File Name="../../../../headers/QAbstractCallStackTracePrinter.h"/>
+    <File Name="../../../../source/QAbstractCallStackTracePrinter.cpp"/>
+    <File Name="../../../../source/QCallStackTraceConsolePrinter.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>

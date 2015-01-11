@@ -93,7 +93,7 @@ QTEST_CASE ( FormatCallStackTraceHeader_ExpectedTextIsObtained_Test )
 {
     // [Preparation]
     QCallStackTracePlainTextFormatter formatter;
-    const string_q EXPECTED_TEXT("Call stack trace for ThreadId");
+    const string_q EXPECTED_TEXT("Call stack trace for ThreadId\n");
     QCallStackTrace stackTrace("ThreadId");
     int i = 5;
     float f = 1.0f;
@@ -116,7 +116,7 @@ QTEST_CASE ( FormatCallStackTraceHeader_TextIsAppended_Test )
 {
     // [Preparation]
     QCallStackTracePlainTextFormatter formatter;
-    const string_q EXPECTED_TEXT("Previous textCall stack trace for ThreadId");
+    const string_q EXPECTED_TEXT("Previous textCall stack trace for ThreadId\n");
     QCallStackTrace stackTrace("ThreadId");
     int i = 5;
     float f = 1.0f;

@@ -123,6 +123,12 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QSharedMutex_Test.cpp">
       <Filter>Tests\Threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTraceConsolePrinter_Test.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinter_Test.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -172,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QThreadWhiteBox.h">
       <Filter>Tests\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinterMock.h">
+      <Filter>Tests\Diagnosis</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

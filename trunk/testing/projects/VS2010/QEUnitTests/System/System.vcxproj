@@ -14,8 +14,10 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTraceConsolePrinter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTracePlainTextFormatter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp" />
@@ -53,6 +55,7 @@
     <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinterMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QFileStreamWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h" />
