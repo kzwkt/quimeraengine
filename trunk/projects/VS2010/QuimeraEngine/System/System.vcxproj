@@ -175,6 +175,7 @@
     <ClInclude Include="..\..\..\..\headers\QMutex.h" />
     <ClInclude Include="..\..\..\..\headers\QSharedMutex.h" />
     <ClInclude Include="..\..\..\..\headers\QRecursiveMutex.h" />
+    <ClInclude Include="..\..\..\..\headers\QScopedExclusiveLock.h" />
     <ClInclude Include="..\..\..\..\headers\SQDirectory.h" />
     <ClInclude Include="..\..\..\..\headers\QFileInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />

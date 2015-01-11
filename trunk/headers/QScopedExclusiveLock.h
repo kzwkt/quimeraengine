@@ -24,12 +24,13 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QMUTEX__
-#define __QMUTEX__
+#ifndef __QSCOPEDEXCLUSIVELOCK__
+#define __QSCOPEDEXCLUSIVELOCK__
 
 #include "SystemDefinitions.h"
-#include <boost/thread/mutex.hpp>
-
+#include "QMutex.h"
+#include "Assertions.h"
+#include <boost/thread/locks.hpp>
 
 namespace Kinesis
 {
@@ -41,58 +42,97 @@ namespace Threading
 {
 
 /// <summary>
-/// Represents a mechanism to synchronize the access from different threads to a shared resource so only one thread can own it at a time.
+/// Wraps a mutex which will be unlocked when the control flow leaves the scope where the wrapping instance was declared. Mutexes are locked/unlocked in an exclusive way.
 /// </summary>
 /// <remarks>
-/// This class is thread-safe.<br/>
-/// It is a wrapper for the mutex class, from Boost libraries.
+/// This class is not thread-safe.<br/>
+/// It is a wrapper for the unique_lock class, from Boost libraries.
 /// </remarks>
-class QE_LAYER_SYSTEM_SYMBOLS QMutex
+/// <typeparam name="MutexT">Optional. The type of the mutex to be locked. By default, it is QMutex.</typeparam>
+template<class MutexT=QMutex>
+class QScopedExclusiveLock
 {
     // TYPEDEFS
     // ---------------
 public:
 
-    typedef boost::mutex WrappedType;
+    typedef boost::unique_lock<typename MutexT::WrappedType> WrappedType;
 
+
+    // CONSTRUCTORS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Constructor that receives a mutex, optionally locking it.
+    /// </summary>
+    /// <param name="mutex">[IN] A mutex to be wrapped into a scope.</param>
+    /// <param name="bLock">[Optional][IN] Indicates whether the mutex has to be locked when the wrapper is created; if not, it can be locked later. 
+    /// By default, the mutex is locked.</param>
+    QScopedExclusiveLock(MutexT &mutex, bool bLock=true) : m_lock(mutex.GetWrappedObject(), boost::defer_lock_t())
+    {
+        if(bLock)
+            this->Lock();
+    }
+    
 
     // DESTRUCTOR
     // ---------------
 public:
 
     /// <summary>
-    /// Destructor. The mutex must be unlocked before it is destroyed.
+    /// Destructor. If the mutex was locked, it will be unlocked.
     /// </summary>
-    ~QMutex();
+    ~QScopedExclusiveLock()
+    {
+    }
 
 
     // METHODS
     // ---------------
 public:
-
+    
     /// <summary>
-    /// Blocks the calling thread if another thread already locked the mutex. When the other thread unlocks the mutex, the calling thread may or may not resume immediately; 
-    /// the order of execution of several waiting threads is not deterministic. When it is calling thread's turn, it locks the mutex so no other thread can execute the same code until Unlock is called.
+    /// Locks the mutex in an exclusive way.
     /// </summary>
     /// <remarks>
-    /// If the mutex is locked by a thread which is killed before calling Unlock, its state depends on the operating system. On Windows, it will stay in an special state until it is locked and unlocked again;
-    /// on Unix-based systems (using POSIX threads), the mutex ends up with an undefined state and it is not safe to try to lock it again. Either way, take into account that the resource protected by the mutex may 
-    /// be in an inconsistent state when this happen.
+    /// If the mutex is already locked, this method cannot be called again.
     /// </remarks>
-    void Lock();
+    void Lock()
+    {
+        QE_ASSERT_ERROR(!this->IsOwner(), "The lock already owns the mutex. This operation could lead to a dead-lock.");
 
+        m_lock.lock();
+    }
+    
     /// <summary>
-    /// Releases the mutex so it can be owned by another thread.
+    /// Unlocks the mutex in an exclusive way.
     /// </summary>
-    void Unlock();
+    /// <remarks>
+    /// Locks can only unlock mutexes they locked before.
+    /// </remarks>
+    void Unlock()
+    {
+        QE_ASSERT_ERROR(this->IsOwner(), "The lock does not own the mutex. Locks can only unlock mutexes they locked before.");
 
+        m_lock.unlock();
+    }
+    
     /// <summary>
-    /// Locks the mutex. If the mutex is already locked by another thread, it returns immediately.
+    /// Locks the mutex in an exclusive way. If the mutex is already locked by another thread, it returns immediately.
     /// </summary>
+    /// <remarks>
+    /// If the mutex is already locked, this method cannot be called again.
+    /// </remarks>
     /// <returns>
     /// True if the mutex has been locked by the calling thread; False otherwise.
     /// </returns>
-    bool TryLock();
+    bool TryLock()
+    {
+        QE_ASSERT_ERROR(!this->IsOwner(), "The lock already owns the mutex. This operation could lead to a dead-lock.");
+
+        return m_lock.try_lock();
+    }
 
 
     // PROPERTIES
@@ -100,7 +140,18 @@ public:
 public:
     
     /// <summary>
-    /// Gets the wrapped mutex instance.
+    /// Indicates whether the lock owns the mutex.
+    /// </summary>
+    /// <returns>
+    /// True if the lock owns the mutex; False otherwise.
+    /// </returns>
+    bool IsOwner() const
+    {
+        return m_lock.owns_lock();
+    }
+
+    /// <summary>
+    /// Gets the wrapped lock instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -108,10 +159,10 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    WrappedType& GetWrappedObject();
+    typename QScopedExclusiveLock::WrappedType& GetWrappedObject();
     
     /// <summary>
-    /// Gets the wrapped mutex instance.
+    /// Gets the wrapped lock instance.
     /// </summary>
     /// <remarks>
     /// The usage of this method is discouraged unless it is absolutely necessary. It may not be available in future versions.
@@ -119,7 +170,7 @@ public:
     /// <returns>
     /// The wrapped instance.
     /// </returns>
-    const WrappedType& GetWrappedObject() const;
+    const typename QScopedExclusiveLock::WrappedType& GetWrappedObject() const;
 
 
     // ATTRIBUTES
@@ -127,9 +178,9 @@ public:
 protected:
 
     /// <summary>
-    /// The wrapped mutex instance.
+    /// The wrapped lock instance.
     /// </summary>
-    WrappedType m_mutex;
+    typename QScopedExclusiveLock::WrappedType m_lock;
 };
 
 } //namespace Threading
@@ -137,4 +188,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QMUTEX__
+#endif // __QSCOPEDEXCLUSIVELOCK__
