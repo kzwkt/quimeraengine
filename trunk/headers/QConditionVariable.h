@@ -28,6 +28,7 @@
 #define __QCONDITIONVARIABLE__
 
 #include "SystemDefinitions.h"
+#include "Assertions.h"
 #include <boost/thread/condition_variable.hpp>
 
 namespace Kinesis
@@ -63,6 +64,8 @@ public:
     template<class ScopedLockT>
     void Wait(ScopedLockT &lock)
     {
+        QE_ASSERT_ERROR(lock.IsOwner(), "The lock does not own the mutex. Locks can only unlock mutexes they already own.");
+
         m_conditionVariable.wait(lock.GetWrappedObject());
     }
     
