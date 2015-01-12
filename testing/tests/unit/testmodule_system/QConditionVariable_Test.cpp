@@ -135,8 +135,6 @@ QTEST_CASE ( Wait_MutexIsUnlockedWhileWaiting_Test )
     BOOST_CHECK(bSecondThreadEnteredCriticalSectionWhileWaiting);
 }
 
-// [TODO] Thund: What happens when the lock is not locked?
-
 /// <summary>
 /// Checks that only one thread is notified.
 /// </summary>
