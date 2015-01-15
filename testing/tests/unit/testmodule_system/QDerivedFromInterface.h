@@ -24,34 +24,51 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QDerivedFromObject.h"
+#ifndef __QDERIVEDFROMINTERFACE__
+#define __QDERIVEDFROMINTERFACE__
 
+#include "RTTIDefinitions.h"
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Common
+namespace System
 {
-namespace DataTypes
+namespace Diagnosis
 {
 namespace Test
 {
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |  ATTRIBUTES INITIALIZATION |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
+/// <summary>
+/// Class to be used in some tests.
+/// </summary>
+class InterfaceMock
+{
+    QE_RTTI_SUPPORT_INTERFACE(InterfaceMock);
+};
 
-QE_RTTI_SUPPORT_TYPE_DEFINITION(QDerivedFromObject);
+/// <summary>
+/// Class to be used in some tests.
+/// </summary>
+class QDerivedFromObject : public InterfaceMock
+{
+    QE_RTTI_SUPPORT_DERIVED_FROM_1_CLASS(QDerivedFromObject, InterfaceMock);
+
+public:
+
+    virtual string_q ToString() const
+    {
+        static const string_q STRING_REPRESENTATION = "QDerivedFromObject";
+        return STRING_REPRESENTATION;
+    }
+};
 
 
 } //namespace Test
-} //namespace DataTypes
-} //namespace Common
+} //namespace Diagnosis
+} //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis
+
+#endif // __QDERIVEDFROMINTERFACE__

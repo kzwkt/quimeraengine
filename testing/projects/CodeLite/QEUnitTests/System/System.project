@@ -75,10 +75,6 @@
   <Dependencies/>
   <VirtualDirectory Name="Tests">
     <File Name="../../../../tests/unit/testmodule_system/TestModule_System.cpp"/>
-    <VirtualDirectory Name="Core">
-      <File Name="../../../../tests/unit/testmodule_system/QObject_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_system/QObjectTestClasses.h"/>
-    </VirtualDirectory>
     <VirtualDirectory Name="Timing">
       <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZoneWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QLocalTimeZone_Test.cpp"/>
@@ -101,12 +97,6 @@
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamWriter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QTextStreamReader_Test.cpp"/>
     </VirtualDirectory>
-    <VirtualDirectory Name="DataTypes">
-      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromObject.h"/>
-      <File Name="../../../../tests/unit/testmodule_system/SQAnyTypeToStringConverter_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_system/SQTypeExtensions_Test.cpp"/>
-    </VirtualDirectory>
     <VirtualDirectory Name="Diagnosis">
       <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallTrace_Test.cpp"/>
@@ -115,6 +105,9 @@
       <File Name="../../../../tests/unit/testmodule_system/QAbstractCallStackTracePrinter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QAbstractCallStackTracePrinterMock.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallStackTraceConsolePrinter_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QAbstactCallStackTracePrinterMock.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromInterface.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QDerivedFromInterface.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Threading">
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>

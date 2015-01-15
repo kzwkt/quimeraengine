@@ -75,7 +75,7 @@ QCallStackTracePlainTextFormatter::~QCallStackTracePlainTextFormatter()
 
 void QCallStackTracePlainTextFormatter::FormatCallStackTraceFooter(const QCallStackTrace &trace, string_q &strFormattedTrace) const
 {
-    static const string_q FOOTER("End of call stack trace information.");
+    static const string_q FOOTER("End of call stack trace information.\n");
     strFormattedTrace.Append(FOOTER);
 }
 

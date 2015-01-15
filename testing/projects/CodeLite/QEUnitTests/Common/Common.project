@@ -87,6 +87,7 @@
       <File Name="../../../../tests/unit/testmodule_common/UnicodeNormalizationTestData.h"/>
       <File Name="../../../../tests/unit/testmodule_common/QCharIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/QBasicArray_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/SQAnyTypeToStringConverter_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Memory">
       <File Name="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp"/>
@@ -113,6 +114,9 @@
     <VirtualDirectory Name="Exceptions">
       <File Name="../../../../tests/unit/testmodule_common/QAssertException_Test.cpp"/>
     </VirtualDirectory>
+    <File Name="../../../../tests/unit/testmodule_common/RTTIDefinitions_Test.cpp"/>
+    <File Name="../../../../tests/unit/testmodule_common/RTTITestClasses.cpp"/>
+    <File Name="../../../../tests/unit/testmodule_common/RTTITestClasses.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>

@@ -94,7 +94,7 @@ public:
     /// <summary>
     /// Obtains the type information of a given basic data type or string.
     /// </summary>
-    /// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+    /// <typeparam name="T">The type whose information is to be obtained. Recognized types are: void, bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
     /// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
     /// <returns>
     /// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
@@ -106,6 +106,66 @@ public:
        // with non basic data type. See template specializations below.
        QE_ASSERT_ERROR(false, "Error!: The type used as template parameter is not a basic data type.");
        return null_q;
+    }
+    
+    /// <summary>
+    /// Gets the type information of an object.
+    /// </summary>
+    /// <remarks>
+    /// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+    /// Instead, a null pointer will be returned.
+    /// </remarks>
+    /// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+    /// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
+    /// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+    /// <returns>
+    /// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+    /// </returns>
+    template<class T>
+    static const QType* FindType(const T &object)
+    {
+        // See template specializations below.
+        return null_q;
+    }
+    
+    /// <summary>
+    /// Gets the type information of an non-constant object provided as a pointer.
+    /// </summary>
+    /// <remarks>
+    /// Note that it returns the pointed type, instead of treating the pointer-to-type as a type itself. The same applies for pointers-to-pointer.<br/>
+    /// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+    /// Instead, a null pointer will be returned.
+    /// </remarks>
+    /// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: pointers to either void, bool, u8_q, u16_q, 
+    /// u32_q, u64_q, i8_q, i16_q, i32_q, i64_q, f32_q, f64_q, vf32_q or string_q.</typeparam>
+    /// <param name="pObject">[IN] A pointer to the object whose type information is to be retrieved. If it is null, the type information will be obtained anyway.</param>
+    /// <returns>
+    /// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+    /// </returns>
+    template<class T>
+    static const QType* FindType(T* pObject)
+    {
+        return QType::FindType(ccast_q(pObject, const T*));
+    }
+    
+    /// <summary>
+    /// Gets the type information of a constant object provided as a pointer.
+    /// </summary>
+    /// <remarks>
+    /// Note that it returns the pointed type, instead of treating the pointer-to-type as a type itself. The same applies for pointers-to-pointer.<br/>
+    /// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+    /// Instead, a null pointer will be returned.
+    /// </remarks>
+    /// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: pointers to constant void, bool, u8_q, u16_q, 
+    /// u32_q, u64_q, i8_q, i16_q, i32_q, i64_q, f32_q, f64_q, vf32_q or string_q.</typeparam>
+    /// <param name="pObject">[IN] A pointer to the object whose type information is to be retrieved. If it is null, the type information will be obtained anyway.</param>
+    /// <returns>
+    /// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+    /// </returns>
+    template<class T>
+    static const QType* FindType(const T* pObject)
+    {
+        return QType::FindType(*pObject);
     }
 
 
@@ -196,7 +256,11 @@ private:
     /// QType instance for strings type.
     /// </summary>
     static const QType* TYPE_INSTANCE_STRING;
-
+    
+    /// <summary>
+    /// QType instance for void type.
+    /// </summary>
+    static const QType* TYPE_INSTANCE_VOID;
 };
 
 
@@ -346,6 +410,242 @@ QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Com
 template<>
 QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::string_q>();
     
+/// <summary>
+/// Obtains the type information of a given basic data type or string.
+/// </summary>
+/// <typeparam name="T">The type whose information is to be obtained. Recognized types are: bool, u8_q, u16_q, u32_q, u64_q, i8_q, i16_q, i32_q, 
+/// i64_q, f32_q, f64_q, vf32_q and string_q.</typeparam>
+/// <returns>
+/// A constant unique instance of QType. There is one instance for every type, which exists during the whole program's lifecycle. If the type is not recognized, it will return null.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType<void>();
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const bool &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const u8_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const u16_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const u32_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const u64_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const i8_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const i16_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const i32_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const i64_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const f32_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const f64_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const vf32_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const string_q &object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(void* object);
+
+/// <summary>
+/// Gets the type information of an object.
+/// </summary>
+/// <remarks>
+/// No type information will be obtained for any type that does not belong to the list of recognized types (see next).
+/// Instead, a null pointer will be returned.
+/// </remarks>
+/// <typeparam name="T">The type of the instance whose information is to be retrieved. Recognized types are: basic data types and string_q.</typeparam>
+/// <param name="object">[IN] The object whose type information is to be retrieved.</param>
+/// <returns>
+/// A pointer to a unique instance of QType that contains information about the type. The pointer is null if the type is not recognized.
+/// </returns>
+template<>
+QE_LAYER_COMMON_SYMBOLS const QType* QType::FindType(const void* object);
+
 
 } //namespace DataTypes
 } //namespace Common

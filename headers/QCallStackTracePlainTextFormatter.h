@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QCALLSTACKTRACER__
-#define __QCALLSTACKTRACER__
+#ifndef __QCALLSTACKTRACEPLAINTEXTFORMATTER__
+#define __QCALLSTACKTRACEPLAINTEXTFORMATTER__
 
 #include "SystemDefinitions.h"
 
@@ -80,7 +80,7 @@ public:
     /// @copydoc IQCallStackTraceFormatter::FormatCallTraceHeader
     virtual void FormatCallTraceHeader(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const;
 
-    /// @copydoc Kinesis::QuimeraEngine::Core::QObject::ToString
+    /// @copydoc IQCallStackTraceFormatter::ToString
     virtual string_q ToString() const;
 
 };
@@ -90,4 +90,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QCALLSTACKTRACER__
+#endif // __QCALLSTACKTRACEPLAINTEXTFORMATTER__

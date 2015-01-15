@@ -48,7 +48,7 @@ class QAbstractCallStackTracePrinterMock : public QAbstractCallStackTracePrinter
 {
 
     QE_RTTI_SUPPORT_DERIVED_FROM_1_CLASS(QAbstractCallStackTracePrinterMock, QAbstractCallStackTracePrinter);
-
+    
 
     // CONSTRUCTORS
 	// ---------------
@@ -56,6 +56,11 @@ public:
 
     QAbstractCallStackTracePrinterMock()
     {
+    }
+
+    QAbstractCallStackTracePrinterMock(IQCallStackTraceFormatter* pFormatter)
+    {
+        m_pFormatter = boost::shared_ptr<IQCallStackTraceFormatter>(pFormatter);
     }
 
 
@@ -73,6 +78,11 @@ public:
     {
         return m_strPrintedText;
     }
+    
+    void ClearPrintedText()
+    {
+        m_strPrintedText = string_q::GetEmpty();
+    }
 
     string_q ToString() const
     {
@@ -87,7 +97,6 @@ private:
     string_q m_strPrintedText;
 };
 
-QE_RTTI_SUPPORT_TYPE_DEFINITION(QAbstractCallStackTracePrinterMock);
 
 } //namespace Test
 } //namespace Diagnosis

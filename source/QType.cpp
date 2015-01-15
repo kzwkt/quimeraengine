@@ -72,6 +72,7 @@ const QType* QType::TYPE_INSTANCE_VF32 = new QType("vf32");
 
 const QType* QType::TYPE_INSTANCE_STRING = new QType("string");
 
+const QType* QType::TYPE_INSTANCE_VOID = new QType("void");
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -182,6 +183,102 @@ template<>
 const QType* QType::FindType<Kinesis::QuimeraEngine::Common::DataTypes::string_q>()
 {
     return TYPE_INSTANCE_STRING;
+}
+
+template<>
+const QType* QType::FindType<void>()
+{
+    return TYPE_INSTANCE_VOID;
+}
+
+template<>
+const QType* QType::FindType(const bool &)
+{
+    return QType::FindType<bool>();
+}
+
+template<>
+const QType* QType::FindType(const u8_q &)
+{
+    return QType::FindType<u8_q>();
+}
+
+template<>
+const QType* QType::FindType(const u16_q &)
+{
+    return QType::FindType<u16_q>();
+}
+
+template<>
+const QType* QType::FindType(const u32_q &)
+{
+    return QType::FindType<u32_q>();
+}
+
+template<>
+const QType* QType::FindType(const u64_q &)
+{
+    return QType::FindType<u64_q>();
+}
+
+template<>
+const QType* QType::FindType(const i8_q &)
+{
+    return QType::FindType<i8_q>();
+}
+
+template<>
+const QType* QType::FindType(const i16_q &)
+{
+    return QType::FindType<i16_q>();
+}
+
+template<>
+const QType* QType::FindType(const i32_q &)
+{
+    return QType::FindType<i32_q>();
+}
+
+template<>
+const QType* QType::FindType(const i64_q &)
+{
+    return QType::FindType<i64_q>();
+}
+
+template<>
+const QType* QType::FindType(const f32_q &)
+{
+    return QType::FindType<f32_q>();
+}
+
+template<>
+const QType* QType::FindType(const f64_q &)
+{
+    return QType::FindType<f64_q>();
+}
+
+template<>
+const QType* QType::FindType(const vf32_q &)
+{
+    return QType::FindType<vf32_q>();
+}
+
+template<>
+const QType* QType::FindType(const string_q &)
+{
+    return QType::FindType<string_q>();
+}
+
+template<>
+const QType* QType::FindType(void*)
+{
+    return QType::FindType<void>();
+}
+
+template<>
+const QType* QType::FindType(const void*)
+{
+    return QType::FindType<void>();
 }
 
 //##################=======================================================##################

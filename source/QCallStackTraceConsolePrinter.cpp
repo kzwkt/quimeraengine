@@ -59,7 +59,12 @@ QE_RTTI_SUPPORT_TYPE_DEFINITION(QCallStackTraceConsolePrinter);
 //##################                                                       ##################
 //##################=======================================================##################
 
-QCallStackTraceConsolePrinter::QCallStackTraceConsolePrinter(boost::shared_ptr<IQCallStackTraceFormatter> pFormatter)
+QCallStackTraceConsolePrinter::QCallStackTraceConsolePrinter(IQCallStackTraceFormatter* pFormatter)
+{
+    m_pFormatter = boost::shared_ptr<IQCallStackTraceFormatter>(pFormatter);
+}
+
+QCallStackTraceConsolePrinter::QCallStackTraceConsolePrinter(boost::shared_ptr<IQCallStackTraceFormatter> &pFormatter)
 {
     m_pFormatter = pFormatter;
 }

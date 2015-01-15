@@ -172,6 +172,8 @@
     <ClInclude Include="..\..\..\..\headers\QCallStackTraceConsolePrinter.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
+    <ClInclude Include="..\..\..\..\headers\QTypeWithGetType.h" />
+    <ClInclude Include="..\..\..\..\headers\QTypeWithToString.h" />
     <ClInclude Include="..\..\..\..\headers\QConditionVariable.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QFileStream.h" />
@@ -184,17 +186,13 @@
     <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h" />
     <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h" />
     <ClInclude Include="..\..\..\..\headers\QMemoryStream.h" />
-    <ClInclude Include="..\..\..\..\headers\QObject.h" />
     <ClInclude Include="..\..\..\..\headers\QPath.h" />
     <ClInclude Include="..\..\..\..\headers\QStopwatch.h" />
     <ClInclude Include="..\..\..\..\headers\QThread.h" />
     <ClInclude Include="..\..\..\..\headers\QTextStreamReader.h" />
     <ClInclude Include="..\..\..\..\headers\QUri.h" />
-    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
-    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
     <ClInclude Include="..\..\..\..\headers\SQFile.h" />
     <ClInclude Include="..\..\..\..\headers\SQThisThread.h" />
-    <ClInclude Include="..\..\..\..\headers\SQTypeExtensions.h" />
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h" />
   </ItemGroup>
@@ -220,15 +218,12 @@
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp" />
-    <ClCompile Include="..\..\..\..\source\QObject.cpp" />
     <ClCompile Include="..\..\..\..\source\QPath.cpp" />
     <ClCompile Include="..\..\..\..\source\QStopwatch.cpp" />
     <ClCompile Include="..\..\..\..\source\QThread.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
     <ClCompile Include="..\..\..\..\source\QUri.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFile.cpp" />
     <ClCompile Include="..\..\..\..\source\SQThisThread.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQTypeExtensions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

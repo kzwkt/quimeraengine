@@ -76,11 +76,6 @@
   <VirtualDirectory Name="include">
     <File Name="../../../../headers/SystemDefinitions.h"/>
   </VirtualDirectory>
-  <VirtualDirectory Name="Core">
-    <File Name="../../../../headers/QObject.h"/>
-    <File Name="../../../../headers/RTTIDefinitions.h"/>
-    <File Name="../../../../source/QObject.cpp"/>
-  </VirtualDirectory>
   <Dependencies Name="DebugWin32SharedrtStatic">
     <Project Name="Common"/>
     <Project Name="Tools"/>
@@ -143,12 +138,6 @@
     <File Name="../../../../headers/QTextStreamReader.h"/>
     <File Name="../../../../source/EQNewLineCharacters.cpp"/>
   </VirtualDirectory>
-  <VirtualDirectory Name="DataTypes">
-    <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
-    <File Name="../../../../source/SQAnyTypeToStringConverter.cpp"/>
-    <File Name="../../../../headers/SQTypeExtensions.h"/>
-    <File Name="../../../../source/SQTypeExtensions.cpp"/>
-  </VirtualDirectory>
   <VirtualDirectory Name="Diagnosis">
     <File Name="../../../../headers/QArgumentTrace.h"/>
     <File Name="../../../../source/QArgumentTrace.cpp"/>
@@ -164,6 +153,8 @@
     <File Name="../../../../headers/QAbstractCallStackTracePrinter.h"/>
     <File Name="../../../../source/QAbstractCallStackTracePrinter.cpp"/>
     <File Name="../../../../source/QCallStackTraceConsolePrinter.cpp"/>
+    <File Name="../../../../headers/QTypeWithGetType.h"/>
+    <File Name="../../../../headers/QTypeWithToString.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>

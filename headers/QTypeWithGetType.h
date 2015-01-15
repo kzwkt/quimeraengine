@@ -24,15 +24,10 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __IQCALLSTACKTRACEPRINTER__
-#define __IQCALLSTACKTRACEPRINTER__
+#ifndef __QTYPEWITHGETTYPE__
+#define __QTYPEWITHGETTYPE__
 
 #include "SystemDefinitions.h"
-
-#include "IQCallStackTraceFormatter.h"
-#include "QCallStackTrace.h"
-#include "RTTIDefinitions.h"
-#include <boost/shared_ptr.hpp>
 
 
 namespace Kinesis
@@ -45,64 +40,13 @@ namespace Diagnosis
 {
 
 /// <summary>
-/// Represents a component whose job is to send the content of a call stack trace to an output channel, depending on the implementation.
+/// Constructor overload selector used to call a constructor that expects an argument to provide a non-static method called GetTypeObject and 
+/// a static method called GetTypeClass, which receive no parameters and return a pointer to a QType instance.<br/>
+/// Overload selectors are intended to be instanced in the function call and passed as argument so the compiler calls the desired
+/// overload based on the type of the parameters.
 /// </summary>
-class QE_LAYER_SYSTEM_SYMBOLS QAbstractCallStackTracePrinter
+class QE_LAYER_SYSTEM_SYMBOLS QTypeWithGetType
 {
-    QE_RTTI_SUPPORT_ABSTRACT_CLASS(QAbstractCallStackTracePrinter);
-    
-
-    // METHODS
-    // ---------------
-public:
-        
-    /// <summary>
-    /// Prints information from a call stack trace using the format provided by the stored formatter.
-    /// </summary>
-    /// <param name="callStackTrace">[IN] A call stack trace.</param>
-    virtual void PrintCallStackTrace(const QCallStackTrace &callStackTrace);
-    
-    /// <summary>
-    /// Prints text to the output channel.
-    /// </summary>
-    /// <param name="strText">[IN] Text to be printed.</param>
-    virtual void PrintString(const string_q &strText)=0;
-
-
-    // PROPERTIES
-    // ---------------
-public:
-    
-    /// <summary>
-    /// Sets the call stack trace formatter to be used when printing.
-    /// </summary>
-    /// <param name="pFormatter">[IN] A call stack trace formatter. It will be stored in a shared smart pointer.</param>
-    void SetFormatter(IQCallStackTraceFormatter* pFormatter);
-    
-    /// <summary>
-    /// Sets the call stack trace formatter to be used when printing.
-    /// </summary>
-    /// <param name="pFormatter">[IN] A call stack trace formatter. It will be stored in a shared smart pointer.</param>
-    void SetFormatter(boost::shared_ptr<IQCallStackTraceFormatter> &pFormatter);
-    
-    /// <summary>
-    /// Gets the call stack trace formatter to be used when printing.
-    /// </summary>
-    /// <returns>
-    /// The stored formatter instance.
-    /// </returns>
-    boost::shared_ptr<IQCallStackTraceFormatter> GetFormatter() const;
-    
-
-    // ATTRIBUTES
-    // ---------------
-protected:
-    
-    /// <summary>
-    /// The call stack trace formatter to be used when printing.
-    /// </summary>
-    boost::shared_ptr<IQCallStackTraceFormatter> m_pFormatter;
-
 };
 
 } //namespace Diagnosis
@@ -110,4 +54,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __IQCALLSTACKTRACEPRINTER__
+#endif // __QTYPEWITHGETTYPE__

@@ -30,6 +30,12 @@
 #include "SystemDefinitions.h"
 #include <boost/thread/mutex.hpp>
 
+#ifdef QE_COMPILER_MSVC
+    // This warning appears when instancing a template to create a data member and that template instance is not exported.
+    // In this case, it is not important since the data member is not accessible.
+    #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+#endif
+
 
 namespace Kinesis
 {
