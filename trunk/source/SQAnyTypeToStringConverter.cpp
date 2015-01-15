@@ -30,8 +30,6 @@
 #include "SQVF32.h"
 #include "SQBoolean.h"
 
-using Kinesis::QuimeraEngine::Core::QObject;
-
 
 namespace Kinesis
 {
@@ -51,16 +49,6 @@ namespace DataTypes
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
-
-bool SQAnyTypeToStringConverter::IsObject(const void* pObject)
-{
-    return false;
-}
-
-bool SQAnyTypeToStringConverter::IsObject(const Kinesis::QuimeraEngine::Core::QObject* pObject)
-{
-    return true;
-}
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const bool &object)
@@ -148,6 +136,29 @@ string_q SQAnyTypeToStringConverter::Convert(const string_q &object)
     return object;
 }
 
+template<>
+string_q SQAnyTypeToStringConverter::Convert(const void* pObject)
+{
+    static const string_q HEXADECIMAL_PREFIX("0x");
+    static const string_q WHITESPACE(" ");
+    static const string_q NULL_POINTER("<Null>");
+        
+    string_q strResult;
+
+    if(pObject != null_q)
+    {
+        // Prints the memory address to which the pointer points
+        strResult.Append(HEXADECIMAL_PREFIX);
+        strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(pObject, pointer_uint_q)));
+    }
+    else
+    {
+        // It is a null pointer
+        strResult.Append(NULL_POINTER);
+    }
+
+    return strResult;
+}
 
 
 } //namespace DataTypes

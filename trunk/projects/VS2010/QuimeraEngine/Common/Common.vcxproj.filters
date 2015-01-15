@@ -81,6 +81,10 @@
     <ClInclude Include="..\..\..\..\headers\QAssertException.h">
       <Filter>Exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -145,6 +149,9 @@
     <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
     <ClCompile Include="..\..\..\..\source\QAssertException.cpp">
       <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp">
+      <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

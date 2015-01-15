@@ -118,6 +118,8 @@
     <ClInclude Include="..\..\..\..\headers\QStackAllocator.h" />
     <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\QType.h" />
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
     <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
@@ -143,6 +145,7 @@
     <ClCompile Include="..\..\..\..\source\QStackAllocator.cpp" />
     <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\QType.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />

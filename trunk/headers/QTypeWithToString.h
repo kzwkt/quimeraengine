@@ -24,44 +24,34 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QDERIVEDFROMOBJECT__
-#define __QDERIVEDFROMOBJECT__
+#ifndef __QTYPEWITHTOSTRING__
+#define __QTYPEWITHTOSTRING__
 
-#include "QObject.h"
-#include "RTTIDefinitions.h"
+#include "SystemDefinitions.h"
+
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Common
+namespace System
 {
-namespace DataTypes
-{
-namespace Test
+namespace Diagnosis
 {
 
 /// <summary>
-/// Class to be used in some tests.
+/// Constructor overload selector used to call a constructor that expects an argument to provide a method called ToString, 
+/// which receives no parameters and returns a string.<br/>
+/// Overload selectors are intended to be instanced in the function call and passed as argument so the compiler calls the desired
+/// overload based on the type of the parameters.
 /// </summary>
-class QDerivedFromObject : public virtual Kinesis::QuimeraEngine::Core::QObject
+class QE_LAYER_SYSTEM_SYMBOLS QTypeWithToString
 {
-    QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(QDerivedFromObject);
-
-public:
-
-    virtual string_q ToString() const
-    {
-        static const string_q STRING_REPRESENTATION = "QDerivedFromObject";
-        return STRING_REPRESENTATION;
-    }
 };
 
-
-} //namespace Test
-} //namespace DataTypes
-} //namespace Common
+} //namespace Diagnosis
+} //namespace System
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QDERIVEDFROMOBJECT__
+#endif // __QTYPEWITHTOSTRING__

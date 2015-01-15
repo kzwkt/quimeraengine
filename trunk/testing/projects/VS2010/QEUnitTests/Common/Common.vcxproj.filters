@@ -99,6 +99,15 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAssertException_Test.cpp">
       <Filter>Tests\Exceptions</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\RTTIDefinitions_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQAnyTypeToStringConverter_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\RTTITestClasses.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -151,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocatorWhiteBox.h">
       <Filter>Tests\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\RTTITestClasses.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

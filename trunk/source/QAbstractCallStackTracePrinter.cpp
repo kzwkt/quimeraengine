@@ -112,8 +112,13 @@ void QAbstractCallStackTracePrinter::PrintCallStackTrace(const QCallStackTrace &
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
- 
-void QAbstractCallStackTracePrinter::SetFormatter(boost::shared_ptr<IQCallStackTraceFormatter> pFormatter)
+
+void QAbstractCallStackTracePrinter::SetFormatter(IQCallStackTraceFormatter* pFormatter)
+{
+    m_pFormatter = boost::shared_ptr<IQCallStackTraceFormatter>(pFormatter);
+}
+
+void QAbstractCallStackTracePrinter::SetFormatter(boost::shared_ptr<IQCallStackTraceFormatter> &pFormatter)
 {
     m_pFormatter = pFormatter;
 }

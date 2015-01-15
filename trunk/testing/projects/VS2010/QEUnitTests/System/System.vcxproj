@@ -14,6 +14,7 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstactCallStackTracePrinterMock.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QArgumentTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp" />
@@ -24,12 +25,11 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamWriter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QConditionVariable_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDateTimeNow_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromInterface.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QFileStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMutex_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QRecursiveMutex_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QScopedExclusiveLock_Test.cpp" />
@@ -37,12 +37,10 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QThread_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamReader_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQDirectory_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQFile_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQThisThread_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -56,11 +54,10 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinterMock.h" />
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromInterface.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QFileStreamWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QThreadWhiteBox.h" />
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QUriWhiteBox.h" />
   </ItemGroup>

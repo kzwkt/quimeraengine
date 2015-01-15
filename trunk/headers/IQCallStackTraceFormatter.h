@@ -30,7 +30,6 @@
 #include "SystemDefinitions.h"
 
 #include "QCallStackTrace.h"
-#include "QObject.h"
 #include "RTTIDefinitions.h"
 
 
@@ -46,31 +45,11 @@ namespace Diagnosis
 /// <summary>
 /// Represents a component whose job is to convert call stack traces to text with a concrete format, depending on the implementation.
 /// </summary>
-class QE_LAYER_SYSTEM_SYMBOLS IQCallStackTraceFormatter : public virtual Kinesis::QuimeraEngine::Core::QObject
+class QE_LAYER_SYSTEM_SYMBOLS IQCallStackTraceFormatter
 {
 public:
 
-    QE_RTTI_SUPPORT_DERIVED_FROM_OBJECT(IQCallStackTraceFormatter);
-
-
-    // CONSTRUCTORS
-    // ---------------
-protected:
-
-    /// <summary>
-    /// Default constructor.
-    /// </summary>
-    IQCallStackTraceFormatter();
-
-
-    // DESTRUCTOR
-    // ---------------
-public:
-
-    /// <summary>
-    /// Destructor.
-    /// </summary>
-    virtual ~IQCallStackTraceFormatter();
+    QE_RTTI_SUPPORT_INTERFACE(IQCallStackTraceFormatter);
 
 
     // METHODS

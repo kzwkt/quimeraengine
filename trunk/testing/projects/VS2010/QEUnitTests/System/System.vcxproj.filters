@@ -7,17 +7,11 @@
     <Filter Include="TestSystem %28shared%29">
       <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tests\Core">
-      <UniqueIdentifier>{e5bb93da-60c2-49c4-be84-54e53ee2dfd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tests\Timing">
       <UniqueIdentifier>{5de9b162-9c75-4dbe-880b-7fbe7693bf24}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tests\IO">
       <UniqueIdentifier>{b96c6f39-5466-43c5-ac48-2a87c8ea3ff6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tests\DataTypes">
-      <UniqueIdentifier>{357548f6-cb19-4f7a-80e6-08cc893b5352}</UniqueIdentifier>
     </Filter>
     <Filter Include="Tests\Diagnosis">
       <UniqueIdentifier>{30d1fdf8-fe58-4452-be35-77e34f13fbfa}</UniqueIdentifier>
@@ -42,9 +36,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp">
-      <Filter>Tests\Core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZone_Test.cpp">
       <Filter>Tests\Timing</Filter>
     </ClCompile>
@@ -54,20 +45,11 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QMemoryStream_Test.cpp">
       <Filter>Tests\IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQAnyTypeToStringConverter_Test.cpp">
-      <Filter>Tests\DataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QUri_Test.cpp">
       <Filter>Tests\IO</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp">
       <Filter>Tests\IO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\SQTypeExtensions_Test.cpp">
-      <Filter>Tests\DataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.cpp">
-      <Filter>Tests\DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QPath_Test.cpp">
       <Filter>Tests\IO\FileSystem</Filter>
@@ -129,6 +111,12 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinter_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QAbstactCallStackTracePrinterMock.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromInterface.cpp">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -158,17 +146,11 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
       <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h">
-      <Filter>Tests\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QLocalTimeZoneWhiteBox.h">
       <Filter>Tests\Timing</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QUriWhiteBox.h">
       <Filter>Tests\IO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromObject.h">
-      <Filter>Tests\DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QStopwatchWhiteBox.h">
       <Filter>Tests\Timing</Filter>
@@ -180,6 +162,9 @@
       <Filter>Tests\Threading</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QAbstractCallStackTracePrinterMock.h">
+      <Filter>Tests\Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QDerivedFromInterface.h">
       <Filter>Tests\Diagnosis</Filter>
     </ClInclude>
   </ItemGroup>

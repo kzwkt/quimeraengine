@@ -34,10 +34,11 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::System::Diagnosis::QArgumentTrace;
 
-#include "QDerivedFromObject.h"
+#include "QDerivedFromInterface.h"
 #include "EQComparisonType.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::Test::QDerivedFromObject;
+using Kinesis::QuimeraEngine::System::Diagnosis::Test::InterfaceMock;
+using Kinesis::QuimeraEngine::System::Diagnosis::Test::QDerivedFromObject;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
@@ -49,12 +50,32 @@ using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::f32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Core::QObject;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
+using Kinesis::QuimeraEngine::System::Diagnosis::QTypeWithGetType;
+using Kinesis::QuimeraEngine::System::Diagnosis::QTypeWithToString;
 
-// This struct is used as example of "custom type", not a QObject, not a basic type, not a string_q.
-struct CustomType
+// This struct is used as example of "custom type", not a InterfaceMock, not a basic type, not a string_q.
+class CustomType
 {
+public:
+
+    static const QType* GetTypeClass()
+    {
+        static const QType CUSTOM_TYPE("CustomTypeStatic");
+        return &CUSTOM_TYPE;
+    }
+
+    const QType* GetTypeObject() const
+    {
+        static const QType CUSTOM_TYPE("CustomTypeNonStatic");
+        return &CUSTOM_TYPE;
+    }
+
+    string_q ToString() const
+    {
+        return "CustomTypeValue";
+    }
+
     i32_q i;
 };
 
@@ -326,9 +347,81 @@ QTEST_CASE ( Constructor1_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Te
 }
 
 /// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value contains memory address.
+/// </summary>
+QTEST_CASE ( Constructor2_TypeNameIsObtainedFromGetTypeObjectAndValueContainsMemoryAddress_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeNonStatic");
+    const string_q EXPECTED_VALUE("<Unknown type at 0x");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(object, QTypeWithGetType());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is unknown and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor3_TypeNameIsUnknownAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("<Unknown type (size: ");
+    const string_q EXPECTED_VALUE("CustomTypeValue");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(object, QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName.Contains(EXPECTED_NAME, EQComparisonType::E_BinaryCaseSensitive);
+    bool bValueContainsExpectedText = strValue == EXPECTED_VALUE;
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor4_TypeNameIsObtainedFromGetTypeObjectAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeNonStatic");
+    const string_q EXPECTED_VALUE("CustomTypeValue");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(object, QTypeWithGetType(), QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue == EXPECTED_VALUE;
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
 /// Checks that the name of the type and the value are stored when using type u8_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU8_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingU8_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -353,7 +446,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU8_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u16_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU16_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingU16_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -378,7 +471,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU16_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u32_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU32_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingU32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -403,7 +496,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u64_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU64_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingU64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -428,7 +521,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingU64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i8_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI8_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingI8_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -453,7 +546,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI8_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i16_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI16_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingI16_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -478,7 +571,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI16_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i32_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI32_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingI32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -503,7 +596,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i64_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI64_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingI64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -528,7 +621,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingI64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type f32_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingF32_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingF32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -553,7 +646,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingF32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type f64_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingF64_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingF64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -578,7 +671,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingF64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type bool.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingBool_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingBool_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -603,7 +696,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingBool_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type string_q.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingString_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingString_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -626,9 +719,33 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingString_Test )
 }
 
 /// <summary>
+/// Checks that the name of the type and the value are stored when using type void.
+/// </summary>
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingVoid_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("void*");
+    const string_q EXPECTED_VALUE1("0x");
+    int object = 0;
+    void* pObject = &object;
+
+    // [Execution]
+    QArgumentTrace trace(pObject);
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0;
+    BOOST_CHECK(strTypeName == EXPECTED_NAME);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
 /// Checks that the name of the type and the value are stored when using a not recognized type.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -653,32 +770,9 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Te
 }
 
 /// <summary>
-/// Checks that the name of the type and the value are stored when using a null pointer to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingNullClassDerivedFromQObject_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-
-    // [Preparation]
-    const string_q EXPECTED_NAME("QObject*");
-    const string_q EXPECTED_VALUE("<Null>");
-
-    QObject* pObject = null_q;
-
-    // [Execution]
-    QArgumentTrace trace(pObject);
-
-    // [Verification]
-    string_q strTypeName = trace.GetTypeName();
-    string_q strValue = trace.GetValue();
-    BOOST_CHECK(strTypeName == EXPECTED_NAME);
-    BOOST_CHECK(strValue == EXPECTED_VALUE);
-}
-
-/// <summary>
 /// Checks that the name of the type and the value are stored when using a null pointer to a basic type.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicType_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -700,7 +794,7 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicTy
 /// <summary>
 /// Checks that the name of the type and the value are stored when using pointer to pointer to a basic type.
 /// </summary>
-QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBasicType_Test )
+QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBasicType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -726,9 +820,133 @@ QTEST_CASE ( Constructor2_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBa
 }
 
 /// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value contains memory address.
+/// </summary>
+QTEST_CASE ( Constructor6_TypeNameIsObtainedFromGetTypeObjectAndValueContainsMemoryAddress_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeNonStatic*");
+    const string_q EXPECTED_VALUE("<Unknown type at 0x");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithGetType());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeClass and value contains <Null>.
+/// </summary>
+QTEST_CASE ( Constructor6_TypeNameOfPointerIsObtainedFromGetTypeClassAndValueContainsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeStatic*");
+    const string_q EXPECTED_VALUE("<Null>");
+    CustomType* pObject = null_q;
+
+    // [Execution]
+    QArgumentTrace trace(pObject, QTypeWithGetType());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is unknown and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor7_TypeNameIsUnknownAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("<Unknown type (size: 4)>*");
+    const string_q EXPECTED_VALUE1("0x");
+    const string_q EXPECTED_VALUE2("CustomTypeValue");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName.Contains(EXPECTED_NAME, EQComparisonType::E_BinaryCaseSensitive);
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
+                                      strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor8_TypeNameIsObtainedFromGetTypeObjectAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeNonStatic*");
+    const string_q EXPECTED_VALUE1("0x");
+    const string_q EXPECTED_VALUE2("CustomTypeValue");
+    CustomType object;
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithGetType(), QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
+                                      strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeClass and value contains <Null>.
+/// </summary>
+QTEST_CASE ( Constructor8_TypeNameOfPointerIsObtainedFromGetTypeClassAndValueContainsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("CustomTypeStatic*");
+    const string_q EXPECTED_VALUE("<Null>");
+    CustomType* pObject = null_q;
+
+    // [Execution]
+    QArgumentTrace trace(pObject, QTypeWithGetType(), QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
 /// Checks that the name of the type and the value are stored when using type u8_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU8_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingU8_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -753,7 +971,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU8_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u16_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU16_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingU16_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -778,7 +996,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU16_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u32_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU32_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingU32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -803,7 +1021,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type u64_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU64_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingU64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -828,7 +1046,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingU64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i8_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI8_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingI8_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -853,7 +1071,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI8_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i16_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI16_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingI16_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -878,7 +1096,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI16_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i32_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI32_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingI32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -903,7 +1121,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type i64_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI64_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingI64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -928,7 +1146,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingI64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type f32_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingF32_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingF32_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -953,7 +1171,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingF32_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type f64_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingF64_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingF64_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -978,7 +1196,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingF64_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type bool.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingBool_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingBool_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -1003,7 +1221,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingBool_Test )
 /// <summary>
 /// Checks that the name of the type and the value are stored when using type string_q.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingString_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingString_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -1026,9 +1244,32 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingString_Test )
 }
 
 /// <summary>
+/// Checks that the name of the type and the value are stored when using type void.
+/// </summary>
+QTEST_CASE ( Constructor6_TypeNameAndValueAreStoredWhenUsingVoid_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const void*");
+    const string_q EXPECTED_VALUE1("0x");
+    const void* pObject = "text";
+
+    // [Execution]
+    QArgumentTrace trace(pObject);
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0;
+    BOOST_CHECK(strTypeName == EXPECTED_NAME);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
 /// Checks that the name of the type and the value are stored when using a not recognized type.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -1053,32 +1294,9 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingNotRecognizedType_Te
 }
 
 /// <summary>
-/// Checks that the name of the type and the value are stored when using a null pointer to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingNullClassDerivedFromQObject_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-
-    // [Preparation]
-    const string_q EXPECTED_NAME("const QObject*");
-    const string_q EXPECTED_VALUE("<Null>");
-
-    const QObject* pObject = null_q;
-
-    // [Execution]
-    QArgumentTrace trace(pObject);
-
-    // [Verification]
-    string_q strTypeName = trace.GetTypeName();
-    string_q strValue = trace.GetValue();
-    BOOST_CHECK(strTypeName == EXPECTED_NAME);
-    BOOST_CHECK(strValue == EXPECTED_VALUE);
-}
-
-/// <summary>
 /// Checks that the name of the type and the value are stored when using a null pointer to a basic type.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicType_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -1100,7 +1318,7 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingNullPointerToBasicTy
 /// <summary>
 /// Checks that the name of the type and the value are stored when using pointer to pointer to a basic type.
 /// </summary>
-QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBasicType_Test )
+QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBasicType_Test )
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -1122,6 +1340,130 @@ QTEST_CASE ( Constructor3_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBa
                                       strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive, 1) != string_q::PATTERN_NOT_FOUND &&
                                       strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(strTypeName == EXPECTED_NAME);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value contains memory address.
+/// </summary>
+QTEST_CASE ( Constructor10_TypeNameIsObtainedFromGetTypeObjectAndValueContainsMemoryAddress_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const CustomTypeNonStatic*");
+    const string_q EXPECTED_VALUE("<Unknown type at 0x");
+    const CustomType object = CustomType();
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithGetType());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeClass and value contains <Null>.
+/// </summary>
+QTEST_CASE ( Constructor10_TypeNameOfPointerIsObtainedFromGetTypeClassAndValueContainsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const CustomTypeStatic*");
+    const string_q EXPECTED_VALUE("<Null>");
+    const CustomType* pObject = null_q;
+
+    // [Execution]
+    QArgumentTrace trace(pObject, QTypeWithGetType());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is unknown and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor11_TypeNameIsUnknownAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const <Unknown type (size: 4)>*");
+    const string_q EXPECTED_VALUE1("0x");
+    const string_q EXPECTED_VALUE2("CustomTypeValue");
+    const CustomType object = CustomType();
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName.Contains(EXPECTED_NAME, EQComparisonType::E_BinaryCaseSensitive);
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
+                                      strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeObject and value is obtained from ToString.
+/// </summary>
+QTEST_CASE ( Constructor12_TypeNameIsObtainedFromGetTypeObjectAndValueIsObtainedFromToString_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const CustomTypeNonStatic*");
+    const string_q EXPECTED_VALUE1("0x");
+    const string_q EXPECTED_VALUE2("CustomTypeValue");
+    const CustomType object = CustomType();
+
+    // [Execution]
+    QArgumentTrace trace(&object, QTypeWithGetType(), QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
+                                      strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
+    BOOST_CHECK(bValueContainsExpectedText);
+}
+
+/// <summary>
+/// Checks that the name of the type is obtained from GetTypeClass and value contains <Null>.
+/// </summary>
+QTEST_CASE ( Constructor12_TypeNameOfPointerIsObtainedFromGetTypeClassAndValueContainsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    const string_q EXPECTED_NAME("const CustomTypeStatic*");
+    const string_q EXPECTED_VALUE("<Null>");
+    const CustomType* pObject = null_q;
+
+    // [Execution]
+    QArgumentTrace trace(pObject, QTypeWithGetType(), QTypeWithToString());
+
+    // [Verification]
+    string_q strTypeName = trace.GetTypeName();
+    string_q strValue = trace.GetValue();
+    bool bTypeNameContainsExpectedText = strTypeName == EXPECTED_NAME;
+    bool bValueContainsExpectedText = strValue.Contains(EXPECTED_VALUE, EQComparisonType::E_BinaryCaseSensitive);
+    BOOST_CHECK(bTypeNameContainsExpectedText);
     BOOST_CHECK(bValueContainsExpectedText);
 }
 

@@ -56,7 +56,14 @@ public:
     /// <summary>
     /// Constructor that receives a formatter to be used when printing.
     /// </summary>
-    QCallStackTraceConsolePrinter(boost::shared_ptr<IQCallStackTraceFormatter> pFormatter);
+    /// <param name="pFormatter">[IN] A trace formatter.</param>
+    QCallStackTraceConsolePrinter(IQCallStackTraceFormatter* pFormatter);
+    
+    /// <summary>
+    /// Constructor that receives a formatter to be used when printing.
+    /// </summary>
+    /// <param name="pFormatter">[IN] A trace formatter.</param>
+    QCallStackTraceConsolePrinter(boost::shared_ptr<IQCallStackTraceFormatter> &pFormatter);
 
 
     // DESTRUCTOR
@@ -76,7 +83,7 @@ public:
     /// @copydoc QAbstractCallStackTracePrinter::PrintString
     virtual void PrintString(const string_q &strText);
 
-    /// @copydoc Kinesis::QuimeraEngine::Core::QObject::ToString
+    /// @copydoc QAbstractCallStackTracePrinter::ToString
     virtual string_q ToString() const;
 
 };

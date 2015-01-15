@@ -35,7 +35,7 @@ using namespace boost::unit_test;
 
 #include "QType.h"
 #include "EQComparisonType.h"
-#include "QDerivedFromObject.h"
+#include "RTTITestClasses.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
@@ -48,12 +48,13 @@ using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::f32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
-using Kinesis::QuimeraEngine::Core::QObject;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
 using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
-using Kinesis::QuimeraEngine::Common::DataTypes::Test::QDerivedFromObject;
+using Kinesis::QuimeraEngine::Common::Test::DerivedFromInterfaceA;
+using Kinesis::QuimeraEngine::Common::Test::InterfaceMock1;
 
-// This struct is used as example of "unknown type", not a QObject, not a basic type, not a string_q.
+
+// This struct is used as example of "unknown type", not a basic type, not a string_q.
 struct UnknownType
 {
 };
@@ -518,50 +519,6 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBas
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using pointers to QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    QObject* pObject = new QDerivedFromObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using pointers to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    QDerivedFromObject* pObject = new QDerivedFromObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
 /// Checks that the object is correctly converted to string when using a null pointer to a basic data type.
 /// </summary>
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToBasicDataType_Test )
@@ -601,38 +558,6 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToNo
     // [Preparation]
     const string_q EXPECTED_RESULT = "<Null>";
     UnknownType* pObject = null_q;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a null pointer to QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = "<Null>";
-    QObject* pObject = null_q;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a null pointer to a class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = "<Null>";
-    QDerivedFromObject* pObject = null_q;
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
@@ -705,54 +630,6 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using pointers to pointers to QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    QObject* pObject = new QDerivedFromObject;
-    QObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using pointers to pointers to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    QDerivedFromObject* pObject = new QDerivedFromObject;
-    QDerivedFromObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
 /// Checks that the object is correctly converted to string when using a pointer to null pointer to a basic data type.
 /// </summary>
 QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToBasicDataType_Test )
@@ -811,40 +688,20 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using a pointer to null pointer to QObject.
+/// Checks that the object is correctly converted to string when using pointers to void.
 /// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToQObject_Test )
+QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToVoid_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Null>";
-    QObject* pObject = null_q;
-    QObject** ppObject = &pObject;
+    int VOID_CONTENT = 0;
+    void* OBJECT = &VOID_CONTENT;
 
     // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
+    string_q strResult = SQAnyTypeToStringConverter::Convert(OBJECT);
     
     // [Verification]
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a pointer to null pointer to a class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " <Null>";
-    QDerivedFromObject* pObject = null_q;
-    QDerivedFromObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    // Checks that the result starts with 0x and ends with the string representation of the object
+    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
 
@@ -1096,50 +953,6 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNonBas
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using pointers to QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    const QObject* pObject = new QDerivedFromObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using pointers to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    const QDerivedFromObject* pObject = new QDerivedFromObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
 /// Checks that the object is correctly converted to string when using a null pointer to a basic data type.
 /// </summary>
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToBasicDataType_Test )
@@ -1179,38 +992,6 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToNo
     // [Preparation]
     const string_q EXPECTED_RESULT = "<Null>";
     const UnknownType* pObject = null_q;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a null pointer to QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = "<Null>";
-    const QObject* pObject = null_q;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
-    
-    // [Verification]
-    BOOST_CHECK(strResult == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a null pointer to a class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingNullPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = "<Null>";
-    const QDerivedFromObject* pObject = null_q;
 
     // [Execution]
     string_q strResult = SQAnyTypeToStringConverter::Convert(pObject);
@@ -1283,54 +1064,6 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using pointers to pointers to QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    const QObject* pObject = new QDerivedFromObject;
-    const QObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using pointers to pointers to class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " QDerivedFromObject";
-    const QDerivedFromObject* pObject = new QDerivedFromObject;
-    const QDerivedFromObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-    
-    // [Cleaning]
-    delete pObject;
-}
-
-/// <summary>
 /// Checks that the object is correctly converted to string when using a pointer to null pointer to a basic data type.
 /// </summary>
 QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToBasicDataType_Test )
@@ -1389,40 +1122,20 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPo
 }
 
 /// <summary>
-/// Checks that the object is correctly converted to string when using a pointer to null pointer to QObject.
+/// Checks that the object is correctly converted to string when using pointers to void.
 /// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToQObject_Test )
+QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToVoid_Test )
 {
     // [Preparation]
-    const string_q EXPECTED_RESULT = " <Null>";
-    const QObject* pObject = null_q;
-    const QObject** ppObject = &pObject;
+    const int VOID_CONTENT = 0;
+    const void* OBJECT = &VOID_CONTENT;
 
     // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
+    string_q strResult = SQAnyTypeToStringConverter::Convert(OBJECT);
     
     // [Verification]
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
-    BOOST_CHECK(bIsCorrectlyConverted);
-}
-
-/// <summary>
-/// Checks that the object is correctly converted to string when using a pointer to null pointer to a class derived from QObject.
-/// </summary>
-QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToNullPointerToClassDerivedFromQObject_Test )
-{
-    // [Preparation]
-    const string_q EXPECTED_RESULT = " <Null>";
-    const QDerivedFromObject* pObject = null_q;
-    const QDerivedFromObject** ppObject = &pObject;
-
-    // [Execution]
-    string_q strResult = SQAnyTypeToStringConverter::Convert(ppObject);
-    
-    // [Verification]
-    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
+    // Checks that the result starts with 0x and ends with the string representation of the object
+    bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
 
