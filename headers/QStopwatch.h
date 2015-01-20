@@ -96,7 +96,7 @@ public:
     /// Gets the elapsed time since the last time the stopwatch was set.
     /// </summary>
     /// <returns>
-    /// The elapsed time, in nanoseconds, as a floating point number.
+    /// The elapsed time, in milliseconds, as a floating point number. Note that the fractional part will be zero when compiling using single precision.
     /// </returns>
     Kinesis::QuimeraEngine::Common::DataTypes::float_q GetElapsedTimeAsFloat() const;
     

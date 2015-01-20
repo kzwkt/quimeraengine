@@ -142,6 +142,12 @@
     <ClInclude Include="..\..\..\..\headers\QScopedLockPair.h">
       <Filter>Threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStopwatchEnclosed.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQStopwatchEnclosedBehavior.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
@@ -230,6 +236,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCallStackTracer.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStopwatchEnclosed.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQStopwatchEnclosedBehavior.cpp">
+      <Filter>Timing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
