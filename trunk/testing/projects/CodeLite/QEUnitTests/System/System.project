@@ -121,6 +121,7 @@
       <File Name="../../../../tests/unit/testmodule_system/QConditionVariable_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QSharedMutex_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QScopedSharedLock_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QScopedLockPair_Test.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
