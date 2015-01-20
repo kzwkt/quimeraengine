@@ -123,6 +123,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTracer_Test.cpp">
       <Filter>Tests\Diagnosis</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamWriter_Test.cpp">
+      <Filter>Tests\IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

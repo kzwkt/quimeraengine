@@ -226,7 +226,7 @@ public:
     /// <param name="uDestinationOffset">[IN] The offset, in bytes, from where to start writing to the destination stream (zero means the first position). 
     /// It must be lower than or equal to the length of the destination stream.</param>
     /// <param name="uNumberOfBytes">[IN] The number of bytes to copy. It must be lower than the length of the source stream minus the source offset.</param>
-    /// <param name="uBatchSize">[IN] The size, in bytes, of every copied batch. It may affect the performance of the operation.</param>
+    /// <param name="uBatchSize">[IN] The size, in bytes, of every copied batch. It must be greater than zero. It may affect the performance of the operation.</param>
     template<class StreamT>
     void CopyTo(StreamT &destinationStream, const pointer_uint_q uSourceOffset, const pointer_uint_q uDestinationOffset, 
                                             const pointer_uint_q uNumberOfBytes, const pointer_uint_q uBatchSize=QMemoryStream::_COPY_BATCH_SIZE)

@@ -62,7 +62,7 @@ QTEST_CASE ( PrintCallStack_ExpectedTextIsPrintedWhenUsingCommonStackTrace_Test 
   -->int function(int i)\n\
     | -{0}i32=5\n\
     -->int function()\n\
-End of call stack trace information.");
+End of call stack trace information.\n");
     QCallStackTrace stackTrace("ThreadId");
     int i = 5;
     float f = 1.0f;

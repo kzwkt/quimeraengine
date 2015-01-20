@@ -1371,9 +1371,7 @@ QTEST_CASE ( SetNewLineSeparator_ValueIsCorrectlyStored_Test )
     // [Preparation]
     const EQNewLineCharacters EXPECTED_VALUE = EQNewLineCharacters::E_CR;
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
-    pointer_uint_q uBufferSize = 8U;
-    const i8_q* arBytes = "TestText";
-    QMemoryStream<> stream(arBytes, uBufferSize - 1U);
+    QMemoryStream<> stream(1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     reader.SetNewLineSeparator(EQNewLineCharacters::E_LF);
     const EQNewLineCharacters ORIGINAL_VALUE = reader.GetNewLineSeparator();
