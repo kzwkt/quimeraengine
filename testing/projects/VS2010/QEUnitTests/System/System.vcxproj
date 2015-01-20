@@ -20,6 +20,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamReader_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTraceConsolePrinter_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTracePlainTextFormatter_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTracer_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallStackTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QCallTrace_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QBinaryStreamWriter_Test.cpp" />

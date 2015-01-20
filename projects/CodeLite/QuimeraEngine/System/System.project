@@ -155,6 +155,8 @@
     <File Name="../../../../source/QCallStackTraceConsolePrinter.cpp"/>
     <File Name="../../../../headers/QTypeWithGetType.h"/>
     <File Name="../../../../headers/QTypeWithToString.h"/>
+    <File Name="../../../../headers/QCallStackTracer.h"/>
+    <File Name="../../../../source/QCallStackTracer.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>

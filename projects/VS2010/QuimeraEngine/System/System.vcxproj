@@ -170,6 +170,7 @@
     <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTracePlainTextFormatter.h" />
     <ClInclude Include="..\..\..\..\headers\QCallStackTraceConsolePrinter.h" />
+    <ClInclude Include="..\..\..\..\headers\QCallStackTracer.h" />
     <ClInclude Include="..\..\..\..\headers\QCallTrace.h" />
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QTypeWithGetType.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTraceConsolePrinter.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallStackTracePlainTextFormatter.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCallStackTracer.cpp" />
     <ClCompile Include="..\..\..\..\source\QCallTrace.cpp" />
     <ClCompile Include="..\..\..\..\source\QConditionVariable.cpp" />
     <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp" />
