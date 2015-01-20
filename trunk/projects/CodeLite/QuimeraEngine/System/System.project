@@ -172,6 +172,7 @@
     <File Name="../../../../headers/QScopedExclusiveLock.h"/>
     <File Name="../../../../headers/QConditionVariable.h"/>
     <File Name="../../../../source/QConditionVariable.cpp"/>
+    <File Name="../../../../headers/QScopedSharedLock.h"/>
   </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>

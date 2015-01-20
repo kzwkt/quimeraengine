@@ -130,6 +130,9 @@
     <ClInclude Include="..\..\..\..\headers\QTypeWithToString.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedSharedLock.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
