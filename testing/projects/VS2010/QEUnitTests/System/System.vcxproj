@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QRecursiveMutex_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QScopedExclusiveLock_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QScopedSharedLock_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QScopedLockPair_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QSharedMutex_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QStopwatch_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QTextStreamWriter_Test.cpp" />

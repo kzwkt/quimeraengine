@@ -139,6 +139,9 @@
     <ClInclude Include="..\..\..\..\headers\QTextStreamWriter.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedLockPair.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">

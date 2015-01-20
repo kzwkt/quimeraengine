@@ -96,7 +96,7 @@ public:
     /// Locks the mutex in an exclusive way.
     /// </summary>
     /// <remarks>
-    /// If the mutex is already locked, this method cannot be called again.
+    /// If the mutex is already locked by the calling thread, this method cannot be called again.
     /// </remarks>
     void Lock()
     {
@@ -122,7 +122,7 @@ public:
     /// Locks the mutex in an exclusive way. If the mutex is already locked by another thread, it returns immediately.
     /// </summary>
     /// <remarks>
-    /// If the mutex is already locked, this method cannot be called again.
+    /// If the mutex is already locked by the calling thread, this method cannot be called again.
     /// </remarks>
     /// <returns>
     /// True if the mutex has been locked by the calling thread; False otherwise.
