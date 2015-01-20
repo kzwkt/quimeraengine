@@ -137,6 +137,7 @@
     <File Name="../../../../headers/EQNewLineCharacters.h"/>
     <File Name="../../../../headers/QTextStreamReader.h"/>
     <File Name="../../../../source/EQNewLineCharacters.cpp"/>
+    <File Name="../../../../headers/QTextStreamWriter.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Diagnosis">
     <File Name="../../../../headers/QArgumentTrace.h"/>

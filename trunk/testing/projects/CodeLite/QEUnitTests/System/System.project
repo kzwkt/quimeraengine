@@ -96,6 +96,7 @@
       </VirtualDirectory>
       <File Name="../../../../tests/unit/testmodule_system/QBinaryStreamWriter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QTextStreamReader_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QTextStreamWriter_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Diagnosis">
       <File Name="../../../../tests/unit/testmodule_system/QArgumentTrace_Test.cpp"/>
