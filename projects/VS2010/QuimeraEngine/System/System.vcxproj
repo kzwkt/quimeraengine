@@ -178,6 +178,7 @@
     <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h" />
     <ClInclude Include="..\..\..\..\headers\QFileStream.h" />
     <ClInclude Include="..\..\..\..\headers\QMutex.h" />
+    <ClInclude Include="..\..\..\..\headers\QScopedSharedLock.h" />
     <ClInclude Include="..\..\..\..\headers\QSharedMutex.h" />
     <ClInclude Include="..\..\..\..\headers\QRecursiveMutex.h" />
     <ClInclude Include="..\..\..\..\headers\QScopedExclusiveLock.h" />
