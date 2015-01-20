@@ -81,6 +81,7 @@
       <File Name="../../../../tests/unit/testmodule_system/QDateTimeNow_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QStopwatch_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QStopwatchWhiteBox.h"/>
+      <File Name="../../../../tests/unit/testmodule_system/QStopwatchEnclosed_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="IO">
       <File Name="../../../../tests/unit/testmodule_system/QMemoryStream_Test.cpp"/>

@@ -24,13 +24,13 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QStopwatch.h"
+#include "QStopwatchEnclosed.h"
 
+#include "SQFloat.h"
 #include "MathDefinitions.h"
 
-
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
 
@@ -42,26 +42,6 @@ namespace System
 {
 namespace Timing
 {
-    
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-#if defined(QE_OS_WINDOWS)
-
-    LARGE_INTEGER QStopwatch::sm_frequency;
-
-#elif defined(QE_OS_MAC)
-
-    mach_timebase_info_data_t QStopwatch::sm_timebaseInfo;
-
-#endif
-    
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -72,70 +52,78 @@ namespace Timing
 //##################                                                       ##################
 //##################=======================================================##################
 
-QStopwatch::QStopwatch() : m_uReferenceTime(0)
+QStopwatchEnclosed::QStopwatchEnclosed() : m_fTimeLapse(SQFloat::_0),
+                                           m_eBehavior(EQStopwatchEnclosedBehavior::E_Clamped)
 {
-    static bool bInitialized = false;
+}
 
-    // Initializes auxiliar data
-    if(!bInitialized)
+QStopwatchEnclosed::QStopwatchEnclosed(const QTimeSpan &timeLapseLength, const EQStopwatchEnclosedBehavior &eBehavior) : 
+                                                                                                    m_fTimeLapse(0),
+                                                                                                    m_eBehavior(eBehavior)
+{
+    this->SetTimeLapseLength(timeLapseLength);
+}
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+float_q QStopwatchEnclosed::GetProgression() const
+{
+    QE_ASSERT_WARNING(m_fTimeLapse != SQFloat::_0, "The time lapse's length has not been set yet.");
+
+    float_q fResult = 0.0f;
+
+    switch(m_eBehavior)
     {
-#if defined(QE_OS_WINDOWS)
-
-        ::QueryPerformanceFrequency(&sm_frequency);
-
-#elif defined(QE_OS_LINUX)
-
-#elif defined(QE_OS_MAC)
-
-        if(sm_timebaseInfo.denom == 0)
-            ::mach_timebase_info(&sm_timebaseInfo);
-#endif
-        bInitialized = true;
+    case EQStopwatchEnclosedBehavior::E_Clamped:
+        fResult = SQFloat::Clamp(this->GetElapsedTimeAsFloat() / m_fTimeLapse, SQFloat::_0, SQFloat::_1);
+        break;
+    case EQStopwatchEnclosedBehavior::E_Proportional:
+        fResult = this->GetElapsedTimeAsFloat() / m_fTimeLapse;
+        break;
+    case EQStopwatchEnclosedBehavior::E_Cyclic:
+        fResult = fmod_q(this->GetElapsedTimeAsFloat() / m_fTimeLapse, SQFloat::_1);
+        break;
+    default:
+        break;
     }
-}
-    
-    
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
 
-u64_q QStopwatch::_GetCurrentInstant()
+    return fResult;
+}
+
+float_q QStopwatchEnclosed::GetPercentage() const
 {
+    QE_ASSERT_WARNING(m_fTimeLapse != SQFloat::_0, "The time lapse's length has not been set yet.");
 
-#ifdef QE_OS_WINDOWS
+    static const float_q ONE_HUNDRED = 100.0;
+    float_q fResult = 0.0f;
 
-    static const u64_q NANOSECONDS_IN_SECOND = 1000000000ULL;
+    switch(m_eBehavior)
+    {
+    case EQStopwatchEnclosedBehavior::E_Clamped:
+        fResult = SQFloat::Clamp(this->GetElapsedTimeAsFloat() / m_fTimeLapse * ONE_HUNDRED, SQFloat::_0, ONE_HUNDRED);
+        break;
+    case EQStopwatchEnclosedBehavior::E_Proportional:
+        fResult = this->GetElapsedTimeAsFloat() / m_fTimeLapse * ONE_HUNDRED;
+        break;
+    case EQStopwatchEnclosedBehavior::E_Cyclic:
+        fResult = fmod_q(this->GetElapsedTimeAsFloat() / m_fTimeLapse * ONE_HUNDRED, ONE_HUNDRED);
+        break;
+    default:
+        break;
+    }
 
-    LARGE_INTEGER ticks;
-    ::QueryPerformanceCounter(&ticks);
-
-    return ticks.QuadPart * NANOSECONDS_IN_SECOND / sm_frequency.QuadPart;
-
-#elif defined(QE_OS_LINUX)
-
-    static const u64_q NANOSECONDS_IN_SECOND = 1000000000ULL;
-    
-    timespec timeSpecData;
-    ::clock_gettime(CLOCK_MONOTONIC_RAW, &timeSpecData);
-
-    return timeSpecData.tv_sec * NANOSECONDS_IN_SECOND + timeSpecData.tv_nsec;
-
-#elif defined (QE_OS_MAC)
-
-    u64_q uRawTime = ::mach_absolute_time();
-
-    return uRawTime * sm_timebaseInfo.numer / sm_timebaseInfo.denom ;
-
-#endif
-
+    return fResult;
 }
 
-
+    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -145,38 +133,39 @@ u64_q QStopwatch::_GetCurrentInstant()
 //##################                                                       ##################
 //##################=======================================================##################
 
-float_q QStopwatch::GetElapsedTimeAsFloat() const
+void QStopwatchEnclosed::SetTimeLapseLength(const QTimeSpan &length)
 {
-    QE_ASSERT_WARNING(m_uReferenceTime > 0, "The stopwatch has not been set.");
+    QE_ASSERT_WARNING(length.GetHundredsOfNanoseconds() > 0, "The input time lapse's length should be greater than zero.");
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    static const u64_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000ULL;
-    return scast_q((QStopwatch::_GetCurrentInstant() - m_uReferenceTime) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND, float_q);
+    m_fTimeLapse = scast_q(length.GetMilliseconds(), float_q);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    static const float_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000.0;
-    return scast_q(QStopwatch::_GetCurrentInstant() - m_uReferenceTime, float_q) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND
+    m_fTimeLapse = scast_q(length.GetHundredsOfNanoseconds(), float_q);
 #endif
 }
 
-u64_q QStopwatch::GetElapsedTimeAsInteger() const
+QTimeSpan QStopwatchEnclosed::GetTimeLapseLength() const
 {
-    QE_ASSERT_WARNING(m_uReferenceTime > 0, "The stopwatch has not been set.");
+    using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 
-    return QStopwatch::_GetCurrentInstant() - m_uReferenceTime;
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    static const u64_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000ULL;
+    return QTimeSpan(scast_q(m_fTimeLapse, pointer_uint_q) * HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND);
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    return QTimeSpan(scast_q(m_fTimeLapse, pointer_uint_q));
+#endif
 }
 
-QTimeSpan QStopwatch::GetElapsedTimeAsTimeSpan() const
+void QStopwatchEnclosed::SetBehavior(const EQStopwatchEnclosedBehavior &eBehavior)
 {
-    QE_ASSERT_WARNING(m_uReferenceTime > 0, "The stopwatch has not been set.");
-
-    static const u64_q HUNDRED_OF_NANOSECONDS = 100ULL;
-    return QTimeSpan((QStopwatch::_GetCurrentInstant() - m_uReferenceTime) / HUNDRED_OF_NANOSECONDS);
+    m_eBehavior = eBehavior;
 }
 
-void QStopwatch::Set()
+EQStopwatchEnclosedBehavior QStopwatchEnclosed::GetBehavior() const
 {
-    m_uReferenceTime = QStopwatch::_GetCurrentInstant();
+    return m_eBehavior;
 }
+
 
 } //namespace Timing
 } //namespace System

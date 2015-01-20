@@ -162,6 +162,7 @@
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h" />
+    <ClInclude Include="..\..\..\..\headers\EQStopwatchEnclosedBehavior.h" />
     <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h" />
     <ClInclude Include="..\..\..\..\headers\IQCallStackTraceFormatter.h" />
     <ClInclude Include="..\..\..\..\headers\QAbstractCallStackTracePrinter.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QTextStreamWriter.h" />
     <ClInclude Include="..\..\..\..\headers\QScopedLockPair.h" />
+    <ClInclude Include="..\..\..\..\headers\QStopwatchEnclosed.h" />
     <ClInclude Include="..\..\..\..\headers\QTypeWithGetType.h" />
     <ClInclude Include="..\..\..\..\headers\QTypeWithToString.h" />
     <ClInclude Include="..\..\..\..\headers\QConditionVariable.h" />
@@ -204,6 +206,7 @@
     <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp" />
     <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp" />
     <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQStopwatchEnclosedBehavior.cpp" />
     <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp" />
     <ClCompile Include="..\..\..\..\source\QAbstractCallStackTracePrinter.cpp" />
     <ClCompile Include="..\..\..\..\source\IQCallStackTraceFormatter.cpp" />
@@ -219,6 +222,7 @@
     <ClCompile Include="..\..\..\..\source\QMutex.cpp" />
     <ClCompile Include="..\..\..\..\source\QSharedMutex.cpp" />
     <ClCompile Include="..\..\..\..\source\QRecursiveMutex.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStopwatchEnclosed.cpp" />
     <ClCompile Include="..\..\..\..\source\SQDirectory.cpp" />
     <ClCompile Include="..\..\..\..\source\QFileInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp" />

@@ -110,6 +110,10 @@
     <File Name="../../../../source/QDateTimeNow.cpp"/>
     <File Name="../../../../headers/QStopwatch.h"/>
     <File Name="../../../../source/QStopwatch.cpp"/>
+    <File Name="../../../../headers/EQStopwatchEnclosedBehavior.h"/>
+    <File Name="../../../../headers/QStopwatchEnclosed.h"/>
+    <File Name="../../../../source/EQStopwatchEnclosedBehavior.cpp"/>
+    <File Name="../../../../source/QStopwatchEnclosed.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="IO">
     <File Name="../../../../headers/QMemoryStream.h"/>
