@@ -191,6 +191,7 @@
     <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h" />
     <ClInclude Include="..\..\..\..\headers\QCircle.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
+    <ClInclude Include="..\..\..\..\headers\QDictionary.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QDynamicArray.h" />
     <ClInclude Include="..\..\..\..\headers\QEvent.h" />
