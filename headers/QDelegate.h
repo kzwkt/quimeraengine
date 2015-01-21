@@ -163,6 +163,32 @@ public:
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))();
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
+    }
 
 
     // PROPERTIES
@@ -323,6 +349,32 @@ public:
     {
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1);
+    }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
     }
 
 
@@ -490,6 +542,33 @@ public:
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2);
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -661,6 +740,32 @@ public:
     {
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3);
+    }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
     }
 
 
@@ -842,6 +947,32 @@ public:
     {
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4);
+    }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
     }
 
 
@@ -1033,6 +1164,33 @@ public:
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5);
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -1229,6 +1387,33 @@ public:
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6);
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -1432,6 +1617,33 @@ public:
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7);
     }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -1641,6 +1853,32 @@ public:
     {
         QE_ASSERT_ERROR(!this->IsNull(), "The delegate is null, calling to the function will fail");
         return (m_closure.GetClosureThis()->*(m_closure.GetClosureMemPtr()))(p1, p2, p3, p4, p5, p6, p7, p8);
+    }
+    
+    /// <summary>
+    /// Equality operator that checks whether two delegates contain the same function or not. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if both delegates contain the same function or, in case they are methods, if they contain the same method of the same object; False otherwise.
+    /// </returns>
+    bool operator==(const QDelegate &delegate) const
+    {
+        return m_closure.IsEqual(delegate.m_closure);
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two delegates do not contain the same function. If they contain the same method, 
+    /// it checks whether they belong to the same object.
+    /// </summary>
+    /// <param name="delegate">[IN] The delegate to compare to.</param>
+    /// <returns>
+    /// True if delegates contain different functions or, in case they are methods, if they contain the same method of different objects; False otherwise.
+    /// </returns>
+    bool operator!=(const QDelegate &delegate) const
+    {
+        return !m_closure.IsEqual(delegate.m_closure);
     }
 
 

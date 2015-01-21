@@ -196,6 +196,8 @@
     <File Name="../../../../headers/SQComparatorDefault.h"/>
     <File Name="../../../../headers/QKeyValuePair.h"/>
     <File Name="../../../../headers/SQKeyValuePairComparator.h"/>
+    <File Name="../../../../headers/SQEqualityComparator.h"/>
+    <File Name="../../../../headers/SQNoComparator.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>
@@ -497,4 +499,7 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="Common">
+    <File Name="../../../../headers/QEvent.h"/>
+  </VirtualDirectory>
 </CodeLite_Project>
