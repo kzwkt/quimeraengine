@@ -41,6 +41,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstNTreeIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstBinarySearchTreeIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDictionary_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDynamicArray_Test.cpp" />

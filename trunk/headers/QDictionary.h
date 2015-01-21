@@ -24,13 +24,16 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __SQKEYVALUEPAIRCOMPARATOR__
-#define __SQKEYVALUEPAIRCOMPARATOR__
+#ifndef __QDICTIONARY__
+#define __QDICTIONARY__
 
-#include "CommonDefinitions.h"
-
-#include "QKeyValuePair.h"
+#include "ToolsDefinitions.h"
 #include "SQComparatorDefault.h"
+#include "QPoolAllocator.h"
+#include "QKeyValuePair.h"
+#include "QBinarySearchTree.h"
+#include "SQKeyValuePairComparator.h"
+
 
 namespace Kinesis
 {
@@ -41,44 +44,85 @@ namespace Tools
 namespace Containers
 {
 
+
 /// <summary>
-/// Implements functionality for comparing two key-value pairs of the same type.
+/// Represents a data structure that stores pairs composed of a value and its associated key which must be unique in the container. 
 /// </summary>
 /// <remarks>
-/// If SQComparatorDefault is used as key comparator, the type used as template parameter for the key MUST implement both operators "==" and "<".
+/// Key and value types are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
+/// If SQComparatorDefault is used as key comparator, keys will be forced to implement operators "==" and "<".
 /// </remarks>
-/// <typeparam name="KeyT">The type of the key.</typeparam>
-/// <typeparam name="ValueT">The type of the value.</typeparam>
-/// <typeparam name="KeyComparatorT">The type of the comparator to be used to compare keys. It is SQComparatorDefault<KeyT> by default.</typeparam>
-template<class KeyT, class ValueT, class KeyComparatorT=SQComparatorDefault<KeyT> >
-class SQKeyValuePairComparator
+/// <typeparam name="KeyT">The type of the keys associated to every value.</typeparam>
+/// <typeparam name="ValueT">The type of the values.</typeparam>
+/// <typeparam name="AllocatorT">The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
+/// <typeparam name="KeyComparatorT">The type of comparator utilized to compare keys. The default type is SQComparatorDefault.</typeparam>
+template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
+class QDictionary
 {
-
     // CONSTRUCTORS
     // ---------------
-private:
+public:
 
-    // Hidden
-    SQKeyValuePairComparator();
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    QDictionary()
+    {
+    }
+
+    /// <summary>
+    /// Constructor that receives the initial capacity.
+    /// </summary>
+    /// <param name="uInitialCapacity">[IN] The number of key-value pairs for which to reserve memory. It must be greater than zero.</param>
+    QDictionary(const pointer_uint_q uInitialCapacity) : m_binaryTree(uInitialCapacity)
+    {
+    }
+
+
+    // DESTRUCTOR
+    // ---------------
+public:
+
+    /// <summary>
+    /// Destructor.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of every key and value will be called in an undetermined order.
+    /// </remarks>
+    ~QDictionary()
+    {
+    }
 
 
     // METHODS
     // ---------------
 public:
-    
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
     /// <summary>
-    /// Compares two key-value pairs by their key.
+    /// Gets the allocator of keys and values.
     /// </summary>
-    /// <param name="leftOperand">[IN] First operand to compare.</param>
-    /// <param name="rightOperand">[IN] Second operand to compare.</param>
     /// <returns>
-    /// -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
+    /// The key-value allocator.
     /// </returns>
-    static Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare(const QKeyValuePair<KeyT, ValueT> &leftOperand, const QKeyValuePair<KeyT, ValueT> &rightOperand)
+    const AllocatorT* GetAllocator() const
     {
-        return KeyComparatorT::Compare(leftOperand.GetKey(), rightOperand.GetKey());
+        return m_binaryTree.GetAllocator();
     }
 
+
+    // ATTRIBUTES
+    // ---------------
+protected:
+
+    /// <summary>
+    /// The internal binary search tree that holds all the key-value pairs.
+    /// </summary>
+    QBinarySearchTree<QKeyValuePair<KeyT, ValueT>, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > m_binaryTree;
 };
 
 } //namespace Containers
@@ -86,4 +130,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __SQKEYVALUEPAIRCOMPARATOR__
+#endif // __QDICTIONARY__

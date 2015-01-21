@@ -102,6 +102,7 @@
       <File Name="../../../../tests/unit/testmodule_tools/QKeyValuePair_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/SQKeyValuePairComparator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/SQEqualityComparator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDictionary_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
