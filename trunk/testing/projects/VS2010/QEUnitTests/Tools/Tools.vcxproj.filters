@@ -16,6 +16,9 @@
     <Filter Include="Tests\Containers">
       <UniqueIdentifier>{b9c8227d-e3b9-4435-9e48-6e79d4dd9f4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Common">
+      <UniqueIdentifier>{f78a8875-0174-48a5-9940-f41ef313a284}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -247,6 +250,12 @@
       <Filter>Tests\Containers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQKeyValuePairComparator_Test.cpp">
+      <Filter>Tests\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QEvent_Test.cpp">
+      <Filter>Tests\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQEqualityComparator_Test.cpp">
       <Filter>Tests\Containers</Filter>
     </ClCompile>
   </ItemGroup>

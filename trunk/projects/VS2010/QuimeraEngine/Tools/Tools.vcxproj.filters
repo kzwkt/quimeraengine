@@ -11,6 +11,9 @@
     <Filter Include="Containers">
       <UniqueIdentifier>{5ee106a1-e086-4aca-b72c-19039f9cb1f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{ba166bdd-28a9-431f-be92-1e1ee89926c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h">
@@ -213,6 +216,15 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\SQKeyValuePairComparator.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QEvent.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQNoComparator.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQEqualityComparator.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>

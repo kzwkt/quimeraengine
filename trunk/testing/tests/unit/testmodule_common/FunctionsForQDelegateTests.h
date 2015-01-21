@@ -198,6 +198,10 @@ namespace Test
         LAST_FREEFUNCTION_RESULT = p1;
     }
 
+    void FreeFunction2()
+    {
+    }
+
     void FreeFunction()
     {
         LAST_FREEFUNCTION_RESULT = 0;

@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __SQCOMPARATORDEFAULT__
-#define __SQCOMPARATORDEFAULT__
+#ifndef __SQNOCOMPARATOR__
+#define __SQNOCOMPARATOR__
 
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
@@ -41,21 +41,21 @@ namespace Containers
 
 
 /// <summary>
-/// Implements functionality for comparing two objects of the same type.
+/// Provides an empty implementation of a comparator, intended to be used when a functionality requires a comparator type for elements that cannot be compared.
 /// </summary>
 /// <remarks>
 /// Type used as template parameter MUST implement both operators "==" and "<".
 /// </remarks>
 /// <typeparam name="T">The type of the elements to compare.</typeparam>
 template <class T>
-class SQComparatorDefault
+class SQNoComparator
 {
     // CONSTRUCTORS
     // ---------------
 private:
 
     // Hidden
-    SQComparatorDefault();
+    SQNoComparator();
 
 
     // METHODS
@@ -68,25 +68,12 @@ public:
     /// <param name="leftOperand">[IN] First operand to compare.</param>
     /// <param name="rightOperand">[IN] Second operand to compare.</param>
     /// <returns>
-    /// -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
+    /// Always zero.
     /// </returns>
     static Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand)
     {
-        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-
-        // Variables representing the three return values
-        static const i8_q LEFT_IS_LOWER_THAN_RIGHT = -1;
-        static const i8_q LEFT_IS_GREATER_THAN_RIGHT = 1;
-        static const i8_q ARE_EQUAL = 0;
-
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nResult = LEFT_IS_GREATER_THAN_RIGHT;
-
-        if (leftOperand < rightOperand)
-            nResult = LEFT_IS_LOWER_THAN_RIGHT;
-        else if (leftOperand == rightOperand)
-            nResult = ARE_EQUAL;
-
-        return nResult;
+        QE_ASSERT_ERROR(false, "Functions that perform comparisons must not be called when using SQNoComparator.");
+        return 0;
     }
 };
 
@@ -95,4 +82,4 @@ public:
 } // namespace QuimeraEngine
 } // namespace Kinesis
 
-#endif // __SQCOMPARATORDEFAULT__
+#endif // __SQNOCOMPARATOR__

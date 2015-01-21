@@ -24,75 +24,70 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __SQCOMPARATORDEFAULT__
-#define __SQCOMPARATORDEFAULT__
+#include <boost/test/auto_unit_test.hpp>
+#include <boost/test/unit_test_log.hpp>
+using namespace boost::unit_test;
 
-#include "DataTypesDefinitions.h"
-#include "ToolsDefinitions.h"
+#include "../../testsystem/TestingExternalDefinitions.h"
 
-namespace Kinesis
-{
-namespace QuimeraEngine
-{
-namespace Tools
-{
-namespace Containers
-{
+#include "SQEqualityComparator.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+using Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator;
+
+
+QTEST_SUITE_BEGIN( SQEqualityComparator_TestSuite )
 
 /// <summary>
-/// Implements functionality for comparing two objects of the same type.
+/// Checks that method compare returns right value when left operand is greater than right operand.
 /// </summary>
-/// <remarks>
-/// Type used as template parameter MUST implement both operators "==" and "<".
-/// </remarks>
-/// <typeparam name="T">The type of the elements to compare.</typeparam>
-template <class T>
-class SQComparatorDefault
+QTEST_CASE ( Compare_ReturnsPositiveOneWhenLeftOperandIsGreaterThanRightOperand_Test )
 {
-    // CONSTRUCTORS
-    // ---------------
-private:
+    // [Preparation]
+    const i8_q EXPECTED_VALUE_OF_COMPARISON = 1;
+    const i8_q LEFT_OPERAND = 10;
+    const i8_q RIGHT_OPERAND = 5;
 
-    // Hidden
-    SQComparatorDefault();
+    // [Execution]
+    i8_q comparisonResult = SQEqualityComparator<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
+    // [Verification]
+    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+}
 
-    // METHODS
-    // --------------
-public:
+/// <summary>
+/// Checks that method compare returns right value when left operand is lower than right operand.
+/// </summary>
+QTEST_CASE ( Compare_ReturnsPositiveOneWhenLeftOperandIsLowerThanRightOperand_Test )
+{
+    // [Preparation]
+    const i8_q EXPECTED_VALUE_OF_COMPARISON = 1;
+    const i8_q LEFT_OPERAND = 5;
+    const i8_q RIGHT_OPERAND = 10;
 
-    /// <summary>
-    /// Compares two elements.
-    /// </summary>
-    /// <param name="leftOperand">[IN] First operand to compare.</param>
-    /// <param name="rightOperand">[IN] Second operand to compare.</param>
-    /// <returns>
-    /// -1 in case left operand is lower than right operand; 0 if they are equal; +1 if left operand is greater than right operand.
-    /// </returns>
-    static Kinesis::QuimeraEngine::Common::DataTypes::i8_q Compare (const T &leftOperand, const T &rightOperand)
-    {
-        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    // [Execution]
+    i8_q comparisonResult = SQEqualityComparator<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
-        // Variables representing the three return values
-        static const i8_q LEFT_IS_LOWER_THAN_RIGHT = -1;
-        static const i8_q LEFT_IS_GREATER_THAN_RIGHT = 1;
-        static const i8_q ARE_EQUAL = 0;
+    // [Verification]
+    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+}
 
-        Kinesis::QuimeraEngine::Common::DataTypes::i8_q nResult = LEFT_IS_GREATER_THAN_RIGHT;
+/// <summary>
+/// Checks that method compare returns right value when left operand is equal to right operand.
+/// </summary>
+// [Preparation]
+QTEST_CASE ( Compare_ReturnsZeroWhenLeftOperandIsEqualToRightOperand_Test )
+{
+    const i8_q EXPECTED_VALUE_OF_COMPARISON = 0;
+    const i8_q LEFT_OPERAND = 10;
+    const i8_q RIGHT_OPERAND = 10;
 
-        if (leftOperand < rightOperand)
-            nResult = LEFT_IS_LOWER_THAN_RIGHT;
-        else if (leftOperand == rightOperand)
-            nResult = ARE_EQUAL;
+    // [Execution]
+    i8_q comparisonResult = SQEqualityComparator<const i8_q&>::Compare(LEFT_OPERAND, RIGHT_OPERAND);
 
-        return nResult;
-    }
-};
+    // [Verification]
+    BOOST_CHECK_EQUAL( comparisonResult, EXPECTED_VALUE_OF_COMPARISON );
+}
 
-} // namespace Containers
-} // namespace Tools
-} // namespace QuimeraEngine
-} // namespace Kinesis
-
-#endif // __SQCOMPARATORDEFAULT__
+// End - Test Suite: SQEqualityComparator
+QTEST_SUITE_END()

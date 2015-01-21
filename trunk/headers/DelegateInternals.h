@@ -743,7 +743,7 @@ public:
 template<class ReturnValueT = DefaultVoid>
 class FastDelegate0
 {
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)();
@@ -800,7 +800,7 @@ template<class Param1T, class ReturnValueT=DefaultVoid>
 class FastDelegate1
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1);
@@ -857,7 +857,7 @@ template<class Param1T, class Param2T, class ReturnValueT=void>
 class FastDelegate2
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2);
@@ -913,7 +913,7 @@ template<class Param1T, class Param2T, class Param3T, class ReturnValueT=Default
 class FastDelegate3
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3);
@@ -969,7 +969,7 @@ template<class Param1T, class Param2T, class Param3T, class Param4T, class Retur
 class FastDelegate4
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3, Param4T p4);
@@ -1025,7 +1025,7 @@ template<class Param1T, class Param2T, class Param3T, class Param4T, class Param
 class FastDelegate5
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5);
@@ -1081,7 +1081,7 @@ template<class Param1T, class Param2T, class Param3T, class Param4T, class Param
 class FastDelegate6
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6);
@@ -1137,7 +1137,7 @@ template<class Param1T, class Param2T, class Param3T, class Param4T, class Param
 class FastDelegate7
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7);
@@ -1193,7 +1193,7 @@ template<class Param1T, class Param2T, class Param3T, class Param4T, class Param
 class FastDelegate8
 {
 
-protected:
+public:
 
     typedef typename DefaultVoidToVoid<ReturnValueT>::type DesiredReturnValueT;
     typedef DesiredReturnValueT (*StaticFunctionPtr)(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7, Param8T p8);

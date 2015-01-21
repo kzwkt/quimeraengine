@@ -1334,5 +1334,265 @@ QTEST_CASE ( OperatorParenthesis_VirtualMethodIsCalledForProperObject_Test )
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that it returns True when two delegates contain the same free function.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenTwoDelegatesContainTheSameFreeFunction_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef void (TFunctionType)();
+    QDelegate<TFunctionType> delegate1(&FreeFunction);
+    QDelegate<TFunctionType> delegate2(&FreeFunction);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain the same static function.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenTwoDelegatesContainTheSameStaticFunction_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef int (TFunctionType)(int, int);
+    QDelegate<TFunctionType> delegate1(&QMethods::SMethod);
+    QDelegate<TFunctionType> delegate2(&QMethods::SMethod);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain the same method of the same object.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenTwoDelegatesContainTheSameMethodOfTheSameObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef int (TFunctionType)(int, int);
+    QMethods object;
+    QDelegate<TFunctionType> delegate1(&object, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object, &QMethods::Method);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain different free functions.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenTwoDelegatesContainDifferentFreeFunctions_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef void (TFunctionType)();
+    QDelegate<TFunctionType> delegate1(&FreeFunction);
+    QDelegate<TFunctionType> delegate2(&FreeFunction2);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain different static functions.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenTwoDelegatesContainDifferentStaticFunctions_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef int (TFunctionType)(int, int);
+    QDelegate<TFunctionType> delegate1(&QMethods::SMethod);
+    QDelegate<TFunctionType> delegate2(&QMethods::SMethod2);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain different methods of the same object.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenTwoDelegatesContainDifferentMethodsOfTheSameObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef int (TFunctionType)(int, int);
+    QMethods object;
+    QDelegate<TFunctionType> delegate1(&object, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object, &QMethods::Method2);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain the same method of different objects.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenTwoDelegatesContainTheSameMethodOfDifferentObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef int (TFunctionType)(int, int);
+    QMethods object1;
+    QMethods object2;
+    QDelegate<TFunctionType> delegate1(&object1, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object2, &QMethods::Method);
+
+	// [Execution]
+    bool bResult = delegate1 == delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when two delegates contain the same free function.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenTwoDelegatesContainTheSameFreeFunction_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef void (TFunctionType)();
+    QDelegate<TFunctionType> delegate1(&FreeFunction);
+    QDelegate<TFunctionType> delegate2(&FreeFunction);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when two delegates contain the same static function.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenTwoDelegatesContainTheSameStaticFunction_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef int (TFunctionType)(int, int);
+    QDelegate<TFunctionType> delegate1(&QMethods::SMethod);
+    QDelegate<TFunctionType> delegate2(&QMethods::SMethod);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when two delegates contain the same method of the same object.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenTwoDelegatesContainTheSameMethodOfTheSameObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    typedef int (TFunctionType)(int, int);
+    QMethods object;
+    QDelegate<TFunctionType> delegate1(&object, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object, &QMethods::Method);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain different free functions.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenTwoDelegatesContainDifferentFreeFunctions_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef void (TFunctionType)();
+    QDelegate<TFunctionType> delegate1(&FreeFunction);
+    QDelegate<TFunctionType> delegate2(&FreeFunction2);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain different static functions.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenTwoDelegatesContainDifferentStaticFunctions_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef int (TFunctionType)(int, int);
+    QDelegate<TFunctionType> delegate1(&QMethods::SMethod);
+    QDelegate<TFunctionType> delegate2(&QMethods::SMethod2);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain a different method of the same object.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenTwoDelegatesContainDifferentMethodOfTheSameObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef int (TFunctionType)(int, int);
+    QMethods object;
+    QDelegate<TFunctionType> delegate1(&object, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object, &QMethods::Method2);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when two delegates contain the same method of different objects.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenTwoDelegatesContainTheSameMethodOfDifferentObject_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    typedef int (TFunctionType)(int, int);
+    QMethods object1;
+    QMethods object2;
+    QDelegate<TFunctionType> delegate1(&object1, &QMethods::Method);
+    QDelegate<TFunctionType> delegate2(&object2, &QMethods::Method);
+
+	// [Execution]
+    bool bResult = delegate1 != delegate2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 // End - Test Suite: QDelegate
 QTEST_SUITE_END()

@@ -44,6 +44,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDynamicArray_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QEvent_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QKeyValuePair_Test.cpp" />
@@ -84,6 +85,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQComparatorDefault_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQEqualityComparator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQKeyValuePairComparator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQTimeZoneFactory_Test.cpp" />
