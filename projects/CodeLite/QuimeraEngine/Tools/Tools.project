@@ -201,6 +201,8 @@
     <File Name="../../../../headers/QDictionary.h"/>
     <File Name="../../../../headers/QHashtable.h"/>
     <File Name="../../../../headers/SQIntegerHashProvider.h"/>
+    <File Name="../../../../headers/SQStringHashProvider.h"/>
+    <File Name="../../../../source/SQStringHashProvider.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

@@ -82,6 +82,8 @@ QStringUnicode::QStringUnicode(const QStringUnicode &strString) : m_strString(st
 
 QStringUnicode::QStringUnicode(const i8_q* arBytes)
 {
+    QE_ASSERT_ERROR(arBytes != null_q, "The input array of bytes must not be null.");
+
     // CAUTION: This is just a workaround to avoid performance loss due to unncecessry class instancing
     //          If this class inherited from another, a different solution should be applied (calling a common function)
     //          It is not possible to call other constructors until C++11
@@ -115,12 +117,29 @@ QStringUnicode::QStringUnicode(const i8_q* arBytes,
         nActualLength = strlen(arBytes);
 
     m_strString = icu::UnicodeString(arBytes, nActualLength, pConverter, errorCode);
-    m_uLength = scast_q(m_strString.countChar32(), unsigned int);;
+    m_uLength = scast_q(m_strString.countChar32(), unsigned int);
 }
 
 QStringUnicode::QStringUnicode(const QCharUnicode &character) : m_strString(UChar32(character.GetCodePoint())),
                                                                 m_uLength(1U)
 {
+}
+
+QStringUnicode::QStringUnicode(const wchar_t* szCharacters)
+{
+    QE_ASSERT_ERROR(szCharacters != null_q, "The input sequence of characters must not be null.");
+
+    // In Windows, wide chars are 2 bytes length
+    // In Linux and Mac OS X, wide chars are 4 bytes length
+    EQTextEncoding eEncoding = sizeof(wchar_t) == 2 ? string_q::GetLocalEncodingUTF16() :
+                                                      string_q::GetLocalEncodingUTF32();
+
+    const int INPUT_LENGTH = wcslen(szCharacters) * sizeof(wchar_t);
+
+    // CAUTION: This is just a workaround to avoid performance loss due to unncecessry class instancing
+    //          If this class inherited from another, a different solution should be applied (calling a common function)
+    //          It is not possible to call other constructors until C++11
+    new (this) QStringUnicode(rcast_q(szCharacters, const i8_q*), INPUT_LENGTH, eEncoding);
 }
 
 
@@ -1160,6 +1179,11 @@ EQTextEncoding QStringUnicode::GetLocalEncodingUTF32()
 {
     return QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN ? EQTextEncoding::E_UTF32LE :
                                                          EQTextEncoding::E_UTF32BE;
+}
+
+const u16_q* QStringUnicode::GetInternalBuffer() const
+{
+    return rcast_q(m_strString.getBuffer(), const u16_q*);
 }
 
 } //namespace DataTypes

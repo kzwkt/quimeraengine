@@ -239,6 +239,7 @@
     <ClInclude Include="..\..\..\..\headers\SQKeyValuePairComparator.h" />
     <ClInclude Include="..\..\..\..\headers\SQNoComparator.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
+    <ClInclude Include="..\..\..\..\headers\SQStringHashProvider.h" />
     <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
   </ItemGroup>
@@ -301,6 +302,7 @@
     <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\SQPoint.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQStringHashProvider.cpp" />
     <ClCompile Include="..\..\..\..\source\SQTimeZoneFactory.cpp" />
     <ClCompile Include="..\..\..\..\source\TimeZoneDatabase.cpp" />
   </ItemGroup>
