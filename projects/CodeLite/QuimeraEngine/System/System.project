@@ -162,6 +162,8 @@
     <File Name="../../../../headers/QTypeWithToString.h"/>
     <File Name="../../../../headers/QCallStackTracer.h"/>
     <File Name="../../../../source/QCallStackTracer.cpp"/>
+    <File Name="../../../../headers/QScopedCallTraceNotifier.h"/>
+    <File Name="../../../../source/QScopedCallTraceNotifier.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Threading">
     <File Name="../../../../headers/QThread.h"/>

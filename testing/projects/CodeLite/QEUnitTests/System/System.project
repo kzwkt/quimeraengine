@@ -111,6 +111,7 @@
       <File Name="../../../../tests/unit/testmodule_system/QDerivedFromInterface.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QDerivedFromInterface.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QCallStackTracer_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_system/QScopedCallTraceNotifier_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Threading">
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>
