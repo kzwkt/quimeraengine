@@ -375,7 +375,7 @@ QTEST_CASE ( SetTimeLapseLength_AssertionFailsWhenInputIsZero_Test )
 
     try
     {
-        QTimeSpan timeLapse = stopwatch.SetTimeLapseLength(TIMELAPSE);
+        stopwatch.SetTimeLapseLength(TIMELAPSE);
     }
     catch(const Kinesis::QuimeraEngine::Common::Exceptions::QAssertException&)
     {
