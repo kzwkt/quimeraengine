@@ -62,7 +62,7 @@ namespace Containers
 /// <typeparam name="HashProviderT">Optional. The type of the hash provider. By default, it is SQIntegerHashProvider.</typeparam>
 /// <typeparam name="AllocatorT">Optional. The type of the allocator that reserves memory for keys, values and buckets. By default, it is QPoolAllocator.</typeparam>
 /// <typeparam name="KeyComparatorT">Optional. The type of the comparator used to compare keys. By default, it is SQComparatorDefault.</typeparam>
-template<class KeyT, class ValueT, class HashProviderT = SQIntegerHashProvider, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT>>
+template<class KeyT, class ValueT, class HashProviderT = SQIntegerHashProvider, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
 class QHashtable
 {
     // INTERNAL CLASSES
