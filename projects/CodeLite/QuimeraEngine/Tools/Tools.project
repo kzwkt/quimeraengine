@@ -199,6 +199,8 @@
     <File Name="../../../../headers/SQEqualityComparator.h"/>
     <File Name="../../../../headers/SQNoComparator.h"/>
     <File Name="../../../../headers/QDictionary.h"/>
+    <File Name="../../../../headers/QHashtable.h"/>
+    <File Name="../../../../headers/SQIntegerHashProvider.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

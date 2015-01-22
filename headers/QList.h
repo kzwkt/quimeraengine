@@ -962,11 +962,11 @@ public:
     /// Constructor that reserves space to store the number of elements passed by parameter.
     /// </summary>
     /// <param name="uInitialCapacity">[IN] Number of elements for wich to reserve space. It must be greater than zero.</param>
-    QList(const pointer_uint_q uInitialCapacity) :
-            m_uFirst(QList::END_POSITION_BACKWARD),
-            m_uLast(QList::END_POSITION_FORWARD),
-            m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-            m_linkAllocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+    explicit QList(const pointer_uint_q uInitialCapacity) :
+                m_uFirst(QList::END_POSITION_BACKWARD),
+                m_uLast(QList::END_POSITION_FORWARD),
+                m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                m_linkAllocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
     {
         QE_ASSERT_ERROR( uInitialCapacity > 0, "Initial capacity must be greater than zero" );
     }

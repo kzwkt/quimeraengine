@@ -206,7 +206,7 @@ QTEST_CASE ( Constructor3_CopyConstructorsAreCalledForAllElements_Test )
 }
 
 /// <summary>
-/// Checks that all the default values have not changed since the last time this test was executed.
+/// Checks that the destructor of every element is called.
 /// </summary>
 QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
 {

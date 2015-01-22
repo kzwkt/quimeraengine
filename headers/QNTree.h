@@ -1649,10 +1649,10 @@ public:
     /// Once the maximum number of child nodes has been set, it cannot be changed in the future.
     /// </remarks>
     /// <param name="uMaximumChildren">[IN] The maximum number of child nodes per node. It must be greater than zero. Use the NO_MAXIMUM_CHILDREN constant to disable this restriction.</param>
-    QNTree(const pointer_uint_q uMaximumChildren) : MAX_CHILDREN(uMaximumChildren),
-                                                    m_elementAllocator(QNTree::sm_uDefaultCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-                                                    m_nodeAllocator(QNTree::sm_uDefaultCapacity * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
-                                                    m_uRoot(QNTree::END_POSITION_FORWARD)
+    explicit QNTree(const pointer_uint_q uMaximumChildren) : MAX_CHILDREN(uMaximumChildren),
+                                                             m_elementAllocator(QNTree::sm_uDefaultCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                                                             m_nodeAllocator(QNTree::sm_uDefaultCapacity * sizeof(QNTree::QNode), sizeof(QNTree::QNode), QAlignment(alignof_q(QNTree::QNode))),
+                                                             m_uRoot(QNTree::END_POSITION_FORWARD)
     {
         QE_ASSERT_ERROR(uMaximumChildren > 0, "The maximum number of children for every node of the tree must be greater than zero.");
     }

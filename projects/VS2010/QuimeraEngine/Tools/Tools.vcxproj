@@ -196,6 +196,7 @@
     <ClInclude Include="..\..\..\..\headers\QDynamicArray.h" />
     <ClInclude Include="..\..\..\..\headers\QEvent.h" />
     <ClInclude Include="..\..\..\..\headers\QFixedArray.h" />
+    <ClInclude Include="..\..\..\..\headers\QHashtable.h" />
     <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
     <ClInclude Include="..\..\..\..\headers\QKeyValuePair.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
     <ClInclude Include="..\..\..\..\headers\SQComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\SQEqualityComparator.h" />
+    <ClInclude Include="..\..\..\..\headers\SQIntegerHashProvider.h" />
     <ClInclude Include="..\..\..\..\headers\SQKeyValuePairComparator.h" />
     <ClInclude Include="..\..\..\..\headers\SQNoComparator.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />

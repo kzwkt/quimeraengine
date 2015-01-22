@@ -74,7 +74,7 @@ public:
     /// Constructor that receives the initial capacity.
     /// </summary>
     /// <param name="uInitialCapacity">[IN] The number of key-value pairs for which to reserve memory. It must be greater than zero.</param>
-    QDictionary(const pointer_uint_q uInitialCapacity) : m_binaryTree(uInitialCapacity)
+    explicit QDictionary(const pointer_uint_q uInitialCapacity) : m_binaryTree(uInitialCapacity)
     {
     }
     
