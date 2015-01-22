@@ -1755,7 +1755,7 @@ QTEST_CASE ( Flush_AssertionFailsWhenFileIsReadOnly_Test )
     using Kinesis::QuimeraEngine::System::IO::FileSystem::Test::QFileStreamWhiteBox;
 
     // [Preparation]
-    const QPath INPUT_PATH(PATH_TO_ARTIFACTS + "./ReadOnly.txt");
+    const string_q INPUT_PATH(PATH_TO_ARTIFACTS + "./ReadOnly.txt");
     
     // Sets the file as read only
 #if defined(QE_OS_LINUX) || defined(QE_OS_MAC)
