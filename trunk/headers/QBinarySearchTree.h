@@ -1019,9 +1019,9 @@ public:
     /// Constructor that receives the initial capacity.
     /// </summary>
     /// <param name="uInitialCapacity">[IN] The number of elements for which to reserve memory. It must be greater than zero.</param>
-    QBinarySearchTree(const pointer_uint_q uInitialCapacity) : m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-                                                               m_nodeAllocator(uInitialCapacity * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
-                                                               m_uRoot(QBinarySearchTree::END_POSITION_FORWARD)
+    explicit QBinarySearchTree(const pointer_uint_q uInitialCapacity) : m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+                                                                        m_nodeAllocator(uInitialCapacity * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
+                                                                        m_uRoot(QBinarySearchTree::END_POSITION_FORWARD)
     {
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
     }
