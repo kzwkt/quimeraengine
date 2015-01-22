@@ -154,6 +154,36 @@ QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputIsNullTermination_Test )
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input is null.
+/// </summary>
+QTEST_CASE ( Constructor3_AssertionFailsWhenInputIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const i8_q* INPUT_STRING_BYTES = null_q;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QStringUnicode strString(INPUT_STRING_BYTES);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
 /// <summary>
 /// Checks that input string, encoded in ISO 8859-1, is correctly converted.
 /// </summary>
@@ -747,6 +777,83 @@ QTEST_CASE ( Constructor6_ResultContainsInputCharacter_Test )
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
+
+/// <summary>
+/// Checks that input string, encoded in either UTF16 or UTF32 depending on the OS and the compiler, is correctly converted.
+/// </summary>
+QTEST_CASE ( Constructor7_CommonSequenceIsCorrectlyConverted_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]
+    const wchar_t INPUT_STRING_BYTES[] = { 'A', 'B', 'C', 0 };
+    const unsigned int EXPECTED_LENGTH = 3;
+
+    //
+    const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x0041, 0x0042, 0x0043 };
+    const EQTextEncoding NATIVE_ENCODING = string_q::GetLocalEncodingUTF16();
+    const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES);
+
+    // [Verification]
+    unsigned int uLength = strString.GetLength();
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(uLength, EXPECTED_LENGTH);
+}
+
+/// <summary>
+/// Checks that it creates an empty string when the input is null-termination.
+/// </summary>
+QTEST_CASE ( Constructor7_CreatesEmptyStringWhenInputIsNullTermination_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+    // [Preparation]
+    const wchar_t INPUT_STRING_BYTES[] = { 0 };
+    const QStringUnicode EXPECTED_RESULT = QStringUnicode::GetEmpty();
+
+	// [Execution]
+    QStringUnicode strString(INPUT_STRING_BYTES);
+
+    // [Verification]
+    BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input is null.
+/// </summary>
+QTEST_CASE ( Constructor7_AssertionFailsWhenInputIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const wchar_t* INPUT_STRING_BYTES = null_q;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QStringUnicode strString(INPUT_STRING_BYTES);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
 
 /// <summary>
 /// Checks that the assigned string is equal to the copied string.
@@ -8059,6 +8166,37 @@ QTEST_CASE ( IsEmpty_ReturnsFalseWhenStringIsNotEmpty_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the returned buffer contains UTF-16 text.
+/// </summary>
+QTEST_CASE ( GetInternalBuffer_ReturnedBufferContainsUTF16Text_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING("ABC");
+
+	// [Execution]
+    const u16_q* szCharacters = SOURCE_STRING.GetInternalBuffer();
+
+    // [Verification]
+    string_q strStringFromBuffer(rcast_q(szCharacters, const i8_q*), SOURCE_STRING.GetLength() * sizeof(u16_q), string_q::GetLocalEncodingUTF16());
+    BOOST_CHECK(strStringFromBuffer == SOURCE_STRING);
+}
+
+/// <summary>
+/// Checks that the returned buffer is not null when the string is empty.
+/// </summary>
+QTEST_CASE ( GetInternalBuffer_ReturnedBufferIsNotNullWhenStringIsEmpty_Test )
+{
+    // [Preparation]
+    const QStringUnicode SOURCE_STRING;
+
+	// [Execution]
+    const u16_q* szCharacters = SOURCE_STRING.GetInternalBuffer();
+
+    // [Verification]
+    BOOST_CHECK(szCharacters != null_q);
 }
 
 /// <summary>

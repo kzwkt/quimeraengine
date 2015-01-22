@@ -236,6 +236,9 @@
     <ClInclude Include="..\..\..\..\headers\SQIntegerHashProvider.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQStringHashProvider.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -416,6 +419,9 @@
       <Filter>Time</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQIterationDirection.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQStringHashProvider.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
   </ItemGroup>

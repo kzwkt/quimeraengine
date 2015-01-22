@@ -476,7 +476,7 @@ public:
     /// <remarks>
     /// The final null character will not be added to the resultant string.
     /// </remarks>
-    /// <param name="arBytes">[IN] The input stream as an array of bytes.</param>
+    /// <param name="arBytes">[IN] The input stream as an array of bytes. It must not be null.</param>
     QStringUnicode(const i8_q* arBytes);
 
     /// <summary>
@@ -517,6 +517,15 @@ public:
     /// </summary>
     /// <param name="character">[IN] The character that will form the new string.</param>
     QStringUnicode(const QCharUnicode &character);
+        
+    /// <summary>
+    /// Constructor that builds a string from a null-terminated sequence of wide characters.
+    /// </summary>
+    /// <remarks>
+    /// The final null character will not be added to the resultant string.
+    /// </remarks>
+    /// <param name="szCharacters">[IN] The input sequence of characters. It must not be null.</param>
+    QStringUnicode(const wchar_t* szCharacters);
 
 
     // METHODS
@@ -1056,6 +1065,19 @@ public:
     /// True if the string is empty; False otherwise.
     /// </returns>
     bool IsEmpty() const;
+
+    /// <summary>
+    /// Gets a pointer to the internal buffer of the string.
+    /// </summary>
+    /// <remarks>
+    /// The text in the buffer is encoded in UTF-16.<br/>
+    /// It is not recommended to call this method unless it is really necessary (performance constraints). Its signature may change in future versions.<br/>
+    /// The string must not be modified while the internal buffer is being used; otherwise, the pointer may become invalid and make the program chrash.
+    /// </remarks>
+    /// <returns>
+    /// A constant pointer to the buffer. The pointer is never null, even when the string is empty (not null-terminating character is included in this case either).
+    /// </returns>
+    const u16_q* GetInternalBuffer() const;
 
     /// <summary>
     /// Obtains a constant empty string.
