@@ -77,6 +77,17 @@ public:
     QDictionary(const pointer_uint_q uInitialCapacity) : m_binaryTree(uInitialCapacity)
     {
     }
+    
+    /// <summary>
+    /// Copy constructor that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// The copy constructor is called for every key and value, in an arbitrary order.
+    /// </remarks>
+    /// <param name="dictionary">[IN] The other dictionary to be copied.</param>
+    QDictionary(const QDictionary &dictionary) : m_binaryTree(dictionary.m_binaryTree)
+    {
+    }
 
 
     // DESTRUCTOR
@@ -97,6 +108,25 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Assignment operator that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// All the elements in the resident dictionary will be firstly removed, calling each keys's and value's destructor.
+    /// The copy constructor is then called for every copied key and value, in an arbitrary order.
+    /// </remarks>
+    /// <param name="dictionary">[IN] The other dictionary to be copied.</param>
+    /// <returns>
+    /// A reference to the resultant dictionary.
+    /// </returns>
+    QDictionary& operator=(const QDictionary dictionary)
+    {
+        if(this != &dictionary)
+            m_binaryTree = dictionary.m_binaryTree;
+
+        return *this;
+    }
 
 
     // PROPERTIES
