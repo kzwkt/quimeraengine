@@ -119,4 +119,14 @@ const unsigned int QE_VERSION_REVISION = 0;
 #endif
 
 
+// --------------------------------------------------------------------------------------------------------
+// Function signature printing definition: Alias for every compiler's function printing definition.
+// --------------------------------------------------------------------------------------------------------
+#if   defined(QE_COMPILER_MSVC)
+    #define QE_PRINT_FUNCTION __FUNCSIG__
+#elif defined(QE_COMPILER_GCC)
+    #define QE_PRINT_FUNCTION __PRETTY_FUNCTION__
+#endif
+
+
 #endif // __INTERNALDEFINITIONS__
