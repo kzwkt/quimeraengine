@@ -159,6 +159,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\CallStackTracingDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h" />
     <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h" />

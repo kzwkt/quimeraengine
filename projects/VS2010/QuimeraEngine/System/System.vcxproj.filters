@@ -151,6 +151,9 @@
     <ClInclude Include="..\..\..\..\headers\QScopedCallTraceNotifier.h">
       <Filter>Diagnosis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CallStackTracingDefinitions.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">

@@ -207,7 +207,7 @@ public:
     /// - i32_q* pNull = null_q / i32* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(T* pArgument) : m_pType(Kinesis::QuimeraEngine::Common::DataTypes::QType::FindType(pArgument)),
                                    m_strTypeName(string_q::GetEmpty()),
@@ -236,7 +236,7 @@ public:
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides GetTypeObject non-static method and GetTypeClass static method. 
     /// It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(T* pArgument, const QTypeWithGetType) : 
                                         m_pType(null_q),
@@ -266,7 +266,7 @@ public:
     /// - type* pNull = null_q / <Unknown type (size: #)>* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides ToString method. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(T* pArgument, const QTypeWithToString) : 
                                         m_pType(Kinesis::QuimeraEngine::Common::DataTypes::QType::FindType(pArgument)),
@@ -295,7 +295,7 @@ public:
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides GetTypeObject non-static method, GetTypeClass static method and ToString methods. 
     /// It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(T* pArgument, const QTypeWithGetType, const QTypeWithToString) : 
                                         m_pType(null_q),
@@ -330,7 +330,7 @@ public:
     /// - i32_q* pNull = null_q / i32* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(const T* pArgument) : m_pType(Kinesis::QuimeraEngine::Common::DataTypes::QType::FindType(pArgument)),
                                          m_strTypeName(string_q::GetEmpty()),
@@ -358,7 +358,7 @@ public:
     /// - type* pNull = null_q / type* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides GetTypeObject non-static method and GetTypeClass static method. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(const T* pArgument, const QTypeWithGetType) : 
                                         m_pType(null_q),
@@ -388,7 +388,7 @@ public:
     /// - type* pNull = null_q / <Unknown type (size: #)>* / "<Null>"
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides ToString method. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(const T* pArgument, const QTypeWithToString) : 
                                         m_pType(Kinesis::QuimeraEngine::Common::DataTypes::QType::FindType(pArgument)),
@@ -417,7 +417,7 @@ public:
     /// </remarks>
     /// <typeparam name="T">The type of the argument, which provides GetTypeObject non-static method, GetTypeClass static method and ToString non-static 
     /// method. It can be whichever.</typeparam>
-    /// <param name="argument">[IN] The argument to be traced.</param>
+    /// <param name="pArgument">[IN] The argument to be traced.</param>
     template<class T>
     QArgumentTrace(const T* pArgument, const QTypeWithGetType, const QTypeWithToString) : 
                                         m_pType(null_q),
@@ -438,7 +438,6 @@ private:
     /// Fills the type name of the argument.
     /// </summary>
     /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
-    /// <param name=".">[IN] Not used.</param>
     template<class T>
     void _FillTypeName(const T&)
     {
