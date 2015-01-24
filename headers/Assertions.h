@@ -91,7 +91,6 @@
                                  }                                                                                                  \
                              }
         #else
-            #include <assert.h>
 
             #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
                     {                                                                                                     \
@@ -101,7 +100,7 @@
                             {                                                                                             \
                                 QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType); \
                             }                                                                                             \
-                            assert(expression);                                                                           \
+                            __debugbreak();                                                                               \
                         }                                                                                                 \
                     }
         #endif
