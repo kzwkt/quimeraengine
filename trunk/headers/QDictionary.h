@@ -127,6 +127,19 @@ public:
 
         return *this;
     }
+        
+    /// <summary>
+    /// Performs a shallow copy of the content of the dictionary to another dictionary.
+    /// </summary>
+    /// <remarks>
+    /// If the capacity of the destination dictionary is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
+    /// No constructors will be called during this operation.
+    /// </remarks>
+    /// <param name="destinationDictionary">[IN/OUT] The destination dictionary to which the contents will be copied.</param>
+    void Clone(QDictionary &destinationDictionary) const
+    {
+        m_binaryTree.Clone(destinationDictionary.m_binaryTree);
+    }
 
 
     // PROPERTIES
