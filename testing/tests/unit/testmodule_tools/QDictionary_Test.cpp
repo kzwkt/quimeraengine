@@ -444,6 +444,107 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
 //    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
 //    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
 //}
+/* [TODO] Thund: Uncomment when Add and QConstDictionaryIterator exist
+/// <summary>
+/// Checks if it the clone method works properly.
+/// </summary>
+QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionary_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 2, 3};
+    QDictionary<string_q, int> sourceDictionary(3);
+    sourceDictionary.Add("key1", 1);
+    sourceDictionary.Add("key2", 2);
+    sourceDictionary.Add("key3", 3);
+
+    QDictionary<string_q, int> destinationDictionary(3);
+
+    // [Execution]
+    sourceDictionary.Clone(destinationDictionary);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks if it the clone method works properly when the destination dictionary has more capacity and elements.
+/// </summary>
+QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInputDictionaryHasMoreCapacityAndElements_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 2, 3};
+    QDictionary<string_q, int> sourceDictionary(3);
+    sourceDictionary.Add("key1", 1);
+    sourceDictionary.Add("key2", 2);
+    sourceDictionary.Add("key3", 3);
+
+    QDictionary<string_q, int> destinationDictionary(5);
+    destinationDictionary.Add("key4", 4);
+    destinationDictionary.Add("key5", 5);
+    destinationDictionary.Add("key6", 6);
+    destinationDictionary.Add("key7", 7);
+    destinationDictionary.Add("key8", 8);
+
+    // [Execution]
+    sourceDictionary.Clone(destinationDictionary);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks if it the clone method works properly when the destination dictionary has less capacity and elements.
+/// </summary>
+QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDictionaryHasLessCapacityAndElements_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5};
+    QDictionary<string_q, int> sourceDictionary(5);
+    sourceDictionary.Add("key1", 1);
+    sourceDictionary.Add("key2", 2);
+    sourceDictionary.Add("key3", 3);
+    sourceDictionary.Add("key4", 4);
+    sourceDictionary.Add("key5", 5);
+
+    QDictionary<string_q, int> destinationDictionary(3);
+    destinationDictionary.Add("key6", 6);
+    destinationDictionary.Add("key7", 7);
+    destinationDictionary.Add("key8", 8);
+
+    // [Execution]
+    sourceDictionary.Clone(destinationDictionary);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+*/
 /* [TODO] Thund: Uncomment when Add exists
 /// <summary>
 /// Checks that the number of elements is correctly counted.

@@ -1544,7 +1544,7 @@ public:
     /// If the capacity of the destination tree is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
     /// No constructors will be called during this operation.
     /// </remarks>
-    /// <param name="destinationTree">[IN/OUT] The destination array to which the contents will be copied.</param>
+    /// <param name="destinationTree">[IN/OUT] The destination tree to which the contents will be copied.</param>
     void Clone(QBinarySearchTree &destinationTree) const
     {
         if(destinationTree.GetCapacity() < this->GetCapacity())
