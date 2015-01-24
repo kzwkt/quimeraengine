@@ -143,6 +143,28 @@ public:
     {
         return m_binaryTree.GetAllocator();
     }
+        
+    /// <summary>
+    /// Gets the number of elements added to the dictionary.
+    /// </summary>
+    /// <returns>
+    /// The number of elements in the dictionary.
+    /// </returns>
+    pointer_uint_q GetCount() const
+    {
+        return m_binaryTree.GetCount();
+    }
+    
+    /// <summary>
+    /// Indicates whether the dictionary is empty or not.
+    /// </summary>
+    /// <returns>
+    /// True if the dictionary is empty; False otherwise.
+    /// </returns>
+    bool IsEmpty() const
+    {
+        return m_binaryTree.IsEmpty();
+    }
 
 
     // ATTRIBUTES

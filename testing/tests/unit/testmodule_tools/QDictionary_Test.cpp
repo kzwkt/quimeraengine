@@ -444,7 +444,74 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
 //    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
 //    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
 //}
+/* [TODO] Thund: Uncomment when Add exists
+/// <summary>
+/// Checks that the number of elements is correctly counted.
+/// </summary>
+QTEST_CASE ( GetCount_IsCorrectlyCalculated_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 3;
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
 
+    // [Execution]
+    pointer_uint_q uCount = DICTIONARY.GetCount();
 
+    // [Verification]
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+*/
+/// <summary>
+/// Checks that it returns zero when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( GetCount_ReturnsZeroWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 0;
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    pointer_uint_q uCount = DICTIONARY.GetCount();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+}
+
+/// <summary>
+/// Checks that it returns True when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( IsEmpty_ReturnsTrueWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = true;
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    bool bResult = DICTIONARY.IsEmpty();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+/* [TODO] Thund: Uncomment when Add exists
+/// <summary>
+/// Checks that it returns False when the dictionary is not empty.
+/// </summary>
+QTEST_CASE ( IsEmpty_ReturnsFalseWhenDictionaryIsNotEmpty_Test )
+{
+    // [Preparation]
+    const bool EXPECTED_RESULT = false;
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+
+    // [Execution]
+    bool bResult = DICTIONARY.IsEmpty();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+*/
 // End - Test Suite: QDictionary
 QTEST_SUITE_END()
