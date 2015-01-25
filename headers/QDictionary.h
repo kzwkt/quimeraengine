@@ -59,6 +59,14 @@ namespace Containers
 template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
 class QDictionary
 {
+    // TYPEDEFS
+    // ---------------
+protected:
+
+    typedef QBinarySearchTree<QKeyValuePair<KeyT, ValueT>, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > InternalBinaryTreeType;
+    typedef QKeyValuePair<KeyT, ValueT> KeyValuePairType;
+
+
     // CONSTRUCTORS
     // ---------------
 public:
@@ -74,7 +82,7 @@ public:
     /// Constructor that receives the initial capacity.
     /// </summary>
     /// <param name="uInitialCapacity">[IN] The number of key-value pairs for which to reserve memory. It must be greater than zero.</param>
-    explicit QDictionary(const pointer_uint_q uInitialCapacity) : m_binaryTree(uInitialCapacity)
+    explicit QDictionary(const pointer_uint_q uInitialCapacity) : m_keyValues(uInitialCapacity)
     {
     }
     
@@ -85,7 +93,7 @@ public:
     /// The copy constructor is called for every key and value, in an arbitrary order.
     /// </remarks>
     /// <param name="dictionary">[IN] The other dictionary to be copied.</param>
-    QDictionary(const QDictionary &dictionary) : m_binaryTree(dictionary.m_binaryTree)
+    QDictionary(const QDictionary &dictionary) : m_keyValues(dictionary.m_keyValues)
     {
     }
 
@@ -123,7 +131,7 @@ public:
     QDictionary& operator=(const QDictionary dictionary)
     {
         if(this != &dictionary)
-            m_binaryTree = dictionary.m_binaryTree;
+            m_keyValues = dictionary.m_keyValues;
 
         return *this;
     }
@@ -138,7 +146,73 @@ public:
     /// <param name="destinationDictionary">[IN/OUT] The destination dictionary to which the contents will be copied.</param>
     void Clone(QDictionary &destinationDictionary) const
     {
-        m_binaryTree.Clone(destinationDictionary.m_binaryTree);
+        m_keyValues.Clone(destinationDictionary.m_keyValues);
+    }
+
+    /// <summary>
+    /// Array subscript operator that receives a key and retrieves its associated value.
+    /// </summary>
+    /// <param name="key">[IN] A key whose associated value will be obtained. It must exist in the dictionary.</param>
+    /// <returns>
+    /// A reference to the associated value.
+    /// </returns>
+    ValueT& operator[](const KeyT &key) const
+    {
+        return this->GetValue(key);
+    }
+    
+    /// <summary>
+    /// Gets the value that corresponds to the given key.
+    /// </summary>
+    /// <param name="key">[IN] A key whose associated value will be obtained. It must exist in the dictionary.</param>
+    /// <returns>
+    /// A reference to the associated value.
+    /// </returns>
+    ValueT& GetValue(const KeyT& key) const
+    {
+        // Creates a fake key-value pair with the input key
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        typename InternalBinaryTreeType::ConstIterator position = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+        QE_ASSERT_ERROR(!position.IsEnd(), "The specified key does not exist.");
+
+        return ccast_q(position->GetValue(), ValueT&);
+    }
+
+    /// <summary>
+    /// Sets the value that corresponds to the given key.
+    /// </summary>
+    /// <remarks>
+    /// It calls the assignment operator of the value.
+    /// </remarks>
+    /// <param name="key">[IN] A key whose associated value will be modified. It must exist in the dictionary.</param>
+    /// <param name="newValue">[IN] The value that will be replace the existing one.</param>
+    void SetValue(const KeyT& key, const ValueT& newValue) const
+    {
+        // Creates a fake key-value pair with the input key
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        typename InternalBinaryTreeType::ConstIterator position = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+        QE_ASSERT_ERROR(!position.IsEnd(), "The specified key does not exist.");
+
+        ccast_q(*position, KeyValuePairType&).SetValue(newValue);
+    }
+
+    /// <summary>
+    /// Empties the dictionary.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of each key and value will be called in an undefined order.
+    /// </remarks>
+    void Clear()
+    {
+        m_keyValues.Clear();
     }
 
 
@@ -154,7 +228,7 @@ public:
     /// </returns>
     const AllocatorT* GetAllocator() const
     {
-        return m_binaryTree.GetAllocator();
+        return m_keyValues.GetAllocator();
     }
         
     /// <summary>
@@ -165,7 +239,7 @@ public:
     /// </returns>
     pointer_uint_q GetCount() const
     {
-        return m_binaryTree.GetCount();
+        return m_keyValues.GetCount();
     }
     
     /// <summary>
@@ -176,7 +250,7 @@ public:
     /// </returns>
     bool IsEmpty() const
     {
-        return m_binaryTree.IsEmpty();
+        return m_keyValues.IsEmpty();
     }
 
 
@@ -185,10 +259,12 @@ public:
 protected:
 
     /// <summary>
-    /// The internal binary search tree that holds all the key-value pairs.
+    /// The internal binary search tree that holds all the keys.
     /// </summary>
-    QBinarySearchTree<QKeyValuePair<KeyT, ValueT>, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > m_binaryTree;
+    InternalBinaryTreeType m_keyValues;
 };
+
+
 
 } //namespace Containers
 } //namespace Tools

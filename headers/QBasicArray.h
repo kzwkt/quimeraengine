@@ -79,7 +79,7 @@ public:
     /// Constructor that receives another instance and whether its array is to be attached to the wrapper or not.
     /// </summary>
     /// <remarks>
-    /// If the resident wrapper is attached to the array of the input wrapper, the later will be detached from the array.<br/>
+    /// If the resident wrapper is attached to the array of the input wrapper, the latter will be detached from the array.<br/>
     /// If the input array is null, the resident wrapper will not be attached.
     /// </remarks>
     /// <param name="array">[IN] The array wrapper to be copied.</param>
