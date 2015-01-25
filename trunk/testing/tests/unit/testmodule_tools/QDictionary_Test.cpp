@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 #include "DataTypesDefinitions.h"
 #include "CallCounter.h"
+#include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QDictionary;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -614,5 +615,197 @@ QTEST_CASE ( IsEmpty_ReturnsFalseWhenDictionaryIsNotEmpty_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 */
+
+/* [TODO] Thund: Uncomment when Add exists
+/// <sumary>
+/// Checks that the correct value is returned when the key exists in the dictionary.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_CorrectValueIsReturnedWhenKeyExists_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    const int EXPECTED_VALUE = 2;
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add(INPUT_KEY, EXPECTED_VALUE);
+    DICTIONARY.Add("key3", 3);
+
+    // [Execution]
+    int nValue = DICTIONARY[INPUT_KEY];
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+*/
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the dictionary.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY[INPUT_KEY];
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+/* [TODO] Thund: Uncomment when Add exists
+/// <sumary>
+/// Checks that the correct value is returned when the key exists in the dictionary.
+/// </sumary>
+QTEST_CASE( GetValue_CorrectValueIsReturnedWhenKeyExists_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    const int EXPECTED_VALUE = 2;
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add(INPUT_KEY, EXPECTED_VALUE);
+    DICTIONARY.Add("key3", 3);
+    
+
+    // [Execution]
+    int nValue = DICTIONARY.GetValue(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+*/
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the dictionary.
+/// </sumary>
+QTEST_CASE( GetValue_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY.GetValue(INPUT_KEY);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+/* [TODO] Thund: Uncomment when Add exists
+/// <sumary>
+/// Checks that the value is set when the key exists in the dictionary.
+/// </sumary>
+QTEST_CASE( SetValue_ValueIsSetWhenKeyExists_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    const int EXPECTED_VALUE = 2;
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add(INPUT_KEY, 10);
+    DICTIONARY.Add("key3", 3);
+
+    // [Execution]
+    DICTIONARY.SetValue(INPUT_KEY, EXPECTED_VALUE);
+
+    // [Verification]
+    int nValue = DICTIONARY.GetValue(INPUT_KEY);
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+*/
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the dictionary.
+/// </sumary>
+QTEST_CASE( SetValue_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q INPUT_KEY("key2");
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY.SetValue(INPUT_KEY, 0);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+/* [TODO] Thund: Uncomment when Add and IsEmpty exist
+/// <sumary>
+/// Checks that the dictionary is emptied.
+/// </sumary>
+QTEST_CASE( Clear_TheDictinaryIsEmptied_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+
+    // [Execution]
+    DICTIONARY.Clear();
+
+    // [Verification]
+    bool bIsEmpty = DICTIONARY.IsEmpty();
+    BOOST_CHECK(bIsEmpty);
+}
+*/
+/// <sumary>
+/// Checks that nothing is done when the dictionary is already empty.
+/// </sumary>
+QTEST_CASE( Clear_NothingHappensWhenDictionaryIsAlreadyEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    DICTIONARY.Clear();
+
+    // [Verification]
+    bool bIsEmpty = DICTIONARY.IsEmpty();
+    BOOST_CHECK(bIsEmpty);
+}
+
 // End - Test Suite: QDictionary
 QTEST_SUITE_END()

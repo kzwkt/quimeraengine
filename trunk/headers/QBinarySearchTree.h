@@ -1502,7 +1502,8 @@ public:
     /// Searches for a given element and obtains its position.
     /// </summary>
     /// <param name="element">[IN] The value of the element to search for.</param>
-    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited. It is used just to create the resultant iterator.</param>
+    /// <param name="eTraversalOrder">[IN] The order in which the elements of the tree will be visited by the resultant iterator, 
+    /// it does not affect the binary search.</param>
     /// <returns>
     /// An iterator that points to the position of the element. If the element is not present in the tree, the iterator will point to the end position.
     /// </returns>
