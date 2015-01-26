@@ -1574,10 +1574,10 @@ QTEST_CASE( GetLast_NodeIsObtainedWhenUsingDepthFirstInOrder_Test )
     TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Execution]
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itFirst = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itLast = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(*itFirst, EXPECTED_ELEMENT);
+    BOOST_CHECK_EQUAL(*itLast, EXPECTED_ELEMENT);
 }
 
 /// <sumary>
@@ -1589,10 +1589,10 @@ QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenTreeIsEmpty_Test )
     QBinarySearchTree<int> TREE(5);
 
     // [Execution]
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itFirst = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator itLast = TREE.GetLast(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
     // [Verification]
-    bool bIteratorPointstoEnd = itFirst.IsEnd();
+    bool bIteratorPointstoEnd = itLast.IsEnd();
     BOOST_CHECK(bIteratorPointstoEnd);
 }
 
