@@ -30,7 +30,7 @@
 #include "EQTextEncoding.h"
 #include "SQInteger.h"
 #include "QDynamicArray.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 #include "QUri.h"
 #include "SQDirectory.h"
 
@@ -379,7 +379,7 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     static const codepoint_q CODEPOINT_FIRST_NUMBER           = '0';
     static const codepoint_q CODEPOINT_LAST_NUMBER            = '9';
@@ -409,7 +409,7 @@ bool QPath::_ValidateIP(const string_q &strHostname)
 
         if(!MISSING_SQUARE_BRACKET)
         {
-            QBasicArray<string_q> arParts = strIP.Split(DOT);
+            QArrayResult<string_q> arParts = strIP.Split(DOT);
 
             QE_ASSERT_WARNING(arParts.GetCount() == PARTS_OF_IPV4, "The IP (v4) must be compound of four parts.");
 

@@ -108,6 +108,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\RTTITestClasses.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QArrayResult_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

@@ -34,7 +34,7 @@
 #include "SQThisThread.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
 
@@ -485,7 +485,7 @@ boost::filesystem::path SQDirectory::_ConvertToBoostPath(const QPath &pathToConv
     static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
-    QBasicArray<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(PATH_ENCODING);
+    QArrayResult<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(PATH_ENCODING);
     boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesDirectory.Get();
     return boost::filesystem::path(szPath);
 }

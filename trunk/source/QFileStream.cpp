@@ -453,10 +453,10 @@ bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFil
 {
     bool bSuccess = true;
 
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
-    QBasicArray<i8_q> arPath = filePath.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
+    QArrayResult<i8_q> arPath = filePath.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
     const wchar_t* szPath = rcast_q(arPath.Get(), wchar_t*);
     DWORD uAccess = bIsWritingAllowed ? GENERIC_READ | GENERIC_WRITE : 
                                         GENERIC_READ;
@@ -555,11 +555,11 @@ bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFil
 {
     bool bSuccess = true;
 
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 
-    QBasicArray<i8_q> szPath = filePath.ToString().ToBytes(EQTextEncoding::E_UTF8);
+    QArrayResult<i8_q> szPath = filePath.ToString().ToBytes(EQTextEncoding::E_UTF8);
         
     int nAccess = bIsWritingAllowed ? O_RDWR: 
                                       O_RDONLY;
