@@ -41,7 +41,7 @@
 #endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
 
@@ -265,7 +265,7 @@ boost::filesystem::path SQFile::_ConvertToBoostPath(const QPath &pathToConvert)
     static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
-    QBasicArray<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(PATH_ENCODING);
+    QArrayResult<i8_q> arBytesDirectory = pathToConvert.ToString().ToBytes(PATH_ENCODING);
     boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesDirectory.Get();
     return boost::filesystem::path(szPath);
 }
@@ -355,7 +355,7 @@ Kinesis::QuimeraEngine::Tools::Time::QDateTime SQFile::_GetFileCreationDateTime(
 
     // Gets the raw data from the system
     WIN32_FILE_ATTRIBUTE_DATA fileAttributes;
-    QBasicArray<i8_q> arPathString = file.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
+    QArrayResult<i8_q> arPathString = file.ToString().ToBytes(string_q::GetLocalEncodingUTF16());
     BOOL bResult = GetFileAttributesExW(rcast_q(arPathString.Get(), wchar_t*), GetFileExInfoStandard, &fileAttributes);
 
     QE_ASSERT_ERROR(bResult != 0, "An unexpected error ocurred when obtaining the file attributes.");
@@ -397,7 +397,7 @@ Kinesis::QuimeraEngine::Tools::Time::QDateTime SQFile::_GetFileCreationDateTime(
     al.fileattr = 0;
     al.forkattr = 0;
     
-    QBasicArray<i8_q> arPathString = file.ToString().ToBytes(EQTextEncoding::E_UTF8);
+    QArrayResult<i8_q> arPathString = file.ToString().ToBytes(EQTextEncoding::E_UTF8);
     FileCreationDataStructure fileCreationData;
     int nResult = getattrlist(arPathString.Get(), &al, &fileCreationData, sizeof(fileCreationData), FSOPT_REPORT_FULLSIZE);
     

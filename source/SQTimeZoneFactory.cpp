@@ -33,7 +33,7 @@
 #include "Assertions.h"
 #include "EQTextEncoding.h"
 #include "SQInteger.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 
 
 namespace Kinesis
@@ -59,7 +59,7 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     static bool bTimeZoneDatabaseInitialized = false;
     static boost::local_time::tz_database timeZoneDatabase;
@@ -83,7 +83,7 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
     else
     {
 #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-        QBasicArray<i8_q> arId = strId.ToBytes(EQTextEncoding::E_ASCII);
+        QArrayResult<i8_q> arId = strId.ToBytes(EQTextEncoding::E_ASCII);
         boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(arId.Get());
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
         boost::local_time::time_zone_ptr pTimeZone = timeZoneDatabase.time_zone_from_region(strId);

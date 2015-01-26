@@ -24,12 +24,11 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QBASICARRAY__
-#define __QBASICARRAY__
+#ifndef __QARRAYRESULT__
+#define __QARRAYRESULT__
 
 #include "CommonDefinitions.h"
-#include "CrossPlatformBasicTypes.h"
-
+#include "QBasicArray.h"
 
 namespace Kinesis
 {
@@ -41,48 +40,89 @@ namespace DataTypes
 {
    
 /// <summary>
-/// A wrapper for C-style arrays that stores both, the array and the number of elements in it.
+/// A wrapper for C-style arrays that stores both, the array and the number of elements in it, intended to be used as a return type only. It also acts as a kind-of scoped smart pointer
+/// so it can be attached to the array, deleting it when the destructor is called.
 /// </summary>
 /// <remarks>
-/// Note that copying instances of this class does not imply making a copy of the array, only the pointer is copied.
+/// When the wrapper is instanced, it is attached to the array. It can be detached afterwards when necessary.<br/>
+/// There can be up to one wrapper attached to the same array, therefore copying a wrapper detaches the array from the source instance and attaches it to the destination instance.<br/>
+/// This class is intended to be a usability improvement for functions that return arrays allocated in the heap.
 /// </remarks>
 /// <typeparam name="T">The type of the elements in the array.</typeparam>
 template<class T>
-class QBasicArray
+class QArrayResult : public QBasicArray<T>
 {
+protected:
+
+    using QBasicArray<T>::m_pArray;
+    
 
     // CONSTRUCTORS
     // ---------------
 public:
     
     /// <summary>
-    /// Constructor that receives the array and the number of elements in it.
+    /// Constructor that receives the array, which is attached to the wrapper, and the number of elements in it.
     /// </summary>
+    /// <remarks>
+    /// If the input array is null, the wrapper will not be attached.
+    /// </remarks>
     /// <param name="pArray">[IN] The array to be wrapped.</param>
     /// <param name="uCount">[IN] The number of elements in the array.</param>
-    QBasicArray(T* pArray, const pointer_uint_q uCount) : m_pArray(pArray),
-                                                          m_uCount(uCount)
+    QArrayResult(T* pArray, const pointer_uint_q uCount) : QBasicArray<T>(pArray, uCount),
+                                                           m_bIsAttached(pArray != null_q)
     {
+    }
+    
+    /// <summary>
+    /// Copy constructor that receives another array wrapper.
+    /// </summary>
+    /// <remarks>
+    /// If the input wrapper is attached to the array, it will be detached. Then the array will be attached to the resident wrapper.
+    /// </remarks>
+    /// <param name="array">[IN] The array wrapper to be copied.</param>
+    QArrayResult(const QArrayResult& array) : QBasicArray<T>(array),
+                                              m_bIsAttached(array.m_bIsAttached) 
+    {
+        ccast_q(array, QArrayResult<T>&).Detach();
+    }
+    
+
+    // DESTRUCTOR
+    // ---------------
+public:
+
+    /// <summary>
+    /// Destructor. It destroys the wrapped array if it is attached.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of every element in the array will be called if the array is destroyed.
+    /// </remarks>
+    ~QArrayResult()
+    {
+        if(m_bIsAttached)
+            delete[] m_pArray;
     }
 
 
     // METHODS
     // ---------------
-public:
+private:
     
+    // Not allowed
+    QArrayResult& operator=(const QArrayResult &array);
+    
+public:
+
     /// <summary>
-    /// Array subscript operator that returns an element of the array from a given position.
+    /// Detaches the wrapper from the wrapped C-style array so when the destructor is called it will not destroy the array.
     /// </summary>
     /// <remarks>
-    /// It is just a wrapper method for the operator of the wrapped array. It has been included just to make potential refactoring tasks easier.
+    /// If the wrapper was already detached, it does nothing.
     /// </remarks>
-    /// <param name="uIndex">[IN] The position index of the element, starting at zero. It must be lower than the number of elements in the array.</param>
-    /// <returns>
-    /// A reference to the retrieved element.
-    /// </returns>
-    T& operator[](const pointer_uint_q uIndex) const
+    void Detach()
     {
-        return m_pArray[uIndex];
+        m_bIsAttached = false;
     }
 
 
@@ -91,53 +131,25 @@ public:
 public:
     
     /// <summary>
-    /// Gets the wrapped array.
+    /// Indicates whether the array is attached to the wrapper or not.
     /// </summary>
     /// <returns>
-    /// The C-style array contained in the wrapper.
+    /// True if the array is attached; False otherwise.
     /// </returns>
-    T* Get() const
+    bool IsAttached() const
     {
-        return m_pArray;
+        return m_bIsAttached;
     }
     
-    /// <summary>
-    /// Gets the number of elements in the array.
-    /// </summary>
-    /// <returns>
-    /// The number of elements in the array.
-    /// </returns>
-    pointer_uint_q GetCount() const
-    {
-        return m_uCount;
-    }
-    
-    /// <summary>
-    /// Gets the size of the wrapped array, in bytes.
-    /// </summary>
-    /// <returns>
-    /// The size of the array.
-    /// </returns>
-    pointer_uint_q GetSize() const
-    {
-        return m_uCount * sizeof(T);
-    }
 
-    
     // ATTRIBUTES
     // ---------------
 protected:
     
     /// <summary>
-    /// The wrapped array.
+    /// Indicates whether the array is attached to the wrapper or not.
     /// </summary>
-    T* m_pArray;
-    
-    /// <summary>
-    /// The number of elements in the array.
-    /// </summary>
-    pointer_uint_q m_uCount;
-
+    mutable bool m_bIsAttached;
 };
 
 } //namespace DataTypes
@@ -145,4 +157,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QBASICARRAY__
+#endif // __QARRAYRESULT__

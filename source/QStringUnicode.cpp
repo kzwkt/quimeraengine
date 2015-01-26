@@ -317,11 +317,12 @@ QStringUnicode::QCharIterator QStringUnicode::GetCharIterator() const
     return QStringUnicode::QCharIterator(ccast_q(*this, QStringUnicode&));
 }
 
-QBasicArray<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) const
+QArrayResult<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) const
 {
-    QBasicArray<i8_q> arBytes(null_q, 0, false);
-
     const unsigned int CHARACTERS_COUNT = scast_q(m_strString.countChar32(), unsigned int);; // It does not include the final null character
+
+    i8_q* pOutputBytes = null_q;
+    pointer_uint_q uOutputLength = 0;
 
     if(CHARACTERS_COUNT > 0)
     {
@@ -368,9 +369,9 @@ QBasicArray<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) const
 
         // Conversion from native encoding (UTF16) to input encoding
         const UChar* pBuffer = m_strString.getBuffer();
-        i8_q* pOutputBytes = new char[nRequiredLengthBytes];
+        pOutputBytes = new char[nRequiredLengthBytes];
         ucnv_reset(pConverter);
-        pointer_uint_q uOutputLength = ucnv_fromUChars(pConverter, pOutputBytes, nRequiredLengthBytes, pBuffer, CODE_UNITS_COUNT, &errorCode);
+        uOutputLength = ucnv_fromUChars(pConverter, pOutputBytes, nRequiredLengthBytes, pBuffer, CODE_UNITS_COUNT, &errorCode);
 
         // If it was necessary to add a null terminator...
         if(ADD_NULL_TERMINATION == 1)
@@ -404,11 +405,9 @@ QBasicArray<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) const
                 break;
             }
         }
-
-        arBytes = QBasicArray<i8_q>(pOutputBytes, uOutputLength, true);
     }
 
-    return arBytes;
+    return QArrayResult<i8_q>(pOutputBytes, uOutputLength);
 }
 
 UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
@@ -978,15 +977,16 @@ void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
     m_uLength += strStringToAppend.GetLength();
 }
 
-QBasicArray<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSeparator) const
+QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSeparator) const
 {
-    QBasicArray<QStringUnicode> arParts(null_q, 0, false);
-    unsigned int uNumberOfParts = 0;
+    QStringUnicode* arResultParts = null_q;
+    pointer_uint_q uNumberOfParts = 0;
 
     if(this->IsEmpty())
     {
         // Returns an empty string
-        arParts = QBasicArray<QStringUnicode>(new QStringUnicode[1], 1U, true);
+        arResultParts = new QStringUnicode[1];
+        uNumberOfParts = 1;
     }
     else
     {
@@ -1004,7 +1004,8 @@ QBasicArray<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepar
         }
 
         // Creates the output array of strings
-        arParts = QBasicArray<QStringUnicode>(new QStringUnicode[uNumberOfParts], uNumberOfParts, true);
+        arResultParts = new QStringUnicode[uNumberOfParts];
+        uNumberOfParts = uNumberOfParts;
 
         // Extracts every part, searching for separators and getting the text in between, if any
 
@@ -1019,17 +1020,17 @@ QBasicArray<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepar
             uCurrentFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
 
             if(uLastFound != uCurrentFound)
-                arParts[iPart] = this->Substring(uLastFound, uCurrentFound - 1U);
+                arResultParts[iPart] = this->Substring(uLastFound, uCurrentFound - 1U);
 
             if(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
                 uLastFound = uCurrentFound + SEPARATOR_LENGTH;
         }
 
         // Then the last part
-        arParts[uNumberOfParts] = this->Substring(uLastFound);
+        arResultParts[uNumberOfParts] = this->Substring(uLastFound);
     }
 
-    return arParts;
+    return QArrayResult<QStringUnicode>(arResultParts, uNumberOfParts);
 }
 
 i64_q QStringUnicode::ToInteger() const

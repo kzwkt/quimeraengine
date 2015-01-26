@@ -34,7 +34,7 @@
 #include "EQTextEncoding.h"
 #include "EQComparisonType.h"
 #include "SQInteger.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 
@@ -83,7 +83,7 @@ public:
                                                                                 m_stream(stream),
                                                                                 m_eEncoding(eStreamEncoding),
                                                                                 m_eNewLine(EQNewLineCharacters::E_LF),
-                                                                                m_arNewLineCharacters(null_q, 0, false),
+                                                                                m_arNewLineCharacters(null_q, 0),
                                                                                 m_uCharSize(0)
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
@@ -122,6 +122,19 @@ private:
 
     // Hidden
     QTextStreamWriter(const QTextStreamWriter&);
+
+
+    // DESTRUCTOR
+    // ---------------
+public:
+
+    /// <summary>
+    /// Destructor.
+    /// </summary>
+    ~QTextStreamWriter()
+    {
+        delete[] m_arNewLineCharacters.Get();
+    }
 
 
     // METHODS
@@ -166,14 +179,14 @@ public:
     /// <param name="uBatchSize">[Optional][IN] The size, in bytes, of every written batch. It must be greater than zero. It may affect the performance of the operation.</param>
     void Write(const string_q &strInput, const pointer_uint_q uBatchSize=QTextStreamWriter::_COPY_BATCH_SIZE)
     {
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
         
         QE_ASSERT_ERROR(uBatchSize > 0, "The number of bytes per batch must be greater than zero.");
 
         if(!strInput.IsEmpty())
         {
-            QBasicArray<i8_q> arEncodedString = strInput.ToBytes(m_eEncoding);
+            QArrayResult<i8_q> arEncodedString = strInput.ToBytes(m_eEncoding);
 
             // The stream is copied batch by batch
             const pointer_uint_q NUMBER_OF_BATCHES = (arEncodedString.GetSize() - m_uCharSize) / uBatchSize; // Quits the last character ('\0')
@@ -212,18 +225,22 @@ public:
         static const u16_q BOM_UTF16 = 0xFEFF;
         static const string_q BOM_STRING(rcast_q(&BOM_UTF16, const i8_q*), sizeof(u16_q), string_q::GetLocalEncodingUTF16());
 
-        QBasicArray<i8_q> arBOM(null_q, 0, false);
+        QBasicArray<i8_q> arBOM(null_q, 0);
 
         if(m_eEncoding == EQTextEncoding::E_UTF16LE ||
            m_eEncoding == EQTextEncoding::E_UTF16BE ||
            m_eEncoding == EQTextEncoding::E_UTF32LE ||
            m_eEncoding == EQTextEncoding::E_UTF32BE)
         {
-            arBOM = BOM_STRING.ToBytes(m_eEncoding);
+            QArrayResult<i8_q> arResult = BOM_STRING.ToBytes(m_eEncoding);
+            arResult.Detach();
+            arBOM = arResult;
         }
 
         if(arBOM.GetSize() > 0)
             m_stream.Write(arBOM.Get(), 0, arBOM.GetSize() - m_uCharSize); // Quits the last character ('\0')
+
+        delete[] arBOM.Get();
     }
 
     /// <summary>
@@ -275,14 +292,26 @@ public:
         switch(eNewLine)
         {
         case EQNewLineCharacters::E_CR:
-            m_arNewLineCharacters = NEW_LINE_CR.ToBytes(m_eEncoding);
-            break;
+            {
+                QArrayResult arResult = NEW_LINE_CR.ToBytes(m_eEncoding);
+                arResult.Detach();
+                m_arNewLineCharacters = arResult;;
+                break;
+            }
         case EQNewLineCharacters::E_LF:
-            m_arNewLineCharacters = NEW_LINE_LF.ToBytes(m_eEncoding);
-            break;
+            {
+                QArrayResult arResult = NEW_LINE_LF.ToBytes(m_eEncoding);
+                arResult.Detach();
+                m_arNewLineCharacters = arResult;;
+                break;
+            }
         case EQNewLineCharacters::E_CRLF:
-            m_arNewLineCharacters = NEW_LINE_CRLF.ToBytes(m_eEncoding);
-            break;
+            {
+                QArrayResult arResult = NEW_LINE_CRLF.ToBytes(m_eEncoding);
+                arResult.Detach();
+                m_arNewLineCharacters = arResult;;
+                break;
+            }
         default:
             break;
         }

@@ -33,7 +33,6 @@
 #include "EQFileSystemError.h"
 #include "QLinearAllocator.h"
 #include "EQFileOpenMode.h"
-#include "QBasicArray.h"
 #include "QPath.h"
 
 #if defined(QE_OS_WINDOWS)
@@ -230,24 +229,26 @@ public:
         {
             // The stream is copied batch by batch
             const pointer_uint_q NUMBER_OF_BATCHES = uNumberOfBytes / uBatchSize;
-            QBasicArray<u8_q> arBatch(new u8_q[uBatchSize], uBatchSize, true);
+            u8_q* arBatch = new u8_q[uBatchSize];
             
             this->SetPosition(uSourceOffset);
             destinationStream.SetPosition(uDestinationOffset);
 
             for(pointer_uint_q i = 0; i < NUMBER_OF_BATCHES; ++i)
             {
-                this->Read(arBatch.Get(), 0, uBatchSize);
-                destinationStream.Write(arBatch.Get(), 0, uBatchSize);
+                this->Read(arBatch, 0, uBatchSize);
+                destinationStream.Write(arBatch, 0, uBatchSize);
             }
 
             const pointer_uint_q REST_OF_BYTES = uNumberOfBytes % uBatchSize;
 
             if(REST_OF_BYTES != 0)
             {
-                this->Read(arBatch.Get(), 0, REST_OF_BYTES);
-                destinationStream.Write(arBatch.Get(), 0, REST_OF_BYTES);
+                this->Read(arBatch, 0, REST_OF_BYTES);
+                destinationStream.Write(arBatch, 0, REST_OF_BYTES);
             }
+
+            delete[] arBatch;
         }
     }
 

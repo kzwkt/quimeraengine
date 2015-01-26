@@ -27,7 +27,7 @@
 #include "SQInternalLogger.h"
 
 #include "EQTextEncoding.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 
 #if defined(QE_COMPILER_MSVC)
     #define NOMINMAX // This definition is necessary to bypass the min and max macros defined in Windows headers
@@ -75,7 +75,7 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
     
     static const EQTextEncoding OS_WCHAR_ENCODING = sizeof(wchar_t) == 2U ? string_q::GetLocalEncodingUTF16() : 
                                                                             string_q::GetLocalEncodingUTF32();
@@ -85,7 +85,7 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #if defined(QE_COMPILER_MSVC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
             
-            QBasicArray<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING);
+            QArrayResult<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING);
             ::OutputDebugStringW(rcast_q(arBytes.Get(), wchar_t*));
                 
         #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
@@ -95,7 +95,7 @@ void SQInternalLogger::DefaultLogFunction(const string_q &strMessage)
     #elif defined(QE_COMPILER_GCC)
         #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
 
-            QBasicArray<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING);
+            QArrayResult<i8_q> arBytes = strMessage.ToBytes(OS_WCHAR_ENCODING);
             std::wcout << rcast_q(arBytes.Get(), wchar_t*);
             std::wcout.flush();
                 

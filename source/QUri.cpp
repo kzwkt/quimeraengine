@@ -333,7 +333,7 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
     using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     if(!strInput.IsEmpty())
     {
@@ -352,7 +352,7 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
             {
                 // Encodes the character in UTF8
                 string_q strCurrentCharacter(currentChar);
-                QBasicArray<i8_q> arBytes = strCurrentCharacter.ToBytes(EQTextEncoding::E_UTF8);
+                QArrayResult<i8_q> arBytes = strCurrentCharacter.ToBytes(EQTextEncoding::E_UTF8);
                 u8_q* arUTF8Codeunits = rcast_q(arBytes.Get(), u8_q*);
 
                 // Adds the code units as hexadecimal values
@@ -617,7 +617,7 @@ void QUri::DecomposePath(const string_q &strInputUri,
     //       when the path ends with a slash, an empty segment is added at the end
 
     using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     if(nPathStartPosition != string_q::PATTERN_NOT_FOUND)
     {
@@ -632,7 +632,7 @@ void QUri::DecomposePath(const string_q &strInputUri,
 
         string_q strPath(strInputUri.Substring(nPathStartPosition, nPathEndPosition));
 
-        QBasicArray<string_q> arSegments = strPath.Split(QUri::CHAR_SLASH);
+        QArrayResult<string_q> arSegments = strPath.Split(QUri::CHAR_SLASH);
 
         m_arPathSegments.Clear();
 

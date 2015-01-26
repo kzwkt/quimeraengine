@@ -37,7 +37,7 @@
 #include <unicode/numfmt.h>
 
 #include "QCharUnicode.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 
 
 namespace Kinesis
@@ -709,7 +709,7 @@ public:
     /// An array of bytes, which contains the encoded text, and the number of bytes (counting the null terminator). If the string is empty, a null array and a 
     /// zero will be returned. The wrapper is attached to the array.
     /// </returns>
-    QBasicArray<i8_q> ToBytes(const EQTextEncoding &eEncoding) const;
+    QArrayResult<i8_q> ToBytes(const EQTextEncoding &eEncoding) const;
 
     /// <summary>
     /// Method that returns copy of the string with all its characters in lower case.
@@ -927,7 +927,7 @@ public:
     /// Array compound of the parts in which the string is divided by the separators, and the number of strings in it (always greater than zero).
     /// The wrapper is attached to the array.
     /// </returns>
-    QBasicArray<QStringUnicode> Split(const QStringUnicode &strSeparator) const;
+    QArrayResult<QStringUnicode> Split(const QStringUnicode &strSeparator) const;
 
     /// <summary>
     /// Parses the complete string, which represents an integer number.
