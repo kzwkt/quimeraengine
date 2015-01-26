@@ -59,12 +59,354 @@ namespace Containers
 template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
 class QDictionary
 {
-    // TYPEDEFS
+    // TYPEDEFS (I)
     // ---------------
 protected:
 
     typedef QBinarySearchTree<QKeyValuePair<KeyT, ValueT>, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > InternalBinaryTreeType;
     typedef QKeyValuePair<KeyT, ValueT> KeyValuePairType;
+
+
+    // INTERNAL CLASSES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Iterator that steps once per key-value pair of a dictionary, from the lowest key to the greatest.
+    /// </summary>
+    /// <remarks>
+    /// Once an interator have been bound to a dictionary, it cannot point to another dictionary ever.<br/>
+    /// Iterators can be invalid, this means, they may not point to an existing position of the dictionary.<br/>
+    /// The position just before the first element or just after the last one (end positions) are considered as valid positions.
+    /// </remarks>
+    class QConstDictionaryIterator
+    {
+        // CONSTRUCTORS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Constructor that receives the dictionary to iterate through and the position to physically point. This constructor is intended 
+        /// to be used internally, use GetIterator method of the QDictionary class instead.
+        /// </summary>
+        /// <remarks>
+        /// If the dictionary is empty, it will point to the end position (forward iteration).
+        /// </remarks>
+        /// <param name="pDictionary">[IN] The dictionary to iterate through. It must not be null.</param>
+        /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of dictionary elements, but the physical.
+        /// It must be lower than the capacity of the dictionary.</param>
+        QConstDictionaryIterator(const QDictionary* pDictionary, const pointer_uint_q uPosition) : m_pDictionary(pDictionary), 
+                                                                                                   m_treeIterator(&pDictionary->m_keyValues, 
+                                                                                                                  uPosition, 
+                                                                                                                  EQTreeTraversalOrder::E_DepthFirstInOrder)
+        {
+        }
+
+
+        // METHODS
+	    // ---------------
+    public:
+
+        /// <summary>
+        /// Assignment operator that moves the iterator to the same position of other iterator. The traversal order is also copied.
+        /// </summary>
+        /// <param name="iterator">[IN] Iterator whose position will be copied. It must point to the same dictionary as the resident iterator.</param>
+        /// <returns>
+        /// A reference to the resident iterator.
+        /// </returns>
+        QConstDictionaryIterator& operator=(const QConstDictionaryIterator &iterator)
+        {
+            m_treeIterator = iterator.m_treeIterator;
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Indirection operator that returns a reference to the key-value pair the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A reference to the key-value pair the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        const KeyValuePairType& operator*() const
+        {
+            return *m_treeIterator;
+        }
+
+        /// <summary>
+        /// Dereferencing operator that returns a pointer to the key-value pair the iterator points to.
+        /// </summary>
+        /// <returns>
+        /// A pointer to the key-value pair the iterator points to. If the iterator is invalid or points to an end position,
+        /// the result is undefined.
+        /// </returns>
+        const KeyValuePairType* operator->() const
+        {
+            return m_treeIterator.operator->();
+        }
+
+        /// <summary>
+        /// Post-increment operator that makes the iterator step forward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QConstDictionaryIterator operator++(int)
+        {
+            QConstDictionaryIterator iteratorCopy = *this;
+            m_treeIterator++;
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Post-decrement operator that makes the iterator step backward after the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <param name=".">[IN] Unused parameter.</param>
+        /// <returns>
+        /// A copy of the previous state of the iterator.
+        /// </returns>
+        QConstDictionaryIterator operator--(int)
+        {
+            QConstDictionaryIterator iteratorCopy = *this;
+            m_treeIterator--;
+            return iteratorCopy;
+        }
+
+        /// <summary>
+        /// Pre-increment operator that makes the iterator step forward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to increment an iterator that already points to the position after the last element (end position).<br/>
+        /// It is not possible to increment an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QConstDictionaryIterator& operator++()
+        {
+            ++m_treeIterator;
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Pre-decrement operator that makes the iterator step backward before the expression have been evaluated.
+        /// </summary>
+        /// <remarks>
+        /// It is not possible to decrement an iterator that already points to the position before the first element (end position).<br/>
+        /// It is not possible to decrement an invalid iterator.
+        /// </remarks>
+        /// <returns>
+        /// A reference to the iterator.
+        /// </returns>
+        QConstDictionaryIterator& operator--()
+        {
+            --m_treeIterator;
+
+            return *this;
+        }
+
+        /// <summary>
+        /// Equality operator that checks if both iterators are the same.
+        /// </summary>
+        /// <remarks>
+        /// An iterator must point to the same position of the same dictionary to be considered equal.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if they are pointing to the same position of the same dictionary; False otherwise.
+        /// </returns>
+        bool operator==(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator == iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Inequality operator that checks if both iterators are different.
+        /// </summary>
+        /// <remarks>
+        /// An iterator that points to a different position or to a different dictionary is considered distinct.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if they are pointing to the a different position or a different dictionary; False otherwise.
+        /// </returns>
+        bool operator!=(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator != iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Greater than operator that checks whether resident iterator points to a more posterior position than the input iterator.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different dictionaries or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more posterior position than the input iterator; False otherwise.
+        /// </returns>
+        bool operator>(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator > iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Lower than operator that checks whether resident iterator points to a more anterior position than the input iterator.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different dictionaries or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more anterior position than the input iterator; False otherwise.
+        /// </returns>
+        bool operator<(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator < iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Greater than or equal to operator that checks whether resident iterator points to a more posterior position than the
+        /// input iterator or to the same position.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different dictionaries or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more posterior position than the input iterator or to the same position; False otherwise.
+        /// </returns>
+        bool operator>=(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator >= iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Lower than or equal to operator that checks whether resident iterator points to a more anterior position than the input
+        /// iterator or to the same position.
+        /// </summary>
+        /// <remarks>
+        /// If iterators point to different dictionaries or they are not valid, the result is undefined.<br/>
+        /// This is an expensive operation.
+        /// </remarks>
+        /// <param name="iterator">[IN] The other iterator to compare to.</param>
+        /// <returns>
+        /// True if the resident iterator points to a more anterior position than the input iterator or to the same position; False otherwise.
+        /// </returns>
+        bool operator<=(const QConstDictionaryIterator &iterator) const
+        {
+            return m_treeIterator <= iterator.m_treeIterator;
+        }
+
+        /// <summary>
+        /// Indicates whether the iterator is pointing to one of the ends of the dictionary.
+        /// </summary>
+        /// <remarks>
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
+        /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
+        /// An invalid iterator is not considered as an end position.
+        /// </remarks>
+        /// <returns>
+        /// True if the iterator is pointing to an end position; False otherwise.
+        /// </returns>
+        bool IsEnd() const
+        {
+            return m_treeIterator.IsEnd();
+        }
+
+        /// <summary>
+        /// Indicates whether the iterator is pointing to one of the ends of the dictionary, distinguishing which of them.
+        /// </summary>
+        /// <remarks>
+        /// The position immediately before the first element and the position immediately after the last element are cosidered end
+        /// positions; therefore, this method can be used for both forward and backard iteration.<br/>
+        /// An invalid iterator is not considered as an end position.
+        /// </remarks>
+        /// <param name="eIterationDirection">[IN] The iteration direction used to identify which of the end positions is checked.</param>
+        /// <returns>
+        /// True if the iterator is pointing to the position after the last element when iterating forward or if it is
+        /// pointing to the position immediately before the first position when iterating backward; False otherwise.
+        /// </returns>
+        bool IsEnd(const EQIterationDirection &eIterationDirection) const
+        {
+            return m_treeIterator.IsEnd(eIterationDirection);
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the first position.
+        /// </summary>
+        /// <remarks>
+        /// If the dictionary is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveFirst()
+        {
+            m_treeIterator.MoveFirst();
+        }
+
+        /// <summary>
+        /// Makes the iterator point to the last position.
+        /// </summary>
+        /// <remarks>
+        /// If the dictionary is empty, the iterator will point to the end position (forward iteration).
+        /// </remarks>
+        void MoveLast()
+        {
+            m_treeIterator.MoveLast();
+        }
+
+        /// <summary>
+        /// Checks whether the iterator is valid or not.
+        /// </summary>
+        /// <remarks>
+        /// An iterator is considered invalid when it points to an unexisting position (a dictionary may have been shortened while the iterator
+        /// was pointing to its last position). If the dictionary to iterate has been destroyed, there is no way for the iterator to realize that so
+        /// its behavior is undefined and this method will not detect that situation.<br/>
+        /// The position before the first element or after the last one (end positions) are considered as valid positions.
+        /// </remarks>
+        /// <returns>
+        /// True if the iterator is valid; False otherwise.
+        /// </returns>
+        bool IsValid() const
+        {
+            return m_treeIterator.IsValid();
+        }
+
+
+        // ATTRIBUTES
+	    // ---------------
+    protected:
+
+        /// <summary>
+        /// A wrapped binary search tree iterator.
+        /// </summary>
+        typename InternalBinaryTreeType::ConstIterator m_treeIterator;
+        
+        /// <summary>
+        /// The traversed dictionary.
+        /// </summary>
+        const QDictionary* m_pDictionary;
+
+    }; // QConstDictionaryIterator
+
+
+    // TYPEDEFS (II)
+    // ---------------
+public:
+
+    typedef typename QDictionary::QConstDictionaryIterator ConstIterator;
 
 
     // CONSTRUCTORS
@@ -128,7 +470,7 @@ public:
     /// <returns>
     /// A reference to the resultant dictionary.
     /// </returns>
-    QDictionary& operator=(const QDictionary dictionary)
+    QDictionary& operator=(const QDictionary &dictionary)
     {
         if(this != &dictionary)
             m_keyValues = dictionary.m_keyValues;
@@ -240,7 +582,7 @@ public:
     /// <returns>
     /// An iterator that points to the just added key-value pair. If the key was already in the dictionary, the returned iterator will point to the end position.
     /// </returns>
-    void Add(const KeyT &key, const ValueT &value) // [TODO] Thund: It should return QConstDictionaryIterator instead of void, when it exists
+    QConstDictionaryIterator Add(const KeyT &key, const ValueT &value)
     {
         // Creates a key-value by copying the data without calling any constructor
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
@@ -249,7 +591,9 @@ public:
         KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
         InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
-        //return QConstDictionaryIterator(this, &*treeIterator - rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyVakuePairType*));
+
+        pointer_uint_q uIteratorPosition = &*treeIterator - rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
+        return QConstDictionaryIterator(this, uIteratorPosition);
     }
 
 

@@ -872,6 +872,7 @@ public:
 
                     QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
                     QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_pTree->m_uRoot;
+                    m_uPosition = m_pTree->m_uRoot;
 
                     if(pNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
@@ -908,6 +909,7 @@ public:
 
                     QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
                     QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_pTree->m_uRoot;
+                    m_uPosition = m_pTree->m_uRoot;
 
                     if(pNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
@@ -929,7 +931,7 @@ public:
         /// </summary>
         /// <remarks>
         /// An iterator is considered invalid when it points to an unexisting position (a tree may have been shortened while the iterator
-        /// was pointing to its last position). If the tree to iterate have been destroyed, there is no way for the iterator to realize that so
+        /// was pointing to its last position). If the tree to iterate has been destroyed, there is no way for the iterator to realize that so
         /// its behavior is undefined and this method will not detect that situation.<br/>
         /// The position before the first element or after the last one (end positions) are considered as valid positions.
         /// </remarks>
