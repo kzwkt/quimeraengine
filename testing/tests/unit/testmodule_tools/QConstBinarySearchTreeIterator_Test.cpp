@@ -1021,6 +1021,32 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     BOOST_CHECK(nCurrentElement == LAST_ELEMENT_VALUE);
 }
 
+/// <summary>
+/// Checks that the tree is traversed in the correct order when using depth-first in-order.
+/// </summary>
+QTEST_CASE ( OperatorPreDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
+{
+    // [Preparation]
+    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
+    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
+
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    iterator.MoveLast();
+    bool bIsCorrect = true;
+    unsigned int i = 0;
+
+	// [Execution]
+    while(bIsCorrect && !iterator.IsEnd())
+    {
+        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
+        --iterator;
+        ++i;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bIsCorrect);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -1050,32 +1076,6 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorIsNotValid_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
-/// Checks that the tree is traversed in the correct order when using depth-first in-order.
-/// </summary>
-QTEST_CASE ( OperatorPreDecrement_TreeIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
-{
-    // [Preparation]
-    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
-    const QBinarySearchTree<int>* SAMPLE_TREE = GetSampleTree();
-
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-    iterator.MoveLast();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == *iterator;
-        --iterator;
-        ++i;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
 }
 
 /// <summary>
@@ -2415,6 +2415,40 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyUsingDepth
 }
 
 /// <summary>
+/// Checks that the iterator points to the first position when the root node does not have left-child, using depth-first in-order.
+/// </summary>
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenRootDoesNotHaveLeftChildUsingDepthFirstInOrder_Test )
+{
+    //     1
+    //      \
+    //       2
+    //        \
+    //         3
+    //          \
+    //           4
+
+    // [Preparation]
+    QBinarySearchTree<int> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    ++ORIGINAL_ITERATOR;
+    ++ORIGINAL_ITERATOR;
+    ++ORIGINAL_ITERATOR;
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_FIRST(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+	// [Execution]
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    iterator.MoveFirst();
+
+    // [Verification]
+    BOOST_CHECK(iterator == ITERATOR_FIRST);
+}
+
+/// <summary>
 /// Checks that the iterator points to the first position even when it was not valid, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
@@ -2503,6 +2537,37 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyUsingDepthFi
 }
 
 /// <summary>
+/// Checks that the iterator points to the last position when the root node does not have right-child, using depth-first in-order.
+/// </summary>
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenRootDoesNotHaveRightChildUsingDepthFirstInOrder_Test )
+{
+    //        4
+    //       /
+    //      3
+    //     /
+    //    2
+    //   /
+    //  1
+
+    // [Preparation]
+    QBinarySearchTree<int> SAMPLE_TREE(7);
+    SAMPLE_TREE.Add(4, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(2, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    SAMPLE_TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ORIGINAL_ITERATOR(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR_LAST(&SAMPLE_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+	// [Execution]
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator iterator(ORIGINAL_ITERATOR);
+    iterator.MoveLast();
+
+    // [Verification]
+    BOOST_CHECK(iterator == ITERATOR_LAST);
+}
+
+/// <summary>
 /// Checks that the iterator points to the last position even when it was not valid, using depth-first in-order.
 /// </summary>
 QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorWasNotValidUsingDepthFirstInOrder_Test )
@@ -2560,13 +2625,13 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenTreeIsNotEmptyAndIteratorW
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenTreeIsEmpty_Test )
 {
     // [Preparation]
-    QBinarySearchTree<int> EMPTY_ARRAY(1);
+    QBinarySearchTree<int> EMPTY_TREE(1);
 
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator END_ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator END_ITERATOR(&EMPTY_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
 
-    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR(&EMPTY_ARRAY, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
+    QBinarySearchTree<int>::QConstBinarySearchTreeIterator ITERATOR(&EMPTY_TREE, 0, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
 	// [Execution]
     ITERATOR.MoveLast();

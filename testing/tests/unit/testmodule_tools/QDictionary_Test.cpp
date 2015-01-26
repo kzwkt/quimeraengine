@@ -119,83 +119,85 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
 }
 
 #endif // #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+/* [TODO] Thund: Uncomment when GetFirst exists
+/// <summary>
+/// Checks that the dictionary is correctly copied when it has elements.
+/// </summary>
+QTEST_CASE ( Constructor3_DictionaryIsCorrectlyCopiedWhenItHasElements_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4", "key5"};
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 3);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+    DICTIONARY.Add("key4", 8);
 
-// [TODO] Thund: Uncomment when Add and Iterator exists
-//
-///// <summary>
-///// Checks that the tree is correctly copied when it has elements.
-///// </summary>
-//QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItHasElements_Test )
-//{
-//    // [Preparation]
-//    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
-//    QBinarySearchTree<int> TREE(5);
-//    TREE.Add(5, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(3, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(6, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(1, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(8, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//
-//    const pointer_uint_q EXPECTED_COUNT = TREE.GetCount();
-//
-//    // [Execution]
-//    QBinarySearchTree<int> copiedTree(TREE);
-//
-//    // [Verification]
-//    bool bResultIsWhatEspected = true;
-//
-//    QBinarySearchTree<int>::QConstBinarySearchTreeIterator it = copiedTree.GetIterator(0, EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    int i = 0;
-//
-//    for(; !it.IsEnd(); ++it, ++i)
-//        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-//
-//    pointer_uint_q uCount = copiedTree.GetCount();
-//    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-//    BOOST_CHECK(bResultIsWhatEspected);
-//}
-//
-///// <summary>
-///// Checks that the tree is correctly copied when it is empty.
-///// </summary>
-//QTEST_CASE ( Constructor3_TreeIsCorrectlyCopiedWhenItIsEmpty_Test )
-//{
-//    // [Preparation]
-//    QBinarySearchTree<int> TREE(3);
-//
-//    // [Execution]
-//    QBinarySearchTree<int> copiedTree(TREE);
-//
-//    // [Verification]
-//    bool bTreeIsEmpty = copiedTree.IsEmpty();
-//    BOOST_CHECK(bTreeIsEmpty);
-//}
-//
-///// <summary>
-///// Checks that the copy constructors are called for each element.
-///// </summary>
-//QTEST_CASE ( Constructor3_CopyConstructorsAreCalledForAllElements_Test )
-//{
-//    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
-//
-//    // [Preparation]
-//    QBinarySearchTree<CallCounter> TREE(5);
-//    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
-//    TREE.Add(CallCounter(), EQTreeTraversalOrder::E_DepthFirstInOrder);
-//
-//    const unsigned int EXPECTED_VALUE = TREE.GetCount();
-//    CallCounter::ResetCounters();
-//
-//    // [Execution]
-//    QBinarySearchTree<CallCounter> copiedTree(TREE);
-//
-//    // [Verification]
-//    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
-//    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_VALUE);
-//}
+    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
+
+    // [Execution]
+    QDictionary<string_q, int> copiedDictionary(DICTIONARY);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = copiedDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    pointer_uint_q uCount = copiedDictionary.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+*/
+/// <summary>
+/// Checks that the dictionary is correctly copied when it is empty.
+/// </summary>
+QTEST_CASE ( Constructor3_DictionaryIsCorrectlyCopiedWhenItIsEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    QDictionary<string_q, int> copiedDictionary(DICTIONARY);
+
+    // [Verification]
+    bool bDictionaryIsEmpty = copiedDictionary.IsEmpty();
+    BOOST_CHECK(bDictionaryIsEmpty);
+}
+
+/// <summary>
+/// Checks that the copy constructors are called for each element.
+/// </summary>
+QTEST_CASE ( Constructor3_CopyConstructorsAreCalledForAllElements_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QDictionary<CallCounter, CallCounter> DICTIONARY(5);
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+
+    const unsigned int EXPECTED_VALUE = DICTIONARY.GetCount() * 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    QDictionary<CallCounter, CallCounter> copiedDictionary(DICTIONARY);
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_VALUE);
+}
 
 /// <summary>
 /// Checks that the destructor of every key and every value is called.
@@ -207,7 +209,6 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_DESTRUCTOR_CALLS = 6;
 
-    // [TODO] Thund: Uncommend when Add method exists
     {
         QDictionary<CallCounter, CallCounter> dictionary;
         dictionary.Add(CallCounter(), CallCounter());
@@ -222,241 +223,258 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
     BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_DESTRUCTOR_CALLS);
 }
+/* [TODO] Thund: Uncomment when GetFirst exists
+/// <summary>
+/// Checks that the tree is correctly copied when it has elements and the destination tree is empty.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItHasElementsAndDestinationIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4", "key5"};
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 3);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+    DICTIONARY.Add("key4", 8);
 
-// [TODO] Thund: Uncomment when Add and Iterator exists
-///// <summary>
-///// Checks that the tree is correctly copied when it has elements and the destination tree is empty.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItHasElementsAndDestinationIsEmpty_Test )
-//{
-//    // [Preparation]
-//    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
-//    QDictionary<string_q, int> DICTIONARY(5);
-//    DICTIONARY.Add("key1", 1);
-//    DICTIONARY.Add("key2", 2);
-//    DICTIONARY.Add("key3", 3);
-//    DICTIONARY.Add("key4", 4);
-//    DICTIONARY.Add("key5", 5);
-//
-//    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
-//    QDictionary<string_q, int> copiedDictionary(8);
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    bool bResultIsWhatEspected = true;
-//
-//    QDictionary<int>::QConstDictionaryIterator it = copiedDictionary.GetIterator(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    int i = 0;
-//
-//    for(; !it.IsEnd(); ++it, ++i)
-//        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-//
-//    pointer_uint_q uCount = copiedDictionary.GetCount();
-//    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-//    BOOST_CHECK(bResultIsWhatEspected);
-//}
-//
-///// <summary>
-///// Checks that the tree is correctly copied when there are more elements in the source tree than in the destination.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreElementsInSourceThanInDestination_Test )
-//{
-//    // [Preparation]
-//    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
-//    QDictionary<int> DICTIONARY(8);
-//    DICTIONARY.Add(5, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(3, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(6, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(1, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(8, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
-//
-//    QDictionary<int> copiedDictionary(3);
-//    copiedDictionary.Add(9, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(2, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    bool bResultIsWhatEspected = true;
-//
-//    QDictionary<int>::QConstBinarySearchDictionaryIterator it = copiedDictionary.GetIterator(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    int i = 0;
-//
-//    for(; !it.IsEnd(); ++it, ++i)
-//        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-//
-//    pointer_uint_q uCount = copiedDictionary.GetCount();
-//    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-//    BOOST_CHECK(bResultIsWhatEspected);
-//}
-//
-///// <summary>
-///// Checks that the tree is correctly copied when there are less elements in the source tree than in the destination.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
-//{
-//    // [Preparation]
-//    const int EXPECTED_VALUES[] = {3, 5};
-//    QDictionary<int> DICTIONARY(3);
-//    DICTIONARY.Add(5, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(3, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
-//
-//    QDictionary<int> copiedDictionary(3);
-//    copiedDictionary.Add(9, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(2, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    bool bResultIsWhatEspected = true;
-//
-//    QDictionary<int>::QConstBinarySearchDictionaryIterator it = copiedDictionary.GetIterator(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    int i = 0;
-//
-//    for(; !it.IsEnd(); ++it, ++i)
-//        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-//
-//    pointer_uint_q uCount = copiedDictionary.GetCount();
-//    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-//    BOOST_CHECK(bResultIsWhatEspected);
-//}
-//
-///// <summary>
-///// Checks that the tree is correctly copied when there are the same number of elements in the source tree than in the destination.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreSameNumberOfElementsInSourceThanInDestination_Test )
-//{
-//    // [Preparation]
-//    const int EXPECTED_VALUES[] = {3, 5, 6};
-//    QDictionary<int> DICTIONARY(3);
-//    DICTIONARY.Add(5, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(3, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(6, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
-//
-//    QDictionary<int> copiedDictionary(3);
-//    copiedDictionary.Add(9, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(2, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    bool bResultIsWhatEspected = true;
-//
-//    QDictionary<int>::QConstBinarySearchDictionaryIterator it = copiedDictionary.GetIterator(0, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    int i = 0;
-//
-//    for(; !it.IsEnd(); ++it, ++i)
-//        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
-//
-//    pointer_uint_q uCount = copiedDictionary.GetCount();
-//    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
-//    BOOST_CHECK(bResultIsWhatEspected);
-//}
-//
-///// <summary>
-///// Checks that the tree is correctly copied when it is empty and the destination tree has elements.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItIsEmptyAndDestinationHasElements_Test )
-//{
-//    // [Preparation]
-//    QDictionary<int> DICTIONARY(3);
-//    QDictionary<int> copiedDictionary(3);
-//    copiedDictionary.Add(5, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(3, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(6, EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    bool bDictionaryIsEmpty = copiedDictionary.IsEmpty();
-//    BOOST_CHECK(bDictionaryIsEmpty);
-//}
-//
-///// <summary>
-///// Checks that the copy constructors are called for each element.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_CopyConstructorsAreCalledForAllElements_Test )
-//{
-//    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
-//
-//    // [Preparation]
-//    QDictionary<CallCounter> DICTIONARY(8);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    QDictionary<CallCounter> copiedDictionary(3);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = DICTIONARY.GetCount();
-//    CallCounter::ResetCounters();
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
-//    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_COPY_CONSTRUCTORS_VALUE);
-//}
-//
-///// <summary>
-///// Checks that the destructors are called for each element.
-///// </summary>
-//QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllElements_Test )
-//{
-//    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
-//    
-//    // [Preparation]
-//    QDictionary<CallCounter> DICTIONARY(8);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    DICTIONARY.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    QDictionary<CallCounter> copiedDictionary(3);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//    copiedDictionary.Add(CallCounter(), EQDictionaryTraversalOrder::E_DepthFirstInOrder);
-//
-//    const unsigned int EXPECTED_DESTRUCTORS_VALUE = copiedDictionary.GetCount();
-//    CallCounter::ResetCounters();
-//
-//    // [Execution]
-//    copiedDictionary = DICTIONARY;
-//
-//    // [Verification]
-//    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
-//    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
-//}
-/* [TODO] Thund: Uncomment when Add and QConstDictionaryIterator exist
+    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
+    QDictionary<string_q, int> copiedDictionary(8);
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = copiedDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    pointer_uint_q uCount = copiedDictionary.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are more elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4", "key5"};
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 3);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+    DICTIONARY.Add("key4", 8);
+    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
+
+    QDictionary<string_q, int> copiedDictionary(3);
+    copiedDictionary.Add("key5", 10);
+    copiedDictionary.Add("key6", 11);
+    copiedDictionary.Add("key7", 12);
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = copiedDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    pointer_uint_q uCount = copiedDictionary.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are less elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const int EXPECTED_VALUES[] = {3, 5};
+    const string_q EXPECTED_KEYS[] = {"key1", "key2"};
+    const int EXPECTED_VALUES[] = {1, 3};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 3);
+    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
+
+    QDictionary<string_q, int> copiedDictionary(3);
+    copiedDictionary.Add("key5", 10);
+    copiedDictionary.Add("key6", 11);
+    copiedDictionary.Add("key7", 12);
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = copiedDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    pointer_uint_q uCount = copiedDictionary.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the tree is correctly copied when there are the same number of elements in the source tree than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreSameNumberOfElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3"};
+    const int EXPECTED_VALUES[] = {1, 3, 5};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 3);
+    DICTIONARY.Add("key3", 5);
+    const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
+
+    QDictionary<string_q, int> copiedDictionary(3);
+    copiedDictionary.Add("key5", 10);
+    copiedDictionary.Add("key6", 11);
+    copiedDictionary.Add("key7", 12);
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = copiedDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    pointer_uint_q uCount = copiedDictionary.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+*/
+/// <summary>
+/// Checks that the tree is correctly copied when it is empty and the destination tree has elements.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItIsEmptyAndDestinationHasElements_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+    QDictionary<string_q, int> copiedDictionary(3);
+    copiedDictionary.Add("key5", 10);
+    copiedDictionary.Add("key6", 11);
+    copiedDictionary.Add("key7", 12);
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    bool bDictionaryIsEmpty = copiedDictionary.IsEmpty();
+    BOOST_CHECK(bDictionaryIsEmpty);
+}
+
+/// <summary>
+/// Checks that the copy constructors are called for each key and value.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_CopyConstructorsAreCalledForAllKeysAndValues_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QDictionary<CallCounter, CallCounter> DICTIONARY(5);
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+
+    QDictionary<CallCounter, CallCounter> copiedDictionary(3);
+    copiedDictionary.Add(CallCounter(), CallCounter());
+    copiedDictionary.Add(CallCounter(), CallCounter());
+    copiedDictionary.Add(CallCounter(), CallCounter());
+
+    const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = DICTIONARY.GetCount() * 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_COPY_CONSTRUCTORS_VALUE);
+}
+
+/// <summary>
+/// Checks that the destructors are called for each key and value.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllKeysAndValues_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+    
+    // [Preparation]
+    QDictionary<CallCounter, CallCounter> DICTIONARY(5);
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+    DICTIONARY.Add(CallCounter(), CallCounter());
+
+    QDictionary<CallCounter, CallCounter> copiedDictionary(3);
+    copiedDictionary.Add(CallCounter(), CallCounter());
+    copiedDictionary.Add(CallCounter(), CallCounter());
+    copiedDictionary.Add(CallCounter(), CallCounter());
+
+    const unsigned int EXPECTED_DESTRUCTORS_VALUE = copiedDictionary.GetCount() * 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedDictionary = DICTIONARY;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
+}
+/* [TODO] Thund: Uncomment when GetFirst 
 /// <summary>
 /// Checks if it the clone method works properly.
 /// </summary>
 QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionary_Test )
 {
     // [Preparation]
-    const int EXPECTED_VALUES[] = {1, 2, 3};
-    QDictionary<string_q, int> sourceDictionary(3);
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3"};
+    const int EXPECTED_VALUES[] = {1, 3, 5};
+    QDictionary<string_q, int> sourceDictionary(5);
     sourceDictionary.Add("key1", 1);
-    sourceDictionary.Add("key2", 2);
-    sourceDictionary.Add("key3", 3);
+    sourceDictionary.Add("key2", 3);
+    sourceDictionary.Add("key3", 5);
 
     QDictionary<string_q, int> destinationDictionary(3);
 
@@ -470,8 +488,14 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionary_Test )
 
     int i = 0;
 
-    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
-        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+    QDictionary<string_q, int>::QConstDictionaryIterator it = destinationDictionary.GetFirst();
+    int i = 0;
+
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
 
     BOOST_CHECK(bResultIsWhatEspected);
 }
@@ -482,6 +506,7 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionary_Test )
 QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInputDictionaryHasMoreCapacityAndElements_Test )
 {
     // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3"};
     const int EXPECTED_VALUES[] = {1, 2, 3};
     QDictionary<string_q, int> sourceDictionary(3);
     sourceDictionary.Add("key1", 1);
@@ -501,12 +526,14 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInp
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
-
+    QDictionary<string_q, int>::QConstDictionaryIterator it = destinationDictionary.GetFirst();
     int i = 0;
 
-    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
-        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
 
     BOOST_CHECK(bResultIsWhatEspected);
 }
@@ -517,6 +544,7 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInp
 QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDictionaryHasLessCapacityAndElements_Test )
 {
     // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4",  "key5"};
     const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5};
     QDictionary<string_q, int> sourceDictionary(5);
     sourceDictionary.Add("key1", 1);
@@ -536,17 +564,18 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDict
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
-
+    QDictionary<string_q, int>::QConstDictionaryIterator it = destinationDictionary.GetFirst();
     int i = 0;
 
-    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
-        bResultIsWhatEspected = bResultIsWhatEspected && *it == EXPECTED_VALUES[i];
+    for(; !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
 
     BOOST_CHECK(bResultIsWhatEspected);
 }
 */
-
 /// <summary>
 /// Checks that the number of elements is correctly counted.
 /// </summary>
@@ -822,7 +851,7 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 
     BOOST_CHECK_EQUAL(uStoredCapacity, EXPECTED_CAPACITY);
 }*/
-/* [TODO] Thund: Uncomment when the iterator exists
+/* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
 /// Checks that elements are correctly reallocated.
 /// </summary>
@@ -867,7 +896,7 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     pointer_uint_q uCapacity = DICTIONARY.GetCapacity();
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
 }*/
-/* [TODO] Thund: Uncomment when the iterator exists
+
 /// <summary>
 /// Checks that the element is correctly added when the dictionary is empty.
 /// </summary>
@@ -955,7 +984,7 @@ QTEST_CASE ( Add_ReturnedIteratorPointsToAddedElement_Test )
     BOOST_CHECK(itResult->GetKey() == INPUT_KEY);
     BOOST_CHECK(itResult->GetValue() == INPUT_VALUE);
 }
-*/
+
 /// <summary>
 /// Checks that the number of elements is incremented after adding.
 /// </summary>
