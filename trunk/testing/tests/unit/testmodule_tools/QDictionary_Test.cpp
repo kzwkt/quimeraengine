@@ -48,7 +48,6 @@ QTEST_SUITE_BEGIN( QDictionary_TestSuite )
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // [Preparation]
-    // [TODO] Thund: Add more checks to this tests when more properties exist
 
     // [Execution]
     QDictionary<string_q, int> dictionary;
@@ -64,7 +63,6 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 QTEST_CASE ( Constructor2_DefaultValuesHaveNotChanged_Test )
 {
     // [Preparation]
-    // [TODO] Thund: Add more checks to this tests when more properties exist
 
     // [Execution]
     QDictionary<string_q, int> dictionary(1);
@@ -86,9 +84,8 @@ QTEST_CASE ( Constructor2_CapacityIsCorrectlyStored_Test )
     QDictionary<string_q, int> dictionary(EXPECPTED_CAPACITY);
 
     // [Verification]
-    // [TODO] Thund: Uncomment when GetCapacity exists
-    //pointer_uint_q uCapacity = dictionary.GetCapacity();
-    //BOOST_CHECK_EQUAL(uCapacity, EXPECPTED_CAPACITY);
+    pointer_uint_q uCapacity = dictionary.GetCapacity();
+    BOOST_CHECK_EQUAL(uCapacity, EXPECPTED_CAPACITY);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -119,7 +116,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCapacityEqualsZero_Test )
 }
 
 #endif // #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the dictionary is correctly copied when it has elements.
 /// </summary>
@@ -133,7 +130,7 @@ QTEST_CASE ( Constructor3_DictionaryIsCorrectlyCopiedWhenItHasElements_Test )
     DICTIONARY.Add("key2", 3);
     DICTIONARY.Add("key3", 5);
     DICTIONARY.Add("key4", 6);
-    DICTIONARY.Add("key4", 8);
+    DICTIONARY.Add("key5", 8);
 
     const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
 
@@ -156,7 +153,7 @@ QTEST_CASE ( Constructor3_DictionaryIsCorrectlyCopiedWhenItHasElements_Test )
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
     BOOST_CHECK(bResultIsWhatEspected);
 }
-*/
+
 /// <summary>
 /// Checks that the dictionary is correctly copied when it is empty.
 /// </summary>
@@ -223,7 +220,7 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
     pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
     BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_DESTRUCTOR_CALLS);
 }
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the tree is correctly copied when it has elements and the destination tree is empty.
 /// </summary>
@@ -237,7 +234,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItHasElementsAndD
     DICTIONARY.Add("key2", 3);
     DICTIONARY.Add("key3", 5);
     DICTIONARY.Add("key4", 6);
-    DICTIONARY.Add("key4", 8);
+    DICTIONARY.Add("key5", 8);
 
     const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
     QDictionary<string_q, int> copiedDictionary(8);
@@ -275,7 +272,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreEleme
     DICTIONARY.Add("key2", 3);
     DICTIONARY.Add("key3", 5);
     DICTIONARY.Add("key4", 6);
-    DICTIONARY.Add("key4", 8);
+    DICTIONARY.Add("key5", 8);
     const pointer_uint_q EXPECTED_COUNT = DICTIONARY.GetCount();
 
     QDictionary<string_q, int> copiedDictionary(3);
@@ -309,7 +306,6 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreEleme
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
 {
     // [Preparation]
-    const int EXPECTED_VALUES[] = {3, 5};
     const string_q EXPECTED_KEYS[] = {"key1", "key2"};
     const int EXPECTED_VALUES[] = {1, 3};
     QDictionary<string_q, int> DICTIONARY(5);
@@ -380,7 +376,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreSameNumbe
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
     BOOST_CHECK(bResultIsWhatEspected);
 }
-*/
+
 /// <summary>
 /// Checks that the tree is correctly copied when it is empty and the destination tree has elements.
 /// </summary>
@@ -462,7 +458,7 @@ QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllKeysAndValues_Test )
     unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
     BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
 }
-/* [TODO] Thund: Uncomment when GetFirst 
+
 /// <summary>
 /// Checks if it the clone method works properly.
 /// </summary>
@@ -483,10 +479,6 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionary_Test )
 
     // [Verification]
     bool bResultIsWhatEspected = true;
-
-    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&destinationDictionary, 0);
-
-    int i = 0;
 
     QDictionary<string_q, int>::QConstDictionaryIterator it = destinationDictionary.GetFirst();
     int i = 0;
@@ -575,7 +567,7 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDict
 
     BOOST_CHECK(bResultIsWhatEspected);
 }
-*/
+
 /// <summary>
 /// Checks that the number of elements is correctly counted.
 /// </summary>
@@ -833,7 +825,7 @@ QTEST_CASE( Clear_NothingHappensWhenDictionaryIsAlreadyEmpty_Test )
     bool bIsEmpty = DICTIONARY.IsEmpty();
     BOOST_CHECK(bIsEmpty);
 }
-/* [TODO] Uncomment when GetCapacity exists
+
 /// <summary>
 /// Checks that the capacity is correctly increased.
 /// </summary>
@@ -850,8 +842,8 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
     pointer_uint_q uStoredCapacity = DICTIONARY.GetCapacity();
 
     BOOST_CHECK_EQUAL(uStoredCapacity, EXPECTED_CAPACITY);
-}*/
-/* [TODO] Thund: Uncomment when GetFirst exists
+}
+
 /// <summary>
 /// Checks that elements are correctly reallocated.
 /// </summary>
@@ -872,13 +864,13 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 
     // [Verification]
     QDictionary<string_q, int>::QConstDictionaryIterator it = DICTIONARY.GetFirst();
-    BOOST_CHECK_EQUAL(it->GetKey(), EXPECTED_FIRST_KEY);
-    BOOST_CHECK_EQUAL(it->GetValue(), EXPECTED_FIRST_VALUE);
+    BOOST_CHECK(it->GetKey() == EXPECTED_FIRST_KEY);
+    BOOST_CHECK(it->GetValue() == EXPECTED_FIRST_VALUE);
     ++it;
-    BOOST_CHECK_EQUAL(it->GetKey(), EXPECTED_SECOND_KEY);
-    BOOST_CHECK_EQUAL(it->GetValue(), EXPECTED_SECOND_VALUE);
+    BOOST_CHECK(it->GetKey() == EXPECTED_SECOND_KEY);
+    BOOST_CHECK(it->GetValue() == EXPECTED_SECOND_VALUE);
 }
-*//* [TODO] Thund: Uncomment when GetCapacity exists
+
 /// <summary>
 /// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than current reserved.
 /// </summary>
@@ -895,7 +887,7 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     // [Verification]
     pointer_uint_q uCapacity = DICTIONARY.GetCapacity();
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
-}*/
+}
 
 /// <summary>
 /// Checks that the element is correctly added when the dictionary is empty.
@@ -1005,7 +997,7 @@ QTEST_CASE ( Add_CountIsIncremented_Test )
     pointer_uint_q uCountAfterAdding = DICTIONARY.GetCount();
     BOOST_CHECK(uCountAfterAdding > COUNT_BEFORE_ADDING);
 }
-/* [TODO] Thund: Uncomment when GetCapacity exists
+
 /// <summary>
 /// Checks that the capacity is incremented after exceeding its value.
 /// </summary>
@@ -1026,7 +1018,7 @@ QTEST_CASE ( Add_CapacityIsIncrementedWhenNecessary_Test )
     pointer_uint_q uCapacityAfterAdding = DICTIONARY.GetCapacity();
     BOOST_CHECK(uCapacityAfterAdding > CAPACITY_BEFORE_ADDING);
 }
-*/
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -1060,6 +1052,96 @@ QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
 }
 
 #endif
+
+/// <sumary>
+/// Checks that the node is obtained.
+/// </sumary>
+QTEST_CASE( GetFirst_NodeIsObtained_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_ELEMENT_KEY("key1");
+    const int EXPECTED_ELEMENT_VALUE = 1;
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add(EXPECTED_ELEMENT_KEY, EXPECTED_ELEMENT_VALUE);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itFirst = DICTIONARY.GetFirst();
+
+    // [Verification]
+    BOOST_CHECK(itFirst->GetKey() == EXPECTED_ELEMENT_KEY);
+    BOOST_CHECK(itFirst->GetValue() == EXPECTED_ELEMENT_VALUE);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the dictionary is empty.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itFirst = DICTIONARY.GetFirst();
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itFirst.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <sumary>
+/// Checks that the node is obtained.
+/// </sumary>
+QTEST_CASE( GetLast_NodeIsObtained_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_ELEMENT_KEY("key3");
+    const int EXPECTED_ELEMENT_VALUE = 3;
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add(EXPECTED_ELEMENT_KEY, EXPECTED_ELEMENT_VALUE);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itLast = DICTIONARY.GetLast();
+
+    // [Verification]
+    BOOST_CHECK(itLast->GetKey() == EXPECTED_ELEMENT_KEY);
+    BOOST_CHECK(itLast->GetValue() == EXPECTED_ELEMENT_VALUE);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the dictionary is empty.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itLast = DICTIONARY.GetLast();
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itLast.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <summary>
+/// Checks that the capacity is correctly calculated.
+/// </summary>
+QTEST_CASE ( GetCapacity_IsCorrectlyCalculated_Test )
+{
+    // [Preparation]
+    const unsigned int EXPECTED_CAPACITY = 3;
+    QDictionary<string_q, int> DICTIONARY(EXPECTED_CAPACITY);
+
+    // [Execution]
+    pointer_uint_q uCapacity = DICTIONARY.GetCapacity();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
+}
 
 // End - Test Suite: QDictionary
 QTEST_SUITE_END()

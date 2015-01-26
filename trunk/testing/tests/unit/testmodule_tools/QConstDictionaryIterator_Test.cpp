@@ -95,7 +95,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputDictionaryIsNull_Test )
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator INVALID_ITERATOR(&DICTIONARY, 0);
+        QDictionary<string_q, int>::QConstDictionaryIterator INVALID_ITERATOR(DICTIONARY, 0);
     }
     catch(const QAssertException&)
     {
@@ -1137,7 +1137,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDiction
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(DICTIONARY_B, 0);
+        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
         iterator == ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1340,51 +1340,6 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when either the input or the resident iterator is not valid.
-/// </summary>
-QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsAreNotValid_Test )
-{
-    // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
-
-    QConstDictionaryIteratorMock<string_q, int> INVALID_ITERATOR(&DICTIONARY, 0); 
-    INVALID_ITERATOR.SetPosition(DICTIONARY.GetCapacity());
-    const bool ASSERTION_FAILED = true;
-
-	// [Execution]
-    bool bAssertionFailed1 = false;
-
-    try
-    {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-        iterator > INVALID_ITERATOR;
-    }
-    catch(const QAssertException&)
-    {
-        bAssertionFailed1 = true;
-    }
-
-    bool bAssertionFailed2 = false;
-
-    try
-    {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-        INVALID_ITERATOR > iterator;
-    }
-    catch(const QAssertException&)
-    {
-        bAssertionFailed2 = true;
-    }
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
-    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
-}
 
 /// <summary>
 /// Checks that an assertion fails when the input iterator points to a different dictionary.

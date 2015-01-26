@@ -596,6 +596,32 @@ public:
         return QConstDictionaryIterator(this, uIteratorPosition);
     }
 
+    /// <summary>
+    /// Gets the first element in the dictionary, which is the one whose key is the lowest.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the first key-value pair. If the dictionary is empty, the iterator will point to the end position.
+    /// </returns>
+    QConstDictionaryIterator GetFirst() const
+    {
+        QDictionary::QConstDictionaryIterator iterator(this, 0);
+        iterator.MoveFirst();
+        return iterator;
+    }
+
+    /// <summary>
+    /// Gets the last element in the dictionary, which is the one whose key is the greatest.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the last key-value pair. If the dictionary is empty, the iterator will point to the end position.
+    /// </returns>
+    QConstDictionaryIterator GetLast() const
+    {
+        QDictionary::QConstDictionaryIterator iterator(this, 0);
+        iterator.MoveLast();
+        return iterator;
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -611,7 +637,19 @@ public:
     {
         return m_keyValues.GetAllocator();
     }
-        
+
+    /// <summary>
+    /// Gets the capacity of the directory, which means the number of elements that can be added before they are reallocated to
+    /// another part of memory.
+    /// </summary>
+    /// <returns>
+    /// The capacity of the dictionary.
+    /// </returns>
+    pointer_uint_q GetCapacity() const
+    {
+        return m_keyValues.GetCapacity();
+    }
+
     /// <summary>
     /// Gets the number of elements added to the dictionary.
     /// </summary>
