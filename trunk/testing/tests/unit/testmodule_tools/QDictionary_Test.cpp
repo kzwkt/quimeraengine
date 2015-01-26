@@ -205,22 +205,22 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
-    // const pointer_uint_q EXPECTED_DESTRUCTOR_CALLS = 6;
+    const pointer_uint_q EXPECTED_DESTRUCTOR_CALLS = 6;
 
-    //// [TODO] Thund: Uncommend when Add method exists
-    //{
-    //    QDictionary<CallCounter, CallCounter> dictionary;
-    //    dictionary.Add(CallCounter(), CallCounter());
-    //    dictionary.Add(CallCounter(), CallCounter());
-    //    dictionary.Add(CallCounter(), CallCounter());
-    //    CallCounter::ResetCounters();
+    // [TODO] Thund: Uncommend when Add method exists
+    {
+        QDictionary<CallCounter, CallCounter> dictionary;
+        dictionary.Add(CallCounter(), CallCounter());
+        dictionary.Add(CallCounter(), CallCounter());
+        dictionary.Add(CallCounter(), CallCounter());
+        CallCounter::ResetCounters();
 
-    //// [Execution]
-    //} // Destructor called
+    // [Execution]
+    } // Destructor called
 
-    //// [Verification]
-    //pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
-    //BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_DESTRUCTOR_CALLS);
+    // [Verification]
+    pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_DESTRUCTOR_CALLS);
 }
 
 // [TODO] Thund: Uncomment when Add and Iterator exists
@@ -546,7 +546,7 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDict
     BOOST_CHECK(bResultIsWhatEspected);
 }
 */
-/* [TODO] Thund: Uncomment when Add exists
+
 /// <summary>
 /// Checks that the number of elements is correctly counted.
 /// </summary>
@@ -565,7 +565,7 @@ QTEST_CASE ( GetCount_IsCorrectlyCalculated_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
-*/
+
 /// <summary>
 /// Checks that it returns zero when the dictionary is empty.
 /// </summary>
@@ -597,7 +597,7 @@ QTEST_CASE ( IsEmpty_ReturnsTrueWhenDictionaryIsEmpty_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
-/* [TODO] Thund: Uncomment when Add exists
+
 /// <summary>
 /// Checks that it returns False when the dictionary is not empty.
 /// </summary>
@@ -614,9 +614,7 @@ QTEST_CASE ( IsEmpty_ReturnsFalseWhenDictionaryIsNotEmpty_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
-*/
 
-/* [TODO] Thund: Uncomment when Add exists
 /// <sumary>
 /// Checks that the correct value is returned when the key exists in the dictionary.
 /// </sumary>
@@ -636,8 +634,8 @@ QTEST_CASE( OperatorArraySubscript_CorrectValueIsReturnedWhenKeyExists_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
 }
-*/
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
 /// Checks that an assertion fails when the key does not exist in the dictionary.
@@ -667,7 +665,7 @@ QTEST_CASE( OperatorArraySubscript_AssertionFailsWhenKeyDoesNotExist_Test )
 }
 
 #endif
-/* [TODO] Thund: Uncomment when Add exists
+
 /// <sumary>
 /// Checks that the correct value is returned when the key exists in the dictionary.
 /// </sumary>
@@ -688,8 +686,8 @@ QTEST_CASE( GetValue_CorrectValueIsReturnedWhenKeyExists_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
 }
-*/
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
 /// Checks that an assertion fails when the key does not exist in the dictionary.
@@ -719,7 +717,7 @@ QTEST_CASE( GetValue_AssertionFailsWhenKeyDoesNotExist_Test )
 }
 
 #endif
-/* [TODO] Thund: Uncomment when Add exists
+
 /// <sumary>
 /// Checks that the value is set when the key exists in the dictionary.
 /// </sumary>
@@ -740,8 +738,8 @@ QTEST_CASE( SetValue_ValueIsSetWhenKeyExists_Test )
     int nValue = DICTIONARY.GetValue(INPUT_KEY);
     BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
 }
-*/
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
 /// Checks that an assertion fails when the key does not exist in the dictionary.
@@ -771,7 +769,7 @@ QTEST_CASE( SetValue_AssertionFailsWhenKeyDoesNotExist_Test )
 }
 
 #endif
-/* [TODO] Thund: Uncomment when Add and IsEmpty exist
+
 /// <sumary>
 /// Checks that the dictionary is emptied.
 /// </sumary>
@@ -790,7 +788,7 @@ QTEST_CASE( Clear_TheDictinaryIsEmptied_Test )
     bool bIsEmpty = DICTIONARY.IsEmpty();
     BOOST_CHECK(bIsEmpty);
 }
-*/
+
 /// <sumary>
 /// Checks that nothing is done when the dictionary is already empty.
 /// </sumary>
@@ -806,6 +804,233 @@ QTEST_CASE( Clear_NothingHappensWhenDictionaryIsAlreadyEmpty_Test )
     bool bIsEmpty = DICTIONARY.IsEmpty();
     BOOST_CHECK(bIsEmpty);
 }
+/* [TODO] Uncomment when GetCapacity exists
+/// <summary>
+/// Checks that the capacity is correctly increased.
+/// </summary>
+QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
+{
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CAPACITY = 4;
+    QDictionary<string_q, int> DICTIONARY(2);
+
+    // [Execution]
+    DICTIONARY.Reserve(EXPECTED_CAPACITY);
+
+    // [Verification]
+    pointer_uint_q uStoredCapacity = DICTIONARY.GetCapacity();
+
+    BOOST_CHECK_EQUAL(uStoredCapacity, EXPECTED_CAPACITY);
+}*/
+/* [TODO] Thund: Uncomment when the iterator exists
+/// <summary>
+/// Checks that elements are correctly reallocated.
+/// </summary>
+QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_CAPACITY = 4;
+    const string_q EXPECTED_FIRST_KEY("key1");
+    const string_q EXPECTED_SECOND_KEY("key2");
+    const int EXPECTED_FIRST_VALUE = 1;
+    const int EXPECTED_SECOND_VALUE = 2;
+    QDictionary<string_q, int> DICTIONARY(2);
+    DICTIONARY.Add(EXPECTED_FIRST_KEY, EXPECTED_FIRST_VALUE);
+    DICTIONARY.Add(EXPECTED_SECOND_KEY, EXPECTED_SECOND_VALUE);
+
+    // [Execution]
+    DICTIONARY.Reserve(INPUT_CAPACITY); // A reallocation occurs
+
+    // [Verification]
+    QDictionary<string_q, int>::QConstDictionaryIterator it = DICTIONARY.GetFirst();
+    BOOST_CHECK_EQUAL(it->GetKey(), EXPECTED_FIRST_KEY);
+    BOOST_CHECK_EQUAL(it->GetValue(), EXPECTED_FIRST_VALUE);
+    ++it;
+    BOOST_CHECK_EQUAL(it->GetKey(), EXPECTED_SECOND_KEY);
+    BOOST_CHECK_EQUAL(it->GetValue(), EXPECTED_SECOND_VALUE);
+}
+*//* [TODO] Thund: Uncomment when GetCapacity exists
+/// <summary>
+/// Checks that elements are not reallocated and capacity does not change when attempting to reserve less memory than current reserved.
+/// </summary>
+QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
+{
+    // [Preparation]
+    const pointer_uint_q INPUT_CAPACITY = 1;
+    const pointer_uint_q EXPECTED_CAPACITY = 4;
+    QDictionary<string_q, int> DICTIONARY(4);
+
+    // [Execution]
+    DICTIONARY.Reserve(INPUT_CAPACITY); // A reallocation occurs
+
+    // [Verification]
+    pointer_uint_q uCapacity = DICTIONARY.GetCapacity();
+    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
+}*/
+/* [TODO] Thund: Uncomment when the iterator exists
+/// <summary>
+/// Checks that the element is correctly added when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenDictionaryIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 0;
+    const string_q EXPECTED_KEYS[] = {INPUT_KEY};
+    const int EXPECTED_VALUES[] = {INPUT_VALUE};
+    
+    QDictionary<string_q, int> DICTIONARY(3);
+
+    // [Execution]
+    DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&DICTIONARY, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly added when the dictionary only contains one element.
+/// </summary>
+QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenDictionaryOnlyContainsOneElement_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 0;
+    const string_q EXPECTED_KEYS[] = {INPUT_KEY, "key2"};
+    const int EXPECTED_VALUES[] = {INPUT_VALUE, 1};
+    
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key2", 1);
+
+    // [Execution]
+    DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&DICTIONARY, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the iterator points to the added element.
+/// </summary>
+QTEST_CASE ( Add_ReturnedIteratorPointsToAddedElement_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 1;
+    
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itResult = DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK(itResult->GetKey() == INPUT_KEY);
+    BOOST_CHECK(itResult->GetValue() == INPUT_VALUE);
+}
+*/
+/// <summary>
+/// Checks that the number of elements is incremented after adding.
+/// </summary>
+QTEST_CASE ( Add_CountIsIncremented_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 1;
+    
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key2", 2);
+    const pointer_uint_q COUNT_BEFORE_ADDING = DICTIONARY.GetCount();
+
+    // [Execution]
+    DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    pointer_uint_q uCountAfterAdding = DICTIONARY.GetCount();
+    BOOST_CHECK(uCountAfterAdding > COUNT_BEFORE_ADDING);
+}
+/* [TODO] Thund: Uncomment when GetCapacity exists
+/// <summary>
+/// Checks that the capacity is incremented after exceeding its value.
+/// </summary>
+QTEST_CASE ( Add_CapacityIsIncrementedWhenNecessary_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 1;
+    
+    QDictionary<string_q, int> DICTIONARY(1);
+    DICTIONARY.Add("key2", 2);
+    const pointer_uint_q CAPACITY_BEFORE_ADDING = DICTIONARY.GetCapacity();
+
+    // [Execution]
+    DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    pointer_uint_q uCapacityAfterAdding = DICTIONARY.GetCapacity();
+    BOOST_CHECK(uCapacityAfterAdding > CAPACITY_BEFORE_ADDING);
+}
+*/
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the key already exists.
+/// </summary>
+QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q INPUT_KEY("key1");
+    const int INPUT_VALUE = 1;
+    
+    QDictionary<string_q, int> DICTIONARY(1);
+    DICTIONARY.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY.Add(INPUT_KEY, 0);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
 
 // End - Test Suite: QDictionary
 QTEST_SUITE_END()

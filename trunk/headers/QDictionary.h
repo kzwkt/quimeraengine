@@ -215,6 +215,43 @@ public:
         m_keyValues.Clear();
     }
 
+    /// <summary>
+    /// Increases the capacity of the dictionary, reserving memory for more elements.
+    /// </summary>
+    /// <remarks>
+    /// This operation implies a reallocation, which means that any pointer to elements of this dictionary will be pointing to garbage.
+    /// </remarks>
+    /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
+    /// current capacity or nothing will happen.</param>
+    void Reserve(const pointer_uint_q uNumberOfElements)
+    {
+        m_keyValues.Reserve(uNumberOfElements);
+    }
+    
+    /// <summary>
+    /// Adds a key and its associated value to the dictionary.
+    /// </summary>
+    /// <remarks>
+    /// This operation may imply a reallocation, which means that any pointer to elements of this dictionary will be pointing to garbage.<br/>
+    /// The copy constructor of both the new key and the new value will be called.
+    /// </remarks>
+    /// <param name="key">[IN] The new key. It must not exist in the directory yet.</param>
+    /// <param name="value">[IN] The new value associated to the new key.</param>
+    /// <returns>
+    /// An iterator that points to the just added key-value pair. If the key was already in the dictionary, the returned iterator will point to the end position.
+    /// </returns>
+    void Add(const KeyT &key, const ValueT &value) // [TODO] Thund: It should return QConstDictionaryIterator instead of void, when it exists
+    {
+        // Creates a key-value by copying the data without calling any constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        memcpy(pKeyValueBlock + sizeof(KeyT), &value, sizeof(ValueT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        //return QConstDictionaryIterator(this, &*treeIterator - rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyVakuePairType*));
+    }
+
 
     // PROPERTIES
     // ---------------
