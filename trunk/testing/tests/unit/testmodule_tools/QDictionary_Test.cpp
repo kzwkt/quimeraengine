@@ -1128,6 +1128,186 @@ QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenDictionaryIsEmpty_Test )
 }
 
 /// <summary>
+/// Checks that it returns True when the dictionary contains the value.
+/// </summary>
+QTEST_CASE ( ContainsValue_ReturnsTrueWhenDictionaryContainsTheValue_Test )
+{
+    // [Preparation]
+    const int INPUT_VALUE = 3;
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 4);
+    DICTIONARY.Add("key3", INPUT_VALUE);
+    DICTIONARY.Add("key4", 6);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsValue(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the dictionary does not contain the value.
+/// </summary>
+QTEST_CASE ( ContainsValue_ReturnsFalseWhenDictionaryDoesNotContainTheValue_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 4);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+    const int INPUT_VALUE = 0;
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsValue(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( ContainsValue_ReturnsFalseWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+    const int INPUT_VALUE = 5;
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsValue(INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns True when the dictionary contains the key.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsTrueWhenDictionaryContainsTheKey_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key3");
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 4);
+    DICTIONARY.Add(INPUT_KEY, 5);
+    DICTIONARY.Add("key4", 6);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the dictionary does not contain the key.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsFalseWhenDictionaryDoesNotContainTheKey_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 4);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+    const string_q INPUT_KEY("key5");
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsFalseWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+    const string_q INPUT_KEY("key1");
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns the expected position when the dictionary contains the key.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsExpectedPositionWhenDictionaryContainsTheKey_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key2");
+    const int EXPECTED_VALUE = 4;
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add(EXPECTED_KEY, EXPECTED_VALUE);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itPosition = DICTIONARY.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    BOOST_CHECK(itPosition->GetKey() == EXPECTED_KEY);
+    BOOST_CHECK(itPosition->GetValue() == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the dictionary does not contain the element.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsEndPositionWhenDictionaryDoesNotContainTheElement_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key5");
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 4);
+    DICTIONARY.Add("key3", 5);
+    DICTIONARY.Add("key4", 6);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itPosition = DICTIONARY.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the dictionary is empty.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsEndPositionWhenDictionaryIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key1");
+    QDictionary<string_q, int> DICTIONARY(5);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itPosition = DICTIONARY.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <summary>
 /// Checks that the capacity is correctly calculated.
 /// </summary>
 QTEST_CASE ( GetCapacity_IsCorrectlyCalculated_Test )
