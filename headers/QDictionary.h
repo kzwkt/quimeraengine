@@ -56,7 +56,8 @@ namespace Containers
 /// <typeparam name="ValueT">The type of the values.</typeparam>
 /// <typeparam name="AllocatorT">The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
 /// <typeparam name="KeyComparatorT">The type of comparator utilized to compare keys. The default type is SQComparatorDefault.</typeparam>
-template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
+/// <typeparam name="ValueComparatorT">The type of comparator utilized to compare values. The default type is SQComparatorDefault.</typeparam>
+template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT>, class ValueComparatorT = SQComparatorDefault<ValueT> >
 class QDictionary
 {
     // TYPEDEFS (I)
@@ -95,10 +96,10 @@ public:
         /// <param name="pDictionary">[IN] The dictionary to iterate through. It must not be null.</param>
         /// <param name="uPosition">[IN] The position the iterator will point to. This is not the logical position of dictionary elements, but the physical.
         /// It must be lower than the capacity of the dictionary.</param>
-        QConstDictionaryIterator(const QDictionary* pDictionary, const pointer_uint_q uPosition) : m_pDictionary(pDictionary), 
-                                                                                                   m_treeIterator(&pDictionary->m_keyValues, 
+        QConstDictionaryIterator(const QDictionary* pDictionary, const pointer_uint_q uPosition) : m_treeIterator(&pDictionary->m_keyValues, 
                                                                                                                   uPosition, 
-                                                                                                                  EQTreeTraversalOrder::E_DepthFirstInOrder)
+                                                                                                                  EQTreeTraversalOrder::E_DepthFirstInOrder),
+                                                                                                   m_pDictionary(pDictionary)
         {
         }
 
@@ -407,6 +408,16 @@ public:
 public:
 
     typedef typename QDictionary::QConstDictionaryIterator ConstIterator;
+    
+
+   	// CONSTANTS
+    // ---------------
+protected:
+
+    /// <summary>
+    /// Constant to symbolize the absence of a key-value pair or the end of the sequence when the dictionary is traversed forward.
+    /// </summary>
+    static const pointer_uint_q END_POSITION_FORWARD = -1;
 
 
     // CONSTRUCTORS
@@ -590,7 +601,7 @@ public:
         memcpy(pKeyValueBlock + sizeof(KeyT), &value, sizeof(ValueT));
         KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
-        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
         pointer_uint_q uIteratorPosition = &*treeIterator - rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
         return QConstDictionaryIterator(this, uIteratorPosition);
@@ -620,6 +631,70 @@ public:
         QDictionary::QConstDictionaryIterator iterator(this, 0);
         iterator.MoveLast();
         return iterator;
+    }
+
+    /// <summary>
+    /// Checks whether there is any value in the dictionary that is equal to another given value.
+    /// </summary>
+    /// <remarks>
+    /// Values are compared to the provided value using the container's value comparator.<br/>
+    /// </remarks>
+    /// <param name="value">[IN] The value to search for.</param>
+    /// <returns>
+    /// True if the value is present in the dictionary; False otherwise.
+    /// </returns>
+    bool ContainsValue(const ValueT &value) const
+    {
+        QConstDictionaryIterator itKeyValue = this->GetFirst();
+
+        while(!itKeyValue.IsEnd() && ValueComparatorT::Compare(itKeyValue->GetValue(), value) != 0)
+            ++itKeyValue;
+
+        return !itKeyValue.IsEnd();
+    }
+
+    /// <summary>
+    /// Checks whether there is any key in the dictionary that is equal to other given key.
+    /// </summary>
+    /// <remarks>
+    /// Keys are compared to the provided key using the container's key comparator.<br/>
+    /// </remarks>
+    /// <param name="key">[IN] The key to search for.</param>
+    /// <returns>
+    /// True if the key is present in the dictionary; False otherwise.
+    /// </returns>
+    bool ContainsKey(const KeyT &key) const
+    {
+        // Creates a key-value by copying the key without calling its constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        return m_keyValues.Contains(*pKeyValue);
+    }
+
+    /// <summary>
+    /// Searches for a given key-value pair and obtains its position.
+    /// </summary>
+    /// <param name="key">[IN] The key of the pair to search for.</param>
+    /// <returns>
+    /// An iterator that points to the position of the key-value pair. If the key is not present in the dictionary, the iterator will point to the end position.
+    /// </returns>
+    QConstDictionaryIterator PositionOfKey(const KeyT &key) const
+    {
+        // Creates a key-value by copying the key without calling its constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+        pointer_uint_q uIteratorPosition = QDictionary::END_POSITION_FORWARD;
+
+        if(!treeIterator.IsEnd())
+            uIteratorPosition = &*treeIterator - rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
+
+        return QConstDictionaryIterator(this, uIteratorPosition);
     }
 
 
