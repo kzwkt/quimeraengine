@@ -608,6 +608,54 @@ public:
     }
 
     /// <summary>
+    /// Removes an key-value pair from the dictionary by its position.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of both the key and the value will be called.
+    /// </remarks>
+    /// <param name="pairPosition">[IN] The position of the key-value pair to remove. It must not point to the end position.</param>
+    /// <returns>
+    /// An iterator that points to the next key-value pair. If the removed pair was the last one in the dictionary, the returned iterator will point to the end position.
+    /// </returns>
+    QConstDictionaryIterator Remove(const typename QDictionary::QConstDictionaryIterator &pairPosition)
+    {
+        // Creates a key-value by copying the data without calling any constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &pairPosition->GetKey(), sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        const KeyValuePairType* pBasePointer = rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
+        pointer_uint_q uIteratorPosition = &*pairPosition - pBasePointer;
+        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Remove(InternalBinaryTreeType::ConstIterator(&m_keyValues, uIteratorPosition, EQTreeTraversalOrder::E_DepthFirstInOrder));
+        
+        uIteratorPosition = QDictionary::END_POSITION_FORWARD;
+            
+        if(!treeIterator.IsEnd())
+            uIteratorPosition = &*treeIterator - pBasePointer;
+
+        return QDictionary::QConstDictionaryIterator(this, uIteratorPosition);
+
+    }
+    
+    /// <summary>
+    /// Removes an key-value pair from the dictionary by its key.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of both the key and the value will be called.
+    /// </remarks>
+    /// <param name="key">[IN] The key to search for.</param>
+    void Remove(const KeyT &key)
+    {
+        // Creates a key-value by copying the data without calling any constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        m_keyValues.Remove(treeIterator);
+    }
+
+    /// <summary>
     /// Gets the first element in the dictionary, which is the one whose key is the lowest.
     /// </summary>
     /// <returns>

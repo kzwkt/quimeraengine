@@ -569,6 +569,212 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDict
 }
 
 /// <summary>
+/// Checks that the dictionary is empty when removing the only element in it.
+/// </summary>
+QTEST_CASE ( Remove1_DictionaryIsEmptyWhenRemovingTheOnlyElementInTheDictionary_Test )
+{
+    // [Preparation]
+    const string_q EXISTING_KEY("key1");
+    QDictionary<string_q, int> DICTIONARY(3);
+    QDictionary<string_q, int>::QConstDictionaryIterator itElementPosition = DICTIONARY.Add(EXISTING_KEY, 0);
+
+    // [Execution]
+    DICTIONARY.Remove(itElementPosition);
+
+    // [Verification]
+    bool bDictionaryIsEmpty = DICTIONARY.IsEmpty();
+    BOOST_CHECK(bDictionaryIsEmpty);
+}
+
+/// <summary>
+/// Checks that the key-value pair is removed when there are many pairs in the dictionary and the key exists.
+/// </summary>
+QTEST_CASE ( Remove1_PairIsCorrectlyRemovedWhenThereAreManyAndKeyExists_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key3", "key4"};
+    const int EXPECTED_VALUES[] = {1, 3, 4};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    QDictionary<string_q, int>::QConstDictionaryIterator itElementPosition = DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+    DICTIONARY.Add("key4", 4);
+
+    // [Execution]
+    DICTIONARY.Remove(itElementPosition);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&DICTIONARY, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to the end position when there is not next element in the dictionary.
+/// </summary>
+QTEST_CASE ( Remove1_ReturnedIteratorPointsToEndPositionWhenThereIsNoNextElementInDictionary_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add("key1", 1);
+    QDictionary<string_q, int>::QConstDictionaryIterator itLastElement = DICTIONARY.Add("key2", 2);
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itResult = DICTIONARY.Remove(itLastElement);
+
+    // [Verification]
+    bool bIteratorPointsToEndPosition = itResult.IsEnd();
+    BOOST_CHECK(bIteratorPointsToEndPosition);
+}
+
+/// <summary>
+/// Checks that the returned iterator points to the next element.
+/// </summary>
+QTEST_CASE ( Remove1_ReturnedIteratorPointsToNextElement_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(4);
+    DICTIONARY.Add("key1", 1);
+    QDictionary<string_q, int>::QConstDictionaryIterator itElementToRemove = DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+    DICTIONARY.Add("key4", 4);
+    QDictionary<string_q, int>::QConstDictionaryIterator EXPECTED_ITERATOR = itElementToRemove;
+    ++EXPECTED_ITERATOR;
+
+    // [Execution]
+    QDictionary<string_q, int>::QConstDictionaryIterator itResult = DICTIONARY.Remove(itElementToRemove);
+
+    // [Verification]
+    BOOST_CHECK(itResult == EXPECTED_ITERATOR);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input iterator points to end position.
+/// </summary>
+QTEST_CASE ( Remove1_AssertionFailsWhenTheInputIteratorPointsToEndPosition_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(1);
+    QDictionary<string_q, int>::QConstDictionaryIterator itEnd = DICTIONARY.Add("key1", 1);
+    ++itEnd;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY.Remove(itEnd);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that the dictionary is empty when removing the only element in it.
+/// </summary>
+QTEST_CASE ( Remove2_DictionaryIsEmptyWhenRemovingTheOnlyElementInTheDictionary_Test )
+{
+    // [Preparation]
+    const string_q EXISTING_KEY("key1");
+    QDictionary<string_q, int> DICTIONARY(3);
+    DICTIONARY.Add(EXISTING_KEY, 0);
+
+    // [Execution]
+    DICTIONARY.Remove(EXISTING_KEY);
+
+    // [Verification]
+    bool bDictionaryIsEmpty = DICTIONARY.IsEmpty();
+    BOOST_CHECK(bDictionaryIsEmpty);
+}
+
+/// <summary>
+/// Checks that the key-value pair is removed when there are many pairs in the dictionary and the key exists.
+/// </summary>
+QTEST_CASE ( Remove2_PairIsCorrectlyRemovedWhenThereAreManyAndKeyExists_Test )
+{
+    // [Preparation]
+    const string_q EXISTING_KEY("key2");
+    const string_q EXPECTED_KEYS[] = {"key1", "key3", "key4"};
+    const int EXPECTED_VALUES[] = {1, 3, 4};
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add(EXISTING_KEY, 2);
+    DICTIONARY.Add("key3", 3);
+    DICTIONARY.Add("key4", 4);
+
+    // [Execution]
+    DICTIONARY.Remove(EXISTING_KEY);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QDictionary<string_q, int>::QConstDictionaryIterator it = QDictionary<string_q, int>::QConstDictionaryIterator(&DICTIONARY, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input key does not exist in the dictionary.
+/// </summary>
+QTEST_CASE ( Remove2_AssertionFailsWhenTheInputKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q NON_EXISTING_KEY("key2");
+    QDictionary<string_q, int> DICTIONARY(1);
+    DICTIONARY.Add("key1", 1);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        DICTIONARY.Remove(NON_EXISTING_KEY);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
 /// Checks that the number of elements is correctly counted.
 /// </summary>
 QTEST_CASE ( GetCount_IsCorrectlyCalculated_Test )
