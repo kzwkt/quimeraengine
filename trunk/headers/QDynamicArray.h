@@ -559,7 +559,7 @@ public:
         QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
         QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
 
-        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+        const pointer_uint_q NEW_ELEMENTS_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
 
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
             this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
@@ -610,7 +610,7 @@ public:
         const bool INSERTING_AT_THE_END = uIndex >= this->GetCount();
         const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : uIndex;
 
-        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+        const pointer_uint_q NEW_ELEMENTS_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
 
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
             this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
@@ -667,9 +667,9 @@ public:
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator that points to the insertion position is not valid.");
 
         const bool INSERTING_AT_THE_END = position.IsEnd();
-        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : &*position - m_pElementBasePointer;
+        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : position.GetInternalPosition();
 
-        const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
+        const pointer_uint_q NEW_ELEMENTS_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
 
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
         {
@@ -720,7 +720,7 @@ public:
         QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
         QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
 
-        const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = (&*last - &*first) + 1U;
+        const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
         
         T* pFirstInRange = &*first;
         T* pAfterLast = (&*last) + 1U;
@@ -816,7 +816,7 @@ public:
         QE_ASSERT_ERROR(last.IsValid(), "The input iterator that points to the last element is not valid.");
         QE_ASSERT_ERROR(first <= last, "The first element must be prior to the last element in the range.");
 
-        const pointer_uint_q ELEMENTS_TO_GET_COUNT = (&*last - &*first) + 1U;
+        const pointer_uint_q ELEMENTS_TO_GET_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
         
         QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
 

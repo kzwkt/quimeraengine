@@ -1025,12 +1025,26 @@ public:
         /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the container. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QNTree* GetContainer() const
         {
             return m_pTree;
+        }
+        
+        /// <summary>
+        /// Gets the "physical" position of the container's allocated buffer where the iterator is pointing to.
+        /// </summary>
+        /// <remarks>
+        /// This method is intended to be used internally by containers, users should not call it.
+        /// </remarks>
+        /// <returns>
+        /// The position the iterator points to.
+        /// </returns>
+        pointer_uint_q GetInternalPosition() const
+        {
+            return m_uPosition;
         }
 
 
@@ -1808,11 +1822,8 @@ public:
                 {
                     // Note: Both trees can have the same structure and be physically ordered differently in memory
 
-                    pointer_uint_q uCurrentNodePositionThis = &*itThis - m_pElementBasePointer;
-                    pointer_uint_q uCurrentNodePositionInput = &*itInput - tree.m_pElementBasePointer;
-
-                    QNTree::QNode* pCurrentNodeThis = m_pNodeBasePointer + uCurrentNodePositionThis;
-                    QNTree::QNode* pCurrentNodeInput = tree.m_pNodeBasePointer + uCurrentNodePositionInput;
+                    QNTree::QNode* pCurrentNodeThis = m_pNodeBasePointer + itThis.GetInternalPosition();
+                    QNTree::QNode* pCurrentNodeInput = tree.m_pNodeBasePointer + itInput.GetInternalPosition();
 
                     // The value of the current element is checked
                     bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0
@@ -1925,8 +1936,7 @@ public:
         QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
 
         // Gets node pointer and position
-        pointer_uint_q uNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
         
         pointer_uint_q uNewNodePosition = QNTree::END_POSITION_FORWARD;
 
@@ -1956,7 +1966,10 @@ public:
                 }
 
                 // Adds the child to the end of the child list
-                QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uNodePosition, QNTree::END_POSITION_FORWARD, pCurrentNode - m_pNodeBasePointer, QNTree::END_POSITION_FORWARD);
+                QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(parentNode.GetInternalPosition(), 
+                                                                                QNTree::END_POSITION_FORWARD, 
+                                                                                pCurrentNode - m_pNodeBasePointer, 
+                                                                                QNTree::END_POSITION_FORWARD);
 
                 uNewNodePosition = pNewNode - m_pNodeBasePointer;
                 pCurrentNode->SetNext(uNewNodePosition);
@@ -1971,11 +1984,14 @@ public:
             if(this->GetCount() == this->GetCapacity())
             {
                 this->_ReallocateByFactor(this->GetCapacity() + 1U);
-                pParentNode = m_pNodeBasePointer + uNodePosition;
+                pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
             }
 
             // Adds the child as the first of the child list
-            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uNodePosition, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD);
+            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(parentNode.GetInternalPosition(), 
+                                                                            QNTree::END_POSITION_FORWARD, 
+                                                                            QNTree::END_POSITION_FORWARD, 
+                                                                            QNTree::END_POSITION_FORWARD);
 
             uNewNodePosition = pNewNode - m_pNodeBasePointer;
             pParentNode->SetFirstChild(uNewNodePosition);
@@ -2011,8 +2027,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uNodePosition = &*node - m_pElementBasePointer;
-        QNTree::QNode* pNode = m_pNodeBasePointer + uNodePosition;
+        QNTree::QNode* pNode = m_pNodeBasePointer + node.GetInternalPosition();
 
         QNTree::QNTreeIterator resultantIterator = node;
         ++resultantIterator;
@@ -2088,8 +2103,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         QNTree::QNode* pCurrentNode = pParentNode;
 
@@ -2156,8 +2170,7 @@ public:
             this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         QNTree::QNode* pCurrentNode = pParentNode;
         pointer_uint_q uNewNodePosition = QNTree::END_POSITION_FORWARD;
@@ -2198,7 +2211,10 @@ public:
                 if(i < uChildIndex)
                 {
                     // Adds the node to the end of the child list
-                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, QNTree::END_POSITION_FORWARD, pCurrentNode - m_pNodeBasePointer, QNTree::END_POSITION_FORWARD);
+                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(parentNode.GetInternalPosition(), 
+                                                                                    QNTree::END_POSITION_FORWARD, 
+                                                                                    pCurrentNode - m_pNodeBasePointer, 
+                                                                                    QNTree::END_POSITION_FORWARD);
 
                     uNewNodePosition = pNewNode - m_pNodeBasePointer;
                     pCurrentNode->SetNext(uNewNodePosition);
@@ -2206,7 +2222,10 @@ public:
                 else
                 {
                     // Adds the node at the specified position
-                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, pCurrentNode - m_pNodeBasePointer, pCurrentNode->GetPrevious(), QNTree::END_POSITION_FORWARD);
+                    QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(parentNode.GetInternalPosition(), 
+                                                                                    pCurrentNode - m_pNodeBasePointer, 
+                                                                                    pCurrentNode->GetPrevious(), 
+                                                                                    QNTree::END_POSITION_FORWARD);
 
                     uNewNodePosition = pNewNode - m_pNodeBasePointer;
                     pCurrentNode->SetPrevious(uNewNodePosition);
@@ -2221,7 +2240,10 @@ public:
         else // There are no children
         {
             // Adds the node as the first child node
-            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(uParentNodePosition, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD, QNTree::END_POSITION_FORWARD);
+            QNTree::QNode* pNewNode = new(m_nodeAllocator.Allocate()) QNode(parentNode.GetInternalPosition(), 
+                                                                            QNTree::END_POSITION_FORWARD, 
+                                                                            QNTree::END_POSITION_FORWARD, 
+                                                                            QNTree::END_POSITION_FORWARD);
 
             uNewNodePosition = pNewNode - m_pNodeBasePointer;
             pParentNode->SetFirstChild(uNewNodePosition);
@@ -2298,8 +2320,7 @@ public:
         QNTree::QNTreeIterator itResult(this, QNTree::END_POSITION_FORWARD, parentNode.GetTraversalOrder());
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         QNTree::QNode* pCurrentNode = pParentNode;
 
@@ -2352,8 +2373,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uNodePosition = &*node - m_pElementBasePointer;
-        QNTree::QNode* pNode = m_pNodeBasePointer + uNodePosition;
+        QNTree::QNode* pNode = m_pNodeBasePointer + node.GetInternalPosition();
 
         return QNTree::QNTreeIterator(this, pNode->GetParent(), node.GetTraversalOrder());
     }
@@ -2388,8 +2408,7 @@ public:
         pointer_uint_q uCount = 0;
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pCurrentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pCurrentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         // If the node has children
         if(pCurrentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
@@ -2423,8 +2442,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         return pParentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD;
     }
@@ -2450,8 +2468,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uNodePosition = &*node - m_pElementBasePointer;
-        QNTree::QNode* pNode = m_pNodeBasePointer + uNodePosition;
+        QNTree::QNode* pNode = m_pNodeBasePointer + node.GetInternalPosition();
 
         return pNode->GetParent() != QNTree::END_POSITION_FORWARD;
     }
@@ -2521,7 +2538,7 @@ public:
     {
         QE_ASSERT_ERROR(!startPosition.IsEnd(), "The start position must not point to the end position.");
 
-        QNTree::QNTreeIterator itElement = QNTree::QNTreeIterator(this, &*startPosition - m_pElementBasePointer, startPosition.GetTraversalOrder());
+        QNTree::QNTreeIterator itElement = QNTree::QNTreeIterator(this, startPosition.GetInternalPosition(), startPosition.GetTraversalOrder());
 
         while(!itElement.IsEnd() && ComparatorT::Compare(*itElement, element) != 0)
             ++itElement;
@@ -2550,8 +2567,7 @@ public:
         QE_ASSERT_ERROR(!this->IsEmpty(), "The tree is empty, there are no elements to remove.");
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pParentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pParentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         return QNTree::QNTreeIterator(this, pParentNode->GetFirstChild(), parentNode.GetTraversalOrder());
     }
@@ -2579,8 +2595,7 @@ public:
         QNTree::QNTreeIterator itResult(this, QNTree::END_POSITION_FORWARD, parentNode.GetTraversalOrder());
 
         // Gets node pointer and position
-        pointer_uint_q uParentNodePosition = &*parentNode - m_pElementBasePointer;
-        QNTree::QNode* pCurrentNode = m_pNodeBasePointer + uParentNodePosition;
+        QNTree::QNode* pCurrentNode = m_pNodeBasePointer + parentNode.GetInternalPosition();
 
         // If the node has children
         if(pCurrentNode->GetFirstChild() != QNTree::END_POSITION_FORWARD)
