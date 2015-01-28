@@ -943,12 +943,26 @@ public:
         /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the container. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QBinarySearchTree* GetContainer() const
         {
             return m_pTree;
+        }
+        
+        /// <summary>
+        /// Gets the "physical" position of the container's allocated buffer where the iterator is pointing to.
+        /// </summary>
+        /// <remarks>
+        /// This method is intended to be used internally by containers, users should not call it.
+        /// </remarks>
+        /// <returns>
+        /// The position the iterator points to.
+        /// </returns>
+        pointer_uint_q GetInternalPosition() const
+        {
+            return m_uPosition;
         }
 
 
@@ -1164,11 +1178,8 @@ public:
                 {
                     // Note: Both trees can have the same structure and be physically ordered differently in memory
 
-                    pointer_uint_q uCurrentNodePositionThis = &*itThis - m_pElementBasePointer;
-                    pointer_uint_q uCurrentNodePositionInput = &*itInput - tree.m_pElementBasePointer;
-
-                    QBinarySearchTree::QBinaryNode* pCurrentNodeThis = m_pNodeBasePointer + uCurrentNodePositionThis;
-                    QBinarySearchTree::QBinaryNode* pCurrentNodeInput = tree.m_pNodeBasePointer + uCurrentNodePositionInput;
+                    QBinarySearchTree::QBinaryNode* pCurrentNodeThis = m_pNodeBasePointer + itThis.GetInternalPosition();
+                    QBinarySearchTree::QBinaryNode* pCurrentNodeInput = tree.m_pNodeBasePointer + itInput.GetInternalPosition();
 
                     // The value of the current element is checked
                     bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0

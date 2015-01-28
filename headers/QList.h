@@ -666,6 +666,20 @@ public:
         {
             return m_pList;
         }
+        
+        /// <summary>
+        /// Gets the "physical" position of the container's allocated buffer where the iterator is pointing to.
+        /// </summary>
+        /// <remarks>
+        /// This method is intended to be used internally by containers, users should not call it.
+        /// </remarks>
+        /// <returns>
+        /// The position the iterator points to.
+        /// </returns>
+        pointer_uint_q GetInternalPosition() const
+        {
+            return m_uPosition;
+        }
 
 
         // ATTRIBUTES
@@ -1983,7 +1997,7 @@ public:
         QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position is not valid.");
 
         bool bElementFound = false;
-        QList::QListIterator itElement = QList::QListIterator(this, &*startPosition - m_pElementBasePointer);
+        QList::QListIterator itElement = QList::QListIterator(this, startPosition.GetInternalPosition());
         pointer_uint_q uIndex = 0;
 
         while(!itElement.IsEnd() && !bElementFound)

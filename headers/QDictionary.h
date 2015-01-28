@@ -388,12 +388,26 @@ public:
         /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the container. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QDictionary* GetContainer() const
         {
             return m_pDictionary;
+        }
+        
+        /// <summary>
+        /// Gets the "physical" position of the container's allocated buffer where the iterator is pointing to.
+        /// </summary>
+        /// <remarks>
+        /// This method is intended to be used internally by containers, users should not call it.
+        /// </remarks>
+        /// <returns>
+        /// The position the iterator points to.
+        /// </returns>
+        pointer_uint_q GetInternalPosition() const
+        {
+            return m_treeIterator.GetInternalPosition();
         }
 
 
@@ -614,8 +628,7 @@ public:
 
         typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Add(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-        pointer_uint_q uIteratorPosition = &*treeIterator - scast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
-        return QConstDictionaryIterator(this, uIteratorPosition);
+        return QConstDictionaryIterator(this, treeIterator.GetInternalPosition());
     }
 
     /// <summary>
@@ -634,16 +647,11 @@ public:
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &pairPosition->GetKey(), sizeof(KeyT));
 
-        const KeyValuePairType* pBasePointer = scast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
-        pointer_uint_q uIteratorPosition = &*pairPosition - pBasePointer;
-        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Remove(typename InternalBinaryTreeType::ConstIterator(&m_keyValues, uIteratorPosition, EQTreeTraversalOrder::E_DepthFirstInOrder));
+        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Remove(typename InternalBinaryTreeType::ConstIterator(&m_keyValues, 
+                                                                                                                                        pairPosition.GetInternalPosition(), 
+                                                                                                                                        EQTreeTraversalOrder::E_DepthFirstInOrder));
         
-        uIteratorPosition = QDictionary::END_POSITION_FORWARD;
-            
-        if(!treeIterator.IsEnd())
-            uIteratorPosition = &*treeIterator - pBasePointer;
-
-        return QDictionary::QConstDictionaryIterator(this, uIteratorPosition);
+        return QDictionary::QConstDictionaryIterator(this, treeIterator.GetInternalPosition());
 
     }
     
@@ -747,12 +755,7 @@ public:
 
         typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-        pointer_uint_q uIteratorPosition = QDictionary::END_POSITION_FORWARD;
-
-        if(!treeIterator.IsEnd())
-            uIteratorPosition = &*treeIterator - scast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
-
-        return QConstDictionaryIterator(this, uIteratorPosition);
+        return QConstDictionaryIterator(this, treeIterator.GetInternalPosition());
     }
 
     /// <summary>

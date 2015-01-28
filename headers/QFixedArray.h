@@ -593,12 +593,26 @@ public:
         /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the container. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QFixedArray* GetContainer() const
         {
             return m_pArray;
+        }
+        
+        /// <summary>
+        /// Gets the "physical" position of the container's allocated buffer where the iterator is pointing to.
+        /// </summary>
+        /// <remarks>
+        /// This method is intended to be used internally by containers, users should not call it.
+        /// </remarks>
+        /// <returns>
+        /// The position the iterator points to.
+        /// </returns>
+        pointer_uint_q GetInternalPosition() const
+        {
+            return m_uPosition;
         }
 
 
@@ -1264,7 +1278,7 @@ public:
         QE_ASSERT_ERROR(last.IsValid(), "The last position is not valid.");
         QE_ASSERT_ERROR(first <= last, "The first index must be lower than or equal to the last index.");
 
-        return QFixedArray(&*first, &*last - &*first + 1U);
+        return QFixedArray(&*first, last.GetInternalPosition() - first.GetInternalPosition() + 1U);
     }
     
     /// <summary>
