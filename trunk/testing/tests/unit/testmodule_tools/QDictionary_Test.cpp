@@ -1333,6 +1333,306 @@ QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenDictionaryIsEmpty_Test )
     BOOST_CHECK(bIteratorPointstoEnd);
 }
 
+/// <sumary>
+/// Checks that it returns True when dictionaries are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenDictionariesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2 = DICTIONARY1;
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when dictionaries are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenDictionariesAreTheSameInstance_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+    DICTIONARY.Add("key4", 4);
+    DICTIONARY.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY == DICTIONARY;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the order in which pairs were added to the dictionary does not affect the result.
+/// </sumary>
+QTEST_CASE( OperatorEquality_AdditionOrderDoesNotMatter_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2(5);
+    DICTIONARY2.Add("key3", 3);
+    DICTIONARY2.Add("key2", 2);
+    DICTIONARY2.Add("key4", 4);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when dictionaries are empty.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenDictionariesAreEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    QDictionary<string_q, int> DICTIONARY2(5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when both dictionaries have a different number of pairs which are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenDictionariesHaveDifferentNumberOfElementsWithSameValues_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2(4);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key2", 2);
+    DICTIONARY2.Add("key3", 3);
+    DICTIONARY2.Add("key4", 4);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when both dictionaries have the same number of pairs which are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenDictionariesHaveSameNumberOfElementsWithDifferentValues_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2x", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 50);
+
+    QDictionary<string_q, int> DICTIONARY2(5);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key2", 90);
+    DICTIONARY2.Add("key3x", 3);
+    DICTIONARY2.Add("key4", 4);
+    DICTIONARY2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when dictionaries are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenDictionariesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2 = DICTIONARY1;
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 != DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when dictionaries are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenDictionariesAreTheSameInstance_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY(5);
+    DICTIONARY.Add("key1", 1);
+    DICTIONARY.Add("key2", 2);
+    DICTIONARY.Add("key3", 3);
+    DICTIONARY.Add("key4", 4);
+    DICTIONARY.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY != DICTIONARY;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the order in which pairs were added to the dictionary does not affect the result.
+/// </sumary>
+QTEST_CASE( OperatorInequality_AdditionOrderDoesNotMatter_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2(5);
+    DICTIONARY2.Add("key3", 3);
+    DICTIONARY2.Add("key2", 2);
+    DICTIONARY2.Add("key4", 4);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 != DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when dictionaries are empty.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenDictionariesAreEmpty_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    QDictionary<string_q, int> DICTIONARY2(5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 == DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when both dictionaries have a different number of pairs which are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenDictionariesHaveDifferentNumberOfElementsWithSameValues_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 5);
+
+    QDictionary<string_q, int> DICTIONARY2(4);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key2", 2);
+    DICTIONARY2.Add("key3", 3);
+    DICTIONARY2.Add("key4", 4);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 != DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when both dictionaries have the same number of pairs which are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenDictionariesHaveSameNumberOfElementsWithDifferentValues_Test )
+{
+    // [Preparation]
+    QDictionary<string_q, int> DICTIONARY1(5);
+    DICTIONARY1.Add("key1", 1);
+    DICTIONARY1.Add("key2x", 2);
+    DICTIONARY1.Add("key3", 3);
+    DICTIONARY1.Add("key4", 4);
+    DICTIONARY1.Add("key5", 50);
+
+    QDictionary<string_q, int> DICTIONARY2(5);
+    DICTIONARY2.Add("key1", 1);
+    DICTIONARY2.Add("key2", 90);
+    DICTIONARY2.Add("key3x", 3);
+    DICTIONARY2.Add("key4", 4);
+    DICTIONARY2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = DICTIONARY1 != DICTIONARY2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 /// <summary>
 /// Checks that it returns True when the dictionary contains the value.
 /// </summary>
