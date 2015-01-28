@@ -51,8 +51,9 @@ namespace Containers
 /// Represents a hash table, a data structure that acts as an associative array that maps unique keys to values.
 /// </summary>
 /// <remarks>
-/// Currently, the hash table is implemented following the separate-chaining model. An array is filled with buckets which point to slots (colliding elements) stored as key-value pairs 
-/// into a single shared double-linked list; this allows every bucket to grow indefinitely. The array of buckets can grow too although it implies rehashing everything.<br/>
+/// Currently, the hash table is implemented following the separate-chaining model (a.k.a. closed addressing or open hashing). An array is filled with buckets which point to slots 
+/// (colliding elements) stored as key-value pairs into a single shared double-linked list; this allows every bucket to grow indefinitely. The array of buckets can grow too 
+/// although it implies rehashing everything.<br/>
 /// Hash tables use a hash function or hash provider to compute an internal index that determines the position of a new key-value pair. Such provider depends on the key's data type.<br/>
 /// Keys and values are forced to implement assignment operator, copy constructor and destructor, all of them publicly accessible.<br/>
 /// If SQComparatorDefault is used as key comparator, keys will be forced to implement operators "==" and "<".
@@ -210,11 +211,36 @@ public:
     // METHODS
     // ---------------
 public:
+    
+    /// <summary>
+    /// Increases the capacity of the hashtable, reserving memory for more elements.
+    /// </summary>
+    /// <remarks>
+    /// It does not produce the rehash of any element.<br/>
+    /// This operation implies a reallocation, which means that any pointer to elements of this hashtable will be pointing to garbage.
+    /// </remarks>
+    /// <param name="uNumberOfElements">[IN] The number of key-value pairs for which to reserve memory. It should be greater than the
+    /// current capacity or nothing will happen.</param>
+    void Reserve(const pointer_uint_q uNumberOfElements)
+    {
+        m_slots.Reserve(uNumberOfElements);
+    }
 
 
     // PROPERTIES
     // ---------------
 public:
+
+    /// <summary>
+    /// Returns the number of key-value pairs that can be stored in the hashtable without a reallocation.
+    /// </summary>
+    /// <returns>
+    /// The number of key-value pairs that can be stored in the hashtable without a reallocation.
+    /// </returns>
+    pointer_uint_q GetCapacity() const
+    {
+        return m_slots.GetCapacity();
+    }
 
 
     // ATTRIBUTES

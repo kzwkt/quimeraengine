@@ -1336,7 +1336,7 @@ public:
     /// Increases the capacity of the list, reserving memory for more elements.
     /// </summary>
     /// <remarks>
-    /// This operation implies a reallocation, which means that any pointer to elements of this array will be pointing to garbage.
+    /// This operation implies a reallocation, which means that any pointer to elements of this list will be pointing to garbage.
     /// </remarks>
     /// <param name="uNumberOfElements">[IN] The number of elements for which to reserve memory. It should be greater than the
     /// current capacity or nothing will happen.</param>
