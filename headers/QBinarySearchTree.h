@@ -1047,8 +1047,8 @@ public:
     explicit QBinarySearchTree(const pointer_uint_q uInitialCapacity) : m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
                                                                         m_nodeAllocator(uInitialCapacity * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
                                                                         m_uRoot(QBinarySearchTree::END_POSITION_FORWARD),
-                                                                       m_pElementBasePointer(null_q),
-                                                                       m_pNodeBasePointer(null_q)
+                                                                        m_pElementBasePointer(null_q),
+                                                                        m_pNodeBasePointer(null_q)
     {
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
 
