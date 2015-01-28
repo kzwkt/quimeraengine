@@ -84,15 +84,13 @@ QTEST_CASE ( GenerateHashKey_AssertionFailsWhenNumberOfBucketsIsZero_Test )
 {
     // [Preparation]
     const string_q INPUT_VALUE("Common text");
-    const pointer_uint_q NUMBER_OF_BUCKETS = 4;
-    const pointer_uint_q EXPECTED_VALUE = 0;
 
     // [Execution]
     bool bAssertionFailed = false;
 
     try
     {
-        pointer_uint_q uHashKey = SQStringHashProvider::GenerateHashKey(INPUT_VALUE, 0);
+        SQStringHashProvider::GenerateHashKey(INPUT_VALUE, 0);
     }
     catch(const QAssertException&)
     {

@@ -1740,7 +1740,7 @@ public:
     /// </returns>
     QNTree& operator=(const QNTree &tree)
     {
-        QE_ASSERT_ERROR(MAX_CHILDREN >= tree.MAX_CHILDREN && MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node in the resident tree is lower than the input tree's.");
+        QE_ASSERT_ERROR(this->MAX_CHILDREN >= tree.MAX_CHILDREN && this->MAX_CHILDREN != QNTree::NO_MAXIMUM_CHILDREN, "The maximum number of children per node in the resident tree is lower than the input tree's.");
 
         if(this != &tree)
         {
@@ -1944,9 +1944,9 @@ public:
                 ++uNumberOfElements;
             }
 
-            QE_ASSERT_ERROR(uNumberOfElements < MAX_CHILDREN, string_q("It is not possible to add another child to this node, maximum allowed exceeded (") + SQInteger::ToString(MAX_CHILDREN) + ").");
+            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to add another child to this node, maximum allowed exceeded (") + SQInteger::ToString(this->MAX_CHILDREN) + ").");
 
-            if(uNumberOfElements < MAX_CHILDREN)
+            if(uNumberOfElements < this->MAX_CHILDREN)
             {
                 // Reserves more memory if necessary
                 if(this->GetCount() == this->GetCapacity())
@@ -2200,9 +2200,9 @@ public:
                 ++uNumberOfElements;
             }
 
-            QE_ASSERT_ERROR(uNumberOfElements < MAX_CHILDREN, string_q("It is not possible to insert another child to this node, maximum allowed exceeded (") + SQInteger::ToString(MAX_CHILDREN) + ").");
+            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to insert another child to this node, maximum allowed exceeded (") + SQInteger::ToString(this->MAX_CHILDREN) + ").");
 
-            if(uNumberOfElements < MAX_CHILDREN)
+            if(uNumberOfElements < this->MAX_CHILDREN)
             {
                 QE_ASSERT_WARNING(i == uChildIndex, "There is not a child node at the specified position index.");
 
@@ -2657,7 +2657,7 @@ public:
     /// be greater than or equal to the resident tree's.</param>
     void Clone(QNTree &destinationTree) const
     {
-        QE_ASSERT_ERROR(destinationTree.MAX_CHILDREN >= MAX_CHILDREN, "The maximum number of children per node in the destination tree is lower than the source tree's.");
+        QE_ASSERT_ERROR(destinationTree.MAX_CHILDREN >= this->MAX_CHILDREN, "The maximum number of children per node in the destination tree is lower than the source tree's.");
 
         if(destinationTree.GetCapacity() < this->GetCapacity())
             destinationTree.Reserve(this->GetCapacity());
@@ -2817,6 +2817,17 @@ public:
     bool IsEmpty() const
     {
         return m_elementAllocator.GetAllocatedBytes() == 0;
+    }
+    
+    /// <summary>
+    /// Gets the maximum number of child nodes a node can have. It is set when the tree is created.
+    /// </summary>
+    /// <returns>
+    /// The number of child nodes per node. If there is no restriction, the NO_MAXIMUM_CHILDREN constant will be retuned.
+    /// </returns>
+    pointer_uint_q GetMaximumChildren() const
+    {
+        return this->MAX_CHILDREN;
     }
 
 

@@ -211,6 +211,7 @@ public:
     void WriteBOM()
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
         using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
         using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
@@ -285,6 +286,9 @@ public:
     /// <param name="eNewLine">[IN] The new line separator.</param>
     void SetNewLineSeparator(const EQNewLineCharacters &eNewLine)
     {
+        using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
+        
         static const string_q NEW_LINE_CR("\r");
         static const string_q NEW_LINE_LF("\n");
         static const string_q NEW_LINE_CRLF("\r\n");
@@ -293,21 +297,21 @@ public:
         {
         case EQNewLineCharacters::E_CR:
             {
-                QArrayResult arResult = NEW_LINE_CR.ToBytes(m_eEncoding);
+                QArrayResult<i8_q> arResult = NEW_LINE_CR.ToBytes(m_eEncoding);
                 arResult.Detach();
                 m_arNewLineCharacters = arResult;;
                 break;
             }
         case EQNewLineCharacters::E_LF:
             {
-                QArrayResult arResult = NEW_LINE_LF.ToBytes(m_eEncoding);
+                QArrayResult<i8_q> arResult = NEW_LINE_LF.ToBytes(m_eEncoding);
                 arResult.Detach();
                 m_arNewLineCharacters = arResult;;
                 break;
             }
         case EQNewLineCharacters::E_CRLF:
             {
-                QArrayResult arResult = NEW_LINE_CRLF.ToBytes(m_eEncoding);
+                QArrayResult<i8_q> arResult = NEW_LINE_CRLF.ToBytes(m_eEncoding);
                 arResult.Detach();
                 m_arNewLineCharacters = arResult;;
                 break;
