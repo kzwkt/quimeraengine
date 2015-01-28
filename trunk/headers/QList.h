@@ -240,7 +240,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return *(scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition);
+            return *(m_pList->m_pElementBasePointer + m_uPosition);
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition;
+            return m_pList->m_pElementBasePointer + m_uPosition;
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetNext();
 
             return iteratorCopy;
         }
@@ -318,7 +318,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetPrevious();
 
             return iteratorCopy;
         }
@@ -346,7 +346,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetNext();
 
             return *this;
         }
@@ -374,7 +374,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetPrevious();
 
             return *this;
         }
@@ -750,7 +750,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return *(scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition);
+            return *(m_pList->m_pElementBasePointer + m_uPosition);
         }
 
         /// <summary>
@@ -768,7 +768,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QList::END_POSITION_FORWARD && m_uPosition != QList::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the list element");
 
-            return scast_q(m_pList->m_elementAllocator.GetPointer(), T*) + m_uPosition;
+            return m_pList->m_pElementBasePointer + m_uPosition;
         }
 
         /// <summary>
@@ -797,7 +797,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetNext();
 
             return iteratorCopy;
         }
@@ -828,7 +828,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetPrevious();
 
             return iteratorCopy;
         }
@@ -856,7 +856,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_BACKWARD)
                 m_uPosition = m_pList->m_uFirst;
             else if(m_uPosition != QList::END_POSITION_FORWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetNext();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetNext();
 
             return *this;
         }
@@ -884,7 +884,7 @@ public:
             else if(m_uPosition == QList::END_POSITION_FORWARD)
                 m_uPosition = m_pList->m_uLast;
             else if(m_uPosition != QList::END_POSITION_BACKWARD)
-                m_uPosition = (((QList::QLink*)m_pList->m_linkAllocator.GetPointer()) + m_uPosition)->GetPrevious();
+                m_uPosition = (m_pList->m_pLinkBasePointer + m_uPosition)->GetPrevious();
 
             return *this;
         }
@@ -965,8 +965,12 @@ public:
             m_uFirst(QList::END_POSITION_BACKWARD),
             m_uLast(QList::END_POSITION_FORWARD),
             m_elementAllocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-            m_linkAllocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+            m_linkAllocator(QList::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink))),
+            m_pElementBasePointer(null_q),
+            m_pLinkBasePointer(null_q)
     {
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
     }
 
     /// <summary>
@@ -977,9 +981,14 @@ public:
                 m_uFirst(QList::END_POSITION_BACKWARD),
                 m_uLast(QList::END_POSITION_FORWARD),
                 m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-                m_linkAllocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+                m_linkAllocator(uInitialCapacity * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink))),
+                m_pElementBasePointer(null_q),
+                m_pLinkBasePointer(null_q)
     {
         QE_ASSERT_ERROR( uInitialCapacity > 0, "Initial capacity must be greater than zero" );
+
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
     }
 
     /// <summary>
@@ -990,8 +999,13 @@ public:
     /// </remarks>
     /// <param name="list">[IN] Source list to copy.</param>
     QList(const QList& list) : m_elementAllocator(list.m_elementAllocator.GetPoolSize(), sizeof(T), QAlignment(alignof_q(T))),
-                               m_linkAllocator(list.m_linkAllocator.GetPoolSize(), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+                               m_linkAllocator(list.m_linkAllocator.GetPoolSize(), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink))),
+                               m_pElementBasePointer(null_q),
+                               m_pLinkBasePointer(null_q)
     {
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+
         if(list.m_uFirst == QList::END_POSITION_BACKWARD)
         {
             m_uFirst = QList::END_POSITION_BACKWARD;
@@ -1027,10 +1041,15 @@ public:
                                                         m_uFirst(QList::END_POSITION_BACKWARD),
                                                         m_uLast(QList::END_POSITION_FORWARD),
                                                         m_elementAllocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
-                                                        m_linkAllocator(uNumberOfElements * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink)))
+                                                        m_linkAllocator(uNumberOfElements * sizeof(QList::QLink), sizeof(QList::QLink), QAlignment(alignof_q(QList::QLink))),
+                                                        m_pElementBasePointer(null_q),
+                                                        m_pLinkBasePointer(null_q)
     {
         QE_ASSERT_ERROR( pArray != null_q, "The argument pArray is null." );
         QE_ASSERT_ERROR( uNumberOfElements > 0, "The number of elements in the array must be greater than zero." );
+        
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
 
         const T* pElement = pArray;
 
@@ -1114,18 +1133,18 @@ public:
 
                     while(!bCopied)
                     {
-                        pElementOrigin = (T*)list.m_elementAllocator.GetPointer() + uIndexOrigin;
-                        pElementDestination = (T*)m_elementAllocator.GetPointer() + uIndexDestination;
+                        pElementOrigin = list.m_pElementBasePointer + uIndexOrigin;
+                        pElementDestination = m_pElementBasePointer + uIndexDestination;
 
                         *pElementDestination = *pElementOrigin;
 
                         bCopied = (uIndexOrigin == list.m_uLast);
                         m_uLast = uIndexDestination;
 
-                        pLinkOrigin = (QList::QLink*)list.m_linkAllocator.GetPointer() + uIndexOrigin;
+                        pLinkOrigin = list.m_pLinkBasePointer + uIndexOrigin;
                         uIndexOrigin = pLinkOrigin->GetNext();
 
-                        pLinkDestination = (QList::QLink*)m_linkAllocator.GetPointer() + uIndexDestination;
+                        pLinkDestination = m_pLinkBasePointer + uIndexDestination;
                         uIndexDestination = pLinkDestination->GetNext();
                     }
                     uFirstIndexToDestroy = uIndexDestination;
@@ -1140,11 +1159,11 @@ public:
 
                 while(!bDestroyed && uIndex != QList::END_POSITION_FORWARD)
                 {
-                    QList::QLink* pLink = (QList::QLink*)m_linkAllocator.GetPointer() + uIndex;
+                    QList::QLink* pLink = m_pLinkBasePointer + uIndex;
                     uNextIndex = pLink->GetNext();
                     m_linkAllocator.Deallocate(pLink);
 
-                    T* pElement = (T*)m_elementAllocator.GetPointer() + uIndex;
+                    T* pElement = m_pElementBasePointer+ uIndex;
                     pElement->~T();
                     m_elementAllocator.Deallocate(pElement);
 
@@ -1346,6 +1365,8 @@ public:
         {
             m_elementAllocator.Reallocate(uNumberOfElements * sizeof(T));
             m_linkAllocator.Reallocate(uNumberOfElements * sizeof(QList::QLink));
+            m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+            m_pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
         }
     }
 
@@ -1371,15 +1392,14 @@ public:
         }
 
         // Creates the new link
-        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
         QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, QList::END_POSITION_FORWARD);
 
         if(uNewLinkPrevious != QList::END_POSITION_BACKWARD)
         {
             // Makes the last link point to the new link
-            QList::QLink* pLastLink = pBasePointer + m_uLast;
-            pLastLink->SetNext(pNewLastLink - pBasePointer);
-            m_uLast = pNewLastLink - pBasePointer;
+            QList::QLink* pLastLink = m_pLinkBasePointer + m_uLast;
+            pLastLink->SetNext(pNewLastLink - m_pLinkBasePointer);
+            m_uLast = pNewLastLink - m_pLinkBasePointer;
         }
         else
         {
@@ -1414,8 +1434,7 @@ public:
             this->_ReallocateByFactor(this->GetCapacity() + 1U);
 
         // Gets the position of the iterator
-        pointer_uint_q uIndex = &(*position) - (T*)m_elementAllocator.GetPointer();
-        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
+        pointer_uint_q uIndex = &(*position) - m_pElementBasePointer;
 
         pointer_uint_q uNewLinkNext = 0;
         pointer_uint_q uNewLinkPrevious = 0;
@@ -1433,29 +1452,29 @@ public:
         else if(position.IsEnd(EQIterationDirection::E_Forward))
         {
             // Adding at the end
-            pPreviousLink = pBasePointer + m_uLast;
+            pPreviousLink = m_pLinkBasePointer + m_uLast;
             uNewLinkPrevious = m_uLast;
             uNewLinkNext = QList::END_POSITION_FORWARD;
         }
         else if(uIndex == m_uFirst)
         {
             // Adding at the beginning
-            pNextLink = pBasePointer + m_uFirst;
+            pNextLink = m_pLinkBasePointer + m_uFirst;
             uNewLinkPrevious = QList::END_POSITION_BACKWARD;
             uNewLinkNext = m_uFirst;
         }
         else
         {
             // Adding somewhere in the middle
-            pNextLink = pBasePointer + uIndex;
+            pNextLink = m_pLinkBasePointer + uIndex;
             uNewLinkPrevious = pNextLink->GetPrevious();
             uNewLinkNext = uIndex;
-            pPreviousLink = pBasePointer + uNewLinkPrevious;
+            pPreviousLink = m_pLinkBasePointer + uNewLinkPrevious;
         }
 
         // Creates the new link
         QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, uNewLinkNext);
-        pointer_uint_q uNewLinkPosition = pNewLastLink - pBasePointer;
+        pointer_uint_q uNewLinkPosition = pNewLastLink - m_pLinkBasePointer;
 
         if(pNextLink)
         {
@@ -1509,10 +1528,8 @@ public:
         QList::QLink* pNextLink = null_q;
         QList::QLink* pPreviousLink = null_q;
 
-        QList::QLink* pBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
-
         // Gets the physical position of the link at the given ordinal position
-        pointer_uint_q uPosition = &this->GetValue(uIndex) - (T*)m_elementAllocator.GetPointer();
+        pointer_uint_q uPosition = &this->GetValue(uIndex) - m_pElementBasePointer;
 
         // Calculates what's the next link and what's the previous one
         if(this->IsEmpty())
@@ -1524,29 +1541,29 @@ public:
         else if(uPosition >= this->GetCount())
         {
             // Adding at the end
-            pPreviousLink = pBasePointer + m_uLast;
+            pPreviousLink = m_pLinkBasePointer + m_uLast;
             uNewLinkPrevious = m_uLast;
             uNewLinkNext = QList::END_POSITION_FORWARD;
         }
         else if(uPosition == m_uFirst)
         {
             // Adding at the beginning
-            pNextLink = pBasePointer + m_uFirst;
+            pNextLink = m_pLinkBasePointer + m_uFirst;
             uNewLinkPrevious = QList::END_POSITION_BACKWARD;
             uNewLinkNext = m_uFirst;
         }
         else
         {
             // Adding somewhere in the middle
-            pNextLink = pBasePointer + uPosition;
+            pNextLink = m_pLinkBasePointer + uPosition;
             uNewLinkPrevious = pNextLink->GetPrevious();
             uNewLinkNext = uPosition;
-            pPreviousLink = pBasePointer + uNewLinkPrevious;
+            pPreviousLink = m_pLinkBasePointer + uNewLinkPrevious;
         }
 
         // Creates the new link
         QList::QLink* pNewLastLink = new(m_linkAllocator.Allocate()) QList::QLink(uNewLinkPrevious, uNewLinkNext);
-        pointer_uint_q uNewLinkPosition = pNewLastLink - pBasePointer;
+        pointer_uint_q uNewLinkPosition = pNewLastLink - m_pLinkBasePointer;
 
         if(pNextLink)
         {
@@ -1599,9 +1616,8 @@ public:
         if(!this->IsEmpty() && !position.IsEnd())
         {
             // Gets the position of the iterator
-            pointer_uint_q uIndex = &(*position) - (T*)m_elementAllocator.GetPointer();
-            QList::QLink* pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
-            QList::QLink* pLinkToRemove = pLinkBasePointer + uIndex;
+            pointer_uint_q uIndex = &(*position) - m_pElementBasePointer;
+            QList::QLink* pLinkToRemove = m_pLinkBasePointer + uIndex;
             T* pElementToRemove = &(*position);
 
             uNext = pLinkToRemove->GetNext();
@@ -1610,7 +1626,7 @@ public:
             if(uNext != QList::END_POSITION_FORWARD)
             {
                 // If there is next link
-                QList::QLink* pNextLink = pLinkBasePointer + uNext;
+                QList::QLink* pNextLink = m_pLinkBasePointer + uNext;
                 pNextLink->SetPrevious(uPrevious);
             }
             else if(uPrevious != QList::END_POSITION_BACKWARD)
@@ -1627,7 +1643,7 @@ public:
 
             if(uPrevious != QList::END_POSITION_BACKWARD)
             {
-                QList::QLink* pPreviousLink = pLinkBasePointer + uPrevious;
+                QList::QLink* pPreviousLink = m_pLinkBasePointer + uPrevious;
                 pPreviousLink->SetNext(uNext);
             }
             else if(uNext != QList::END_POSITION_FORWARD)
@@ -1661,10 +1677,9 @@ public:
         {
             // Gets the position of the iterator
             T* pElementToRemove = &this->GetValue(uIndex);
-            pointer_uint_q uIndex = pElementToRemove - (T*)m_elementAllocator.GetPointer();
+            pointer_uint_q uIndex = pElementToRemove - m_pElementBasePointer;
 
-            QList::QLink* pLinkBasePointer = scast_q(m_linkAllocator.GetPointer(), QList::QLink*);
-            QList::QLink* pLinkToRemove = pLinkBasePointer + uIndex;
+            QList::QLink* pLinkToRemove = m_pLinkBasePointer + uIndex;
 
             pointer_uint_q uNext = pLinkToRemove->GetNext();
             pointer_uint_q uPrevious = pLinkToRemove->GetPrevious();
@@ -1672,7 +1687,7 @@ public:
             if(uNext != QList::END_POSITION_FORWARD)
             {
                 // If there is next link
-                QList::QLink* pNextLink = pLinkBasePointer + uNext;
+                QList::QLink* pNextLink = m_pLinkBasePointer + uNext;
                 pNextLink->SetPrevious(uPrevious);
             }
             else if(uPrevious != QList::END_POSITION_BACKWARD)
@@ -1689,7 +1704,7 @@ public:
 
             if(uPrevious != QList::END_POSITION_BACKWARD)
             {
-                QList::QLink* pPreviousLink = pLinkBasePointer + uPrevious;
+                QList::QLink* pPreviousLink = m_pLinkBasePointer + uPrevious;
                 pPreviousLink->SetNext(uNext);
             }
             else if(uNext != QList::END_POSITION_FORWARD)
@@ -1968,7 +1983,7 @@ public:
         QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position is not valid.");
 
         bool bElementFound = false;
-        QList::QListIterator itElement = QList::QListIterator(this, &*startPosition - scast_q(m_elementAllocator.GetPointer(), T*));
+        QList::QListIterator itElement = QList::QListIterator(this, &*startPosition - m_pElementBasePointer);
         pointer_uint_q uIndex = 0;
 
         while(!itElement.IsEnd() && !bElementFound)
@@ -2222,6 +2237,16 @@ protected:
     /// The allocator which stores the double linked list for internals.
     /// </summary>
     AllocatorT m_linkAllocator;
+
+    /// <summary>
+    /// A pointer to the buffer stored in the memory allocator, casted to the element type, intended to improve overall performance.
+    /// </summary>
+    T* m_pElementBasePointer;
+
+    /// <summary>
+    /// A pointer to the buffer stored in the memory allocator, casted to the QLink type, intended to improve overall performance.
+    /// </summary>
+    QLink* m_pLinkBasePointer;
 };
 
 
