@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 #include "QFixedArrayWhiteBox.h"
 #include "QFixedArrayTestClass.h"
 #include "ArrayElementMock.h"
+#include "CallCounter.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
@@ -154,83 +155,9 @@ QTEST_CASE ( Constructor1_CopyConstructorOfArrayElementsAreCalled_Test )
 }
 
 /// <summary>
-/// Checks if the destructor of the array elements are called.
-/// </summary>
-QTEST_CASE ( Constructor1_DestructorOfArrayElementsAreCalled_Test )
-{
-    // [Preparation]
-    const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
-    const pointer_uint_q ARRAY_COUNT = 10;
-    const i16_q EXPECTED_REMAINING_OBJECTS_ALLOCATED = 1;
-
-    // [Execution]
-    QFixedArray<ArrayElementMock> *pFixedArray = new QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
-    delete pFixedArray;
-
-    // [Verification]
-    i16_q nRemainingObjectsAllocated = ArrayElementMock::GetNumberOfAllocatedObjects();
-
-    BOOST_CHECK_EQUAL( nRemainingObjectsAllocated, EXPECTED_REMAINING_OBJECTS_ALLOCATED );
-}
-
-/// <summary>
-/// Checks if the copy constructor of the array elements are called for the second constructor.
-/// </summary>
-QTEST_CASE ( Constructor2_CopyConstructorOfArrayElementsAreCalled_Test )
-{
-    // [Preparation]
-    const ArrayElementMock INITIAL_VALUE = ArrayElementMock(12);
-    const pointer_uint_q ARRAY_COUNT = 10;
-    const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
-
-    QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
-
-    // [Execution]
-    QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(fixedArrayOrigin);
-
-    // [Verification]
-    pointer_uint_q uCallsToCopyConstructor = 0;
-
-    for(pointer_uint_q uIndex = 0; uIndex < ARRAY_COUNT; uIndex++)
-    {
-        if(((ArrayElementMock*)
-            ((pointer_uint_q)fixedArrayDestination.GetAllocator()->GetPointer() + uIndex * sizeof(ArrayElementMock)))
-            ->GetCallToCopyConstructor())
-        {
-            uCallsToCopyConstructor++;
-        }
-    }
-
-    BOOST_CHECK_EQUAL( uCallsToCopyConstructor, EXPECTED_CALLS_TO_COPY_CONSTRUCTOR );
-}
-
-/// <summary>
-/// Checks if the constructor without parameters initializes correctly.
-/// </summary>
-QTEST_CASE ( Constructor3_ConstructorWithoutParametersInitializesCorrectly_Test )
-{
-    // [Preparation]
-
-    const pointer_uint_q END_POSITION_FORWARD = -1;
-    const pointer_uint_q END_POSITION_BACKWARD = -2;
-
-    // [Execution]
-
-    QFixedArrayWhiteBox<u64_q> fixedArray;
-
-    // [Verification]
-
-    pointer_uint_q uFirst = fixedArray.GetFirst();
-    pointer_uint_q uLast  = fixedArray.GetLast();
-
-    BOOST_CHECK_EQUAL( uFirst, END_POSITION_BACKWARD );
-    BOOST_CHECK_EQUAL( uLast, END_POSITION_FORWARD );
-}
-
-/// <summary>
 /// Checks if the instance is correctly constructed when it receives a common array and its size.
 /// </summary>
-QTEST_CASE ( Constructor4_ItIsCorrectlyConstructedFromCommonArray_Test )
+QTEST_CASE ( Constructor2_ItIsCorrectlyConstructedFromCommonArray_Test )
 {
     // [Preparation]
     const unsigned int ARRAY_SIZE = 3;
@@ -252,7 +179,7 @@ QTEST_CASE ( Constructor4_ItIsCorrectlyConstructedFromCommonArray_Test )
 /// <summary>
 /// Checks than assertion fails when the input array is null.
 /// </summary>
-QTEST_CASE ( Constructor4_AssertionFailsWhenArrayIsNull_Test )
+QTEST_CASE ( Constructor2_AssertionFailsWhenArrayIsNull_Test )
 {
     // [Preparation]
     const int* NULL_ARRAY = null_q;
@@ -278,7 +205,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenArrayIsNull_Test )
 /// <summary>
 /// Checks than assertion fails when the input array size equals zero.
 /// </summary>
-QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
+QTEST_CASE ( Constructor2_AssertionFailsWhenCountIsZero_Test )
 {
     // [Preparation]
     const int SOURCE_ARRAY[3] = {0, 1, 2};
@@ -302,6 +229,68 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks if the copy constructor of the array elements are called for the second constructor.
+/// </summary>
+QTEST_CASE ( Constructor3_CopyConstructorOfArrayElementsAreCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q ARRAY_COUNT = 10;
+    const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
+    QFixedArray<CallCounter> fixedArrayOrigin = QFixedArray<CallCounter>(ARRAY_COUNT, CallCounter());
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    QFixedArray<CallCounter> fixedArrayDestination = QFixedArray<CallCounter>(fixedArrayOrigin);
+
+    // [Verification]
+    unsigned int uCallsToCopyConstructor = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL( uCallsToCopyConstructor, EXPECTED_CALLS_TO_COPY_CONSTRUCTOR );
+}
+
+/// <summary>
+/// Checks if the constructor without parameters initializes correctly.
+/// </summary>
+QTEST_CASE ( Constructor4_ConstructorWithoutParametersInitializesCorrectly_Test )
+{
+    // [Preparation]
+    const pointer_uint_q END_POSITION_FORWARD = -1;
+    const pointer_uint_q END_POSITION_BACKWARD = -2;
+
+    // [Execution]
+    QFixedArrayWhiteBox<u64_q> fixedArray;
+
+    // [Verification]
+    pointer_uint_q uFirst = fixedArray.GetFirst();
+    pointer_uint_q uLast  = fixedArray.GetLast();
+
+    BOOST_CHECK_EQUAL( uFirst, END_POSITION_BACKWARD );
+    BOOST_CHECK_EQUAL( uLast, END_POSITION_FORWARD );
+}
+
+/// <summary>
+/// Checks if the destructor is called for every element.
+/// </summary>
+QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 5;
+    {
+        QFixedArray<CallCounter> fixedArray(EXPECTED_CALLS, CallCounter());
+        CallCounter::ResetCounters();
+
+    // [Execution]
+    } // Destructor called
+
+    // [Verification]
+    pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
 
 /// <summary>
 /// Checks if it assigns correctly when the size of the origin array is equal to the destination array.

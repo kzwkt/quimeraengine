@@ -252,6 +252,32 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenCountIsZero_Test )
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
+/// Checks if the destructor is called for every element.
+/// </summary>
+QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    const pointer_uint_q EXPECTED_CALLS = 5;
+    {
+        QList<CallCounter> list(EXPECTED_CALLS);
+        list.Add(CallCounter());
+        list.Add(CallCounter());
+        list.Add(CallCounter());
+        list.Add(CallCounter());
+        list.Add(CallCounter());
+        CallCounter::ResetCounters();
+
+    // [Execution]
+    } // Destructor called
+
+    // [Verification]
+    pointer_uint_q uDestructorCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
+}
+
+/// <summary>
 /// Checks if it assigns correctly when the size of the origin list is equal to the destination list.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginListSizeIsEqualToDestinationListSize_Test )
