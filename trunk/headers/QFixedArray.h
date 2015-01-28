@@ -589,6 +589,17 @@ public:
                                           m_uPosition == QFixedArray::END_POSITION_BACKWARD ||
                                           m_uPosition == QFixedArray::END_POSITION_FORWARD);
         }
+        
+        /// <summary>
+        /// Gets the container that is being traversed by the iterator.
+        /// </summary>
+        /// <remarks>
+        /// A pointer to the container. It never changes since the iterator is created.
+        /// </remarks>
+        const QFixedArray* GetContainer() const
+        {
+            return m_pArray;
+        }
 
 
         // ATTRIBUTES

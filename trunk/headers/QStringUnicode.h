@@ -288,6 +288,14 @@ public:
         /// True if the iterator is valid; False otherwise.
         /// </returns>
         bool IsValid() const;
+                
+        /// <summary>
+        /// Gets the string that is being traversed by the iterator.
+        /// </summary>
+        /// <remarks>
+        /// A pointer to the string. It never changes since the iterator is created.
+        /// </remarks>
+        const QStringUnicode* GetContainer() const;
 
 
         // ATTRIBUTES

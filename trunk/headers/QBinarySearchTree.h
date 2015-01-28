@@ -945,6 +945,17 @@ public:
                     m_uPosition == QBinarySearchTree::END_POSITION_BACKWARD ||
                     m_uPosition == QBinarySearchTree::END_POSITION_FORWARD);
         }
+        
+        /// <summary>
+        /// Gets the container that is being traversed by the iterator.
+        /// </summary>
+        /// <remarks>
+        /// A pointer to the container. It never changes since the iterator is created.
+        /// </remarks>
+        const QBinarySearchTree* GetContainer() const
+        {
+            return m_pTree;
+        }
 
 
         // ATTRIBUTES

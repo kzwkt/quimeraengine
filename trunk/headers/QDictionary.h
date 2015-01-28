@@ -384,6 +384,17 @@ public:
         {
             return m_treeIterator.IsValid();
         }
+        
+        /// <summary>
+        /// Gets the container that is being traversed by the iterator.
+        /// </summary>
+        /// <remarks>
+        /// A pointer to the container. It never changes since the iterator is created.
+        /// </remarks>
+        const QDictionary* GetContainer() const
+        {
+            return m_pDictionary;
+        }
 
 
         // ATTRIBUTES
