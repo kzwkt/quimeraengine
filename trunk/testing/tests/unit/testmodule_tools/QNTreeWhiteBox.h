@@ -79,11 +79,6 @@ public:
         return QNTree<T, AllocatorT>::m_uRoot;
     }
 
-    const pointer_uint_q GetMaximumChildren() const
-    {
-        return QNTree<T, AllocatorT>::MAX_CHILDREN;
-    }
-
     const AllocatorT& GetNodeAllocator() const
     {
         return QNTree<T, AllocatorT>::m_nodeAllocator;

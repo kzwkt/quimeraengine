@@ -622,11 +622,10 @@ public:
         // Creates a key-value by copying the data without calling any constructor
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &pairPosition->GetKey(), sizeof(KeyT));
-        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
         const KeyValuePairType* pBasePointer = rcast_q(m_keyValues.GetAllocator()->GetPointer(), const KeyValuePairType*);
         pointer_uint_q uIteratorPosition = &*pairPosition - pBasePointer;
-        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Remove(InternalBinaryTreeType::ConstIterator(&m_keyValues, uIteratorPosition, EQTreeTraversalOrder::E_DepthFirstInOrder));
+        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.Remove(typename InternalBinaryTreeType::ConstIterator(&m_keyValues, uIteratorPosition, EQTreeTraversalOrder::E_DepthFirstInOrder));
         
         uIteratorPosition = QDictionary::END_POSITION_FORWARD;
             
@@ -651,7 +650,7 @@ public:
         memcpy(pKeyValueBlock, &key, sizeof(KeyT));
         KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
-        InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+        typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
         m_keyValues.Remove(treeIterator);
     }
 
