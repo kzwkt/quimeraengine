@@ -33,6 +33,7 @@
 #include "QKeyValuePair.h"
 #include "QBinarySearchTree.h"
 #include "SQKeyValuePairComparator.h"
+#include "SQAnyTypeToStringConverter.h"
 
 
 namespace Kinesis
@@ -117,6 +118,9 @@ public:
         /// </returns>
         QConstDictionaryIterator& operator=(const QConstDictionaryIterator &iterator)
         {
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid.");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "The input iterator points to a different dictionary.");
+
             m_treeIterator = iterator.m_treeIterator;
 
             return *this;
@@ -131,6 +135,8 @@ public:
         /// </returns>
         const KeyValuePairType& operator*() const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the dictionary element.");
+
             return *m_treeIterator;
         }
 
@@ -143,6 +149,8 @@ public:
         /// </returns>
         const KeyValuePairType* operator->() const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the dictionary element.");
+
             return m_treeIterator.operator->();
         }
 
@@ -159,6 +167,9 @@ public:
         /// </returns>
         QConstDictionaryIterator operator++(int)
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_WARNING(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
+
             QConstDictionaryIterator iteratorCopy = *this;
             m_treeIterator++;
             return iteratorCopy;
@@ -177,6 +188,9 @@ public:
         /// </returns>
         QConstDictionaryIterator operator--(int)
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_WARNING(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to increment it");
+
             QConstDictionaryIterator iteratorCopy = *this;
             m_treeIterator--;
             return iteratorCopy;
@@ -194,6 +208,9 @@ public:
         /// </returns>
         QConstDictionaryIterator& operator++()
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_WARNING(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
+
             ++m_treeIterator;
 
             return *this;
@@ -210,7 +227,10 @@ public:
         /// A reference to the iterator.
         /// </returns>
         QConstDictionaryIterator& operator--()
-        {
+        {            
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_WARNING(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to increment it");
+
             --m_treeIterator;
 
             return *this;
@@ -228,6 +248,10 @@ public:
         /// </returns>
         bool operator==(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator == iterator.m_treeIterator;
         }
 
@@ -243,6 +267,10 @@ public:
         /// </returns>
         bool operator!=(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator != iterator.m_treeIterator;
         }
 
@@ -259,6 +287,10 @@ public:
         /// </returns>
         bool operator>(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator > iterator.m_treeIterator;
         }
 
@@ -275,6 +307,10 @@ public:
         /// </returns>
         bool operator<(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator < iterator.m_treeIterator;
         }
 
@@ -292,6 +328,10 @@ public:
         /// </returns>
         bool operator>=(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator >= iterator.m_treeIterator;
         }
 
@@ -309,6 +349,10 @@ public:
         /// </returns>
         bool operator<=(const QConstDictionaryIterator &iterator) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+            QE_ASSERT_ERROR(iterator.IsValid(), "The input iterator is not valid");
+            QE_ASSERT_ERROR(m_pDictionary == iterator.m_pDictionary, "Iterators point to different dictionaries");
+
             return m_treeIterator <= iterator.m_treeIterator;
         }
 
@@ -325,6 +369,8 @@ public:
         /// </returns>
         bool IsEnd() const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+
             return m_treeIterator.IsEnd();
         }
 
@@ -343,6 +389,8 @@ public:
         /// </returns>
         bool IsEnd(const EQIterationDirection &eIterationDirection) const
         {
+            QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid");
+
             return m_treeIterator.IsEnd(eIterationDirection);
         }
 
@@ -620,6 +668,8 @@ public:
     /// </returns>
     QConstDictionaryIterator Add(const KeyT &key, const ValueT &value)
     {
+        QE_ASSERT_ERROR(!this->ContainsKey(key), "The key already exists in the dictionary.");
+
         // Creates a key-value by copying the data without calling any constructor
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &key, sizeof(KeyT));
@@ -643,6 +693,8 @@ public:
     /// </returns>
     QConstDictionaryIterator Remove(const typename QDictionary::QConstDictionaryIterator &pairPosition)
     {
+        QE_ASSERT_ERROR(!pairPosition.IsEnd(), "The input iterator must not point to an end position.");
+
         // Creates a key-value by copying the data without calling any constructor
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &pairPosition->GetKey(), sizeof(KeyT));
@@ -661,15 +713,20 @@ public:
     /// <remarks>
     /// The destructor of both the key and the value will be called.
     /// </remarks>
-    /// <param name="key">[IN] The key to search for.</param>
+    /// <param name="key">[IN] The key to search for. It must exist in the dictionary.</param>
     void Remove(const KeyT &key)
     {
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
+
         // Creates a key-value by copying the data without calling any constructor
         u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
         memcpy(pKeyValueBlock, &key, sizeof(KeyT));
         KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
         typename InternalBinaryTreeType::ConstIterator treeIterator = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
+
+        QE_ASSERT_ERROR(!treeIterator.IsEnd(), string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the dictionary.");
+
         m_keyValues.Remove(treeIterator);
     }
 
