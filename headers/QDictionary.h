@@ -745,6 +745,54 @@ public:
         return QConstDictionaryIterator(this, uIteratorPosition);
     }
 
+    /// <summary>
+    /// Equality operator that checks whether two dictionaries are equal.
+    /// </summary>
+    /// <remarks>
+    /// Every key and value are compared with the key and value at the same position in the other dictionary. Keys and values are compared using the dictionary's 
+    /// key and value comparator, respectively. The order in which key-value pairs were added is not relevant.
+    /// </remarks>
+    /// <param name="dictionary">[IN] The dictionary to compare to.</param>
+    /// <returns>
+    /// True if all the keys and values of both dictionaries are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QDictionary &dictionary) const
+    {
+        bool bResult = this->GetCount() == dictionary.GetCount();
+
+        if(bResult && this != &dictionary)
+        {
+            QDictionary::QConstDictionaryIterator itThisKeyValuePair = this->GetFirst();
+            QDictionary::QConstDictionaryIterator itInputKeyValuePair = dictionary.GetFirst();
+
+            while(!itThisKeyValuePair.IsEnd() && bResult)
+            {
+                bResult = KeyComparatorT::Compare(itThisKeyValuePair->GetKey(), itInputKeyValuePair->GetKey())       == 0 &&
+                          ValueComparatorT::Compare(itThisKeyValuePair->GetValue(), itInputKeyValuePair->GetValue()) == 0;
+                ++itThisKeyValuePair;
+                ++itInputKeyValuePair;
+            }
+        }
+
+        return bResult;
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two dictionaries are different.
+    /// </summary>
+    /// <remarks>
+    /// Every key and value are compared with the key and value at the same position in the other dictionary. Keys and values are compared using the dictionary's 
+    /// key and value comparators, respectively. The order in which key-value pairs were added is not relevant.
+    /// </remarks>
+    /// <param name="dictionary">[IN] The dictionary to compare to.</param>
+    /// <returns>
+    /// True if any of the keys or values are different; False otherwise.
+    /// </returns>
+    bool operator!=(const QDictionary &dictionary) const
+    {
+        return !QDictionary::operator==(dictionary);
+    }
+
 
     // PROPERTIES
     // ---------------
