@@ -349,7 +349,10 @@ bool QStringUnicode::QConstCharIterator::IsValid() const
     return m_uIndex <= m_pString->GetLength() || m_uIndex == QStringUnicode::END_POSITION_BACKWARD || m_uIndex == QStringUnicode::END_POSITION_FORWARD;
 }
 
-
+const QStringUnicode* QStringUnicode::QConstCharIterator::GetContainer() const
+{
+    return m_pString;
+}
 
 } //namespace DataTypes
 } //namespace Common

@@ -1028,6 +1028,17 @@ public:
         {
             return m_eTraversalOrder;
         }
+        
+        /// <summary>
+        /// Gets the container that is being traversed by the iterator.
+        /// </summary>
+        /// <remarks>
+        /// A pointer to the container. It never changes since the iterator is created.
+        /// </remarks>
+        const QNTree* GetContainer() const
+        {
+            return m_pTree;
+        }
 
 
         // ATTRIBUTES
@@ -1585,7 +1596,6 @@ public:
                 }
             }
         }
-
 
     }; // QNTreeIterator
     
