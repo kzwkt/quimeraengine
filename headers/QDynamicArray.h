@@ -87,6 +87,8 @@ public:
     {
         if(sm_uDefaultCapacity > QDynamicArray::DEFAULT_CAPACITY)
             this->Reserve(sm_uDefaultCapacity);
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
 
     /// <summary>
@@ -105,6 +107,8 @@ public:
 
         if(uCapacity > QDynamicArray::DEFAULT_CAPACITY)
             this->Reserve(uCapacity);
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
     
     /// <summary>
@@ -129,6 +133,8 @@ public:
         // Copies every element
         for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex) // Fixed arrays are supposed not to be empty
             new(m_allocator.Allocate()) T(arInputArray[uIndex]);
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
 
     /// <summary>
@@ -154,6 +160,8 @@ public:
         if(m_uLast != QDynamicArray::END_POSITION_FORWARD)
             for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
                 new(m_allocator.Allocate()) T(arInputArray[uIndex]);
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
     
     /// <summary>
@@ -278,7 +286,10 @@ public:
     void Reserve(const pointer_uint_q uNumberOfElements)
     {
         if(uNumberOfElements > this->GetCapacity())
+        {
             m_allocator.Reallocate(uNumberOfElements * sizeof(T));
+            m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
+        }
     }
 
     /// <summary>
@@ -322,7 +333,7 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
 
         // Gets the position of the iterator
-        pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
+        pointer_uint_q uIndex = &(*position) - m_pElementBasePointer;
 
         if(this->GetCount() == this->GetCapacity())
             this->_ReallocateByFactor(this->GetCapacity() + 1U);
@@ -344,13 +355,12 @@ public:
             m_allocator.Allocate();
             
             // Moves all the contiguous elements 1 position forward
-            void* pBuffer = m_allocator.GetPointer();
-            memmove((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
-                    (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
-                    (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+            memmove(m_pElementBasePointer + uIndex + 1U,   // The position where the next blocks are to be moved
+                    m_pElementBasePointer + uIndex,        // The position where the element is to be inserted
+                    (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
                    
             // Calls the copy constructor using the position where the element is inserted
-            new((void*)((T*)pBuffer + uIndex)) T(newElement);
+            new(m_pElementBasePointer + uIndex) T(newElement);
         }
     }
     
@@ -391,13 +401,12 @@ public:
             m_allocator.Allocate();
 
             // Moves all the contiguous elements 1 position forward
-            void* pBuffer = m_allocator.GetPointer();
-            memmove((void*)((T*)pBuffer + uIndex + 1U),          // The position where the next blocks are to be moved
-                    (void*)((T*)pBuffer + uIndex),               // The position where the element is to be inserted
-                    (m_uLast - uIndex) * sizeof(T));             // The (size of) number of blocks to move (count - index - 1)
+            memmove(m_pElementBasePointer + uIndex + 1U,   // The position where the next blocks are to be moved
+                    m_pElementBasePointer + uIndex,        // The position where the element is to be inserted
+                    (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
 
             // Calls the copy constructor using the position where the element is inserted
-            new((void*)((T*)pBuffer + uIndex)) T(newElement);
+            new(m_pElementBasePointer + uIndex) T(newElement);
         }
     }
     
@@ -419,14 +428,14 @@ public:
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
 
         // Gets the position of the iterator
-        pointer_uint_q uIndex = &(*position) - (T*)m_allocator.GetPointer();
+        pointer_uint_q uIndex = &(*position) - m_pElementBasePointer;
 
         if(!this->IsEmpty() && uIndex <= m_uLast)
         {
             if(this->GetCount() == 1U)
             {
                 // The container is emptied
-                ((T*)m_allocator.GetPointer())->~T();
+                m_pElementBasePointer->~T();
                 m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
                 m_uLast = QDynamicArray::END_POSITION_FORWARD;
                 m_allocator.Clear();
@@ -434,16 +443,15 @@ public:
             else
             {
                 // Calls the destructor using the position where the element is removed
-                void* pBuffer = m_allocator.GetPointer();
-                ((T*)pBuffer + uIndex)->~T();
+                (m_pElementBasePointer + uIndex)->~T();
 
                 // Moves all the contiguous elements 1 position backward
-                memmove((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
-                        (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                memmove(m_pElementBasePointer + uIndex,        // The position where the next blocks are to be moved
+                        m_pElementBasePointer + uIndex + 1U,   // The position where the next blocks are currently
                         (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
 
                 // Decreases the allocated space
-                m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));
+                m_allocator.Deallocate(m_pElementBasePointer + m_uLast);
                 --m_uLast;
             }
         }
@@ -469,7 +477,7 @@ public:
             if(this->GetCount() == 1U)
             {
                 // The container is emptied
-                ((T*)m_allocator.GetPointer())->~T();
+                m_pElementBasePointer->~T();
                 m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
                 m_uLast = QDynamicArray::END_POSITION_FORWARD;
                 m_allocator.Clear();
@@ -477,16 +485,15 @@ public:
             else
             {
                 // Calls the destructor using the position where the element is removed
-                void* pBuffer = m_allocator.GetPointer();
-                ((T*)pBuffer + uIndex)->~T();
+                (m_pElementBasePointer + uIndex)->~T();
 
                 // Moves all the contiguous elements 1 position backward
-                memmove((void*)((T*)pBuffer + uIndex),         // The position where the next blocks are to be moved
-                        (void*)((T*)pBuffer + uIndex + 1U),    // The position where the next blocks are currently
+                memmove(m_pElementBasePointer + uIndex,        // The position where the next blocks are to be moved
+                        m_pElementBasePointer + uIndex + 1U,   // The position where the next blocks are currently
                         (m_uLast - uIndex) * sizeof(T));       // The (size of) number of blocks to move (count - index - 1)
 
                 // Decreases the allocated space
-                m_allocator.Deallocate((void*)((T*)pBuffer + m_uLast));
+                m_allocator.Deallocate(m_pElementBasePointer + m_uLast);
                 --m_uLast;
             }
         }
@@ -503,11 +510,9 @@ public:
     {
         if(!this->IsEmpty())
         {
-            void* pBuffer = m_allocator.GetPointer();
-
             // Calls every destructor, from first to last
             for(pointer_uint_q uIndex = m_uFirst; uIndex <= m_uLast; ++uIndex)
-                ((T*)pBuffer + uIndex)->~T();
+                (m_pElementBasePointer + uIndex)->~T();
 
             m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
             m_uLast = QDynamicArray::END_POSITION_FORWARD;
@@ -610,8 +615,7 @@ public:
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
             this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
         
-        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
-        T* pCurrentResident = pBasePointer + FIXED_INDEX;
+        T* pCurrentResident = m_pElementBasePointer + FIXED_INDEX;
         const T* pCurrentInput = &*first;
         const T* pAfterLast = (&*last) + 1U;
 
@@ -662,19 +666,17 @@ public:
         QE_ASSERT_WARNING(!position.IsEnd(), "The insertion position should not point to an end position.");
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator that points to the insertion position is not valid.");
 
-        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
         const bool INSERTING_AT_THE_END = position.IsEnd();
-        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : &*position - pBasePointer;
+        const pointer_uint_q FIXED_INDEX = INSERTING_AT_THE_END ? this->GetCount() : &*position - m_pElementBasePointer;
 
         const pointer_uint_q NEW_ELEMENTS_COUNT = (&*last - &*first) + 1U;
 
         if(this->GetCapacity() < this->GetCount() + NEW_ELEMENTS_COUNT)
         {
             this->_ReallocateByFactor(this->GetCount() + NEW_ELEMENTS_COUNT);
-            pBasePointer = scast_q(m_allocator.GetPointer(), T*);
         }
         
-        T* pCurrentResident = pBasePointer + FIXED_INDEX;
+        T* pCurrentResident = m_pElementBasePointer + FIXED_INDEX;
         const T* pCurrentInput = &*first;
         const T* pAfterLast = (&*last) + 1U;
 
@@ -720,7 +722,6 @@ public:
 
         const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = (&*last - &*first) + 1U;
         
-        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
         T* pFirstInRange = &*first;
         T* pAfterLast = (&*last) + 1U;
 
@@ -728,7 +729,7 @@ public:
         for(T* pElementToDelete = pFirstInRange; pElementToDelete != pAfterLast; ++pElementToDelete)
             (*pElementToDelete).~T();
 
-        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - pBasePointer;
+        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - m_pElementBasePointer;
         const pointer_uint_q ELEMENTS_AFTER_LAST = this->GetCount() - FIRST_DELETED_POSITION - ELEMENTS_TO_REMOVE_COUNT;
 
         // Moves all the elements of positions posterior to the last deleted element to the position of the first removed element
@@ -767,16 +768,15 @@ public:
         QE_ASSERT_ERROR(uLast < this->GetCount(), "The last position is out of bounds.");
 
         const pointer_uint_q ELEMENTS_TO_REMOVE_COUNT = uLast - uFirst + 1U;
-        
-        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
-        T* pFirstInRange = pBasePointer + uFirst;
-        T* pAfterLast = pBasePointer + uLast + 1U;
+
+        T* pFirstInRange = m_pElementBasePointer + uFirst;
+        T* pAfterLast = m_pElementBasePointer + uLast + 1U;
 
         // Deletes each element in the input range
         for(T* pElementToDelete = pFirstInRange; pElementToDelete != pAfterLast; ++pElementToDelete)
             (*pElementToDelete).~T();
         
-        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - pBasePointer;
+        const pointer_uint_q FIRST_DELETED_POSITION = pFirstInRange - m_pElementBasePointer;
         const pointer_uint_q ELEMENTS_AFTER_LAST = this->GetCount() - FIRST_DELETED_POSITION - ELEMENTS_TO_REMOVE_COUNT;
 
         // Moves all the elements of positions posterior to the last deleted element to the position of the first removed element
@@ -856,9 +856,8 @@ public:
         
         QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
 
-        T* pBasePointer = scast_q(m_allocator.GetPointer(), T*);
-        T* pCurrentResult = pBasePointer + uFirst;
-        T* pAfterLast = pBasePointer + uLast + 1U;
+        T* pCurrentResult = m_pElementBasePointer + uFirst;
+        T* pAfterLast = m_pElementBasePointer + uLast + 1U;
 
         // Copies each element in the input range
         for(; pCurrentResult != pAfterLast; ++pCurrentResult)

@@ -143,7 +143,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return *((scast_q(m_pArray->m_allocator.GetPointer(), T*)) + m_uPosition);
+            return *(m_pArray->m_pElementBasePointer + m_uPosition);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return scast_q(m_pArray->m_allocator.GetPointer(), T*) + m_uPosition;
+            return m_pArray->m_pElementBasePointer + m_uPosition;
         }
 
         /// <summary>
@@ -683,7 +683,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return *((scast_q(m_pArray->m_allocator.GetPointer(), T*)) + m_uPosition);
+            return *(m_pArray->m_pElementBasePointer + m_uPosition);
         }
 
         /// <summary>
@@ -701,7 +701,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
 
-            return scast_q(m_pArray->m_allocator.GetPointer(), T*) + m_uPosition;
+            return m_pArray->m_pElementBasePointer + m_uPosition;
         }
         
         /// <summary>
@@ -834,7 +834,8 @@ public:
 
             QE_ASSERT_WARNING(!m_pArray->IsEmpty(), "The array is empty, there is no first position");
 
-            m_uPosition = m_pArray->m_uFirst == QFixedArray::END_POSITION_BACKWARD ? QFixedArray::END_POSITION_FORWARD : m_pArray->m_uFirst;
+            m_uPosition = m_pArray->m_uFirst == QFixedArray::END_POSITION_BACKWARD ? QFixedArray::END_POSITION_FORWARD : 
+                                                                                     m_pArray->m_uFirst;
         }
 
         /// <summary>
@@ -998,7 +999,8 @@ public:
     QFixedArray(const pointer_uint_q uCount, const T &initialValue) :
             m_uFirst(0),
             m_uLast(uCount - 1),
-            m_allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
+            m_allocator(uCount * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+            m_pElementBasePointer(null_q)
     {
         QE_ASSERT_ERROR( uCount > 0, "Zero elements array is not allowed." );
         QE_ASSERT_ERROR( this->_MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
@@ -1008,6 +1010,8 @@ public:
             // Allocates and writes in the returned buffer the initial value
             new(m_allocator.Allocate()) T(initialValue);
         }
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
 
     /// <summary>
@@ -1021,7 +1025,8 @@ public:
     QFixedArray(const T* pArray, const pointer_uint_q uNumberOfElements) :
             m_uFirst(0),
             m_uLast(uNumberOfElements - 1),
-            m_allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
+            m_allocator(uNumberOfElements * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+            m_pElementBasePointer(null_q)
     {
         QE_ASSERT_ERROR( pArray != null_q, "The argument pArray is null." );
         QE_ASSERT_ERROR( uNumberOfElements > 0, "Zero elements array is not allowed." );
@@ -1031,6 +1036,8 @@ public:
             // Allocates and writes in the returned buffer a copy of the input array
             new(m_allocator.Allocate()) T(pArray[uIndex]);
         }
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
 
     /// <summary>
@@ -1043,7 +1050,8 @@ public:
     QFixedArray(const QFixedArray &fixedArray) :
             m_uFirst(fixedArray.m_uFirst),
             m_uLast(fixedArray.m_uLast),
-            m_allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
+            m_allocator(fixedArray.GetCount() * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+            m_pElementBasePointer(null_q)
     {
         for(pointer_uint_q uIndex = 0; uIndex < fixedArray.m_uLast + 1U; ++uIndex)
         {
@@ -1051,6 +1059,8 @@ public:
             // the value of the origin element in the corresponding array position.
             new(m_allocator.Allocate()) T(fixedArray[uIndex]);
         }
+
+        m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
     }
 
 protected:
@@ -1061,7 +1071,8 @@ protected:
     QFixedArray() :
         m_uFirst(END_POSITION_BACKWARD),
         m_uLast(END_POSITION_FORWARD),
-        m_allocator(QFixedArray::DEFAULT_CAPACITY * sizeof(T), sizeof(T), QAlignment(alignof_q(T)))
+        m_allocator(QFixedArray::DEFAULT_CAPACITY * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
+        m_pElementBasePointer(null_q)
     {
     }
 
@@ -1069,6 +1080,7 @@ protected:
     // DESTRUCTOR
     // ---------------
 public:
+
     /// <summary>
     /// Destructor.
     /// </summary>
@@ -1143,7 +1155,7 @@ public:
     T& GetValue(const pointer_uint_q uIndex) const
     {
         QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size." );
-        return *((T*)m_allocator.GetPointer() + uIndex);
+        return *(m_pElementBasePointer + uIndex);
     }
 
     /// <summary>
@@ -1167,7 +1179,7 @@ public:
     void SetValue(const pointer_uint_q uIndex, const T& value)
     {
         QE_ASSERT_ERROR( uIndex < this->GetCount(), "Index must be less than the array's size." );
-        *((T*)m_allocator.GetPointer() + uIndex) = value;
+        *(m_pElementBasePointer + uIndex) = value;
     }
 
     /// <summary>
@@ -1227,7 +1239,7 @@ public:
         QE_ASSERT_ERROR(uLast < this->GetCount(), "The last index is out of bounds.");
         QE_ASSERT_ERROR(uFirst <= uLast, "The first index must be lower than or equal to the last index.");
 
-        return QFixedArray(scast_q(m_allocator.GetPointer(), T*) + uFirst, uLast - uFirst + 1U);
+        return QFixedArray(m_pElementBasePointer + uFirst, uLast - uFirst + 1U);
     }
     
     /// <summary>
@@ -1373,7 +1385,7 @@ public:
     /// </returns>
     bool Contains(const T &element) const
     {
-        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        const T* pElement = m_pElementBasePointer;
         pointer_uint_q uIndex = 0;
         const pointer_uint_q ARRAY_COUNT = this->GetCount();
         
@@ -1402,7 +1414,7 @@ public:
     /// </returns>
     pointer_uint_q IndexOf(const T &element) const
     {
-        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        const T* pElement = m_pElementBasePointer;
         pointer_uint_q uIndex = 0;
         const pointer_uint_q ARRAY_COUNT = this->GetCount();
         
@@ -1437,7 +1449,7 @@ public:
 
         QE_ASSERT_WARNING(uIndex < ARRAY_COUNT, "The input start index must be lower than the number of elements in the array.");
 
-        const T* pElement = scast_q(m_allocator.GetPointer(), T*) + uStartIndex;
+        const T* pElement = m_pElementBasePointer + uStartIndex;
         
         bool bElementFound = false;
 
@@ -1464,7 +1476,7 @@ public:
     /// </returns>
     QArrayIterator PositionOf(const T &element) const
     {
-        const T* pElement = scast_q(m_allocator.GetPointer(), T*);
+        const T* pElement = m_pElementBasePointer;
         QFixedArray::QArrayIterator position = this->GetFirst();
 
         bool bElementFound = false;
@@ -1497,7 +1509,7 @@ public:
         QE_ASSERT_ERROR(startPosition.IsValid(), "The input start position must not point to an end position.");
 
         const T* pElement = startPosition.IsEnd() ? null_q : &*startPosition;
-        QFixedArray::QArrayIterator position(this, pElement - scast_q(m_allocator.GetPointer(), const T*));
+        QFixedArray::QArrayIterator position(this, pElement - m_pElementBasePointer);
 
         bool bElementFound = false;
 
@@ -1615,7 +1627,11 @@ protected:
     /// The allocator which stores the array elements.
     /// </summary>
     AllocatorT m_allocator;
-
+    
+    /// <summary>
+    /// A pointer to the buffer stored in the memory allocator, casted to the element type, intended to improve overall performance.
+    /// </summary>
+    T* m_pElementBasePointer;
 };
 
 

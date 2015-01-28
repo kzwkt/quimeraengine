@@ -265,7 +265,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD && m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return *(scast_q(m_pTree->m_elementAllocator.GetPointer(), T*) + m_uPosition);
+            return *(m_pTree->m_pElementBasePointer + m_uPosition);
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ public:
 
             QE_ASSERT_ERROR(m_uPosition != QBinarySearchTree::END_POSITION_FORWARD && m_uPosition != QBinarySearchTree::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the tree element");
 
-            return scast_q(m_pTree->m_elementAllocator.GetPointer(), T*) + m_uPosition;
+            return m_pTree->m_pElementBasePointer + m_uPosition;
         }
 
         /// <summary>
@@ -319,40 +319,39 @@ public:
                     {
                         QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                        QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                        QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_uPosition;
+                        QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_uPosition;
 
                         if(pNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a right-child, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetRightChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetRightChild();
 
                             // And searches for the "leftest" and deepest node
                             while(pNextNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                                pNextNode = pBasePointer + pNextNode->GetLeftChild();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetLeftChild();
 
-                            m_uPosition = pNextNode - pBasePointer;
+                            m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else if(pNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a parent, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetParent();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetParent();
 
                             // And searches for the first parent reached from the left side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetRightChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
+                                  pNextNode->GetRightChild() == scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
-                                pNextNode = pBasePointer + pNextNode->GetParent();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetParent();
                             }
                             
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetLeftChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
+                               pNextNode->GetLeftChild() != scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_FORWARD;
                             else
                                 // Gets the position of the found next node
-                                m_uPosition = pNextNode - pBasePointer;
+                                m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else
                         {
@@ -405,40 +404,39 @@ public:
                     {
                         QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                        QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                        QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_uPosition;
+                        QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_uPosition;
 
                         if(pNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a left-child, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetLeftChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetLeftChild();
 
                             // And searches for the rightest and deepest child
                             while(pNextNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                                pNextNode = pBasePointer + pNextNode->GetRightChild();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetRightChild();
 
-                            m_uPosition = pNextNode - pBasePointer;
+                            m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else if(pNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If the node has a parent, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetParent();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetParent();
 
                             // And searches for the first ancestor reached from the right side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetLeftChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
+                                  pNextNode->GetLeftChild() == scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
-                                pNextNode = pBasePointer + pNextNode->GetParent();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetParent();
                             }
 
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetRightChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
+                               pNextNode->GetRightChild() != scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_BACKWARD;
                             else
                                 // Gets the position of the found previous node
-                                m_uPosition = pNextNode - pBasePointer;
+                                m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else
                         {
@@ -488,40 +486,39 @@ public:
                     {
                         QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                        QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                        QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_uPosition;
+                        QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_uPosition;
 
                         if(pNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a right-child, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetRightChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetRightChild();
 
                             // And searches for the "leftest" and deepest node
                             while(pNextNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                                pNextNode = pBasePointer + pNextNode->GetLeftChild();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetLeftChild();
 
-                            m_uPosition = pNextNode - pBasePointer;
+                            m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else if(pNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a parent, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetParent();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetParent();
 
                             // And searches for the first parent reached from the left side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetRightChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
+                                  pNextNode->GetRightChild() == scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
-                                pNextNode = pBasePointer + pNextNode->GetParent();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetParent();
                             }
 
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetLeftChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
+                               pNextNode->GetLeftChild() != scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_FORWARD;
                             else
                                 // Gets the position of the found next node
-                                m_uPosition = pNextNode - pBasePointer;
+                                m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else
                         {
@@ -570,40 +567,39 @@ public:
                     {
                         QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                        QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                        QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_uPosition;
+                        QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_uPosition;
 
                         if(pNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If current node has a left-child, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetLeftChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetLeftChild();
 
                             // And searches for the rightest and deepest child
                             while(pNextNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                                pNextNode = pBasePointer + pNextNode->GetRightChild();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetRightChild();
 
-                            m_uPosition = pNextNode - pBasePointer;
+                            m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else if(pNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD)
                         {
                             // If the node has a parent, the pointer moves to it
-                            pNextNode = pBasePointer + pNode->GetParent();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetParent();
 
                             // And searches for the first ancestor reached from the right side
                             while(pNextNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD &&
-                                  pNextNode->GetLeftChild() == scast_q(pNode - pBasePointer, pointer_uint_q))
+                                  pNextNode->GetLeftChild() == scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                             {
                                 pNode = pNextNode;
-                                pNextNode = pBasePointer + pNextNode->GetParent();
+                                pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetParent();
                             }
                             
                             if(pNextNode->GetParent() == QBinarySearchTree::END_POSITION_FORWARD &&
-                               pNextNode->GetRightChild() != scast_q(pNode - pBasePointer, pointer_uint_q))
+                               pNextNode->GetRightChild() != scast_q(pNode - m_pTree->m_pNodeBasePointer, pointer_uint_q))
                                 // Root node found
                                 m_uPosition = QBinarySearchTree::END_POSITION_BACKWARD;
                             else
                                 // Gets the position of the found previous node
-                                m_uPosition = pNextNode - pBasePointer;
+                                m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                         }
                         else
                         {
@@ -870,20 +866,19 @@ public:
                 {
                     QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                    QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                    QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_pTree->m_uRoot;
+                    QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_pTree->m_uRoot;
                     m_uPosition = m_pTree->m_uRoot;
 
                     if(pNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
                         // If root node has a left-child, the pointer moves to it
-                        pNextNode = pBasePointer + pNode->GetLeftChild();
+                        pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetLeftChild();
 
                         // And searches for the "leftest" and deepest child
                         while(pNextNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                            pNextNode = pBasePointer + pNextNode->GetLeftChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetLeftChild();
 
-                        m_uPosition = pNextNode - pBasePointer;
+                        m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                     }
                 }
             }
@@ -907,20 +902,19 @@ public:
                 {
                     QBinarySearchTree::QBinaryNode* pNextNode = null_q;
 
-                    QBinarySearchTree::QBinaryNode* pBasePointer = rcast_q(m_pTree->m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                    QBinarySearchTree::QBinaryNode* pNode = pBasePointer + m_pTree->m_uRoot;
+                    QBinarySearchTree::QBinaryNode* pNode = m_pTree->m_pNodeBasePointer + m_pTree->m_uRoot;
                     m_uPosition = m_pTree->m_uRoot;
 
                     if(pNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
                         // If root node has a right-child, the pointer moves to it
-                        pNextNode = pBasePointer + pNode->GetRightChild();
+                        pNextNode = m_pTree->m_pNodeBasePointer + pNode->GetRightChild();
 
                         // And searches for the "rightest" and deepest child
                         while(pNextNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                            pNextNode = pBasePointer + pNextNode->GetRightChild();
+                            pNextNode = m_pTree->m_pNodeBasePointer + pNextNode->GetRightChild();
 
-                        m_uPosition = pNextNode - pBasePointer;
+                        m_uPosition = pNextNode - m_pTree->m_pNodeBasePointer;
                     }
                 }
             }
@@ -1023,9 +1017,13 @@ public:
     /// </summary>
     QBinarySearchTree() : m_elementAllocator(QBinarySearchTree::sm_uDefaultCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
                           m_nodeAllocator(QBinarySearchTree::sm_uDefaultCapacity * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
-                          m_uRoot(QBinarySearchTree::END_POSITION_FORWARD)
+                          m_uRoot(QBinarySearchTree::END_POSITION_FORWARD),
+                          m_pElementBasePointer(null_q),
+                          m_pNodeBasePointer(null_q)
                           
     {
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
     }
 
     /// <summary>
@@ -1034,9 +1032,14 @@ public:
     /// <param name="uInitialCapacity">[IN] The number of elements for which to reserve memory. It must be greater than zero.</param>
     explicit QBinarySearchTree(const pointer_uint_q uInitialCapacity) : m_elementAllocator(uInitialCapacity * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
                                                                         m_nodeAllocator(uInitialCapacity * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
-                                                                        m_uRoot(QBinarySearchTree::END_POSITION_FORWARD)
+                                                                        m_uRoot(QBinarySearchTree::END_POSITION_FORWARD),
+                                                                       m_pElementBasePointer(null_q),
+                                                                       m_pNodeBasePointer(null_q)
     {
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity of the tree must be greater than zero.");
+
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
     }
     
     /// <summary>
@@ -1048,8 +1051,13 @@ public:
     /// <param name="tree">[IN] The other tree to be copied.</param>
     QBinarySearchTree(const QBinarySearchTree &tree): m_elementAllocator(tree.GetCapacity() * sizeof(T), sizeof(T), QAlignment(alignof_q(T))),
                                                       m_nodeAllocator(tree.GetCapacity() * sizeof(QBinarySearchTree::QBinaryNode), sizeof(QBinarySearchTree::QBinaryNode), QAlignment(alignof_q(QBinarySearchTree::QBinaryNode))),
-                                                      m_uRoot(tree.m_uRoot)
+                                                      m_uRoot(tree.m_uRoot),
+                                                      m_pElementBasePointer(null_q),
+                                                      m_pNodeBasePointer(null_q)
     {
+        m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+        m_pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
+
         if(!tree.IsEmpty())
         {
             tree.m_elementAllocator.CopyTo(m_elementAllocator);
@@ -1152,26 +1160,15 @@ public:
                 QBinarySearchTree::QConstBinarySearchTreeIterator itThis = this->GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
                 QBinarySearchTree::QConstBinarySearchTreeIterator itInput = tree.GetFirst(EQTreeTraversalOrder::E_DepthFirstInOrder);
 
-                QBinarySearchTree::QBinaryNode* pNodeBasePointerThis  = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                QBinarySearchTree::QBinaryNode* pNodeBasePointerInput = scast_q(tree.m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-                T* pElementBasePointerThis  = scast_q(m_elementAllocator.GetPointer(), T*);
-                T* pElementBasePointerInput = scast_q(tree.m_elementAllocator.GetPointer(), T*);
-
-                QBinarySearchTree::QBinaryNode* pCurrentNodeThis = null_q;
-                QBinarySearchTree::QBinaryNode* pCurrentNodeInput = null_q;
-
-                pointer_uint_q uCurrentNodePositionThis = 0;
-                pointer_uint_q uCurrentNodePositionInput = 0;
-
                 while(bAreEqual && !itThis.IsEnd())
                 {
                     // Note: Both trees can have the same structure and be physically ordered differently in memory
 
-                    uCurrentNodePositionThis = &*itThis - pElementBasePointerThis;
-                    uCurrentNodePositionInput = &*itInput - pElementBasePointerInput;
+                    pointer_uint_q uCurrentNodePositionThis = &*itThis - m_pElementBasePointer;
+                    pointer_uint_q uCurrentNodePositionInput = &*itInput - tree.m_pElementBasePointer;
 
-                    pCurrentNodeThis = pNodeBasePointerThis + uCurrentNodePositionThis;
-                    pCurrentNodeInput = pNodeBasePointerInput + uCurrentNodePositionInput;
+                    QBinarySearchTree::QBinaryNode* pCurrentNodeThis = m_pNodeBasePointer + uCurrentNodePositionThis;
+                    QBinarySearchTree::QBinaryNode* pCurrentNodeInput = tree.m_pNodeBasePointer + uCurrentNodePositionInput;
 
                     // The value of the current element is checked
                     bAreEqual = ComparatorT::Compare(*itThis, *itInput) == 0
@@ -1221,6 +1218,8 @@ public:
         {
             m_elementAllocator.Reallocate(uNumberOfElements * sizeof(T));
             m_nodeAllocator.Reallocate(uNumberOfElements * sizeof(QBinarySearchTree::QBinaryNode));
+            m_pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
+            m_pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
         }
     }
     
@@ -1243,8 +1242,6 @@ public:
 
         new(m_elementAllocator.Allocate()) T(newElement);
 
-        T* pElementBasePosition = scast_q(m_elementAllocator.GetPointer(), T*);
-        QBinarySearchTree::QBinaryNode* pNodeBasePosition = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
         QBinarySearchTree::QBinaryNode* pNewNode = null_q;
 
         if(m_uRoot == QBinarySearchTree::END_POSITION_FORWARD)
@@ -1253,14 +1250,14 @@ public:
             pNewNode = new(m_nodeAllocator.Allocate()) QBinarySearchTree::QBinaryNode(QBinarySearchTree::END_POSITION_FORWARD, 
                                                                                       QBinarySearchTree::END_POSITION_FORWARD,
                                                                                       QBinarySearchTree::END_POSITION_FORWARD);
-            m_uRoot = pNewNode - pNodeBasePosition;
+            m_uRoot = pNewNode - m_pNodeBasePointer;
         }
         else
         {
             static const int INPUT_VALUE_IS_LOWER = -1;
             static const int INPUT_VALUE_IS_GREATER = 1;
-            QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePosition + m_uRoot;
-            T* pCurrentElement = pElementBasePosition + m_uRoot;
+            QBinarySearchTree::QBinaryNode* pCurrentNode = m_pNodeBasePointer + m_uRoot;
+            T* pCurrentElement = m_pElementBasePointer + m_uRoot;
 
             int nComparisonResult = 0;
             
@@ -1276,16 +1273,16 @@ public:
                     if(pCurrentNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
                         // If the new value is lower than the current element's value and there is a left child, moves down to the left child
-                        pCurrentElement = pElementBasePosition + pCurrentNode->GetLeftChild();
-                        pCurrentNode = pNodeBasePosition + pCurrentNode->GetLeftChild();
+                        pCurrentElement = m_pElementBasePointer + pCurrentNode->GetLeftChild();
+                        pCurrentNode = m_pNodeBasePointer + pCurrentNode->GetLeftChild();
                     }
                     else
                     {
                         // If the new value is lower than the current element's value and there is not a left child, the new value occupies the left position
-                        pNewNode = new(m_nodeAllocator.Allocate()) QBinarySearchTree::QBinaryNode(pCurrentNode - pNodeBasePosition, 
+                        pNewNode = new(m_nodeAllocator.Allocate()) QBinarySearchTree::QBinaryNode(pCurrentNode - m_pNodeBasePointer, 
                                                                                                   QBinarySearchTree::END_POSITION_FORWARD, 
                                                                                                   QBinarySearchTree::END_POSITION_FORWARD);
-                        pCurrentNode->SetLeftChild(pNewNode - pNodeBasePosition);
+                        pCurrentNode->SetLeftChild(pNewNode - m_pNodeBasePointer);
                     }
                 }
                 else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
@@ -1293,22 +1290,22 @@ public:
                     if(pCurrentNode->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
                     {
                         // If the new value is greater than the current element's value and there is a right child, moves down to the right child
-                        pCurrentElement = pElementBasePosition + pCurrentNode->GetRightChild();
-                        pCurrentNode = pNodeBasePosition + pCurrentNode->GetRightChild();
+                        pCurrentElement = m_pElementBasePointer + pCurrentNode->GetRightChild();
+                        pCurrentNode = m_pNodeBasePointer + pCurrentNode->GetRightChild();
                     }
                     else
                     {
                         // If the new value is greater than the current element's value and there is not a right child, the new value occupies the right position
-                        pNewNode = new(m_nodeAllocator.Allocate()) QBinarySearchTree::QBinaryNode(pCurrentNode - pNodeBasePosition, 
+                        pNewNode = new(m_nodeAllocator.Allocate()) QBinarySearchTree::QBinaryNode(pCurrentNode - m_pNodeBasePointer, 
                                                                                                   QBinarySearchTree::END_POSITION_FORWARD, 
                                                                                                   QBinarySearchTree::END_POSITION_FORWARD);
-                        pCurrentNode->SetRightChild(pNewNode - pNodeBasePosition);
+                        pCurrentNode->SetRightChild(pNewNode - m_pNodeBasePointer);
                     }
                 }
             } // while(pNewNode != null_q)
         }
 
-        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, pNewNode - pNodeBasePosition, eTraversalOrder);
+        return QBinarySearchTree::QConstBinarySearchTreeIterator(this, pNewNode - m_pNodeBasePointer, eTraversalOrder);
     }
     
     /// <summary>
@@ -1332,12 +1329,10 @@ public:
         QBinarySearchTree::QConstBinarySearchTreeIterator resultIterator = elementPosition;
         ++resultIterator;
 
-        T* pElementBasePosition = scast_q(m_elementAllocator.GetPointer(), T*);
         const T* pElement = &*elementPosition;
-        pointer_uint_q uElementPosition = pElement - pElementBasePosition;
+        pointer_uint_q uElementPosition = pElement - m_pElementBasePointer;
 
-        QBinarySearchTree::QBinaryNode* pNodeBasePosition = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-        QBinarySearchTree::QBinaryNode* pNode = pNodeBasePosition + uElementPosition;
+        QBinarySearchTree::QBinaryNode* pNode = m_pNodeBasePointer + uElementPosition;
         
         pointer_uint_q uNewChild = QBinarySearchTree::END_POSITION_FORWARD;
 
@@ -1350,14 +1345,14 @@ public:
             uNewChild = pNode->GetLeftChild();
 
             // The right child will be appended to the deepest right child in the branch of the node's left child
-            QBinarySearchTree::QBinaryNode* pRightMostChild = pNodeBasePosition + pNode->GetLeftChild();
+            QBinarySearchTree::QBinaryNode* pRightMostChild = m_pNodeBasePointer + pNode->GetLeftChild();
 
             while(pRightMostChild->GetRightChild() != QBinarySearchTree::END_POSITION_FORWARD)
-                pRightMostChild = pNodeBasePosition + pRightMostChild->GetRightChild();
+                pRightMostChild = m_pNodeBasePointer + pRightMostChild->GetRightChild();
 
             pRightMostChild->SetRightChild(pNode->GetRightChild());
-            QBinarySearchTree::QBinaryNode* pRightChildNode = pNodeBasePosition + pNode->GetRightChild();
-            pRightChildNode->SetParent(pRightMostChild - pNodeBasePosition);
+            QBinarySearchTree::QBinaryNode* pRightChildNode = m_pNodeBasePointer + pNode->GetRightChild();
+            pRightChildNode->SetParent(pRightMostChild - m_pNodeBasePointer);
         }
         else if(pNode->GetLeftChild() != QBinarySearchTree::END_POSITION_FORWARD)
         {
@@ -1376,14 +1371,14 @@ public:
         if(uNewChild != QBinarySearchTree::END_POSITION_FORWARD)
         {
             // Sets the parent of the node that will occupy the position of the removed node
-            QBinarySearchTree::QBinaryNode* pNewChild = pNodeBasePosition + uNewChild;
+            QBinarySearchTree::QBinaryNode* pNewChild = m_pNodeBasePointer + uNewChild;
             pNewChild->SetParent(pNode->GetParent());
         }
         
         // If the removed node had a parent, its child (either left or right) is set to the node that occupies its place
         if(pNode->GetParent() != QBinarySearchTree::END_POSITION_FORWARD)
         {
-            QBinarySearchTree::QBinaryNode* pParentNode = pNodeBasePosition + pNode->GetParent();
+            QBinarySearchTree::QBinaryNode* pParentNode = m_pNodeBasePointer + pNode->GetParent();
             
             if(pParentNode->GetLeftChild() == uElementPosition)
                 pParentNode->SetLeftChild(uNewChild);
@@ -1440,10 +1435,9 @@ public:
 
         pointer_uint_q uCurrentPosition = m_uRoot;
 
-        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
-        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
-        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
+        QBinarySearchTree::QBinaryNode* pCurrentNode = m_pNodeBasePointer + uCurrentPosition;
+
+        T* pCurrentElement = m_pElementBasePointer + uCurrentPosition;
         int nComparisonResult = INVALID_RESULT;
 
         while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
@@ -1455,8 +1449,8 @@ public:
             else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
                 uCurrentPosition = pCurrentNode->GetRightChild();
 
-            pCurrentElement = pElementBasePointer + uCurrentPosition;
-            pCurrentNode = pNodeBasePointer + uCurrentPosition;
+            pCurrentElement = m_pElementBasePointer + uCurrentPosition;
+            pCurrentNode = m_pNodeBasePointer + uCurrentPosition;
         }
 
         return nComparisonResult == INPUT_VALUE_IS_EQUAL;
@@ -1529,10 +1523,9 @@ public:
 
         pointer_uint_q uCurrentPosition = m_uRoot;
 
-        QBinarySearchTree::QBinaryNode* pNodeBasePointer = scast_q(m_nodeAllocator.GetPointer(), QBinarySearchTree::QBinaryNode*);
-        QBinarySearchTree::QBinaryNode* pCurrentNode = pNodeBasePointer + uCurrentPosition;
-        T* pElementBasePointer = scast_q(m_elementAllocator.GetPointer(), T*);
-        T* pCurrentElement = pElementBasePointer + uCurrentPosition;
+        QBinarySearchTree::QBinaryNode* pCurrentNode = m_pNodeBasePointer + uCurrentPosition;
+
+        T* pCurrentElement = m_pElementBasePointer + uCurrentPosition;
         int nComparisonResult = INVALID_RESULT;
 
         while(uCurrentPosition != QBinarySearchTree::END_POSITION_FORWARD && nComparisonResult != INPUT_VALUE_IS_EQUAL)
@@ -1544,8 +1537,8 @@ public:
             else if(nComparisonResult == INPUT_VALUE_IS_GREATER)
                 uCurrentPosition = pCurrentNode->GetRightChild();
 
-            pCurrentElement = pElementBasePointer + uCurrentPosition;
-            pCurrentNode = pNodeBasePointer + uCurrentPosition;
+            pCurrentElement = m_pElementBasePointer + uCurrentPosition;
+            pCurrentNode = m_pNodeBasePointer + uCurrentPosition;
         }
 
         return QBinarySearchTree::QConstBinarySearchTreeIterator(this, uCurrentPosition, eTraversalOrder);
@@ -1650,6 +1643,16 @@ protected:
     /// The position of the root node in the internal buffer.
     /// </summary>
     pointer_uint_q m_uRoot;
+    
+    /// <summary>
+    /// A pointer to the buffer stored in the memory allocator, casted to the element type, intended to improve overall performance.
+    /// </summary>
+    T* m_pElementBasePointer;
+
+    /// <summary>
+    /// A pointer to the buffer stored in the memory allocator, casted to the QBinaryNode type, intended to improve overall performance.
+    /// </summary>
+    QBinaryNode* m_pNodeBasePointer;
 };
 
 // ATTRIBUTE INITIALIZATION

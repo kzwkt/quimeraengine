@@ -1570,7 +1570,7 @@ QTEST_CASE( OperatorInequality_ReturnsFalseWhenDictionariesAreEmpty_Test )
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
-    bool bResult = DICTIONARY1 == DICTIONARY2;
+    bool bResult = DICTIONARY1 != DICTIONARY2;
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
