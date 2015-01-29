@@ -257,15 +257,15 @@ QTEST_CASE ( Constructor3_CopyConstructorOfArrayElementsAreCalled_Test )
 QTEST_CASE ( Constructor4_ConstructorWithoutParametersInitializesCorrectly_Test )
 {
     // [Preparation]
-    const pointer_uint_q END_POSITION_FORWARD = -1;
-    const pointer_uint_q END_POSITION_BACKWARD = -2;
+    const pointer_uint_q END_POSITION_FORWARD = -2;
+    const pointer_uint_q END_POSITION_BACKWARD = -1;
 
     // [Execution]
     QFixedArrayWhiteBox<u64_q> fixedArray;
 
     // [Verification]
-    pointer_uint_q uFirst = fixedArray.GetFirst();
-    pointer_uint_q uLast  = fixedArray.GetLast();
+    pointer_uint_q uFirst = fixedArray.GetFirstPosition();
+    pointer_uint_q uLast  = fixedArray.GetLastPosition();
 
     BOOST_CHECK_EQUAL( uFirst, END_POSITION_BACKWARD );
     BOOST_CHECK_EQUAL( uLast, END_POSITION_FORWARD );
