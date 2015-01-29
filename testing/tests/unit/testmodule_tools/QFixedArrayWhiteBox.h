@@ -66,13 +66,13 @@ public:
 public:
 
     // Necessary for testing
-    pointer_uint_q GetFirst() const
+    pointer_uint_q GetFirstPosition() const
     {
         return QFixedArray<T, Allocator>::m_uFirst;
     }
 
     // Necessary for testing
-    pointer_uint_q GetLast() const
+    pointer_uint_q GetLastPosition() const
     {
         return QFixedArray<T, Allocator>::m_uLast;
     }

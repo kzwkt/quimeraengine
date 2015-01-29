@@ -35,6 +35,7 @@
 #include "SQComparatorDefault.h"
 #include "AllocationOperators.h"
 #include "EQIterationDirection.h"
+#include "SQInteger.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
@@ -140,8 +141,7 @@ public:
             // Note: This code is a copy of the same method of QArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the array element");
-
-            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(!this->IsEnd(), "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return *(m_pArray->m_pElementBasePointer + m_uPosition);
         }
@@ -158,8 +158,7 @@ public:
             // Note: This code is a copy of the same method of QArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the array element");
-
-            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(!this->IsEnd(), "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return m_pArray->m_pElementBasePointer + m_uPosition;
         }
@@ -180,17 +179,11 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator (just replacing QArrayIterator with QConstArrayIterator)
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
-
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
 
             QConstArrayIterator iteratorCopy = *this;
 
-            if(m_uPosition == m_pArray->m_uLast)
-                m_uPosition = QFixedArray::END_POSITION_FORWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                m_uPosition = m_pArray->m_uFirst;
-            else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                ++m_uPosition;
+            ++m_uPosition;
 
             return iteratorCopy;
         }
@@ -211,17 +204,11 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator (just replacing QArrayIterator with QConstArrayIterator)
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
-
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
             QConstArrayIterator iteratorCopy = *this;
 
-            if(m_uPosition == m_pArray->m_uFirst)
-                m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                m_uPosition = m_pArray->m_uLast;
-            else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                --m_uPosition;
+            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
 
             return iteratorCopy;
         }
@@ -241,15 +228,9 @@ public:
             // Note: This code is a copy of the same method of QArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
-
-            if(m_uPosition == m_pArray->m_uLast)
-                m_uPosition = QFixedArray::END_POSITION_FORWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                m_uPosition = m_pArray->m_uFirst;
-            else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                ++m_uPosition;
+            ++m_uPosition;
 
             return *this;
         }
@@ -269,15 +250,9 @@ public:
             // Note: This code is a copy of the same method of QArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
-
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
-
-            if(m_uPosition == m_pArray->m_uFirst)
-                m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                m_uPosition = m_pArray->m_uLast;
-            else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                --m_uPosition;
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
+            
+            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
 
             return *this;
         }
@@ -425,7 +400,8 @@ public:
         {
             QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
-            return m_uPosition == QFixedArray::END_POSITION_BACKWARD || m_uPosition == QFixedArray::END_POSITION_FORWARD;
+            return m_uPosition > m_pArray->m_uLast || 
+                   m_uPosition >= QFixedArray::END_POSITION_FORWARD; // Includes END_POSITION_FORWARD
         }
 
         /// <summary>
@@ -446,7 +422,7 @@ public:
             QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
-                   (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition == QFixedArray::END_POSITION_FORWARD);
+                   (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition > m_pArray->m_uLast && m_uPosition != QFixedArray::END_POSITION_BACKWARD);
         }
 
         /// <summary>
@@ -496,31 +472,14 @@ public:
         {
             // Note: This code is a copy of the same method of QArrayIterator
 
+            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_ERROR(((m_uPosition + uIncrement) <= m_pArray->m_uLast + 1U && (m_uPosition + uIncrement) >= m_uPosition) ||
+                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + SQInteger::ToString(uIncrement) + ")");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
-
-            if(uIncrement != 0)
-            {
-                if(m_uPosition == m_pArray->m_uLast)
-                    m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                {
-                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
-
-                    if(uIncrement < ARRAY_COUNT)
-                        m_uPosition = m_pArray->m_uFirst + uIncrement - 1U;
-                    else if(uIncrement == ARRAY_COUNT)
-                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                }
-                else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                {
-                    if((m_pArray->GetCount() - m_uPosition) <= uIncrement)
-                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                    else
-                        m_uPosition += uIncrement;
-                }
-            }
+            m_uPosition += uIncrement;
 
             return *this;
         }
@@ -542,31 +501,16 @@ public:
         {
             // Note: This code is a copy of the same method of QArrayIterator
 
+            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            m_uPosition = m_uPosition > m_pArray->m_uLast + 1U ? m_pArray->m_uLast + 1U : m_uPosition;
 
-            if(uDecrement != 0)
-            {
-                if(m_uPosition == m_pArray->m_uFirst)
-                    m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                {
-                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
+            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QFixedArray::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + SQInteger::ToString(uDecrement) + ")");
 
-                    if(uDecrement < ARRAY_COUNT)
-                        m_uPosition = m_pArray->m_uLast - uDecrement + 1U;
-                    else if(uDecrement == ARRAY_COUNT)
-                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                }
-                else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                {
-                    if(m_uPosition < uDecrement)
-                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                    else
-                        m_uPosition -= uDecrement;
-                }
-            }
+            m_uPosition -= uDecrement;
 
             return *this;
         }
@@ -575,19 +519,15 @@ public:
         /// Checks whether the iterator is valid or not.
         /// </summary>
         /// <remarks>
-        /// An iterator is considered invalid when it points to an unexisting position (an array may have been shortened while the iterator
-        /// was pointing to its last position). If the array to iterate have been destroyed, there is no way for the iterator to realize that so
-        /// its behavior is undefined and this method will not detect that situation.<br/>
-        /// The position before the first element or after the last one (end positions) are considered as valid positions.
+        /// If the array to iterate have been destroyed, there is no way for the iterator to realize that so
+        /// its behavior is undefined and this method will not detect that situation.
         /// </remarks>
         /// <returns>
         /// True if the iterator is valid; False otherwise.
         /// </returns>
         bool IsValid() const
         {
-            return m_pArray != null_q && ((m_uPosition >= m_pArray->m_uFirst && m_uPosition <= m_pArray->m_uLast) ||
-                                          m_uPosition == QFixedArray::END_POSITION_BACKWARD ||
-                                          m_uPosition == QFixedArray::END_POSITION_FORWARD);
+            return m_pArray != null_q && (m_uPosition <= m_pArray->m_allocator.GetPoolSize() / sizeof(T) || m_uPosition >= QFixedArray::END_POSITION_FORWARD);
         }
         
         /// <summary>
@@ -694,8 +634,7 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the reference to the array element");
-
-            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(!this->IsEnd(), "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return *(m_pArray->m_pElementBasePointer + m_uPosition);
         }
@@ -712,8 +651,7 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it is not possible to get the pointer to the array element");
-
-            QE_ASSERT_ERROR(m_uPosition != QFixedArray::END_POSITION_FORWARD && m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to get the reference to the array element");
+            QE_ASSERT_ERROR(!this->IsEnd(), "The iterator points to an end position, it is not possible to get the reference to the array element");
 
             return m_pArray->m_pElementBasePointer + m_uPosition;
         }
@@ -734,17 +672,11 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator (just replacing QConstArrayIterator with QArrayIterator)
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
-
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
 
             QArrayIterator iteratorCopy = *this;
 
-            if(m_uPosition == m_pArray->m_uLast)
-                m_uPosition = QFixedArray::END_POSITION_FORWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                m_uPosition = m_pArray->m_uFirst;
-            else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                ++m_uPosition;
+            ++m_uPosition;
 
             return iteratorCopy;
         }
@@ -765,17 +697,11 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator (just replacing QConstArrayIterator with QArrayIterator)
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
-
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
             QArrayIterator iteratorCopy = *this;
 
-            if(m_uPosition == m_pArray->m_uFirst)
-                m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                m_uPosition = m_pArray->m_uLast;
-            else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                --m_uPosition;
+            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
 
             return iteratorCopy;
         }
@@ -795,15 +721,9 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be incremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
-
-            if(m_uPosition == m_pArray->m_uLast)
-                m_uPosition = QFixedArray::END_POSITION_FORWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                m_uPosition = m_pArray->m_uFirst;
-            else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                ++m_uPosition;
+            ++m_uPosition;
 
             return *this;
         }
@@ -823,15 +743,9 @@ public:
             // Note: This code is a copy of the same method of QConstArrayIterator
 
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
-
-            if(m_uPosition == m_pArray->m_uFirst)
-                m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-            else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                m_uPosition = m_pArray->m_uLast;
-            else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                --m_uPosition;
+            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
 
             return *this;
         }
@@ -884,35 +798,18 @@ public:
         {
             // Note: This code is a copy of the same method of QConstArrayIterator
 
+            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
+            QE_ASSERT_ERROR(((m_uPosition + uIncrement) <= m_pArray->m_uLast + 1U && (m_uPosition + uIncrement) >= m_uPosition) ||
+                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + SQInteger::ToString(uIncrement) + ")");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_FORWARD, "The iterator points to an end position, it is not possible to increment it");
-
-            if(uIncrement != 0)
-            {
-                if(m_uPosition == m_pArray->m_uLast)
-                    m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                else if(m_uPosition == QFixedArray::END_POSITION_BACKWARD)
-                {
-                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
-
-                    if(uIncrement < ARRAY_COUNT)
-                        m_uPosition = m_pArray->m_uFirst + uIncrement - 1U;
-                    else if(uIncrement == ARRAY_COUNT)
-                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                }
-                else if(m_uPosition != QFixedArray::END_POSITION_FORWARD)
-                {
-                    if((m_pArray->GetCount() - m_uPosition) <= uIncrement)
-                        m_uPosition = QFixedArray::END_POSITION_FORWARD;
-                    else
-                        m_uPosition += uIncrement;
-                }
-            }
+            m_uPosition += uIncrement;
 
             return *this;
         }
-
+        
         /// <summary>
         /// Decrements the position the iterator points to.
         /// </summary>
@@ -930,31 +827,16 @@ public:
         {
             // Note: This code is a copy of the same method of QConstArrayIterator
 
+            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
+            QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
-            QE_ASSERT_WARNING(m_uPosition != QFixedArray::END_POSITION_BACKWARD, "The iterator points to an end position, it is not possible to decrement it");
+            m_uPosition = m_uPosition > m_pArray->m_uLast + 1U ? m_pArray->m_uLast + 1U : m_uPosition;
 
-            if(uDecrement != 0)
-            {
-                if(m_uPosition == m_pArray->m_uFirst)
-                    m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                else if(m_uPosition == QFixedArray::END_POSITION_FORWARD)
-                {
-                    const pointer_uint_q& ARRAY_COUNT = m_pArray->GetCount();
+            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QFixedArray::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + SQInteger::ToString(uDecrement) + ")");
 
-                    if(uDecrement < ARRAY_COUNT)
-                        m_uPosition = m_pArray->m_uLast - uDecrement + 1U;
-                    else if(uDecrement == ARRAY_COUNT)
-                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                }
-                else if(m_uPosition != QFixedArray::END_POSITION_BACKWARD)
-                {
-                    if(m_uPosition < uDecrement)
-                        m_uPosition = QFixedArray::END_POSITION_BACKWARD;
-                    else
-                        m_uPosition -= uDecrement;
-                }
-            }
+            m_uPosition -= uDecrement;
 
             return *this;
         }
@@ -982,7 +864,7 @@ protected:
     /// <summary>
     /// Constant to symbolize the end of the sequence near the first element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    static const pointer_uint_q END_POSITION_BACKWARD = -1;
     
     /// <summary>
     /// The default capacity for an array when it is not specified by the user.
@@ -1653,7 +1535,7 @@ protected:
 // ----------------------------
 // Note: This definition was moved here from the interior of the class because compilation failed when using GCC compiler, the reason is not yet clear
 template<class T, class AllocatorT, class ComparatorT>
-const pointer_uint_q QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -1;
+const pointer_uint_q QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -2;
 
 
 } //namespace Containers

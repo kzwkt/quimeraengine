@@ -61,6 +61,7 @@ class QDynamicArray : public QFixedArray<T, AllocatorT, ComparatorT>
     using QFixedArray<T, AllocatorT, ComparatorT>::m_allocator;
     using QFixedArray<T, AllocatorT, ComparatorT>::m_uFirst;
     using QFixedArray<T, AllocatorT, ComparatorT>::m_uLast;
+    using QFixedArray<T, AllocatorT, ComparatorT>::m_pElementBasePointer;
     
 
     // CONSTANTS
