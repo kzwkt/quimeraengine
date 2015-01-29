@@ -400,8 +400,7 @@ public:
         {
             QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
-            return m_uPosition > m_pArray->m_uLast || 
-                   m_uPosition >= QFixedArray::END_POSITION_FORWARD; // Includes END_POSITION_FORWARD
+            return m_uPosition >= m_pArray->GetCount();
         }
 
         /// <summary>

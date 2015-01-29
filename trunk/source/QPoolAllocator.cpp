@@ -433,36 +433,7 @@ void QPoolAllocator::InternalReallocate(const pointer_uint_q uNewSize, void* pNe
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
-void* QPoolAllocator::GetPointer() const
-{
-    return m_pFirst;
-}
 
-
-QAlignment QPoolAllocator::GetAlignment() const
-{
-    return m_uAlignment;
-}
-
-pointer_uint_q QPoolAllocator::GetTotalSize() const
-{
-    return m_uSize;
-}
-
-pointer_uint_q QPoolAllocator::GetPoolSize() const
-{
-    return m_uPoolSize;
-}
-
-bool QPoolAllocator::CanAllocate() const
-{
-    return null_q != m_ppNextFreeBlock;
-}
-
-pointer_uint_q QPoolAllocator::GetAllocatedBytes() const
-{
-    return m_uAllocatedBytes;
-}
 
 
 } //namespace Memory
