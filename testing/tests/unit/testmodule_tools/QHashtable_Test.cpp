@@ -34,9 +34,11 @@ using namespace boost::unit_test;
 
 #include "QAssertException.h"
 #include "CallCounter.h"
+#include "SQStringHashProvider.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QHashtable;
 using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+using Kinesis::QuimeraEngine::Tools::Containers::SQStringHashProvider;
 
 
 QTEST_SUITE_BEGIN( QHashtable_TestSuite )
@@ -52,7 +54,7 @@ QTEST_CASE ( Constructor1_CapacityOfContainerIsCorrect_Test )
     const pointer_uint_q EXPECTED_CAPACITY = 50;
 
     // [Execution]
-    QHashtable<string_q, int> hashtable(NUMBER_OF_BUCKETS, NUMBER_OF_SLOTS);
+    QHashtable<int, int> hashtable(NUMBER_OF_BUCKETS, NUMBER_OF_SLOTS);
 
     // [Verification]
     pointer_uint_q uCapacity = hashtable.GetCapacity();
@@ -249,6 +251,192 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
 }
 */
+/* [TODO] Thund: Uncomment when operator[] exists
+/// <summary>
+/// Checks that the element is correctly added when the hashtable is empty.
+/// </summary>
+QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashtableIsEmpty_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
+    // [Preparation]
+    const int INPUT_KEY = 1;
+    const int INPUT_VALUE = 0;
+    const int EXPECTED_KEYS[] = {INPUT_KEY};
+    const int EXPECTED_VALUES[] = {INPUT_VALUE};
+    
+    QHashtable<int, int> HASHTABLE(1, 1);
+
+    // [Execution]
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly added when the hashtable only contains one element.
+/// </summary>
+QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashtableOnlyContainsOneElement_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 15;
+    const int INPUT_VALUE = 0;
+    const int EXPECTED_KEYS[] = {INPUT_KEY, 1};
+    const int EXPECTED_VALUES[] = {INPUT_VALUE, 1};
+    
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+
+    // [Execution]
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the element is correctly added when its hash key collides with an existing element's.
+/// </summary>
+QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashKeyCollidesWithExistingElements_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const int INPUT_VALUE = 0;
+    const int EXPECTED_KEYS[] = {INPUT_KEY, 1};
+    const int EXPECTED_VALUES[] = {INPUT_VALUE, 1};
+    
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+
+    // [Execution]
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the iterator points to the added element.
+/// </summary>
+QTEST_CASE ( Add_ReturnedIteratorPointsToAddedElement_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    const int INPUT_VALUE = 1;
+    
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(4, 2);
+    HASHTABLE.Add(6, 3);
+
+    // [Execution]
+    QHashtable<int, int>::QConstHashtableIterator itResult = HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    BOOST_CHECK(itResult->GetKey() == INPUT_KEY);
+    BOOST_CHECK(itResult->GetValue() == INPUT_VALUE);
+}
+
+/// <summary>
+/// Checks that the number of elements is incremented after adding.
+/// </summary>
+QTEST_CASE ( Add_CountIsIncremented_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 5;
+    const int INPUT_VALUE = 1;
+    
+    QHashtable<int, int> HASHTABLE(10, 1);
+    HASHTABLE.Add(6, 2);
+    const pointer_uint_q COUNT_BEFORE_ADDING = HASHTABLE.GetCount();
+
+    // [Execution]
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    pointer_uint_q uCountAfterAdding = HASHTABLE.GetCount();
+    BOOST_CHECK(uCountAfterAdding > COUNT_BEFORE_ADDING);
+}
+
+/// <summary>
+/// Checks that the capacity is incremented after exceeding its value.
+/// </summary>
+QTEST_CASE ( Add_CapacityIsIncrementedWhenNecessary_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 6;
+    const int INPUT_VALUE = 6;
+    
+    QHashtable<int, int> HASHTABLE(5, 1);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(2, 2);
+    HASHTABLE.Add(3, 3);
+    HASHTABLE.Add(4, 4);
+    HASHTABLE.Add(5, 5);
+    const pointer_uint_q CAPACITY_BEFORE_ADDING = HASHTABLE.GetCapacity();
+
+    // [Execution]
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Verification]
+    pointer_uint_q uCapacityAfterAdding = HASHTABLE.GetCapacity();
+    BOOST_CHECK(uCapacityAfterAdding > CAPACITY_BEFORE_ADDING);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the key already exists.
+/// </summary>
+QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const int INPUT_KEY = 1;
+    const int INPUT_VALUE = 1;
+    
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(INPUT_KEY, INPUT_VALUE);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        HASHTABLE.Add(INPUT_KEY, 0);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+*/
 // End - Test Suite: QHashtable
 QTEST_SUITE_END()

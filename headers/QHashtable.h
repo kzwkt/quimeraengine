@@ -36,6 +36,7 @@
 #include "QKeyValuePair.h"
 #include "SQIntegerHashProvider.h"
 #include "QPoolAllocator.h"
+#include "SQAnyTypeToStringConverter.h"
 
 
 namespace Kinesis
@@ -149,6 +150,15 @@ public:
     };
 
 
+    // TYPEDEFS
+    // ---------------
+protected:
+
+    typedef QKeyValuePair<KeyT, ValueT> KeyValuePairType;
+    typedef QDynamicArray<QBucket> BucketsArrayType;
+    typedef QList<KeyValuePairType, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > SlotsListType;
+
+
     // CONSTANTS
     // ---------------
 protected:
@@ -178,6 +188,12 @@ public:
     {
         QE_ASSERT_ERROR(uNumberOfBuckets > 0, "The number of buckets must be greater than zero.");
         QE_ASSERT_ERROR(uSlotsPerBucket > 0, "The number of slots per bucket must be greater than zero.");
+
+        static const QHashtable::QBucket DEFAULT_BUCKET;
+
+        // The array of buckets is pre-allocated and initialized
+        for(pointer_uint_q uIndex = 0; uIndex < uNumberOfBuckets; ++uIndex)
+            m_arBuckets.Add(DEFAULT_BUCKET);
     }
     
     /// <summary>
@@ -226,6 +242,52 @@ public:
         m_slots.Reserve(uNumberOfElements);
     }
 
+    /// <summary>
+    /// Adds a key and its associated value to the hashtable.
+    /// </summary>
+    /// <remarks>
+    /// This operation may imply a reallocation, which means that any pointer to elements of this hashtable will be pointing to garbage.<br/>
+    /// The copy constructor of both the new key and the new value will be called.
+    /// </remarks>
+    /// <param name="key">[IN] The new key. It must not exist in the hashtable yet.</param>
+    /// <param name="value">[IN] The new value associated to the new key.</param>
+    /// <returns>
+    /// An iterator that points to the just added key-value pair. If the key was already in the hashtable, the returned iterator will point to the end position.
+    /// </returns>
+    void Add(const KeyT &key, const ValueT &value)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
+
+        // [TODO] Thund: Uncomment when Contains exists
+        //QE_ASSERT_ERROR(!this->Contains(key), string_q("The new key (" + SQAnyTypeToStringConverter::Convert(key) + ") already exists in the hashtable.");
+
+        // Gets the corresponding bucket
+        pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
+        QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
+        
+        // Creates a key-value by copying the data without calling any constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        memcpy(pKeyValueBlock + sizeof(KeyT), &value, sizeof(ValueT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        m_slots.Add(*pKeyValue);
+        bucket.SetSlotCount(bucket.GetSlotCount() + 1U);
+
+        // Finds the first slot of the bucket
+        pointer_uint_q uFirstSlotPosition = bucket.GetSlotPosition();
+
+        if(uFirstSlotPosition == QHashtable::END_POSITION_FORWARD)
+        {
+            // The bucket was empty, the first slot's position is set
+            uFirstSlotPosition = m_slots.GetLast().GetInternalPosition();
+            bucket.SetSlotPosition(uFirstSlotPosition);
+        }
+
+        // [TODO] Thund: Uncomment when iterator exists
+        // return QHashtable::QConstHashtableIterator(this, uFirstSlotPosition);
+    }
+
 
     // PROPERTIES
     // ---------------
@@ -241,6 +303,39 @@ public:
     {
         return m_slots.GetCapacity();
     }
+    
+    /// <summary>
+    /// Gets the allocator of keys and values.
+    /// </summary>
+    /// <returns>
+    /// The key-value allocator.
+    /// </returns>
+    const AllocatorT* GetAllocator() const
+    {
+        return m_slots.GetAllocator();
+    }
+
+    /// <summary>
+    /// Gets the number of elements added to the hashtable.
+    /// </summary>
+    /// <returns>
+    /// The number of elements in the hashtable.
+    /// </returns>
+    pointer_uint_q GetCount() const
+    {
+        return m_slots.GetCount();
+    }
+    
+    /// <summary>
+    /// Indicates whether the hashtable is empty or not.
+    /// </summary>
+    /// <returns>
+    /// True if the hashtable is empty; False otherwise.
+    /// </returns>
+    bool IsEmpty() const
+    {
+        return m_slots.IsEmpty();
+    }
 
 
     // ATTRIBUTES
@@ -250,12 +345,12 @@ protected:
     /// <summary>
     /// The array of buckets. Every hash key corresponds to one position in this array.
     /// </summary>
-    QDynamicArray<QBucket> m_arBuckets;
+    BucketsArrayType m_arBuckets;
 
     /// <summary>
     /// The slot list. It is shared among all the buckets. Every bucket knows where its slots are placed in the list.
     /// </summary>
-    QList< QKeyValuePair<KeyT, ValueT>, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > m_slots;
+    SlotsListType m_slots;
 
 };
 
