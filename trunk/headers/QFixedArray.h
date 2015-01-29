@@ -1019,7 +1019,7 @@ public:
         QE_ASSERT_ERROR( uCount > 0, "Zero elements array is not allowed." );
         QE_ASSERT_ERROR( this->_MultiplicationOverflows(uCount, sizeof(T)) == false, "The amount of memory requested overflows the maximum allowed by this container." );
 
-        for(pointer_uint_q uIndex = 0; uIndex < uCount; uIndex++)
+        for(pointer_uint_q uIndex = 0; uIndex < uCount; ++uIndex)
         {
             // Allocates and writes in the returned buffer the initial value
             new(m_allocator.Allocate()) T(initialValue);
