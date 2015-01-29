@@ -202,7 +202,10 @@ public:
     /// <returns>
     /// The size of the buffer reserved to allocate blocks plus the size of the chunk reserved for internals.
     /// </returns>    
-    pointer_uint_q GetTotalSize() const;
+    inline pointer_uint_q QPoolAllocator::GetTotalSize() const
+    {
+        return m_uSize;
+    }
 
     /// <summary>
     /// Returns the size of the buffer reserved to allocate blocks (passed to the constructors as pool's size parameter).
@@ -210,7 +213,10 @@ public:
     /// <returns>
     /// The size of the buffer reserved to allocate blocks.
     /// </returns>    
-    pointer_uint_q GetPoolSize() const;
+    inline pointer_uint_q QPoolAllocator::GetPoolSize() const
+    {
+        return m_uPoolSize;
+    }
 
     /// <summary>
     /// Returns if there are free blocks to allocate.
@@ -218,7 +224,10 @@ public:
     /// <returns>
     /// True if there are free blocks to allocate. Otherwise returns false.
     /// </returns>
-    bool CanAllocate() const;
+    inline bool QPoolAllocator::CanAllocate() const
+    {
+        return null_q != m_ppNextFreeBlock;
+    }
 
     /// <summary>
     /// Returns the bytes sum of current allocated blocks.
@@ -226,7 +235,10 @@ public:
     /// <returns>
     /// The bytes sum of current allocated blocks.
     /// </returns>        
-    pointer_uint_q GetAllocatedBytes() const;
+    inline pointer_uint_q QPoolAllocator::GetAllocatedBytes() const
+    {
+        return m_uAllocatedBytes;
+    }
 
     /// <summary>
     /// Returns a pointer to the first block of the entire chunk of memory.
@@ -234,7 +246,10 @@ public:
     /// <returns>
     /// A pointer to the first block of the entire chunk of memory.
     /// </returns>        
-    void* GetPointer() const;
+    inline void* QPoolAllocator::GetPointer() const
+    {
+        return m_pFirst;
+    }
 
     /// <summary>
     /// Returns the memory alignment.
@@ -242,7 +257,10 @@ public:
     /// <returns>
     /// The memory alignment.
     /// </returns>        
-    QAlignment GetAlignment() const;
+    inline QAlignment QPoolAllocator::GetAlignment() const
+    {
+        return m_uAlignment;
+    }
 
 
     // ATTRIBUTES
