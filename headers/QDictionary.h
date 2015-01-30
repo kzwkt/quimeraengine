@@ -615,19 +615,10 @@ public:
     /// It calls the assignment operator of the value.
     /// </remarks>
     /// <param name="key">[IN] A key whose associated value will be modified. It must exist in the dictionary.</param>
-    /// <param name="newValue">[IN] The value that will be replace the existing one.</param>
+    /// <param name="newValue">[IN] The value that will replace the existing one.</param>
     void SetValue(const KeyT& key, const ValueT& newValue) const
     {
-        // Creates a fake key-value pair with the input key
-        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
-        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
-        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
-
-        typename InternalBinaryTreeType::ConstIterator position = m_keyValues.PositionOf(*pKeyValue, EQTreeTraversalOrder::E_DepthFirstInOrder);
-
-        QE_ASSERT_ERROR(!position.IsEnd(), "The specified key does not exist.");
-
-        ccast_q(*position, KeyValuePairType&).SetValue(newValue);
+        this->GetValue(key) = newValue;
     }
 
     /// <summary>
