@@ -30,9 +30,11 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QDictionary.h"
+#include "QHashtable.h"
+#include "SQStringHashProvider.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QDictionary;
+using Kinesis::QuimeraEngine::Tools::Containers::QHashtable;
+using Kinesis::QuimeraEngine::Tools::Containers::SQStringHashProvider;
 
 /// <summary>
 /// Small structure used in operator* and operator-> tests.
@@ -56,28 +58,28 @@ struct TestStructure
     int m_field;
 };
 
-QTEST_SUITE_BEGIN( QConstDictionaryIterator_TestSuite )
-
+QTEST_SUITE_BEGIN( QConstHashtableIterator_TestSuite )
+    /* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
-/// Checks that the iterator points to the given position when using a common dictionary.
+/// Checks that the iterator points to the given position when using a common hashtable.
 /// </summary>
-QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonDictionary_Test )
+QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonHashtable_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
     const pointer_uint_q POSITION = 1;
-    QDictionary<string_q, int>::QConstDictionaryIterator EXPECTED_ITERATOR = DICTIONARY.GetFirst();
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator EXPECTED_ITERATOR = HASHTABLE.GetFirst();
     ++EXPECTED_ITERATOR;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, POSITION);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE, POSITION);
     
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);
-}
+}*/
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -87,12 +89,12 @@ QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonDictionary_
 QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    const pointer_uint_q CAPACITY = DICTIONARY.GetCapacity();
+    const pointer_uint_q CAPACITY = HASHTABLE.GetCapacity();
     const unsigned int INVALID_POSITION = CAPACITY;
     const bool ASSERTION_FAILED = true;
 
@@ -101,7 +103,7 @@ QTEST_CASE ( Constructor_AssertionFailsWhenInputPositionIsNotLowerThanCapacity_T
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator INVALID_ITERATOR(&DICTIONARY, INVALID_POSITION);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator INVALID_ITERATOR(&HASHTABLE, INVALID_POSITION);
     }
     catch(const QAssertException&)
     {
@@ -122,18 +124,18 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosit
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    const pointer_uint_q NUMBER_OF_ELEMENTS = DICTIONARY.GetCount();
+    const pointer_uint_q NUMBER_OF_ELEMENTS = HASHTABLE.GetCount();
 
     const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
     const bool IS_END = true;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator INVALID_ITERATOR(&DICTIONARY, INVALID_POSITION);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator INVALID_ITERATOR(&HASHTABLE, INVALID_POSITION);
 
     // [Verification]
     bool bIsEndIterationForward = INVALID_ITERATOR.IsEnd(EQIterationDirection::E_Forward);
@@ -141,18 +143,18 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosit
 }
 
 /// <summary>
-/// Checks that the iterator points to the end position (forward iteration) when using an empty dictionary.
+/// Checks that the iterator points to the end position (forward iteration) when using an empty hashtable.
 /// </summary>
-QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyDictionary_Test )
+QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyHashtable_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY(3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3);
     const bool IS_END = true;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE, 0);
 
     // [Verification]
     bool bIsEndIterationForward = iterator.IsEnd(EQIterationDirection::E_Forward);
@@ -169,14 +171,14 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::QKeyValuePair;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
     const string_q EXPECTED_KEY("key1");
     const int EXPECTED_VALUE = 1;
-    DICTIONARY.Add(EXPECTED_KEY, EXPECTED_VALUE);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    HASHTABLE.Add(EXPECTED_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
     
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveFirst();
 
 	// [Execution]
@@ -195,11 +197,11 @@ QTEST_CASE ( OperatorIndirection_ReturnsTheCorrespondingElement_Test )
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -226,11 +228,11 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToForwardEndPos
 QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -252,20 +254,20 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
 }
 
 #endif
-
+/* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
 /// Checks that the element pointed to by the iterator is returned.
 /// </summary>
 QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY(7);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(7);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    const string_q EXPECTED_KEY("key2");
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR = DICTIONARY.GetFirst();
+    const string_q EXPECTED_KEY("key1");
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR = HASHTABLE.GetFirst();
     ++ITERATOR;
 
 	// [Execution]
@@ -273,7 +275,7 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 
     // [Verification]
     BOOST_CHECK(strKey == EXPECTED_KEY);
-}
+}*/
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -283,12 +285,12 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY(7);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -315,12 +317,12 @@ QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToForwardEndP
 QTEST_CASE ( OperatorDereferencing_AssertionFailsWhenIteratorPointsToBackwardEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY(7);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveFirst();
     --ITERATOR;
     const bool ASSERTION_FAILED = true;
@@ -351,57 +353,22 @@ QTEST_CASE ( OperatorPostIncrement_CommonIteratorStepsForwardProperlyAndReturnsP
     // [Preparation]
     const string_q SECOND_ELEMENT_KEY("key2");
     const int SECOND_ELEMENT_VALUE = 2;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ORIGINAL_ITERATOR.MoveFirst();
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = iterator++;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = iterator++;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
-}
-
-/// <summary>
-/// Checks that the dictionary is traversed in the correct order.
-/// </summary>
-QTEST_CASE ( OperatorPostIncrement_DictionaryIsTraversedInCorrectOrder_Test )
-{
-    // [Preparation]
-    const string_q ELEMENT_KEYS[] = {"key1", "key2", "key3", "key4", "key5", "key6", "key7"};
-    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5, 6, 7};
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key6", 6);
-    DICTIONARY.Add("key5", 5);
-    DICTIONARY.Add("key4", 4);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
-    DICTIONARY.Add("key7", 7);
-
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-    iterator.MoveFirst();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_KEYS[i] == iterator->GetKey();
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == iterator->GetValue();
-        iterator++;
-        i++;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
 }
 
 /// <summary>
@@ -412,18 +379,18 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
     // [Preparation]
     const string_q FIRST_ELEMENT_KEY("key1");
     const int FIRST_ELEMENT_VALUE = 1;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = iterator++;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = iterator++;
     string_q strCurrentElementKey = iterator->GetKey();
     int nCurrentElementValue = iterator->GetValue();
 
@@ -441,12 +408,12 @@ QTEST_CASE ( OperatorPostIncrement_IteratorPointsToFirstPositionAndReturnsPrevio
 QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
@@ -476,17 +443,17 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY ;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE ;
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveLast();
     ++ITERATOR_END;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ITERATOR_END);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ITERATOR_END);
     iterator++;
 
     // [Verification]
@@ -503,57 +470,22 @@ QTEST_CASE ( OperatorPostDecrement_CommonIteratorStepsBackwardProperlyAndReturns
     // [Preparation]
     const string_q SECOND_ELEMENT_KEY("key2");
     const int SECOND_ELEMENT_VALUE = 2;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ORIGINAL_ITERATOR.MoveLast();
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = iterator--;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = iterator--;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == ORIGINAL_ITERATOR);
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
-}
-
-/// <summary>
-/// Checks that the dictionary is traversed in the correct order.
-/// </summary>
-QTEST_CASE ( OperatorPostDecrement_DictionaryIsTraversedInCorrectOrder_Test )
-{
-    // [Preparation]
-    const string_q ELEMENT_KEYS[] = {"key7", "key6", "key5", "key4", "key3", "key2", "key1"};
-    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key6", 6);
-    DICTIONARY.Add("key5", 5);
-    DICTIONARY.Add("key4", 4);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
-    DICTIONARY.Add("key7", 7);
-
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-    iterator.MoveLast();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_KEYS[i] == iterator->GetKey();
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == iterator->GetValue();
-        iterator--;
-        i++;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
 }
 
 /// <summary>
@@ -564,18 +496,18 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
     // [Preparation]
     const string_q LAST_ELEMENT_KEY("key3");
     const int LAST_ELEMENT_VALUE = 3;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ORIGINAL_ITERATOR.MoveLast();
     ++ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = iterator--;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = iterator--;
     string_q strCurrentElementKey = iterator->GetKey();
     int nCurrentElementValue = iterator->GetValue();
 
@@ -593,12 +525,12 @@ QTEST_CASE ( OperatorPostDecrement_IteratorPointsToLastPositionAndReturnsPreviou
 QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
@@ -628,17 +560,17 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY = GetSampleDictionary();
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE = GetSampleHashtable();
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ITERATOR_END);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ITERATOR_END);
     iterator--;
 
     // [Verification]
@@ -646,7 +578,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
 }
 
 #endif
-
+/* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
 /// Checks that the iterator steps forward properly and returns the current state, when using depth-first in-order.
 /// </summary>
@@ -655,57 +587,23 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
     // [Preparation]
     const string_q SECOND_ELEMENT_KEY("key2");
     const int SECOND_ELEMENT_VALUE = 2;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR = DICTIONARY.GetFirst();
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR = HASHTABLE.GetFirst();
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = ++iterator;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = ++iterator;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
 }
-
-/// <summary>
-/// Checks that the dictionary is traversed in the correct order.
-/// </summary>
-QTEST_CASE ( OperatorPreIncrement_DictionaryIsTraversedInCorrectOrder_Test )
-{
-    // [Preparation]
-    const string_q ELEMENT_KEYS[] = {"key1", "key2", "key3", "key4", "key5", "key6", "key7"};
-    const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5, 6, 7};
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key6", 6);
-    DICTIONARY.Add("key5", 5);
-    DICTIONARY.Add("key4", 4);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
-    DICTIONARY.Add("key7", 7);
-
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-    iterator.MoveFirst();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_KEYS[i] == iterator->GetKey();
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == iterator->GetValue();
-        ++iterator;
-        ++i;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
-}
+*/
 
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one.
@@ -715,18 +613,18 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
     // [Preparation]
     const string_q FIRST_ELEMENT_KEY("key1");
     const int FIRST_ELEMENT_VALUE = 1;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add(FIRST_ELEMENT_KEY, FIRST_ELEMENT_VALUE);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add(FIRST_ELEMENT_KEY, FIRST_ELEMENT_VALUE);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ORIGINAL_ITERATOR.MoveFirst();
     --ORIGINAL_ITERATOR;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = ++iterator;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = ++iterator;
     string_q strCurrentElementValue = iterator->GetKey();
     string_q strCurrentElementKey = iterator->GetKey();
     int nCurrentElementValue = iterator->GetValue();
@@ -745,12 +643,12 @@ QTEST_CASE ( OperatorPreIncrement_IteratorPointsToFirstPositionAndReturnsCurrent
 QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveLast();
     ITERATOR_END++;
 
@@ -780,17 +678,17 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
 QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveLast();
     ITERATOR_END++;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ITERATOR_END);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ITERATOR_END);
     ++iterator;
 
     // [Verification]
@@ -798,7 +696,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
 }
 
 #endif
-
+/* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
 /// Checks that the iterator steps backward properly and returns the current state.
 /// </summary>
@@ -807,23 +705,23 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
     // [Preparation]
     const string_q SECOND_ELEMENT_KEY("key2");
     const int SECOND_ELEMENT_VALUE = 2;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add(SECOND_ELEMENT_KEY, SECOND_ELEMENT_VALUE);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR = DICTIONARY.GetLast();
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR = HASHTABLE.GetLast();
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = --iterator;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = --iterator;
 
     // [Verification]
     BOOST_CHECK(iteratorPreviousState == iterator);
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
 }
-
+*//* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one.
 /// </summary>
@@ -832,17 +730,17 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     // [Preparation]
     const string_q LAST_ELEMENT_KEY("key3");
     const int LAST_ELEMENT_VALUE = 3;
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR = DICTIONARY.GetLast();
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR = HASHTABLE.GetLast();
     ORIGINAL_ITERATOR++;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
-    QDictionary<string_q, int>::QConstDictionaryIterator iteratorPreviousState = --iterator;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iteratorPreviousState = --iterator;
     string_q strCurrentElementKey = iterator->GetKey();
     int nCurrentElementValue = iterator->GetValue();
 
@@ -851,41 +749,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     BOOST_CHECK(strCurrentElementKey == LAST_ELEMENT_KEY);
     BOOST_CHECK(nCurrentElementValue == LAST_ELEMENT_VALUE);
 }
-
-/// <summary>
-/// Checks that the dictionary is traversed in the correct order when using depth-first in-order.
-/// </summary>
-QTEST_CASE ( OperatorPreDecrement_DictionaryIsTraversedInCorrectOrderWhenUsingDepthFirstInOrder_Test )
-{
-    // [Preparation]
-    const string_q ELEMENT_KEYS[] = {"key7", "key6", "key5", "key4", "key3", "key2", "key1"};
-    const int ELEMENT_VALUES[] = {7, 6, 5, 4, 3, 2, 1};
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key6", 6);
-    DICTIONARY.Add("key5", 5);
-    DICTIONARY.Add("key4", 4);
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
-    DICTIONARY.Add("key7", 7);
-
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY, 0);
-    iterator.MoveLast();
-    bool bIsCorrect = true;
-    unsigned int i = 0;
-
-	// [Execution]
-    while(bIsCorrect && !iterator.IsEnd())
-    {
-        bIsCorrect = bIsCorrect && ELEMENT_KEYS[i] == iterator->GetKey();
-        bIsCorrect = bIsCorrect && ELEMENT_VALUES[i] == iterator->GetValue();
-        --iterator;
-        ++i;
-    }
-
-    // [Verification]
-    BOOST_CHECK(bIsCorrect);
-}
+*/
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -895,12 +759,12 @@ QTEST_CASE ( OperatorPreDecrement_DictionaryIsTraversedInCorrectOrderWhenUsingDe
 QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveFirst();
     ITERATOR_END--;
 
@@ -930,17 +794,17 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_END(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_END(&HASHTABLE, 0);
     ITERATOR_END.MoveFirst();
     ITERATOR_END--;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ITERATOR_END);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ITERATOR_END);
     --iterator;
 
     // [Verification]
@@ -955,17 +819,17 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
 QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_A;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator = ITERATOR_B;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator = ITERATOR_B;
     iterator = ITERATOR_A;
 
     // [Verification]
@@ -975,21 +839,21 @@ QTEST_CASE ( OperatorAssignment_CommonIteratorIsCorrectlyCopied_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
-QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferentDictionary_Test )
+QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferentHashtable_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -998,7 +862,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator = ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1013,24 +877,24 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator is not copied when it points to a different dictionary.
+/// Checks that the iterator is not copied when it points to a different hashtable.
 /// </summary>
-QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDifferentDictionary_Test )
+QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDifferentHashtable_Test )
 {
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator = ITERATOR_B;
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator = ITERATOR_B;
     iterator = ITERATOR_A;
 
     // [Verification]
@@ -1046,13 +910,13 @@ QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDiff
 QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1068,13 +932,13 @@ QTEST_CASE ( OperatorEquality_ReturnsTrueWhenIteratorsAreEqual_Test )
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = false;
@@ -1089,21 +953,21 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsAreNotEqual_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1112,7 +976,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDiction
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator == ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1127,22 +991,22 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDiction
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when iterators point to a different dictionary.
+/// Checks that it returns False when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1160,13 +1024,13 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentDictionar
 QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1182,13 +1046,13 @@ QTEST_CASE ( OperatorInequality_ReturnsFalseWhenIteratorsAreEqual_Test )
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
 
     const bool EXPECTED_RESULT = true;
@@ -1203,21 +1067,21 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsAreNotEqual_Test )
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1226,7 +1090,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDicti
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator != ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1241,22 +1105,22 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDicti
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns True when iterators point to a different dictionary.
+/// Checks that it returns True when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A(3);
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1274,13 +1138,13 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentDictiona
 QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1297,13 +1161,13 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsTrueWhenResidentIteratorIsGreaterThanInp
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterThanInputIteratorUsingDepthFirstInOrder_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1317,21 +1181,21 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenResidentIteratorIsNotGreaterTha
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1340,7 +1204,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentDict
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator > ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1355,23 +1219,23 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenIteratorsPointToDifferentDict
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when iterators point to a different dictionary.
+/// Checks that it returns False when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
     ++ITERATOR_A;
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1389,13 +1253,13 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenIteratorsPointToDifferentDictio
 QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1412,13 +1276,13 @@ QTEST_CASE ( OperatorLowerThan_ReturnsTrueWhenResidentIteratorIsLowerThanInputIt
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1432,21 +1296,21 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenResidentIteratorIsNotLowerThanInp
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
     ++ITERATOR_A;
 
     const bool ASSERTION_FAILED = true;
@@ -1456,7 +1320,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentDictio
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator < ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1471,22 +1335,22 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenIteratorsPointToDifferentDictio
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when iterators point to a different dictionary.
+/// Checks that it returns False when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1505,13 +1369,13 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenIteratorsPointToDifferentDictiona
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreaterThanInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = true;
 
@@ -1528,13 +1392,13 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorIsGreate
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1550,13 +1414,13 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsIn
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGreaterThanAndDoNotEqualsInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1570,21 +1434,21 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotGr
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1593,7 +1457,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator >= ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1608,22 +1472,22 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenIteratorsPointToDiffe
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when iterators point to a different dictionary.
+/// Checks that it returns False when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -1641,13 +1505,13 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenIteratorsPointToDiffere
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerThanInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = true;
 
@@ -1664,13 +1528,13 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorIsLowerTha
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -1686,13 +1550,13 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsTrueWhenResidentIteratorEqualsInpu
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowerThanAndDoNotEqualsInputIterator_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE, 0);
     ++ITERATOR_A;
     const bool EXPECTED_RESULT = false;
 
@@ -1706,21 +1570,21 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenResidentIteratorIsNotLowe
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that an assertion fails when the input iterator points to a different dictionary.
+/// Checks that an assertion fails when the input iterator points to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
 
     const bool ASSERTION_FAILED = true;
 
@@ -1729,7 +1593,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 
     try
     {
-        QDictionary<string_q, int>::QConstDictionaryIterator iterator(&DICTIONARY_B, 0);
+        QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(&HASHTABLE_B, 0);
         iterator <= ITERATOR_A;
     }
     catch(const QAssertException&)
@@ -1744,22 +1608,22 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenIteratorsPointToDiffere
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that it returns False when iterators point to a different dictionary.
+/// Checks that it returns False when iterators point to a different hashtable.
 /// </summary>
 QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY_A;
-    DICTIONARY_A.Add("key1", 1);
-    DICTIONARY_A.Add("key2", 2);
-    DICTIONARY_A.Add("key3", 3);
-    QDictionary<string_q, int> DICTIONARY_B;
-    DICTIONARY_B.Add("key1", 1);
-    DICTIONARY_B.Add("key2", 2);
-    DICTIONARY_B.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(10, 2);
+    HASHTABLE_A.Add("key1", 1);
+    HASHTABLE_A.Add("key2", 2);
+    HASHTABLE_A.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_B(10, 2);
+    HASHTABLE_B.Add("key1", 1);
+    HASHTABLE_B.Add("key2", 2);
+    HASHTABLE_B.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_A(&DICTIONARY_A, 0);
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_B(&DICTIONARY_B, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_A(&HASHTABLE_A, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_B(&HASHTABLE_B, 0);
     ++ITERATOR_B;
     const bool EXPECTED_RESULT = false;
 
@@ -1778,12 +1642,12 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenIteratorsPointToDifferent
 QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -1802,12 +1666,12 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
 QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -1826,12 +1690,12 @@ QTEST_CASE ( IsEnd1_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
 QTEST_CASE ( IsEnd1_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -1851,12 +1715,12 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionBeforeFirst_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveFirst();
     ITERATOR--;
 
@@ -1877,12 +1741,12 @@ QTEST_CASE ( IsEnd2_ReturnsTrueWhenIteratorPointsToPositionAfterLast_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
     ++ITERATOR;
 
@@ -1903,12 +1767,12 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     ITERATOR.MoveLast();
 
     const bool EXPECTED_RESULT = false;
@@ -1921,24 +1785,24 @@ QTEST_CASE ( IsEnd2_ReturnsFalseWhenIteratorDoesNotPointToEndPosition_Test )
 }
 
 /// <summary>
-/// Checks that the iterator points to the first position when the dictionary is not empty.
+/// Checks that the iterator points to the first position when the hashtable is not empty.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmpty_Test )
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenHashtableIsNotEmpty_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
     ++ORIGINAL_ITERATOR;
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_FIRST(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_FIRST(&HASHTABLE, 0);
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -1948,21 +1812,21 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmpty_Tes
 /// <summary>
 /// Checks that the iterator points to the first position even when it was pointing to the position before the first.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenHashtableIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     --ORIGINAL_ITERATOR;
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_FIRST(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_FIRST(&HASHTABLE, 0);
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveFirst();
 
     // [Verification]
@@ -1972,16 +1836,16 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenDictionaryIsNotEmptyAndI
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator points to the end position when the dictionary is empty.
+/// Checks that the iterator points to the end position when the hashtable is empty.
 /// </summary>
-QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenDictionaryIsEmpty_Test )
+QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenHashtableIsEmpty_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> EMPTY_DICTIONARY(1);
-    QDictionary<string_q, int>::QConstDictionaryIterator END_ITERATOR(&EMPTY_DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator END_ITERATOR(&EMPTY_HASHTABLE, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&EMPTY_DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&EMPTY_HASHTABLE, 0);
 
 	// [Execution]
     ITERATOR.MoveFirst();
@@ -1993,25 +1857,25 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenDictionaryIsEmpty_Test )
 #endif
 
 /// <summary>
-/// Checks that the iterator points to the last position when the dictionary is not empty.
+/// Checks that the iterator points to the last position when the hashtable is not empty.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmpty_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenHashtableIsNotEmpty_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_LAST(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_LAST(&HASHTABLE, 0);
     while(!ITERATOR_LAST.IsEnd())
         ++ITERATOR_LAST;
     --ITERATOR_LAST;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]
@@ -2021,24 +1885,24 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmpty_Test 
 /// <summary>
 /// Checks that the iterator points to the last position even when it was pointing to the position before the first.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenHashtableIsNotEmptyAndIteratorWasPointingToPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ORIGINAL_ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ORIGINAL_ITERATOR(&HASHTABLE, 0);
     --ORIGINAL_ITERATOR;
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR_LAST(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR_LAST(&HASHTABLE, 0);
     while(!ITERATOR_LAST.IsEnd())
         ++ITERATOR_LAST;
     --ITERATOR_LAST;
 
 	// [Execution]
-    QDictionary<string_q, int>::QConstDictionaryIterator iterator(ORIGINAL_ITERATOR);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator iterator(ORIGINAL_ITERATOR);
     iterator.MoveLast();
 
     // [Verification]
@@ -2048,18 +1912,18 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenDictionaryIsNotEmptyAndIte
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator points to the end position when the dictionary is empty.
+/// Checks that the iterator points to the end position when the hashtable is empty.
 /// </summary>
-QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenDictionaryIsEmpty_Test )
+QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenHashtableIsEmpty_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> EMPTY_DICTIONARY(1);
+    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator END_ITERATOR(&EMPTY_DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator END_ITERATOR(&EMPTY_HASHTABLE, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&EMPTY_DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&EMPTY_HASHTABLE, 0);
 
 	// [Execution]
     ITERATOR.MoveLast();
@@ -2076,12 +1940,12 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenDictionaryIsEmpty_Test )
 QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY;
-    DICTIONARY.Add("key1", 1);
-    DICTIONARY.Add("key2", 2);
-    DICTIONARY.Add("key3", 3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(10, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
 
-    QDictionary<string_q, int>::QConstDictionaryIterator ITERATOR(&DICTIONARY, 0);
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR(&HASHTABLE, 0);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -2091,5 +1955,5 @@ QTEST_CASE ( IsValid_ReturnsTrueWhenIteratorPointsToCommonPosition_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
-// End - Test Suite: QConstDictionaryIterator
+// End - Test Suite: QConstHashtableIterator
 QTEST_SUITE_END()

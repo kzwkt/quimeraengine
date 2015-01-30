@@ -38,6 +38,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstArrayIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstDictionaryIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstHashtableIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstListIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstNTreeIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstBinarySearchTreeIterator_Test.cpp" />

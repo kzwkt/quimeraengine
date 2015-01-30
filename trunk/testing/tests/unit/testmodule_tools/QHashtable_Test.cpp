@@ -116,45 +116,74 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenSlotsPerBucketsEqualsZero_Test )
 }
 
 #endif // #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-// [TODO] Thund: Implement when Add exists
-/*
+/* [TODO] Thund: Uncomment when GetFirst exists
 /// <summary>
-/// Checks that .
+/// Checks that every key-value pair is copied.
 /// </summary>
 QTEST_CASE ( Constructor2_EveryKeyValuePairIsCopied_Test )
 {
     // [Preparation]
+    const int EXPECTED_KEYS[] = {0, 2, 1};
+    const int EXPECTED_VALUES[] = {0, 2, 1};
+    
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(0, 0);
+    HASHTABLE.Add(2, 2);
+    HASHTABLE.Add(1, 1);
 
     // [Execution]
+    QHashtable<int, int> hashtableCopy = HASHTABLE;
 
     // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(int); ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && hashtableCopy[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
 }
 
 /// <summary>
-/// Checks that .
+/// Checks that the copy constructor of every key and value is called.
 /// </summary>
 QTEST_CASE ( Constructor2_CopyConstructorOfEveryKeyAndValueIsCalled_Test )
 {
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+    
     // [Preparation]
+    const unsigned int EXPECTED_CALLS = 6;
+    QHashtable<CallCounter, CallCounter> HASHTABLE(10, 2);
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    CallCounter::ResetCounters();
 
     // [Execution]
+    QHashtable<CallCounter, CallCounter> hashtableCopy = HASHTABLE;
 
     // [Verification]
+    unsigned int uCopyConstructorCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uCopyConstructorCalls, EXPECTED_CALLS);
 }
 
 /// <summary>
-/// Checks that .
+/// Checks that an empty hashtable is correctly copied.
 /// </summary>
 QTEST_CASE ( Constructor2_ItIsCorrectlyCopiedWhenItIsEmpty_Test )
 {
     // [Preparation]
+    QHashtable<int, int> HASHTABLE(10, 2);
 
     // [Execution]
+    QHashtable<int, int> hashtableCopy = HASHTABLE;
 
     // [Verification]
+    bool bCopyIsEmpty = hashtableCopy.IsEmpty();
+    BOOST_CHECK(bCopyIsEmpty);
 }
-
+*/
 /// <summary>
 /// Checks that the destructor of every key and value is called.
 /// </summary>
@@ -163,13 +192,13 @@ QTEST_CASE ( Destructor_TheDestructorOfEveryKeyAndValueIsCalled_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
     
     // [Preparation]
-    const unsigned int EXPECTED_CALLS = 3;
+    const unsigned int EXPECTED_CALLS = 6;
 
     {
-        QHashtable<CallCounter, CallCounter> HASTABLE(3);
-        HASTABLE.Add(CallCounter(), CallCounter());
-        HASTABLE.Add(CallCounter(), CallCounter());
-        HASTABLE.Add(CallCounter(), CallCounter());
+        QHashtable<CallCounter, CallCounter> HASHTABLE(10, 2);
+        HASHTABLE.Add(CallCounter(), CallCounter());
+        HASHTABLE.Add(CallCounter(), CallCounter());
+        HASHTABLE.Add(CallCounter(), CallCounter());
         CallCounter::ResetCounters();
 
     // [Execution]
@@ -180,7 +209,7 @@ QTEST_CASE ( Destructor_TheDestructorOfEveryKeyAndValueIsCalled_Test )
     unsigned int uDestructorCalls = CallCounter::GetDestructorCallsCount();
     BOOST_CHECK_EQUAL(uDestructorCalls, EXPECTED_CALLS);
 }
-*/
+
 /// <summary>
 /// Checks that the capacity is correctly increased.
 /// </summary>
@@ -198,7 +227,7 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 
     BOOST_CHECK_EQUAL(uStoredCapacity, EXPECTED_CAPACITY);
 }
-/* [TODO] Thund: Uncomment when Add exists
+
 /// <summary>
 /// Checks that elements are correctly reallocated.
 /// </summary>
@@ -250,8 +279,7 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
     BOOST_CHECK_EQUAL(pFirstElementAddress, ORIGINAL_FIRST_ELEMENT_ADDRESS);
     BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
 }
-*/
-/* [TODO] Thund: Uncomment when operator[] exists
+
 /// <summary>
 /// Checks that the element is correctly added when the hashtable is empty.
 /// </summary>
@@ -273,7 +301,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashtableIsEmpty_Test )
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(int); ++i)
     {
         bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
     }
@@ -301,7 +329,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashtableOnlyContainsOneElement_Test
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(int); ++i)
     {
         bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
     }
@@ -329,7 +357,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenHashKeyCollidesWithExistingElements_
     // [Verification]
     bool bResultIsWhatEspected = true;
 
-    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(string_q); ++i)
+    for(int i = 0; i < sizeof(EXPECTED_KEYS) / sizeof(int); ++i)
     {
         bResultIsWhatEspected = bResultIsWhatEspected && HASHTABLE[EXPECTED_KEYS[i]] == EXPECTED_VALUES[i];
     }
@@ -405,7 +433,7 @@ QTEST_CASE ( Add_CapacityIsIncrementedWhenNecessary_Test )
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
+/* [TODO] Thund: Uncomment when ContainsKey exists
 /// <summary>
 /// Checks that an assertion fails when the key already exists.
 /// </summary>
@@ -435,9 +463,9 @@ QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
     // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
-
-#endif
 */
+#endif
+
 
 /// <sumary>
 /// Checks that the correct value is returned when the key exists in the hashtable.
@@ -521,7 +549,7 @@ QTEST_CASE( GetValue_AssertionFailsWhenKeyDoesNotExist_Test )
 
     // [Preparation]
     const int INPUT_KEY = 2;
-    QHashtable<int, int> HASHTABLE(3);
+    QHashtable<int, int> HASHTABLE(5, 2);
 
     // [Execution]
     bool bAssertionFailed = false;

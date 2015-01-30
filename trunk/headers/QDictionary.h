@@ -88,8 +88,8 @@ public:
     public:
 
         /// <summary>
-        /// Constructor that receives the dictionary to iterate through and the position to physically point. This constructor is intended 
-        /// to be used internally, use GetIterator method of the QDictionary class instead.
+        /// Constructor that receives the dictionary to iterate through and the position to physically point to. This constructor is intended 
+        /// to be used internally, use GetFirst or GetLast methods of the QDictionary class instead.
         /// </summary>
         /// <remarks>
         /// If the dictionary is empty, it will point to the end position (forward iteration).

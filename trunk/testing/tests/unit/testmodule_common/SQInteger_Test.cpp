@@ -770,7 +770,6 @@ QTEST_CASE ( FromHexadecimalString_AssertionFailsWhenInputStringLengthIsGreaterT
     // [Preparation]
     const string_q INPUT_STRING = "A45FA45FA45FA45F";
     const bool ASSERTION_FAILED = true;
-    u32_q uResult32Bits = 0;
 
     // [Execution]
     bool bAssertionFailed = false;
