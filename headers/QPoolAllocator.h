@@ -202,7 +202,7 @@ public:
     /// <returns>
     /// The size of the buffer reserved to allocate blocks plus the size of the chunk reserved for internals.
     /// </returns>    
-    inline pointer_uint_q QPoolAllocator::GetTotalSize() const
+    inline pointer_uint_q GetTotalSize() const
     {
         return m_uSize;
     }
@@ -213,7 +213,7 @@ public:
     /// <returns>
     /// The size of the buffer reserved to allocate blocks.
     /// </returns>    
-    inline pointer_uint_q QPoolAllocator::GetPoolSize() const
+    inline pointer_uint_q GetPoolSize() const
     {
         return m_uPoolSize;
     }
@@ -224,7 +224,7 @@ public:
     /// <returns>
     /// True if there are free blocks to allocate. Otherwise returns false.
     /// </returns>
-    inline bool QPoolAllocator::CanAllocate() const
+    inline bool CanAllocate() const
     {
         return null_q != m_ppNextFreeBlock;
     }
@@ -235,7 +235,7 @@ public:
     /// <returns>
     /// The bytes sum of current allocated blocks.
     /// </returns>        
-    inline pointer_uint_q QPoolAllocator::GetAllocatedBytes() const
+    inline pointer_uint_q GetAllocatedBytes() const
     {
         return m_uAllocatedBytes;
     }
@@ -246,7 +246,7 @@ public:
     /// <returns>
     /// A pointer to the first block of the entire chunk of memory.
     /// </returns>        
-    inline void* QPoolAllocator::GetPointer() const
+    inline void* GetPointer() const
     {
         return m_pFirst;
     }
@@ -257,7 +257,7 @@ public:
     /// <returns>
     /// The memory alignment.
     /// </returns>        
-    inline QAlignment QPoolAllocator::GetAlignment() const
+    inline QAlignment GetAlignment() const
     {
         return m_uAlignment;
     }

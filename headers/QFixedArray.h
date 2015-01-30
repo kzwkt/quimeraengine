@@ -40,6 +40,11 @@
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 
+#ifdef QE_COMPILER_GCC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsequence-point"
+#endif
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -1541,6 +1546,10 @@ const pointer_uint_q QFixedArray<T, AllocatorT, ComparatorT>::END_POSITION_FORWA
 } //namespace Tools
 } //namespace QuimeraEngine
 } //namespace Kinesis
+
+#ifdef QE_COMPILER_GCC
+#pragma GCC diagnostic pop
+#endif
 
 #endif // __QFIXEDARRAY__
 

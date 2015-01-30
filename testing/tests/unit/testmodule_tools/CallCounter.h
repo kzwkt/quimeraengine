@@ -27,6 +27,10 @@
 #ifndef __CALLCOUNTER__
 #define __CALLCOUNTER__
 
+#include "CrossPlatformBasicTypes.h"
+
+using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+
 
 namespace Kinesis
 {
@@ -129,6 +133,18 @@ public:
     bool operator==(const CallCounter &instance) const
     {
         return this == &instance;
+    }
+        
+    /// <summary>
+    /// Modulo operator. Included to be able to use this type inside containers with SQIntegerHashProvider.
+    /// </summary>
+    /// <param name="uValue">An integer.</param>
+    /// <returns>
+    /// A resultant integer.
+    /// </returns>
+    pointer_uint_q operator%(const pointer_uint_q uValue) const
+    {
+        return (pointer_uint_q)this % uValue;
     }
 
 
