@@ -156,7 +156,7 @@ protected:
 
     typedef QKeyValuePair<KeyT, ValueT> KeyValuePairType;
     typedef QDynamicArray<QBucket> BucketsArrayType;
-    typedef QList<KeyValuePairType, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > SlotsListType;
+    typedef QList<KeyValuePairType, AllocatorT, SQKeyValuePairComparator<KeyT, ValueT, KeyComparatorT> > SlotListType;
 
 
     // CONSTANTS
@@ -287,6 +287,62 @@ public:
         // [TODO] Thund: Uncomment when iterator exists
         // return QHashtable::QConstHashtableIterator(this, uFirstSlotPosition);
     }
+    
+    /// <summary>
+    /// Array subscript operator that receives a key and retrieves its associated value.
+    /// </summary>
+    /// <param name="key">[IN] A key whose associated value will be obtained. It must exist in the hashtable.</param>
+    /// <returns>
+    /// A reference to the associated value.
+    /// </returns>
+    ValueT& operator[](const KeyT &key) const
+    {
+        return this->GetValue(key);
+    }
+    
+    /// <summary>
+    /// Gets the value that corresponds to the given key.
+    /// </summary>
+    /// <param name="key">[IN] A key whose associated value will be obtained. It must exist in the hashtable.</param>
+    /// <returns>
+    /// A reference to the associated value.
+    /// </returns>
+    ValueT& GetValue(const KeyT& key) const
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
+
+        // Gets the corresponding bucket
+        pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
+        QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
+
+        QE_ASSERT_ERROR(bucket.GetSlotCount() > 0, string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
+
+        typename SlotListType::Iterator slot(&m_slots, bucket.GetSlotCount());
+        pointer_uint_q uSlot = 0;
+
+        while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
+        {
+            ++slot;
+            ++uSlot;
+        }
+        
+        QE_ASSERT_ERROR(uSlot < bucket.GetSlotCount(), string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
+
+        return ccast_q(slot->GetValue(), ValueT&);
+    }
+
+    /// <summary>
+    /// Sets the value that corresponds to the given key.
+    /// </summary>
+    /// <remarks>
+    /// It calls the assignment operator of the value.
+    /// </remarks>
+    /// <param name="key">[IN] A key whose associated value will be modified. It must exist in the hashtable.</param>
+    /// <param name="newValue">[IN] The value that will replace the existing one.</param>
+    void SetValue(const KeyT& key, const ValueT& newValue) const
+    {
+        this->GetValue(key) = newValue;
+    }
 
 
     // PROPERTIES
@@ -350,7 +406,7 @@ protected:
     /// <summary>
     /// The slot list. It is shared among all the buckets. Every bucket knows where its slots are placed in the list.
     /// </summary>
-    SlotsListType m_slots;
+    SlotListType m_slots;
 
 };
 

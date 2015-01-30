@@ -438,5 +438,160 @@ QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
 
 #endif
 */
+
+/// <sumary>
+/// Checks that the correct value is returned when the key exists in the hashtable.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_CorrectValueIsReturnedWhenKeyExists_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add(3, 3);
+
+    // [Execution]
+    int nValue = HASHTABLE[INPUT_KEY];
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the hashtable.
+/// </sumary>
+QTEST_CASE( OperatorArraySubscript_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        HASHTABLE[INPUT_KEY];
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the correct value is returned when the key exists in the hashtable.
+/// </sumary>
+QTEST_CASE( GetValue_CorrectValueIsReturnedWhenKeyExists_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add(3, 3);
+
+    // [Execution]
+    int nValue = HASHTABLE.GetValue(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the hashtable.
+/// </sumary>
+QTEST_CASE( GetValue_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    QHashtable<int, int> HASHTABLE(3);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        HASHTABLE.GetValue(INPUT_KEY);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <sumary>
+/// Checks that the value is set when the key exists in the HASHTABLE.
+/// </sumary>
+QTEST_CASE( SetValue_ValueIsSetWhenKeyExists_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, 10);
+    HASHTABLE.Add(3, 3);
+
+    // [Execution]
+    HASHTABLE.SetValue(INPUT_KEY, EXPECTED_VALUE);
+
+    // [Verification]
+    int nValue = HASHTABLE.GetValue(INPUT_KEY);
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <sumary>
+/// Checks that an assertion fails when the key does not exist in the HASHTABLE.
+/// </sumary>
+QTEST_CASE( SetValue_AssertionFailsWhenKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const int INPUT_KEY = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        HASHTABLE.SetValue(INPUT_KEY, 0);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
 // End - Test Suite: QHashtable
 QTEST_SUITE_END()
