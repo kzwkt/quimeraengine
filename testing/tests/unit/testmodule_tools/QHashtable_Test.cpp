@@ -433,7 +433,7 @@ QTEST_CASE ( Add_CapacityIsIncrementedWhenNecessary_Test )
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when ContainsKey exists
+
 /// <summary>
 /// Checks that an assertion fails when the key already exists.
 /// </summary>
@@ -463,7 +463,7 @@ QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
     // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
-*/
+
 #endif
 
 
@@ -609,6 +609,150 @@ QTEST_CASE( SetValue_AssertionFailsWhenKeyDoesNotExist_Test )
     try
     {
         HASHTABLE.SetValue(INPUT_KEY, 0);
+    }
+    catch(const QAssertException&)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK(bAssertionFailed);
+}
+
+#endif
+
+/// <summary>
+/// Checks that it returns True when the hashtable contains the key.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsTrueWhenHashtableContainsTheKey_Test )
+{
+    // [Preparation]
+    const string_q INPUT_KEY("key3");
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 4);
+    HASHTABLE.Add(INPUT_KEY, 5);
+    HASHTABLE.Add("key4", 6);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the hashtable does not contain the key.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsFalseWhenHashtableDoesNotContainTheKey_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 4);
+    HASHTABLE.Add("key3", 5);
+    HASHTABLE.Add("key4", 6);
+    const string_q INPUT_KEY("key5");
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns False when the hashtable is empty.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsFalseWhenHashtableIsEmpty_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
+    const string_q INPUT_KEY("key1");
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the hashtable is empty when removing the only element in it.
+/// </summary>
+QTEST_CASE ( Remove_HashtableIsEmptyWhenRemovingTheOnlyElementInTheHashtable_Test )
+{
+    // [Preparation]
+    const string_q EXISTING_KEY("key1");
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
+    HASHTABLE.Add(EXISTING_KEY, 0);
+
+    // [Execution]
+    HASHTABLE.Remove(EXISTING_KEY);
+
+    // [Verification]
+    bool bHashtableIsEmpty = HASHTABLE.IsEmpty();
+    BOOST_CHECK(bHashtableIsEmpty);
+}
+
+/// <summary>
+/// Checks that the key-value pair is removed when there are many pairs in the hashtable and the key exists.
+/// </summary>
+QTEST_CASE ( Remove_PairIsCorrectlyRemovedWhenThereAreManyAndKeyExists_Test )
+{
+    // [Preparation]
+    const string_q EXISTING_KEY("key2");
+    const string_q EXPECTED_KEYS[] = {"key1", "key3", "key4"};
+    const int EXPECTED_VALUES[] = {1, 3, 4};
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add(EXISTING_KEY, 2);
+    HASHTABLE.Add("key3", 3);
+    HASHTABLE.Add("key4", 4);
+
+    // [Execution]
+    HASHTABLE.Remove(EXISTING_KEY);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator it = QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator(&HASHTABLE, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the input key does not exist in the hashtable.
+/// </summary>
+QTEST_CASE ( Remove_AssertionFailsWhenTheInputKeyDoesNotExist_Test )
+{
+    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
+
+    // [Preparation]
+    const string_q NON_EXISTING_KEY("key2");
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(2, 2);
+    HASHTABLE.Add("key1", 1);
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        HASHTABLE.Remove(NON_EXISTING_KEY);
     }
     catch(const QAssertException&)
     {
