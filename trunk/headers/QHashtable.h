@@ -680,8 +680,7 @@ public:
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
 
-        // [TODO] Thund: Uncomment when ContainsKey exists
-        //QE_ASSERT_ERROR(!this->ContainsKey(key), string_q("The new key (" + SQAnyTypeToStringConverter::Convert(key) + ") already exists in the hashtable.");
+        QE_ASSERT_ERROR(!this->ContainsKey(key), string_q("The new key (") + SQAnyTypeToStringConverter::Convert(key) + ") already exists in the hashtable.");
 
         // Gets the corresponding bucket
         pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
@@ -763,6 +762,57 @@ public:
     void SetValue(const KeyT& key, const ValueT& newValue) const
     {
         this->GetValue(key) = newValue;
+    }
+    
+    /// <summary>
+    /// Checks whether there is any key in the hashtable that is equal to other given key.
+    /// </summary>
+    /// <remarks>
+    /// Keys are compared to the provided key using the container's key comparator.<br/>
+    /// </remarks>
+    /// <param name="key">[IN] The key to search for.</param>
+    /// <returns>
+    /// True if the key is present in the hashtable; False otherwise.
+    /// </returns>
+    bool ContainsKey(const KeyT &key) const
+    {
+        // Creates a key-value by copying the key without calling its constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        return m_slots.Contains(*pKeyValue);
+    }
+    
+    /// <summary>
+    /// Removes an key-value pair from the hashtable by its key.
+    /// </summary>
+    /// <remarks>
+    /// The destructor of both the key and the value will be called.
+    /// </remarks>
+    /// <param name="key">[IN] The key to search for. It must exist in the hashtable.</param>
+    void Remove(const KeyT &key)
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
+
+        // Gets the corresponding bucket
+        pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
+        QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
+
+        QE_ASSERT_ERROR(bucket.GetSlotCount() > 0, string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
+
+        typename SlotListType::Iterator slot(&m_slots, bucket.GetSlotPosition());
+        pointer_uint_q uSlot = 0;
+
+        while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
+        {
+            ++slot;
+            ++uSlot;
+        }
+        
+        QE_ASSERT_ERROR(uSlot < bucket.GetSlotCount(), string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
+
+        m_slots.Remove(slot);
     }
 
 
