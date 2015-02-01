@@ -117,7 +117,6 @@
       <File Name="../../../../tests/unit/testmodule_system/QThread_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/SQThisThread_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QMutex_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_system/QThreadWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_system/QRecursiveMutex_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QScopedExclusiveLock_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QConditionVariable_Test.cpp"/>

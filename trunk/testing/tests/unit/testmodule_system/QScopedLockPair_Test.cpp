@@ -33,7 +33,6 @@ using namespace boost::unit_test;
 #include "QScopedLockPair.h"
 
 #include "QMutex.h"
-#include "QThreadWhiteBox.h"
 #include "QThread.h"
 #include "SQThisThread.h"
 

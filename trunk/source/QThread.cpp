@@ -117,6 +117,11 @@ string_q QThread::ToString() const
     return strResult;
 }
 
+void QThread::Detach()
+{
+    m_thread.detach();
+}
+
 #if defined(QE_OS_WINDOWS)
 
 EQThreadPriority QThread::_ConvertFromNativePriority(const int nNativePriority)
@@ -427,6 +432,7 @@ void QThread::SetPriority(const EQThreadPriority &ePriority)
 }
 
 #endif
+
 
 } //namespace Threading
 } //namespace System
