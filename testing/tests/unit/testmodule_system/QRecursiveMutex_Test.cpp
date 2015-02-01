@@ -34,7 +34,6 @@ using namespace boost::unit_test;
 
 #include "QRecursiveMutex.h"
 
-#include "QThreadWhiteBox.h"
 #include "QThread.h"
 #include "SQThisThread.h"
 
@@ -112,8 +111,8 @@ QTEST_SUITE_BEGIN( QRecursiveMutex_TestSuite )
 /// </summary>
 QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
 {
+    using Kinesis::QuimeraEngine::System::Threading::QThread;
     using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
-    using Kinesis::QuimeraEngine::System::Threading::Test::QThreadWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
     using Kinesis::QuimeraEngine::Common::QDelegate;
 
@@ -125,7 +124,7 @@ QTEST_CASE ( Lock_OnlyOneThreadOwnsTheMutexAtATime_Test )
     // [Execution]
     for(unsigned int uValue = 0; uValue < NUMBER_OF_THREADS; ++uValue)
     {
-        QThreadWhiteBox thread(QDelegate<void(unsigned int)>(QRecursiveMutexTestClass::Function), uValue);
+        QThread thread(QDelegate<void(unsigned int)>(QRecursiveMutexTestClass::Function), uValue);
         thread.Detach();
     }
     

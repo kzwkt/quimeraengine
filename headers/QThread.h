@@ -409,6 +409,15 @@ public:
     /// A string that contains the representation of the thread with the format: "Thread(#)", where # means the thread's id.
     /// </returns>
     string_q ToString() const;
+
+    /// <summary>
+    /// Breaks the association between the thread and the object.
+    /// </summary>
+    /// <remarks>
+    /// The execution of the thread continues but it cannot be handled through the object anymore.<br/>
+    /// The thread cannot be attached again afterwards.
+    /// </remarks>
+    void Detach();
     
 private:
 

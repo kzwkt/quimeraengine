@@ -581,6 +581,26 @@ QTEST_CASE ( ToString_AssertionFailsWhenMethodIsCalledAfterThreadHasStopped_Test
 #endif
 
 /// <summary>
+/// Checks that no error occurs when the method is called.
+/// </summary>
+QTEST_CASE ( Detach_NoErrorOccursWhenCalled_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+
+    // [Preparation]
+    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+    const unsigned int WAIT_TIME = 200;
+    QThread thread(function, WAIT_TIME);
+
+    // [Execution]
+    thread.Detach();
+
+    // [Verification]
+    const bool NO_ERROR_OCCURRED = true;
+    BOOST_CHECK(NO_ERROR_OCCURRED);
+}
+
+/// <summary>
 /// Checks that it returns True when the thread is still running.
 /// </summary>
 QTEST_CASE ( IsAlive_ReturnsTrueWhenThreadIsRunning_Test )
