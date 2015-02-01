@@ -1260,9 +1260,9 @@ QTEST_CASE ( Add_AssertionFailsWhenTheKeyAlreadyExists_Test )
 #endif
 
 /// <sumary>
-/// Checks that the node is obtained.
+/// Checks that the iterator is obtained.
 /// </sumary>
-QTEST_CASE( GetFirst_NodeIsObtained_Test )
+QTEST_CASE( GetFirst_IteratorIsObtained_Test )
 {
     // [Preparation]
     const string_q EXPECTED_ELEMENT_KEY("key1");
@@ -1297,9 +1297,9 @@ QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenDictionaryIsEmpty_Test )
 }
 
 /// <sumary>
-/// Checks that the node is obtained.
+/// Checks that the iterator is obtained.
 /// </sumary>
-QTEST_CASE( GetLast_NodeIsObtained_Test )
+QTEST_CASE( GetLast_IteratorIsObtained_Test )
 {
     // [Preparation]
     const string_q EXPECTED_ELEMENT_KEY("key3");
