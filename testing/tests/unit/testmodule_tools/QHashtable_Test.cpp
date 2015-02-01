@@ -116,7 +116,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenSlotsPerBucketsEqualsZero_Test )
 }
 
 #endif // #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that every key-value pair is copied.
 /// </summary>
@@ -153,7 +153,7 @@ QTEST_CASE ( Constructor2_CopyConstructorOfEveryKeyAndValueIsCalled_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
     
     // [Preparation]
-    const unsigned int EXPECTED_CALLS = 6;
+    const unsigned int EXPECTED_CALLS = 9; // 6 + 3 due to calls to GenerateHashKey, which receives a copy of an integer
     QHashtable<CallCounter, CallCounter> HASHTABLE(10, 2);
     HASHTABLE.Add(CallCounter(), CallCounter());
     HASHTABLE.Add(CallCounter(), CallCounter());
@@ -183,7 +183,7 @@ QTEST_CASE ( Constructor2_ItIsCorrectlyCopiedWhenItIsEmpty_Test )
     bool bCopyIsEmpty = hashtableCopy.IsEmpty();
     BOOST_CHECK(bCopyIsEmpty);
 }
-*/
+
 /// <summary>
 /// Checks that the destructor of every key and value is called.
 /// </summary>
@@ -764,6 +764,80 @@ QTEST_CASE ( Remove_AssertionFailsWhenTheInputKeyDoesNotExist_Test )
 }
 
 #endif
+
+/// <sumary>
+/// Checks that the iterator is obtained.
+/// </sumary>
+QTEST_CASE( GetFirst_IteratorIsObtained_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_ELEMENT_KEY("key1");
+    const int EXPECTED_ELEMENT_VALUE = 1;
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add(EXPECTED_ELEMENT_KEY, EXPECTED_ELEMENT_VALUE);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itFirst = HASHTABLE.GetFirst();
+
+    // [Verification]
+    BOOST_CHECK(itFirst->GetKey() == EXPECTED_ELEMENT_KEY);
+    BOOST_CHECK(itFirst->GetValue() == EXPECTED_ELEMENT_VALUE);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the hashtable is empty.
+/// </sumary>
+QTEST_CASE( GetFirst_ReturnedIteratorPointsToEndWhenHashtableIsEmpty_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itFirst = HASHTABLE.GetFirst();
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itFirst.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
+
+/// <sumary>
+/// Checks that the iterator is obtained.
+/// </sumary>
+QTEST_CASE( GetLast_IteratorIsObtained_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_ELEMENT_KEY("key3");
+    const int EXPECTED_ELEMENT_VALUE = 3;
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add(EXPECTED_ELEMENT_KEY, EXPECTED_ELEMENT_VALUE);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itLast = HASHTABLE.GetLast();
+
+    // [Verification]
+    BOOST_CHECK(itLast->GetKey() == EXPECTED_ELEMENT_KEY);
+    BOOST_CHECK(itLast->GetValue() == EXPECTED_ELEMENT_VALUE);
+}
+
+/// <sumary>
+/// Checks that the obtained iterator points to end position when the hashtable is empty.
+/// </sumary>
+QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenHashtableIsEmpty_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itLast = HASHTABLE.GetLast();
+
+    // [Verification]
+    bool bIteratorPointstoEnd = itLast.IsEnd();
+    BOOST_CHECK(bIteratorPointstoEnd);
+}
 
 // End - Test Suite: QHashtable
 QTEST_SUITE_END()

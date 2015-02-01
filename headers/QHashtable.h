@@ -621,13 +621,12 @@ public:
         static const QHashtable::QBucket DEFAULT_BUCKET;
 
         // The array of buckets is pre-allocated and initialized
-        for(pointer_uint_q uIndex = 0; uIndex < m_arBuckets.GetCount(); ++uIndex)
+        for(pointer_uint_q uIndex = 0; uIndex < hashtable.m_arBuckets.GetCount(); ++uIndex)
             m_arBuckets.Add(DEFAULT_BUCKET);
 
         // Every key-value pair is copied
-        // [TODO] Thund: Uncomment when GetFirst exists
-        //for(QHashtable::QConstHashtableIterator it = hashtable.GetFirst(); !it.IsEnd(); ++it)
-        //    this->Add(it->GetKey(), it->GetValue());
+        for(QHashtable::QConstHashtableIterator it = hashtable.GetFirst(); !it.IsEnd(); ++it)
+            this->Add(it->GetKey(), it->GetValue());
     }
 
 
@@ -813,6 +812,32 @@ public:
         QE_ASSERT_ERROR(uSlot < bucket.GetSlotCount(), string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
 
         m_slots.Remove(slot);
+    }
+
+    /// <summary>
+    /// Gets the first element in the hashtable, which can be any of the existing elements since no defined order is followed.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the first key-value pair. If the hashtable is empty, the iterator will point to the end position.
+    /// </returns>
+    QConstHashtableIterator GetFirst() const
+    {
+        QHashtable::QConstHashtableIterator iterator(this, 0);
+        iterator.MoveFirst();
+        return iterator;
+    }
+
+    /// <summary>
+    /// Gets the last element in the hashtable, which can be any of the existing elements since no defined order is followed.
+    /// </summary>
+    /// <returns>
+    /// An iterator that points to the last key-value pair. If the hashtable is empty, the iterator will point to the end position.
+    /// </returns>
+    QConstHashtableIterator GetLast() const
+    {
+        QHashtable::QConstHashtableIterator iterator(this, 0);
+        iterator.MoveLast();
+        return iterator;
     }
 
 
