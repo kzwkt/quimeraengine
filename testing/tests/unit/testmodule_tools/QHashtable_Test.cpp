@@ -839,5 +839,65 @@ QTEST_CASE( GetLast_ReturnedIteratorPointsToEndWhenHashtableIsEmpty_Test )
     BOOST_CHECK(bIteratorPointstoEnd);
 }
 
+/// <summary>
+/// Checks that it returns the expected position when the hashtable contains the key.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsExpectedPositionWhenHashtableContainsTheKey_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key2");
+    const int EXPECTED_VALUE = 4;
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add(EXPECTED_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add("key3", 5);
+    HASHTABLE.Add("key4", 6);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itPosition = HASHTABLE.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    BOOST_CHECK(itPosition->GetKey() == EXPECTED_KEY);
+    BOOST_CHECK(itPosition->GetValue() == EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the hashtable does not contain the element.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsEndPositionWhenHashtableDoesNotContainTheElement_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key5");
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 4);
+    HASHTABLE.Add("key3", 5);
+    HASHTABLE.Add("key4", 6);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itPosition = HASHTABLE.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <summary>
+/// Checks that it returns an iterator that points to the end position when the hashtable is empty.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ReturnsEndPositionWhenHashtableIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEY("key1");
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+
+    // [Execution]
+    QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator itPosition = HASHTABLE.PositionOfKey(EXPECTED_KEY);
+
+    // [Verification]
+    bool bIteratorIsEnd = itPosition.IsEnd();
+    BOOST_CHECK(bIteratorIsEnd);
+}
+
 // End - Test Suite: QHashtable
 QTEST_SUITE_END()
