@@ -157,7 +157,11 @@ QTEST_CASE ( Constructor2_CopyConstructorOfEveryKeyAndValueIsCalled_Test )
     HASHTABLE.Add(CallCounter(), CallCounter());
     HASHTABLE.Add(CallCounter(), CallCounter());
     HASHTABLE.Add(CallCounter(), CallCounter());
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+    const unsigned int EXPECTED_CALLS = HASHTABLE.GetCount() * 2U + 3U; // +3 due to calls to GenerateHashKey, which receives a copy of an integer
+#else
     const unsigned int EXPECTED_CALLS = HASHTABLE.GetCount() * 2U + 6U; // +6 due to calls to GenerateHashKey, which receives a copy of an integer
+#endif
     CallCounter::ResetCounters();
 
     // [Execution]
@@ -1486,7 +1490,11 @@ QTEST_CASE ( OperatorAssignment_CopyConstructorsAreCalledForAllKeysAndValues_Tes
     copiedHashtable.Add(CallCounter(), CallCounter());
     copiedHashtable.Add(CallCounter(), CallCounter());
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+    const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = HASHTABLE.GetCount() * 2U + HASHTABLE.GetCount(); // +GetCount because CallCounter instances are copied when they are passed to GenerateHashKey
+#else
     const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = HASHTABLE.GetCount() * 2U + HASHTABLE.GetCount() * 2U; // +GetCount*2 because CallCounter instances are copied when they are passed to GenerateHashKey
+#endif
     CallCounter::ResetCounters();
 
     // [Execution]

@@ -330,22 +330,20 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator does not change when it already points to the end position.
+/// Checks that the iterator changes when it already points to the end position.
 /// </summary>
-QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
+QTEST_CASE ( OperatorPostIncrement_IteratorChangesWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QFixedArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3);
     QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
-    ITERATOR_END.MoveLast();
-    ++ITERATOR_END;
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator(ITERATOR_END);
     iterator++;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);
+    BOOST_CHECK(iterator != ITERATOR_END);
 }
 
 #endif
@@ -428,14 +426,13 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator does not change when it already points to the end position.
+/// Checks that the iterator changes when it already points to the end position.
 /// </summary>
-QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
+QTEST_CASE ( OperatorPostDecrement_IteratorChangesWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QFixedArray<int> SOURCE_ARRAY(3, 0);
+    QFixedArray<int> SOURCE_ARRAY(1, 0);
     QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
-    ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
 	// [Execution]
@@ -443,7 +440,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
     iterator--;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);
+    BOOST_CHECK(iterator != ITERATOR_END);
 }
 
 #endif
@@ -526,22 +523,20 @@ QTEST_CASE ( OperatorPreIncrement_AssertionFailsWhenIteratorAlreadyPointsToLastE
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator does not change when it already points to the end position.
+/// Checks that the iterator changes when it already points to the end position.
 /// </summary>
-QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
+QTEST_CASE ( OperatorPreIncrement_IteratorChangesWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QFixedArray<int> SOURCE_ARRAY(3, 0);
+    QDynamicArray<int> SOURCE_ARRAY(3);
     QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
-    ITERATOR_END.MoveLast();
-    ++ITERATOR_END;
 
 	// [Execution]
     QFixedArray<int>::QArrayIterator iterator(ITERATOR_END);
     ++iterator;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);
+    BOOST_CHECK(iterator != ITERATOR_END);
 }
 
 #endif
@@ -624,14 +619,13 @@ QTEST_CASE ( OperatorPreDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndPo
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
 /// <summary>
-/// Checks that the iterator does not change when it already points to the end position.
+/// Checks that the iterator changes when it already points to the end position.
 /// </summary>
-QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
+QTEST_CASE ( OperatorPreDecrement_IteratorChangesWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
     QFixedArray<int> SOURCE_ARRAY(3, 0);
     QFixedArray<int>::QArrayIterator ITERATOR_END(&SOURCE_ARRAY, 0);
-    ITERATOR_END.MoveFirst();
     --ITERATOR_END;
 
 	// [Execution]
@@ -639,7 +633,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndP
     --iterator;
 
     // [Verification]
-    BOOST_CHECK(iterator == ITERATOR_END);
+    BOOST_CHECK(iterator != ITERATOR_END);
 }
 
 #endif
@@ -799,8 +793,6 @@ QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenArrayIsEmpty_Test )
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
     QFixedArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY, 0);
-    END_ITERATOR.MoveLast();
-    ++END_ITERATOR;
     QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]
@@ -895,8 +887,6 @@ QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenArrayIsEmpty_Test )
     // [Preparation]
     QDynamicArray<int> EMPTY_ARRAY;
     QFixedArray<int>::QArrayIterator END_ITERATOR(&EMPTY_ARRAY, 0);
-    END_ITERATOR.MoveLast();
-    ++END_ITERATOR;
     QFixedArray<int>::QArrayIterator ITERATOR(&EMPTY_ARRAY, 0);
 
 	// [Execution]

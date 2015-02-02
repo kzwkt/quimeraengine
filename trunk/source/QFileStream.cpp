@@ -266,9 +266,12 @@ void QFileStream::MoveBackward(const pointer_uint_q uAmount)
     QE_ASSERT_ERROR(m_bIsOpen == true, "The file is not open.");
     QE_ASSERT_WARNING(m_uPositionPointer >= uAmount, "It is not possible to move backward the specified amount, it would be out of bounds.");
 
-    pointer_uint_q uFixedAmount = m_uPositionPointer < uAmount ? uAmount - m_uPositionPointer :
-                                                                 uAmount;
-    m_uPositionPointer -= uFixedAmount;
+    if(m_uPositionPointer != 0)
+    {
+        pointer_uint_q uFixedAmount = m_uPositionPointer < uAmount ? uAmount - m_uPositionPointer :
+                                                                     uAmount;
+        m_uPositionPointer -= uFixedAmount;
+    }
 }
 
 void QFileStream::MoveForward(const pointer_uint_q uAmount)
@@ -649,8 +652,8 @@ void QFileStream::SetPosition(const pointer_uint_q uPosition)
     QE_ASSERT_WARNING(m_bIsOpen == true, "The file is not open.");
     QE_ASSERT_WARNING(uPosition <= m_uFileSize, "It is not possible to set the specified position, it would be out of bounds.");
 
-    m_uPositionPointer = uPosition > m_uFileSize ? m_uFileSize :
-                                                   uPosition;
+    if(uPosition <= m_uFileSize)
+        m_uPositionPointer = uPosition;
 }
 
 QPath QFileStream::GetPath() const
