@@ -582,12 +582,12 @@ protected:
     /// <summary>
     /// Constant to symbolize the end of the sequence near the last element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_FORWARD = -1;
+    static const pointer_uint_q END_POSITION_FORWARD = -2;
 
     /// <summary>
     /// Constant to symbolize the end of the sequence near the first element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    static const pointer_uint_q END_POSITION_BACKWARD = -1;
 
 
     // CONSTRUCTORS

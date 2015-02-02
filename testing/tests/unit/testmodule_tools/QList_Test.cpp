@@ -50,22 +50,13 @@ QTEST_SUITE_BEGIN( QList_TestSuite )
 QTEST_CASE ( Constructor1_ChecksIfConstructorWithoutParametersInitializesMembersCorrectly_Test )
 {
     // [Preparation]
-    static const pointer_uint_q EXPECTED_END_POSITION_FORWARD = -1;
-    static const pointer_uint_q EXPECTED_END_POSITION_BACKWARD = -2;
-    static const pointer_uint_q INITIAL_CAPACITY = QListWhiteBox<u64_q>::GetDefaultInitialCapacity();
+    const pointer_uint_q INITIAL_CAPACITY = QListWhiteBox<u64_q>::GetDefaultInitialCapacity();
 
     // [Execution]
-    QListWhiteBox<u64_q> list;
+    QList<u64_q> list;
 
     // [Verification]
-    pointer_uint_q uFirst = list.GetFirstPosition();
-    pointer_uint_q uLast  = list.GetLastPosition();
-
     pointer_uint_q uInitialCapacity = list.GetCapacity();
-
-
-    BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
-    BOOST_CHECK_EQUAL( uLast, EXPECTED_END_POSITION_FORWARD );
     BOOST_CHECK_EQUAL( uInitialCapacity, INITIAL_CAPACITY );
 }
 
@@ -75,21 +66,13 @@ QTEST_CASE ( Constructor1_ChecksIfConstructorWithoutParametersInitializesMembers
 QTEST_CASE ( Constructor2_ChecksIfConstructorInitializesMembersCorrectly_Test )
 {
     // [Preparation]
-    static const pointer_uint_q EXPECTED_END_POSITION_FORWARD = -1;
-    static const pointer_uint_q EXPECTED_END_POSITION_BACKWARD = -2;
-    static const pointer_uint_q INITIAL_CAPACITY = 5;
+    const pointer_uint_q INITIAL_CAPACITY = 5;
 
     // [Execution]
-    QListWhiteBox<u64_q> list( INITIAL_CAPACITY );
+    QList<u64_q> list( INITIAL_CAPACITY );
 
     // [Verification]
-    pointer_uint_q uFirst = list.GetFirstPosition();
-    pointer_uint_q uLast  = list.GetLastPosition();
-
     pointer_uint_q uInitialCapacity = list.GetCapacity();
-
-    BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
-    BOOST_CHECK_EQUAL( uLast, EXPECTED_END_POSITION_FORWARD );
     BOOST_CHECK_EQUAL( uInitialCapacity, INITIAL_CAPACITY );
 
 }
@@ -130,19 +113,18 @@ QTEST_CASE ( Constructor2_AssertionFailedWhenPassingZeroElementsAsInitialCapacit
 QTEST_CASE ( Constructor3_ChecksIfConstructorInitializesCorrectlyWhenPassingAListWithZeroElements_Test )
 {
     // [Preparation]
-    static const pointer_uint_q EXPECTED_END_POSITION_FORWARD = -1;
-    static const pointer_uint_q EXPECTED_END_POSITION_BACKWARD = -2;
+    const pointer_uint_q EXPECTED_CAPACITY = QListWhiteBox<u64_q>::GetDefaultInitialCapacity();
+    const pointer_uint_q EXPECTED_COUNT = 0;
+    QList<u64_q> listOrigin;
 
     // [Execution]
-    QListWhiteBox<u64_q> listOrigin;
-    QListWhiteBox<u64_q> listDestination(listOrigin);
+    QList<u64_q> listDestination(listOrigin);
 
     // [Verification]
-    pointer_uint_q uFirst = listDestination.GetFirstPosition();
-    pointer_uint_q uLast  = listDestination.GetLastPosition();
-
-    BOOST_CHECK_EQUAL( uFirst, EXPECTED_END_POSITION_BACKWARD );
-    BOOST_CHECK_EQUAL( uLast, EXPECTED_END_POSITION_FORWARD );
+    pointer_uint_q uCapacity = listOrigin.GetCapacity();
+    pointer_uint_q uCount = listOrigin.GetCount();
+    BOOST_CHECK_EQUAL(uCapacity, EXPECTED_CAPACITY);
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
 }
 
 /// <summary>
