@@ -533,7 +533,7 @@ QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInp
 /// <summary>
 /// Checks if it the clone method works properly when the destination dictionary has less capacity and elements.
 /// </summary>
-QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalListWhenInputDictionaryHasLessCapacityAndElements_Test )
+QTEST_CASE ( Clone_ClonedDictionaryHasSameValuesThanTheOriginalDictionaryWhenInputDictionaryHasLessCapacityAndElements_Test )
 {
     // [Preparation]
     const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4",  "key5"};

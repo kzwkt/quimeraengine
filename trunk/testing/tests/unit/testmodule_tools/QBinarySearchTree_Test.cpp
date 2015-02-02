@@ -1882,7 +1882,7 @@ QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalTreeWhenInputTreeHasMor
 /// <summary>
 /// Checks if it the clone method works properly when the destination tree has less capacity and elements.
 /// </summary>
-QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalListWhenInputTreeHasLessCapacityAndElements_Test )
+QTEST_CASE ( Clone_ClonedTreeHasSameValuesThanTheOriginalTreeWhenInputTreeHasLessCapacityAndElements_Test )
 {
     // [Preparation]
     const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5};

@@ -1559,6 +1559,7 @@ public:
     /// Performs a shallow copy of the contents of the tree to another tree.
     /// </summary>
     /// <remarks>
+    /// Care must be taken when instances store pointers to other objects (like strings do); cloning such types may lead to hard-to-debug errors.<br/>
     /// If the capacity of the destination tree is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
     /// No constructors will be called during this operation.
     /// </remarks>

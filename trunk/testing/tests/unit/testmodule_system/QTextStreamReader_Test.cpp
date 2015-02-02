@@ -34,7 +34,7 @@ using namespace boost::unit_test;
 
 // The QMemoryStream type is used in all the tests
 #include "QMemoryStream.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 #include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QTextStreamReader;
@@ -42,7 +42,7 @@ using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
 using Kinesis::QuimeraEngine::System::IO::EQNewLineCharacters;
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
 
 QTEST_SUITE_BEGIN( QTextStreamReader_TestSuite )
@@ -92,7 +92,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF8_Test )
     // [Preparation]
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF8;
     const string_q STREAM_TEXT("TestText");
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
 
     // [Execution]
@@ -111,7 +111,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForISO88591_Test )
     // [Preparation]
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF8;
     const string_q STREAM_TEXT("TestText");
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EQTextEncoding::E_ISO88591);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EQTextEncoding::E_ISO88591);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
 
     // [Execution]
@@ -131,7 +131,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForASCII_Test )
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF8;
     const string_q STREAM_TEXT("TestText");
     
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EQTextEncoding::E_ASCII);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EQTextEncoding::E_ASCII);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
 
     // [Execution]
@@ -152,7 +152,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF16LE_Test )
     // [Preparation]
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF16LE;
     const string_q STREAM_TEXT = string_q(char_q(0xFFFD)) + "TestText";
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -177,7 +177,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF16BE_Test )
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF16BE;
     const string_q STREAM_TEXT = string_q(char_q(0xFFFD)) + "TestText";
 
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFE, (i8_q)0xFF}; // Big endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -202,7 +202,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF32LE_Test )
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF32LE;
     const string_q STREAM_TEXT = string_q(char_q(0xFFFD)) + "TestText";
     
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE, 0, 0}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -229,7 +229,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF32BE_Test )
     const EQTextEncoding EXPECTED_ENCODING = EQTextEncoding::E_UTF32BE;
     const string_q STREAM_TEXT = string_q(char_q(0xFFFD)) + "TestText";
     
-    QBasicArray<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
+    QArrayResult<i8_q> arBytes = STREAM_TEXT.ToBytes(EXPECTED_ENCODING);
     static const i8_q BOM[] = {0, 0, (i8_q)0xFE, (i8_q)0xFF}; // Big endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -293,7 +293,7 @@ QTEST_CASE ( ReadChars_FullStreamCanBeRead_Test )
     const pointer_uint_q NUMBER_OF_CHARS = 8U;
     const string_q EXPECTED_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -317,7 +317,7 @@ QTEST_CASE ( ReadChars_ResultIncludesBOM_Test )
     const pointer_uint_q NUMBER_OF_CHARS = 10U;
     const string_q EXPECTED_TEXT("*TestText");
     
-    QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -342,7 +342,7 @@ QTEST_CASE ( ReadChars_StreamInternalPointerIsNotRestored_Test )
     const pointer_uint_q NUMBER_OF_CHARS = 9;
     const string_q INPUT_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -370,7 +370,7 @@ QTEST_CASE ( ReadChars_AssertionFailsWhenInputNumberOfCharsEqualsZero_Test )
     const pointer_uint_q NUMBER_OF_CHARS = 0;
     const string_q INPUT_TEXT("*TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -769,7 +769,7 @@ QTEST_CASE ( ReadLine_ResultIncludesBOM_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_UTF16LE;
     const string_q EXPECTED_TEXT("*TestText");
     
-    QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -794,7 +794,7 @@ QTEST_CASE ( ReadLine_StreamInternalPointerPointsToPositionAfterNewLineSeparator
     const string_q INPUT_TEXT("Test\r\nText");
     const pointer_uint_q EXPECTED_POSITION = 6; // After \r\n
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -863,7 +863,7 @@ QTEST_CASE ( ReadLine_ReturnsTheCorrectResultWhenUTF8CharacterIsDividedInTwoBatc
     
     string_q strInput(EXPECTED_TEXT);
     
-    const QBasicArray<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U); // -1 to quit the trailing zero
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     reader.SetNewLineSeparator(EQNewLineCharacters::E_LF);
@@ -898,7 +898,7 @@ QTEST_CASE ( ReadLine_ReturnsTheCorrectResultWhenUTF16CharacterIsDividedInTwoBat
     
     string_q strInput(EXPECTED_TEXT);
     
-    const QBasicArray<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 2U); // -2 to quit the trailing zero
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     reader.SetNewLineSeparator(EQNewLineCharacters::E_LF);
@@ -958,7 +958,7 @@ QTEST_CASE ( ReadLine_ReturnsTheCorrectResultWhenIsCalledSeveralTimes_Test )
     
     string_q strInput(STREAM_TEXT);
     
-    const QBasicArray<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = strInput.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U); // -1 to quit the trailing zero
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     reader.SetNewLineSeparator(EQNewLineCharacters::E_CRLF);
@@ -983,7 +983,7 @@ QTEST_CASE ( ReadToEnd_FullStreamCanBeRead_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
     const string_q EXPECTED_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1006,7 +1006,7 @@ QTEST_CASE ( ReadToEnd_ResultIncludesBOM_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_UTF16LE;
     const string_q EXPECTED_TEXT("*TestText");
     
-    QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -1030,7 +1030,7 @@ QTEST_CASE ( ReadToEnd_StreamInternalPointerIsNotRestored_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
     const string_q INPUT_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1056,7 +1056,7 @@ QTEST_CASE ( ReadToEnd_TextIsCorrectlyReadWhenItContainsSMPCharacters_Test )
     string_q EXPECTED_TEXT("TestText");
     EXPECTED_TEXT.Append(char_q(0x00010300));
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1078,7 +1078,7 @@ QTEST_CASE ( ReadBlock_FullStreamCanBeRead_Test )
     const pointer_uint_q NUMBER_OF_BYTES = 8U;
     const string_q EXPECTED_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1102,7 +1102,7 @@ QTEST_CASE ( ReadBlock_ResultIncludesBOM_Test )
     const pointer_uint_q NUMBER_OF_BYTES = 20U;
     const string_q EXPECTED_TEXT("*TestText");
     
-    QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -1127,7 +1127,7 @@ QTEST_CASE ( ReadBlock_StreamInternalPointerIsNotRestored_Test )
     const pointer_uint_q NUMBER_OF_BYTES = 9;
     const string_q INPUT_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1156,7 +1156,7 @@ QTEST_CASE ( ReadBlock_IncompleteCharactersAreNotRead_Test )
     INPUT_TEXT.Append("Text");
     const string_q EXPECTED_TEXT("Test");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1182,7 +1182,7 @@ QTEST_CASE ( ReadBlock_AssertionFailsWhenInputNumberOfBytesEqualsZero_Test )
     const pointer_uint_q NUMBER_OF_BYTES = 0;
     const string_q INPUT_TEXT("*TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1215,7 +1215,7 @@ QTEST_CASE ( ReadBlock_AssertionFailsWhenInputNumberOfBytesIsNotMultipleOfCharac
     const pointer_uint_q NUMBER_OF_BYTES = 5U;
     const string_q INPUT_TEXT("*TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount());
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1247,7 +1247,7 @@ QTEST_CASE ( OperatorRightShift_FullStreamCanBeRead_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
     const string_q EXPECTED_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1270,7 +1270,7 @@ QTEST_CASE ( OperatorRightShift_ResultIncludesBOM_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_UTF16LE;
     const string_q EXPECTED_TEXT("*TestText");
     
-    QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     static const i8_q BOM[] = {(i8_q)0xFF, (i8_q)0xFE}; // Little endian BOM
     arBytes[0] = BOM[0];
     arBytes[1] = BOM[1];
@@ -1294,7 +1294,7 @@ QTEST_CASE ( OperatorRightShift_StreamInternalPointerIsNotRestored_Test )
     const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
     const string_q INPUT_TEXT("TestText");
     
-    const QBasicArray<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = INPUT_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;
@@ -1320,7 +1320,7 @@ QTEST_CASE ( OperatorRightShift_TextIsCorrectlyReadWhenItContainsSMPCharacters_T
     string_q EXPECTED_TEXT("TestText");
     EXPECTED_TEXT.Append(char_q(0x00010300));
     
-    const QBasicArray<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
+    const QArrayResult<i8_q> arBytes = EXPECTED_TEXT.ToBytes(INPUT_ENCODING);
     QMemoryStream<> stream(arBytes.Get(), arBytes.GetCount() - 1U);
     QTextStreamReader< QMemoryStream<> > reader(stream, INPUT_ENCODING);
     string_q strResult;

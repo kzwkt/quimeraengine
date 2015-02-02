@@ -2088,7 +2088,7 @@ QTEST_CASE ( ToBytes_ConvertsToAsciiCorrectly_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]     = { ' ', 'B', '_', 0 };
@@ -2101,7 +2101,7 @@ QTEST_CASE ( ToBytes_ConvertsToAsciiCorrectly_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2115,7 +2115,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByAsciiSubstitutionChara
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const char SUBSTITUTION_CHARACTER = 26;
@@ -2129,7 +2129,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByAsciiSubstitutionChara
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2143,7 +2143,7 @@ QTEST_CASE ( ToBytes_AsciiNullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]     = { ' ', 'B', '_', 0 };
@@ -2156,7 +2156,7 @@ QTEST_CASE ( ToBytes_AsciiNullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK_NE(arByteArray.GetCount(), sizeof(SOURCE_STRING_CODE_UNITS));
@@ -2171,7 +2171,7 @@ QTEST_CASE ( ToBytes_ConvertsToISO88591Correctly_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]     = { ' ', 'B', '_', 0 };
@@ -2184,7 +2184,7 @@ QTEST_CASE ( ToBytes_ConvertsToISO88591Correctly_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2198,7 +2198,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByISO88591SubstitutionCh
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const char SUBSTITUTION_CHARACTER = 26;
@@ -2212,7 +2212,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByISO88591SubstitutionCh
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2226,7 +2226,7 @@ QTEST_CASE ( ToBytes_ISO88591NullTerminatorAddedWhenSourceStringDoesNotTerminate
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]     = { ' ', 'B', '_', 0 };
@@ -2239,7 +2239,7 @@ QTEST_CASE ( ToBytes_ISO88591NullTerminatorAddedWhenSourceStringDoesNotTerminate
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2254,7 +2254,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF8Correctly_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xC2, (char)0xA9, (char)0xE1, (char)0x9A, (char)0xA1, (char)0xD8, (char)0xB4, (char)0xD0, (char)0x96, 0 };
@@ -2267,7 +2267,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF8Correctly_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2281,7 +2281,7 @@ QTEST_CASE ( ToBytes_UTF8NullTerminatorAddedWhenSourceStringDoesNotTerminatesWit
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xC2, (char)0xA9, (char)0xE1, (char)0x9A, (char)0xA1, (char)0xD8, (char)0xB4, (char)0xD0, (char)0x96, 0 };
@@ -2294,7 +2294,7 @@ QTEST_CASE ( ToBytes_UTF8NullTerminatorAddedWhenSourceStringDoesNotTerminatesWit
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2309,7 +2309,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16CorrectlyAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2329,7 +2329,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16CorrectlyAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2343,7 +2343,7 @@ QTEST_CASE ( ToBytes_UTF16NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
@@ -2356,7 +2356,7 @@ QTEST_CASE ( ToBytes_UTF16NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2371,7 +2371,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32CorrectlyAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2391,7 +2391,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32CorrectlyAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2405,7 +2405,7 @@ QTEST_CASE ( ToBytes_UTF32NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xFF, (char)0xFE, 0, 0, (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
@@ -2418,7 +2418,7 @@ QTEST_CASE ( ToBytes_UTF32NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2433,7 +2433,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16LECorrectlyNotAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2453,7 +2453,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16LECorrectlyNotAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2467,7 +2467,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, (char)0xA1, (char)0x16, (char)0x34, (char)0x06, (char)0x16, (char)0x04, 0, 0 };
@@ -2480,7 +2480,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2495,7 +2495,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16BECorrectlyNotAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2515,7 +2515,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16BECorrectlyNotAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2529,7 +2529,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, (char)0xA9, (char)0x16, (char)0xA1, (char)0x06, (char)0x34, (char)0x04, (char)0x16, 0, 0 };
@@ -2542,7 +2542,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2557,7 +2557,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32LECorrectlyNotAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2577,7 +2577,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32LECorrectlyNotAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2591,7 +2591,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { (char)0xA9, 0, 0, 0, (char)0xA1, (char)0x16, 0, 0, (char)0x34, (char)0x06, 0, 0, (char)0x16, (char)0x04, 0, 0, 0, 0, 0, 0 };
@@ -2604,7 +2604,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2619,7 +2619,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32BECorrectlyNotAddingBOM_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     // Note that the following byte sequence is read by a little-endian machine as BA, DC, FE, HG, etc.
@@ -2639,7 +2639,7 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32BECorrectlyNotAddingBOM_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2653,7 +2653,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q EXPECTED_STRING_BYTES[]        = { 0, 0, 0, (char)0xA9, 0, 0, (char)0x16, (char)0xA1, 0, 0, (char)0x06, (char)0x34, 0, 0, (char)0x04, (char)0x16, 0, 0, 0, 0 };
@@ -2666,7 +2666,7 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(arByteArray.Get(), arByteArray.GetCount(), EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -2681,7 +2681,7 @@ QTEST_CASE ( ToBytes_ReturnsNullPointerWhenStringIsEmpty_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const i8_q* EXPECTED_STRING_BYTES = null_q;
@@ -2691,7 +2691,7 @@ QTEST_CASE ( ToBytes_ReturnsNullPointerWhenStringIsEmpty_Test )
     const QStringUnicode EMPTY_STRING = QStringUnicode::GetEmpty();
 
 	// [Execution]
-    QBasicArray<char> arByteArray = EMPTY_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = EMPTY_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arByteArray.GetCount(), EXPECTED_STRING_LENGTH);
@@ -2706,7 +2706,7 @@ QTEST_CASE ( ToBytes_FinalNullCharacterIsCountedForOutputLength_Test )
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const unsigned int EXPECTED_STRING_LENGTH = 4;
@@ -2718,7 +2718,7 @@ QTEST_CASE ( ToBytes_FinalNullCharacterIsCountedForOutputLength_Test )
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
-    QBasicArray<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
+    QArrayResult<char> arByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arByteArray.GetCount(), EXPECTED_STRING_LENGTH);
@@ -7050,7 +7050,7 @@ QTEST_CASE ( Append_AppendingEmptyStringTakesNoEffect_Test )
 /// </summary>
 QTEST_CASE ( Split_ReturnsOneEmptyStringWhenResidentStringIsEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = QStringUnicode::GetEmpty();
@@ -7059,7 +7059,7 @@ QTEST_CASE ( Split_ReturnsOneEmptyStringWhenResidentStringIsEmpty_Test )
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7071,7 +7071,7 @@ QTEST_CASE ( Split_ReturnsOneEmptyStringWhenResidentStringIsEmpty_Test )
 /// </summary>
 QTEST_CASE ( Split_ReturnsTwoEmptyStringsWhenResidentStringIsCompoundOfOnlyOneSeparator_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "/";
@@ -7080,7 +7080,7 @@ QTEST_CASE ( Split_ReturnsTwoEmptyStringsWhenResidentStringIsCompoundOfOnlyOneSe
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7093,7 +7093,7 @@ QTEST_CASE ( Split_ReturnsTwoEmptyStringsWhenResidentStringIsCompoundOfOnlyOneSe
 /// </summary>
 QTEST_CASE ( Split_ReturnsSeveralEmptyStringsWhenResidentStringIsCompoundOfMoreThanOneSeparatorOnly_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "///";
@@ -7102,7 +7102,7 @@ QTEST_CASE ( Split_ReturnsSeveralEmptyStringsWhenResidentStringIsCompoundOfMoreT
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7117,7 +7117,7 @@ QTEST_CASE ( Split_ReturnsSeveralEmptyStringsWhenResidentStringIsCompoundOfMoreT
 /// </summary>
 QTEST_CASE ( Split_ReturnsTheValueOfPartSurroundedBySeparatorsWhenTheyArePlacedAtBeginningAndEnd_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "/123/";
@@ -7127,7 +7127,7 @@ QTEST_CASE ( Split_ReturnsTheValueOfPartSurroundedBySeparatorsWhenTheyArePlacedA
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7141,7 +7141,7 @@ QTEST_CASE ( Split_ReturnsTheValueOfPartSurroundedBySeparatorsWhenTheyArePlacedA
 /// </summary>
 QTEST_CASE ( Split_ReturnsTheValueOfOnePartWhenThereAreNotSeparatorsInString_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "123";
@@ -7150,7 +7150,7 @@ QTEST_CASE ( Split_ReturnsTheValueOfOnePartWhenThereAreNotSeparatorsInString_Tes
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7162,7 +7162,7 @@ QTEST_CASE ( Split_ReturnsTheValueOfOnePartWhenThereAreNotSeparatorsInString_Tes
 /// </summary>
 QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparators_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "123/456/789";
@@ -7173,7 +7173,7 @@ QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparators_Test )
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7187,7 +7187,7 @@ QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparators_Test )
 /// </summary>
 QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparatorsOfLengthGreaterThanOne_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "123-/-456-/-789";
@@ -7198,7 +7198,7 @@ QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparatorsOfLengthGrea
     const QStringUnicode SEPARATOR = "-/-";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7212,7 +7212,7 @@ QTEST_CASE ( Split_ReturnsEveryPartOfCommonStringDividedBySeparatorsOfLengthGrea
 /// </summary>
 QTEST_CASE ( Split_ReturnsEntireStringWhenSeparatorIsEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING = "123/456/789";
@@ -7221,7 +7221,7 @@ QTEST_CASE ( Split_ReturnsEntireStringWhenSeparatorIsEmpty_Test )
     const QStringUnicode SEPARATOR = QStringUnicode::GetEmpty();
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);
@@ -7233,7 +7233,7 @@ QTEST_CASE ( Split_ReturnsEntireStringWhenSeparatorIsEmpty_Test )
 /// </summary>
 QTEST_CASE ( Split_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
     using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
 
     // [Preparation]
@@ -7247,7 +7247,7 @@ QTEST_CASE ( Split_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
     const QStringUnicode SEPARATOR = "/";
 
 	// [Execution]
-    QBasicArray<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
+    QArrayResult<QStringUnicode> arStringParts = ORIGINAL_STRING.Split(SEPARATOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL(arStringParts.GetCount(), EXPECTED_SIZE);

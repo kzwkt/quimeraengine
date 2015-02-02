@@ -36,7 +36,7 @@ using namespace boost::unit_test;
 #include "QFileStream.h"
 
 #include "QPath.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 #include "EQTextEncoding.h"
 #include "SQFile.h"
 #include "QFileStreamWhiteBox.h"
@@ -1749,7 +1749,7 @@ QTEST_CASE ( Flush_AssertionFailsWhenFileIsClosed_Test )
 /// </summary>
 QTEST_CASE ( Flush_AssertionFailsWhenFileIsReadOnly_Test )
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+    using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::System::IO::FileSystem::Test::QFileStreamWhiteBox;
@@ -1764,7 +1764,7 @@ QTEST_CASE ( Flush_AssertionFailsWhenFileIsReadOnly_Test )
     static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
-    QBasicArray<i8_q> arBytesFile = INPUT_PATH.ToBytes(PATH_ENCODING);
+    QArrayResult<i8_q> arBytesFile = INPUT_PATH.ToBytes(PATH_ENCODING);
     boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesFile.Get();
     boost::filesystem::path filePath(szPath);
 

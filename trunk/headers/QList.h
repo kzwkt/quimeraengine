@@ -1268,10 +1268,11 @@ public:
     /// Performs a fast shallow copy of the list elements.
     /// </summary>
     /// <remarks>
+    /// Care must be taken when instances store pointers to other objects (like strings do); cloning such types may lead to hard-to-debug errors.<br/>
+    /// If the destination list's capacity is lower than the resident list's capacity, it will be increased.<br/>
     /// Neither elements' constructor nor element's assignment operator are called.
     /// </remarks>
-    /// <param name="destinationList"> [OUT] Destination list where to copy the list elements. If the destination list's capacity is lower
-    /// than the resident list's capacity, it will be increased.</param>
+    /// <param name="destinationList"> [OUT] Destination list where to copy the list elements.</param>
     void Clone(QList &destinationList) const
     {
         // Uncomment when reserve method is implemented
