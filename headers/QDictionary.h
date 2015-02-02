@@ -55,9 +55,9 @@ namespace Containers
 /// </remarks>
 /// <typeparam name="KeyT">The type of the keys associated to every value.</typeparam>
 /// <typeparam name="ValueT">The type of the values.</typeparam>
-/// <typeparam name="AllocatorT">The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
-/// <typeparam name="KeyComparatorT">The type of comparator utilized to compare keys. The default type is SQComparatorDefault.</typeparam>
-/// <typeparam name="ValueComparatorT">The type of comparator utilized to compare values. The default type is SQComparatorDefault.</typeparam>
+/// <typeparam name="AllocatorT">Optional. The allocator used to reserve memory. The default type is QPoolAllocator.</typeparam>
+/// <typeparam name="KeyComparatorT">Optional. The type of comparator utilized to compare keys. The default type is SQComparatorDefault.</typeparam>
+/// <typeparam name="ValueComparatorT">Optional. The type of comparator utilized to compare values. The default type is SQComparatorDefault.</typeparam>
 template<class KeyT, class ValueT, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT>, class ValueComparatorT = SQComparatorDefault<ValueT> >
 class QDictionary
 {
