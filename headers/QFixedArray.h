@@ -1061,6 +1061,9 @@ public:
     /// <summary>
     /// Performs a fast shallow copy of the array elements.
     /// </summary>
+    /// <remarks>
+    /// Care must be taken when instances store pointers to other objects (like strings do); cloning such types may lead to hard-to-debug errors.
+    /// </remarks>
     /// <param name="destinationArray"> [IN/OUT] Destination array where to copy the array elements. The capacity of the two arrays has to be equal.</param>
     void Clone(QFixedArray &destinationArray) const
     {

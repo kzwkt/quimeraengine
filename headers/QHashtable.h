@@ -37,6 +37,7 @@
 #include "SQIntegerHashProvider.h"
 #include "QPoolAllocator.h"
 #include "SQAnyTypeToStringConverter.h"
+#include "QArrayResult.h"
 
 
 namespace Kinesis
@@ -707,7 +708,7 @@ public:
         else
         {
             // Inserts the slot before the first one in the bucket
-            SlotListType::Iterator newSlot = m_slots.Insert(*pKeyValue, SlotListType::Iterator(&m_slots, bucket.GetSlotPosition()));
+            typename SlotListType::Iterator newSlot = m_slots.Insert(*pKeyValue, typename SlotListType::Iterator(&m_slots, bucket.GetSlotPosition()));
             uFirstSlotPosition = newSlot.GetInternalPosition();
         }
 
@@ -980,6 +981,21 @@ public:
         return *this;
     }
 
+    /// <summary>
+    /// Performs a shallow copy of the content of the hashtable to another hashtable.
+    /// </summary>
+    /// <remarks>
+    /// Care must be taken when instances store pointers to other objects (like strings do); cloning such types may lead to hard-to-debug errors.<br/>
+    /// If the capacity of the destination hashtable is lower than the resident's, it will reserve more memory before the copy takes place.<br/>
+    /// No constructors will be called during this operation.
+    /// </remarks>
+    /// <param name="destinationHashtable">[IN/OUT] The destination hashtable to which the contents will be copied.</param>
+    void Clone(QHashtable &destinationHashtable) const
+    {
+        m_slots.Clone(destinationHashtable.m_slots);
+        m_arBuckets.Clone(destinationHashtable.m_arBuckets);
+    }
+   
 
     // PROPERTIES
     // ---------------
@@ -1027,6 +1043,31 @@ public:
     bool IsEmpty() const
     {
         return m_slots.IsEmpty();
+    }
+    
+    /// <summary>
+    /// Gets all the existing keys from the hashtable.
+    /// </summary>
+    /// <returns>
+    /// An array of keys, in an undefined order. If the hashtable is empty, a null pointer is returned. The wrapper is attached to the array.
+    /// </returns>
+    Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult<KeyT> GetKeys() const
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
+
+        KeyT* arKeys = null_q;
+
+        // If the hashtable is empty, a null pointer will be returned
+        if(!m_slots.IsEmpty())
+            arKeys = new KeyT[m_slots.GetCount()];
+
+        typename SlotListType::Iterator slot = m_slots.GetFirst();
+        pointer_uint_q uKey = 0;
+
+        for(; !slot.IsEnd(); ++slot, ++uKey)
+            new(&arKeys[uKey]) KeyT(slot->GetKey());
+
+        return QArrayResult<KeyT>(arKeys, uKey);
     }
 
 

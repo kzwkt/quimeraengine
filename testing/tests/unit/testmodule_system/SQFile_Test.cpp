@@ -37,7 +37,7 @@ using namespace boost::unit_test;
 
 // These includes are needed by WaitForCreationOrDeletion function
 #include "QStopwatch.h"
-#include "QBasicArray.h"
+#include "QArrayResult.h"
 #include "EQTextEncoding.h"
 #include "SQThisThread.h"
 #include <fstream>
@@ -45,7 +45,7 @@ using namespace boost::unit_test;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQFile;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileSystemError;
-using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
 
 // The base path to all the artifacts used by these tests
 static const string_q PATH_TO_ARTIFACTS("./artifacts/SQFile/");
@@ -67,7 +67,7 @@ bool WaitForCreationOrDeletion_SQFileTestHelper(const QPath &directoryOrFile, co
     static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
-    QBasicArray<i8_q> arBytesDirectory = directoryOrFile.ToString().ToBytes(PATH_ENCODING);
+    QArrayResult<i8_q> arBytesDirectory = directoryOrFile.ToString().ToBytes(PATH_ENCODING);
     boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesDirectory.Get();
     boost::filesystem::path directoryOrFilePath(szPath);
 
@@ -103,7 +103,7 @@ bool CheckFileContent(const QPath &filePath, const string_q &strExpectedFileCont
     {
         // [TODO] Thund: Replace this stuff with QTextStreamReader<QFileStream> when they both exist
         // Opens the file
-        QBasicArray<i8_q> arFilePath = filePath.ToString().ToBytes(EQTextEncoding::E_ASCII);
+        QArrayResult<i8_q> arFilePath = filePath.ToString().ToBytes(EQTextEncoding::E_ASCII);
         std::ifstream inputFile(arFilePath.Get());
 
         if(inputFile.is_open())
@@ -874,7 +874,7 @@ QTEST_CASE ( GetFileInfo_ReadyOnlyFlagIsTrueWhenFileIsReadOnly_Test )
     static const EQTextEncoding PATH_ENCODING = string_q::GetLocalEncodingUTF16();
 #endif
 
-    QBasicArray<i8_q> arBytesFile = FILE_PATH.ToString().ToBytes(PATH_ENCODING);
+    QArrayResult<i8_q> arBytesFile = FILE_PATH.ToString().ToBytes(PATH_ENCODING);
     boost::filesystem::path::value_type* szPath = (boost::filesystem::path::value_type*)arBytesFile.Get();
     boost::filesystem::path filePath(szPath);
 

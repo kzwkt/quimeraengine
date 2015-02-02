@@ -990,32 +990,30 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
     }
     else
     {
-        unsigned int uLastFound = 0;
+        const unsigned int SEPARATOR_LENGTH = strSeparator.GetLength();
+        unsigned int uLastFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, 0);
 
         // Separations are counted before the array of strings is created
         while(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
         {
             ++uNumberOfParts;
+            uLastFound += SEPARATOR_LENGTH;
 
             uLastFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
-
-            if(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
-                ++uLastFound;
         }
+
+        // Adds the last part which was not counted since no more separators were found
+        ++uNumberOfParts;
 
         // Creates the output array of strings
         arResultParts = new QStringUnicode[uNumberOfParts];
-        uNumberOfParts = uNumberOfParts;
 
         // Extracts every part, searching for separators and getting the text in between, if any
-
         uLastFound = 0;
-        const unsigned int SEPARATOR_LENGTH = strSeparator.GetLength();
         unsigned int uCurrentFound = 0;
-        --uNumberOfParts; // 1 substracted because the loop uses all the parts but the last one
 
         // Parses all the parts but the last one
-        for(unsigned int iPart = 0; iPart < uNumberOfParts; ++iPart)
+        for(unsigned int iPart = 0; iPart < uNumberOfParts - 1U; ++iPart)
         {
             uCurrentFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
 
@@ -1027,7 +1025,7 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
         }
 
         // Then the last part
-        arResultParts[uNumberOfParts] = this->Substring(uLastFound);
+        arResultParts[uNumberOfParts - 1U] = this->Substring(uLastFound);
     }
 
     return QArrayResult<QStringUnicode>(arResultParts, uNumberOfParts);
