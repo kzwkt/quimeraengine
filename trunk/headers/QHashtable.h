@@ -739,6 +739,7 @@ public:
         typename SlotListType::Iterator slot(&m_slots, bucket.GetSlotPosition());
         pointer_uint_q uSlot = 0;
 
+        // Traverses all the slots of the bucket
         while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
         {
             ++slot;
@@ -811,6 +812,12 @@ public:
         
         QE_ASSERT_ERROR(uSlot < bucket.GetSlotCount(), string_q("The input key (") + SQAnyTypeToStringConverter::Convert(key) + ") does not exist in the hashtable.");
 
+        // Updates the bucket
+        bucket.SetSlotCount(bucket.GetSlotCount() - 1U);
+
+        if(bucket.GetSlotCount() == 0)
+            bucket.SetSlotPosition(QHashtable::END_POSITION_FORWARD);
+
         m_slots.Remove(slot);
     }
 
@@ -838,6 +845,43 @@ public:
         QHashtable::QConstHashtableIterator iterator(this, 0);
         iterator.MoveLast();
         return iterator;
+    }
+    
+    /// <summary>
+    /// Searches for a given key-value pair and obtains its position.
+    /// </summary>
+    /// <param name="key">[IN] The key of the pair to search for.</param>
+    /// <returns>
+    /// An iterator that points to the position of the key-value pair. If the key is not present in the hashtable, the iterator will point to the end position.
+    /// </returns>
+    QConstHashtableIterator PositionOfKey(const KeyT &key) const
+    {
+        // Creates a key-value by copying the key without calling its constructor
+        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
+        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
+        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+
+        // Gets the corresponding bucket
+        pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
+        QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
+
+        typename SlotListType::Iterator slot(&m_slots, bucket.GetSlotPosition());
+        pointer_uint_q uSlot = 0;
+        pointer_uint_q uResultPosition = bucket.GetSlotPosition();
+
+        // Traverses all the slots of the bucket
+        while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
+        {
+            uResultPosition = slot.GetInternalPosition();
+            ++slot;
+            ++uSlot;
+        }
+
+        // If the key was not found, the iterator points to an end position
+        if(uSlot == bucket.GetSlotCount())
+            uResultPosition = QHashtable::END_POSITION_FORWARD;
+
+        return QHashtable::QConstHashtableIterator(this, uResultPosition);
     }
 
 
