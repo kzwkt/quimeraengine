@@ -63,8 +63,12 @@ namespace Containers
 /// <typeparam name="ValueT">The type of the values stored in the table.</typeparam>
 /// <typeparam name="HashProviderT">Optional. The type of the hash provider. By default, it is SQIntegerHashProvider.</typeparam>
 /// <typeparam name="AllocatorT">Optional. The type of the allocator that reserves memory for keys, values and buckets. By default, it is QPoolAllocator.</typeparam>
-/// <typeparam name="KeyComparatorT">Optional. The type of the comparator used to compare keys. By default, it is SQComparatorDefault.</typeparam>
-template<class KeyT, class ValueT, class HashProviderT = SQIntegerHashProvider, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class KeyComparatorT = SQComparatorDefault<KeyT> >
+/// <typeparam name="KeyComparatorT">Optional. The type of comparator utilized to compare keys. The default type is SQComparatorDefault.</typeparam>
+/// <typeparam name="ValueComparatorT">Optional. The type of comparator utilized to compare values. The default type is SQComparatorDefault.</typeparam>
+template<class KeyT, class ValueT, class HashProviderT = SQIntegerHashProvider, 
+                                   class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
+                                   class KeyComparatorT = SQComparatorDefault<KeyT>, 
+                                   class ValueComparatorT = SQComparatorDefault<ValueT> >
 class QHashtable
 {
     // TYPEDEFS (I)
@@ -691,18 +695,24 @@ public:
         memcpy(pKeyValueBlock + sizeof(KeyT), &value, sizeof(ValueT));
         KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
 
-        m_slots.Add(*pKeyValue);
-        bucket.SetSlotCount(bucket.GetSlotCount() + 1U);
-
         // Finds the first slot of the bucket
-        pointer_uint_q uFirstSlotPosition = bucket.GetSlotPosition();
+        pointer_uint_q uFirstSlotPosition = QHashtable::END_POSITION_FORWARD;
 
-        if(uFirstSlotPosition == QHashtable::END_POSITION_FORWARD)
+        if(bucket.GetSlotCount() == 0)
         {
-            // The bucket was empty, the first slot's position is set
+            // Adds the first slot to the bucket and stores its position
+            m_slots.Add(*pKeyValue);
             uFirstSlotPosition = m_slots.GetLast().GetInternalPosition();
-            bucket.SetSlotPosition(uFirstSlotPosition);
         }
+        else
+        {
+            // Inserts the slot before the first one in the bucket
+            SlotListType::Iterator newSlot = m_slots.Insert(*pKeyValue, SlotListType::Iterator(&m_slots, bucket.GetSlotPosition()));
+            uFirstSlotPosition = newSlot.GetInternalPosition();
+        }
+
+        bucket.SetSlotPosition(uFirstSlotPosition);
+        bucket.SetSlotCount(bucket.GetSlotCount() + 1U);
 
         return QHashtable::QConstHashtableIterator(this, uFirstSlotPosition);
     }
@@ -776,12 +786,21 @@ public:
     /// </returns>
     bool ContainsKey(const KeyT &key) const
     {
-        // Creates a key-value by copying the key without calling its constructor
-        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
-        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
-        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
+        // Gets the corresponding bucket
+        pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
+        QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
 
-        return m_slots.Contains(*pKeyValue);
+        typename SlotListType::Iterator slot(&m_slots, bucket.GetSlotPosition());
+        pointer_uint_q uSlot = 0;
+
+        // Traverses all the slots of the bucket
+        while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
+        {
+            ++slot;
+            ++uSlot;
+        }
+
+        return uSlot != bucket.GetSlotCount();
     }
     
     /// <summary>
@@ -856,11 +875,6 @@ public:
     /// </returns>
     QConstHashtableIterator PositionOfKey(const KeyT &key) const
     {
-        // Creates a key-value by copying the key without calling its constructor
-        u8_q pKeyValueBlock[sizeof(KeyValuePairType)];
-        memcpy(pKeyValueBlock, &key, sizeof(KeyT));
-        KeyValuePairType* pKeyValue = rcast_q(pKeyValueBlock, KeyValuePairType*);
-
         // Gets the corresponding bucket
         pointer_uint_q uHashKey = HashProviderT::GenerateHashKey(key, m_arBuckets.GetCount());
         QHashtable::QBucket& bucket = m_arBuckets[uHashKey];
@@ -872,9 +886,9 @@ public:
         // Traverses all the slots of the bucket
         while(uSlot < bucket.GetSlotCount() && KeyComparatorT::Compare(slot->GetKey(), key) != 0)
         {
-            uResultPosition = slot.GetInternalPosition();
             ++slot;
             ++uSlot;
+            uResultPosition = slot.GetInternalPosition();
         }
 
         // If the key was not found, the iterator points to an end position
@@ -882,6 +896,88 @@ public:
             uResultPosition = QHashtable::END_POSITION_FORWARD;
 
         return QHashtable::QConstHashtableIterator(this, uResultPosition);
+    }
+
+    /// <summary>
+    /// Equality operator that checks whether two hashtables are equal.
+    /// </summary>
+    /// <remarks>
+    /// Keys and values are compared using the hashtable's key and value comparator, respectively.
+    /// The order in which key-value pairs were added is not relevant.
+    /// </remarks>
+    /// <param name="hashtable">[IN] The hashtable to compare to.</param>
+    /// <returns>
+    /// True if all the keys and values of both hashtables are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QHashtable &hashtable) const
+    {
+        bool bResult = this->GetCount() == hashtable.GetCount();
+
+        if(bResult && this != &hashtable)
+        {
+            QHashtable::QConstHashtableIterator itThisKeyValuePair = this->GetFirst();
+
+            while(!itThisKeyValuePair.IsEnd() && bResult)
+            {
+                QHashtable::QConstHashtableIterator itFoundKey = hashtable.PositionOfKey(itThisKeyValuePair->GetKey());
+
+                bResult = !itFoundKey.IsEnd() && ValueComparatorT::Compare(itThisKeyValuePair->GetValue(), itFoundKey->GetValue()) == 0;
+                ++itThisKeyValuePair;
+            }
+        }
+
+        return bResult;
+    }
+    
+    /// <summary>
+    /// Inequality operator that checks whether two hashtables are different.
+    /// </summary>
+    /// <remarks>
+    /// Keys and values are compared using the hashtable's key and value comparators, respectively.
+    /// The order in which key-value pairs were added is not relevant.
+    /// </remarks>
+    /// <param name="hashtable">[IN] The hashtable to compare to.</param>
+    /// <returns>
+    /// True if any of the keys or values are different; False otherwise.
+    /// </returns>
+    bool operator!=(const QHashtable &hashtable) const
+    {
+        return !this->operator==(hashtable);
+    }
+        
+    /// <summary>
+    /// Assignment operator that receives another instance and stores a copy of it.
+    /// </summary>
+    /// <remarks>
+    /// All the elements in the resident hashtable will be firstly removed, calling each keys's and value's destructor.
+    /// The copy constructor is then called for every copied key and value, in an arbitrary order.
+    /// </remarks>
+    /// <param name="hashtable">[IN] The other hashtable to be copied.</param>
+    /// <returns>
+    /// A reference to the resultant hashtable.
+    /// </returns>
+    QHashtable& operator=(const QHashtable &hashtable)
+    {
+        static const QHashtable::QBucket DEFAULT_BUCKET;
+
+        if(this != &hashtable)
+        {
+            // Everything is cleared and prepared for the copy
+            m_slots.Clear();
+            m_slots.Reserve(hashtable.m_slots.GetCapacity()); // Thund: Using GetCount instead could save some memory?
+            m_arBuckets.Clear();
+            m_arBuckets.Reserve(hashtable.m_arBuckets.GetCapacity());
+
+            // The array of buckets is pre-allocated and initialized
+            for(pointer_uint_q uIndex = 0; uIndex < hashtable.m_arBuckets.GetCount(); ++uIndex)
+                m_arBuckets.Add(DEFAULT_BUCKET);
+
+            // Every key-value pair is copied
+            for(QHashtable::QConstHashtableIterator it = hashtable.GetFirst(); !it.IsEnd(); ++it)
+                this->Add(it->GetKey(), it->GetValue());
+        }
+
+        return *this;
     }
 
 

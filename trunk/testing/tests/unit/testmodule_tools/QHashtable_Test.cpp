@@ -153,11 +153,11 @@ QTEST_CASE ( Constructor2_CopyConstructorOfEveryKeyAndValueIsCalled_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
     
     // [Preparation]
-    const unsigned int EXPECTED_CALLS = 9; // 6 + 3 due to calls to GenerateHashKey, which receives a copy of an integer
     QHashtable<CallCounter, CallCounter> HASHTABLE(10, 2);
     HASHTABLE.Add(CallCounter(), CallCounter());
     HASHTABLE.Add(CallCounter(), CallCounter());
     HASHTABLE.Add(CallCounter(), CallCounter());
+    const unsigned int EXPECTED_CALLS = HASHTABLE.GetCount() * 2U + 6U; // +6 due to calls to GenerateHashKey, which receives a copy of an integer
     CallCounter::ResetCounters();
 
     // [Execution]
@@ -487,6 +487,26 @@ QTEST_CASE( OperatorArraySubscript_CorrectValueIsReturnedWhenKeyExists_Test )
     BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
 }
 
+/// <summary>
+/// Checks that elements can be obtained when they are in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_ElementIsCorrectlyGotWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add(21, 3);
+
+    // [Execution]
+    int nValue = HASHTABLE[INPUT_KEY];
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <sumary>
@@ -530,6 +550,26 @@ QTEST_CASE( GetValue_CorrectValueIsReturnedWhenKeyExists_Test )
     HASHTABLE.Add(1, 1);
     HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
     HASHTABLE.Add(3, 3);
+
+    // [Execution]
+    int nValue = HASHTABLE.GetValue(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that elements can be obtained when they are in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( GetValue_ElementIsCorrectlyGotWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add(21, 3);
 
     // [Execution]
     int nValue = HASHTABLE.GetValue(INPUT_KEY);
@@ -587,6 +627,27 @@ QTEST_CASE( SetValue_ValueIsSetWhenKeyExists_Test )
 
     // [Verification]
     int nValue = HASHTABLE.GetValue(INPUT_KEY);
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that elements can be set when they are in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( SetValue_ElementIsCorrectlySetWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, 0);
+    HASHTABLE.Add(21, 3);
+
+    // [Execution]
+    HASHTABLE.SetValue(INPUT_KEY, EXPECTED_VALUE);
+
+    // [Verification]
+    int nValue = HASHTABLE[INPUT_KEY];
     BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
 }
 
@@ -682,6 +743,26 @@ QTEST_CASE ( ContainsKey_ReturnsFalseWhenHashtableIsEmpty_Test )
 }
 
 /// <summary>
+/// Checks that it returns True when the element is in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( ContainsKey_ReturnsTrueWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const bool EXPECTED_VALUE = true;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, 0);
+    HASHTABLE.Add(21, 3);
+
+    // [Execution]
+    bool bResult = HASHTABLE.ContainsKey(INPUT_KEY);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
+}
+
+/// <summary>
 /// Checks that the hashtable is empty when removing the only element in it.
 /// </summary>
 QTEST_CASE ( Remove_HashtableIsEmptyWhenRemovingTheOnlyElementInTheHashtable_Test )
@@ -721,6 +802,39 @@ QTEST_CASE ( Remove_PairIsCorrectlyRemovedWhenThereAreManyAndKeyExists_Test )
     bool bResultIsWhatEspected = true;
 
     QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator it = QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator(&HASHTABLE, 0);
+
+    int i = 0;
+
+    for(it.MoveFirst(); !it.IsEnd(); ++it, ++i)
+    {
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetKey() == EXPECTED_KEYS[i];
+        bResultIsWhatEspected = bResultIsWhatEspected && it->GetValue() == EXPECTED_VALUES[i];
+    }
+
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that elements can be removed when they are in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( Remove_ElementIsCorrectlyRemovedWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int EXPECTED_KEYS[] = {21, 1};
+    const int EXPECTED_VALUES[] = {3, 1};
+    const int INPUT_KEY = 11;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, 2);
+    HASHTABLE.Add(21, 3);
+
+    // [Execution]
+    HASHTABLE.Remove(INPUT_KEY);
+
+    // [Verification]
+    bool bResultIsWhatEspected = true;
+
+    QHashtable<int, int>::QConstHashtableIterator it = QHashtable<int, int>::QConstHashtableIterator(&HASHTABLE, 0);
 
     int i = 0;
 
@@ -897,6 +1011,523 @@ QTEST_CASE ( PositionOfKey_ReturnsEndPositionWhenHashtableIsEmpty_Test )
     // [Verification]
     bool bIteratorIsEnd = itPosition.IsEnd();
     BOOST_CHECK(bIteratorIsEnd);
+}
+
+/// <summary>
+/// Checks that elements can be obtained when they are in a bucket that contains several slots.
+/// </summary>
+QTEST_CASE ( PositionOfKey_ElementIsCorrectlyGotWhenThereIsMoreThanOneElementInBucket_Test )
+{
+    // [Preparation]
+    const int INPUT_KEY = 11;
+    const int EXPECTED_VALUE = 2;
+    QHashtable<int, int> HASHTABLE(10, 2);
+    HASHTABLE.Add(1, 1);
+    HASHTABLE.Add(INPUT_KEY, EXPECTED_VALUE);
+    HASHTABLE.Add(21, 3);
+
+    // [Execution]
+    QHashtable<int, int>::QConstHashtableIterator result = HASHTABLE.PositionOfKey(INPUT_KEY);
+
+    // [Verification]
+    int nValue = result->GetValue();
+    BOOST_CHECK_EQUAL(nValue, EXPECTED_VALUE);
+}
+
+/// <sumary>
+/// Checks that it returns True when hashtables are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenHashtablesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2 = HASHTABLE1;
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 == HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when hashtables are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenHashtablesAreTheSameInstance_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
+    HASHTABLE.Add("key4", 4);
+    HASHTABLE.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE == HASHTABLE;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the order in which pairs were added to the hashtable does not affect the result.
+/// </sumary>
+QTEST_CASE( OperatorEquality_AdditionOrderDoesNotMatter_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+    HASHTABLE2.Add("key3", 3);
+    HASHTABLE2.Add("key2", 2);
+    HASHTABLE2.Add("key4", 4);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 == HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when hashtables are empty.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsTrueWhenHashtablesAreEmpty_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 == HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when both hashtables have a different number of pairs which are equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenHashtablesHaveDifferentNumberOfElementsWithSameValues_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(4, 2);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key2", 2);
+    HASHTABLE2.Add("key3", 3);
+    HASHTABLE2.Add("key4", 4);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 == HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when both hashtables have the same number of pairs which are not equal.
+/// </sumary>
+QTEST_CASE( OperatorEquality_ReturnsFalseWhenHashtablesHaveSameNumberOfElementsWithDifferentValues_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2x", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 50);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key2", 90);
+    HASHTABLE2.Add("key3x", 3);
+    HASHTABLE2.Add("key4", 4);
+    HASHTABLE2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 == HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when hashtables are exactly equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenHashtablesAreExactlyEqual_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2 = HASHTABLE1;
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 != HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when hashtables are the same instance.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenHashtablesAreTheSameInstance_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 2);
+    HASHTABLE.Add("key3", 3);
+    HASHTABLE.Add("key4", 4);
+    HASHTABLE.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE != HASHTABLE;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that the order in which pairs were added to the hashtable does not affect the result.
+/// </sumary>
+QTEST_CASE( OperatorInequality_AdditionOrderDoesNotMatter_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+    HASHTABLE2.Add("key3", 3);
+    HASHTABLE2.Add("key2", 2);
+    HASHTABLE2.Add("key4", 4);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 != HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns False when hashtables are empty.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsFalseWhenHashtablesAreEmpty_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+
+    const bool EXPECTED_RESULT = false;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 != HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when both hashtables have a different number of pairs which are equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenHashtablesHaveDifferentNumberOfElementsWithSameValues_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 5);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(4, 2);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key2", 2);
+    HASHTABLE2.Add("key3", 3);
+    HASHTABLE2.Add("key4", 4);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 != HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <sumary>
+/// Checks that it returns True when both hashtables have the same number of pairs which are not equal.
+/// </sumary>
+QTEST_CASE( OperatorInequality_ReturnsTrueWhenHashtablesHaveSameNumberOfElementsWithDifferentValues_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE1(5, 2);
+    HASHTABLE1.Add("key1", 1);
+    HASHTABLE1.Add("key2x", 2);
+    HASHTABLE1.Add("key3", 3);
+    HASHTABLE1.Add("key4", 4);
+    HASHTABLE1.Add("key5", 50);
+
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE2(5, 2);
+    HASHTABLE2.Add("key1", 1);
+    HASHTABLE2.Add("key2", 90);
+    HASHTABLE2.Add("key3x", 3);
+    HASHTABLE2.Add("key4", 4);
+    HASHTABLE2.Add("key5", 5);
+
+    const bool EXPECTED_RESULT = true;
+
+    // [Execution]
+    bool bResult = HASHTABLE1 != HASHTABLE2;
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the hashtable is correctly copied when it has elements and the destination hashtable is empty.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_HashtableIsCorrectlyCopiedWhenItHasElementsAndDestinationIsEmpty_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4", "key5"};
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 3);
+    HASHTABLE.Add("key3", 5);
+    HASHTABLE.Add("key4", 6);
+    HASHTABLE.Add("key5", 8);
+
+    const pointer_uint_q EXPECTED_COUNT = HASHTABLE.GetCount();
+    QHashtable<string_q, int, SQStringHashProvider> copiedHashtable(8, 2);
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = HASHTABLE == copiedHashtable;
+
+    pointer_uint_q uCount = copiedHashtable.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the hashtable is correctly copied when there are more elements in the source hashtable than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_HashtableIsCorrectlyCopiedWhenThereAreMoreElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3", "key4", "key5"};
+    const int EXPECTED_VALUES[] = {1, 3, 5, 6, 8};
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 3);
+    HASHTABLE.Add("key3", 5);
+    HASHTABLE.Add("key4", 6);
+    HASHTABLE.Add("key5", 8);
+    const pointer_uint_q EXPECTED_COUNT = HASHTABLE.GetCount();
+
+    QHashtable<string_q, int, SQStringHashProvider> copiedHashtable(3, 2);
+    copiedHashtable.Add("key5", 10);
+    copiedHashtable.Add("key6", 11);
+    copiedHashtable.Add("key7", 12);
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = HASHTABLE == copiedHashtable;
+
+    pointer_uint_q uCount = copiedHashtable.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the hashtable is correctly copied when there are less elements in the source hashtable than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_HashtableIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2"};
+    const int EXPECTED_VALUES[] = {1, 3};
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 3);
+    const pointer_uint_q EXPECTED_COUNT = HASHTABLE.GetCount();
+
+    QHashtable<string_q, int, SQStringHashProvider> copiedHashtable(3, 2);
+    copiedHashtable.Add("key5", 10);
+    copiedHashtable.Add("key6", 11);
+    copiedHashtable.Add("key7", 12);
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = HASHTABLE == copiedHashtable;
+
+    pointer_uint_q uCount = copiedHashtable.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the hashtable is correctly copied when there are the same number of elements in the source hashtable than in the destination.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_HashtableIsCorrectlyCopiedWhenThereAreSameNumberOfElementsInSourceThanInDestination_Test )
+{
+    // [Preparation]
+    const string_q EXPECTED_KEYS[] = {"key1", "key2", "key3"};
+    const int EXPECTED_VALUES[] = {1, 3, 5};
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(5, 2);
+    HASHTABLE.Add("key1", 1);
+    HASHTABLE.Add("key2", 3);
+    HASHTABLE.Add("key3", 5);
+    const pointer_uint_q EXPECTED_COUNT = HASHTABLE.GetCount();
+
+    QHashtable<string_q, int, SQStringHashProvider> copiedHashtable(3, 2);
+    copiedHashtable.Add("key5", 10);
+    copiedHashtable.Add("key6", 11);
+    copiedHashtable.Add("key7", 12);
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    bool bResultIsWhatEspected = HASHTABLE == copiedHashtable;
+
+    pointer_uint_q uCount = copiedHashtable.GetCount();
+    BOOST_CHECK_EQUAL(uCount, EXPECTED_COUNT);
+    BOOST_CHECK(bResultIsWhatEspected);
+}
+
+/// <summary>
+/// Checks that the hashtable is correctly copied when it is empty and the destination hashtable has elements.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_HashtableIsCorrectlyCopiedWhenItIsEmptyAndDestinationHasElements_Test )
+{
+    // [Preparation]
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
+    QHashtable<string_q, int, SQStringHashProvider> copiedHashtable(3, 2);
+    copiedHashtable.Add("key5", 10);
+    copiedHashtable.Add("key6", 11);
+    copiedHashtable.Add("key7", 12);
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    bool bHashtableIsEmpty = copiedHashtable.IsEmpty();
+    BOOST_CHECK(bHashtableIsEmpty);
+}
+
+/// <summary>
+/// Checks that the copy constructors are called for each key and value.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_CopyConstructorsAreCalledForAllKeysAndValues_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+
+    // [Preparation]
+    QHashtable<CallCounter, CallCounter> HASHTABLE(5, 2);
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+    HASHTABLE.Add(CallCounter(), CallCounter());
+
+    QHashtable<CallCounter, CallCounter> copiedHashtable(3, 2);
+    copiedHashtable.Add(CallCounter(), CallCounter());
+    copiedHashtable.Add(CallCounter(), CallCounter());
+    copiedHashtable.Add(CallCounter(), CallCounter());
+
+    const unsigned int EXPECTED_COPY_CONSTRUCTORS_VALUE = HASHTABLE.GetCount() * 2U + HASHTABLE.GetCount() * 2U; // +GetCount*2 because CallCounter instances are copied when they are passed to GenerateHashKey
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetCopyConstructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_COPY_CONSTRUCTORS_VALUE);
+}
+
+/// <summary>
+/// Checks that the destructors are called for each key and value.
+/// </summary>
+QTEST_CASE ( OperatorAssignment_DestructorsAreCalledForAllKeysAndValues_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
+    
+    // [Preparation]
+    QHashtable<CallCounter, CallCounter> HASHTABLE(5, 2);
+    QHashtable<CallCounter, CallCounter> copiedHashtable(3, 2);
+    copiedHashtable.Add(CallCounter(), CallCounter());
+    copiedHashtable.Add(CallCounter(), CallCounter());
+    copiedHashtable.Add(CallCounter(), CallCounter());
+
+    const unsigned int EXPECTED_DESTRUCTORS_VALUE = copiedHashtable.GetCount() * 2U;
+    CallCounter::ResetCounters();
+
+    // [Execution]
+    copiedHashtable = HASHTABLE;
+
+    // [Verification]
+    unsigned int uNumberOfCalls = CallCounter::GetDestructorCallsCount();
+    BOOST_CHECK_EQUAL(uNumberOfCalls, EXPECTED_DESTRUCTORS_VALUE);
 }
 
 // End - Test Suite: QHashtable

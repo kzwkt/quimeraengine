@@ -222,7 +222,7 @@ QTEST_CASE ( Destructor_DestructorOfEveryKeyAndValueIsCalled_Test )
 }
 
 /// <summary>
-/// Checks that the tree is correctly copied when it has elements and the destination tree is empty.
+/// Checks that the dictionary is correctly copied when it has elements and the destination dictionary is empty.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItHasElementsAndDestinationIsEmpty_Test )
 {
@@ -260,7 +260,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItHasElementsAndD
 }
 
 /// <summary>
-/// Checks that the tree is correctly copied when there are more elements in the source tree than in the destination.
+/// Checks that the dictionary is correctly copied when there are more elements in the source dictionary than in the destination.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreElementsInSourceThanInDestination_Test )
 {
@@ -301,7 +301,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreMoreEleme
 }
 
 /// <summary>
-/// Checks that the tree is correctly copied when there are less elements in the source tree than in the destination.
+/// Checks that the dictionary is correctly copied when there are less elements in the source dictionary than in the destination.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreLessElementsInSourceThanInDestination_Test )
 {
@@ -339,7 +339,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreLessEleme
 }
 
 /// <summary>
-/// Checks that the tree is correctly copied when there are the same number of elements in the source tree than in the destination.
+/// Checks that the dictionary is correctly copied when there are the same number of elements in the source dictionary than in the destination.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreSameNumberOfElementsInSourceThanInDestination_Test )
 {
@@ -378,7 +378,7 @@ QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenThereAreSameNumbe
 }
 
 /// <summary>
-/// Checks that the tree is correctly copied when it is empty and the destination tree has elements.
+/// Checks that the dictionary is correctly copied when it is empty and the destination dictionary has elements.
 /// </summary>
 QTEST_CASE ( OperatorAssignment_DictionaryIsCorrectlyCopiedWhenItIsEmptyAndDestinationHasElements_Test )
 {
