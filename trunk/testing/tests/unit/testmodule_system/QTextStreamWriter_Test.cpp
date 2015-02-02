@@ -1157,40 +1157,6 @@ QTEST_CASE ( OperatorShiftLeft_NoTrailingZeroIsAdded_Test )
     BOOST_CHECK(strResult == EXPECTED_TEXT);
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-
-/// <summary>
-/// Checks that an assertion fails when the batch size equals zero.
-/// </summary>
-QTEST_CASE ( OperatorShiftLeft_AssertionFailsWhenBatchSizeIsZero_Test )
-{
-    using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
-
-    // [Preparation]
-    const string_q INPUT_TEXT("texttexttexttext");
-    const EQTextEncoding INPUT_ENCODING = EQTextEncoding::E_ASCII;
-    const pointer_uint_q BATCH_SIZE = 0;
-    QMemoryStream<> stream(1);
-    QTextStreamWriter< QMemoryStream<> > writer(stream, INPUT_ENCODING);
-    
-    // [Execution]
-    bool bAssertionFailed = false;
-
-    try
-    {
-        writer << INPUT_TEXT;
-    }
-    catch(const QAssertException&)
-    {
-        bAssertionFailed = true;
-    }
-    
-    // [Verification]
-    BOOST_CHECK(bAssertionFailed);
-}
-
-#endif
-
 /// <summary>
 /// It is not necessary to test this method since it is just a getter.
 /// </summary>
