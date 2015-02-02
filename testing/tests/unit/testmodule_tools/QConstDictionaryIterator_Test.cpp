@@ -628,7 +628,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QDictionary<string_q, int> DICTIONARY = GetSampleDictionary();
+    QDictionary<string_q, int> DICTIONARY;
     DICTIONARY.Add("key1", 1);
     DICTIONARY.Add("key2", 2);
     DICTIONARY.Add("key3", 3);

@@ -140,7 +140,8 @@ void QStopwatchEnclosed::SetTimeLapseLength(const QTimeSpan &length)
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     m_fTimeLapse = scast_q(length.GetMilliseconds(), float_q);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    m_fTimeLapse = scast_q(length.GetHundredsOfNanoseconds(), float_q);
+    static const float_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000.0;
+    m_fTimeLapse = scast_q(length.GetHundredsOfNanoseconds(), float_q) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND;
 #endif
 }
 
@@ -152,7 +153,8 @@ QTimeSpan QStopwatchEnclosed::GetTimeLapseLength() const
     static const u64_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000ULL;
     return QTimeSpan(scast_q(m_fTimeLapse, pointer_uint_q) * HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    return QTimeSpan(scast_q(m_fTimeLapse, pointer_uint_q));
+    static const float_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000.0;
+    return QTimeSpan(scast_q(m_fTimeLapse * HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND, pointer_uint_q));
 #endif
 }
 

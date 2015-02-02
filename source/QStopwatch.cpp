@@ -154,7 +154,7 @@ float_q QStopwatch::GetElapsedTimeAsFloat() const
     return scast_q((QStopwatch::_GetCurrentInstant() - m_uReferenceTime) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND, float_q);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     static const float_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000.0;
-    return scast_q(QStopwatch::_GetCurrentInstant() - m_uReferenceTime, float_q) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND
+    return scast_q(QStopwatch::_GetCurrentInstant() - m_uReferenceTime, float_q) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND;
 #endif
 }
 

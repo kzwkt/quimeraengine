@@ -129,9 +129,7 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingInvalidPosit
     HASHTABLE.Add("key2", 2);
     HASHTABLE.Add("key3", 3);
 
-    const pointer_uint_q NUMBER_OF_ELEMENTS = HASHTABLE.GetCount();
-
-    const unsigned int INVALID_POSITION = NUMBER_OF_ELEMENTS;
+    const unsigned int INVALID_POSITION = 999;
     const bool IS_END = true;
 
 	// [Execution]
@@ -150,7 +148,7 @@ QTEST_CASE ( Constructor_IteratorPointsToForwardEndPositionWhenUsingEmptyHashtab
     using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
 
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
     const bool IS_END = true;
 
 	// [Execution]
@@ -443,7 +441,7 @@ QTEST_CASE ( OperatorPostIncrement_AssertionFailsWhenIteratorAlreadyPointsToLast
 QTEST_CASE ( OperatorPostIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLastEndPosition_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE ;
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
     HASHTABLE.Add("key1", 1);
     HASHTABLE.Add("key2", 2);
     HASHTABLE.Add("key3", 3);
@@ -560,7 +558,7 @@ QTEST_CASE ( OperatorPostDecrement_AssertionFailsWhenIteratorAlreadyPointsToEndP
 QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEndPositionBeforeFirst_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE = GetSampleHashtable();
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(3, 2);
     HASHTABLE.Add("key1", 1);
     HASHTABLE.Add("key2", 2);
     HASHTABLE.Add("key3", 3);
@@ -881,7 +879,7 @@ QTEST_CASE ( OperatorAssignment_AssertionFailsWhenInputIteratorPointsToDifferent
 /// </summary>
 QTEST_CASE ( OperatorAssignment_IteratorDoesNotChangeIfInputIteratorPointsToDifferentHashtable_Test )
 {
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3, 2);
     HASHTABLE_A.Add("key1", 1);
     HASHTABLE_A.Add("key2", 2);
     HASHTABLE_A.Add("key3", 3);
@@ -996,7 +994,7 @@ QTEST_CASE ( OperatorEquality_AssertionFailsWhenIteratorsPointToDifferentDiction
 QTEST_CASE ( OperatorEquality_ReturnsFalseWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3, 2);
     HASHTABLE_A.Add("key1", 1);
     HASHTABLE_A.Add("key2", 2);
     HASHTABLE_A.Add("key3", 3);
@@ -1110,7 +1108,7 @@ QTEST_CASE ( OperatorInequality_AssertionFailsWhenIteratorsPointToDifferentDicti
 QTEST_CASE ( OperatorInequality_ReturnsTrueWhenIteratorsPointToDifferentDictionaries_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE_A(3, 2);
     HASHTABLE_A.Add("key1", 1);
     HASHTABLE_A.Add("key2", 2);
     HASHTABLE_A.Add("key3", 3);
@@ -1841,7 +1839,7 @@ QTEST_CASE ( MoveFirst_IteratorPointsToFirstPositionWhenHashtableIsNotEmptyAndIt
 QTEST_CASE ( MoveFirst_IteratorPointsToEndPositionWhenHashtableIsEmpty_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1);
+    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1, 1);
     QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator END_ITERATOR(&EMPTY_HASHTABLE, 0);
     END_ITERATOR.MoveLast();
     ++END_ITERATOR;
@@ -1917,7 +1915,7 @@ QTEST_CASE ( MoveLast_IteratorPointsToLastPositionWhenHashtableIsNotEmptyAndIter
 QTEST_CASE ( MoveLast_IteratorPointsToEndPositionWhenHashtableIsEmpty_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1);
+    QHashtable<string_q, int, SQStringHashProvider> EMPTY_HASHTABLE(1, 1);
 
     QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator END_ITERATOR(&EMPTY_HASHTABLE, 0);
     END_ITERATOR.MoveLast();

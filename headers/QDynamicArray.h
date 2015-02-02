@@ -637,6 +637,9 @@ public:
         for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
             new(pCurrentResident) T(*pCurrentInput);
 
+        if(m_uLast == QDynamicArray::END_POSITION_FORWARD)
+            ++m_uLast; // Trick: Converts END_POSITION_FORWARD (-2) to END_POSITION_BACKWARD (-1) so the sum below is always correct
+
         m_uLast += NEW_ELEMENTS_COUNT;
     }
     
@@ -697,6 +700,9 @@ public:
         // Copies each element in the input range
         for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
             new(pCurrentResident) T(*pCurrentInput);
+        
+        if(m_uLast == QDynamicArray::END_POSITION_FORWARD)
+            ++m_uLast; // Trick: Converts END_POSITION_FORWARD (-2) to END_POSITION_BACKWARD (-1) so the sum below is always correct
 
         m_uLast += NEW_ELEMENTS_COUNT;
     }

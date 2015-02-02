@@ -2148,20 +2148,20 @@ QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
 /// </sumary>
 QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_Test )
 {
+    using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;
+
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
     QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
     ++START_POSITION;
-    QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
-    ++EXPECTED_RESULT;
 
     // [Execution]
     QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
-    BOOST_CHECK(itResult == EXPECTED_RESULT);
+    BOOST_CHECK(itResult.IsEnd(EQIterationDirection::E_Forward));
 }
 
 #endif

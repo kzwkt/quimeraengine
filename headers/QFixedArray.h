@@ -213,7 +213,8 @@ public:
 
             QConstArrayIterator iteratorCopy = *this;
 
-            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
+            // +1 so the backward end position is moved forward, being 1 unit lower than zero instead of being the greatest number always
+            m_uPosition = m_uPosition + 1U > m_pArray->m_uLast + 1U ? m_pArray->m_uLast : --m_uPosition;
 
             return iteratorCopy;
         }
@@ -257,7 +258,8 @@ public:
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
             
-            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
+            // +1 so the backward end position is moved forward, being 1 unit lower than zero instead of being the greatest number always
+            m_uPosition = m_uPosition + 1U > m_pArray->m_uLast + 1U ? m_pArray->m_uLast : --m_uPosition;
 
             return *this;
         }
@@ -426,7 +428,7 @@ public:
             QE_ASSERT_ERROR(this->IsValid(), "The input iterator is not valid");
 
             return (eIterationDirection == EQIterationDirection::E_Backward && m_uPosition == QFixedArray::END_POSITION_BACKWARD) ||
-                   (eIterationDirection == EQIterationDirection::E_Forward  && m_uPosition > m_pArray->m_uLast && m_uPosition != QFixedArray::END_POSITION_BACKWARD);
+                   (eIterationDirection == EQIterationDirection::E_Forward  && (m_uPosition == QFixedArray::END_POSITION_FORWARD || (m_uPosition > m_pArray->m_uLast && m_uPosition != QFixedArray::END_POSITION_BACKWARD)));
         }
 
         /// <summary>
@@ -705,7 +707,8 @@ public:
 
             QArrayIterator iteratorCopy = *this;
 
-            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
+            // +1 so the backward end position is moved forward, being 1 unit lower than zero instead of being the greatest number always
+            m_uPosition = m_uPosition + 1U > m_pArray->m_uLast + 1U ? m_pArray->m_uLast : --m_uPosition;
 
             return iteratorCopy;
         }
@@ -749,7 +752,8 @@ public:
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
-            m_uPosition = m_uPosition > m_pArray->m_uLast ? m_pArray->m_uLast : --m_uPosition;
+            // +1 so the backward end position is moved forward, being 1 unit lower than zero instead of being the greatest number always
+            m_uPosition = m_uPosition + 1U > m_pArray->m_uLast + 1U ? m_pArray->m_uLast : --m_uPosition;
 
             return *this;
         }

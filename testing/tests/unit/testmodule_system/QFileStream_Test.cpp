@@ -1905,7 +1905,6 @@ QTEST_CASE ( MoveBackward_PointerIsNotMovedWhenPointerPointsToFirstPosition_Test
     const pointer_uint_q MOVEMENT = 1U;
 
     const QPath INPUT_PATH(PATH_TO_ARTIFACTS + "./ExistingFile.txt");
-    const pointer_uint_q INPUT_SIZE = 4U;
     const pointer_uint_q BUFFER_SIZE = 4U;
     const EQFileOpenMode OPEN_MODE = EQFileOpenMode::E_Open;
     EQFileSystemError errorInfo = EQFileSystemError::E_Unknown;
@@ -2023,13 +2022,11 @@ QTEST_CASE ( MoveForward_PointerIsNotMovedWhenPointerPointsOutsideOfTheBuffer_Te
 
     // [Preparation]
     const QPath INPUT_PATH(PATH_TO_ARTIFACTS + "./ExistingFile.txt");
-    const pointer_uint_q OFFSET = 0;
     const pointer_uint_q BUFFER_SIZE = 6U;
     const EQFileOpenMode OPEN_MODE = EQFileOpenMode::E_Open;
     EQFileSystemError errorInfo = EQFileSystemError::E_Unknown;
     QFileStream stream(INPUT_PATH, OPEN_MODE, BUFFER_SIZE, errorInfo);
     const pointer_uint_q MOVEMENT = 1U;
-    const bool ASSERTION_FAILED = true;
 
     stream.SetPosition(4U);
     pointer_uint_q uOriginalPointer = stream.GetPosition();
