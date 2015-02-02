@@ -1007,12 +1007,12 @@ protected:
 	/// <summary>
 	/// Constant to symbolize the end of the sequence when the tree is traversed backward.
 	/// </summary>
-    static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    static const pointer_uint_q END_POSITION_BACKWARD = -1;
 
     /// <summary>
     /// Constant to symbolize the absence of a node or the end of the sequence when the tree is traversed forward.
     /// </summary>
-    static const pointer_uint_q END_POSITION_FORWARD = -1;
+    static const pointer_uint_q END_POSITION_FORWARD = -2;
     
 private:
 

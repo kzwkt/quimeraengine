@@ -490,7 +490,7 @@ protected:
     /// <summary>
     /// Constant to symbolize the absence of a key-value pair or the end of the sequence when the dictionary is traversed forward.
     /// </summary>
-    static const pointer_uint_q END_POSITION_FORWARD = -1;
+    static const pointer_uint_q END_POSITION_FORWARD = -2;
 
 
     // CONSTRUCTORS

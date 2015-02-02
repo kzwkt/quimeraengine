@@ -957,7 +957,7 @@ protected:
     /// <summary>
     /// Constant to symbolize the end of the sequence near the first element.
     /// </summary>
-    static const pointer_uint_q END_POSITION_BACKWARD = -2;
+    static const pointer_uint_q END_POSITION_BACKWARD = -1;
     
 public:
 
@@ -2271,7 +2271,7 @@ template<class T, class AllocatorT, class ComparatorT>
 float QList<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
 
 template<class T, class AllocatorT, class ComparatorT>
-const pointer_uint_q QList<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -1;
+const pointer_uint_q QList<T, AllocatorT, ComparatorT>::END_POSITION_FORWARD = -2;
 
 } //namespace Containers
 } //namespace Tools
