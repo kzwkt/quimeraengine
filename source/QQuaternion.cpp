@@ -230,7 +230,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
     // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
     //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
-    //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
+    //       scast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
     QE_ASSERT_WARNING(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero");
@@ -317,7 +317,7 @@ QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
 {
     // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
     //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
-    //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
+    //       scast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
     QE_ASSERT_WARNING(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero");

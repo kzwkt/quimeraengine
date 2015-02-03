@@ -90,12 +90,12 @@ QSpaceConversionMatrix& QSpaceConversionMatrix::operator=(const QBaseMatrix4x4 &
 
 QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionMatrix &matrix) const
 {
-    return rcast_q(*this, const QMatrix4x4&) * rcast_q(matrix, const QMatrix4x4&);
+    return scast_q(*this, const QMatrix4x4&) * scast_q(matrix, const QMatrix4x4&);
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &matrix)
 {
-    rcast_q(*this, QMatrix4x4&) *= rcast_q(matrix, const QMatrix4x4&);
+    scast_q(*this, QMatrix4x4&) *= scast_q(matrix, const QMatrix4x4&);
     return *this;
 }
 
@@ -266,7 +266,7 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<Mat
 
 QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionWorldSpaceMatrix() const
 {
-    return QSpaceConversionMatrix(rcast_q(*this, const QTransformationMatrix<QMatrix4x4>&).SwitchHandConvention());
+    return QSpaceConversionMatrix(scast_q(*this, const QTransformationMatrix<QMatrix4x4>&).SwitchHandConvention());
 }
 
 } //namespace Math

@@ -27,15 +27,15 @@
 #ifndef __QCALLSTACKTRACER__
 #define __QCALLSTACKTRACER__
 
-#include "SystemDefinitions.h"
+#include <boost/shared_ptr.hpp>
 
+#include "SystemDefinitions.h"
 #include "QCallTrace.h"
 #include "QAbstractCallStackTracePrinter.h"
 #include "QCallStackTrace.h"
 #include "QThread.h"
 #include "QSharedMutex.h"
-#include <boost/shared_ptr.hpp>
-#include <map> // [TODO] Thund: Replace with QDictionary
+#include "QDictionary.h"
 
 
 namespace Kinesis
@@ -60,8 +60,7 @@ class QE_LAYER_SYSTEM_SYMBOLS QCallStackTracer
     // ---------------
 protected:
 
-    typedef std::map<Kinesis::QuimeraEngine::System::Threading::QThread::Id, QCallStackTrace*> CallStackTraceContainer;
-    typedef std::pair<Kinesis::QuimeraEngine::System::Threading::QThread::Id, QCallStackTrace*> CallStackTracePair;
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QDictionary<Kinesis::QuimeraEngine::System::Threading::QThread::Id, QCallStackTrace*> CallStackTraceContainer;
 
 
     // CONSTRUCTORS

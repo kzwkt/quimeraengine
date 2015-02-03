@@ -25,7 +25,7 @@
 //-------------------------------------------------------------------------------//
 
 #include <sstream>
-
+#include <iomanip>
 
 #include "SQFloat.h"
 
@@ -225,7 +225,7 @@ bool SQFloat::IsNotZero(const float_q fValue, const float_q fTolerance)
 
 float_q SQFloat::Truncate(const float_q fValue)
 {
-    return boost::math::trunc(fValue);
+    return fValue >= SQFloat::_0 ? floor(fValue) : ceil(fValue);
 }
 
 float_q SQFloat::Clamp(const float_q fValue, const float_q fMin, const float_q fMax)

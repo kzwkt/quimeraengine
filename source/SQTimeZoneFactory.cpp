@@ -26,14 +26,13 @@
 
 #include "SQTimeZoneFactory.h"
 
-#include <map> // [TODO] Thund: Replace this with QBinarySearchTree or QDictionary
-
 #include "QDateTime.h"
 #include "QTimeZone.h"
 #include "Assertions.h"
 #include "EQTextEncoding.h"
 #include "SQInteger.h"
 #include "QArrayResult.h"
+#include "QDictionary.h"
 
 
 namespace Kinesis
@@ -60,10 +59,11 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
     using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
+    using Kinesis::QuimeraEngine::Tools::Containers::QDictionary;
 
     static bool bTimeZoneDatabaseInitialized = false;
     static boost::local_time::tz_database timeZoneDatabase;
-    static std::map<string_q, QTimeZone*> timeZones;// [TODO] Thund: Replace this with QBinarySearchTree or QDictionary
+    static QDictionary<string_q, QTimeZone*> timeZones(382); // 382 time zones in TimeZoneDatabase.cpp
 
     QTimeZone* pTimeZoneResult = null_q;
 
@@ -73,12 +73,12 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
         bTimeZoneDatabaseInitialized = SQTimeZoneFactory::Initialize(SQTimeZoneFactory::TIME_ZONE_DATABASE, timeZoneDatabase);
     }
 
-    std::map<string_q, QTimeZone*>::iterator timeZoneIterator = timeZones.find(strId);
+    QDictionary<string_q, QTimeZone*>::ConstIterator timeZoneIterator = timeZones.PositionOfKey(strId);
 
-    if(timeZoneIterator != timeZones.end())
+    if(!timeZoneIterator.IsEnd())
     {
         // If the time zone already existed, it is returned directly
-        pTimeZoneResult = timeZoneIterator->second;
+        pTimeZoneResult = timeZoneIterator->GetValue();
     }
     else
     {
@@ -114,7 +114,7 @@ const QTimeZone* SQTimeZoneFactory::GetTimeZoneById(const string_q &strId)
                                             dstInfo,
                                             pTimeZone->has_dst());
 
-            timeZones.insert(std::pair<string_q, QTimeZone*>(strId, pTimeZoneResult));
+            timeZones.Add(strId, pTimeZoneResult);
         }
     }
 
