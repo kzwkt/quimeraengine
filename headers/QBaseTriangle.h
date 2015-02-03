@@ -51,8 +51,8 @@ namespace Math
 /// <summary>
 /// Class which represents a triangle in the space.
 /// </summary>
-/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
-template <class VectorType>
+/// <typeparam name="VectorT">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
+template <class VectorT>
 class QBaseTriangle
 {
 
@@ -81,7 +81,7 @@ public:
     /// <param name="vA">[IN] Vector to define vertex A.</param>
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
-    QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
+    QBaseTriangle(const VectorT &vA, const VectorT &vB, const VectorT &vC) :
                             A(vA), B(vB), C(vC)
     {
     }
@@ -90,7 +90,7 @@ public:
     /// Constructor from a pointer to floating point values to define each vertex.
     /// </summary>
     /// <remarks>
-    /// Pointer must have two, three or four values depending on VectorType.
+    /// Pointer must have two, three or four values depending on VectorT.
     /// </remarks>
     /// <param name="arValuesA">[IN] Array of values that define the vertex A. If the pointer is null, the behavior  
     /// is undefined.</param>
@@ -103,9 +103,9 @@ public:
         // Checkout to ensure pointers are not null.
         QE_ASSERT_ERROR( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) , "Input values must not be null");
 
-        A = VectorType(arValuesA);
-        B = VectorType(arValuesB);
-        C = VectorType(arValuesC);
+        A = VectorT(arValuesA);
+        B = VectorT(arValuesB);
+        C = VectorT(arValuesC);
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public:
     /// <returns>
     /// True if triangles are the same, false otherwise.
     /// </returns>
-    bool operator==(const QBaseTriangle<VectorType> &triangle) const
+    bool operator==(const QBaseTriangle<VectorT> &triangle) const
     {
         return ( this->A == triangle.A && this->B == triangle.B && this->C == triangle.C );
     }
@@ -143,7 +143,7 @@ public:
     /// <returns>
     /// True if triangles are not the same, false otherwise.
     /// </returns>
-    bool operator!=(const QBaseTriangle<VectorType> &triangle) const
+    bool operator!=(const QBaseTriangle<VectorT> &triangle) const
     {
         return !(*this == triangle);
     }
@@ -156,17 +156,17 @@ public:
     /// <summary>
     /// Vector which represents a vextex of the triangle.
     /// </summary>
-    VectorType A;
+    VectorT A;
 
     /// <summary>
     /// Vector which represents a vextex of the triangle.
     /// </summary>
-    VectorType B;
+    VectorT B;
 
     /// <summary>
     /// Vector which represents a vextex of the triangle.
     /// </summary>
-    VectorType C;
+    VectorT C;
 
 };
 

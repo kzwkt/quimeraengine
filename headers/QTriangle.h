@@ -51,25 +51,24 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space.
+/// Represents a triangle in the space.
 /// </summary>
 /// <remarks>
-/// The triangle may be represented in 2D or 3D,
-///    and using points or vectors, depending on the parameter of the template, which may be
-///    2D vector, 3D vector or 4D vector.
+/// The triangle may be represented in either 2D or 3D (using either points or vectors), depending on the parameter of the template, which may be
+/// 2D vector, 3D vector or 4D vector.
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QVector2, QVector3, QVector4.</typeparam>
-template <class VectorType>
-class QTriangle : public QBaseTriangle<VectorType>
+/// <typeparam name="VectorT">Allowed types: QVector2, QVector3, QVector4.</typeparam>
+template <class VectorT>
+class QTriangle : public QBaseTriangle<VectorT>
 {
 
     // BASE CLASS USINGS
     // -------------------
 public:
 
-    using QBaseTriangle<VectorType>::A;
-    using QBaseTriangle<VectorType>::B;
-    using QBaseTriangle<VectorType>::C;
+    using QBaseTriangle<VectorT>::A;
+    using QBaseTriangle<VectorT>::B;
+    using QBaseTriangle<VectorT>::C;
 
 
     // CONSTRUCTORS
@@ -87,7 +86,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
-    QTriangle(const QTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
+    QTriangle(const QTriangle<VectorT> &triangle) : QBaseTriangle<VectorT>(triangle)
     {
     }
 
@@ -95,7 +94,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
-    QTriangle(const QBaseTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
+    QTriangle(const QBaseTriangle<VectorT> &triangle) : QBaseTriangle<VectorT>(triangle)
     {
     }
 
@@ -105,7 +104,7 @@ public:
     /// <param name="vA">[IN] Vector to define vertex A.</param>
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
-    QTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QBaseTriangle<VectorType>(vA, vB, vC)
+    QTriangle(const VectorT &vA, const VectorT &vB, const VectorT &vC) : QBaseTriangle<VectorT>(vA, vB, vC)
     {
     }
 
@@ -116,7 +115,7 @@ public:
     /// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
     /// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
     QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
-                         QBaseTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
+                         QBaseTriangle<VectorT>(arValuesA, arValuesB, arValuesC)
     {
     }
 
@@ -126,7 +125,7 @@ public:
     /// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-    QTriangle(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) : QBaseTriangle<VectorType>(valueA, valueB, valueC)
+    QTriangle(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) : QBaseTriangle<VectorT>(valueA, valueB, valueC)
     {
     }
 
@@ -143,9 +142,9 @@ public:
     /// <returns>
     /// The assigned value.
     /// </returns>
-    QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
+    QTriangle<VectorT>& operator=(const QBaseTriangle<VectorT> &triangle)
     {
-        QBaseTriangle<VectorType>::operator=(triangle);
+        QBaseTriangle<VectorT>::operator=(triangle);
         return *this;
     }
 
@@ -165,8 +164,8 @@ public:
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
-        VectorType u = B - A;
-        VectorType v = C - A;
+        VectorT u = B - A;
+        VectorT v = C - A;
 
         float_q fSqrLengthU = u.GetSquaredLength();
         float_q fSqrLengthV = v.GetSquaredLength();
@@ -192,8 +191,8 @@ public:
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
-        VectorType u = B - A;
-        VectorType v = C - A;
+        VectorT u = B - A;
+        VectorT v = C - A;
 
         return u.AngleBetween(v);
     }
@@ -214,8 +213,8 @@ public:
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
-        VectorType u = A - B;
-        VectorType v = C - B;
+        VectorT u = A - B;
+        VectorT v = C - B;
 
         return u.AngleBetween(v);
     }
@@ -236,8 +235,8 @@ public:
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
-        const VectorType u = A - C;
-        const VectorType v = B - C;
+        const VectorT u = A - C;
+        const VectorT v = B - C;
 
         return u.AngleBetween(v);
     }
@@ -253,14 +252,14 @@ public:
     /// <returns>
     /// The incenter.
     /// </returns>
-    VectorType GetIncenter() const
+    VectorT GetIncenter() const
     {
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
-        const VectorType vtSideA = C - B;
-        const VectorType vtSideB = A - C;
-        const VectorType vtSideC = B - A;
+        const VectorT vtSideA = C - B;
+        const VectorT vtSideB = A - C;
+        const VectorT vtSideC = B - A;
 
         const float_q fLengthA = vtSideA.GetLength();
         const float_q fLengthB = vtSideB.GetLength();
@@ -283,7 +282,7 @@ public:
     /// <returns>
     /// The centroid.
     /// </returns>
-    VectorType GetCentroid() const
+    VectorT GetCentroid() const
     {
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT_WARNING( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );

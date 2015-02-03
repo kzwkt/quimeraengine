@@ -256,8 +256,8 @@ QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionProjectionSpa
     return switchedMatrix;
 }
 
-template <class MatrixType>
-void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
+template <class MatrixT>
+void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixT> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
 {
     QTransformationMatrix<QMatrix4x4> aux(translation, rotation, scale);
 

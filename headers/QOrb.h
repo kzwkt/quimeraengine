@@ -56,17 +56,17 @@ namespace Math
 /// Radius is expressed as a floating point value which is always nonnegative.<br/>
 /// Remember that an orb is the sum of equidistant points from a given one.
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
-template <class VectorType>
-class QOrb : public QBaseOrb<VectorType>
+/// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
+template <class VectorT>
+class QOrb : public QBaseOrb<VectorT>
 {
 
     // BASE CLASS USINGS
     // -------------------
 public:
 
-    using QBaseOrb<VectorType>::Center;
-    using QBaseOrb<VectorType>::Radius;
+    using QBaseOrb<VectorT>::Center;
+    using QBaseOrb<VectorT>::Radius;
 
 
     // CONSTRUCTORS
@@ -84,7 +84,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
-    QOrb(const QOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+    QOrb(const QOrb<VectorT> &orb) : QBaseOrb<VectorT>(orb)
     {
     }
 
@@ -92,7 +92,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
-    QOrb(const QBaseOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+    QOrb(const QBaseOrb<VectorT> &orb) : QBaseOrb<VectorT>(orb)
     {
     }
 
@@ -102,7 +102,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    QOrb(const VectorType &vCenter, const float_q fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
+    QOrb(const VectorT &vCenter, const float_q fRadius) : QBaseOrb<VectorT>(vCenter, fRadius)
     {
     }
 
@@ -117,9 +117,9 @@ public:
     /// <returns>
     /// A unit orb.
     /// </returns>
-    static const QOrb<VectorType>& GetUnitOrb()
+    static const QOrb<VectorT>& GetUnitOrb()
     {
-        static const QOrb<VectorType> UNITORB(VectorType::GetNullVector(), SQFloat::_1);
+        static const QOrb<VectorT> UNITORB(VectorT::GetNullVector(), SQFloat::_1);
         return UNITORB;
     }
 
@@ -135,9 +135,9 @@ public:
     /// <returns>
     /// A reference to the modified orb.
     /// </returns>
-    QOrb& operator=(const QBaseOrb<VectorType> &orb)
+    QOrb& operator=(const QBaseOrb<VectorT> &orb)
     {
-        QBaseOrb<VectorType>::operator=(orb);
+        QBaseOrb<VectorT>::operator=(orb);
         return *this;
     }
 
@@ -151,14 +151,14 @@ public:
     /// <returns>
     /// True if the point is inside the orb (or if it belongs to its bounds). Otherwise returns false.
     /// </returns>
-    bool Contains(const VectorType &vPoint) const
+    bool Contains(const VectorT &vPoint) const
     {
         // If the radius of the orb equals zero, it doesn't exist
         QE_ASSERT_WARNING( SQFloat::IsNotZero(this->Radius), "The radius of the orb must not equal zero to exist" );
 
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
-        VectorType vDistance(vPoint - this->Center);
+        VectorT vDistance(vPoint - this->Center);
         return SQFloat::IsLessOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
     }
 
@@ -182,14 +182,14 @@ public:
     /// <b>False</b><br/>
     /// The orbs do not intersect.
     /// </returns>
-    bool Intersection(const QBaseOrb<VectorType> &orb) const
+    bool Intersection(const QBaseOrb<VectorT> &orb) const
     {
         // If the radius of the orb equals zero, it doesn't exist
         QE_ASSERT_WARNING( SQFloat::IsNotZero(this->Radius) && SQFloat::IsNotZero(orb.Radius), "The radius of the orbs must not equal zero to exist" );
 
         // An intersection between the two orbs is considered if the minimum squared distance
         // between their center points is lower or equals the square sum of their radius.
-        VectorType vDistance(orb.Center - this->Center);
+        VectorT vDistance(orb.Center - this->Center);
         float_q    fRadiusSum = Radius + orb.Radius;
         return SQFloat::IsLessOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
     }

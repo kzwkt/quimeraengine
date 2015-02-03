@@ -171,22 +171,22 @@ public:
     /// <remarks>
     /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </remarks>
-    /// <typeparam name="IntegerType">The integral type passed as argument.</typeparam>
+    /// <typeparam name="IntegerT">The integral type passed as argument.</typeparam>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>
     /// <returns>
     /// The transformed value.
     /// </returns>
-    template<typename IntegerType>
-    static IntegerType SwapEndianess(const IntegerType nValue)
+    template<typename IntegerT>
+    static IntegerT SwapEndianess(const IntegerT nValue)
     {
-        const unsigned int INTEGER_SIZE = sizeof(IntegerType);
+        const unsigned int INTEGER_SIZE = sizeof(IntegerT);
 
         // Ambiguous type to treat the same bit strip as byte array and integer types
         // Note: The type change is not immediate, it has memory reading/writing cost
         union IntegerOrBytesUnion
         {
-            IntegerType _integer;
-            u8_q        _bytes[INTEGER_SIZE];
+            IntegerT _integer;
+            u8_q     _bytes[INTEGER_SIZE];
         };
 
         IntegerOrBytesUnion srcValue;
@@ -204,13 +204,13 @@ public:
     /// <summary>
     /// Converts the integer number to a readable character string that represents it.
     /// </summary>
-    /// <typeparam name="IntegerType">The type of integral type passed as argument.</typeparam>
+    /// <typeparam name="IntegerT">The type of integral type passed as argument.</typeparam>
     /// <param name="nValue">[IN] The integer number to be converted.</param>
     /// <returns>
     /// The string that represents the number.
     /// </returns>
-    template<typename IntegerType>
-    static string_q ToString(const IntegerType nValue)
+    template<typename IntegerT>
+    static string_q ToString(const IntegerT nValue)
     {
         std::ostringstream output;
         output << nValue;
@@ -220,13 +220,13 @@ public:
     /// <summary>
     /// Converts an unsigned integer number to its hexadecimal representation as a string.
     /// </summary>
-    /// <typeparam name="IntegerType">The unsigned integral type passed as argument.</typeparam>
+    /// <typeparam name="IntegerT">The unsigned integral type passed as argument.</typeparam>
     /// <param name="uValue">[IN] The value whose bytes are to be printed.</param>
     /// <returns>
     /// The string that contains the hexadecimal representation of the integer.
     /// </returns>
-    template<typename IntegerType>
-    static string_q ToStringHexadecimal(const IntegerType uValue)
+    template<typename IntegerT>
+    static string_q ToStringHexadecimal(const IntegerT uValue)
     {
         static const u8_q ASCII_FIRST_NUMBER = 48U;
         static const u8_q ASCII_FIRST_CAPITAL_LETTER = 65U;
@@ -240,12 +240,12 @@ public:
 #if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
         pointer_uint_q uIndexCorrection = 1U;
 
-        for(pointer_uint_q uMemOffset = sizeof(IntegerType); uMemOffset > 0; --uMemOffset)
+        for(pointer_uint_q uMemOffset = sizeof(IntegerT); uMemOffset > 0; --uMemOffset)
         {
 #elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
         pointer_uint_q uIndexCorrection = 0;
 
-        for(pointer_uint_q uMemOffset = 0; uMemOffset < sizeof(IntegerType); ++uMemOffset)
+        for(pointer_uint_q uMemOffset = 0; uMemOffset < sizeof(IntegerT); ++uMemOffset)
         {
 #endif
             // Gets the first half of the byte

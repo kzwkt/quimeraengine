@@ -46,7 +46,7 @@ namespace Math
 // Forward declarations
 class QMatrix4x3;
 class QMatrix4x4;
-template<class MatrixType> class QTransformationMatrix;
+template<class MatrixT> class QTransformationMatrix;
 class QRotationMatrix3x3;
 class QBaseVector3;
 class QBaseVector4;
@@ -208,10 +208,10 @@ private:
     /// <summary>
     /// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
-    template <class MatrixType>
-    void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation);
+    template <class MatrixT>
+    void QQuaternionImp(const QTransformationMatrix<MatrixT> &transformation);
 
 
     // PROPERTIES

@@ -42,8 +42,8 @@ namespace Math
 {
 
 // Forward declarations
-template<class MatrixType> class QTranslationMatrix;
-template<class MatrixType> class QTransformationMatrix;
+template<class MatrixT> class QTranslationMatrix;
+template<class MatrixT> class QTransformationMatrix;
 class QRotationMatrix3x3;
 class QScalingMatrix3x3;
 class QBaseVector3;
@@ -257,12 +257,12 @@ private:
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
-    template <class MatrixType>
-    void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale);
+    template <class MatrixT>
+    void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixT> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale);
 };
 
 } //namespace Math

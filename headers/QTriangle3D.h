@@ -52,9 +52,9 @@ namespace Math
 /// <summary>
 /// Class which represents a triangle in 3D.
 /// </summary>
-/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
-template <class VectorType>
-class QTriangle3D : public QTriangle<VectorType>
+/// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
+template <class VectorT>
+class QTriangle3D : public QTriangle<VectorT>
 {
 
     // CONSTRUCTORS
@@ -72,7 +72,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="triangle">[IN] The 3D triangle from which we want to create a copy in the resident 3D triangle.</param>
-    QTriangle3D(const QTriangle3D<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+    QTriangle3D(const QTriangle3D<VectorT> &triangle) : QTriangle<VectorT>(triangle)
     {
     }
 
@@ -80,7 +80,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="triangle">[IN] The 3D triangle in which we want resident 3D triangle to be based.</param>
-    QTriangle3D(const QBaseTriangle<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+    QTriangle3D(const QBaseTriangle<VectorT> &triangle) : QTriangle<VectorT>(triangle)
     {
     }
 
@@ -90,7 +90,7 @@ public:
     /// <param name="vA">[IN] Vector types which defines vertex A.</param>
     /// <param name="vB">[IN] Vector types which defines vertex B.</param>
     /// <param name="vC">[IN] Vector types which defines vertex C.</param>
-    QTriangle3D(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QTriangle<VectorType>(vA, vB, vC)
+    QTriangle3D(const VectorT &vA, const VectorT &vB, const VectorT &vC) : QTriangle<VectorT>(vA, vB, vC)
     {
     }
 
@@ -104,7 +104,7 @@ public:
     /// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
     /// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
     QTriangle3D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
-                           QTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
+                           QTriangle<VectorT>(arValuesA, arValuesB, arValuesC)
     {
     }
 
@@ -115,7 +115,7 @@ public:
     /// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
     /// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
     QTriangle3D(const vf32_q valueA, const vf32_q valueB, const vf32_q valueC) :
-                           QTriangle<VectorType>(valueA, valueB, valueC)
+                           QTriangle<VectorT>(valueA, valueB, valueC)
     {
     }
 
@@ -131,9 +131,9 @@ public:
     /// <returns>
     /// A reference to the triangle.
     /// </returns>
-    QTriangle3D<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
+    QTriangle3D<VectorT>& operator=(const QBaseTriangle<VectorT> &triangle)
     {
-        QBaseTriangle<VectorType>::operator=(triangle);
+        QBaseTriangle<VectorT>::operator=(triangle);
         return *this;
     }
 
@@ -165,7 +165,7 @@ public:
     /// <returns>
     /// The triangle's circumcenter.
     /// </returns>
-    VectorType GetCircumcenter() const
+    VectorT GetCircumcenter() const
     {
         // Vertices shouldn't coincide
         QE_ASSERT_WARNING( this->A != this->B && this->B != this->C && this->C != this->A, "Vertices shouldn't coincide, this may cause a division by zero" );
@@ -173,17 +173,17 @@ public:
         // More information: https://www.box.net/shared/9736bjiyq1
 
         //STEP 1: Calculate all previous stuff
-        const VectorType A_TO_B(this->B - this->A);
-        const VectorType B_TO_C(this->C - this->B);
-        const VectorType C_TO_A(this->A - this->C);
+        const VectorT A_TO_B(this->B - this->A);
+        const VectorT B_TO_C(this->C - this->B);
+        const VectorT C_TO_A(this->A - this->C);
 
         // Triangle´s semiperimeter
         const float_q SEMIPERIMETER = (A_TO_B.GetLength() + B_TO_C.GetLength() + C_TO_A.GetLength()) * SQFloat::_0_5;
         // Triangle´s area
         const float_q AREA = sqrt_q(SEMIPERIMETER * (SEMIPERIMETER - A_TO_B.GetLength()) * (SEMIPERIMETER - B_TO_C.GetLength()) * (SEMIPERIMETER - C_TO_A.GetLength()));
 
-        const VectorType CROSS_PRODUCT_AB_BC = A_TO_B.CrossProduct(B_TO_C);
-        const VectorType CROSS_PRODUCT_CA_AB_BC = C_TO_A.CrossProduct(CROSS_PRODUCT_AB_BC);
+        const VectorT CROSS_PRODUCT_AB_BC = A_TO_B.CrossProduct(B_TO_C);
+        const VectorT CROSS_PRODUCT_CA_AB_BC = C_TO_A.CrossProduct(CROSS_PRODUCT_AB_BC);
 
         //STEP 2: Calculate circumcenter
         return ((this->A + this->C) * SQFloat::_0_5) + (A_TO_B.DotProduct(B_TO_C) / (SQFloat::_8 * AREA * AREA)) * CROSS_PRODUCT_CA_AB_BC;
@@ -196,10 +196,10 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
+    QTriangle3D<VectorT> Translate(const QBaseVector3 &vTranslation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Translate(vTranslation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Translate(vTranslation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -212,10 +212,10 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
+    QTriangle3D<VectorT> Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -226,10 +226,10 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+    QTriangle3D<VectorT> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -240,10 +240,10 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+    QTriangle3D<VectorT> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -255,10 +255,10 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Rotate(const QQuaternion &qRotation) const
+    QTriangle3D<VectorT> Rotate(const QQuaternion &qRotation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Rotate(qRotation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Rotate(qRotation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -269,10 +269,10 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+    QTriangle3D<VectorT> Rotate(const QRotationMatrix3x3 &rotation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Rotate(rotation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Rotate(rotation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -285,10 +285,10 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+    QTriangle3D<VectorT> RotateWithPivot(const QQuaternion &qRotation, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -299,10 +299,10 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> Scale(const QBaseVector3 &vScale) const
+    QTriangle3D<VectorT> Scale(const QBaseVector3 &vScale) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Scale(vScale, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Scale(vScale, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -315,10 +315,10 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
+    QTriangle3D<VectorT> Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -329,10 +329,10 @@ public:
     /// <returns>
     ///The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
+    QTriangle3D<VectorT> Scale(const QScalingMatrix3x3 &scale) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Scale(scale, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Scale(scale, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -345,10 +345,10 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
+    QTriangle3D<VectorT> ScaleWithPivot(const QBaseVector3 &vScale, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -363,10 +363,10 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-    QTriangle3D<VectorType> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorType& vPivot) const
+    QTriangle3D<VectorT> ScaleWithPivot(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, const VectorT& vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -377,10 +377,10 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    QTriangle3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+    QTriangle3D<VectorT> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -391,10 +391,10 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    QTriangle3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+    QTriangle3D<VectorT> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -407,10 +407,10 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-    QTriangle3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+    QTriangle3D<VectorT> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -423,10 +423,10 @@ public:
     /// <returns>
     /// The scalde triangle.
     /// </returns>
-    QTriangle3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
+    QTriangle3D<VectorT> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -442,10 +442,10 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    QTriangle3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+    QTriangle3D<VectorT> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -461,10 +461,10 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-    QTriangle3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+    QTriangle3D<VectorT> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorT &vPivot) const
     {
-        QTriangle3D<VectorType> auxTriangle = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle3D<VectorT> auxTriangle = *this;
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
     
@@ -475,10 +475,10 @@ public:
     /// <returns>
     /// The converted triangle.
     /// </returns>
-    QTriangle<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+    QTriangle<VectorT> Transform(const QSpaceConversionMatrix &spaceConversion) const
     {
-        QTriangle<VectorType> auxTriangle = *this;
-        SQPoint::Transform(spaceConversion, rcast_q(&auxTriangle, VectorType*), 3);
+        QTriangle<VectorT> auxTriangle = *this;
+        SQPoint::Transform(spaceConversion, rcast_q(&auxTriangle, VectorT*), 3);
         return auxTriangle;
     }
 
@@ -529,11 +529,11 @@ public:
     /// <returns>
     /// The extruded triangle.
     /// </returns>
-    QTriangle3D<VectorType> Extrude(const float_q fAmount) const
+    QTriangle3D<VectorT> Extrude(const float_q fAmount) const
     {
-        VectorType vLangthenedNormalVector = VectorType(this->GetNormal() * fAmount);
+        VectorT vLangthenedNormalVector = VectorT(this->GetNormal() * fAmount);
 
-        return QTriangle3D<VectorType>(this->A + vLangthenedNormalVector,
+        return QTriangle3D<VectorT>(this->A + vLangthenedNormalVector,
                                        this->B + vLangthenedNormalVector,
                                        this->C + vLangthenedNormalVector);
     }
@@ -549,16 +549,16 @@ public:
     /// <returns>
     /// The orthocenter.
     /// </returns>
-    VectorType GetOrthocenter() const
+    VectorT GetOrthocenter() const
     {
         // Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
 
-        const VectorType &AB = this->B - this->A;
-        const VectorType &BC = this->C - this->B;
-        const VectorType &CA = this->A - this->C;
+        const VectorT &AB = this->B - this->A;
+        const VectorT &BC = this->C - this->B;
+        const VectorT &CA = this->A - this->C;
 
         // Normal to BC in ABC plane
-        const VectorType &NORMAL_TO_BC = ( BC.CrossProduct(AB) ).CrossProduct(BC);
+        const VectorT &NORMAL_TO_BC = ( BC.CrossProduct(AB) ).CrossProduct(BC);
 
         // NORMAL_TO_BC and AB can't be perpendicular, but we ensure it:
         const float_q &DOT = NORMAL_TO_BC.DotProduct(AB);
@@ -578,9 +578,9 @@ public:
     /// <returns>
     /// The projected triangle.
     /// </returns>
-    QTriangle3D<VectorType> ProjectToPlane(const QPlane &plane) const
+    QTriangle3D<VectorT> ProjectToPlane(const QPlane &plane) const
     {
-        return QTriangle3D<VectorType>(plane.PointProjection(this->A),
+        return QTriangle3D<VectorT>(plane.PointProjection(this->A),
                                        plane.PointProjection(this->B),
                                        plane.PointProjection(this->C));
     }

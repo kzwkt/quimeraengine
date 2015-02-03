@@ -51,10 +51,10 @@ class QBaseMatrix4x3;
 class QBaseMatrix4x4;
 class QMatrix4x3;
 class QMatrix4x4;
-template<class MatrixType> class QTranslationMatrix;
+template<class MatrixT> class QTranslationMatrix;
 class QQuaternion;
 class QDualQuaternion;
-template<class MatrixType> class QTransformationMatrix;
+template<class MatrixT> class QTransformationMatrix;
 class QSpaceConversionMatrix;
 class QRotationMatrix3x3;
 class QScalingMatrix3x3;
@@ -661,13 +661,13 @@ private:
     /// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
     /// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    template <class MatrixType>
-    QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const;
+    template <class MatrixT>
+    QVector3 TransformImp(const QTranslationMatrix<MatrixT> &translation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -676,13 +676,13 @@ private:
     /// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
     /// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
     /// <returns>
     /// The transformed vector.
     /// </returns>
-    template <class MatrixType>
-    QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const;
+    template <class MatrixT>
+    QVector3 TransformImp(const QTransformationMatrix<MatrixT> &transformation) const;
 };
 
 } //namespace Math

@@ -54,8 +54,8 @@ namespace Math
 /// EFGH defines the opposite face (eventually the bottom one).<br/>
 /// It is developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.<br/>
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
-template <class VectorType>
+/// <typeparam name="VectorT">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
+template <class VectorT>
 class QBaseHexahedron
 {
 
@@ -91,8 +91,8 @@ public:
     /// <param name="vF">[IN] Vector to define vertex F.</param>
     /// <param name="vG">[IN] Vector to define vertex G.</param>
     /// <param name="vH">[IN] Vector to define vertex H.</param>
-    QBaseHexahedron(const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
-                    const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
+    QBaseHexahedron(const VectorT &vA, const VectorT &vB, const VectorT &vC, const VectorT &vD,
+                    const VectorT &vE, const VectorT &vF, const VectorT &vG, const VectorT &vH) :
                                 A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH)
     {
     }
@@ -109,7 +109,7 @@ public:
     /// </remarks>
     /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (it will be used to initialize A).</param>
     /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (it will be used to initialize G).</param>
-    QBaseHexahedron(const VectorType &vA, const VectorType &vG)
+    QBaseHexahedron(const VectorT &vA, const VectorT &vG)
     {
         //    A --- D
         //   /|    /|
@@ -139,7 +139,7 @@ public:
     /// <param name="fLengthX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLengthY">[IN] Length of an edge parallel to Y axis (height).</param>
     /// <param name="fLengthZ">[IN] Length of an edge parallel to Z axis (depth).</param>
-    QBaseHexahedron(const VectorType &vCenter, const float_q fLengthX, const float_q fLengthY, const float_q fLengthZ)
+    QBaseHexahedron(const VectorT &vCenter, const float_q fLengthX, const float_q fLengthY, const float_q fLengthZ)
     {
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
@@ -181,7 +181,7 @@ public:
     /// <returns>
     /// True if hexahedrons are the same, false otherwise.
     /// </returns>
-    bool operator==(const QBaseHexahedron<VectorType> &hexahedron) const
+    bool operator==(const QBaseHexahedron<VectorT> &hexahedron) const
     {
         return ( this->A == hexahedron.A && this->B == hexahedron.B && this->C == hexahedron.C && this->D == hexahedron.D &&
                  this->E == hexahedron.E && this->F == hexahedron.F && this->G == hexahedron.G && this->H == hexahedron.H);
@@ -194,7 +194,7 @@ public:
     /// <returns>
     /// True if hexahedrons are not the same, false otherwise.
     /// </returns>
-    bool operator!=(const QBaseHexahedron<VectorType> &hexahedron) const
+    bool operator!=(const QBaseHexahedron<VectorT> &hexahedron) const
     {
         return !(*this == hexahedron);
     }
@@ -206,42 +206,42 @@ public:
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType A;
+    VectorT A;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType B;
+    VectorT B;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType C;
+    VectorT C;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType D;
+    VectorT D;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType E;
+    VectorT E;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType F;
+    VectorT F;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType G;
+    VectorT G;
 
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
-    VectorType H;
+    VectorT H;
 
 };
 

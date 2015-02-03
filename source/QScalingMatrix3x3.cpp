@@ -188,10 +188,10 @@ QScalingMatrix3x3& QScalingMatrix3x3::operator*=(const QScalingMatrix3x3 &matrix
     return *this;
 }
 
-template <class MatrixType>
-QTransformationMatrix<MatrixType> QScalingMatrix3x3::ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
+template <class MatrixT>
+QTransformationMatrix<MatrixT> QScalingMatrix3x3::ProductOperatorImp(const QTranslationMatrix<MatrixT> &matrix) const
 {
-    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+    QTransformationMatrix<MatrixT> aux(QTransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[0][0] = this->ij[0][0];
     aux.ij[1][1] = this->ij[1][1];
@@ -210,15 +210,15 @@ QTransformationMatrix<MatrixType> QScalingMatrix3x3::ProductOperatorImp(const QT
 /// <remarks>
 /// This product is not conmmutative.
 /// </remarks>
-/// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+/// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
 /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
 /// <returns>
 /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
 /// </returns>
-template <class MatrixType>
-QTransformationMatrix<MatrixType> QScalingMatrix3x3::ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
+template <class MatrixT>
+QTransformationMatrix<MatrixT> QScalingMatrix3x3::ProductOperatorImp(const QTransformationMatrix<MatrixT> &matrix) const
 {
-    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+    QTransformationMatrix<MatrixT> aux(QTransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];

@@ -396,25 +396,25 @@ public:
     /// <returns>
     /// Integer value obtained.
     /// </returns>
-    template<typename IntegerType>
-    static IntegerType ToInteger(const float_q fValue)
+    template<typename IntegerT>
+    static IntegerT ToInteger(const float_q fValue)
     {
-        IntegerType outInteger;
+        IntegerT outInteger;
 
         // Checks whether both input types have the same size
         QE_ASSERT_ERROR( sizeof(fValue) == sizeof(outInteger), "Input float and output integer must have the same size in memory" );
 
         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 
-            const IntegerType LOWEST_EXPONENT_BIT_POS = 23;
-            const IntegerType EXPONENT = 127 + LOWEST_EXPONENT_BIT_POS;
+            const IntegerT LOWEST_EXPONENT_BIT_POS = 23;
+            const IntegerT EXPONENT = 127 + LOWEST_EXPONENT_BIT_POS;
             const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  8388608; // Maximum convertible integer value = 2^23
             const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -4194304; // Maximum convertible integer negative value = 2^22
 
         #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
 
-            const IntegerType LOWEST_EXPONENT_BIT_POS = 52;
-            const IntegerType EXPONENT = 1023 + LOWEST_EXPONENT_BIT_POS;
+            const IntegerT LOWEST_EXPONENT_BIT_POS = 52;
+            const IntegerT EXPONENT = 1023 + LOWEST_EXPONENT_BIT_POS;
             const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  4503599627370496l; // Maximum convertible integer value = 2^52
             const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -2251799813685248l; // Maximum convertible integer negative value = 2^51
 
@@ -434,7 +434,7 @@ public:
             QE_ASSERT_WARNING( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED, "Input value is too big to be converted this way" );
 
             // When the value is out of the convertible bounds (using fast conversion), standard conversion is used
-            outInteger = scast_q(fValue, IntegerType);
+            outInteger = scast_q(fValue, IntegerT);
         }
         else
         {
@@ -443,7 +443,7 @@ public:
             union IntegerOrFloatUnion
             {
                 float_q _float;
-                IntegerType _integer;
+                IntegerT _integer;
             };
 
             IntegerOrFloatUnion biasValue;  // Used to manipulate the float mantissa
@@ -452,7 +452,7 @@ public:
             finalValue._float = fValue;
 
             if(finalValue._integer < 0)
-                biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerType(1) << (LOWEST_EXPONENT_BIT_POS - IntegerType(1))); // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS + 1 x 2 ^ (LOWEST_EXPONENT_BIT_POS - 1)
+                biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerT(1) << (LOWEST_EXPONENT_BIT_POS - IntegerT(1))); // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS + 1 x 2 ^ (LOWEST_EXPONENT_BIT_POS - 1)
             else
                 biasValue._integer = EXPONENT << LOWEST_EXPONENT_BIT_POS; // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS
 

@@ -48,10 +48,10 @@ namespace Math
 /// <summary>
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
-/// <typeparam name="VectorTypeOrigin">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
-/// <typeparam name="VectorTypeDirection">Allowed types: QBaseVector2 (when VectorTypeOrigin is QBaseVector2), QBaseVector3 (when VectorTypeOrigin is QBaseVector3 or QBaseVector4), 
-/// QVector2 (when VectorTypeOrigin is QVector2), QVector3 (when VectorTypeOrigin is QVector3 or QVector4).</typeparam>
-template<class VectorTypeOrigin, class VectorTypeDirection>
+/// <typeparam name="VectorTOrigin">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
+/// <typeparam name="VectorTDirection">Allowed types: QBaseVector2 (when VectorTOrigin is QBaseVector2), QBaseVector3 (when VectorTOrigin is QBaseVector3 or QBaseVector4), 
+/// QVector2 (when VectorTOrigin is QVector2), QVector3 (when VectorTOrigin is QVector3 or QVector4).</typeparam>
+template<class VectorTOrigin, class VectorTDirection>
 class QBaseRay
 {
 
@@ -82,7 +82,7 @@ public:
     /// </remarks>
     /// <param name="vOrigin">[IN] Point where the vector is located.</param>
     /// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
-    QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
+    QBaseRay (const VectorTOrigin &vOrigin, const VectorTDirection &vDirection) :
                         Origin(vOrigin), Direction(vDirection)
     {
     }
@@ -102,7 +102,7 @@ public:
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
-    bool operator==(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
+    bool operator==(const QBaseRay<VectorTOrigin, VectorTDirection> &ray) const
     {
         return ( this->Origin == ray.Origin && this->Direction == ray.Direction );
     }
@@ -117,7 +117,7 @@ public:
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
-    bool operator!=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
+    bool operator!=(const QBaseRay<VectorTOrigin, VectorTDirection> &ray) const
     {
         return !(*this == ray);
     }
@@ -129,12 +129,12 @@ public:
     /// <summary>
     /// Point where the vector is located.
     /// </summary>
-    VectorTypeOrigin Origin;
+    VectorTOrigin Origin;
 
     /// <summary>
     /// Vector which defines the direction of the ray.
     /// </summary>
-    VectorTypeDirection Direction;
+    VectorTDirection Direction;
 
 };
 

@@ -53,8 +53,8 @@ namespace Math
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
 /// which may be 2D vector, 3D vector or 4D vector.
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
-template <class VectorType>
+/// <typeparam name="VectorT">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
+template <class VectorT>
 class QBaseLineSegment
 {
 
@@ -80,7 +80,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector to define end A.</param>
     /// <param name="vB">[IN] Vector to define end B.</param>
-    QBaseLineSegment(const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
+    QBaseLineSegment(const VectorT &vA, const VectorT &vB) : A(vA), B(vB)  { }
 
 
     // METHODS
@@ -94,7 +94,7 @@ public:
     /// <returns>
     /// True if line segments are the same, false otherwise.
     /// </returns>
-    bool operator==(const QBaseLineSegment<VectorType> &segment) const
+    bool operator==(const QBaseLineSegment<VectorT> &segment) const
     {
         return ( this->A == segment.A && this->B == segment.B );
     }
@@ -106,7 +106,7 @@ public:
     /// <returns>
     /// True if line segments are not the same, false otherwise.
     /// </returns>
-    bool operator!=(const QBaseLineSegment<VectorType> &segment) const
+    bool operator!=(const QBaseLineSegment<VectorT> &segment) const
     {
         return !(*this == segment);
     }
@@ -119,12 +119,12 @@ public:
     /// <summary>
     /// Vector which represents a end of the segment.
     /// </summary>
-    VectorType A;
+    VectorT A;
 
     /// <summary>
     /// Vector which represents the other end of the segment.
     /// </summary>
-    VectorType B;
+    VectorT B;
 };
 
 

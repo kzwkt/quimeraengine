@@ -49,12 +49,12 @@ namespace Tools
 namespace Math
 {
 
-template <class MatrixType>
+template <class MatrixT>
 class QTranslationMatrix;
 
 // Preventing friend global operator to be called.
-template <class MatrixType>
-QTranslationMatrix<MatrixType> operator*(const float_q &fScalar, const QTranslationMatrix<MatrixType> &matrix);
+template <class MatrixT>
+QTranslationMatrix<MatrixT> operator*(const float_q &fScalar, const QTranslationMatrix<MatrixT> &matrix);
 
 /// <summary>
 /// Class to represent a matrix that contains a displacement in the direction of each coordinate axis.
@@ -64,9 +64,9 @@ QTranslationMatrix<MatrixType> operator*(const float_q &fScalar, const QTranslat
 /// <br/>
 /// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
 /// </remarks>
-/// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
-template <class MatrixType>
-class QTranslationMatrix : public MatrixType
+/// <typeparam name="MatrixParamT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+template <class MatrixT>
+class QTranslationMatrix : public MatrixT
 {
 
     // CONSTRUCTORS
@@ -85,7 +85,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The matrix from which we want to create a copy in the resident matrix.</param>
-    QTranslationMatrix(const QTranslationMatrix<MatrixType> &matrix) : MatrixType(matrix)
+    QTranslationMatrix(const QTranslationMatrix<MatrixT> &matrix) : MatrixT(matrix)
     {
     }
 
@@ -97,7 +97,7 @@ public:
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    QTranslationMatrix(const MatrixType &matrix) : MatrixType(matrix)
+    QTranslationMatrix(const MatrixT &matrix) : MatrixT(matrix)
     {
     }
 
@@ -160,9 +160,9 @@ public:
     /// <returns>
     /// The identity matrix.
     /// </returns>
-    static const QTranslationMatrix<MatrixType>& GetIdentity()
+    static const QTranslationMatrix<MatrixT>& GetIdentity()
     {
-        static const QTranslationMatrix<MatrixType> IDENTITY(MatrixType::GetIdentity());
+        static const QTranslationMatrix<MatrixT> IDENTITY(MatrixT::GetIdentity());
         return IDENTITY;
     }
 
@@ -188,7 +188,7 @@ public:
     /// <returns>
     /// The resultant matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const
+    QTranslationMatrix<MatrixT> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const
     {
         return ProductOperatorImp(matrix);
     }
@@ -209,7 +209,7 @@ public:
     /// <returns>
     /// The resultant matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const
+    QTranslationMatrix<MatrixT> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const
     {
         return ProductOperatorImp(matrix);
     }
@@ -224,9 +224,9 @@ public:
     /// <returns>
     /// The resultant transformation matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTransformationMatrix<MatrixType> operator*(const QScalingMatrix3x3 &matrix) const
+    QTransformationMatrix<MatrixT> operator*(const QScalingMatrix3x3 &matrix) const
     {
-        QTransformationMatrix<MatrixType> aux;
+        QTransformationMatrix<MatrixT> aux;
 
         aux.ResetToIdentity();
 
@@ -252,9 +252,9 @@ public:
     /// <returns>
     /// The resultant transformation matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTransformationMatrix<MatrixType> operator*(const QRotationMatrix3x3 &matrix) const
+    QTransformationMatrix<MatrixT> operator*(const QRotationMatrix3x3 &matrix) const
     {
-        QTransformationMatrix<MatrixType> aux = QTransformationMatrix<MatrixType>::GetIdentity();
+        QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
 
         aux.ij[0][0] = matrix.ij[0][0];
         aux.ij[0][1] = matrix.ij[0][1];
@@ -285,9 +285,9 @@ public:
     /// <returns>
     /// The resultant transformation matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<MatrixType> &matrix) const
+    QTransformationMatrix<MatrixT> operator*(const QTransformationMatrix<MatrixT> &matrix) const
     {
-        QTransformationMatrix<MatrixType> aux = QTransformationMatrix<MatrixType>::GetIdentity();
+        QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
 
         aux.ij[0][0] = matrix.ij[0][0];
         aux.ij[0][1] = matrix.ij[0][1];
@@ -322,7 +322,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x3> &matrix)
+    QTranslationMatrix<MatrixT>& operator*=(const QTranslationMatrix<QMatrix4x3> &matrix)
     {
         ProductAssignationOperatorImp(matrix);
         return *this;
@@ -342,7 +342,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x4> &matrix)
+    QTranslationMatrix<MatrixT>& operator*=(const QTranslationMatrix<QMatrix4x4> &matrix)
     {
         ProductAssignationOperatorImp(matrix);
         return *this;
@@ -359,9 +359,9 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType>& operator=(const MatrixType &matrix)
+    QTranslationMatrix<MatrixT>& operator=(const MatrixT &matrix)
     {
-        MatrixType::operator=(matrix);
+        MatrixT::operator=(matrix);
         return *this;
     }
 
@@ -379,9 +379,9 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    QTranslationMatrix<MatrixType> Invert() const
+    QTranslationMatrix<MatrixT> Invert() const
     {
-        return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
+        return QTranslationMatrix<MatrixT>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }
 
     /// <summary>
@@ -453,14 +453,14 @@ public:
 private:
 
     // Preventing the operators from base class to be used.
-    // using MatrixType::operator*; // Commented out to avoid cyclic dependency.
-    using MatrixType::operator/;
-    using MatrixType::operator+;
-    using MatrixType::operator-;
-    using MatrixType::operator*=;
-    using MatrixType::operator/=;
-    using MatrixType::operator+=;
-    using MatrixType::operator-=;
+    // using MatrixT::operator*; // Commented out to avoid cyclic dependency.
+    using MatrixT::operator/;
+    using MatrixT::operator+;
+    using MatrixT::operator-;
+    using MatrixT::operator*=;
+    using MatrixT::operator/=;
+    using MatrixT::operator+=;
+    using MatrixT::operator-=;
 
     /// <summary>
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
@@ -473,15 +473,15 @@ private:
     /// <remarks>
     /// This product is conmmutative.
     /// </remarks>
-    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixParamT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant translation matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    QTranslationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix) const
+    template <class MatrixParamT>
+    QTranslationMatrix<MatrixT> ProductOperatorImp(const QTranslationMatrix<MatrixParamT> &matrix) const
     {
-        return QTranslationMatrix<MatrixType>(this->ij[3][0] + matrix.ij[3][0],
+        return QTranslationMatrix<MatrixT>(this->ij[3][0] + matrix.ij[3][0],
                                               this->ij[3][1] + matrix.ij[3][1],
                                               this->ij[3][2] + matrix.ij[3][2]);
     }
@@ -495,10 +495,10 @@ private:
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
     /// </summary>
-    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixParamT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
-    template <class MatrixTypeParam>
-    void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix)
+    template <class MatrixParamT>
+    void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixParamT> &matrix)
     {
         this->ij[3][0] += matrix.ij[3][0];
         this->ij[3][1] += matrix.ij[3][1];
