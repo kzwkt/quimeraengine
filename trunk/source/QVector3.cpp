@@ -419,14 +419,14 @@ string_q QVector3::ToString() const
                QE_L(",")   + SQFloat::ToString(this->z) + QE_L(")");
 }
 
-template <class MatrixType>
-QVector3 QVector3::TransformImp(const QTranslationMatrix<MatrixType> &translation) const
+template <class MatrixT>
+QVector3 QVector3::TransformImp(const QTranslationMatrix<MatrixT> &translation) const
 {
     return QVector3(this->x + translation.ij[3][0], this->y + translation.ij[3][1], this->z + translation.ij[3][2]);
 }
 
-template <class MatrixType>
-QVector3 QVector3::TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
+template <class MatrixT>
+QVector3 QVector3::TransformImp(const QTransformationMatrix<MatrixT> &transformation) const
 {
     return QVector3(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + transformation.ij[3][0],
                     this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + transformation.ij[3][1],

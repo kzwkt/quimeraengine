@@ -43,7 +43,7 @@ namespace Tools
 namespace Math
 {
 
-template<class VectorType> class QBaseTriangle;
+template<class VectorT> class QBaseTriangle;
 class QBaseQuadrilateral;
 
 /// <summary>

@@ -93,8 +93,8 @@ QDualQuaternion::QDualQuaternion(const float_q *arValuesReal, const float_q *arV
     this->d = QQuaternion(arValuesDual[0], arValuesDual[1], arValuesDual[2], arValuesDual[3]);
 }
 
-template <class VectorType>
-void QDualQuaternion::QDualQuaternionImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation)
+template <class VectorT>
+void QDualQuaternion::QDualQuaternionImp(const QBaseQuaternion &qRotation, const VectorT &vTranslation)
 {
     QDualQuaternion rotation(qRotation, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
     QDualQuaternion translation(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
@@ -103,8 +103,8 @@ void QDualQuaternion::QDualQuaternionImp(const QBaseQuaternion &qRotation, const
     *this = translation * rotation;
 }
 
-template <class VectorType>
-void QDualQuaternion::QDualQuaternionImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation)
+template <class VectorT>
+void QDualQuaternion::QDualQuaternionImp(const VectorT &vTranslation, const QBaseQuaternion &qRotation)
 {
     QDualQuaternion rotation(qRotation, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
     QDualQuaternion translation(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
@@ -300,8 +300,8 @@ string_q QDualQuaternion::ToString() const
                QE_L("),d(")  + d.ToString() + QE_L("))");
 }
 
-template <class VectorType>
-QDualQuaternion QDualQuaternion::TransformRotationFirstImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation) const
+template <class VectorT>
+QDualQuaternion QDualQuaternion::TransformRotationFirstImp(const QBaseQuaternion &qRotation, const VectorT &vTranslation) const
 {
     QDualQuaternion rotation(qRotation, QBaseQuaternion());
     QDualQuaternion translation(QQuaternion::GetIdentity(),
@@ -310,8 +310,8 @@ QDualQuaternion QDualQuaternion::TransformRotationFirstImp(const QBaseQuaternion
     return this->Transform(translation * rotation);
 }
 
-template <class VectorType>
-QDualQuaternion QDualQuaternion::TransformTranslationFirstImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation) const
+template <class VectorT>
+QDualQuaternion QDualQuaternion::TransformTranslationFirstImp(const VectorT &vTranslation, const QBaseQuaternion &qRotation) const
 {
     QDualQuaternion rotation(qRotation, QBaseQuaternion());
     QDualQuaternion translation(QQuaternion::GetIdentity(),

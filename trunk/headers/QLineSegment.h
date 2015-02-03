@@ -59,17 +59,17 @@ namespace Math
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
-template <class VectorType>
-class QLineSegment : public QBaseLineSegment<VectorType>
+/// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
+template <class VectorT>
+class QLineSegment : public QBaseLineSegment<VectorT>
 {
 
     // BASE CLASS USINGS
     // -------------------
 public:
 
-    using QBaseLineSegment<VectorType>::A;
-    using QBaseLineSegment<VectorType>::B;
+    using QBaseLineSegment<VectorT>::A;
+    using QBaseLineSegment<VectorT>::B;
 
 
     // CONSTRUCTORS
@@ -87,7 +87,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
-    QLineSegment(const QLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+    QLineSegment(const QLineSegment<VectorT> &segment) : QBaseLineSegment<VectorT>(segment)
     {
     }
 
@@ -95,7 +95,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="segment">[IN] The segment in which we want resident segment to be based.</param>
-    QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+    QLineSegment(const QBaseLineSegment<VectorT> &segment) : QBaseLineSegment<VectorT>(segment)
     {
     }
 
@@ -104,7 +104,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector to define endpoint A.</param>
     /// <param name="vB">[IN] Vector to define endpoint B.</param>
-    QLineSegment(const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB)
+    QLineSegment(const VectorT &vA, const VectorT &vB) : QBaseLineSegment<VectorT>(vA,vB)
     {
     }
 
@@ -118,9 +118,9 @@ public:
     /// <returns>
     /// A 1-length segment.
     /// </returns>
-    static const QLineSegment<VectorType>& GetUnitLine()
+    static const QLineSegment<VectorT>& GetUnitLine()
     {
-        static const QLineSegment<VectorType> UNITLINE(VectorType::GetNullVector(), VectorType::GetUnitVectorX());
+        static const QLineSegment<VectorT> UNITLINE(VectorT::GetNullVector(), VectorT::GetUnitVectorX());
         return UNITLINE;
     }
 
@@ -131,9 +131,9 @@ public:
     /// <returns>
     /// A zero-length segment.
     /// </returns>
-    static const QLineSegment<VectorType>& GetLineZero()
+    static const QLineSegment<VectorT>& GetLineZero()
     {
-        static const QLineSegment<VectorType> LINEZERO(VectorType::GetNullVector(), VectorType::GetNullVector());
+        static const QLineSegment<VectorT> LINEZERO(VectorT::GetNullVector(), VectorT::GetNullVector());
         return LINEZERO;
     }
 
@@ -149,9 +149,9 @@ public:
     /// <returns>
     /// A reference to the modified line segment.
     /// </returns>
-    QLineSegment& operator=(const QBaseLineSegment<VectorType> &segment)
+    QLineSegment& operator=(const QBaseLineSegment<VectorT> &segment)
     {
-        QBaseLineSegment<VectorType>::operator=(segment);
+        QBaseLineSegment<VectorT>::operator=(segment);
         return *this;
     }
 
@@ -172,7 +172,7 @@ public:
     /// <returns>
     /// The center of the segment.
     /// </returns>
-    VectorType GetCenter() const
+    VectorT GetCenter() const
     {
         // 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
         // 2) Center:    S(0.5) --> A + [0.5(B - A)] --> ... --> 0.5(A + B)
@@ -203,7 +203,7 @@ public:
     /// <b>False</b><br/>
     /// There is no common point between both segments.
     /// </returns>
-    bool Intersection(const QBaseLineSegment<VectorType> &segment) const
+    bool Intersection(const QBaseLineSegment<VectorT> &segment) const
     {
         // The endpoints of a segment should not coincide
         QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
@@ -236,7 +236,7 @@ public:
     /// <b>False</b><br/>
     /// There is no common point between the segment and the orb.
     /// </returns>
-    bool Intersection(const QBaseOrb<VectorType> &orb) const
+    bool Intersection(const QBaseOrb<VectorT> &orb) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The end points of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
@@ -279,15 +279,15 @@ public:
     /// - The line segments are the same
     /// - One segment is contained in the other.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
+    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorT> &segment, VectorT &vIntersection) const
      {
         // The endpoints of a segment should not coincide
         QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         // Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
-        VectorType v1 = this->B - this->A;
-        VectorType v2 = segment.B - segment.A;
+        VectorT v1 = this->B - this->A;
+        VectorT v2 = segment.B - segment.A;
 
         const float_q& V1_SQUARED_LENGTH = v1.GetSquaredLength();
         const float_q& V2_SQUARED_LENGTH = v2.GetSquaredLength();
@@ -368,7 +368,7 @@ public:
                 //
                 //  For asking these questions we need the closest points to each segment
                 //  from respect the other one.
-                VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
+                VectorT vClosestPtInS1ToS2, vClosestPtInS2ToS1;
                 this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
                 if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1)
@@ -436,9 +436,9 @@ public:
                             vIntersection = this->A;
 
                             // Reference vector for all the comparisons
-                            const VectorType& ArBr = this->B - this->A;
+                            const VectorT& ArBr = this->B - this->A;
 
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
@@ -471,9 +471,9 @@ public:
                             vIntersection = this->A;
 
                             // Reference vector for all the comparisons
-                            const VectorType& ArBr = this->B - this->A;
+                            const VectorT& ArBr = this->B - this->A;
 
-                            const VectorType& ArAi = segment.A - this->A;
+                            const VectorT& ArAi = segment.A - this->A;
 
                             if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                             {
@@ -497,13 +497,13 @@ public:
                     else if(this->B == segment.A)
                     {
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& BrBi = segment.B - this->B;
+                        const VectorT& BrBi = segment.B - this->B;
 
                         if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                         {
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
@@ -531,13 +531,13 @@ public:
                     else if(this->B == segment.B)
                     {
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& BrAi = segment.A - this->B;
+                        const VectorT& BrAi = segment.A - this->B;
 
                         if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                         {
-                            const VectorType& ArAi = segment.A - this->A;
+                            const VectorT& ArAi = segment.A - this->A;
 
                             if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                             {
@@ -571,13 +571,13 @@ public:
                         // Note: r = resident (this), i = input (segment)
 
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& ArAi = segment.A - this->A;
+                        const VectorT& ArAi = segment.A - this->A;
 
                         if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                         {
-                            const VectorType& BrBi = segment.B - this->B;
+                            const VectorT& BrBi = segment.B - this->B;
 
                             if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                             {
@@ -594,11 +594,11 @@ public:
                         }
                         else
                         {
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
-                                const VectorType& BrAi = segment.A - this->B;
+                                const VectorT& BrAi = segment.A - this->B;
 
                                 if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                                 {
@@ -615,15 +615,15 @@ public:
                             }
                             else
                             {
-                                const VectorType& BrAi = segment.A - this->B;
+                                const VectorT& BrAi = segment.A - this->B;
 
                                 if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                                 {
-                                    const VectorType& BrBi = segment.B - this->B;
+                                    const VectorT& BrBi = segment.B - this->B;
 
                                     if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                                     {
-                                        const VectorType& AiBi = segment.B - segment.A;
+                                        const VectorT& AiBi = segment.B - segment.A;
 
                                         if(SQFloat::IsNegative( AiBi.DotProduct(ArBr) ))
                                         {
@@ -694,15 +694,15 @@ public:
     /// - The line segments are the same
     /// - One segment is contained in the other.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
+    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorT> &segment, VectorT &vIntersection1, VectorT &vIntersection2) const
      {
         // The endpoints of a segment should not coincide
         QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
         // Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
-        VectorType v1 = this->B - this->A;
-        VectorType v2 = segment.B - segment.A;
+        VectorT v1 = this->B - this->A;
+        VectorT v2 = segment.B - segment.A;
 
         const float_q& V1_SQUARED_LENGTH = v1.GetSquaredLength();
         const float_q& V2_SQUARED_LENGTH = v2.GetSquaredLength();
@@ -785,7 +785,7 @@ public:
                 //
                 //  For asking these questions we need the closest points to each segment
                 //  from respect the other one.
-                VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
+                VectorT vClosestPtInS1ToS2, vClosestPtInS2ToS1;
                 this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
                 if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1)
@@ -853,9 +853,9 @@ public:
                             vIntersection1 = this->A;
 
                             // Reference vector for all the comparisons
-                            const VectorType& ArBr = this->B - this->A;
+                            const VectorT& ArBr = this->B - this->A;
 
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
@@ -865,7 +865,7 @@ public:
                             }
                             else
                             {
-                                const VectorType& BrBi = segment.B - this->B;
+                                const VectorT& BrBi = segment.B - this->B;
 
                                 if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                                 {
@@ -896,9 +896,9 @@ public:
                             vIntersection1 = this->A;
 
                             // Reference vector for all the comparisons
-                            const VectorType& ArBr = this->B - this->A;
+                            const VectorT& ArBr = this->B - this->A;
 
-                            const VectorType& ArAi = segment.A - this->A;
+                            const VectorT& ArAi = segment.A - this->A;
 
                             if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                             {
@@ -908,7 +908,7 @@ public:
                             }
                             else
                             {
-                                const VectorType& BrAi = segment.A - this->B;
+                                const VectorT& BrAi = segment.A - this->B;
 
                                 if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                                 {
@@ -930,13 +930,13 @@ public:
                     else if(this->B == segment.A)
                     {
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& BrBi = segment.B - this->B;
+                        const VectorT& BrBi = segment.B - this->B;
 
                         if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                         {
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
@@ -966,13 +966,13 @@ public:
                     else if(this->B == segment.B)
                     {
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& BrAi = segment.A - this->B;
+                        const VectorT& BrAi = segment.A - this->B;
 
                         if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                         {
-                            const VectorType& ArAi = segment.A - this->A;
+                            const VectorT& ArAi = segment.A - this->A;
 
                             if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                             {
@@ -1008,13 +1008,13 @@ public:
                         // Note: r = resident (this), i = input (segment)
 
                         // Reference vector for all the comparisons
-                        const VectorType& ArBr = this->B - this->A;
+                        const VectorT& ArBr = this->B - this->A;
 
-                        const VectorType& ArAi = segment.A - this->A;
+                        const VectorT& ArAi = segment.A - this->A;
 
                         if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
                         {
-                            const VectorType& BrBi = segment.B - this->B;
+                            const VectorT& BrBi = segment.B - this->B;
 
                             if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                             {
@@ -1033,11 +1033,11 @@ public:
                         }
                         else
                         {
-                            const VectorType& ArBi = segment.B - this->A;
+                            const VectorT& ArBi = segment.B - this->A;
 
                             if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
                             {
-                                const VectorType& BrAi = segment.A - this->B;
+                                const VectorT& BrAi = segment.A - this->B;
 
                                 if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                                 {
@@ -1056,15 +1056,15 @@ public:
                             }
                             else
                             {
-                                const VectorType& BrAi = segment.A - this->B;
+                                const VectorT& BrAi = segment.A - this->B;
 
                                 if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
                                 {
-                                    const VectorType& BrBi = segment.B - this->B;
+                                    const VectorT& BrBi = segment.B - this->B;
 
                                     if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
                                     {
-                                        const VectorType& AiBi = segment.B - segment.A;
+                                        const VectorT& AiBi = segment.B - segment.A;
 
                                         if(SQFloat::IsNegative( AiBi.DotProduct(ArBr) ))
                                         {
@@ -1138,15 +1138,15 @@ public:
     /// There are infinite intersections.<br/>
     /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorT> &orb, VectorT &vIntersection1, VectorT &vIntersection2) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
 
         // We reduce line segment and orb to origin, in order to simplify orb equation, and we calculate
         // the new point A and vector B-A, to compute intersection as with a ray
-        VectorType vNewA(this->A - orb.Center);
-        VectorType vDirection(this->B - this->A);
+        VectorT vNewA(this->A - orb.Center);
+        VectorT vDirection(this->B - this->A);
 
         // We replace then in the orb equation to force it to verify the ray equation
         // vDirection^2*t^2 + 2*vNewA*vDirection*t + vNewA^2 - r^2 = 0
@@ -1169,7 +1169,7 @@ public:
 
             const float_q &t = -(b*SQFloat::_0_5 / a);
 
-            VectorType vAux(vNewA + t * vDirection + orb.Center);
+            VectorT vAux(vNewA + t * vDirection + orb.Center);
 
             if (SQFloat::IsZero(this->MinDistance(vAux)))
             {
@@ -1213,11 +1213,11 @@ public:
 
             // Closest intersection to ls.A
             const float_q &t1 = (-b - fAux1) * fAux2;
-            VectorType vAux1(vNewA + t1 * vDirection + orb.Center);
+            VectorT vAux1(vNewA + t1 * vDirection + orb.Center);
 
             // Farthest intersection to ls.A
             const float_q &t2 = (-b + fAux1) * fAux2;
-            VectorType vAux2(vNewA + t2 * vDirection + orb.Center);
+            VectorT vAux2(vNewA + t2 * vDirection + orb.Center);
 
             const bool &bIsInSegment1 = SQFloat::IsZero(this->MinDistance(vAux1));
             const bool &bIsInSegment2 = SQFloat::IsZero(this->MinDistance(vAux2));
@@ -1284,12 +1284,12 @@ public:
     /// There are infinite intersections.<br/>
     /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorT> &orb, VectorT &vIntersection) const
     {
         // The endpoints of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT_WARNING(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0), "The endpoints of a segment should not coincide and the radius should be greater than zero (either or both of this rules may have failed)");
 
-        VectorType vAux;
+        VectorT vAux;
         return this->IntersectionPoint(orb, vIntersection, vAux);
     }
 
@@ -1304,7 +1304,7 @@ public:
     /// <returns>
     /// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
     /// </returns>
-    float_q MinDistance(const QBaseLineSegment<VectorType> &segment) const
+    float_q MinDistance(const QBaseLineSegment<VectorT> &segment) const
     {
         // Just compute the closests points between the segments, and return
         // the distance between them; that is the minimum distance.
@@ -1314,7 +1314,7 @@ public:
         // The endpoints of a segment should not coincide
         QE_ASSERT_WARNING(this->A != this->B && segment.A != segment.B, "The endpoints of a segment should not coincide");
 
-        VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
+        VectorT vClosestPtInS1ToS2, vClosestPtInS2ToS1;
         this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
         return vClosestPtInS1ToS2.Distance(vClosestPtInS2ToS1);
@@ -1331,7 +1331,7 @@ public:
     /// <returns>
     /// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
     /// </returns>
-    float_q MinDistance(const VectorType &vPoint) const
+    float_q MinDistance(const VectorT &vPoint) const
     {
         // The endpoints of a segment should not coincide
         QE_ASSERT_WARNING(this->A != this->B, "The endpoints of a segment should not coincide");
@@ -1346,8 +1346,8 @@ public:
             //                   STEP 3) ProjectionOverAB(vPoint) falls into the segment, so:
             //                           MinDistance = Length( ProjectionOverAB(vPoint) - vPoint ) = Length( (A + ((DotProduct(v1, v2) / DotProduct(v1, v1)) * v1)) - vPoint )
             float_q fDotProductv1v1 = SQFloat::_0;
-            VectorType v1            = B - A;
-            VectorType v2            = vPoint - A;
+            VectorT v1            = B - A;
+            VectorT v2            = vPoint - A;
             float_q fDotProductv1v2 = v1.DotProduct(v2);
 
             if ( (SQFloat::IsNegative(fDotProductv1v2)) || (SQFloat::IsZero(fDotProductv1v2)) )
@@ -1392,7 +1392,7 @@ public:
         // If Lengthening Factor == 1 we just don't touch the segment.
         if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
         {
-            VectorType vCenter;
+            VectorT vCenter;
             vCenter = this->GetCenter();
 
             // If Lengthening Factor == 0, just reduce the endpoints to the center.
@@ -1489,8 +1489,8 @@ protected:
     /// We assume S1 is the segment which executes this member function, and S2 the segment passed as
     /// a parameter to S1.
     /// </remarks>
-    void GetClosestPoints(const QBaseLineSegment<VectorType> &segment,
-                          VectorType& vClosestPtInS1ToS2, VectorType& vClosestPtInS2ToS1) const
+    void GetClosestPoints(const QBaseLineSegment<VectorT> &segment,
+                          VectorT& vClosestPtInS1ToS2, VectorT& vClosestPtInS2ToS1) const
     {
         bool bBothDegeneratedIntoPoints = false; // True if both segments degenerate into points.
 
@@ -1503,13 +1503,13 @@ protected:
         //                                                S2(fSFactor2) = (segment.A + (fSFactor2 * v2))
         float_q       fSFactor1  = SQFloat::_0;
         float_q       fSFactor2  = SQFloat::_0;
-        VectorType v1          = B - A;
-        VectorType v2          = segment.B - segment.A;
+        VectorT v1          = B - A;
+        VectorT v2          = segment.B - segment.A;
 
         // STEP 1) Precomputing intermediate values for solving s and t.
         float_q       fSqrLengthv1          = v1.DotProduct(v1);    // Squared length of segment S1, always nonnegative.
         float_q       fSqrLengthv2          = v2.DotProduct(v2);    // Squared length of segment S2, always nonnegative.
-        VectorType vTails              = A - segment.A;            // Segment whose endpoints are the "tail" points of each segment.
+        VectorT vTails              = A - segment.A;            // Segment whose endpoints are the "tail" points of each segment.
         float_q       fDotProdv2vTails   = v2.DotProduct(vTails);
 
         // STEP 2) Check if either or both segments degenerate into points

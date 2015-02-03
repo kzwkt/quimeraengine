@@ -55,8 +55,8 @@ namespace Math
 /// Radius is expressed as a floating point value.<br/>
 /// Remember that a orb is the locus of points equidistant from a given one.
 /// </remarks>
-/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
-template <class VectorType>
+/// <typeparam name="VectorT">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
+template <class VectorT>
 class QBaseOrb
 {
 
@@ -85,7 +85,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] Floating point value to define the radius of the orb.</param>
-    QBaseOrb(const VectorType &vCenter, const float_q fRadius) : Center(vCenter), Radius(fRadius)
+    QBaseOrb(const VectorT &vCenter, const float_q fRadius) : Center(vCenter), Radius(fRadius)
     {
     }
 
@@ -101,7 +101,7 @@ public:
     /// <returns>
     /// True if orbs are the same, false otherwise.
     /// </returns>
-    bool operator== (const QBaseOrb<VectorType> &orb) const
+    bool operator== (const QBaseOrb<VectorT> &orb) const
     {
         return this->Center == orb.Center && SQFloat::AreEqual(this->Radius, orb.Radius);
     }
@@ -113,7 +113,7 @@ public:
     /// <returns>
     /// True if orbs are not the same, false otherwise.
     /// </returns>
-    bool operator!= (const QBaseOrb<VectorType> &orb) const
+    bool operator!= (const QBaseOrb<VectorT> &orb) const
     {
         return !(*this == orb);
     }
@@ -126,7 +126,7 @@ public:
     /// <summary>
     /// Vector which represents the center point of orb.
     /// </summary>
-    VectorType Center;
+    VectorT Center;
 
     /// <summary>
     /// Floating point value representig the radius of the orb.

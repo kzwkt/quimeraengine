@@ -54,8 +54,8 @@ class QVector3;
 class QVector4;
 class QMatrix4x3;
 class QMatrix4x4;
-template<class MatrixType> class QTransformationMatrix;
-template<class MatrixType> class QTranslationMatrix;
+template<class MatrixT> class QTransformationMatrix;
+template<class MatrixT> class QTranslationMatrix;
 class QTransformationMatrix3x3;
 
 
@@ -652,11 +652,11 @@ private:
     /// <summary>
     /// Translates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
-    template <class VectorType>
-    static void Translate(const QBaseVector3 &vTranslation, VectorType &vPoint)
+    template <class VectorT>
+    static void Translate(const QBaseVector3 &vTranslation, VectorT &vPoint)
     {
         vPoint.x += vTranslation.x;
         vPoint.y += vTranslation.y;
@@ -666,13 +666,13 @@ private:
     /// <summary>
     /// Translates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="fTranslationX">[IN] Floating point value that contains the translation to be applied on X component.</param>
     /// <param name="fTranslationY">[IN] Floating point value that contains the translation to be applied on Y component.</param>
     /// <param name="fTranslationZ">[IN] Floating point value that contains the translation to be applied on Z component.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
-    template <class VectorType>
-    static void Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ, VectorType &vPoint)
+    template <class VectorT>
+    static void Translate(const float_q fTranslationX, const float_q fTranslationY, const float_q fTranslationZ, VectorT &vPoint)
     {
         vPoint.x += fTranslationX;
         vPoint.y += fTranslationY;
@@ -682,12 +682,12 @@ private:
     /// <summary>
     /// Translates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QTranslationMatrix<QMatrix4x3>, QTranslationMatrix<QMatrix4x4>.</typeparam>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QTranslationMatrix<QMatrix4x3>, QTranslationMatrix<QMatrix4x4>.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="translation">[IN] 3x3 or 4x4 translation matrix that contains the transformation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
-    template <class MatrixType, class VectorType>
-    static void Translate(const MatrixType &translation, VectorType &vPoint)
+    template <class MatrixT, class VectorT>
+    static void Translate(const MatrixT &translation, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(translation);
     }
@@ -695,11 +695,11 @@ private:
     /// <summary>
     /// Rotates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
-    template <class VectorType>
-    static void Rotate(const QQuaternion &qRotation, VectorType &vPoint)
+    template <class VectorT>
+    static void Rotate(const QQuaternion &qRotation, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(qRotation);
     }
@@ -707,11 +707,11 @@ private:
     /// <summary>
     /// Rotates 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
-    template <class VectorType>
-    static void Rotate(const QRotationMatrix3x3 &rotation, VectorType &vPoint)
+    template <class VectorT>
+    static void Rotate(const QRotationMatrix3x3 &rotation, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(rotation);
     }
@@ -719,11 +719,11 @@ private:
     /// <summary>
     /// Scales 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
-    template <class VectorType>
-    static void Scale(const QBaseVector3 &vScale, VectorType &vPoint)
+    template <class VectorT>
+    static void Scale(const QBaseVector3 &vScale, VectorT &vPoint)
     {
         vPoint.x *= vScale.x;
         vPoint.y *= vScale.y;
@@ -733,13 +733,13 @@ private:
     /// <summary>
     /// Scales 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="fScaleX">[IN] Scalar value that contains the scale to be applied on X component.</param>
     /// <param name="fScaleY">[IN] Scalar value that contains the scale to be applied on Y component.</param>
     /// <param name="fScaleZ">[IN] Scalar value that contains the scale to be applied on Z component.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
-    template <class VectorType>
-    static void Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, VectorType &vPoint)
+    template <class VectorT>
+    static void Scale(const float_q fScaleX, const float_q fScaleY, const float_q fScaleZ, VectorT &vPoint)
     {
         vPoint.x *= fScaleX;
         vPoint.y *= fScaleY;
@@ -751,8 +751,8 @@ private:
     /// </summary>
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
-    template <class VectorType>
-    static void Scale(const QScalingMatrix3x3 &scale, VectorType &vPoint)
+    template <class VectorT>
+    static void Scale(const QScalingMatrix3x3 &scale, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(scale);
     }
@@ -760,12 +760,12 @@ private:
     /// <summary>
     /// Transforms 3D or 4D points.
     /// </summary>
-    /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="transformation">[IN] 4x3 or 4x4 matrix that contains the transformation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
-    template <class MatrixType, class VectorType>
-    static void Transform(const MatrixType &transformation, VectorType &vPoint)
+    template <class MatrixT, class VectorT>
+    static void Transform(const MatrixT &transformation, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(transformation);
     }
@@ -773,11 +773,11 @@ private:
     /// <summary>
     /// Transforms 3D or 4D points.
     /// </summary>
-    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
+    /// <typeparam name="VectorT">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
     /// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
-    template <class VectorType>
-    static void Transform(const QSpaceConversionMatrix &spaceConversion, VectorType &vPoint)
+    template <class VectorT>
+    static void Transform(const QSpaceConversionMatrix &spaceConversion, VectorT &vPoint)
     {
         vPoint = vPoint.Transform(spaceConversion);
     }

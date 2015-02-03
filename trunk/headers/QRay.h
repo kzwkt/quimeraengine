@@ -55,10 +55,10 @@ namespace Math
 /// <remarks>
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </remarks>
-/// <typeparam name="VectorTypeOrigin">Allowed types: QVector2, QVector3, QVector4.</typeparam>
-/// <typeparam name="VectorTypeDirection">Allowed types: QVector2 (when VectorTypeOrigin is QVector2), QVector3 (when VectorTypeOrigin is QVector3 or QVector4).</typeparam>
-template<class VectorTypeOrigin, class VectorTypeDirection>
-class QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
+/// <typeparam name="VectorTOrigin">Allowed types: QVector2, QVector3, QVector4.</typeparam>
+/// <typeparam name="VectorTDirection">Allowed types: QVector2 (when VectorTOrigin is QVector2), QVector3 (when VectorTOrigin is QVector3 or QVector4).</typeparam>
+template<class VectorTOrigin, class VectorTDirection>
+class QRay : public QBaseRay<VectorTOrigin, VectorTDirection>
 {
 
     // CONSTRUCTORS
@@ -76,7 +76,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-    QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+    QRay(const QRay<VectorTOrigin, VectorTDirection> &ray) : QBaseRay<VectorTOrigin, VectorTDirection>(ray)
     {
     }
 
@@ -84,7 +84,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
-    QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+    QRay(const QBaseRay<VectorTOrigin, VectorTDirection> &ray) : QBaseRay<VectorTOrigin, VectorTDirection>(ray)
     {
     }
 
@@ -96,7 +96,7 @@ public:
     /// </remarks>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
+    QRay(const VectorTOrigin &vOrigin, const VectorTDirection &vDirection) : QBaseRay<VectorTOrigin, VectorTDirection>(vOrigin, vDirection)
     {
     }
 
@@ -111,9 +111,9 @@ public:
     /// <returns>
     /// The null ray.
     /// </returns>
-    static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetNullRay()
+    static const QRay<VectorTOrigin, VectorTDirection>& GetNullRay()
     {
-        static const QRay<VectorTypeOrigin, VectorTypeDirection> NULLRAY(VectorTypeOrigin::GetNullVector(), VectorTypeDirection::GetNullVector());
+        static const QRay<VectorTOrigin, VectorTDirection> NULLRAY(VectorTOrigin::GetNullVector(), VectorTDirection::GetNullVector());
         return NULLRAY;
     }
 
@@ -129,9 +129,9 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    QRay<VectorTypeOrigin, VectorTypeDirection>& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
+    QRay<VectorTOrigin, VectorTDirection>& operator=(const QBaseRay<VectorTOrigin, VectorTDirection> &ray)
     {
-        QBaseRay<VectorTypeOrigin, VectorTypeDirection>::operator=(ray);
+        QBaseRay<VectorTOrigin, VectorTDirection>::operator=(ray);
         return *this;
     }
 
@@ -141,9 +141,9 @@ public:
     /// <returns>
     /// The inverse of the ray.
     /// </returns>
-    QRay<VectorTypeOrigin, VectorTypeDirection> Invert() const
+    QRay<VectorTOrigin, VectorTDirection> Invert() const
     {
-        return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, -this->Direction);
+        return QRay<VectorTOrigin, VectorTDirection>(this->Origin, -this->Direction);
     }
 
     /// <summary>
@@ -152,9 +152,9 @@ public:
     /// <returns>
     /// The normalized ray.
     /// </returns>
-    QRay<VectorTypeOrigin, VectorTypeDirection> Normalize() const
+    QRay<VectorTOrigin, VectorTDirection> Normalize() const
     {
-        return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, this->Direction.Normalize());
+        return QRay<VectorTOrigin, VectorTDirection>(this->Origin, this->Direction.Normalize());
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public:
     /// <returns>
     /// A point of the ray.
     /// </returns>
-    VectorTypeOrigin GetPoint(const float_q fDistance) const
+    VectorTOrigin GetPoint(const float_q fDistance) const
     {
         // The direction vector must be normalized
         QE_ASSERT_WARNING( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
@@ -196,7 +196,7 @@ public:
     /// <b>False</b><br/>
     /// The ray and the orb do not intersect.
     /// </returns>
-    bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
+    bool Intersection(const QBaseOrb<VectorTOrigin> &orb) const
     {
         // [TODO] Thund: This method is easy to optimize.
 
@@ -207,8 +207,8 @@ public:
         // The direction vector must be normalized
         QE_ASSERT_WARNING( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
         
-        // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
-        VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
+        // Converts all vectors to VectorTDirection, that always will be QVector2 or QVector3
+        VectorTDirection vNewRayOrigin(this->Origin - orb.Center);
 
         //  B/2 (instead of B) is calculed here to optimize comparison.
         const float_q &fB = vNewRayOrigin.DotProduct(this->Direction);
@@ -275,9 +275,9 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorTOrigin> &orb, VectorTOrigin &vIntersection) const
     {
-        VectorTypeOrigin vAux;
+        VectorTOrigin vAux;
         return this->IntersectionPoint(orb, vIntersection, vAux);
     }
 
@@ -310,7 +310,7 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorTOrigin> &orb, VectorTOrigin &vIntersection1, VectorTOrigin &vIntersection2) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
         QE_ASSERT_WARNING( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius), 
@@ -320,11 +320,11 @@ public:
         QE_ASSERT_WARNING( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
 
         // We set all vectors to the same type that output parameters to allow operations
-        const VectorTypeDirection &DIRECTION(this->Direction);
+        const VectorTDirection &DIRECTION(this->Direction);
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
-        const VectorTypeOrigin &NEW_RAY_ORIGIN(this->Origin - orb.Center);
+        const VectorTOrigin &NEW_RAY_ORIGIN(this->Origin - orb.Center);
 
         // We replace then in the orb equation to force it to verify the ray equation
         // DIRECTION^2*T^2 + 2*vNewA*DIRECTION*T + vNewA^2 - r^2 = 0
@@ -336,7 +336,7 @@ public:
         // Since ray is normalized, A = 1
         // const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fB = SQFloat::_2 * VectorTypeDirection(NEW_RAY_ORIGIN).DotProduct(DIRECTION);
+        const float_q &fB = SQFloat::_2 * VectorTDirection(NEW_RAY_ORIGIN).DotProduct(DIRECTION);
         const float_q &fC = NEW_RAY_ORIGIN.DotProduct(NEW_RAY_ORIGIN) - orb.Radius * orb.Radius;
 
         // Remember that a = 1 -> D = B^2 - 4AC = B^2 - 4C

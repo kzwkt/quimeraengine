@@ -46,8 +46,8 @@ namespace Math
 class QBaseVector3;
 class QBaseQuaternion;
 class QScalingMatrix3x3;
-template<class MatrixType> class QTransformationMatrix;
-template<class MatrixType> class QTranslationMatrix;
+template<class MatrixT> class QTransformationMatrix;
+template<class MatrixT> class QTranslationMatrix;
 class QMatrix4x3;
 class QMatrix4x4;
 class QRotationMatrix3x3;
@@ -333,13 +333,13 @@ private:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 or 4x4 transformation matrix.
     /// </returns>
-    template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const;
+    template <class MatrixT>
+    QTransformationMatrix<MatrixT> ProductOperatorImp(const QTranslationMatrix<MatrixT> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
@@ -347,13 +347,13 @@ private:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+    /// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 or 4x4 transformation matrix.
     /// </returns>
-    template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const;
+    template <class MatrixT>
+    QTransformationMatrix<MatrixT> ProductOperatorImp(const QTransformationMatrix<MatrixT> &matrix) const;
 };
 
 } //namespace Math

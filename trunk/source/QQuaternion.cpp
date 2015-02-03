@@ -169,8 +169,8 @@ QQuaternion::QQuaternion(const QRotationMatrix3x3 &rotation)
     rotation.GetRotation(*this);
 }
 
-template <class MatrixType>
-void QQuaternion::QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
+template <class MatrixT>
+void QQuaternion::QQuaternionImp(const QTransformationMatrix<MatrixT> &transformation)
 {
     transformation.GetRotation(*this);
 }

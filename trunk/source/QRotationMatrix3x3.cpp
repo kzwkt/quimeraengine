@@ -456,10 +456,10 @@ float_q QRotationMatrix3x3::GetDeterminant() const
     return SQFloat::_1;
 }
 
-template <class MatrixType>
-QTransformationMatrix<MatrixType> QRotationMatrix3x3::ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
+template <class MatrixT>
+QTransformationMatrix<MatrixT> QRotationMatrix3x3::ProductOperatorImp(const QTranslationMatrix<MatrixT> &matrix) const
 {
-    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+    QTransformationMatrix<MatrixT> aux(QTransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];
@@ -480,10 +480,10 @@ QTransformationMatrix<MatrixType> QRotationMatrix3x3::ProductOperatorImp(const Q
     return aux;
 }
 
-template <class MatrixType>
-QTransformationMatrix<MatrixType> QRotationMatrix3x3::ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
+template <class MatrixT>
+QTransformationMatrix<MatrixT> QRotationMatrix3x3::ProductOperatorImp(const QTransformationMatrix<MatrixT> &matrix) const
 {
-    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+    QTransformationMatrix<MatrixT> aux(QTransformationMatrix<MatrixT>::GetIdentity());
 
     aux.ij[3][0] = matrix.ij[3][0];
     aux.ij[3][1] = matrix.ij[3][1];

@@ -45,9 +45,9 @@ namespace Math
 {
 
 // Forward declarations
-template<class VectorType> class QBaseLineSegment;
+template<class VectorT> class QBaseLineSegment;
 class QLineSegment2D;
-template<class VectorType> class QBaseTriangle;
+template<class VectorT> class QBaseTriangle;
 class QBaseQuadrilateral;
 class QTransformationMatrix3x3;
 
