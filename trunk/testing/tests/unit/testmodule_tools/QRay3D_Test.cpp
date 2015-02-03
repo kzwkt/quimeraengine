@@ -26,6 +26,7 @@
 
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
+#include <boost/mpl/list.hpp>
 using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"

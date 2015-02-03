@@ -334,7 +334,7 @@ bool SQFile::_WaitForCreation(const boost::filesystem::path &filePath)
 
     while(!boost::filesystem::exists(filePath) && !bTooMuchTime)
     {
-        SQThisThread::Yield(); // [TODO] Thund: Use SQThisThread when it exists
+        SQThisThread::Yield();
         bTooMuchTime = elapsedTime.GetElapsedTimeAsTimeSpan().GetMilliseconds() < MAXIMUM_WAIT_TIME;
     }
 

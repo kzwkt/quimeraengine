@@ -35,6 +35,7 @@ using Kinesis::QuimeraEngine::System::Threading::QThread;
 using Kinesis::QuimeraEngine::System::Threading::QScopedExclusiveLock;
 using Kinesis::QuimeraEngine::System::Threading::QSharedMutex;
 using Kinesis::QuimeraEngine::System::Threading::QScopedSharedLock;
+using Kinesis::QuimeraEngine::Tools::Containers::QDictionary;
 
 #ifdef GetPrinter // On Windows, the API maps the GetPrinter definition to either GetPrinterA or GetPrinterW function names, which prevents the GetPrinter method from being declared
     #undef GetPrinter
@@ -90,18 +91,18 @@ void QCallStackTracer::AddTrace(const QCallTrace &trace)
     {
         QScopedExclusiveLock<QSharedMutex> exclusiveLock(m_callStackTracesMutex);
 
-        CallStackTraceContainer::iterator itCallStackTrace = m_callStackTraces.find(threadId);
+        CallStackTraceContainer::ConstIterator itCallStackTrace = m_callStackTraces.PositionOfKey(threadId);
 
-        const bool CALLSTACKTRACE_DOES_NOT_EXIST = itCallStackTrace == m_callStackTraces.end();
+        const bool CALLSTACKTRACE_DOES_NOT_EXIST = itCallStackTrace.IsEnd();
 
         if(CALLSTACKTRACE_DOES_NOT_EXIST)
         {
             // Creates a new call stack trace
             QCallStackTrace* pNewCallStackTrace = new QCallStackTrace(SQThisThread::ToString());
-            itCallStackTrace = m_callStackTraces.insert(CallStackTracePair(threadId, pNewCallStackTrace)).first;
+            itCallStackTrace = m_callStackTraces.Add(threadId, pNewCallStackTrace);
         }
 
-        itCallStackTrace->second->Push(trace);
+        itCallStackTrace->GetValue()->Push(trace);
 
     } // --------- Critical section ----------
 }
@@ -113,12 +114,12 @@ void QCallStackTracer::RemoveLastTrace()
     // ---------- Critical section -----------
     {
         QScopedExclusiveLock<QSharedMutex> exclusiveLock(m_callStackTracesMutex);
-        CallStackTraceContainer::iterator itCallStackTrace = m_callStackTraces.find(threadId);
-        itCallStackTrace->second->Pop();
+        CallStackTraceContainer::ConstIterator itCallStackTrace = m_callStackTraces.PositionOfKey(threadId);
+        itCallStackTrace->GetValue()->Pop();
 
         // If there are no more traces in the call stack of the current thread, the stack is completely removed
-        if(itCallStackTrace->second->GetCount() == 0)
-            m_callStackTraces.erase(itCallStackTrace);
+        if(itCallStackTrace->GetValue()->GetCount() == 0)
+            m_callStackTraces.Remove(itCallStackTrace);
 
     } // --------- Critical section ----------
 }
@@ -133,11 +134,11 @@ void QCallStackTracer::Dump()
         {
             QScopedSharedLock<QSharedMutex> sharedLock(m_callStackTracesMutex);
 
-            CallStackTraceContainer::iterator itCallStackTrace = m_callStackTraces.find(threadId);
-            const bool CALLSTACKTRACE_EXISTS = itCallStackTrace != m_callStackTraces.end();
+            CallStackTraceContainer::ConstIterator itCallStackTrace = m_callStackTraces.PositionOfKey(threadId);
+            const bool CALLSTACKTRACE_EXISTS = !itCallStackTrace.IsEnd();
 
             if(CALLSTACKTRACE_EXISTS)
-                m_pPrinter->PrintCallStackTrace(*itCallStackTrace->second);
+                m_pPrinter->PrintCallStackTrace(*itCallStackTrace->GetValue());
 
         } // --------- Critical section ----------
     }

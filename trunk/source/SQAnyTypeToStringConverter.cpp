@@ -26,6 +26,8 @@
 
 #include "SQAnyTypeToStringConverter.h"
 
+#include <iomanip>
+
 #include "SQFloat.h"
 #include "SQVF32.h"
 #include "SQBoolean.h"
