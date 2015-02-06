@@ -58,7 +58,7 @@
         #include "QAssertException.h"
         using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;    
 
-        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                            \
+        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
                 {                                                                                                                                 \
                     if(!(expression))                                                                                                             \
                     {                                                                                                                             \
@@ -79,20 +79,22 @@
             /// </summary>
             QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                          \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                         \
                              {                                                                                                      \
                                  if(!(expression))                                                                                  \
                                  {                                                                                                  \
+                                     asm("int $3");                                                                                 \
+                                                                                                                                    \
                                      if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                       \
                                      {                                                                                              \
                                          QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);  \
                                      }                                                                                              \
-                                     QE_ASSERT_FAILED();                                                                            \
                                  }                                                                                                  \
                              }
+                             // Note: asm("int $3") makes GDB to stop at the failing line and continue the execution later
         #else
 
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                               \
                     {                                                                                                     \
                         if(!(expression))                                                                                 \
                         {                                                                                                 \

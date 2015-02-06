@@ -44,17 +44,6 @@ using Kinesis::QuimeraEngine::Common::EQAssertionType;
 //##################                                                       ##################
 //##################=======================================================##################
 
-
-#ifdef QE_COMPILER_GCC
-
-void QE_ASSERT_FAILED()
-{
-    asm("int $3"); // This sentence makes GDB to stop at the failing line and continue the execution later
-}
-
-#endif
-
-
 void QE_TRACE_FAILED_ASSERT(const string_q &strExpression, 
                             const string_q &strErrorMessage, 
                             const int nLineNumber, 

@@ -279,10 +279,6 @@ int SQThisThread::_ConvertToNativePriority(const EQThreadPriority &ePriority)
 
 bool SQThisThread::IsInterrupted()
 {
-#ifdef QE_PREPROCESSOR_EXPORTLIB_SYSTEM
-    QE_ASSERT_ERROR(false, "Thread interruption mechanisms are only available when compiling as a static library.");
-#endif
-
     return boost::this_thread::interruption_requested();
 }
 
