@@ -144,7 +144,9 @@ public:
     {
         QE_ASSERT_ERROR(!this->IsOwner(), "The lock already owns the mutexes. This operation could lead to a dead-lock.");
 
-        return boost::try_lock(m_mutex1, m_mutex2) == -1;
+        m_bIsOwner = boost::try_lock(m_mutex1, m_mutex2) == -1;
+        
+        return m_bIsOwner;
     }
 
 

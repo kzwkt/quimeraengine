@@ -234,7 +234,6 @@ QTEST_CASE ( TryLock_ReturnsFalseWhenMutexWasAlreadyLockedShared_Test )
 
     // [Cleaning]
     mutex.UnlockShared();
-    mutex.UnlockShared();
 }
 
 /// <summary>

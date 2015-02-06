@@ -168,13 +168,15 @@ QTEST_CASE ( TryLock_ReturnsTrueWhenMutexCanBeLocked_Test )
 {
     // [Preparation]
     const bool EXPECTED_VALUE = true;
+    bool bResult = false;
+
     QMutex mutex1;
     QMutex mutex2;
     QScopedLockPair<QMutex, QMutex> lock(mutex1, mutex2, false);
 
     // [Execution]
-    bool bResult = lock.TryLock();
-    
+    bResult = lock.TryLock();
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
 }
@@ -221,6 +223,7 @@ QTEST_CASE ( TryLock_MutexesAreNotLockedWhenOneMutexIsAlreadyLocked_Test )
 
     // [Cleaning]
     mutex1.Unlock();
+    mutex2.Unlock();
 }
 
 // End - Test Suite: QScopedLockPair
