@@ -137,6 +137,10 @@
     <File Name="../../../../source/QStackAllocator.cpp"/>
     <File Name="../../../../source/QBlockHeader.cpp"/>
   </VirtualDirectory>
+  <VirtualDirectory Name="Exceptions">
+    <File Name="../../../../headers/QAssertException.h"/>
+    <File Name="../../../../source/QAssertException.cpp"/>
+  </VirtualDirectory>
   <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
@@ -398,8 +402,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="Exceptions">
-    <File Name="../../../../headers/QAssertException.h"/>
-    <File Name="../../../../source/QAssertException.cpp"/>
-  </VirtualDirectory>
 </CodeLite_Project>

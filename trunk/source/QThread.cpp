@@ -84,6 +84,13 @@ QThread::~QThread()
 
 void QThread::Interrupt()
 {
+#ifdef QE_PREPROCESSOR_EXPORTLIB_SYSTEM
+    QE_ASSERT_ERROR(false, "Thread interruption mechanisms are only available when compiling as a static library.");
+    
+    // The reason is that Boost's thread library, when compiled as a DLL, stores the information about thread iterruption into
+    // a zone of memory different from the main thread's. So if a thread is interrupted from the main thread, its flag will not be actually set.
+    // See http://lists.boost.org/boost-users/2010/01/55171.php
+#endif
     QE_ASSERT_ERROR(this->IsAlive(), "The thread cannot be interrupted, it is not running.");
     
     m_thread.interrupt();
@@ -320,6 +327,10 @@ bool QThread::IsAlive() const
 
 bool QThread::IsInterrupted() const
 {
+#ifdef QE_PREPROCESSOR_EXPORTLIB_SYSTEM
+    QE_ASSERT_ERROR(false, "Thread interruption mechanisms are only available when compiling as a static library.");
+#endif
+
     return m_thread.interruption_requested();
 }
 

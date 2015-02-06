@@ -384,6 +384,7 @@ public:
     /// Interrupts the thread's execution. 
     /// </summary>
     /// <remarks>
+    /// Thread interruption is supported only when compiling as a static library, for now.<br/>
     /// The thread will stop as soon as it reaches any interruption point (it sleeps, yields, waits for joinning or waits for a condition). No exception will be thrown, 
     /// the interruption just will make an assertion fail.<br/>
     /// This method should not be called if the thread is not running.
@@ -480,6 +481,9 @@ public:
     /// <summary>
     /// Indicates whether the thread was interrupted or not (it may be still running).
     /// </summary>
+    /// <remarks>
+    /// Thread interruption is supported only when compiling as a static library, for now.
+    /// </remarks>
     /// <returns>
     /// True if the thread was interrupted; False otherwise.
     /// </returns>
