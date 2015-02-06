@@ -276,72 +276,6 @@ public:
     }
     
     /// <summary>
-    /// Multiplies a transformation matrix by the current matrix, following matrices product rules.
-    /// </summary>
-    /// <remarks>
-    /// This product is not conmmutative.
-    /// </remarks>
-    /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
-    /// <returns>
-    /// The resultant transformation matrix, with the same template parameter that resident matrix.
-    /// </returns>
-    QTransformationMatrix<MatrixT> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const
-    {
-        QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
-
-        aux.ij[0][0] = matrix.ij[0][0];
-        aux.ij[0][1] = matrix.ij[0][1];
-        aux.ij[0][2] = matrix.ij[0][2];
-
-        aux.ij[1][0] = matrix.ij[1][0];
-        aux.ij[1][1] = matrix.ij[1][1];
-        aux.ij[1][2] = matrix.ij[1][2];
-
-        aux.ij[2][0] = matrix.ij[2][0];
-        aux.ij[2][1] = matrix.ij[2][1];
-        aux.ij[2][2] = matrix.ij[2][2];
-
-        aux.ij[3][0] = this->ij[3][0] * matrix.ij[0][0] + this->ij[3][1] * matrix.ij[1][0] + this->ij[3][2] * matrix.ij[2][0] + matrix.ij[3][0];
-        aux.ij[3][1] = this->ij[3][0] * matrix.ij[0][1] + this->ij[3][1] * matrix.ij[1][1] + this->ij[3][2] * matrix.ij[2][1] + matrix.ij[3][1];
-        aux.ij[3][2] = this->ij[3][0] * matrix.ij[0][2] + this->ij[3][1] * matrix.ij[1][2] + this->ij[3][2] * matrix.ij[2][2] + matrix.ij[3][2];
-
-        return aux;
-    }
-
-    /// <summary>
-    /// Multiplies a transformation matrix by the current matrix, following matrices product rules.
-    /// </summary>
-    /// <remarks>
-    /// This product is not conmmutative.
-    /// </remarks>
-    /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
-    /// <returns>
-    /// The resultant transformation matrix, with the same template parameter that resident matrix.
-    /// </returns>
-    QTransformationMatrix<MatrixT> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const
-    {
-        QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
-
-        aux.ij[0][0] = matrix.ij[0][0];
-        aux.ij[0][1] = matrix.ij[0][1];
-        aux.ij[0][2] = matrix.ij[0][2];
-
-        aux.ij[1][0] = matrix.ij[1][0];
-        aux.ij[1][1] = matrix.ij[1][1];
-        aux.ij[1][2] = matrix.ij[1][2];
-
-        aux.ij[2][0] = matrix.ij[2][0];
-        aux.ij[2][1] = matrix.ij[2][1];
-        aux.ij[2][2] = matrix.ij[2][2];
-
-        aux.ij[3][0] = this->ij[3][0] * matrix.ij[0][0] + this->ij[3][1] * matrix.ij[1][0] + this->ij[3][2] * matrix.ij[2][0] + matrix.ij[3][0];
-        aux.ij[3][1] = this->ij[3][0] * matrix.ij[0][1] + this->ij[3][1] * matrix.ij[1][1] + this->ij[3][2] * matrix.ij[2][1] + matrix.ij[3][1];
-        aux.ij[3][2] = this->ij[3][0] * matrix.ij[0][2] + this->ij[3][1] * matrix.ij[1][2] + this->ij[3][2] * matrix.ij[2][2] + matrix.ij[3][2];
-
-        return aux;
-    }
-
-    /// <summary>
     /// Product and assign operator. Multiplies the resident matrix and stores the result of the multiplication.
     /// </summary>
     /// <remarks>
@@ -541,7 +475,6 @@ private:
     // Hidden method to prevent it could be used.
     void ResetToZero(){}
 };
-
 
 // SPECIALIZATION EXPORTATIONS
 // -----------------------------

@@ -141,6 +141,8 @@ QTEST_CASE ( ToString_FormatIsWhatExpected_Test )
     BOOST_CHECK(bFormatIsWhatExpected);
 }
 
+#ifndef QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
+
 /// <summary>
 /// Checks that it returns True when the thread was interrupted.
 /// </summary>
@@ -189,6 +191,8 @@ QTEST_CASE ( IsInterrupted_ReturnsFalseWhenThreadWasNotInterrupted_Test )
     bool bIsInterrupted = SQThisThreadTestClass::sm_bFunctionInterrupted;
     BOOST_CHECK_EQUAL(bIsInterrupted, EXPECTED_RESULT);
 }
+
+#endif
 
 /// <summary>
 /// Checks that no error ocurrs when it is called.

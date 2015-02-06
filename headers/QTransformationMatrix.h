@@ -50,9 +50,6 @@ namespace Tools
 namespace Math
 {
 
-template <class MatrixT>
-class QTransformationMatrix;
-
 // Preventing friend global operator to be called.
 template <class MatrixT>
 QTransformationMatrix<MatrixT> operator*(const float_q fScalar, const QTransformationMatrix<MatrixT> &matrix);
@@ -1048,7 +1045,6 @@ private:
 
 };
 
-
 // SPECIALIZATION EXPORTATIONS
 // -----------------------------
 #ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
@@ -1063,4 +1059,86 @@ template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<Kinesis::QuimeraEngi
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
+// Note: The following global operators have been defined this way in order to avoid a mutual inclusion between QTranslationMatrix and QTransformationMatrix
+//       Besides, they have been placed outside the corresponding namespace to avoid usability penalties; the user can then multiply matrices without worrying
+//       about whether a global operator or a class method is called.
+
+/// <summary>
+/// Multiplies a translation matrix by a transformation matrix, following matrices product rules.
+/// </summary>
+/// <remarks>
+/// This product is not conmmutative.
+/// </remarks>
+/// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+/// <param name="translation">[IN] A translation matrix, the first operand.</param>
+/// <param name="transformation">[IN] A transformation matrix, the second operand.</param>
+/// <returns>
+/// The resultant transformation matrix, with the same template parameter that the input translation matrix.
+/// </returns>
+template<class MatrixT>
+Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix<MatrixT> operator*(const Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix<MatrixT> &translation, 
+                                                                              const Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3> &transformation)
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    
+    QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
+
+    aux.ij[0][0] = transformation.ij[0][0];
+    aux.ij[0][1] = transformation.ij[0][1];
+    aux.ij[0][2] = transformation.ij[0][2];
+
+    aux.ij[1][0] = transformation.ij[1][0];
+    aux.ij[1][1] = transformation.ij[1][1];
+    aux.ij[1][2] = transformation.ij[1][2];
+
+    aux.ij[2][0] = transformation.ij[2][0];
+    aux.ij[2][1] = transformation.ij[2][1];
+    aux.ij[2][2] = transformation.ij[2][2];
+
+    aux.ij[3][0] = translation.ij[3][0] * transformation.ij[0][0] + translation.ij[3][1] * transformation.ij[1][0] + translation.ij[3][2] * transformation.ij[2][0] + transformation.ij[3][0];
+    aux.ij[3][1] = translation.ij[3][0] * transformation.ij[0][1] + translation.ij[3][1] * transformation.ij[1][1] + translation.ij[3][2] * transformation.ij[2][1] + transformation.ij[3][1];
+    aux.ij[3][2] = translation.ij[3][0] * transformation.ij[0][2] + translation.ij[3][1] * transformation.ij[1][2] + translation.ij[3][2] * transformation.ij[2][2] + transformation.ij[3][2];
+
+    return aux;
+}
+
+/// <summary>
+/// Multiplies a translation matrix by a transformation matrix, following matrices product rules.
+/// </summary>
+/// <remarks>
+/// This product is not conmmutative.
+/// </remarks>
+/// <typeparam name="MatrixT">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+/// <param name="translation">[IN] A translation matrix, the first operand.</param>
+/// <param name="transformation">[IN] A transformation matrix, the second operand.</param>
+/// <returns>
+/// The resultant transformation matrix, with the same template parameter that the input translation matrix.
+/// </returns>
+template<class MatrixT>
+Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix<MatrixT> operator*(const Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix<MatrixT> &translation, 
+                                                                              const Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4> &transformation)
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    
+    QTransformationMatrix<MatrixT> aux = QTransformationMatrix<MatrixT>::GetIdentity();
+
+    aux.ij[0][0] = transformation.ij[0][0];
+    aux.ij[0][1] = transformation.ij[0][1];
+    aux.ij[0][2] = transformation.ij[0][2];
+
+    aux.ij[1][0] = transformation.ij[1][0];
+    aux.ij[1][1] = transformation.ij[1][1];
+    aux.ij[1][2] = transformation.ij[1][2];
+
+    aux.ij[2][0] = transformation.ij[2][0];
+    aux.ij[2][1] = transformation.ij[2][1];
+    aux.ij[2][2] = transformation.ij[2][2];
+
+    aux.ij[3][0] = translation.ij[3][0] * transformation.ij[0][0] + translation.ij[3][1] * transformation.ij[1][0] + translation.ij[3][2] * transformation.ij[2][0] + transformation.ij[3][0];
+    aux.ij[3][1] = translation.ij[3][0] * transformation.ij[0][1] + translation.ij[3][1] * transformation.ij[1][1] + translation.ij[3][2] * transformation.ij[2][1] + transformation.ij[3][1];
+    aux.ij[3][2] = translation.ij[3][0] * transformation.ij[0][2] + translation.ij[3][1] * transformation.ij[1][2] + translation.ij[3][2] * transformation.ij[2][2] + transformation.ij[3][2];
+
+    return aux;
+}
+    
 #endif // __QTRANSFORMATIONMATRIX__

@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "EQComparisonType.h"
 #include "QAssertException.h"
 #include "SQThisThread.h"
+#include "QTimeSpan.h"
 
 using Kinesis::QuimeraEngine::System::Threading::QThread;
 using Kinesis::QuimeraEngine::Common::QDelegate;
@@ -92,10 +93,14 @@ public:
 
     static void FunctionToBeInterrupted() try
     {
+        using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
+        using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+        
         QDelegate<void()> function(&QThreadTestClass::WorkSomeTime);
 
         QThread thread(function); // The function is assumed to take enough time
-
+        SQThisThread::Sleep(QTimeSpan(0, 0, 0, 0, 50, 0, 0));
+        
         try
         {
             thread.Join();
@@ -119,7 +124,7 @@ public:
     {
         for(int i = 1; i < 1000000; ++i)
         {
-            for(int ii = 1; ii < 50000; ++ii)
+            for(int ii = 1; ii < 500; ++ii)
             {
                 int x = ii / i;
             }
@@ -453,31 +458,35 @@ QTEST_CASE ( Destructor_AssertionFailsWhenInstanceIsDestroyedBeforeTheThreadHasF
     BOOST_CHECK(bAssertionFailed);
 }
 
-/// <summary>
-/// Checks that an assertion fails when the thread is not running.
-/// </summary>
-QTEST_CASE ( Interrupt_AssertionFailsWhenThreadIsNotRunning_Test )
-{
-    // [Preparation]
-    QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
-    const unsigned int WAIT_TIME = 100;
-    bool bAssertionFailed = false;
+    #ifndef QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
 
-    try
+    /// <summary>
+    /// Checks that an assertion fails when the thread is not running.
+    /// </summary>
+    QTEST_CASE ( Interrupt_AssertionFailsWhenThreadIsNotRunning_Test )
     {
-        QThread thread(function, WAIT_TIME); // The function is assumed to take enough time
-        thread.Join();
-    // [Execution]
-        thread.Interrupt();
-    }
-    catch(const QAssertException&)
-    {
-        bAssertionFailed = true;
+        // [Preparation]
+        QDelegate<void(unsigned int)> function(&QThreadTestClass::Wait);
+        const unsigned int WAIT_TIME = 100;
+        bool bAssertionFailed = false;
+
+        try
+        {
+            QThread thread(function, WAIT_TIME); // The function is assumed to take enough time
+            thread.Join();
+        // [Execution]
+            thread.Interrupt();
+        }
+        catch(const QAssertException&)
+        {
+            bAssertionFailed = true;
+        }
+
+        // [Verification]
+        BOOST_CHECK(bAssertionFailed);
     }
 
-    // [Verification]
-    BOOST_CHECK(bAssertionFailed);
-}
+    #endif
 
 #endif
 
@@ -505,19 +514,23 @@ QTEST_CASE ( Join_WaitsUntilThreadFinishes_Test )
     BOOST_CHECK(uMilliseconds < (WAIT_TIME + 10U)); // 10 ms tolerance
 }
 
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS && !defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
 
 /// <summary>
 /// Checks that an assertion fails when the thread is joined after it has been interrupted.
 /// </summary>
 QTEST_CASE ( Join_AssertionFailsWhenThreadIsJoinedAfterItHasBeenInterrupted_Test )
 {
+    using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    
     // [Preparation]
     QDelegate<void()> function(&QThreadTestClass::FunctionToBeInterrupted);
     QThreadTestClass::ResetFlags();
 
     // [Execution]
     QThread thread(function); // The function is assumed to take enough time
+    SQThisThread::Sleep(QTimeSpan(0, 0, 0, 0, 30, 0, 0));
     thread.Interrupt();
     thread.Join();
 
@@ -640,6 +653,8 @@ QTEST_CASE ( IsAlive_ReturnsFalseWhenThreadIsNotRunning_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bIsAlive, EXPECTED_RESULT);
 }
+ 
+#ifndef QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
 
 /// <summary>
 /// Checks that it returns True when the thread was interrupted.
@@ -683,6 +698,8 @@ QTEST_CASE ( IsInterrupted_ReturnsFalseWhenThreadWasNotInterrupted_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(bIsInterrupted, EXPECTED_RESULT);
 }
+
+#endif
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 

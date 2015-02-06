@@ -143,6 +143,9 @@ public:
     /// <summary>
     /// Indicates whether the thread was interrupted or not.
     /// </summary>
+    /// <remarks>
+    /// Thread interruption is supported only when compiling as a static library, for now.
+    /// </remarks>
     /// <returns>
     /// True if the thread was interrupted; False otherwise.
     /// </returns>

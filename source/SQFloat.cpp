@@ -26,6 +26,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 
 #include "SQFloat.h"
 
