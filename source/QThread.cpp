@@ -327,10 +327,6 @@ bool QThread::IsAlive() const
 
 bool QThread::IsInterrupted() const
 {
-#ifdef QE_PREPROCESSOR_EXPORTLIB_SYSTEM
-    QE_ASSERT_ERROR(false, "Thread interruption mechanisms are only available when compiling as a static library.");
-#endif
-
     return m_thread.interruption_requested();
 }
 
