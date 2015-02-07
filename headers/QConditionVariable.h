@@ -31,6 +31,12 @@
 #include "Assertions.h"
 #include <boost/thread/condition_variable.hpp>
 
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( push )
+    #pragma warning( disable: 4251 ) // This warning occurs when using a template specialization as attribute
+#endif
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine

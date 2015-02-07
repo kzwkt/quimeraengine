@@ -32,7 +32,7 @@
                                    // to throw exceptions but do throw exceptions due to the assertion behavior compilation flag
 #endif
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "EQAssertionType.h"
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED

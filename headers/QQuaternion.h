@@ -28,6 +28,7 @@
 #define __QQUATERNION__
 
 #include "QBaseQuaternion.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;

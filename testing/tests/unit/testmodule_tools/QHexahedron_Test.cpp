@@ -1819,7 +1819,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsBothSidesWhenHexahedronAndPlaneInters
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1857,7 +1857,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenHexahedronIsInPositiv
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1895,7 +1895,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenHexahedronIsInNegativ
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1933,7 +1933,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsContainedWhenHexahedronBelongsToPlane
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1971,7 +1971,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenSomePartOfTheHexahedr
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2009,7 +2009,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenSomePartOfTheHexahedr
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -2129,9 +2129,9 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_CorrectResultIsReturnedWhenAllVerticesCoinci
     EQSpaceRelation eResultContained = HEXAHEDRON_CONTAINED.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultPositive, EXPECTED_RESULT_POSITIVE);
-    BOOST_CHECK_EQUAL(eResultNegative, EXPECTED_RESULT_NEGATIVE);
-    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultPositive == EXPECTED_RESULT_POSITIVE);
+    BOOST_CHECK(eResultNegative == EXPECTED_RESULT_NEGATIVE);
+    BOOST_CHECK(eResultContained == EXPECTED_RESULT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

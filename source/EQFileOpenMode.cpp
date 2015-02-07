@@ -47,20 +47,32 @@ namespace FileSystem
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQFileOpenMode::TNameValuePair EQFileOpenMode::sm_arValueName[] =
-    {
-        std::pair<string_q, EQFileOpenMode::EnumType>(QE_L("Append"),            EQFileOpenMode::E_Append),
-        std::pair<string_q, EQFileOpenMode::EnumType>(QE_L("Create"),            EQFileOpenMode::E_Create),
-        std::pair<string_q, EQFileOpenMode::EnumType>(QE_L("CreateOrOverwrite"), EQFileOpenMode::E_CreateOrOverwrite),
-        std::pair<string_q, EQFileOpenMode::EnumType>(QE_L("Open"),              EQFileOpenMode::E_Open),
-        std::pair<string_q, EQFileOpenMode::EnumType>(QE_L("OpenOrCreate"),      EQFileOpenMode::E_OpenOrCreate),
+const char* EQFileOpenMode::sm_arStrings[] = { "Append", 
+                                               "Create", 
+                                               "CreateOrOverwrite", 
+                                               "Open",
+                                               "OpenOrCreate"};
 
-    };
+const EQFileOpenMode::EnumType EQFileOpenMode::sm_arValues[] = { EQFileOpenMode::E_Append,
+                                                                 EQFileOpenMode::E_Create,
+                                                                 EQFileOpenMode::E_CreateOrOverwrite,
+                                                                 EQFileOpenMode::E_Open,
+                                                                 EQFileOpenMode::E_OpenOrCreate};
 
-EQFileOpenMode::TNameValueMap EQFileOpenMode::sm_mapValueName(
-        EQFileOpenMode::sm_arValueName ,
-        &EQFileOpenMode::sm_arValueName[0] + sizeof(EQFileOpenMode::sm_arValueName) / sizeof(EQFileOpenMode::sm_arValueName[0])
-    );
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQFileOpenMode::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQFileOpenMode::EnumType);
+}
 
 
 } //namespace FileSystem

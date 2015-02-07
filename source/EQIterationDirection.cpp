@@ -39,22 +39,33 @@ namespace Containers
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |               ##################
+//##################            |  ATTRIBUTES INITIALIZATION |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQIterationDirection::TNameValuePair EQIterationDirection::sm_arValueName[] =
-    {
-        std::pair<string_q, EQIterationDirection::EnumType>(QE_L("Forward"),    EQIterationDirection::E_Forward),
-        std::pair<string_q, EQIterationDirection::EnumType>(QE_L("Backward"),    EQIterationDirection::E_Backward),
-    };
+const char* EQIterationDirection::sm_arStrings[] = { "Forward", 
+                                                     "Backward"};
 
-EQIterationDirection::TNameValueMap EQIterationDirection::sm_mapValueName(
-        EQIterationDirection::sm_arValueName ,
-        &EQIterationDirection::sm_arValueName[0] + sizeof(EQIterationDirection::sm_arValueName) / sizeof(EQIterationDirection::sm_arValueName[0])
-    );
+const EQIterationDirection::EnumType EQIterationDirection::sm_arValues[] = { EQIterationDirection::E_Forward,
+                                                                             EQIterationDirection::E_Backward};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQIterationDirection::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQIterationDirection::EnumType);
+}
+
 
 } //namespace Containers
 } //namespace Tools

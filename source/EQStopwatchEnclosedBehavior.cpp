@@ -35,7 +35,7 @@ namespace System
 {
 namespace Timing
 {
-
+    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -45,17 +45,29 @@ namespace Timing
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQStopwatchEnclosedBehavior::TNameValuePair EQStopwatchEnclosedBehavior::sm_arValueName[] =
-    {
-        std::pair<string_q, EQStopwatchEnclosedBehavior::EnumType>(QE_L("Clamped"),    EQStopwatchEnclosedBehavior::E_Clamped),
-        std::pair<string_q, EQStopwatchEnclosedBehavior::EnumType>(QE_L("Proportional"),    EQStopwatchEnclosedBehavior::E_Proportional),
-        std::pair<string_q, EQStopwatchEnclosedBehavior::EnumType>(QE_L("Cyclic"),    EQStopwatchEnclosedBehavior::E_Cyclic),
-    };
+const char* EQStopwatchEnclosedBehavior::sm_arStrings[] = { "Clamped", 
+                                                            "Proportional", 
+                                                            "Cyclic"};
 
-EQStopwatchEnclosedBehavior::TNameValueMap EQStopwatchEnclosedBehavior::sm_mapValueName(
-        EQStopwatchEnclosedBehavior::sm_arValueName ,
-        &EQStopwatchEnclosedBehavior::sm_arValueName[0] + sizeof(EQStopwatchEnclosedBehavior::sm_arValueName) / sizeof(EQStopwatchEnclosedBehavior::sm_arValueName[0])
-    );
+const EQStopwatchEnclosedBehavior::EnumType EQStopwatchEnclosedBehavior::sm_arValues[] = { EQStopwatchEnclosedBehavior::E_Clamped,
+                                                                                           EQStopwatchEnclosedBehavior::E_Proportional,
+                                                                                           EQStopwatchEnclosedBehavior::E_Cyclic};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQStopwatchEnclosedBehavior::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQStopwatchEnclosedBehavior::EnumType);
+}
+
 
 } //namespace Timing
 } //namespace System

@@ -28,7 +28,7 @@
 #define __SQTIMEZONEFACTORY__
 
 #include <boost/date_time/local_time/local_time.hpp>
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "ToolsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;

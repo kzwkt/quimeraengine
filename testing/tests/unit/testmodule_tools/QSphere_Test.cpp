@@ -1620,7 +1620,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheSphereIsBehindPlane
     EQSpaceRelation eResult = SPHERE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1650,7 +1650,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheSphereIsInFrontPlan
     EQSpaceRelation eResult = SPHERE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1681,7 +1681,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheSphereIntersectsWithTh
     EQSpaceRelation eResult = SPHERE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1713,7 +1713,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheSphereIsBehindPlane
     EQSpaceRelation eResult = SPHERE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1745,7 +1745,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheSphereIsInFrontPlan
     EQSpaceRelation eResult = SPHERE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -1777,7 +1777,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     EQSpaceRelation eResultNormalized = SPHERE.SpaceRelation(NORMALIZED_PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
+    BOOST_CHECK(eResultNonNotmalized == eResultNormalized);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1873,7 +1873,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_SphereIsProjectedWhenItIsInNegativeSide_Tes
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedSphere.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedSphere.Center == EXPECTED_SPHERE.Center);
     BOOST_CHECK(projectedSphere.Radius == EXPECTED_SPHERE.Radius);
 }
@@ -1902,7 +1902,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_SphereIsProjectedWhenItIsInPositiveSide_Tes
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedSphere.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedSphere.Center == EXPECTED_SPHERE.Center);
     BOOST_CHECK(projectedSphere.Radius == EXPECTED_SPHERE.Radius);
 }
@@ -1931,7 +1931,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_SphereIsProjectedWhenItIntersectsWithPlane_
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedSphere.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedSphere.Center == EXPECTED_SPHERE.Center);
     BOOST_CHECK(projectedSphere.Radius == EXPECTED_SPHERE.Radius);
 }

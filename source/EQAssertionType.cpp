@@ -34,17 +34,29 @@ namespace QuimeraEngine
 namespace Common
 {
 
-EQAssertionType::TNameValuePair EQAssertionType::sm_arValueName[] =
-    {
-        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Deprecation"), EQAssertionType::E_Deprecation),
-        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Warning"),     EQAssertionType::E_Warning),
-        std::pair<string_q, EQAssertionType::EnumType>(QE_L("Error"),       EQAssertionType::E_Error),
-    };
+const char* EQAssertionType::sm_arStrings[] = { "Deprecation", 
+                                                "Warning", 
+                                                "Error"};
 
-EQAssertionType::TNameValueMap EQAssertionType::sm_mapValueName(
-        EQAssertionType::sm_arValueName ,
-        &EQAssertionType::sm_arValueName[0] + sizeof(EQAssertionType::sm_arValueName) / sizeof(EQAssertionType::sm_arValueName[0])
-    );
+const EQAssertionType::EnumType EQAssertionType::sm_arValues[] = { EQAssertionType::E_Deprecation,
+                                                                   EQAssertionType::E_Warning,
+                                                                   EQAssertionType::E_Error};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQAssertionType::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQAssertionType::EnumType);
+}
+
 
 } //namespace Common
 } //namespace QuimeraEngine

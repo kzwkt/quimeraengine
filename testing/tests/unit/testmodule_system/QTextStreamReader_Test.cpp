@@ -80,8 +80,8 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
     // [Verification]
     EQNewLineCharacters eNewLine = reader.GetNewLineSeparator();
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eNewLine, EXPECTED_NEWLINE);
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eNewLine == EXPECTED_NEWLINE);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -100,7 +100,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF8_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -119,7 +119,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForISO88591_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -139,7 +139,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForASCII_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -163,7 +163,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF16LE_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -188,7 +188,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF16BE_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -215,7 +215,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF32LE_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -242,7 +242,7 @@ QTEST_CASE ( Constructor1_EncodingIsCorrectlyDeducedForUTF32BE_Test )
 
     // [Verification]
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -261,7 +261,7 @@ QTEST_CASE ( Constructor2_StreamAndTheEncodingAreCorrectlyStored_Test )
     // [Verification]
     QMemoryStream<>* pStoredStream = &reader.GetStream();
     EQTextEncoding eEncoding = reader.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
     BOOST_CHECK_EQUAL(pStoredStream, EXPECTED_STREAM);
 }
 
@@ -280,7 +280,7 @@ QTEST_CASE ( Constructor2_DefaultValuesHaveNotChanged_Test )
 
     // [Verification]
     EQNewLineCharacters eNewLine = reader.GetNewLineSeparator();
-    BOOST_CHECK_EQUAL(eNewLine, EXPECTED_NEWLINE);
+    BOOST_CHECK(eNewLine == EXPECTED_NEWLINE);
 }
 
 /// <summary>

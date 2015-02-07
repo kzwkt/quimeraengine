@@ -43,23 +43,41 @@ namespace DataTypes
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
-EQTextEncoding::TNameValuePair EQTextEncoding::sm_arValueName[] =
-    {
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("ASCII"),         EQTextEncoding::E_ASCII),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("ISO 8859-1"),    EQTextEncoding::E_ISO88591),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-8"),         EQTextEncoding::E_UTF8),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16"),        EQTextEncoding::E_UTF16),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32"),        EQTextEncoding::E_UTF32),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16 BE"),     EQTextEncoding::E_UTF16BE),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16 LE"),     EQTextEncoding::E_UTF16LE),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32 BE"),     EQTextEncoding::E_UTF32BE),
-        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32 LE"),     EQTextEncoding::E_UTF32LE),
-    };
 
-EQTextEncoding::TNameValueMap EQTextEncoding::sm_mapValueName(
-        EQTextEncoding::sm_arValueName ,
-        &EQTextEncoding::sm_arValueName[0] + sizeof(EQTextEncoding::sm_arValueName) / sizeof(EQTextEncoding::sm_arValueName[0])
-    );
+const char* EQTextEncoding::sm_arStrings[] = { "ASCII", 
+                                               "ISO-8859-1", 
+                                               "UTF-8", 
+                                               "UTF-16", 
+                                               "UTF-32", 
+                                               "UTF-16 BE", 
+                                               "UTF-16 LE", 
+                                               "UTF-32 BE", 
+                                               "UTF-32 LE"};
+
+const EQTextEncoding::EnumType EQTextEncoding::sm_arValues[] = { EQTextEncoding::E_ASCII,
+                                                                 EQTextEncoding::E_ISO88591,
+                                                                 EQTextEncoding::E_UTF8,
+                                                                 EQTextEncoding::E_UTF16,
+                                                                 EQTextEncoding::E_UTF32,
+                                                                 EQTextEncoding::E_UTF16BE,
+                                                                 EQTextEncoding::E_UTF16LE,
+                                                                 EQTextEncoding::E_UTF32BE,
+                                                                 EQTextEncoding::E_UTF32LE};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQTextEncoding::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQTextEncoding::EnumType);
+}
 
 
 } //namespace DataTypes

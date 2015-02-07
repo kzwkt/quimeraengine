@@ -28,6 +28,7 @@
 #define __QVECTOR4__
 
 #include "QBaseVector4.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;

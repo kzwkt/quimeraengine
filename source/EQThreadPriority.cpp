@@ -35,7 +35,7 @@ namespace System
 {
 namespace Threading
 {
-
+    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -45,19 +45,33 @@ namespace Threading
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQThreadPriority::TNameValuePair EQThreadPriority::sm_arValueName[] =
-    {
-        std::pair<string_q, EQThreadPriority::EnumType>(QE_L("Lowest"),  EQThreadPriority::E_Lowest),
-        std::pair<string_q, EQThreadPriority::EnumType>(QE_L("Low"),     EQThreadPriority::E_Low),
-        std::pair<string_q, EQThreadPriority::EnumType>(QE_L("Normal"),  EQThreadPriority::E_Normal),
-        std::pair<string_q, EQThreadPriority::EnumType>(QE_L("High"),    EQThreadPriority::E_High),
-        std::pair<string_q, EQThreadPriority::EnumType>(QE_L("Highest"), EQThreadPriority::E_Highest),
-    };
+const char* EQThreadPriority::sm_arStrings[] = { "Lowest", 
+                                                 "Low", 
+                                                 "Normal", 
+                                                 "High",
+                                                 "Highest"};
 
-EQThreadPriority::TNameValueMap EQThreadPriority::sm_mapValueName(
-        EQThreadPriority::sm_arValueName ,
-        &EQThreadPriority::sm_arValueName[0] + sizeof(EQThreadPriority::sm_arValueName) / sizeof(EQThreadPriority::sm_arValueName[0])
-    );
+const EQThreadPriority::EnumType EQThreadPriority::sm_arValues[] = { EQThreadPriority::E_Lowest,
+                                                                     EQThreadPriority::E_Low,
+                                                                     EQThreadPriority::E_Normal,
+                                                                     EQThreadPriority::E_High,
+                                                                     EQThreadPriority::E_Highest};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQThreadPriority::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQThreadPriority::EnumType);
+}
+
 
 } //namespace Threading
 } //namespace System

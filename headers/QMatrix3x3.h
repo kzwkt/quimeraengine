@@ -29,6 +29,7 @@
 
 #include "QBaseMatrix3x3.h"
 #include "QBaseMatrix3x4.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 

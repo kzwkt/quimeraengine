@@ -30,12 +30,6 @@
 #include "CrossPlatformBasicTypes.h"
 #include "Endianness.h"
 
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
-    #include <string>
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-    #include "QCharUnicode.h"
-    #include "QStringUnicode.h"
-#endif
 
 namespace Kinesis
 {
@@ -133,44 +127,12 @@ namespace DataTypes
 
 
 // --------------------------------------------------------------------------------------------------------
-// Char type: Defines the char width used throughout the engine, depending on the selected character set.
-// --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
-    typedef char char_q;
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-    typedef QCharUnicode char_q;
-#else
-    typedef char char_q;
-#endif
-
-
-// --------------------------------------------------------------------------------------------------------
-// String type: Defines the string class used throughout the engine, depending on the selected character set.
-// --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
-    typedef std::string string_q;
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-    typedef QStringUnicode string_q;
-#endif
-
-
-// --------------------------------------------------------------------------------------------------------
-// Literals prefix: Specifies if character string literals must be prefixed with the wide-char token, depending
-// on the selected character set.
-// --------------------------------------------------------------------------------------------------------
-#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
-    #define QE_L(str) str
-#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
-    #define QE_L(str) str
-#endif
-
-
-// --------------------------------------------------------------------------------------------------------
 // Enumeration's integer equivalent: Defines which is the equivalent integer type for enumeration types.
 //                       Enumeration types used in Quimera Engine are guaranteed to be 32-bit unsigned integers,
 //                       whatever the OS or the architecture it executes on.
 // --------------------------------------------------------------------------------------------------------
 typedef u32_q enum_int_q;
+
 
 // --------------------------------------------------------------------------------------------------------
 // Enumeration's limits: Concretes the maximum and minimum values an enumerated type can store.

@@ -39,24 +39,33 @@ namespace Containers
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |               ##################
+//##################            |  ATTRIBUTES INITIALIZATION |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQTreeTraversalOrder::TNameValuePair EQTreeTraversalOrder::sm_arValueName[] =
-    {
-        std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstInOrder"),   EQTreeTraversalOrder::E_DepthFirstInOrder),
-        std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstPreOrder"),  EQTreeTraversalOrder::E_DepthFirstPreOrder),
-        //std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("DepthFirstPostOrder"), EQTreeTraversalOrder::E_DepthFirstPostOrder),
-        //std::pair<string_q, EQTreeTraversalOrder::EnumType>(QE_L("BreadthFirst"),        EQTreeTraversalOrder::E_BreadthFirst),
-    };
+const char* EQTreeTraversalOrder::sm_arStrings[] = { "DepthFirstInOrder", 
+                                                     "DepthFirstPreOrder"};
 
-EQTreeTraversalOrder::TNameValueMap EQTreeTraversalOrder::sm_mapValueName(
-        EQTreeTraversalOrder::sm_arValueName ,
-        &EQTreeTraversalOrder::sm_arValueName[0] + sizeof(EQTreeTraversalOrder::sm_arValueName) / sizeof(EQTreeTraversalOrder::sm_arValueName[0])
-    );
+const EQTreeTraversalOrder::EnumType EQTreeTraversalOrder::sm_arValues[] = { EQTreeTraversalOrder::E_DepthFirstInOrder,
+                                                                             EQTreeTraversalOrder::E_DepthFirstPreOrder};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQTreeTraversalOrder::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQTreeTraversalOrder::EnumType);
+}
+
 
 } //namespace Containers
 } //namespace Tools

@@ -28,6 +28,7 @@
 #define __QVECTOR3__
 
 #include "QBaseVector3.h"
+#include "StringsDefinitions.h"
 
 
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;

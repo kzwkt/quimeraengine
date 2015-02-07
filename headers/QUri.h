@@ -28,12 +28,16 @@
 #define __QURI__
 
 #include "SystemDefinitions.h"
-
 #include "DataTypesDefinitions.h"
 #include "QDynamicArray.h"
 #include <math.h>
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( push )
+    #pragma warning( disable: 4251 ) // This warning occurs when using a template specialization as attribute
+#endif
 
 
 namespace Kinesis

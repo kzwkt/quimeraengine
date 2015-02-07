@@ -28,7 +28,7 @@
 #define __QDATETIME__
 
 #include "QTimeSpan.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;

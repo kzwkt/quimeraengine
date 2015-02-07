@@ -37,6 +37,7 @@
 #include "EQIterationDirection.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 using Kinesis::QuimeraEngine::Tools::Containers::EQTreeTraversalOrder;
 using Kinesis::QuimeraEngine::Tools::Containers::EQIterationDirection;

@@ -31,7 +31,7 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QKeyValuePair.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QKeyValuePair;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;

@@ -28,9 +28,12 @@
 #define __QPLANE__
 
 #include "QBasePlane.h"
+#include "StringsDefinitions.h"
 
 #include "EQIntersections.h"
 #include "EQSpaceRelation.h"
+
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis

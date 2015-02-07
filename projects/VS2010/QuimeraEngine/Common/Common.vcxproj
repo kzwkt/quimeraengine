@@ -126,6 +126,7 @@
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
     <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
     <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
+    <ClInclude Include="..\..\..\..\headers\StringsDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />

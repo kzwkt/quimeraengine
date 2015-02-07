@@ -61,7 +61,7 @@ QTEST_CASE ( Constructor_StreamAndTheEncodingAreCorrectlyStored_Test )
     // [Verification]
     QMemoryStream<>* pStoredStream = &writer.GetStream();
     EQTextEncoding eEncoding = writer.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
     BOOST_CHECK_EQUAL(pStoredStream, EXPECTED_STREAM);
 }
 
@@ -80,7 +80,7 @@ QTEST_CASE ( Constructor_EncodingIsConvertedToEndiannessDependantVersionWhenUsin
 
     // [Verification]
     EQTextEncoding eEncoding = writer.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -98,7 +98,7 @@ QTEST_CASE ( Constructor_EncodingIsConvertedToEndiannessDependantVersionWhenUsin
 
     // [Verification]
     EQTextEncoding eEncoding = writer.GetStreamEncoding();
-    BOOST_CHECK_EQUAL(eEncoding, EXPECTED_ENCODING);
+    BOOST_CHECK(eEncoding == EXPECTED_ENCODING);
 }
 
 /// <summary>
@@ -116,7 +116,7 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
 
     // [Verification]
     EQNewLineCharacters eNewLine = writer.GetNewLineSeparator();
-    BOOST_CHECK_EQUAL(eNewLine, EXPECTED_NEWLINE);
+    BOOST_CHECK(eNewLine == EXPECTED_NEWLINE);
 }
 
 /// <summary>
