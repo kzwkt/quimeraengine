@@ -122,6 +122,7 @@
     <File Name="../../../../source/SQAnyTypeToStringConverter.cpp"/>
     <File Name="../../../../headers/SQAnyTypeToStringConverter.h"/>
     <File Name="../../../../headers/QArrayResult.h"/>
+    <File Name="../../../../headers/StringsDefinitions.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Memory">
     <File Name="../../../../headers/AllocationOperators.h"/>

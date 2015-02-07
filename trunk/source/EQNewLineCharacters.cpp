@@ -35,7 +35,7 @@ namespace System
 {
 namespace IO
 {
-
+    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -45,17 +45,29 @@ namespace IO
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQNewLineCharacters::TNameValuePair EQNewLineCharacters::sm_arValueName[] =
-    {
-        std::pair<string_q, EQNewLineCharacters::EnumType>(QE_L("CRLF"),  EQNewLineCharacters::E_CRLF),
-        std::pair<string_q, EQNewLineCharacters::EnumType>(QE_L("LF"),    EQNewLineCharacters::E_LF),
-        std::pair<string_q, EQNewLineCharacters::EnumType>(QE_L("CR"),    EQNewLineCharacters::E_CR),
-    };
+const char* EQNewLineCharacters::sm_arStrings[] = { "CRLF", 
+                                                    "LF", 
+                                                    "CR"};
 
-EQNewLineCharacters::TNameValueMap EQNewLineCharacters::sm_mapValueName(
-        EQNewLineCharacters::sm_arValueName ,
-        &EQNewLineCharacters::sm_arValueName[0] + sizeof(EQNewLineCharacters::sm_arValueName) / sizeof(EQNewLineCharacters::sm_arValueName[0])
-    );
+const EQNewLineCharacters::EnumType EQNewLineCharacters::sm_arValues[] = { EQNewLineCharacters::E_CRLF,
+                                                                           EQNewLineCharacters::E_LF,
+                                                                           EQNewLineCharacters::E_CR};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQNewLineCharacters::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQNewLineCharacters::EnumType);
+}
+
 
 } //namespace IO
 } //namespace System

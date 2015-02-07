@@ -28,6 +28,7 @@
 
 #include "Assertions.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 

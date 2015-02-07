@@ -44,18 +44,27 @@ namespace DataTypes
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQNormalizationForm::TNameValuePair EQNormalizationForm::sm_arValueName[] =
-    {
-        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("C"),    EQNormalizationForm::E_C),
-        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("D"),    EQNormalizationForm::E_D),
-        //std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KC"),    EQNormalizationForm::E_KC),
-        //std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KD"),    EQNormalizationForm::E_KD),
-    };
+const char* EQNormalizationForm::sm_arStrings[] = { "C", 
+                                                    "D"};
 
-EQNormalizationForm::TNameValueMap EQNormalizationForm::sm_mapValueName(
-        EQNormalizationForm::sm_arValueName ,
-        &EQNormalizationForm::sm_arValueName[0] + sizeof(EQNormalizationForm::sm_arValueName) / sizeof(EQNormalizationForm::sm_arValueName[0])
-    );
+const EQNormalizationForm::EnumType EQNormalizationForm::sm_arValues[] = { EQNormalizationForm::E_C,
+                                                                           EQNormalizationForm::E_D};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQNormalizationForm::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQNormalizationForm::EnumType);
+}
+
 
 } //namespace DataTypes
 } //namespace Common

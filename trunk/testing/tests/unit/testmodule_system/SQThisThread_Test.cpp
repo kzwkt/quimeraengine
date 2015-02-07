@@ -37,6 +37,7 @@ using namespace boost::unit_test;
 #include "QStopwatch.h"
 #include "EQComparisonType.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::System::Threading::SQThisThread;
 using Kinesis::QuimeraEngine::System::Threading::QThread;
 

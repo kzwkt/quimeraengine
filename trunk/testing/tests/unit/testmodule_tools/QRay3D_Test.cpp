@@ -2476,7 +2476,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoIntersectionPointsWhenRaysDoNo
     EQIntersections eResult = RAY1.IntersectionPoint(RAY2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -2516,7 +2516,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionPointWhenRaysInte
     EQIntersections eResult = RAY1.IntersectionPoint(RAY2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -2544,8 +2544,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysCoi
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2584,8 +2584,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnOriginIsCon
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection2); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
 }
@@ -2625,8 +2625,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenRaysShareOrig
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection2); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
 }
@@ -2740,10 +2740,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenTheDirectionVe
     EQIntersections eResultNotContained2 = RAY1.IntersectionPoint(RAY3, vIntersectionNotContained2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultContained1, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultContained2, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained1, EXPECTED_RESULT_NOT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained2, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultContained1 == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultContained2 == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultNotContained1 == EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultNotContained2 == EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vIntersectionContained1 == EXPECTED_POINT_CONTAINED);
     BOOST_CHECK(vIntersectionContained2 == EXPECTED_POINT_CONTAINED);
     BOOST_CHECK(vIntersectionNotContained1 == EXPECTED_POINT_NOT_CONTAINED);
@@ -2788,8 +2788,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoIntersectionsWhenRaysDoNotInte
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection2); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
 }
@@ -2828,8 +2828,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenOneRayIsConta
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection2); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
@@ -2868,8 +2868,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenRaysPointEac
     EQIntersections eResult2 = RAY2.IntersectionPoint(RAY1, vIntersection2); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
@@ -2910,7 +2910,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ItIsNotNecessaryNormalizeRays_Test, TQT
     EQIntersections eResult = RAY1.IntersectionPoint(RAY2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -2976,7 +2976,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3016,7 +3016,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenRayAndLineInt
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3053,8 +3053,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenRayAndLineCo
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
@@ -3093,7 +3093,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3134,9 +3134,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenRayAndLineSha
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
 
@@ -3181,9 +3181,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneInersectionWhenRayOnlyInterse
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
 
@@ -3321,8 +3321,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenTheDirectionVe
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vIntersectionNotContained); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultContained == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultNotContained == EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vIntersectionContained == EXPECTED_POINT_CONTAINED);
     BOOST_CHECK(vIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
@@ -3365,7 +3365,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3405,7 +3405,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3445,7 +3445,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ItIsNotNecessaryToNormalize_Test, TQTem
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3516,7 +3516,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_FIRSTPOINT);
 }
@@ -3559,7 +3559,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayAndLineInt
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -3601,8 +3601,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenRayAndLineCo
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
@@ -3645,7 +3645,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -3691,10 +3691,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayAndLineSha
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
 }
@@ -3744,10 +3744,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneInersectionWhenRayOnlyInterse
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
 }
@@ -3890,8 +3890,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultWhenTheDirectionVe
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vFirstIntersectionNotContained, vSecondIntersectionNotContained); // II
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultContained == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultNotContained == EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vFirstIntersectionContained == EXPECTED_POINT_CONTAINED);
     BOOST_CHECK(vFirstIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
     BOOST_CHECK(vSecondIntersectionContained == EXPECTED_POINT_CONTAINED);
@@ -3936,7 +3936,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -3976,7 +3976,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4016,7 +4016,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ItIsNotNecessaryToNormalize_Test, TQTem
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4083,7 +4083,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenCommonRayInte
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4111,7 +4111,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayIsParallel
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4140,7 +4140,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenRayIsCo
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4168,7 +4168,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayDoesNotInt
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4195,7 +4195,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOriginBel
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4224,7 +4224,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ItIsNotNecessaryToNormalizeTheRay_Test,
     EQIntersections eResult = RAY.IntersectionPoint(PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4360,7 +4360,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionPointWhenCommonRa
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4410,9 +4410,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionsWithC = RAY3.IntersectionPoint(TRIANGLE, vIntersectionC);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionsWithA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithC, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithC == EXPECTED_RESULT);
     BOOST_CHECK(vIntersectionA == EXPECTED_POINT_A);
     BOOST_CHECK(vIntersectionB == EXPECTED_POINT_B);
     BOOST_CHECK(vIntersectionC == EXPECTED_POINT_C);
@@ -4449,7 +4449,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsNoIntersectionsWhenRayDoesNotInt
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4483,7 +4483,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4518,7 +4518,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayBelongsToT
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4562,9 +4562,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eOriginContainedInBC = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginContainedInAC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginContainedInBC, EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInAB == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInAC == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInBC == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
     BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
@@ -4612,9 +4612,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
     BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
@@ -4660,9 +4660,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectsWithBC = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectsWithAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithAC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithBC, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithBC == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
     BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
@@ -4705,9 +4705,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOriginAndTria
     EQIntersections eOriginAndCCoincide = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eOriginAndACoincide, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginAndBCoincide, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginAndCCoincide, EXPECTED_RESULT);
+    BOOST_CHECK(eOriginAndACoincide == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginAndBCoincide == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginAndCCoincide == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
     BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
@@ -4744,7 +4744,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ItIsNotNecessaryToNormalizeTheRay_Test,
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
@@ -4870,7 +4870,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTheClosestPointWhenIntersectingW
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(vIntersection.x, SQFloat::_0) );
 }
 
@@ -4919,9 +4919,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayIntersect
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
     BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
@@ -5004,9 +5004,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayBelongsTo
     EQIntersections eIntersectsWithBC = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectsWithAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithAC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithBC, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithBC == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5045,7 +5045,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionPointWhenCommonRa
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -5100,9 +5100,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionsWithC = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersectionC, vSecondIntersectionC);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionsWithA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithC, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithC == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -5143,7 +5143,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsNoIntersectionsWhenRayDoesNotInt
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_POINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_POINT);
 }
@@ -5180,7 +5180,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -5218,7 +5218,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayBelongsToT
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -5267,9 +5267,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eOriginContainedInBC = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginContainedInAC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eOriginContainedInBC, EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInAB == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInAC == EXPECTED_RESULT);
+    BOOST_CHECK(eOriginContainedInBC == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5326,9 +5326,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5381,9 +5381,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5433,9 +5433,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginAndTria
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5477,7 +5477,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ItIsNotNecessaryToNormalizeTheRay_Test,
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -5605,7 +5605,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsTheClosestPointInFirstParameterW
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(vFirstIntersection.x, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsNegative(vSecondIntersection.x) );
 }
@@ -5661,9 +5661,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsTwoIntersectionsWhenRayIntersect
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
     BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
@@ -5825,9 +5825,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsTwoIntersectionsWhenRayBelongsTo
     EQIntersections eIntersectsWithBC = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectsWithAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithAC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectsWithBC, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithAC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectsWithBC == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
     BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
     BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
@@ -5890,7 +5890,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsExpectedIntersectionsWhenCommonR
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
 }
 
@@ -5976,14 +5976,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionWithH = RAY_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionWithA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithH, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithD == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithG == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -6036,7 +6036,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayDoesNotInt
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
 }
 
@@ -6128,12 +6128,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResultEFGH = RAY_IN_EFGH.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultDFGC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultADFE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAEHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCGHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultABCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEFGH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultDFGC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultADFE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAEHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCGHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultABCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEFGH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionDFGC == EXPECTED_FIRSTPOINT_DFGC);
     BOOST_CHECK(vFirstIntersectionADFE == EXPECTED_FIRSTPOINT_ADFE);
     BOOST_CHECK(vFirstIntersectionAEHB == EXPECTED_FIRSTPOINT_AEHB);
@@ -6224,12 +6224,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsTwoIntersectionWhenRayBelongsToH
     EQIntersections eResultEFGH = RAY_IN_EFGH.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultDFGC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultADFE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAEHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCGHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultABCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEFGH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultDFGC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultADFE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAEHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCGHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultABCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEFGH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionDFGC == EXPECTED_FIRSTPOINT_DFGC);
     BOOST_CHECK(vFirstIntersectionADFE == EXPECTED_FIRSTPOINT_ADFE);
     BOOST_CHECK(vFirstIntersectionAEHB == EXPECTED_FIRSTPOINT_AEHB);
@@ -6290,7 +6290,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
 }
 
@@ -6405,18 +6405,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eResultCG = RAY_IN_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCG, EXPECTED_RESULT);
+    BOOST_CHECK(eResultAB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultFG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultGH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultHE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -6550,18 +6550,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResultCG = RAY_IN_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCG, EXPECTED_RESULT);
+    BOOST_CHECK(eResultAB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultFG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultGH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultHE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -6691,18 +6691,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionsWithCG = RAY_TO_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionsWithAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithCG, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithAB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithBC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithCD == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithDA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithEF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithFG == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithGH == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithHE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithDF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithAE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithBH == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -6787,14 +6787,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginAndHexa
     EQIntersections eResultH = RAY_FROM_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -6882,14 +6882,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsTwoIntersectionWhenOriginAndHexa
     EQIntersections eResultH = RAY_FROM_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -6943,7 +6943,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ItIsNotNecessaryToNormalizeTheRay_Test,
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
 }
 
@@ -7131,7 +7131,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsExpectedIntersectionsWhenCommonR
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -7227,14 +7227,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionWithH = RAY_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH, vSecondIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionWithA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionWithH, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithD == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithG == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionWithH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -7297,7 +7297,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsNoIntersectionsWhenRayDoesNotInt
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -7397,12 +7397,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResultEFGH = RAY_IN_EFGH.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH, vSecondIntersectionEFGH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultDFGC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultADFE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAEHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCGHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultABCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEFGH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultDFGC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultADFE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAEHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCGHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultABCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEFGH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionDFGC == EXPECTED_FIRSTPOINT_DFGC);
     BOOST_CHECK(vFirstIntersectionADFE == EXPECTED_FIRSTPOINT_ADFE);
     BOOST_CHECK(vFirstIntersectionAEHB == EXPECTED_FIRSTPOINT_AEHB);
@@ -7511,12 +7511,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionsWhenRayBelongsTo
     EQIntersections eResultEFGH = RAY_IN_EFGH.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH, vSecondIntersectionEFGH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultDFGC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultADFE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAEHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCGHB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultABCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEFGH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultDFGC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultADFE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAEHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCGHB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultABCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEFGH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionDFGC == EXPECTED_FIRSTPOINT_DFGC);
     BOOST_CHECK(vFirstIntersectionADFE == EXPECTED_FIRSTPOINT_ADFE);
     BOOST_CHECK(vFirstIntersectionAEHB == EXPECTED_FIRSTPOINT_AEHB);
@@ -7585,7 +7585,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginIsConta
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -7714,18 +7714,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eResultCG = RAY_IN_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG, vSecondIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCG, EXPECTED_RESULT);
+    BOOST_CHECK(eResultAB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultFG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultGH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultHE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -7906,18 +7906,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResultCG = RAY_IN_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG, vSecondIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCG, EXPECTED_RESULT);
+    BOOST_CHECK(eResultAB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultFG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultGH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultHE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -8072,18 +8072,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectionsWithCG = RAY_TO_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG, vSecondIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eIntersectionsWithAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eIntersectionsWithCG, EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithAB == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithBC == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithCD == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithDA == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithEF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithFG == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithGH == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithHE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithDF == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithAE == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithBH == EXPECTED_RESULT);
+    BOOST_CHECK(eIntersectionsWithCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -8189,14 +8189,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginAndHexa
     EQIntersections eResultH = RAY_FROM_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH, vSecondIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -8318,14 +8318,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionWhenOriginAndHexa
     EQIntersections eResultH = RAY_FROM_H.IntersectionPoint(HEXAHEDRON, vFirstIntersectionH, vSecondIntersectionH);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultH, EXPECTED_RESULT);
+    BOOST_CHECK(eResultA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultH == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionA == EXPECTED_FIRSTPOINT_A);
     BOOST_CHECK(vFirstIntersectionB == EXPECTED_FIRSTPOINT_B);
     BOOST_CHECK(vFirstIntersectionC == EXPECTED_FIRSTPOINT_C);
@@ -8390,7 +8390,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ItIsNotNecessaryToNormalizeTheRay_Test,
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
@@ -8783,18 +8783,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionsWhenRayBelongsTo
     EQIntersections eResultCG = RAY_IN_CG.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG, vSecondIntersectionCG);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDA, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultEF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultFG, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultGH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultHE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultDF, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultAE, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultBH, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResultCG, EXPECTED_RESULT);
+    BOOST_CHECK(eResultAB == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBC == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCD == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDA == EXPECTED_RESULT);
+    BOOST_CHECK(eResultEF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultFG == EXPECTED_RESULT);
+    BOOST_CHECK(eResultGH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultHE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultDF == EXPECTED_RESULT);
+    BOOST_CHECK(eResultAE == EXPECTED_RESULT);
+    BOOST_CHECK(eResultBH == EXPECTED_RESULT);
+    BOOST_CHECK(eResultCG == EXPECTED_RESULT);
     BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
     BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
@@ -8849,7 +8849,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayIsBehindPlaneAnd
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -8880,7 +8880,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayIsBehindPlaneAnd
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -8911,7 +8911,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayIsInFrontPlaneAn
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -8942,7 +8942,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayIsInFrontPlaneAn
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -8974,7 +8974,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheRayIsBehindPlaneAndThe
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -9006,7 +9006,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheRayIsInFrontPlaneAndTh
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -9039,7 +9039,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsContainedWhenTheRayBelongsToPlane_Test
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -9072,7 +9072,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayOriginBelongsToP
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -9105,7 +9105,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayOriginBelongsToP
     EQSpaceRelation eResult = RAY.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -9171,7 +9171,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     EQSpaceRelation eResult2 = RAY.SpaceRelation(PLANE_NOTNORMALIZED);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, eResult2);
+    BOOST_CHECK(eResult1 == eResult2);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

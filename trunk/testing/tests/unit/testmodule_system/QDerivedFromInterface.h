@@ -29,6 +29,9 @@
 
 #include "RTTIDefinitions.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine

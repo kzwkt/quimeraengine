@@ -2448,7 +2448,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenThreePlanesCoincide_T
     EQIntersections eResult = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2524,12 +2524,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTwoPlanesCoincideAndT
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2605,12 +2605,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesCoincideAndTheOt
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2686,12 +2686,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneTheThreePlanesAreParallel_Tes
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2767,12 +2767,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTheThreePlanesIntersectBu
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2848,12 +2848,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesAreParallelAndIn
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2955,12 +2955,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsOneWhenTheThreePlanesShareOnePoin
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3036,12 +3036,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTheThreePlanesShareOn
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult3 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult4 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult5 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult6 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3113,7 +3113,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnedValueIsTheSameWhenPlanesAreNotNo
     EQIntersections eResultNotNormalizedPlane = PLANE1.IntersectionPoint(PLANE2, NORMALIZED_PLANE, vIntersection);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultNormalizedPlane, eResultNotNormalizedPlane);
+    BOOST_CHECK(eResultNormalizedPlane == eResultNotNormalizedPlane);
 }
 
 /// <summary>
@@ -3222,7 +3222,7 @@ QTEST_CASE( SpaceRelation_ReturnsPositiveSideWhenTheOtherPlaneIsParallelAndIsInT
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3247,7 +3247,7 @@ QTEST_CASE( SpaceRelation_ReturnsNegativeSideWhenTheOtherPlaneIsParallelAndIsInT
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3273,8 +3273,8 @@ QTEST_CASE( SpaceRelation_ReturnsBothSidesWhenPlanesIntersect_Test )
     EQSpaceRelation eResult2 = PLANE_B.SpaceRelation(PLANE_A);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
-    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(eResult1 == EXPECTED_RESULT);
+    BOOST_CHECK(eResult2 == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3299,7 +3299,7 @@ QTEST_CASE( SpaceRelation_ReturnsContainedWhenPlanesCoincide_Test )
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -3318,7 +3318,7 @@ QTEST_CASE( SpaceRelation_ResultIsDifferentWhenOnePlaneIsNotNormalized_Test )
     EQSpaceRelation eResult2 = PLANE_NORMALIZED.SpaceRelation(PLANE_NOTNORMALIZED);
 
     // [Verification]
-    BOOST_CHECK_NE(eResult1, eResult2);
+    BOOST_CHECK(eResult1 != eResult2);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

@@ -27,7 +27,7 @@
 #ifndef __SQBOOLEAN__
 #define __SQBOOLEAN__
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "CommonDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;

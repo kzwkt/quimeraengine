@@ -70,48 +70,13 @@ QTEST_CASE ( Constructor2_InputValueIsCorrectlyConvertedToCorrespondingEnumValue
 }
 
 /// <summary>
-/// Checks that the enumeration value is undefined when the input integer value doesn't correspondo to a valid value.
-/// </summary>
-QTEST_CASE ( Constructor2_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test )
-{
-    // [Preparation]
-    const std::vector<EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
-    const enum_int_q INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
-
-	// [Execution]
-    EQEnumerationMock eEnumeration = INPUT_VALUE;
-
-    // [Verification]
-    for(size_t i = 0; i < VALID_VALUES.size(); ++i)
-    {
-        BOOST_CHECK(eEnumeration != VALID_VALUES[i]);
-    }
-}
-
-/// <summary>
 /// Checks that the input string value is correctly converted to the corresponding enumeration value.
 /// </summary>
 QTEST_CASE ( Constructor3_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test )
 {
     // [Preparation]
-    const string_q INPUT_VALUE = QE_L("Value2");
+    const char* INPUT_VALUE = QE_L("Value2");
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-
-	// [Execution]
-    EQEnumerationMock eEnumeration = INPUT_VALUE;
-
-    // [Verification]
-    BOOST_CHECK(eEnumeration == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the enumeration is set to an undefined value when the input value name doesn't match any of the valid values available.
-/// </summary>
-QTEST_CASE ( Constructor3_NotEnumValueIsSetWhenTheNameDoesNotMatchValidEnumValue_Test )
-{
-    // [Preparation]
-    const string_q INPUT_VALUE = QE_L("-");
-    const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::_NotEnumValue;
 
 	// [Execution]
     EQEnumerationMock eEnumeration = INPUT_VALUE;
@@ -158,7 +123,7 @@ QTEST_CASE ( OperatorAssignation1_InputValueIsCorrectlyConvertedToCorrespondingE
 QTEST_CASE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test )
 {
     // [Preparation]
-    const std::vector<EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
+    const QBasicArray<const EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
     const enum_int_q INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
 
 	// [Execution]
@@ -166,7 +131,7 @@ QTEST_CASE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsS
     eEnumeration = INPUT_VALUE;
 
     // [Verification]
-    for(size_t i = 0; i < VALID_VALUES.size(); ++i)
+    for(size_t i = 0; i < VALID_VALUES.GetCount(); ++i)
     {
         BOOST_CHECK(eEnumeration != VALID_VALUES[i]);
     }
@@ -178,25 +143,8 @@ QTEST_CASE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsS
 QTEST_CASE ( OperatorAssignation2_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test )
 {
     // [Preparation]
-    const string_q INPUT_VALUE = QE_L("Value2");
+    const char* INPUT_VALUE = QE_L("Value2");
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-
-	// [Execution]
-    EQEnumerationMock eEnumeration(EQEnumerationMock::E_Value1);
-    eEnumeration = INPUT_VALUE;
-
-    // [Verification]
-    BOOST_CHECK(eEnumeration == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the enumeration is set to an undefined value when the input value name doesn't match any of the valid values available.
-/// </summary>
-QTEST_CASE ( OperatorAssignation2_NotEnumValueIsSetWhenTheNameDoesNotMatchValidEnumValue_Test )
-{
-    // [Preparation]
-    const string_q INPUT_VALUE = QE_L("-");
-    const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::_NotEnumValue;
 
 	// [Execution]
     EQEnumerationMock eEnumeration(EQEnumerationMock::E_Value1);
@@ -279,7 +227,7 @@ QTEST_CASE ( OperatorEquality2_ReturnsTrueWhenOperandsAreEqual_Test )
 {
     // [Preparation]
     const EQEnumerationMock OPERAND1 = EQEnumerationMock::E_Value2;
-    const string_q OPERAND2 = QE_L("Value2");
+    const char* OPERAND2 = QE_L("Value2");
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -296,7 +244,7 @@ QTEST_CASE ( OperatorEquality2_ReturnsFalseWhenOperandsAreNotEqual_Test )
 {
     // [Preparation]
     const EQEnumerationMock OPERAND1 = EQEnumerationMock::E_Value1;
-    const string_q OPERAND2 = QE_L("Value2");
+    const char* OPERAND2 = QE_L("Value2");
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -380,23 +328,20 @@ QTEST_CASE ( OperatorEquality4_ReturnsFalseWhenOperandsAreNotEqual_Test )
 QTEST_CASE ( GetValues_ReturnsAllTheValues_Test )
 {
     // [Preparation]
-    std::vector<EQEnumerationMock::EnumType> EXPECTED_RESULT;
-    EXPECTED_RESULT.push_back(EQEnumerationMock::E_Value1);
-    EXPECTED_RESULT.push_back(EQEnumerationMock::E_Value2);
-    EXPECTED_RESULT.push_back(EQEnumerationMock::E_Value3);
+    const EQEnumerationMock::EnumType EXPECTED_RESULT[] = {EQEnumerationMock::E_Value1,
+                                                           EQEnumerationMock::E_Value2,
+                                                           EQEnumerationMock::E_Value3};
+    const pointer_uint_q EXPECTED_COUNT = 3;
 
 	// [Execution]
-    const std::vector<EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
+    const QBasicArray<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
 
     // [Verification]
-    BOOST_CHECK_EQUAL(arResult.size(), EXPECTED_RESULT.size());
+    BOOST_CHECK_EQUAL(arResult.GetCount(), EXPECTED_COUNT);
 
-    std::vector<EQEnumerationMock::EnumType>::const_iterator iResult = arResult.begin();
-    std::vector<EQEnumerationMock::EnumType>::const_iterator iExpected = EXPECTED_RESULT.begin();
-
-    for(; iExpected != EXPECTED_RESULT.end(); ++iResult, ++iExpected)
+    for(pointer_uint_q uIndexResult = 0; uIndexResult < EXPECTED_COUNT; ++uIndexResult)
     {
-        BOOST_CHECK_EQUAL(*iResult, *iExpected);
+        BOOST_CHECK_EQUAL(arResult[uIndexResult], EXPECTED_RESULT[uIndexResult]);
     }
 }
 
@@ -406,17 +351,18 @@ QTEST_CASE ( GetValues_ReturnsAllTheValues_Test )
 QTEST_CASE ( GetValues_DoesNotIncludeNotEnumValue_Test )
 {
     // [Preparation]
+    const pointer_uint_q EXPECTED_COUNT = 3;
     const EQEnumerationMock::EnumType NOT_INCLUDED_VALUE = EQEnumerationMock::_NotEnumValue;
 
 	// [Execution]
-    const std::vector<EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
+    const QBasicArray<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
 
     // [Verification]
-    std::vector<EQEnumerationMock::EnumType>::const_iterator iResult = arResult.begin();
+    BOOST_CHECK_EQUAL(arResult.GetCount(), EXPECTED_COUNT);
 
-    for(; iResult != arResult.end(); ++iResult)
+    for(pointer_uint_q uIndexResult = 0; uIndexResult < EXPECTED_COUNT; ++uIndexResult)
     {
-        BOOST_CHECK_NE(*iResult, NOT_INCLUDED_VALUE);
+        BOOST_CHECK_NE(arResult[uIndexResult], NOT_INCLUDED_VALUE);
     }
 }
 
@@ -433,7 +379,7 @@ QTEST_CASE ( CastToEnumType_EnumerationIsProperlyConverted_Test )
     EQEnumerationMock::EnumType eConvertedValue = ORIGINAL_VALUE;
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eConvertedValue, EXPECTED_VALUE);
+    BOOST_CHECK(eConvertedValue == EXPECTED_VALUE);
 }
 
 /// <summary>
@@ -462,39 +408,7 @@ QTEST_CASE ( CastToString_EnumerationIsProperlyConverted_Test )
     const string_q EXPECTED_VALUE = QE_L("Value2");
 
 	// [Execution]
-    string_q strConvertedValue = ORIGINAL_VALUE;
-
-    // [Verification]
-    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that an empty string is returned when the enumeration value is _NotEnumValue.
-/// </summary>
-QTEST_CASE ( CastToString_ReturnsEmptyStringWhenEnumerationIsNotEnumValue_Test )
-{
-    // [Preparation]
-    const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::_NotEnumValue;
-    const string_q EXPECTED_VALUE = QE_L("");
-
-	// [Execution]
-    string_q strConvertedValue = ORIGINAL_VALUE.ToString();
-
-    // [Verification]
-    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that an empty string is returned when the enumeration value is not valid.
-/// </summary>
-QTEST_CASE ( CastToString_ReturnsEmptyStringWhenEnumerationIsNotValid_Test )
-{
-    // [Preparation]
-    const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::_NotEnumValue - 1;
-    const string_q EXPECTED_VALUE = QE_L("");
-
-	// [Execution]
-    string_q strConvertedValue = ORIGINAL_VALUE.ToString();
+    string_q strConvertedValue(ORIGINAL_VALUE);
 
     // [Verification]
     BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
@@ -508,38 +422,6 @@ QTEST_CASE ( ToString_EnumerationIsProperlyConverted_Test )
     // [Preparation]
     const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::E_Value2;
     const string_q EXPECTED_VALUE = QE_L("Value2");
-
-	// [Execution]
-    string_q strConvertedValue = ORIGINAL_VALUE.ToString();
-
-    // [Verification]
-    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that an empty string is returned when the enumeration value is _NotEnumValue.
-/// </summary>
-QTEST_CASE ( ToString_ReturnsEmptyStringWhenEnumerationIsNotEnumValue_Test )
-{
-    // [Preparation]
-    const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::_NotEnumValue;
-    const string_q EXPECTED_VALUE = QE_L("");
-
-	// [Execution]
-    string_q strConvertedValue = ORIGINAL_VALUE.ToString();
-
-    // [Verification]
-    BOOST_CHECK(strConvertedValue == EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that an empty string is returned when the enumeration value is not valid.
-/// </summary>
-QTEST_CASE ( ToString_ReturnsEmptyStringWhenEnumerationIsNotValid_Test )
-{
-    // [Preparation]
-    const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::_NotEnumValue - 1;
-    const string_q EXPECTED_VALUE = QE_L("");
 
 	// [Execution]
     string_q strConvertedValue = ORIGINAL_VALUE.ToString();

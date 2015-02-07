@@ -33,6 +33,11 @@
 #include "EQThreadPriority.h"
 #include <boost/thread.hpp>
 
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( push )
+    #pragma warning( disable: 4251 ) // This warning occurs when using a template specialization as attribute
+#endif
+
 
 namespace Kinesis
 {
@@ -409,7 +414,7 @@ public:
     /// <returns>
     /// A string that contains the representation of the thread with the format: "Thread(#)", where # means the thread's id.
     /// </returns>
-    string_q ToString() const;
+    Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString() const;
 
     /// <summary>
     /// Breaks the association between the thread and the object.

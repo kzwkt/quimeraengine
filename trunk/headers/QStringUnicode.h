@@ -38,7 +38,9 @@
 
 #include "QCharUnicode.h"
 #include "QArrayResult.h"
-
+#include "EQTextEncoding.h"
+#include "EQNormalizationForm.h"
+#include "EQComparisonType.h"
 
 namespace Kinesis
 {
@@ -48,13 +50,6 @@ namespace Common
 {
 namespace DataTypes
 {
-
-// Forward declarations
-// -------------------------
-class EQTextEncoding;
-class EQNormalizationForm;
-class EQComparisonType;
-
 
 /// <summary>
 /// Represents text formed by a sequence of Unicode characters.

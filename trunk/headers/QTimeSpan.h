@@ -27,7 +27,7 @@
 #ifndef __QTIMESPAN__
 #define __QTIMESPAN__
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "ToolsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;

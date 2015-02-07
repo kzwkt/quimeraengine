@@ -28,6 +28,7 @@
 #define __QMATRIX2X2__
 
 #include "QBaseMatrix2x2.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;

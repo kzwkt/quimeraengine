@@ -37,7 +37,7 @@ namespace IO
 {
 namespace FileSystem
 {
-
+    
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
@@ -47,22 +47,38 @@ namespace FileSystem
 //##################                                                       ##################
 //##################=======================================================##################
 
-EQFileSystemError::TNameValuePair EQFileSystemError::sm_arValueName[] =
-    {
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("Success"),          EQFileSystemError::E_Success),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("Unknown"),          EQFileSystemError::E_Unknown),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("DoesNotExist"),     EQFileSystemError::E_DoesNotExist),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("FileIsTooLarge"),   EQFileSystemError::E_FileIsTooLarge),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NameIsTooLong"),    EQFileSystemError::E_NameIsTooLong),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NoSpaceInDevice"),  EQFileSystemError::E_NoSpaceInDevice),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("NoPermissions"),    EQFileSystemError::E_NoPermissions),
-        std::pair<string_q, EQFileSystemError::EnumType>(QE_L("AlreadyExists"),    EQFileSystemError::E_AlreadyExists),
-    };
+const char* EQFileSystemError::sm_arStrings[] = { "Success", 
+                                                  "Unknown", 
+                                                  "DoesNotExist", 
+                                                  "FileIsTooLarge", 
+                                                  "NameIsTooLong", 
+                                                  "NoSpaceInDevice", 
+                                                  "NoPermissions", 
+                                                  "AlreadyExists"};
 
-EQFileSystemError::TNameValueMap EQFileSystemError::sm_mapValueName(
-        EQFileSystemError::sm_arValueName ,
-        &EQFileSystemError::sm_arValueName[0] + sizeof(EQFileSystemError::sm_arValueName) / sizeof(EQFileSystemError::sm_arValueName[0])
-    );
+const EQFileSystemError::EnumType EQFileSystemError::sm_arValues[] = { EQFileSystemError::E_Success,
+                                                                       EQFileSystemError::E_Unknown,
+                                                                       EQFileSystemError::E_DoesNotExist,
+                                                                       EQFileSystemError::E_FileIsTooLarge,
+                                                                       EQFileSystemError::E_NameIsTooLong,
+                                                                       EQFileSystemError::E_NoSpaceInDevice,
+                                                                       EQFileSystemError::E_NoPermissions,
+                                                                       EQFileSystemError::E_AlreadyExists};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQFileSystemError::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQFileSystemError::EnumType);
+}
 
 
 } //namespace FileSystem

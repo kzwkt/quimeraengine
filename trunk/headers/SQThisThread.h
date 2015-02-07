@@ -89,7 +89,7 @@ public:
     /// <returns>
     /// A string that contains the representation of the thread with the format: "Thread(#)", where # means the thread's id.
     /// </returns>
-    static string_q ToString();
+    static Kinesis::QuimeraEngine::Common::DataTypes::string_q ToString();
 
 private:
 

@@ -814,7 +814,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointsAreReturnedWhenRayD
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -851,7 +851,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoIntersectionPointsWhenRayInte
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -889,7 +889,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginLiesOnTheSurfa
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -927,7 +927,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -965,7 +965,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedInT
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -1003,7 +1003,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenRayIsTangentToTheOrb
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -1040,7 +1040,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -1212,8 +1212,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultContained == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultNotContained == EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
     BOOST_CHECK(vPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
@@ -1337,7 +1337,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenRayD
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -1377,7 +1377,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionPointsWhenRayInte
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1418,7 +1418,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginLiesOnTheSurfa
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1460,7 +1460,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1501,7 +1501,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedInT
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1542,7 +1542,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenRayIsTangentToTheOrb
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1581,7 +1581,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
 }
@@ -1760,8 +1760,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
     EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
-    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(eResultContained == EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK(eResultNotContained == EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vFirstPointContained == EXPECTED_FIRSTPOINT_CONTAINED);
     BOOST_CHECK(vFirstPointNotContained == EXPECTED_SECONDPOINT_CONTAINED);
     BOOST_CHECK(vSecondPointContained == EXPECTED_POINT_NOT_CONTAINED);

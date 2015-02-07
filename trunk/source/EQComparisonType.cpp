@@ -36,20 +36,40 @@ namespace Common
 namespace DataTypes
 {
 
-EQComparisonType::TNameValuePair EQComparisonType::sm_arValueName[] =
-    {
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("BinaryCaseSensitive"),    EQComparisonType::E_BinaryCaseSensitive),
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("BinaryCaseInsensitive"),    EQComparisonType::E_BinaryCaseInsensitive),
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseSensitive"),    EQComparisonType::E_CanonicalCaseSensitive),
-        std::pair<string_q, EQComparisonType::EnumType>(QE_L("CanonicalCaseInsensitive"),    EQComparisonType::E_CanonicalCaseInsensitive),
-        //std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseSensitive"),    EQComparisonType::E_CompatibilityCaseSensitive),
-        //std::pair<string_q, EQComparisonType::EnumType>(QE_L("CompatibilityCaseInsensitive"),    EQComparisonType::E_CompatibilityCaseInsensitive),
-    };
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |  ATTRIBUTES INITIALIZATION |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
 
-EQComparisonType::TNameValueMap EQComparisonType::sm_mapValueName(
-        EQComparisonType::sm_arValueName ,
-        &EQComparisonType::sm_arValueName[0] + sizeof(EQComparisonType::sm_arValueName) / sizeof(EQComparisonType::sm_arValueName[0])
-    );
+const char* EQComparisonType::sm_arStrings[] = { "BinaryCaseSensitive", 
+                                                 "BinaryCaseInsensitive", 
+                                                 "CanonicalCaseSensitive", 
+                                                 "CanonicalCaseInsensitive"};
+
+const EQComparisonType::EnumType EQComparisonType::sm_arValues[] = { EQComparisonType::E_BinaryCaseSensitive,
+                                                                     EQComparisonType::E_BinaryCaseInsensitive,
+                                                                     EQComparisonType::E_CanonicalCaseSensitive,
+                                                                     EQComparisonType::E_CanonicalCaseInsensitive};
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |           METHODS          |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+unsigned int EQComparisonType::_GetNumberOfValues()
+{
+    return sizeof(sm_arValues) / sizeof(EQComparisonType::EnumType);
+}
+
 
 } //namespace DataTypes
 } //namespace Common

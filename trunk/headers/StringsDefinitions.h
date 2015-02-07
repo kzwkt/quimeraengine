@@ -24,60 +24,63 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __SQSTRINGHASHPROVIDER__
-#define __SQSTRINGHASHPROVIDER__
+#ifndef __STRINGSDEFINITIONS__
+#define __STRINGSDEFINITIONS__
 
-#include "ToolsDefinitions.h"
+#include "DataTypesDefinitions.h"
 
-#include "StringsDefinitions.h"
-
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
+    #include <string>
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    #include "QCharUnicode.h"
+    #include "QStringUnicode.h"
+#endif
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
-namespace Containers
-{
-
-/// <summary>
-/// Represents a hash provider that generates hash keys from strings.
-/// </summary>
-class QE_LAYER_TOOLS_SYMBOLS SQStringHashProvider
+namespace DataTypes
 {
 
-    // CONSTRUCTORS
-    // ---------------
-private:
+// --------------------------------------------------------------------------------------------------------
+// Char type: Defines the char width used throughout the engine, depending on the selected character set.
+// --------------------------------------------------------------------------------------------------------
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
+    typedef char char_q;
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    typedef QCharUnicode char_q;
+#else
+    typedef char char_q;
+#endif
 
-    // Hidden
-    SQStringHashProvider();
+
+// --------------------------------------------------------------------------------------------------------
+// String type: Defines the string class used throughout the engine, depending on the selected character set.
+// --------------------------------------------------------------------------------------------------------
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
+    typedef std::string string_q;
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    typedef QStringUnicode string_q;
+#endif
 
 
-    // METHODS
-    // ---------------
-public:
+// --------------------------------------------------------------------------------------------------------
+// Literals prefix: Specifies if character string literals must be prefixed with the wide-char token, depending
+// on the selected character set.
+// --------------------------------------------------------------------------------------------------------
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
+    #define QE_L(str) str
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    #define QE_L(str) str
+#endif
 
-    /// <summary>
-    /// Generates a hash key from a string.
-    /// </summary>
-    /// <remarks>
-    /// It implements the Jenkins' one-at-a-time hash function, followed by the calculation of the remainder of dividing the result by the number of buckets.
-    /// </remarks>
-    /// <param name="strInput">[IN] A string value. It can be empty.</param>
-    /// <param name="uBucketsInTable">[IN] The number of buckets in the table for which the hash key is to be calculated.</param>
-    /// <returns>
-    /// A hash key.
-    /// </returns>
-    static Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q GenerateHashKey(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strInput, 
-                                                                                     const Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q uBucketsInTable);
 
-};
-
-} //namespace Containers
+} //namespace DataTypes
 } //namespace Tools
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __SQSTRINGHASHPROVIDER__
+#endif // __STRINGSDEFINITIONS__

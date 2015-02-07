@@ -29,7 +29,7 @@
 
 #include "SystemDefinitions.h"
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 

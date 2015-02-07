@@ -2317,7 +2317,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2348,7 +2348,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2380,7 +2380,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheTriangleIntersectsWith
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2414,7 +2414,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsContainedWhenTheTriangleBelongsToPlane
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2445,7 +2445,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2476,7 +2476,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(eResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -2507,7 +2507,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     EQSpaceRelation eResultNormalized = TRIANGLE.SpaceRelation(NORMALIZED_PLANE);
 
     // [Verification]
-    BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
+    BOOST_CHECK(eResultNonNotmalized == eResultNormalized);
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -2842,7 +2842,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInNegativeSide_T
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(projectedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(projectedTriangle.C == EXPECTED_TRIANGLE.C);
@@ -2875,7 +2875,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInPositiveSide_T
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(projectedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(projectedTriangle.C == EXPECTED_TRIANGLE.C);
@@ -2912,7 +2912,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIntersectsWithPlan
     // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
-    //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
+    //BOOST_CHECK(eResult == EQSpaceRelation::E_Contained);
     BOOST_CHECK(projectedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(projectedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(projectedTriangle.C == EXPECTED_TRIANGLE.C);

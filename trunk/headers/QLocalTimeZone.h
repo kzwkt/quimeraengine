@@ -35,7 +35,7 @@
 #endif
 
 #include <map>
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 
 // Forward declarations
 // ---------------------
