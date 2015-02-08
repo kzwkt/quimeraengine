@@ -53,7 +53,7 @@ class QE_LAYER_SYSTEM_SYMBOLS SQFile
 {
     // CONSTRUCTORS
     // ---------------
-public:
+private:
 
     // Hidden
     SQFile();

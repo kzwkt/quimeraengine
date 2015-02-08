@@ -2868,24 +2868,6 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsCorrectlyCalculatedWhenTheT
     //       x P
     //      /|\
     //
-
-    // [Preparation]
-#if defined(QE_COMPILER_GCC) && defined(QE_OS_MAC)
-    // This set of expected results was necessary due to a different precision
-    const float_q POINT_COMPONENTS1[] = {1.99999785,  -SQFloat::_4, SQFloat::_3, SQFloat::_0};
-    const float_q POINT_COMPONENTS2[] = {1.99999785,  -SQFloat::_4, SQFloat::_3, SQFloat::_0};
-    const float_q POINT_COMPONENTS3[] = {1.99999785,  -3.99999881,  SQFloat::_3, SQFloat::_0};
-    const float_q POINT_COMPONENTS4[] = {1.99999678,  -3.99999785,  2.99999833, SQFloat::_0};
-    const float_q POINT_COMPONENTS5[] = {SQFloat::_2, -3.99999881,  SQFloat::_3, SQFloat::_0};
-    const float_q POINT_COMPONENTS6[] = {SQFloat::_2, -SQFloat::_4, SQFloat::_3, SQFloat::_0};
-    const T EXPECTED_POINT1 = T(POINT_COMPONENTS1);
-    const T EXPECTED_POINT2 = T(POINT_COMPONENTS2);
-    const T EXPECTED_POINT3 = T(POINT_COMPONENTS3);
-    const T EXPECTED_POINT4 = T(POINT_COMPONENTS4);
-    const T EXPECTED_POINT5 = T(POINT_COMPONENTS5);
-    const T EXPECTED_POINT6 = T(POINT_COMPONENTS6);
-#endif
-
     const float_q POINT_COMPONENTS[] = {SQFloat::_2, -SQFloat::_4, SQFloat::_3, SQFloat::_0};
     const T EXPECTED_POINT = T(POINT_COMPONENTS);
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
@@ -2907,21 +2889,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsCorrectlyCalculatedWhenTheT
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
     // [Verification]
-#if defined(QE_COMPILER_GCC) && defined(QE_OS_MAC)
-    BOOST_CHECK( vIntersection1 == EXPECTED_POINT1 );
-    BOOST_CHECK( vIntersection2 == EXPECTED_POINT2 );
-    BOOST_CHECK( vIntersection3 == EXPECTED_POINT3 );
-    BOOST_CHECK( vIntersection4 == EXPECTED_POINT4 );
-    BOOST_CHECK( vIntersection5 == EXPECTED_POINT5 );
-    BOOST_CHECK( vIntersection6 == EXPECTED_POINT6 );
-#else
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection4 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection5 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection6 == EXPECTED_POINT );
-#endif
 }
 
 /// <summary>
@@ -3071,19 +3044,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsTheSameWhenPlanesAreNotNorm
     PLANE1.IntersectionPoint(PLANE2, NOT_NORMALIZED_PLANE, vIntersectionNotNormalizedPlane);
 
     // [Verification]
-#if defined(QE_COMPILER_GCC) && defined(QE_OS_MAC)
-    // [TODO]: Take a look to this method in order to avoid precision loss
-    // This set of checks was necessary due to a different precision
-    float_q arExpectedValuesNormalized[] = {1.99999785, -SQFloat::_4, SQFloat::_3, SQFloat::_0};
-    T EXPECTED_NORMALIZED_PLANE_INTERSECTION(arExpectedValuesNormalized);
-    BOOST_CHECK( vIntersectionNormalizedPlane ==  EXPECTED_NORMALIZED_PLANE_INTERSECTION );
-    
-    float_q arExpectedValuesNonNormalized[] = {SQFloat::_2, -4.00000143, SQFloat::_3, SQFloat::_0};
-    T EXPECTED_NONNORMALIZED_PLANE_INTERSECTION(arExpectedValuesNonNormalized);
-    BOOST_CHECK( vIntersectionNotNormalizedPlane ==  EXPECTED_NONNORMALIZED_PLANE_INTERSECTION );
-#else
     BOOST_CHECK( vIntersectionNormalizedPlane == vIntersectionNotNormalizedPlane );
-#endif
 }
 
 /// <summary>
