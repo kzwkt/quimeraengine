@@ -30,13 +30,13 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QBasicArray.h"
+#include "QArrayBasic.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+using Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 
 
-QTEST_SUITE_BEGIN( QBasicArray_TestSuite )
+QTEST_SUITE_BEGIN( QArrayBasic_TestSuite )
 
 /// <summary>
 /// Checks that input values are correctly stored.
@@ -48,7 +48,7 @@ QTEST_CASE ( Constructor1_CommonValuesAreCorrectlyStored_Test )
     const int* ARRAY = new int[COUNT];
 
     // [Execution]
-    QBasicArray<const int> array(ARRAY, COUNT);
+    QArrayBasic<const int> array(ARRAY, COUNT);
 
     // [Verification]
     BOOST_CHECK_EQUAL(array.Get(), ARRAY);
@@ -65,7 +65,7 @@ QTEST_CASE ( Constructor1_InputValuesAreCorrectlyStoredWhenTheyAreNullAndZero_Te
     const int* ARRAY = null_q;
 
     // [Execution]
-    QBasicArray<const int> array(ARRAY, COUNT);
+    QArrayBasic<const int> array(ARRAY, COUNT);
 
     // [Verification]
     BOOST_CHECK_EQUAL(array.Get(), ARRAY);
@@ -104,7 +104,7 @@ QTEST_CASE ( GetSize_ReturnsCorrectNumberOfBytes_Test )
     // [Preparation]
     const pointer_uint_q COUNT = 4U;
     const int* ARRAY = new int[COUNT];
-    const QBasicArray<const int> INSTANCE(ARRAY, COUNT);
+    const QArrayBasic<const int> INSTANCE(ARRAY, COUNT);
     const pointer_uint_q EXPECTED_SIZE = 16U;
 
     // [Execution]
@@ -122,7 +122,7 @@ QTEST_CASE ( GetSize_ReturnsZeroWhenWrapperContainsZeroArrayElements_Test )
     // [Preparation]
     const pointer_uint_q COUNT = 0;
     const int* ARRAY = null_q;
-    const QBasicArray<const int> INSTANCE(ARRAY, COUNT);
+    const QArrayBasic<const int> INSTANCE(ARRAY, COUNT);
     const pointer_uint_q EXPECTED_SIZE = 0;
 
     // [Execution]
@@ -132,5 +132,5 @@ QTEST_CASE ( GetSize_ReturnsZeroWhenWrapperContainsZeroArrayElements_Test )
     BOOST_CHECK_EQUAL(uSize, EXPECTED_SIZE);
 }
 
-// End - Test Suite: QBasicArray
+// End - Test Suite: QArrayBasic
 QTEST_SUITE_END()

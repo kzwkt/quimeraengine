@@ -53,7 +53,7 @@ class QUriWhiteBox : public QUri
 public:
 
     // Protected method exposed for testing purposes
-    static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
+    static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> &arPathSegments)
     {
         QUri::RemoveDotSegments(arPathSegments);
     }

@@ -86,9 +86,9 @@
       <File Name="../../../../tests/unit/testmodule_common/UnicodeCollationTestData.h"/>
       <File Name="../../../../tests/unit/testmodule_common/UnicodeNormalizationTestData.h"/>
       <File Name="../../../../tests/unit/testmodule_common/QCharIterator_Test.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_common/QBasicArray_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/SQAnyTypeToStringConverter_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_common/QArrayResult_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_common/QArrayBasic_Test.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Memory">
       <File Name="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp"/>

@@ -30,22 +30,22 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QFixedArray.h"
-#include "QFixedArrayWhiteBox.h"
-#include "QFixedArrayTestClass.h"
+#include "QArrayFixed.h"
+#include "QArrayFixedWhiteBox.h"
+#include "QArrayFixedTestClass.h"
 #include "ArrayElementMock.h"
 #include "CallCounter.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
-using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
-using Kinesis::QuimeraEngine::Tools::Containers::Test::QFixedArrayWhiteBox;
+using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
+using Kinesis::QuimeraEngine::Tools::Containers::Test::QArrayFixedWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::ArrayElementMock;
-using Kinesis::QuimeraEngine::Tools::Containers::Test::QFixedArrayTestClass;
+using Kinesis::QuimeraEngine::Tools::Containers::Test::QArrayFixedTestClass;
 
 i16_q ArrayElementMock::m_nNumberOfAllocatedObjects = 0;
 
-QTEST_SUITE_BEGIN( QFixedArray_TestSuite )
+QTEST_SUITE_BEGIN( QArrayFixed_TestSuite )
 
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -66,7 +66,7 @@ QTEST_CASE ( Constructor1_AssertionFailsWhenCreatingArrayWithZeroElements_Test )
 
     try
     {
-        QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ZERO_ARRAY_COUNT, INITIAL_VALUE);
+        QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ZERO_ARRAY_COUNT, INITIAL_VALUE);
     }
     catch(const QAssertException&)
     {
@@ -90,7 +90,7 @@ QTEST_CASE ( Constructor1_ChecksifIsCorrectlyInitializedWithInitialValue_Test )
     const bool VALUES_ARE_AS_EXPECTED = true;
 
     // [Execution]
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Verification]
     u64_q uValue;
@@ -117,7 +117,7 @@ QTEST_CASE ( Constructor1_AllocatorHasExpectedSize_Test )
     const pointer_uint_q ALLOCATOR_EXPECTED_SIZE = ARRAY_COUNT * SIZEOF_VALUE_TYPE;
 
     // [Execution]
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Verification]
     pointer_uint_q uAllocatorSize = fixedArray.GetAllocator()->GetPoolSize();
@@ -136,7 +136,7 @@ QTEST_CASE ( Constructor1_CopyConstructorOfArrayElementsAreCalled_Test )
     const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
 
     // [Execution]
-    QFixedArray<ArrayElementMock> fixedArray = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArray = QArrayFixed<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Verification]
     pointer_uint_q uCallsToCopyConstructor = 0;
@@ -164,7 +164,7 @@ QTEST_CASE ( Constructor2_ItIsCorrectlyConstructedFromCommonArray_Test )
     const char SOURCE_ARRAY[ARRAY_SIZE] = {0, 1, 2};
 
     // [Execution]
-    QFixedArray<char> arArray(SOURCE_ARRAY, ARRAY_SIZE);
+    QArrayFixed<char> arArray(SOURCE_ARRAY, ARRAY_SIZE);
 
     // [Verification]
     unsigned int uArraySize = arArray.GetCount();
@@ -191,7 +191,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenArrayIsNull_Test )
     // [Execution]
     try
     {
-        QFixedArray<int> arArray = QFixedArray<int>(NULL_ARRAY, NON_ZERO_SIZE);
+        QArrayFixed<int> arArray = QArrayFixed<int>(NULL_ARRAY, NON_ZERO_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -217,7 +217,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenCountIsZero_Test )
     // [Execution]
     try
     {
-        QFixedArray<int> arArray = QFixedArray<int>(SOURCE_ARRAY, ZERO_SIZE);
+        QArrayFixed<int> arArray = QArrayFixed<int>(SOURCE_ARRAY, ZERO_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -240,11 +240,11 @@ QTEST_CASE ( Constructor3_CopyConstructorOfArrayElementsAreCalled_Test )
     // [Preparation]
     const pointer_uint_q ARRAY_COUNT = 10;
     const pointer_uint_q EXPECTED_CALLS_TO_COPY_CONSTRUCTOR = ARRAY_COUNT;
-    QFixedArray<CallCounter> fixedArrayOrigin = QFixedArray<CallCounter>(ARRAY_COUNT, CallCounter());
+    QArrayFixed<CallCounter> fixedArrayOrigin = QArrayFixed<CallCounter>(ARRAY_COUNT, CallCounter());
     CallCounter::ResetCounters();
 
     // [Execution]
-    QFixedArray<CallCounter> fixedArrayDestination = QFixedArray<CallCounter>(fixedArrayOrigin);
+    QArrayFixed<CallCounter> fixedArrayDestination = QArrayFixed<CallCounter>(fixedArrayOrigin);
 
     // [Verification]
     unsigned int uCallsToCopyConstructor = CallCounter::GetCopyConstructorCallsCount();
@@ -261,7 +261,7 @@ QTEST_CASE ( Constructor4_ConstructorWithoutParametersInitializesCorrectly_Test 
     const pointer_uint_q END_POSITION_BACKWARD = -1;
 
     // [Execution]
-    QFixedArrayWhiteBox<u64_q> fixedArray;
+    QArrayFixedWhiteBox<u64_q> fixedArray;
 
     // [Verification]
     pointer_uint_q uFirst = fixedArray.GetFirstPosition();
@@ -281,7 +281,7 @@ QTEST_CASE ( Destructor_TheDestructorOfEveryElementIsCalled_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 5;
     {
-        QFixedArray<CallCounter> fixedArray(EXPECTED_CALLS, CallCounter());
+        QArrayFixed<CallCounter> fixedArray(EXPECTED_CALLS, CallCounter());
         CallCounter::ResetCounters();
 
     // [Execution]
@@ -299,9 +299,9 @@ QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginArraySizeIsEqualToDes
 {
     // [Preparation]
     const u64_q ORIGIN_VALUES[] = {0, 1, 2, 3};
-    QFixedArray<u64_q> arOrigin = QFixedArray<u64_q>(ORIGIN_VALUES, 4U);
+    QArrayFixed<u64_q> arOrigin = QArrayFixed<u64_q>(ORIGIN_VALUES, 4U);
     const u64_q DESTINATION_VALUES[] = {4, 5, 6, 7};
-    QFixedArray<u64_q> arDestination = QFixedArray<u64_q>(DESTINATION_VALUES, 4U);
+    QArrayFixed<u64_q> arDestination = QArrayFixed<u64_q>(DESTINATION_VALUES, 4U);
 
     // [Execution]
     arDestination = arOrigin;
@@ -317,11 +317,11 @@ QTEST_CASE ( OperatorAssignment_CorrectlyAssignedWhenOriginArraySizeIsLowerThanD
 {
     // [Preparation]
     const u64_q ORIGIN_VALUES[] = {0, 1, 2};
-    QFixedArray<u64_q> arOrigin = QFixedArray<u64_q>(ORIGIN_VALUES, 3U);
+    QArrayFixed<u64_q> arOrigin = QArrayFixed<u64_q>(ORIGIN_VALUES, 3U);
     const u64_q DESTINATION_VALUES[] = {4, 5, 6, 7};
-    QFixedArray<u64_q> arDestination = QFixedArray<u64_q>(DESTINATION_VALUES, 4U);
+    QArrayFixed<u64_q> arDestination = QArrayFixed<u64_q>(DESTINATION_VALUES, 4U);
     const u64_q EXPECTED_VALUES[] = {0, 1, 2, 7};
-    QFixedArray<u64_q> arExpectedValues = QFixedArray<u64_q>(EXPECTED_VALUES, 4U);
+    QArrayFixed<u64_q> arExpectedValues = QArrayFixed<u64_q>(EXPECTED_VALUES, 4U);
 
     // [Execution]
     arDestination = arOrigin;
@@ -340,8 +340,8 @@ QTEST_CASE ( OperatorAssignment_OperatorAssignmentOfArrayElementsIsCalled_Test )
     const pointer_uint_q ARRAY_COUNT = 10;
     const pointer_uint_q EXPECTED_CALLS_TO_OPERATOR_ASSIGNMENT = ARRAY_COUNT;
 
-    QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
-    QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayOrigin = QArrayFixed<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayDestination = QArrayFixed<ArrayElementMock>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     fixedArrayDestination = fixedArrayOrigin;
@@ -373,8 +373,8 @@ QTEST_CASE ( OperatorAssignment_OriginSizeNumberOfCopiesAreDoneWhereIsLessThanDe
     const pointer_uint_q ARRAY_COUNT_ORIGIN = 5;
     const pointer_uint_q ARRAY_COUNT_DESTINATION = 10;
 
-    QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
-    QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayOrigin = QArrayFixed<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayDestination = QArrayFixed<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
 
     const pointer_uint_q EXPECTED_CALLS_TO_OPERATOR_ASSIGNMENT = ARRAY_COUNT_ORIGIN;
 
@@ -409,8 +409,8 @@ QTEST_CASE ( OperatorAssignment_DestinationSizeNumberOfCopiesAreDoneWhereOriginS
     const pointer_uint_q ARRAY_COUNT_ORIGIN = 10;
     const pointer_uint_q ARRAY_COUNT_DESTINATION = 5;
 
-    QFixedArray<ArrayElementMock> fixedArrayOrigin = QFixedArray<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
-    QFixedArray<ArrayElementMock> fixedArrayDestination = QFixedArray<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayOrigin = QArrayFixed<ArrayElementMock>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
+    QArrayFixed<ArrayElementMock> fixedArrayDestination = QArrayFixed<ArrayElementMock>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
 
     const pointer_uint_q EXPECTED_CALLS_TO_OPERATOR_ASSIGNMENT = ARRAY_COUNT_DESTINATION;
 
@@ -447,7 +447,7 @@ QTEST_CASE( OperatorArraySubscript_ValueIsSetAtCorrectPosition_Test )
     const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
     const bool OTHER_POSITIONS_UNTOUCHED = true;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     fixedArray[POSITION_TO_SET_NEW_VALUE] = NEW_VALUE;
@@ -482,7 +482,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToSetAValueToAPosi
     const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
     bool bAssertionFailed = false;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
 
@@ -514,7 +514,7 @@ QTEST_CASE( OperatorArraySubscript_GetsCorrectValueAtSuppliedPosition_Test )
     const u64_q NEW_VALUE = 10;
     const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
     fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
 
     // [Execution]
@@ -538,7 +538,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenAttemptsToGetTheValueFromA
     const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
     bool bAssertionFailed = false;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
 
@@ -569,7 +569,7 @@ QTEST_CASE( GetValue_GetsCorrectValueAtSuppliedPosition_Test )
     const u64_q NEW_VALUE = 10;
     const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
     fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
 
     // [Execution]
@@ -593,7 +593,7 @@ QTEST_CASE ( GetValue_AssertionFailsWhenAttemptsToGetTheValueFromAPositionNotLes
     const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
     bool bAssertionFailed = false;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
 
@@ -624,8 +624,8 @@ QTEST_CASE( Clone_ClonedArrayHasSameValuesThanTheOriginArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const bool SAME_VALUES = true;
 
-    QFixedArray<u64_q> fixedArrayOrigin = QFixedArray<u64_q>(ARRAY_COUNT, VALUE_ORIGIN);
-    QFixedArray<u64_q> fixedArrayDestination = QFixedArray<u64_q>(ARRAY_COUNT, VALUE_DESTINATION);
+    QArrayFixed<u64_q> fixedArrayOrigin = QArrayFixed<u64_q>(ARRAY_COUNT, VALUE_ORIGIN);
+    QArrayFixed<u64_q> fixedArrayDestination = QArrayFixed<u64_q>(ARRAY_COUNT, VALUE_DESTINATION);
 
     // [Execution]
     fixedArrayOrigin.Clone(fixedArrayDestination);
@@ -656,8 +656,8 @@ QTEST_CASE ( Clone_AssertionFailsWhenArrayCapacitiesAreDifferent_Test )
 
     bool bAssertionFailed = false;
 
-    QFixedArray<u64_q> fixedArrayOrigin = QFixedArray<u64_q>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
-    QFixedArray<u64_q> fixedArrayDestination = QFixedArray<u64_q>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArrayOrigin = QArrayFixed<u64_q>(ARRAY_COUNT_ORIGIN, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArrayDestination = QArrayFixed<u64_q>(ARRAY_COUNT_DESTINATION, INITIAL_VALUE);
 
     // [Execution]
 
@@ -689,7 +689,7 @@ QTEST_CASE( SetValue_ValueIsSetAtCorrectPosition_Test )
     const pointer_uint_q POSITION_TO_SET_NEW_VALUE = 2;
     const bool OTHER_POSITIONS_UNTOUCHED = true;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     fixedArray.SetValue(POSITION_TO_SET_NEW_VALUE, NEW_VALUE);
@@ -723,7 +723,7 @@ QTEST_CASE ( SetValue_AssertionFailsWhenAttemptsToSetAValueToAPositionNotLessTha
     const pointer_uint_q POSITION_GREATER_THAN_ARRAY_SIZE = ARRAY_COUNT;
     bool bAssertionFailed = false;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
 
@@ -753,11 +753,11 @@ QTEST_CASE( GetIterator_ReturnsIteratorToSpecificPositionInTheArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q INDEX = 2;
     const u32_q NEW_VALUE = 10;
-    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u32_q> arFixedArray = QArrayFixed<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
     arFixedArray.SetValue(INDEX, NEW_VALUE);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator it = arFixedArray.GetIterator(INDEX);
+    QArrayFixed<u32_q>::QConstArrayIterator it = arFixedArray.GetIterator(INDEX);
 
     // [Verification]
     BOOST_CHECK_EQUAL(*it, NEW_VALUE);
@@ -774,7 +774,7 @@ QTEST_CASE( GetIterator_AssertionFailsWhenParameterIsBiggerThanArraySize_Test )
     const u32_q INITIAL_VALUE = 12;
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q INDEX = 7;
-    QFixedArray<u32_q> arFixedArray(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u32_q> arFixedArray(ARRAY_COUNT, INITIAL_VALUE);
     bool bAssertionFailed = false;
     const bool ASSERTION_FAILED = true;
 
@@ -807,10 +807,10 @@ QTEST_CASE( GetIterator_ReturnsIteratorToForwardEndPositionInTheArrayWhenParamet
     const pointer_uint_q INDEX = 7;
     const bool EXPECTED_VALUE = true;
     bool bForwardEndPosition = false;
-    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u32_q> arFixedArray = QArrayFixed<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator it = arFixedArray.GetIterator(INDEX);
+    QArrayFixed<u32_q>::QConstArrayIterator it = arFixedArray.GetIterator(INDEX);
     bForwardEndPosition = it.IsEnd();
 
     // [Verification]
@@ -829,11 +829,11 @@ QTEST_CASE( GetFirst_ReturnsIteratorToFirstElementInTheArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q INITIAL_POS = 0;
     const u32_q NEW_VALUE = 10;
-    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u32_q> arFixedArray = QArrayFixed<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
     arFixedArray.SetValue(INITIAL_POS, NEW_VALUE);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator it = arFixedArray.GetFirst();
+    QArrayFixed<u32_q>::QConstArrayIterator it = arFixedArray.GetFirst();
 
     // [Verification]
     BOOST_CHECK_EQUAL(*it, NEW_VALUE);
@@ -847,10 +847,10 @@ QTEST_CASE( GetFirst_ReturnsIteratorToBackwardEndPositionInTheArrayWhenArrayIsEm
     // [Preparation]
     const bool EXPECTED_VALUE = true;
     bool bBackwardEndPosition = false;
-    QFixedArrayTestClass<u32_q> arFixedArray;
+    QArrayFixedTestClass<u32_q> arFixedArray;
 
     // [Execution]
-    QFixedArrayTestClass<u32_q>::QConstArrayIterator it = arFixedArray.GetFirst();
+    QArrayFixedTestClass<u32_q>::QConstArrayIterator it = arFixedArray.GetFirst();
     bBackwardEndPosition = it.IsEnd(); 
 
     // [Verification]
@@ -867,11 +867,11 @@ QTEST_CASE( GetLast_ReturnsIteratorToLastElementInTheArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q LAST_POS = 4;
     const u32_q NEW_VALUE = 10;
-    QFixedArray<u32_q> arFixedArray = QFixedArray<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u32_q> arFixedArray = QArrayFixed<u32_q>(ARRAY_COUNT, INITIAL_VALUE);
     arFixedArray.SetValue(LAST_POS, NEW_VALUE);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator it = arFixedArray.GetLast();
+    QArrayFixed<u32_q>::QConstArrayIterator it = arFixedArray.GetLast();
 
     // [Verification]
     BOOST_CHECK_EQUAL(*it, NEW_VALUE);
@@ -885,10 +885,10 @@ QTEST_CASE( GetLast_ReturnsIteratorToForwardEndPositionInTheArrayWhenArrayIsEmpt
     // [Preparation]
     const bool EXPECTED_VALUE = true;
     bool bForwardEndPosition = false;
-    QFixedArrayTestClass<u32_q> arFixedArray;
+    QArrayFixedTestClass<u32_q> arFixedArray;
 
     // [Execution]
-    QFixedArrayTestClass<u32_q>::QConstArrayIterator it = arFixedArray.GetLast();
+    QArrayFixedTestClass<u32_q>::QConstArrayIterator it = arFixedArray.GetLast();
     bForwardEndPosition = it.IsEnd(); 
 
     // [Verification]
@@ -902,13 +902,13 @@ QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeIsTheEntireArray_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q FIRST_POSITION = 0;
     const pointer_uint_q LAST_POSITION = sizeof(arValues) / sizeof(u32_q) - 1U;
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = true;
@@ -926,15 +926,15 @@ QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeIsOnlyOneElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     u32_q arExpectedValues[] = {3U};
-    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
     const pointer_uint_q FIRST_POSITION = 3U;
     const pointer_uint_q LAST_POSITION = FIRST_POSITION;
     const pointer_uint_q EXPECTED_COUNT = 1U;
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = arResult[0] == EXPECTED_RESULT[0];
@@ -951,14 +951,14 @@ QTEST_CASE( GetRange1_ReturnsExpectedArrayWhenRangeEnclosesCommonSubarray_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     u32_q arExpectedValues[] = {2U, 3U, 4U};
-    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
     const pointer_uint_q FIRST_POSITION = 2U;
     const pointer_uint_q LAST_POSITION = 4U;
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = true;
@@ -978,7 +978,7 @@ QTEST_CASE( GetRange1_AssertionFailsWhenPositionsAreOutOfBounds_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q FIRST_POSITION = sizeof(arValues) / sizeof(u32_q);
     const pointer_uint_q LAST_POSITION = FIRST_POSITION;
     const bool ASSERTION_FAILED = true;
@@ -1006,7 +1006,7 @@ QTEST_CASE( GetRange1_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_T
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q LAST_POSITION = 0;
     const pointer_uint_q FIRST_POSITION = LAST_POSITION + 1U;
     const bool ASSERTION_FAILED = true;
@@ -1036,13 +1036,13 @@ QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeIsTheEntireArray_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetFirst();
-    const QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetLast();
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = true;
@@ -1060,15 +1060,15 @@ QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeIsOnlyOneElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     u32_q arExpectedValues[] = {3U};
-    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(3U);
-    const QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = FIRST_POSITION;
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(3U);
+    const QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = FIRST_POSITION;
     const pointer_uint_q EXPECTED_COUNT = 1U;
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = arResult[0] == EXPECTED_RESULT[0];
@@ -1085,14 +1085,14 @@ QTEST_CASE( GetRange2_ReturnsExpectedArrayWhenRangeEnclosesCommonSubarray_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     u32_q arExpectedValues[] = {2U, 3U, 4U};
-    const QFixedArray<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(2U);
-    const QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetIterator(4U);
+    const QArrayFixed<u32_q> EXPECTED_RESULT(arExpectedValues, sizeof(arExpectedValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(2U);
+    const QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetIterator(4U);
 
     // [Execution]
-    QFixedArray<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
+    QArrayFixed<u32_q> arResult = arFixedArray.GetRange(FIRST_POSITION, LAST_POSITION);
 
     // [Verification]
     bool bArrayIsWhatExpected = true;
@@ -1112,10 +1112,10 @@ QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsEnd_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetLast();
     ++FIRST_POSITION;
-    const QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetIterator(0);
+    const QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetIterator(0);
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -1141,10 +1141,10 @@ QTEST_CASE( GetRange2_AssertionFailsWhenLastPositionIsEnd_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = arFixedArray.GetLast();
     ++LAST_POSITION;
-    const QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(0);
+    const QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetIterator(0);
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -1170,9 +1170,9 @@ QTEST_CASE( GetRange2_AssertionFailsWhenFirstPositionIsGreaterThanLastPosition_T
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetLast();
-    QFixedArray<u32_q>::QConstArrayIterator LAST_POSITION = FIRST_POSITION;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator FIRST_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q>::QConstArrayIterator LAST_POSITION = FIRST_POSITION;
     --LAST_POSITION;
     const bool ASSERTION_FAILED = true;
 
@@ -1201,7 +1201,7 @@ QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test 
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = 0;
     const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q) - 1U;
     const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
@@ -1222,7 +1222,7 @@ QTEST_CASE( Swap1_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = 2U;
     const pointer_uint_q POSITION_B = 4U;
     const u32_q EXPECTED_VALUE_A = arValues[POSITION_B];
@@ -1245,7 +1245,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenFirstPositionIsOutOfBounds_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = sizeof(arValues) / sizeof(u32_q);
     const pointer_uint_q POSITION_B = 4U;
     const bool ASSERTION_FAILED = true;
@@ -1273,7 +1273,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSecondPositionIsOutOfBounds_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = 4U;
     const pointer_uint_q POSITION_B = sizeof(arValues) / sizeof(u32_q);
     const bool ASSERTION_FAILED = true;
@@ -1301,7 +1301,7 @@ QTEST_CASE( Swap1_AssertionFailsWhenSwappingTheSameElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = 4U;
     const pointer_uint_q POSITION_B = POSITION_A;
     const bool ASSERTION_FAILED = true;
@@ -1331,7 +1331,7 @@ QTEST_CASE( Swap1_NothingHappensWhenSwappingTheSameElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q POSITION_A = 4U;
     const pointer_uint_q POSITION_B = POSITION_A;
     const u32_q EXPECTED_VALUE_A = arValues[POSITION_A];
@@ -1354,9 +1354,9 @@ QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenTheyAreTheFirstAndTheLast_Test 
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
-    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
     const u32_q EXPECTED_VALUE_A = *POSITION_B;
     const u32_q EXPECTED_VALUE_B = *POSITION_A;
 
@@ -1375,9 +1375,9 @@ QTEST_CASE( Swap2_ElementsAreCorrectlySwappedWhenSelectingAnyPosition_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetIterator(2U);
-    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetIterator(4U);
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetIterator(2U);
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetIterator(4U);
     const u32_q EXPECTED_VALUE_A = *POSITION_B;
     const u32_q EXPECTED_VALUE_B = *POSITION_A;
 
@@ -1398,10 +1398,10 @@ QTEST_CASE( Swap2_AssertionFailsWhenFirstPositionIsEndPosition_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetLast();
     ++POSITION_A;
-    const QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetFirst();
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -1427,9 +1427,9 @@ QTEST_CASE( Swap2_AssertionFailsWhenSecondPositionIsEndPosition_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
-    QFixedArray<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    QArrayFixed<u32_q>::QArrayIterator POSITION_B = arFixedArray.GetLast();
     ++POSITION_B;
     const bool ASSERTION_FAILED = true;
 
@@ -1456,9 +1456,9 @@ QTEST_CASE( Swap2_AssertionFailsWhenSwappingTheSameElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
-    const QFixedArray<u32_q>::QArrayIterator POSITION_B = POSITION_A;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_B = POSITION_A;
     const bool ASSERTION_FAILED = true;
 
     // [Execution]
@@ -1486,9 +1486,9 @@ QTEST_CASE( Swap2_NothingHappensWhenSwappingTheSameElement_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
-    const QFixedArray<u32_q>::QArrayIterator POSITION_B = POSITION_A;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_A = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QArrayIterator POSITION_B = POSITION_A;
     const u32_q EXPECTED_VALUE_A = *POSITION_A;
     const u32_q EXPECTED_VALUE_B = *POSITION_A;
 
@@ -1509,9 +1509,9 @@ QTEST_CASE( OperatorEquality_ReturnsTrueWhenArraysHaveSameNumberOfElementsAndEle
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1528,7 +1528,7 @@ QTEST_CASE( OperatorEquality_ReturnsTrueWhenArraysAreSameInstance_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1545,9 +1545,9 @@ QTEST_CASE( OperatorEquality_ReturnsFalseWhenArraysHaveSameNumberOfElementsButEl
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -1564,9 +1564,9 @@ QTEST_CASE( OperatorEquality_ReturnsFalseWhenArraysHaveDifferentNumberOfElements
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -1583,9 +1583,9 @@ QTEST_CASE( OperatorInequality_ReturnsFalseWhenArraysHaveSameNumberOfElementsAnd
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -1602,7 +1602,7 @@ QTEST_CASE( OperatorInequality_ReturnsFalseWhenArraysAreSameInstance_Test )
 {
     // [Preparation]
     u32_q arValues[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -1619,9 +1619,9 @@ QTEST_CASE( OperatorInequality_ReturnsTrueWhenArraysHaveSameNumberOfElementsButE
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {7U, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1638,9 +1638,9 @@ QTEST_CASE( OperatorInequality_ReturnsTrueWhenArraysHaveDifferentNumberOfElement
 {
     // [Preparation]
     u32_q arValues1[] = {0, 1U, 2U, 3U};
-    QFixedArray<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray1(arValues1, sizeof(arValues1) / sizeof(u32_q));
     u32_q arValues2[] = {0, 1U, 2U, 3U, 4U, 5U};
-    QFixedArray<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray2(arValues2, sizeof(arValues2) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1658,7 +1658,7 @@ QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheFirst_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1676,7 +1676,7 @@ QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsInTheMiddle_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1694,7 +1694,7 @@ QTEST_CASE( Contains_ReturnsTrueWhenElementAppearsTheLast_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = true;
 
     // [Execution]
@@ -1712,7 +1712,7 @@ QTEST_CASE( Contains_ReturnsFalseWhenElementIsNotFound_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -1730,7 +1730,7 @@ QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 0;
 
     // [Execution]
@@ -1748,7 +1748,7 @@ QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 1U;
 
     // [Execution]
@@ -1766,7 +1766,7 @@ QTEST_CASE( IndexOf1_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 2U;
 
     // [Execution]
@@ -1784,8 +1784,8 @@ QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenElementIsNotFound_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QArrayFixed<u32_q>::ELEMENT_NOT_FOUND;
 
     // [Execution]
     pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT);
@@ -1803,7 +1803,7 @@ QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheFirst_Test )
     const pointer_uint_q START_POSITION = 0;
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 0;
 
     // [Execution]
@@ -1822,7 +1822,7 @@ QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsInTheMiddle_Test )
     const pointer_uint_q START_POSITION = 2U;
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 2U;
 
     // [Execution]
@@ -1841,7 +1841,7 @@ QTEST_CASE( IndexOf2_ReturnsExpectedIndexWhenElementAppearsTheLast_Test )
     const pointer_uint_q START_POSITION = 3U;
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q EXPECTED_RESULT = 3U;
 
     // [Execution]
@@ -1860,8 +1860,8 @@ QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementIsNotFound_Test )
     const pointer_uint_q START_POSITION = 0;
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QArrayFixed<u32_q>::ELEMENT_NOT_FOUND;
 
     // [Execution]
     pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
@@ -1879,8 +1879,8 @@ QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenElementAppearsBeforeTheStartPosit
     const pointer_uint_q START_POSITION = 2U;
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const pointer_uint_q EXPECTED_RESULT = QArrayFixed<u32_q>::ELEMENT_NOT_FOUND;
 
     // [Execution]
     pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
@@ -1899,7 +1899,7 @@ QTEST_CASE( IndexOf2_AssertionFailsWhenStartIndexIsNotLowerThanCount_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q START_POSITION = arFixedArray.GetCount();
 
     // [Execution]
@@ -1928,9 +1928,9 @@ QTEST_CASE( IndexOf2_ReturnsElementNotFoundWhenStartPositionIsNotLowerThanCount_
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
     const pointer_uint_q START_POSITION = arFixedArray.GetCount();
-    const pointer_uint_q EXPECTED_RESULT = QFixedArray<u32_q>::ELEMENT_NOT_FOUND;
+    const pointer_uint_q EXPECTED_RESULT = QArrayFixed<u32_q>::ELEMENT_NOT_FOUND;
 
     // [Execution]
     pointer_uint_q uResult = arFixedArray.IndexOf(INPUT_ELEMENT, START_POSITION);
@@ -1949,11 +1949,11 @@ QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -1967,11 +1967,11 @@ QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Tes
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, INPUT_ELEMENT, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(1U);
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(1U);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -1985,11 +1985,11 @@ QTEST_CASE( PositionOf1_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, INPUT_ELEMENT};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2003,12 +2003,12 @@ QTEST_CASE( PositionOf1_ReturnsEndPositionWhenElementIsNotFound_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
     ++EXPECTED_RESULT;
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2022,12 +2022,12 @@ QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheFirst_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetFirst();
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetFirst();
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetFirst();
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2041,12 +2041,12 @@ QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsInTheMiddle_Tes
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, INPUT_ELEMENT, 3U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(2U);
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetIterator(2U);
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2060,12 +2060,12 @@ QTEST_CASE( PositionOf2_ReturnsExpectedPositionWhenElementAppearsTheLast_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, INPUT_ELEMENT};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(3U);
-    const QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(3U);
+    const QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2079,13 +2079,13 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementIsNotFound_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetFirst();
-    QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetFirst();
+    QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
     ++EXPECTED_RESULT;
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2099,13 +2099,13 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenElementAppearsBeforeTheStartPositi
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    const QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
-    QFixedArray<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    const QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetIterator(2U);
+    QArrayFixed<u32_q>::QConstArrayIterator EXPECTED_RESULT = arFixedArray.GetLast();
     ++EXPECTED_RESULT;
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult == EXPECTED_RESULT);
@@ -2121,8 +2121,8 @@ QTEST_CASE( PositionOf2_AssertionFailsWhenStartPositionIsEnd_Test )
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
     ++START_POSITION;
 
     // [Execution]
@@ -2153,12 +2153,12 @@ QTEST_CASE( PositionOf2_ReturnsEndPositionWhenStartPositionPointsToEndPosition_T
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
     u32_q arValues[] = {INPUT_ELEMENT, 1U, 3U, 4U};
-    QFixedArray<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
-    QFixedArray<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
+    QArrayFixed<u32_q> arFixedArray(arValues, sizeof(arValues) / sizeof(u32_q));
+    QArrayFixed<u32_q>::QConstArrayIterator START_POSITION = arFixedArray.GetLast();
     ++START_POSITION;
 
     // [Execution]
-    QFixedArray<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
+    QArrayFixed<u32_q>::QConstArrayIterator itResult = arFixedArray.PositionOf(INPUT_ELEMENT, START_POSITION);
 
     // [Verification]
     BOOST_CHECK(itResult.IsEnd(EQIterationDirection::E_Forward));
@@ -2176,7 +2176,7 @@ QTEST_CASE ( GetAllocator_ReturnsValidAllocator_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
 
     // [Execution]
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     u64_q uFirstValue = *((u64_q*)fixedArray.GetAllocator()->GetPointer());
 
@@ -2194,7 +2194,7 @@ QTEST_CASE( GetCount_ReturnsNumberOfElementsInTheArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q EXPECTED_NUMBER_OF_ELEMENTS = ARRAY_COUNT;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     pointer_uint_q uNumberOfElements = fixedArray.GetCount();
@@ -2213,7 +2213,7 @@ QTEST_CASE( GetCapacity_ReturnsTheCapacityOfTheArray_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const pointer_uint_q EXPECTED_CAPACITY = ARRAY_COUNT;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     pointer_uint_q uCapacity = fixedArray.GetCapacity();
@@ -2232,7 +2232,7 @@ QTEST_CASE( IsEmpty_ReturnsFalseWhenTheArrayIsNotEmpty_Test )
     const pointer_uint_q ARRAY_COUNT = 5;
     const bool ARRAY_NOT_EMPTY = false;
 
-    QFixedArray<u64_q> fixedArray = QFixedArray<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
+    QArrayFixed<u64_q> fixedArray = QArrayFixed<u64_q>(ARRAY_COUNT, INITIAL_VALUE);
 
     // [Execution]
     bool bIsEmpty = fixedArray.IsEmpty();
@@ -2241,6 +2241,6 @@ QTEST_CASE( IsEmpty_ReturnsFalseWhenTheArrayIsNotEmpty_Test )
     BOOST_CHECK_EQUAL( bIsEmpty, ARRAY_NOT_EMPTY );
 }
 
-// End - Test Suite: QFixedArray
+// End - Test Suite: QArrayFixed
 QTEST_SUITE_END()
 

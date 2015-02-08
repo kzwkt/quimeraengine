@@ -186,12 +186,10 @@
   <VirtualDirectory Name="Containers">
     <File Name="../../../../headers/EQIterationDirection.h"/>
     <File Name="../../../../headers/EQTreeTraversalOrder.h"/>
-    <File Name="../../../../headers/QFixedArray.h"/>
     <File Name="../../../../headers/QList.h"/>
     <File Name="../../../../source/EQIterationDirection.cpp"/>
     <File Name="../../../../source/EQTreeTraversalOrder.cpp"/>
     <File Name="../../../../headers/QNTree.h"/>
-    <File Name="../../../../headers/QDynamicArray.h"/>
     <File Name="../../../../headers/QBinarySearchTree.h"/>
     <File Name="../../../../headers/SQComparatorDefault.h"/>
     <File Name="../../../../headers/QKeyValuePair.h"/>
@@ -203,6 +201,8 @@
     <File Name="../../../../headers/SQIntegerHashProvider.h"/>
     <File Name="../../../../headers/SQStringHashProvider.h"/>
     <File Name="../../../../source/SQStringHashProvider.cpp"/>
+    <File Name="../../../../headers/QArrayDynamic.h"/>
+    <File Name="../../../../headers/QArrayFixed.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="Time">
     <File Name="../../../../headers/QDateTime.h"/>

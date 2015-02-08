@@ -28,7 +28,7 @@
 #define __QDYNAMICARRAY__
 
 #include "ToolsDefinitions.h"
-#include "QFixedArray.h"
+#include "QArrayFixed.h"
 #include <cstring>
 
 
@@ -56,12 +56,12 @@ namespace Containers
 /// <typeparam name="ComparatorT">Optional. The type of comparator to compare elements to each other, used in search and ordering
 /// algorithms. By default, SQComparatorDefault will be used.</typeparam>
 template<class T, class AllocatorT = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, class ComparatorT = SQComparatorDefault<T> >
-class QDynamicArray : public QFixedArray<T, AllocatorT, ComparatorT>
+class QArrayDynamic : public QArrayFixed<T, AllocatorT, ComparatorT>
 {
-    using QFixedArray<T, AllocatorT, ComparatorT>::m_allocator;
-    using QFixedArray<T, AllocatorT, ComparatorT>::m_uFirst;
-    using QFixedArray<T, AllocatorT, ComparatorT>::m_uLast;
-    using QFixedArray<T, AllocatorT, ComparatorT>::m_pElementBasePointer;
+    using QArrayFixed<T, AllocatorT, ComparatorT>::m_allocator;
+    using QArrayFixed<T, AllocatorT, ComparatorT>::m_uFirst;
+    using QArrayFixed<T, AllocatorT, ComparatorT>::m_uLast;
+    using QArrayFixed<T, AllocatorT, ComparatorT>::m_pElementBasePointer;
     
 
     // CONSTANTS
@@ -84,9 +84,9 @@ public:
     /// <remarks>
     /// The initial capacity depends on the value of the default initial capacity of the class.
     /// </remarks>
-    QDynamicArray()
+    QArrayDynamic()
     {
-        if(sm_uDefaultCapacity > QDynamicArray::DEFAULT_CAPACITY)
+        if(sm_uDefaultCapacity > QArrayDynamic::DEFAULT_CAPACITY)
             this->Reserve(sm_uDefaultCapacity);
 
         m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
@@ -97,7 +97,7 @@ public:
     /// </summary>
     /// <param name="uInitialCapacity">[IN] The number of elements for which to reserve memory, the initial capacity. If it equals zero, the 
     /// default capacity will be used instead.</param>
-    explicit QDynamicArray(const pointer_uint_q uInitialCapacity)
+    explicit QArrayDynamic(const pointer_uint_q uInitialCapacity)
     {
         QE_ASSERT_ERROR(uInitialCapacity > 0, "The initial capacity cannot be zero, it must be, at least, one.");
 
@@ -106,7 +106,7 @@ public:
         if(uInitialCapacity == 0)
             uCapacity = sm_uDefaultCapacity;
 
-        if(uCapacity > QDynamicArray::DEFAULT_CAPACITY)
+        if(uCapacity > QArrayDynamic::DEFAULT_CAPACITY)
             this->Reserve(uCapacity);
 
         m_pElementBasePointer = scast_q(m_allocator.GetPointer(), T*);
@@ -120,7 +120,7 @@ public:
     /// The capacity of the resultant array will be just the necessary to store the amount of elements of the input array.
     /// </remarks>
     /// <param name="arInputArray">[IN] The input array to be copied.</param>
-    QDynamicArray(const QFixedArray<T, AllocatorT, ComparatorT> &arInputArray)
+    QArrayDynamic(const QArrayFixed<T, AllocatorT, ComparatorT> &arInputArray)
     {
         const pointer_uint_q INPUT_COUNT = arInputArray.GetCount();
 
@@ -146,7 +146,7 @@ public:
     /// The capacity of the resultant array will be just the necessary to store the amount of elements of the input array.
     /// </remarks>
     /// <param name="arInputArray">[IN] The input array to be copied.</param>
-    QDynamicArray(const QDynamicArray &arInputArray)
+    QArrayDynamic(const QArrayDynamic &arInputArray)
     {
         const pointer_uint_q INPUT_COUNT = arInputArray.GetCount();
 
@@ -158,7 +158,7 @@ public:
         m_uFirst = arInputArray.m_uFirst;
 
         // Copies every element, if input array is not empty
-        if(m_uLast != QDynamicArray::END_POSITION_FORWARD)
+        if(m_uLast != QArrayDynamic::END_POSITION_FORWARD)
             for(pointer_uint_q uIndex = 0; uIndex < m_uLast + 1U; ++uIndex)
                 new(m_allocator.Allocate()) T(arInputArray[uIndex]);
 
@@ -173,7 +173,7 @@ public:
     /// </remarks>
     /// <param name="pArray">[IN] The existing array that will be copied. It must not be null.</param>
     /// <param name="uNumberOfElements">[IN] The number of elements in the input array. It must be greater than zero.</param>
-    QDynamicArray(const T* pArray, const pointer_uint_q uNumberOfElements) : QFixedArray<T, AllocatorT, ComparatorT>(pArray, uNumberOfElements)
+    QArrayDynamic(const T* pArray, const pointer_uint_q uNumberOfElements) : QArrayFixed<T, AllocatorT, ComparatorT>(pArray, uNumberOfElements)
     {
     }
 
@@ -197,7 +197,7 @@ public:
     /// <returns>
     /// A reference to the resultant dynamic array.
     /// </returns>
-    QDynamicArray& operator=(const QFixedArray<T, AllocatorT, ComparatorT> &arInputArray)
+    QArrayDynamic& operator=(const QArrayFixed<T, AllocatorT, ComparatorT> &arInputArray)
     {
         const pointer_uint_q INPUT_COUNT = arInputArray.GetCount();
         const pointer_uint_q RESIDENT_COUNT = this->GetCount();
@@ -244,7 +244,7 @@ public:
     /// <returns>
     /// A reference to the resultant dynamic array.
     /// </returns>
-    QDynamicArray& operator=(const QDynamicArray &arInputArray)
+    QArrayDynamic& operator=(const QArrayDynamic &arInputArray)
     {
         const pointer_uint_q INPUT_COUNT = arInputArray.GetCount();
         const pointer_uint_q RESIDENT_COUNT = this->GetCount();
@@ -328,7 +328,7 @@ public:
     /// <param name="position">[IN] The position where the new element will be placed. It should not be an end position; if it is, 
     /// the element will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void Insert(const T &newElement, const typename QDynamicArray::QConstArrayIterator &position)
+    void Insert(const T &newElement, const typename QArrayDynamic::QConstArrayIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty() && !position.IsEnd(), "The input iterator is out of bounds");
@@ -422,7 +422,7 @@ public:
     /// <param name="position">[IN] The position of the element to be deleted. It should not be an end position; if it is, 
     /// nothing will be done. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void Remove(const typename QDynamicArray::QArrayIterator &position)
+    void Remove(const typename QArrayDynamic::QArrayIterator &position)
     {
         QE_ASSERT_ERROR(position.IsValid(), "The input iterator is not valid");
         QE_ASSERT_WARNING(!this->IsEmpty(), "The array is empty, there is nothing to remove");
@@ -437,8 +437,8 @@ public:
             {
                 // The container is emptied
                 m_pElementBasePointer->~T();
-                m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
-                m_uLast = QDynamicArray::END_POSITION_FORWARD;
+                m_uFirst = QArrayDynamic::END_POSITION_BACKWARD;
+                m_uLast = QArrayDynamic::END_POSITION_FORWARD;
                 m_allocator.Clear();
             }
             else
@@ -479,8 +479,8 @@ public:
             {
                 // The container is emptied
                 m_pElementBasePointer->~T();
-                m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
-                m_uLast = QDynamicArray::END_POSITION_FORWARD;
+                m_uFirst = QArrayDynamic::END_POSITION_BACKWARD;
+                m_uLast = QArrayDynamic::END_POSITION_FORWARD;
                 m_allocator.Clear();
             }
             else
@@ -515,8 +515,8 @@ public:
             for(pointer_uint_q uIndex = m_uFirst; uIndex <= m_uLast; ++uIndex)
                 (m_pElementBasePointer + uIndex)->~T();
 
-            m_uFirst = QDynamicArray::END_POSITION_BACKWARD;
-            m_uLast = QDynamicArray::END_POSITION_FORWARD;
+            m_uFirst = QArrayDynamic::END_POSITION_BACKWARD;
+            m_uLast = QArrayDynamic::END_POSITION_FORWARD;
 
             m_allocator.Clear();
         }
@@ -531,7 +531,7 @@ public:
     /// No constructors will be called during this operation.
     /// </remarks>
     /// <param name="arDestinationArray">[IN/OUT] The destination array to which the contents will be copied.</param>
-    void Clone(QDynamicArray &arDestinationArray) const
+    void Clone(QArrayDynamic &arDestinationArray) const
     {
         if(arDestinationArray.GetCapacity() < this->GetCapacity())
             arDestinationArray.Reserve(this->GetCapacity());
@@ -553,7 +553,7 @@ public:
     /// </remarks>
     /// <param name="first">[IN] The first element of the range. It must be equal or anterior to the last element in the range. It must not point to an end position.</param>
     /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
-    void AddRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last)
+    void AddRange(const typename QArrayDynamic::QConstArrayIterator &first, const typename QArrayDynamic::QConstArrayIterator &last)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -600,7 +600,7 @@ public:
     /// <param name="last">[IN] The last element of the range. It must be equal or posterior to the first element in the range. It must not point to an end position.</param>
     /// <param name="uIndex">[IN] The index (zero-based) where the range of elements will be placed. It should be lower than the number of elements of the array; if it is not, 
     /// the element will be inserted at the end by default.</param>
-    void InsertRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last, const pointer_uint_q uIndex)
+    void InsertRange(const typename QArrayDynamic::QConstArrayIterator &first, const typename QArrayDynamic::QConstArrayIterator &last, const pointer_uint_q uIndex)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -637,7 +637,7 @@ public:
         for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
             new(pCurrentResident) T(*pCurrentInput);
 
-        if(m_uLast == QDynamicArray::END_POSITION_FORWARD)
+        if(m_uLast == QArrayDynamic::END_POSITION_FORWARD)
             ++m_uLast; // Trick: Converts END_POSITION_FORWARD (-2) to END_POSITION_BACKWARD (-1) so the sum below is always correct
 
         m_uLast += NEW_ELEMENTS_COUNT;
@@ -661,7 +661,7 @@ public:
     /// <param name="position">[IN] The position where the range of elements will be placed. It should not be an end position; if it is, 
     /// the range will be inserted at the end by default. If the iterator is invalid, the behavior is undefined. It must point to the same
     /// array; otherwise, the behavior is undefined.</param>
-    void InsertRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last, const typename QDynamicArray::QArrayIterator &position)
+    void InsertRange(const typename QArrayDynamic::QConstArrayIterator &first, const typename QArrayDynamic::QConstArrayIterator &last, const typename QArrayDynamic::QArrayIterator &position)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -701,7 +701,7 @@ public:
         for(; pCurrentInput != pAfterLast; ++pCurrentInput, ++pCurrentResident)
             new(pCurrentResident) T(*pCurrentInput);
         
-        if(m_uLast == QDynamicArray::END_POSITION_FORWARD)
+        if(m_uLast == QArrayDynamic::END_POSITION_FORWARD)
             ++m_uLast; // Trick: Converts END_POSITION_FORWARD (-2) to END_POSITION_BACKWARD (-1) so the sum below is always correct
 
         m_uLast += NEW_ELEMENTS_COUNT;
@@ -720,7 +720,7 @@ public:
     /// array; otherwise, the behavior is undefined. It must be equal or anterior to the last element in the range.</param>
     /// <param name="last">[IN] The position of the last element to be deleted. It must not be an end position. It must point to the same
     /// array; otherwise, the behavior is undefined. It must be equal or posterior to the first element in the range.</param>
-    void RemoveRange(const typename QDynamicArray::QArrayIterator &first, const typename QDynamicArray::QArrayIterator &last)
+    void RemoveRange(const typename QArrayDynamic::QArrayIterator &first, const typename QArrayDynamic::QArrayIterator &last)
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -751,7 +751,7 @@ public:
             m_allocator.Deallocate(pFirstInRange);
 
         if(this->IsEmpty())
-            m_uFirst = m_uLast = QDynamicArray::END_POSITION_FORWARD;
+            m_uFirst = m_uLast = QArrayDynamic::END_POSITION_FORWARD;
         else
             m_uLast -= ELEMENTS_TO_REMOVE_COUNT;
     }
@@ -798,7 +798,7 @@ public:
             m_allocator.Deallocate(pFirstInRange);
 
         if(this->IsEmpty())
-            m_uFirst = m_uLast = QDynamicArray::END_POSITION_FORWARD;
+            m_uFirst = m_uLast = QArrayDynamic::END_POSITION_FORWARD;
         else
             m_uLast -= ELEMENTS_TO_REMOVE_COUNT;
     }
@@ -816,7 +816,7 @@ public:
     /// <returns>
     /// An array that contains a copy of all the elements in the given range.
     /// </returns>
-    QDynamicArray GetRange(const typename QDynamicArray::QConstArrayIterator &first, const typename QDynamicArray::QConstArrayIterator &last) const
+    QArrayDynamic GetRange(const typename QArrayDynamic::QConstArrayIterator &first, const typename QArrayDynamic::QConstArrayIterator &last) const
     {
         QE_ASSERT_ERROR(!first.IsEnd(), "The input iterator that points to the first element must not point to an end position.");
         QE_ASSERT_ERROR(!last.IsEnd(), "The input iterator that points to the last element must not point to an end position.");
@@ -826,7 +826,7 @@ public:
 
         const pointer_uint_q ELEMENTS_TO_GET_COUNT = last.GetInternalPosition() - first.GetInternalPosition() + 1U;
         
-        QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
+        QArrayDynamic arResult(ELEMENTS_TO_GET_COUNT);
 
         const T* pCurrentResult = &*first;
         const T* pAfterLast = &*last + 1U;
@@ -854,7 +854,7 @@ public:
     /// <returns>
     /// An array that contains a copy of all the elements in the given range.
     /// </returns>
-    QDynamicArray GetRange(const pointer_uint_q uFirst, const pointer_uint_q uLast) const
+    QArrayDynamic GetRange(const pointer_uint_q uFirst, const pointer_uint_q uLast) const
     {
         QE_ASSERT_ERROR(uFirst <= uLast, "The first element must be prior to the last element in the range.");
         QE_ASSERT_ERROR(uFirst < this->GetCount(), "The first position is out of bounds.");
@@ -862,7 +862,7 @@ public:
 
         const pointer_uint_q ELEMENTS_TO_GET_COUNT = uLast - uFirst + 1U;
         
-        QDynamicArray arResult(ELEMENTS_TO_GET_COUNT);
+        QArrayDynamic arResult(ELEMENTS_TO_GET_COUNT);
 
         T* pCurrentResult = m_pElementBasePointer + uFirst;
         T* pAfterLast = m_pElementBasePointer + uLast + 1U;
@@ -886,7 +886,7 @@ private:
     /// current capacity or nothing will happen.</param>
     void _ReallocateByFactor(const pointer_uint_q uNumberOfElements)
     {
-        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QDynamicArray::REALLOCATION_FACTOR, pointer_uint_q);
+        const pointer_uint_q FINAL_CAPACITY = scast_q(scast_q(uNumberOfElements, float) * QArrayDynamic::REALLOCATION_FACTOR, pointer_uint_q);
         this->Reserve(FINAL_CAPACITY);
     }
 
@@ -910,10 +910,10 @@ protected:
 // ATTRIBUTE INITIALIZATION
 // ----------------------------
 template<class T, class AllocatorT, class ComparatorT>
-pointer_uint_q QDynamicArray<T, AllocatorT, ComparatorT>::sm_uDefaultCapacity = 1;
+pointer_uint_q QArrayDynamic<T, AllocatorT, ComparatorT>::sm_uDefaultCapacity = 1;
 
 template<class T, class AllocatorT, class ComparatorT>
-float QDynamicArray<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
+float QArrayDynamic<T, AllocatorT, ComparatorT>::REALLOCATION_FACTOR = 1.5f;
 
 
 } //namespace Containers

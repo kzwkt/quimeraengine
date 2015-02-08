@@ -27,10 +27,10 @@
 #ifndef __QFIXEDARRAYTESTCLASS__
 #define __QFIXEDARRAYTESTCLASS__
 
-#include "QFixedArray.h"
+#include "QArrayFixed.h"
 #include "QPoolAllocator.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
 namespace Kinesis
 {
@@ -44,12 +44,12 @@ namespace Test
 {
 
 /// <summary>
-/// Class intended to be used to expose protected methods of QFixedArray for testing purposes.
+/// Class intended to be used to expose protected methods of QArrayFixed for testing purposes.
 /// </summary>
 template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator>
-class QFixedArrayTestClass : public QFixedArray<T>
+class QArrayFixedTestClass : public QArrayFixed<T>
 {
-    using QFixedArray<T>::m_allocator;
+    using QArrayFixed<T>::m_allocator;
 	static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
 
     // CONSTRUCTORS
@@ -57,7 +57,7 @@ class QFixedArrayTestClass : public QFixedArray<T>
 public:
 
 	// Necessary for testing
-    QFixedArrayTestClass() : QFixedArray<T>()
+    QArrayFixedTestClass() : QArrayFixed<T>()
     {
     }
 

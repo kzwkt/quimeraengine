@@ -123,7 +123,7 @@ QTEST_CASE ( OperatorAssignation1_InputValueIsCorrectlyConvertedToCorrespondingE
 QTEST_CASE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test )
 {
     // [Preparation]
-    const QBasicArray<const EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
+    const QArrayBasic<const EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
     const enum_int_q INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
 
 	// [Execution]
@@ -334,7 +334,7 @@ QTEST_CASE ( GetValues_ReturnsAllTheValues_Test )
     const pointer_uint_q EXPECTED_COUNT = 3;
 
 	// [Execution]
-    const QBasicArray<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
+    const QArrayBasic<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
 
     // [Verification]
     BOOST_CHECK_EQUAL(arResult.GetCount(), EXPECTED_COUNT);
@@ -355,7 +355,7 @@ QTEST_CASE ( GetValues_DoesNotIncludeNotEnumValue_Test )
     const EQEnumerationMock::EnumType NOT_INCLUDED_VALUE = EQEnumerationMock::_NotEnumValue;
 
 	// [Execution]
-    const QBasicArray<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
+    const QArrayBasic<const EQEnumerationMock::EnumType> arResult = EQEnumerationMock::GetValues();
 
     // [Verification]
     BOOST_CHECK_EQUAL(arResult.GetCount(), EXPECTED_COUNT);

@@ -33,7 +33,7 @@ using namespace boost::unit_test;
 #include "QUri.h"
 
 #include "QUriWhiteBox.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 #include "QAssertException.h"
 
 using Kinesis::QuimeraEngine::System::IO::QUri;
@@ -3225,12 +3225,12 @@ QTEST_CASE ( Decode_OutputStringEqualsEmptyWhenInputIsEmpty_Test )
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreNotRemovedWhenTheyAppearTheFirst_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
 
-    QDynamicArray<string_q> inputArrayWithSingleDot(3);
+    QArrayDynamic<string_q> inputArrayWithSingleDot(3);
     inputArrayWithSingleDot.Add(SINGLE_DOT);
     inputArrayWithSingleDot.Add("path1");
     inputArrayWithSingleDot.Add("path2");
@@ -3248,12 +3248,12 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreNotRemovedWhenTheyAppearTheFi
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentsAreNotRemovedWhenTheyAppearTheFirst_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> inputArrayWithDoubleDot(3);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(3);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add("path1");
     inputArrayWithDoubleDot.Add("path2");
@@ -3272,12 +3272,12 @@ QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentsAreNotRemovedWhenTheyAppearTheFi
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_ContiguousDoubleDotSegmentsAreNotRemovedWhenTheyAppearTheFirst_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> inputArrayWithDoubleDot(3);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(3);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add("path1");
@@ -3298,14 +3298,14 @@ QTEST_CASE ( RemoveDotSegments_ContiguousDoubleDotSegmentsAreNotRemovedWhenTheyA
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_WorksAsExpectedWhenThereAreSeveralDoubleDotSegmentsAfterOneCommonSegmentAtTheBeginning_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
     const string_q EXPECTED_FIRST_SEGMENT = DOUBLE_DOT;
     const pointer_uint_q EXPECTED_COUNT = 1;
-    QDynamicArray<string_q> inputArrayWithDoubleDot(3);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(3);
     inputArrayWithDoubleDot.Add("path1");
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
@@ -3326,14 +3326,14 @@ QTEST_CASE ( RemoveDotSegments_WorksAsExpectedWhenThereAreSeveralDoubleDotSegmen
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_WorksAsExpectedWhenThereAreMoreDoubleDotSegmentsThanCommonSegmentsAtTheBeginning_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
     const string_q EXPECTED_FIRST_SEGMENT = DOUBLE_DOT;
     const pointer_uint_q EXPECTED_COUNT = 1;
-    QDynamicArray<string_q> inputArrayWithDoubleDot(5);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(5);
     inputArrayWithDoubleDot.Add("path1");
     inputArrayWithDoubleDot.Add("path2");
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
@@ -3356,13 +3356,13 @@ QTEST_CASE ( RemoveDotSegments_WorksAsExpectedWhenThereAreMoreDoubleDotSegmentsT
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DotSegmentsAreNotRemovedWhenPathIsCompoundOnlyOfDoubleDotSegments_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
     const pointer_uint_q EXPECTED_COUNT = 3;
-    QDynamicArray<string_q> inputArrayWithDoubleDot(3);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(3);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
@@ -3381,13 +3381,13 @@ QTEST_CASE ( RemoveDotSegments_DotSegmentsAreNotRemovedWhenPathIsCompoundOnlyOfD
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreRemovedWhenTheyAppearBetweenContiguousDoubleDotSegmentsThatAppearTheFirst_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> inputArrayWithDoubleDot(5);
+    QArrayDynamic<string_q> inputArrayWithDoubleDot(5);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
     inputArrayWithDoubleDot.Add(SINGLE_DOT);
     inputArrayWithDoubleDot.Add(DOUBLE_DOT);
@@ -3409,12 +3409,12 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreRemovedWhenTheyAppearBetweenC
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreJustRemoved_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
 
-    QDynamicArray<string_q> inputArrayWithSingleDot(4);
+    QArrayDynamic<string_q> inputArrayWithSingleDot(4);
     inputArrayWithSingleDot.Add("path1");
     inputArrayWithSingleDot.Add(SINGLE_DOT);
     inputArrayWithSingleDot.Add("path2");
@@ -3426,7 +3426,7 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreJustRemoved_Test )
     // [Verification]
     bool bSingleDotSegmentWasRemoved = true;
 
-    for(QDynamicArray<string_q>::QArrayIterator it = inputArrayWithSingleDot.GetFirst(); !it.IsEnd(); ++it)
+    for(QArrayDynamic<string_q>::QArrayIterator it = inputArrayWithSingleDot.GetFirst(); !it.IsEnd(); ++it)
         bSingleDotSegmentWasRemoved = bSingleDotSegmentWasRemoved && *it != SINGLE_DOT;
 
     BOOST_CHECK(bSingleDotSegmentWasRemoved);
@@ -3437,13 +3437,13 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentsAreJustRemoved_Test )
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentsImplyPreviousSegmentToBeRemoved_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
     const string_q SEGMENT_TO_BE_REMOVED("path2");
 
-    QDynamicArray<string_q> inputArrayWithDoubleDots(4);
+    QArrayDynamic<string_q> inputArrayWithDoubleDots(4);
     inputArrayWithDoubleDots.Add("path1");
     inputArrayWithDoubleDots.Add(SEGMENT_TO_BE_REMOVED);
     inputArrayWithDoubleDots.Add(DOUBLE_DOT);
@@ -3456,7 +3456,7 @@ QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentsImplyPreviousSegmentToBeRemoved_
     bool bDoubleDotSegmentWasRemoved = true;
     bool bSegmentPriorToDotSegmentWasRemoved = true;
     
-    QDynamicArray<string_q>::QArrayIterator it = inputArrayWithDoubleDots.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator it = inputArrayWithDoubleDots.GetFirst();
 
     for(; !it.IsEnd(); ++it)
         bDoubleDotSegmentWasRemoved = bDoubleDotSegmentWasRemoved && *it != DOUBLE_DOT;
@@ -3472,17 +3472,17 @@ QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentsImplyPreviousSegmentToBeRemoved_
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DotSegmentsCanBeConcatenated_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> EXPECTED_ARRAY(8);
+    QArrayDynamic<string_q> EXPECTED_ARRAY(8);
     EXPECTED_ARRAY.Add("path1");
     EXPECTED_ARRAY.Add("path4");
     
-    QDynamicArray<string_q> inputArrayWithDots(2);
+    QArrayDynamic<string_q> inputArrayWithDots(2);
     inputArrayWithDots.Add("path1");
     inputArrayWithDots.Add("path2");
     inputArrayWithDots.Add(SINGLE_DOT);
@@ -3498,8 +3498,8 @@ QTEST_CASE ( RemoveDotSegments_DotSegmentsCanBeConcatenated_Test )
     // [Verification]
     bool bResultantArrayIsWhatExpected = true;
 
-    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
-    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
 
     for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
         bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
@@ -3512,10 +3512,10 @@ QTEST_CASE ( RemoveDotSegments_DotSegmentsCanBeConcatenated_Test )
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_NothingHappensWhenArrayIsEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
-    QDynamicArray<string_q> arEmptyArray(1);
+    QArrayDynamic<string_q> arEmptyArray(1);
 
     // [Execution]
     QUriWhiteBox::RemoveDotSegments(arEmptyArray);
@@ -3529,10 +3529,10 @@ QTEST_CASE ( RemoveDotSegments_NothingHappensWhenArrayIsEmpty_Test )
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_NothingHappensWhenArrayContainsOnlyAnEmptyString_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
-    QDynamicArray<string_q> arEmptyArray(1);
+    QArrayDynamic<string_q> arEmptyArray(1);
     arEmptyArray.Add(string_q::GetEmpty());
 
     // [Execution]
@@ -3547,15 +3547,15 @@ QTEST_CASE ( RemoveDotSegments_NothingHappensWhenArrayContainsOnlyAnEmptyString_
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathOnlyContainsOneSingleDotSegment_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
 
-    QDynamicArray<string_q> EXPECTED_ARRAY(1);
+    QArrayDynamic<string_q> EXPECTED_ARRAY(1);
     EXPECTED_ARRAY.Add(string_q::GetEmpty());
     
-    QDynamicArray<string_q> inputArrayWithDots(2);
+    QArrayDynamic<string_q> inputArrayWithDots(2);
     inputArrayWithDots.Add(SINGLE_DOT);
 
     // [Execution]
@@ -3571,18 +3571,18 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathOnlyContainsO
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathStartsWithOneSingleDotSegmentFollowedByDoubleDotSegment_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> EXPECTED_ARRAY(2);
+    QArrayDynamic<string_q> EXPECTED_ARRAY(2);
     EXPECTED_ARRAY.Add(SINGLE_DOT);
     EXPECTED_ARRAY.Add(DOUBLE_DOT);
     EXPECTED_ARRAY.Add("path1");
 
-    QDynamicArray<string_q> inputArrayWithDots(3);
+    QArrayDynamic<string_q> inputArrayWithDots(3);
     inputArrayWithDots.Add(SINGLE_DOT);
     inputArrayWithDots.Add(DOUBLE_DOT);
     inputArrayWithDots.Add("path1");
@@ -3593,8 +3593,8 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathStartsWithOne
     // [Verification]
     bool bResultantArrayIsWhatExpected = true;
 
-    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
-    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
 
     for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
         bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
@@ -3607,16 +3607,16 @@ QTEST_CASE ( RemoveDotSegments_SingleDotSegmentIsNotRemovedWhenPathStartsWithOne
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DotSegmentsAreRemovedWhenPathStartsWithACommonSegmentFollowedByOneSingleDotSegmentFollowedByDoubleDotSegment_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q SINGLE_DOT(".");
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> EXPECTED_ARRAY(1);
+    QArrayDynamic<string_q> EXPECTED_ARRAY(1);
     EXPECTED_ARRAY.Add("path2");
 
-    QDynamicArray<string_q> inputArrayWithDots(4);
+    QArrayDynamic<string_q> inputArrayWithDots(4);
     inputArrayWithDots.Add("path1");
     inputArrayWithDots.Add(SINGLE_DOT);
     inputArrayWithDots.Add(DOUBLE_DOT);
@@ -3628,8 +3628,8 @@ QTEST_CASE ( RemoveDotSegments_DotSegmentsAreRemovedWhenPathStartsWithACommonSeg
     // [Verification]
     bool bResultantArrayIsWhatExpected = true;
 
-    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
-    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
 
     for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
         bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;
@@ -3642,17 +3642,17 @@ QTEST_CASE ( RemoveDotSegments_DotSegmentsAreRemovedWhenPathStartsWithACommonSeg
 /// </summary>
 QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentIsNotRemovedWhenItAppearsFirstBetweenTwoSlashes_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
     // [Preparation]
     const string_q DOUBLE_DOT("..");
 
-    QDynamicArray<string_q> EXPECTED_ARRAY(3);
+    QArrayDynamic<string_q> EXPECTED_ARRAY(3);
     EXPECTED_ARRAY.Add(string_q::GetEmpty());
     EXPECTED_ARRAY.Add(DOUBLE_DOT);
     EXPECTED_ARRAY.Add(string_q::GetEmpty());
 
-    QDynamicArray<string_q> inputArrayWithDots(EXPECTED_ARRAY);
+    QArrayDynamic<string_q> inputArrayWithDots(EXPECTED_ARRAY);
 
     // [Execution]
     QUriWhiteBox::RemoveDotSegments(inputArrayWithDots);
@@ -3660,8 +3660,8 @@ QTEST_CASE ( RemoveDotSegments_DoubleDotSegmentIsNotRemovedWhenItAppearsFirstBet
     // [Verification]
     bool bResultantArrayIsWhatExpected = true;
 
-    QDynamicArray<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
-    QDynamicArray<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iExpected = EXPECTED_ARRAY.GetFirst();
+    QArrayDynamic<string_q>::QArrayIterator iResult = inputArrayWithDots.GetFirst();
 
     for(; !iExpected.IsEnd(); ++iExpected, ++iResult)
         bResultantArrayIsWhatExpected = bResultantArrayIsWhatExpected && *iExpected == *iResult;

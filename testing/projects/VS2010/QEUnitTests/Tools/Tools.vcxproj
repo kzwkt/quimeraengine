@@ -15,6 +15,8 @@
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayDynamic_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayFixed_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayIterator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp" />
@@ -46,9 +48,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDictionary_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDynamicArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QEvent_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArray_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QHashtable_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QKeyValuePair_Test.cpp" />
@@ -110,16 +110,16 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ArrayElementMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ListElementMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QArrayFixedTestClass.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QArrayFixedWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QConstBinarySearchTreeIteratorMock.h" />
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIteratorMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayTestClass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />

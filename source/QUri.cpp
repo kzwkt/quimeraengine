@@ -30,7 +30,7 @@
 #include "EQComparisonType.h"
 #include "EQTextEncoding.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 
 
@@ -222,7 +222,7 @@ void QUri::Resolve(const QUri &relativeUri)
                 // The last segment will be replaced with the first segment of the relative URI
                 m_arPathSegments.Remove(m_arPathSegments.GetCount() - 1U); 
 
-                for(QDynamicArray<string_q>::QArrayIterator itRelativeSegment = relativeUri.m_arPathSegments.GetFirst(); !itRelativeSegment.IsEnd(); ++itRelativeSegment)
+                for(QArrayDynamic<string_q>::QArrayIterator itRelativeSegment = relativeUri.m_arPathSegments.GetFirst(); !itRelativeSegment.IsEnd(); ++itRelativeSegment)
                     m_arPathSegments.Add(*itRelativeSegment);
 
                 QUri::RemoveDotSegments(m_arPathSegments);
@@ -641,7 +641,7 @@ void QUri::DecomposePath(const string_q &strInputUri,
     }
 }
 
-void QUri::RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
+void QUri::RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> &arPathSegments)
 {
     pointer_uint_q i = 0;
 
@@ -724,7 +724,7 @@ void QUri::NormalizePath()
     {
         QUri::RemoveDotSegments(m_arPathSegments);
         
-        for(QDynamicArray<string_q>::QArrayIterator it = m_arPathSegments.GetFirst(); !it.IsEnd(); ++it)
+        for(QArrayDynamic<string_q>::QArrayIterator it = m_arPathSegments.GetFirst(); !it.IsEnd(); ++it)
         {
             if(!it->IsEmpty())
             {
@@ -806,7 +806,7 @@ bool QUri::IsEncodable(const char_q &character, const bool bIsPathSegment)
            character != QUri::CHAR_SEMICOLON[0]);
 }
 
-void QUri::RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments)
+void QUri::RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> &arPathSegments)
 {
     pointer_uint_q uAbsoluteSegment = 0;
 
@@ -875,8 +875,8 @@ string_q QUri::GetPath() const
 
     if(!m_arPathSegments.IsEmpty())
     {
-        QDynamicArray<string_q>::QArrayIterator it = m_arPathSegments.GetFirst();
-        QDynamicArray<string_q>::QArrayIterator itLast = m_arPathSegments.GetLast();
+        QArrayDynamic<string_q>::QArrayIterator it = m_arPathSegments.GetFirst();
+        QArrayDynamic<string_q>::QArrayIterator itLast = m_arPathSegments.GetLast();
 
         // If the authority is defined or the path begins with an empty segment, adds a slash at the beginning
         if((QUri::FLAG_AUTHORITY_IS_DEFINED & m_definedComponents) || 
@@ -924,7 +924,7 @@ string_q QUri::GetOriginalString() const
     return m_strOriginalString;
 }
 
-QDynamicArray<string_q> QUri::GetPathSegments() const
+QArrayDynamic<string_q> QUri::GetPathSegments() const
 {
     return m_arPathSegments;
 }

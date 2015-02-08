@@ -28,7 +28,7 @@
 #define __QEVENT__
 
 #include "SystemDefinitions.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 #include "QDelegate.h"
 #include "SQEqualityComparator.h"
 
@@ -73,7 +73,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)();
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -179,7 +179,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -285,7 +285,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -393,7 +393,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -503,7 +503,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T, Param4T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -615,7 +615,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T, Param4T, Param5T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -729,7 +729,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T, Param4T, Param5T, Param6T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -845,7 +845,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T, Param4T, Param5T, Param6T, Param7T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;
@@ -963,7 +963,7 @@ public:
 
     typedef ReturnValueT(FunctionSignatureT)(Param1T, Param2T, Param3T, Param4T, Param5T, Param6T, Param7T, Param8T);
     typedef QDelegate<FunctionSignatureT> Subscriber;
-    typedef Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<Subscriber, 
+    typedef Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<Subscriber, 
                                                                      Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator, 
                                                                      Kinesis::QuimeraEngine::Tools::Containers::SQEqualityComparator<Subscriber> > 
                                                                         SubscriberArray;

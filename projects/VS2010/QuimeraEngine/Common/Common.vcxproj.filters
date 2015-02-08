@@ -74,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
     <ClInclude Include="..\..\..\..\headers\QReferenceWrapper.h" />
-    <ClInclude Include="..\..\..\..\headers\QBasicArray.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\Endianness.h" />
     <ClInclude Include="..\..\..\..\headers\QAssertException.h">
       <Filter>Exceptions</Filter>
@@ -89,6 +86,9 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\StringsDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArrayBasic.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
