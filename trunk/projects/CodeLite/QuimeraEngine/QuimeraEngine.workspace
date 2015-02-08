@@ -5,13 +5,13 @@
   <Project Name="System" Path="System/System.project" Active="Yes"/>
   <Project Name="Core" Path="Core/Core.project" Active="No"/>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="no">
+    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="yes">
       <Project Name="Tools" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="System" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="Core" ConfigName="DebugWin32SharedrtStatic"/>
       <Project Name="Common" ConfigName="DebugWin32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="yes">
+    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="no">
       <Project Name="Common" ConfigName="DebugWin32SharedrtDynamic"/>
       <Project Name="Tools" ConfigName="DebugWin32SharedrtDynamic"/>
       <Project Name="System" ConfigName="DebugWin32SharedrtDynamic"/>

@@ -67,6 +67,12 @@
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
   </VirtualDirectory>
+  <Dependencies Name="DebugLinux32SharedrtDynamic"/>
+  <Dependencies Name="DebugLinux32SharedrtStatic"/>
+  <Dependencies Name="DebugMac32SharedrtDynamic"/>
+  <Dependencies Name="DebugMac32SharedrtStatic"/>
+  <Dependencies Name="DebugWin32SharedrtDynamic"/>
+  <Dependencies Name="DebugWin32SharedrtStatic"/>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -78,15 +84,18 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -94,6 +103,9 @@
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -141,14 +153,17 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -157,6 +172,9 @@
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
         <Library Value="rt"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -194,15 +212,18 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/Clang/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -210,6 +231,9 @@
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="../$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -257,14 +281,17 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/Clang/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -272,6 +299,9 @@
         <Library Value="icudata"/>
         <Library Value="icuuc"/>
         <Library Value="icui18n"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="../$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -309,16 +339,19 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
         <LibraryPath Value="../../../../bin/MinGW/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -326,6 +359,10 @@
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
         <Library Value="icuin"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -367,15 +404,18 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -m32" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -m32 -fno-rtti -fno-exceptions" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <IncludePath Value="../../../../3rdparty/Boost/include"/>
-        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
         <LibraryPath Value="../../../../bin/MinGW/$(ConfigurationName)"/>
+        <LibraryPath Value="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
         <Library Value="QuimeraEngineCore"/>
         <Library Value="QuimeraEngineSystem"/>
         <Library Value="QuimeraEngineTools"/>
@@ -383,6 +423,10 @@
         <Library Value="icudt"/>
         <Library Value="icuuc"/>
         <Library Value="icuin"/>
+        <Library Value="boost_thread-mt-d"/>
+        <Library Value="boost_system-mt-d"/>
+        <Library Value="boost_chrono-mt-d"/>
+        <Library Value="boost_filesystem-mt-d"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./$(ConfigurationName)" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -420,10 +464,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="DebugLinux32SharedrtDynamic"/>
-  <Dependencies Name="DebugLinux32SharedrtStatic"/>
-  <Dependencies Name="DebugMac32SharedrtDynamic"/>
-  <Dependencies Name="DebugMac32SharedrtStatic"/>
-  <Dependencies Name="DebugWin32SharedrtDynamic"/>
-  <Dependencies Name="DebugWin32SharedrtStatic"/>
 </CodeLite_Project>

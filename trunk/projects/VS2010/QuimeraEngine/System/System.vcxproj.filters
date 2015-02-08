@@ -22,6 +22,9 @@
     <Filter Include="Threading">
       <UniqueIdentifier>{2f46d2ff-b07d-4585-8806-8bf40cfef30c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Workarounds">
+      <UniqueIdentifier>{260fd161-a70b-4330-9776-019ffc612dde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
@@ -251,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QScopedCallTraceNotifier.cpp">
       <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\Workarounds\Boost_ThrowException.cpp">
+      <Filter>Workarounds</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -127,18 +127,8 @@ bool SQTimeZoneFactory::Initialize(const char* szSource, boost::local_time::tz_d
     std::istringstream dataBaseStream;
     dataBaseStream.str(szSource);
 
-    try
-    {
-        database.load_from_stream(dataBaseStream);
-        bResult = true;
-    }
-    catch(const boost::local_time::bad_field_count &)
-    {
-#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
-        const bool EXCEPTION_LOADING_TIMEZONE_DATABASE = false;
-#endif
-        QE_ASSERT_ERROR(EXCEPTION_LOADING_TIMEZONE_DATABASE, "A boost::local_time::bad_field_count exception was thrown when loading the time zone database from the stream");
-    }
+    database.load_from_stream(dataBaseStream);
+    bResult = true;
 
     return bResult;
 }

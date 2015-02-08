@@ -5,13 +5,13 @@
     <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="no">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugWin32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="no">
+    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="yes">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugWin32SharedrtDynamic"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="DebugLinux32SharedrtStatic" Selected="no">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtStatic"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="yes">
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="no">
       <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtDynamic"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="yes">
