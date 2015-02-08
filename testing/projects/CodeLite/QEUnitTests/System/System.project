@@ -124,6 +124,9 @@
       <File Name="../../../../tests/unit/testmodule_system/QScopedSharedLock_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_system/QScopedLockPair_Test.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Workarounds">
+      <File Name="../../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
@@ -151,12 +154,14 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
@@ -221,11 +226,13 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
@@ -284,12 +291,14 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
@@ -354,11 +363,13 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
@@ -422,6 +433,8 @@
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
@@ -486,6 +499,8 @@
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
       </Compiler>
       <Linker Options="-m32 -mwindows" Required="yes">
         <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>

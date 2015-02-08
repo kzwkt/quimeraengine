@@ -14,6 +14,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{ba166bdd-28a9-431f-be92-1e1ee89926c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Time\Workarounds">
+      <UniqueIdentifier>{01f9be76-9935-4204-a0b1-df0f265baf1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h">
@@ -423,6 +426,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQStringHashProvider.cpp">
       <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\Workarounds\Boost_ThrowException.cpp">
+      <Filter>Time\Workarounds</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -55,29 +55,38 @@
                                                         const Kinesis::QuimeraEngine::Common::EQAssertionType &eAssertionType);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
+    
         #include "QAssertException.h"
         using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;    
-
-        #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
-                {                                                                                                                                 \
-                    if(!(expression))                                                                                                             \
-                    {                                                                                                                             \
-                        if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                                                  \
-                        {                                                                                                                         \
-                            QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
-                        }                                                                                                                         \
-                        throw Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__);     \
-                    }                                                                                                                             \
-                }
+        
+        #ifdef QE_COMPILER_MSVC
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
+                    {                                                                                                                                 \
+                        if(!(expression))                                                                                                             \
+                        {                                                                                                                             \
+                            if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                                                  \
+                            {                                                                                                                         \
+                                QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
+                            }                                                                                                                         \
+                            throw Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__);     \
+                        }                                                                                                                             \
+                    }
+        #else
+            // It is not possible to use throw when compiling with GCC
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
+                    {                                                                                                                                 \
+                        if(!(expression))                                                                                                             \
+                        {                                                                                                                             \
+                            if(QE_CONFIG_ASSERTSTRACING_DEFAULT == QE_CONFIG_ASSERTSTRACING_ENABLED)                                                  \
+                            {                                                                                                                         \
+                                QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
+                            }                                                                                                                         \
+                        }                                                                                                                             \
+                    }
+        #endif
     #else
 
         #ifdef QE_COMPILER_GCC
-
-            /// <summary>
-            /// Special behaviour for using GDB so it stops at the line the assertion fails and let the
-            /// developer to continue debugging from there on advance.
-            /// </summary>
-            QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
             #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                         \
                              {                                                                                                      \

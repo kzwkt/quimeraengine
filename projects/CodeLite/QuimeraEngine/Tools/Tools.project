@@ -215,6 +215,9 @@
     <File Name="../../../../source/QTimeZone.cpp"/>
     <File Name="../../../../source/SQTimeZoneFactory.cpp"/>
     <File Name="../../../../source/TimeZoneDatabase.cpp"/>
+    <VirtualDirectory Name="Workarounds">
+      <File Name="../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="DebugWin32SharedrtStatic">
     <Project Name="Common"/>
@@ -234,6 +237,9 @@
   <Dependencies Name="DebugMac32SharedrtStatic">
     <Project Name="Common"/>
   </Dependencies>
+  <VirtualDirectory Name="Common">
+    <File Name="../../../../headers/QEvent.h"/>
+  </VirtualDirectory>
   <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
@@ -245,11 +251,14 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
@@ -292,9 +301,12 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
@@ -331,11 +343,14 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../bin/Clang/DebugMac32SharedrtDynamic"/>
@@ -378,9 +393,12 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
@@ -417,11 +435,14 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
         <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes">
         <LibraryPath Value="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
@@ -465,9 +486,12 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
       </Compiler>
       <Linker Options="-m32" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
@@ -504,7 +528,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="Common">
-    <File Name="../../../../headers/QEvent.h"/>
-  </VirtualDirectory>
 </CodeLite_Project>
