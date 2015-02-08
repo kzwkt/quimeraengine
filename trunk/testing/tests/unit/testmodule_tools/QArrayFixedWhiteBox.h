@@ -27,10 +27,10 @@
 #ifndef __QFIXEDARRAYWHITEBOX__
 #define __QFIXEDARRAYWHITEBOX__
 
-#include "QFixedArray.h"
+#include "QArrayFixed.h"
 #include "QPoolAllocator.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
 namespace Kinesis
 {
@@ -44,12 +44,12 @@ namespace Test
 {
 
 /// <summary>
-/// Class intended to be used to expose protected methods of QFixedArray for testing purposes.
+/// Class intended to be used to expose protected methods of QArrayFixed for testing purposes.
 /// </summary>
 template <class T, class Allocator = Kinesis::QuimeraEngine::Common::Memory::QPoolAllocator>
-class QFixedArrayWhiteBox : public QFixedArray<T>
+class QArrayFixedWhiteBox : public QArrayFixed<T>
 {
-    using QFixedArray<T>::m_allocator;
+    using QArrayFixed<T>::m_allocator;
 
 
 	// CONSTRUCTORS
@@ -57,7 +57,7 @@ class QFixedArrayWhiteBox : public QFixedArray<T>
 public:
 
 	// Necessary for testing
-    QFixedArrayWhiteBox() : QFixedArray<T>()
+    QArrayFixedWhiteBox() : QArrayFixed<T>()
     {
     }
 
@@ -68,19 +68,19 @@ public:
     // Necessary for testing
     pointer_uint_q GetFirstPosition() const
     {
-        return QFixedArray<T, Allocator>::m_uFirst;
+        return QArrayFixed<T, Allocator>::m_uFirst;
     }
 
     // Necessary for testing
     pointer_uint_q GetLastPosition() const
     {
-        return QFixedArray<T, Allocator>::m_uLast;
+        return QArrayFixed<T, Allocator>::m_uLast;
     }
 
     // Necessary for testing
     Allocator* GetpAllocator() const
     {
-        return &QFixedArray<T, Allocator>::m_allocator;
+        return &QArrayFixed<T, Allocator>::m_allocator;
     }
 };
 

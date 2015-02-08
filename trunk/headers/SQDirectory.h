@@ -33,7 +33,7 @@
 
 #include "QDirectoryInfo.h"
 #include "EQFileSystemError.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 
 
 namespace Kinesis
@@ -189,7 +189,7 @@ public:
     /// <returns>
     /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
     /// </returns>
-    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles);
+    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arFiles);
     
     /// <summary>
     /// Gets the path to all the files inside a directory, filtered by extension.
@@ -205,7 +205,7 @@ public:
     /// <returns>
     /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
     /// </returns>
-    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles, const string_q &strExtensionFilter);
+    static EQFileSystemError GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arFiles, const string_q &strExtensionFilter);
     
     /// <summary>
     /// Gets the path to all the subdirectories of a directory.
@@ -218,7 +218,7 @@ public:
     /// <returns>
     /// An error code depending on the result of the operation. If nothing unexpected ocurred, it returns Success.
     /// </returns>
-    static EQFileSystemError GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arDirectories);
+    static EQFileSystemError GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arDirectories);
     
     /// <summary>
     /// Gets the parent of a directory.

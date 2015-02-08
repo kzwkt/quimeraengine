@@ -30,14 +30,14 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 
 #include "CallCounter.h"
 
-using Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray;
+using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 
 
-QTEST_SUITE_BEGIN( QDynamicArray_TestSuite )
+QTEST_SUITE_BEGIN( QArrayDynamic_TestSuite )
 
 /// <summary>
 /// Checks that an empty array is correctly created.
@@ -48,7 +48,7 @@ QTEST_CASE ( Constructor1_CreatesAnEmptyArray_Test )
     const bool IS_EMPTY = true;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     
     // [Verification]
     bool bIsEmpty = arDynamicArray.IsEmpty();
@@ -65,7 +65,7 @@ QTEST_CASE ( Constructor1_CapacityIsNotZero_Test )
     const pointer_uint_q ZERO = 0;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     
     // [Verification]
     pointer_uint_q uCapacity = arDynamicArray.GetCapacity();
@@ -83,7 +83,7 @@ QTEST_CASE ( Constructor2_CreatesAnEmptyArray_Test )
     const pointer_uint_q INPUT_CAPACITY = 3;
     
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(INPUT_CAPACITY);;
+    QArrayDynamic<int> arDynamicArray(INPUT_CAPACITY);;
     
     // [Verification]
     bool bIsEmpty = arDynamicArray.IsEmpty();
@@ -100,7 +100,7 @@ QTEST_CASE ( Constructor2_CapacityIsSetCorrectly_Test )
     const pointer_uint_q EXPECTED_CAPACITY = 3;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(EXPECTED_CAPACITY);
+    QArrayDynamic<int> arDynamicArray(EXPECTED_CAPACITY);
     
     // [Verification]
     pointer_uint_q uCapacity = arDynamicArray.GetCapacity();
@@ -124,7 +124,7 @@ QTEST_CASE ( Constructor2_AssertionFailsWhenInputCapacityEqualsZero_Test )
 
     try
     {
-        QDynamicArray<int> arDynamicArray(ZERO_CAPACITY);;
+        QArrayDynamic<int> arDynamicArray(ZERO_CAPACITY);;
     }
     catch(const QAssertException&)
     {
@@ -146,7 +146,7 @@ QTEST_CASE ( Constructor2_CapacityIsNotZeroWhenInputCapacityEqualsZero_Test )
     const pointer_uint_q ZERO_CAPACITY = 0;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(ZERO_CAPACITY);;
+    QArrayDynamic<int> arDynamicArray(ZERO_CAPACITY);;
     
     // [Verification]
     pointer_uint_q uCapacity = arDynamicArray.GetCapacity();
@@ -160,15 +160,15 @@ QTEST_CASE ( Constructor2_CapacityIsNotZeroWhenInputCapacityEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     pointer_uint_q uCount = arDynamicArray.GetCount();
@@ -180,15 +180,15 @@ QTEST_CASE ( Constructor3_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_CapacityEqualsInputArrayCount_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     pointer_uint_q uCapacity = arDynamicArray.GetCapacity();
@@ -200,18 +200,18 @@ QTEST_CASE ( Constructor3_CapacityEqualsInputArrayCount_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_CopyConstructorOfEveryElementIsCalled_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[3];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
 
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
     CallCounter::ResetCounters();
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray = arOriginalArray;
+    QArrayDynamic<CallCounter> arDynamicArray = arOriginalArray;
     
     // [Verification]
     pointer_uint_q uCopyConstructorsCalled = CallCounter::GetCopyConstructorCallsCount();
@@ -223,15 +223,15 @@ QTEST_CASE ( Constructor3_CopyConstructorOfEveryElementIsCalled_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ElementsAreCopiedInOrder_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const bool ARE_EQUAL = true;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     bool bAreEqual = true;
@@ -248,14 +248,14 @@ QTEST_CASE ( Constructor3_ElementsAreCopiedInOrder_Test )
 QTEST_CASE ( Constructor4_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arOriginalArray(5);
+    QArrayDynamic<int> arOriginalArray(5);
     arOriginalArray.Add(1);
     arOriginalArray.Add(2);
     arOriginalArray.Add(3);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     pointer_uint_q uCount = arDynamicArray.GetCount();
@@ -268,14 +268,14 @@ QTEST_CASE ( Constructor4_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 QTEST_CASE ( Constructor4_CapacityEqualsInputArrayCount_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arOriginalArray(5);
+    QArrayDynamic<int> arOriginalArray(5);
     arOriginalArray.Add(1);
     arOriginalArray.Add(2);
     arOriginalArray.Add(3);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     pointer_uint_q uCapacity = arDynamicArray.GetCapacity();
@@ -290,7 +290,7 @@ QTEST_CASE ( Constructor4_CopyConstructorOfEveryElementIsCalled_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
-    QDynamicArray<CallCounter> arOriginalArray;
+    QArrayDynamic<CallCounter> arOriginalArray;
     arOriginalArray.Add(CallCounter());
     arOriginalArray.Add(CallCounter());
     arOriginalArray.Add(CallCounter());
@@ -298,7 +298,7 @@ QTEST_CASE ( Constructor4_CopyConstructorOfEveryElementIsCalled_Test )
     CallCounter::ResetCounters();
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray = arOriginalArray;
+    QArrayDynamic<CallCounter> arDynamicArray = arOriginalArray;
     
     // [Verification]
     pointer_uint_q uCopyConstructorsCalled = CallCounter::GetCopyConstructorCallsCount();
@@ -311,11 +311,11 @@ QTEST_CASE ( Constructor4_CopyConstructorOfEveryElementIsCalled_Test )
 QTEST_CASE ( Constructor4_ElementCountIsZeroAfterCopyingEmptyArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arOriginalArray;
+    QArrayDynamic<int> arOriginalArray;
     const pointer_uint_q ZERO_COUNT = 0;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     pointer_uint_q uCount = arDynamicArray.GetCount();
@@ -328,14 +328,14 @@ QTEST_CASE ( Constructor4_ElementCountIsZeroAfterCopyingEmptyArray_Test )
 QTEST_CASE ( Constructor4_ElementsAreCopiedInOrder_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arOriginalArray(3U);
+    QArrayDynamic<int> arOriginalArray(3U);
     arOriginalArray.Add(1);
     arOriginalArray.Add(2);
     arOriginalArray.Add(3);
     const bool ARE_EQUAL = true;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     
     // [Verification]
     bool bAreEqual = true;
@@ -356,7 +356,7 @@ QTEST_CASE ( Constructor5_ItIsCorrectlyConstructedFromCommonArray_Test )
     const char SOURCE_ARRAY[ARRAY_SIZE] = {0, 1, 2};
 
     // [Execution]
-    QDynamicArray<char> arArray(SOURCE_ARRAY, ARRAY_SIZE);
+    QArrayDynamic<char> arArray(SOURCE_ARRAY, ARRAY_SIZE);
 
     // [Verification]
     unsigned int uArraySize = arArray.GetCount();
@@ -383,7 +383,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenArrayIsNull_Test )
     // [Execution]
     try
     {
-        QDynamicArray<int> arArray = QDynamicArray<int>(NULL_ARRAY, NON_ZERO_SIZE);
+        QArrayDynamic<int> arArray = QArrayDynamic<int>(NULL_ARRAY, NON_ZERO_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -409,7 +409,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenCountIsZero_Test )
     // [Execution]
     try
     {
-        QDynamicArray<int> arArray = QDynamicArray<int>(SOURCE_ARRAY, ZERO_SIZE);
+        QArrayDynamic<int> arArray = QArrayDynamic<int>(SOURCE_ARRAY, ZERO_SIZE);
     }
     catch(const QAssertException&)
     {
@@ -427,14 +427,14 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenCountIsZero_Test )
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_ElementsAreProperlyCopiedWhenArrayIsNotEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     int arExpectedArrayElements[] = {4, 5, 6};
-    QFixedArray<int> arExpectedArray(arExpectedArrayElements, 3U);
+    QArrayFixed<int> arExpectedArray(arExpectedArrayElements, 3U);
 
     bool ARE_EQUAL = true;
 
@@ -455,15 +455,15 @@ QTEST_CASE ( AssignmentOperator1_ElementsAreProperlyCopiedWhenArrayIsNotEmpty_Te
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -476,15 +476,15 @@ QTEST_CASE ( AssignmentOperator1_ElementCountIsCorrectAfterCopyingCommonArray_Te
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_CapacityEqualsInputArrayCountWhenItIsGreaterThanResidentArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -497,18 +497,18 @@ QTEST_CASE ( AssignmentOperator1_CapacityEqualsInputArrayCountWhenItIsGreaterTha
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_CopyConstructorOfEveryNewElementIsCalledWhenCopyingBiggerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[1];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 1U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 1U);
     CallCounter arBiggerArrayElements[3];
-    QFixedArray<CallCounter> arBiggerArray(arBiggerArrayElements, 3U);
+    QArrayFixed<CallCounter> arBiggerArray(arBiggerArrayElements, 3U);
     const pointer_uint_q NEW_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arBiggerArray;
     
@@ -522,18 +522,18 @@ QTEST_CASE ( AssignmentOperator1_CopyConstructorOfEveryNewElementIsCalledWhenCop
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_AssignmentOperatorOfEveryExistingElementIsCalled_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[2];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 2U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 2U);
     CallCounter arBiggerArrayElements[3];
-    QFixedArray<CallCounter> arBiggerArray(arBiggerArrayElements, 3U);
+    QArrayFixed<CallCounter> arBiggerArray(arBiggerArrayElements, 3U);
     const pointer_uint_q EXISTING_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arBiggerArray;
     
@@ -547,18 +547,18 @@ QTEST_CASE ( AssignmentOperator1_AssignmentOperatorOfEveryExistingElementIsCalle
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_DestructorOfElementsIsCalledWhenCopyingSmallerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[3];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
     CallCounter arSmallerArrayElements[1];
-    QFixedArray<CallCounter> arSmallerArray(arSmallerArrayElements, 1U);
+    QArrayFixed<CallCounter> arSmallerArray(arSmallerArrayElements, 1U);
     const pointer_uint_q EXCEEDING_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arSmallerArray;
     
@@ -572,14 +572,14 @@ QTEST_CASE ( AssignmentOperator1_DestructorOfElementsIsCalledWhenCopyingSmallerA
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_CapacityDoesNotChangeWhenAssigningToSmallerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     int arNonEmptyArrayElements[] = {1, 2, 3};
     int arSmallerArrayElements[] = {1, 2};
-    QDynamicArray<int> arNonEmptyArray(QFixedArray<int>(arNonEmptyArrayElements, 3U));
-    QFixedArray<int> arSmallerArray(arSmallerArrayElements, 2U);
+    QArrayDynamic<int> arNonEmptyArray(QArrayFixed<int>(arNonEmptyArrayElements, 3U));
+    QArrayFixed<int> arSmallerArray(arSmallerArrayElements, 2U);
     const pointer_uint_q ORIGINAL_CAPACITY = arNonEmptyArray.GetCapacity();
 
 	// [Execution]
@@ -595,15 +595,15 @@ QTEST_CASE ( AssignmentOperator1_CapacityDoesNotChangeWhenAssigningToSmallerArra
 /// </summary>
 QTEST_CASE ( AssignmentOperator1_ElementsAreCopiedInOrder_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
     const bool ARE_EQUAL = true;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -621,11 +621,11 @@ QTEST_CASE ( AssignmentOperator1_ElementsAreCopiedInOrder_Test )
 QTEST_CASE ( AssignmentOperator1_ReturnsReferenceToResidentArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
-    QDynamicArray<int> arNonEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
+    QArrayDynamic<int> arNonEmptyArray;
 
     // [Execution]
-    QDynamicArray<int>& referenceToResult = arNonEmptyArray = arEmptyArray;
+    QArrayDynamic<int>& referenceToResult = arNonEmptyArray = arEmptyArray;
     
     // [Verification]
     BOOST_CHECK_EQUAL(&referenceToResult, &arNonEmptyArray);
@@ -636,15 +636,15 @@ QTEST_CASE ( AssignmentOperator1_ReturnsReferenceToResidentArray_Test )
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_ElementCountIsZeroAfterCopyingEmptyArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     const pointer_uint_q ZERO_COUNT = 0;
 
     // [Preparation]
     int arNonEmptyArrayElements[] = {1, 2, 3};
-    QDynamicArray<int> arNonEmptyArray(QFixedArray<int>(arNonEmptyArrayElements, 3U));
+    QArrayDynamic<int> arNonEmptyArray(QArrayFixed<int>(arNonEmptyArrayElements, 3U));
 
 	// [Execution]
     arNonEmptyArray = arEmptyArray;
@@ -659,14 +659,14 @@ QTEST_CASE ( AssignmentOperator2_ElementCountIsZeroAfterCopyingEmptyArray_Test )
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_ElementsAreProperlyCopiedWhenArrayIsNotEmpty_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
     int arExpectedArrayElements[] = {4, 5, 6};
-    QDynamicArray<int> arExpectedArray(QFixedArray<int>(arExpectedArrayElements, 3U));
+    QArrayDynamic<int> arExpectedArray(QArrayFixed<int>(arExpectedArrayElements, 3U));
 
     bool ARE_EQUAL = true;
 
@@ -687,15 +687,15 @@ QTEST_CASE ( AssignmentOperator2_ElementsAreProperlyCopiedWhenArrayIsNotEmpty_Te
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_ElementCountIsCorrectAfterCopyingCommonArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QDynamicArray<int> arOriginalArray(QFixedArray<int>(arOriginalArrayElements, 3U));
+    QArrayDynamic<int> arOriginalArray(QArrayFixed<int>(arOriginalArrayElements, 3U));
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -708,15 +708,15 @@ QTEST_CASE ( AssignmentOperator2_ElementCountIsCorrectAfterCopyingCommonArray_Te
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_CapacityEqualsInputArrayCountWhenItIsGreaterThanResidentArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QDynamicArray<int> arOriginalArray(QFixedArray<int>(arOriginalArrayElements, 3U));
+    QArrayDynamic<int> arOriginalArray(QArrayFixed<int>(arOriginalArrayElements, 3U));
     const pointer_uint_q ORIGINAL_COUNT = arOriginalArray.GetCount();
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -729,18 +729,18 @@ QTEST_CASE ( AssignmentOperator2_CapacityEqualsInputArrayCountWhenItIsGreaterTha
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_CopyConstructorOfEveryNewElementIsCalledWhenCopyingBiggerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[1];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 1U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 1U);
     CallCounter arBiggerArrayElements[3];
-    QDynamicArray<CallCounter> arBiggerArray(QFixedArray<CallCounter>(arBiggerArrayElements, 3U));
+    QArrayDynamic<CallCounter> arBiggerArray(QArrayFixed<CallCounter>(arBiggerArrayElements, 3U));
     const pointer_uint_q NEW_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arBiggerArray;
     
@@ -754,18 +754,18 @@ QTEST_CASE ( AssignmentOperator2_CopyConstructorOfEveryNewElementIsCalledWhenCop
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_AssignmentOperatorOfEveryExistingElementIsCalled_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[2];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 2U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 2U);
     CallCounter arBiggerArrayElements[3];
-    QDynamicArray<CallCounter> arBiggerArray(QFixedArray<CallCounter>(arBiggerArrayElements, 3U));
+    QArrayDynamic<CallCounter> arBiggerArray(QArrayFixed<CallCounter>(arBiggerArrayElements, 3U));
     const pointer_uint_q EXISTING_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arBiggerArray;
     
@@ -779,18 +779,18 @@ QTEST_CASE ( AssignmentOperator2_AssignmentOperatorOfEveryExistingElementIsCalle
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_DestructorOfElementsIsCalledWhenCopyingSmallerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
     CallCounter arOriginalArrayElements[3];
-    QFixedArray<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayFixed<CallCounter> arOriginalArray(arOriginalArrayElements, 3U);
     CallCounter arSmallerArrayElements[1];
-    QDynamicArray<CallCounter> arSmallerArray(QFixedArray<CallCounter>(arSmallerArrayElements, 1U));
+    QArrayDynamic<CallCounter> arSmallerArray(QArrayFixed<CallCounter>(arSmallerArrayElements, 1U));
     const pointer_uint_q EXCEEDING_ELEMENTS = 2U;
 
 	// [Execution]
-    QDynamicArray<CallCounter> arDynamicArray(arOriginalArray);
+    QArrayDynamic<CallCounter> arDynamicArray(arOriginalArray);
     CallCounter::ResetCounters();
     arDynamicArray = arSmallerArray;
     
@@ -804,14 +804,14 @@ QTEST_CASE ( AssignmentOperator2_DestructorOfElementsIsCalledWhenCopyingSmallerA
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_CapacityDoesNotChangeWhenAssigningToSmallerArray_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     int arNonEmptyArrayElements[] = {1, 2, 3};
     int arSmallerArrayElements[] = {1, 2};
-    QDynamicArray<int> arNonEmptyArray(QFixedArray<int>(arNonEmptyArrayElements, 3U));
-    QDynamicArray<int> arSmallerArray(QFixedArray<int>(arSmallerArrayElements, 2U));
+    QArrayDynamic<int> arNonEmptyArray(QArrayFixed<int>(arNonEmptyArrayElements, 3U));
+    QArrayDynamic<int> arSmallerArray(QArrayFixed<int>(arSmallerArrayElements, 2U));
     const pointer_uint_q ORIGINAL_CAPACITY = arNonEmptyArray.GetCapacity();
 
 	// [Execution]
@@ -827,15 +827,15 @@ QTEST_CASE ( AssignmentOperator2_CapacityDoesNotChangeWhenAssigningToSmallerArra
 /// </summary>
 QTEST_CASE ( AssignmentOperator2_ElementsAreCopiedInOrder_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     int arOriginalArrayElements[] = {1, 2, 3};
-    QDynamicArray<int> arOriginalArray(QFixedArray<int>(arOriginalArrayElements, 3U));
+    QArrayDynamic<int> arOriginalArray(QArrayFixed<int>(arOriginalArrayElements, 3U));
     const bool ARE_EQUAL = true;
 
 	// [Execution]
-    QDynamicArray<int> arDynamicArray;
+    QArrayDynamic<int> arDynamicArray;
     arDynamicArray = arOriginalArray;
     
     // [Verification]
@@ -853,11 +853,11 @@ QTEST_CASE ( AssignmentOperator2_ElementsAreCopiedInOrder_Test )
 QTEST_CASE ( AssignmentOperator2_ReturnsReferenceToResidentArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
-    QDynamicArray<int> arNonEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
+    QArrayDynamic<int> arNonEmptyArray;
 
     // [Execution]
-    QDynamicArray<int>& referenceToResult = arNonEmptyArray = arEmptyArray;
+    QArrayDynamic<int>& referenceToResult = arNonEmptyArray = arEmptyArray;
     
     // [Verification]
     BOOST_CHECK_EQUAL(&referenceToResult, &arNonEmptyArray);
@@ -870,7 +870,7 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 {
     // [Preparation]
     const pointer_uint_q EXPECTED_CAPACITY = 4U;
-    QDynamicArray<int> arDynamicArray(1U);
+    QArrayDynamic<int> arDynamicArray(1U);
 
     // [Execution]
     arDynamicArray.Reserve(EXPECTED_CAPACITY);
@@ -886,12 +886,12 @@ QTEST_CASE ( Reserve_CapacityIsCorrectlyIncreased_Test )
 /// </summary>
 QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     unsigned int arOriginalArrayElements[] = {0, 1, 2};
-    QFixedArray<unsigned int> arOriginalArray(arOriginalArrayElements, 3U);
-    QDynamicArray<unsigned int> arDynamicArray(arOriginalArray);
+    QArrayFixed<unsigned int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayDynamic<unsigned int> arDynamicArray(arOriginalArray);
 
     const bool ELEMENTS_ARE_THE_SAME = true;
     const pointer_uint_q INPUT_CAPACITY = 20U;
@@ -913,15 +913,15 @@ QTEST_CASE ( Reserve_ElementsAreCorrectlyReallocated_Test )
 /// </summary>
 QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentCapacity_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+    using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 
     // [Preparation]
     const pointer_uint_q INPUT_CAPACITY = 1U;
     const pointer_uint_q EXPECTED_CAPACITY = 3U;
 
     int arOriginalArrayElements[] = {1, 2, 3};
-    QFixedArray<int> arOriginalArray(arOriginalArrayElements, 3U);
-    QDynamicArray<int> arDynamicArray(arOriginalArray);
+    QArrayFixed<int> arOriginalArray(arOriginalArrayElements, 3U);
+    QArrayDynamic<int> arDynamicArray(arOriginalArray);
 
     const int* ORIGINAL_FIRST_ELEMENT_ADDRESS = &arDynamicArray[0];
 
@@ -942,7 +942,7 @@ QTEST_CASE ( Reserve_NothingHappensWhenTheAmountToReserveIsNoGreaterThanCurrentC
 QTEST_CASE ( Add_ElementIsCorrectlyAddedToEmptyArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
@@ -959,7 +959,7 @@ QTEST_CASE ( Add_CapacityIsIncreasedWhenAddingElementsToFullArray_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     arFullArray.Add(0);
     arFullArray.Add(0);
@@ -980,7 +980,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedWhenArrayIsFull_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     arFullArray.Add(0);
     arFullArray.Add(0);
@@ -1000,7 +1000,7 @@ QTEST_CASE ( Add_ElementIsCorrectlyAddedAtTheEnd_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
 
@@ -1020,7 +1020,7 @@ QTEST_CASE ( Add_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 1;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arCommonArray(INITIAL_CAPACITY);
 
     // [Execution]
     arCommonArray.Add(ELEMENT_VALUE);
@@ -1040,7 +1040,7 @@ QTEST_CASE ( Add_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<CallCounter> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<CallCounter> arCommonArray(INITIAL_CAPACITY);
     CallCounter newElement;
     CallCounter::ResetCounters();
 
@@ -1058,10 +1058,10 @@ QTEST_CASE ( Add_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1076,11 +1076,11 @@ QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 QTEST_CASE ( Insert1_ElementIsCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetIterator(1);
+    const QArrayDynamic<int>::QConstArrayIterator POSITION = arCommonArray.GetIterator(1);
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1096,12 +1096,12 @@ QTEST_CASE ( Insert1_CapacityIsIncreasedWhenAddingElementsToFullArray_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     arFullArray.Add(0);
     arFullArray.Add(0);
     const int ELEMENT_VALUE = 1;
-    const QDynamicArray<int>::QConstArrayIterator POSITION = arFullArray.GetFirst();
+    const QArrayDynamic<int>::QConstArrayIterator POSITION = arFullArray.GetFirst();
 
     // [Execution]
     arFullArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1120,9 +1120,9 @@ QTEST_CASE ( Insert1_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 2;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(0);
-    const QDynamicArray<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(ELEMENT_VALUE, POSITION);
@@ -1142,11 +1142,11 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<CallCounter> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<CallCounter> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
-    const QDynamicArray<CallCounter>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<CallCounter>::QConstArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Insert(newElement, POSITION);
@@ -1164,9 +1164,9 @@ QTEST_CASE ( Insert1_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
-    QDynamicArray<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QArrayDynamic<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1193,11 +1193,11 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Insert1_AssertionFailsWhenIteratorIsInvalid_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
     arCommonArray.Remove(ITERATOR);
     const bool ASSERTION_FAILED = true;
     const int ELEMENT_VALUE = 1;
@@ -1226,8 +1226,8 @@ QTEST_CASE ( Insert1_AssertionFailsWhenIteratorIsInvalid_Test )
 QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
-    QDynamicArray<int>::QConstArrayIterator ITERATOR = arEmptyArray.GetFirst();
+    QArrayDynamic<int> arEmptyArray;
+    QArrayDynamic<int>::QConstArrayIterator ITERATOR = arEmptyArray.GetFirst();
     const int ELEMENT_VALUE = 1;
 
     // [Execution]
@@ -1243,9 +1243,9 @@ QTEST_CASE ( Insert1_ElementIsInsertedIntoEmptyArray_Test )
 QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
-    QDynamicArray<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QArrayDynamic<int>::QConstArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
     const int ELEMENT_VALUE = 1;
 
@@ -1264,7 +1264,7 @@ QTEST_CASE ( Insert1_ElementIsInsertedAtTheEndWhenIteratorsPointsToForwardEndPos
 QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q POSITION = 0;
@@ -1282,7 +1282,7 @@ QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedAtFirstPosition_Test )
 QTEST_CASE ( Insert2_ElementIsCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     const int ELEMENT_VALUE = 1;
@@ -1302,7 +1302,7 @@ QTEST_CASE ( Insert2_CapacityIsIncreasedWhenAddingElementsToFullArray_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     arFullArray.Add(0);
     arFullArray.Add(0);
@@ -1326,7 +1326,7 @@ QTEST_CASE ( Insert2_CountIsIncreasedAfterAddingAnElement_Test )
     const pointer_uint_q EXPECTED_COUNT = 2;
     const int ELEMENT_VALUE = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(0);
     const pointer_uint_q POSITION = 0;
 
@@ -1348,7 +1348,7 @@ QTEST_CASE ( Insert2_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<CallCounter> arCommonArray(INITIAL_CAPACITY);
+    QArrayDynamic<CallCounter> arCommonArray(INITIAL_CAPACITY);
     arCommonArray.Add(CallCounter());
     CallCounter newElement;
     CallCounter::ResetCounters();
@@ -1370,7 +1370,7 @@ QTEST_CASE ( Insert2_CopyConstructorIsCalledForAddedElements_Test )
 QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const pointer_uint_q OUT_OF_BOUNDS_INDEX = arCommonArray.GetCount();
     const bool ASSERTION_FAILED = true;
@@ -1400,7 +1400,7 @@ QTEST_CASE ( Insert2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Insert2_ElementIsInsertedIntoEmptyArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     const pointer_uint_q POSITION = 0;
     const int ELEMENT_VALUE = 1;
 
@@ -1417,7 +1417,7 @@ QTEST_CASE ( Insert2_ElementIsInsertedIntoEmptyArray_Test )
 QTEST_CASE ( Insert2_ElementIsInsertedAtTheEndWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const pointer_uint_q INDEX_OUT_OF_BOUNDS = arCommonArray.GetCount();
     const int ELEMENT_VALUE = 1;
@@ -1439,11 +1439,11 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromLastPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(ELEMENT_VALUE);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetLast();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetLast();
 
     // [Execution]
     arCommonArray.Remove(POSITION);
@@ -1461,11 +1461,11 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(ELEMENT_VALUE);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Remove(POSITION);
@@ -1483,11 +1483,11 @@ QTEST_CASE ( Remove1_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(ELEMENT_VALUE);
     arCommonArray.Add(0);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetIterator(1);
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetIterator(1);
 
     // [Execution]
     arCommonArray.Remove(POSITION);
@@ -1504,11 +1504,11 @@ QTEST_CASE ( Remove1_CountDecreasesAfterRemovingElements_Test )
 {
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 2;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Remove(POSITION);
@@ -1527,9 +1527,9 @@ QTEST_CASE ( Remove1_DestructorOfElementIsCalled_Test )
 
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
-    QDynamicArray<CallCounter> arCommonArray;
+    QArrayDynamic<CallCounter> arCommonArray;
     arCommonArray.Add(CallCounter());
-    const QDynamicArray<CallCounter>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<CallCounter>::QArrayIterator POSITION = arCommonArray.GetFirst();
     CallCounter::ResetCounters();
 
     // [Execution]
@@ -1548,9 +1548,9 @@ QTEST_CASE ( Remove1_DestructorOfElementIsCalled_Test )
 QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
     const bool ASSERTION_FAILED = true;
 
@@ -1576,11 +1576,11 @@ QTEST_CASE ( Remove1_AssertionFailsWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Remove1_AssertionFailsWhenInteratorIsInvalid_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
-    QDynamicArray<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator ITERATOR = arCommonArray.GetLast();
     arCommonArray.Remove(ITERATOR);
     const bool ASSERTION_FAILED = true;
 
@@ -1608,10 +1608,10 @@ QTEST_CASE ( Remove1_AssertionFailsWhenInteratorIsInvalid_Test )
 QTEST_CASE ( Remove1_NothingHappensWhenIteratorsPointsToForwardEndPosition_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const pointer_uint_q EXPECTED_COUNT = arCommonArray.GetCount();
-    QDynamicArray<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator ITERATOR_END = arCommonArray.GetLast();
     ++ITERATOR_END;
 
     // [Execution]
@@ -1628,9 +1628,9 @@ QTEST_CASE ( Remove1_NothingHappensWhenIteratorsPointsToForwardEndPosition_Test 
 QTEST_CASE ( Remove1_NothingHappensWhenArrayIsEmpty_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     const pointer_uint_q EXPECTED_COUNT = 0;
-    QDynamicArray<int>::QArrayIterator ITERATOR = arCommonArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator ITERATOR = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.Remove(ITERATOR);
@@ -1650,7 +1650,7 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromLastPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(ELEMENT_VALUE);
@@ -1672,7 +1672,7 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(ELEMENT_VALUE);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
@@ -1694,7 +1694,7 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromBetweenTwoElements_Test )
     // [Preparation]
     const bool ELEMENT_DOES_NOT_EXIST = true;
     const int ELEMENT_VALUE = 1;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(ELEMENT_VALUE);
     arCommonArray.Add(0);
@@ -1715,7 +1715,7 @@ QTEST_CASE ( Remove2_CountDecreasesAfterRemovingElements_Test )
 {
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 2;
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
@@ -1738,7 +1738,7 @@ QTEST_CASE ( Remove2_DestructorOfElementIsCalled_Test )
 
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 1;
-    QDynamicArray<CallCounter> arCommonArray;
+    QArrayDynamic<CallCounter> arCommonArray;
     arCommonArray.Add(CallCounter());
     const pointer_uint_q POSITION = 0;
     CallCounter::ResetCounters();
@@ -1759,7 +1759,7 @@ QTEST_CASE ( Remove2_DestructorOfElementIsCalled_Test )
 QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const pointer_uint_q POSITION = arCommonArray.GetCount();
     const bool ASSERTION_FAILED = true;
@@ -1788,7 +1788,7 @@ QTEST_CASE ( Remove2_AssertionFailsWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Remove2_NothingHappensWhenIndexIsOutOfBounds_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     arCommonArray.Add(0);
     const pointer_uint_q EXPECTED_COUNT = arCommonArray.GetCount();
     const pointer_uint_q POSITION = arCommonArray.GetCount();
@@ -1807,7 +1807,7 @@ QTEST_CASE ( Remove2_NothingHappensWhenIndexIsOutOfBounds_Test )
 QTEST_CASE ( Remove2_NothingHappensWhenArrayIsEmpty_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     const pointer_uint_q EXPECTED_COUNT = 0;
     const pointer_uint_q POSITION = 0;
 
@@ -1827,7 +1827,7 @@ QTEST_CASE ( Remove2_NothingHappensWhenArrayIsEmpty_Test )
 QTEST_CASE ( Clear_NothingHappensWhenArrayIsEmpty_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
+    QArrayDynamic<int> arCommonArray;
     const pointer_uint_q EXPECTED_COUNT = 0;
 
     // [Execution]
@@ -1844,7 +1844,7 @@ QTEST_CASE ( Clear_NothingHappensWhenArrayIsEmpty_Test )
 QTEST_CASE ( Clear_AllElemensAreRemovedWhenArrayIsFull_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
@@ -1864,7 +1864,7 @@ QTEST_CASE ( Clear_AllElemensAreRemovedWhenArrayIsFull_Test )
 QTEST_CASE ( Clear_AllElementsAreRemovedWhenArrayContainsSomeElements_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(3U);
+    QArrayDynamic<int> arCommonArray(3U);
     arCommonArray.Add(0);
     arCommonArray.Add(0);
     const pointer_uint_q EXPECTED_COUNT = 0;
@@ -1885,7 +1885,7 @@ QTEST_CASE ( Clear_DestructorIsCalledForEveryElement_Test )
     using Kinesis::QuimeraEngine::Tools::Containers::Test::CallCounter;
 
     // [Preparation]
-    QDynamicArray<CallCounter> arCommonArray(3U);
+    QArrayDynamic<CallCounter> arCommonArray(3U);
     arCommonArray.Add(CallCounter());
     arCommonArray.Add(CallCounter());
     const pointer_uint_q EXPECTED_CALLS = 2;
@@ -1905,10 +1905,10 @@ QTEST_CASE ( Clear_DestructorIsCalledForEveryElement_Test )
 QTEST_CASE ( Clone_CapacityOfDestinationIsIncreasedWhenItIsLowerThanCapacityOfSource_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray(10U);
+    QArrayDynamic<int> arCommonArray(10U);
     for(int i = 0; i < 10; ++i)
         arCommonArray.Add(i);
-    QDynamicArray<int> arDestination;
+    QArrayDynamic<int> arDestination;
     const pointer_uint_q INITIAL_CAPACITY = arDestination.GetCapacity();
     const pointer_uint_q EXPECTED_CAPACITY = arCommonArray.GetCapacity();
 
@@ -1927,8 +1927,8 @@ QTEST_CASE ( Clone_CapacityOfDestinationIsIncreasedWhenItIsLowerThanCapacityOfSo
 QTEST_CASE ( Clone_NoElementsAreCopiedWhenSourceArrayIsEmpty_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arCommonArray;
-    QDynamicArray<int> arDestination;
+    QArrayDynamic<int> arCommonArray;
+    QArrayDynamic<int> arDestination;
 
     // [Execution]
     arCommonArray.Clone(arDestination);
@@ -1947,10 +1947,10 @@ QTEST_CASE ( Clone_ElementsAreCorrectlyCopiedWhenSourceArrayIsPartiallyFull_Test
 {
     // [Preparation]
     const bool ARE_EQUAL = true;
-    QDynamicArray<int> arCommonArray(10U);
+    QArrayDynamic<int> arCommonArray(10U);
     for(int i = 0; i < 5; ++i)
         arCommonArray.Add(i);
-    QDynamicArray<int> arDestination;
+    QArrayDynamic<int> arDestination;
 
     // [Execution]
     arCommonArray.Clone(arDestination);
@@ -1975,10 +1975,10 @@ QTEST_CASE ( Clone_ElementsAreCorrectlyCopiedWhenSourceArrayIsFull_Test )
 {
     // [Preparation]
     const bool ARE_EQUAL = true;
-    QDynamicArray<int> arCommonArray(10U);
+    QArrayDynamic<int> arCommonArray(10U);
     for(int i = 0; i < 10; ++i)
         arCommonArray.Add(i);
-    QDynamicArray<int> arDestination;
+    QArrayDynamic<int> arDestination;
 
     // [Execution]
     arCommonArray.Clone(arDestination);
@@ -2003,10 +2003,10 @@ QTEST_CASE ( Clone_ElementsAreCorrectlyCopiedWhenDestinationIsNotEmpty_Test )
 {
     // [Preparation]
     const bool ARE_EQUAL = true;
-    QDynamicArray<int> arCommonArray(10U);
+    QArrayDynamic<int> arCommonArray(10U);
     for(int i = 0; i < 10; ++i)
         arCommonArray.Add(i);
-    QDynamicArray<int> arDestination;
+    QArrayDynamic<int> arDestination;
     for(int i = 10; i < 15; ++i)
         arDestination.Add(i);
 
@@ -2035,10 +2035,10 @@ QTEST_CASE ( Clone_NeitherDestructorNorConstructorsAreCalledWhenCloning_Test )
 
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 0;
-    QDynamicArray<CallCounter> arCommonArray(10U);
+    QArrayDynamic<CallCounter> arCommonArray(10U);
     for(int i = 0; i < 10; ++i)
         arCommonArray.Add(CallCounter());
-    QDynamicArray<CallCounter> arDestination;
+    QArrayDynamic<CallCounter> arDestination;
     for(int i = 10; i < 15; ++i)
         arCommonArray.Add(CallCounter());
 
@@ -2064,7 +2064,7 @@ QTEST_CASE( Contains_ReturnsFalseWhenArrayIsEmpty_Test )
 
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
-    QDynamicArray<u32_q> dynamicArray;
+    QArrayDynamic<u32_q> dynamicArray;
     const bool EXPECTED_RESULT = false;
 
     // [Execution]
@@ -2083,8 +2083,8 @@ QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenArrayIsEmpty_Test )
 
     // [Preparation]
     const u32_q INPUT_ELEMENT = 2U;
-    QDynamicArray<u32_q> dynamicArray;
-    const pointer_uint_q EXPECTED_RESULT = QDynamicArray<u32_q>::ELEMENT_NOT_FOUND;
+    QArrayDynamic<u32_q> dynamicArray;
+    const pointer_uint_q EXPECTED_RESULT = QArrayDynamic<u32_q>::ELEMENT_NOT_FOUND;
 
     // [Execution]
     pointer_uint_q uResult = dynamicArray.IndexOf(INPUT_ELEMENT);
@@ -2099,13 +2099,13 @@ QTEST_CASE( IndexOf1_ReturnsElementNotFoundWhenArrayIsEmpty_Test )
 QTEST_CASE ( AddRange_ElementIsCorrectlyAddedToEmptyArray_Test )
 {
     // [Preparation]
-    QDynamicArray<int> arEmptyArray;
+    QArrayDynamic<int> arEmptyArray;
     const int EXPECTED_VALUES[] = {2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     
     // [Execution]
     arEmptyArray.AddRange(itFirst, itLast);
@@ -2121,12 +2121,12 @@ QTEST_CASE ( AddRange_CapacityIsIncreasedWhenAddingElementsToFullArray_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 1U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     
     // [Execution]
     arFullArray.AddRange(itFirst, itLast);
@@ -2143,16 +2143,16 @@ QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenArrayIsFull_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 3U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(8);
     arFullArray.Add(9);
     arFullArray.Add(0);
     const int EXPECTED_VALUES[] = {8, 9, 0, 2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
 
     // [Execution]
     arFullArray.AddRange(itFirst, itLast);
@@ -2168,13 +2168,13 @@ QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedAtTheEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(4);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(4);
 
     // [Execution]
     arCommonArray.AddRange(itFirst, itLast);
@@ -2190,12 +2190,12 @@ QTEST_CASE ( AddRange_CountIsIncreasedAfterAddingElements_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_COUNT = 1U;
-    QDynamicArray<int> arCommonArray(3);
+    QArrayDynamic<int> arCommonArray(3);
     arCommonArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     
     // [Execution]
     arCommonArray.AddRange(itFirst, itLast);
@@ -2215,11 +2215,11 @@ QTEST_CASE ( AddRange_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 3;
     const CallCounter COMMON_VALUES[] = {CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
     const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
-    QDynamicArray<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
-    QDynamicArray<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
+    QArrayDynamic<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
+    QArrayDynamic<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
     CallCounter newElement;
     CallCounter::ResetCounters();
 
@@ -2238,13 +2238,13 @@ QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_Test
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 3};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
-    QDynamicArray<int>::QArrayIterator itLast = itFirst;
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
+    QArrayDynamic<int>::QArrayIterator itLast = itFirst;
 
     // [Execution]
     arCommonArray.AddRange(itFirst, itLast);
@@ -2260,13 +2260,13 @@ QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfAnoth
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
 
     // [Execution]
     arCommonArray.AddRange(itFirst, itLast);
@@ -2282,11 +2282,11 @@ QTEST_CASE ( AddRange_ElementRangeIsCorrectlyAddedWhenUsingElementsOfTheSameArra
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
 
     // [Execution]
     arCommonArray.AddRange(itFirst, itLast);
@@ -2304,11 +2304,11 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Test
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -2333,11 +2333,11 @@ QTEST_CASE ( AddRange_AssertionFailsWhenFirstElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itFirst;
 
     // [Execution]
@@ -2363,11 +2363,11 @@ QTEST_CASE ( AddRange_AssertionFailsWhenLastElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itLast;
 
     // [Execution]
@@ -2395,13 +2395,13 @@ QTEST_CASE ( InsertRange1_ElementsAreCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {2, 3, 4, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
@@ -2418,13 +2418,13 @@ QTEST_CASE ( InsertRange1_ElementsAreCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 2, 3, 4, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     const pointer_uint_q POSITION = 1;
 
 
@@ -2442,12 +2442,12 @@ QTEST_CASE ( InsertRange1_CapacityIsIncreasedWhenAddingElementsToFullArray_Test 
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 1U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     const pointer_uint_q POSITION = 0;
     
     // [Execution]
@@ -2465,12 +2465,12 @@ QTEST_CASE ( InsertRange1_CountIsIncreasedAfterAddingAnElement_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_COUNT = 1U;
-    QDynamicArray<int> arCommonArray(3);
+    QArrayDynamic<int> arCommonArray(3);
     arCommonArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     const pointer_uint_q POSITION = 0;
     
     // [Execution]
@@ -2491,11 +2491,11 @@ QTEST_CASE ( InsertRange1_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 3;
     const CallCounter COMMON_VALUES[] = {CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
     const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
-    QDynamicArray<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
-    QDynamicArray<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
+    QArrayDynamic<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
+    QArrayDynamic<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
     const pointer_uint_q POSITION = 0;
 
     CallCounter newElement;
@@ -2516,13 +2516,13 @@ QTEST_CASE ( InsertRange1_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
-    QDynamicArray<int>::QArrayIterator itLast = itFirst;
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
+    QArrayDynamic<int>::QArrayIterator itLast = itFirst;
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
@@ -2539,13 +2539,13 @@ QTEST_CASE ( InsertRange1_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfA
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
@@ -2564,11 +2564,11 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetFirst();
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
@@ -2594,11 +2594,11 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenFirstElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itFirst;
     const pointer_uint_q POSITION = 0;
 
@@ -2625,11 +2625,11 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenLastElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itLast;
     const pointer_uint_q POSITION = 0;
 
@@ -2656,11 +2656,11 @@ QTEST_CASE ( InsertRange1_AssertionFailsWhenInsertionPositionIsNotLowerThanCount
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     const pointer_uint_q POSITION = arCommonArray.GetCount();
 
     // [Execution]
@@ -2688,12 +2688,12 @@ QTEST_CASE ( InsertRange1_ElementIsInsertedIntoEmptyArray_Test )
 {
     // [Preparation]
     const int EXPECTED_VALUES[] = {2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    QDynamicArray<int> arEmptyArray(5);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arEmptyArray(5);
     const pointer_uint_q POSITION = 0;
 
     // [Execution]
@@ -2710,13 +2710,13 @@ QTEST_CASE ( InsertRange1_ElementIsInsertedAtTheEndWhenInsertionPositionIsNotLow
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
     const pointer_uint_q POSITION = arCommonArray.GetCount();
 
     // [Execution]
@@ -2735,14 +2735,14 @@ QTEST_CASE ( InsertRange2_ElementsAreCorrectlyInsertedAtFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {2, 3, 4, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.InsertRange(itFirst, itLast, POSITION);
@@ -2758,14 +2758,14 @@ QTEST_CASE ( InsertRange2_ElementsAreCorrectlyInsertedInBetween_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 2, 3, 4, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetIterator(1);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetIterator(1);
 
     // [Execution]
     arCommonArray.InsertRange(itFirst, itLast, POSITION);
@@ -2781,13 +2781,13 @@ QTEST_CASE ( InsertRange2_CapacityIsIncreasedWhenAddingElementsToFullArray_Test 
 {
     // [Preparation]
     const pointer_uint_q INITIAL_CAPACITY = 1U;
-    QDynamicArray<int> arFullArray(INITIAL_CAPACITY);
+    QArrayDynamic<int> arFullArray(INITIAL_CAPACITY);
     arFullArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    const QDynamicArray<int>::QArrayIterator POSITION = arFullArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    const QArrayDynamic<int>::QArrayIterator POSITION = arFullArray.GetFirst();
     
     // [Execution]
     arFullArray.InsertRange(itFirst, itLast, POSITION);
@@ -2804,13 +2804,13 @@ QTEST_CASE ( InsertRange2_CountIsIncreasedAfterAddingAnElement_Test )
 {
     // [Preparation]
     const pointer_uint_q INITIAL_COUNT = 1U;
-    QDynamicArray<int> arCommonArray(3);
+    QArrayDynamic<int> arCommonArray(3);
     arCommonArray.Add(0);
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
     
     // [Execution]
     arCommonArray.InsertRange(itFirst, itLast, POSITION);
@@ -2830,12 +2830,12 @@ QTEST_CASE ( InsertRange2_CopyConstructorIsCalledForAddedElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 3;
     const CallCounter COMMON_VALUES[] = {CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
     const CallCounter ELEMENT_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
-    QDynamicArray<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
-    QDynamicArray<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
-    const QDynamicArray<CallCounter>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<CallCounter> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter>::QArrayIterator itFirst = arInputArray.GetIterator(0);
+    QArrayDynamic<CallCounter>::QArrayIterator itLast = arInputArray.GetIterator(2);
+    const QArrayDynamic<CallCounter>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     CallCounter newElement;
     CallCounter::ResetCounters();
@@ -2855,14 +2855,14 @@ QTEST_CASE ( InsertRange2_ElementRangeIsCorrectlyAddedWhenBothIteratorsAreEqual_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
-    QDynamicArray<int>::QArrayIterator itLast = itFirst;
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(2);
+    QArrayDynamic<int>::QArrayIterator itLast = itFirst;
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.InsertRange(itFirst, itLast, POSITION);
@@ -2878,14 +2878,14 @@ QTEST_CASE ( InsertRange2_ElementRangeIsCorrectlyAddedWhenUsingAllTheElementsOfA
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1, 2, 3, 4, 5, 0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     arCommonArray.InsertRange(itFirst, itLast, POSITION);
@@ -2903,12 +2903,12 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetFirst();
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -2933,13 +2933,13 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenFirstElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itFirst;
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -2964,13 +2964,13 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenLastElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
     ++itLast;
-    const QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -2995,12 +2995,12 @@ QTEST_CASE ( InsertRange2_AssertionFailsWhenInsertionPositionIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int ELEMENT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetLast();
-    QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetLast();
+    QArrayDynamic<int> arInputArray(ELEMENT_VALUES, sizeof(ELEMENT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetLast();
     ++POSITION;
 
     // [Execution]
@@ -3028,14 +3028,14 @@ QTEST_CASE ( InsertRange2_ElementIsInsertedIntoEmptyArray_Test )
 {
     // [Preparation]
     const int EXPECTED_VALUES[] = {2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    QDynamicArray<int> arEmptyArray(5);
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int> arEmptyArray(5);
     arEmptyArray.Add(0);
-    const QDynamicArray<int>::QArrayIterator POSITION = arEmptyArray.GetFirst();
+    const QArrayDynamic<int>::QArrayIterator POSITION = arEmptyArray.GetFirst();
     arEmptyArray.Clear();
 
     // [Execution]
@@ -3052,14 +3052,14 @@ QTEST_CASE ( InsertRange2_ElementIsInsertedAtTheEndWhenInsertionPositionPointsTo
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2, 2, 3, 4};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const int INPUT_VALUES[] = {1, 2, 3, 4, 5};
-    QDynamicArray<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
-    QDynamicArray<int>::QArrayIterator POSITION = arCommonArray.GetLast();
+    QArrayDynamic<int> arInputArray(INPUT_VALUES, sizeof(INPUT_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arInputArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arInputArray.GetIterator(3);
+    QArrayDynamic<int>::QArrayIterator POSITION = arCommonArray.GetLast();
     ++POSITION;
 
     // [Execution]
@@ -3078,11 +3078,11 @@ QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromLastPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(3);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(3);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3098,11 +3098,11 @@ QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetIterator(2);
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetIterator(2);
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3118,11 +3118,11 @@ QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedFromBetweenTwoElements_Test
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3138,10 +3138,10 @@ QTEST_CASE ( RemoveRange1_AllElementsCanBeRemoved_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int> arExpectedArray;
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray;
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3157,11 +3157,11 @@ QTEST_CASE ( RemoveRange1_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 2, 3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = itFirst;
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = itFirst;
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3178,10 +3178,10 @@ QTEST_CASE ( RemoveRange1_CountDecreasesAfterRemovingElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 3;
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
 
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
 
     // [Execution]
     arCommonArray.RemoveRange(itFirst, itLast);
@@ -3201,10 +3201,10 @@ QTEST_CASE ( RemoveRange1_DestructorOfEachElementIsCalled_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 2;
     const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
 
-    QDynamicArray<CallCounter>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<CallCounter>::QArrayIterator itLast = arCommonArray.GetIterator(2);
+    QArrayDynamic<CallCounter>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<CallCounter>::QArrayIterator itLast = arCommonArray.GetIterator(2);
     CallCounter::ResetCounters();
 
     // [Execution]
@@ -3224,9 +3224,9 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetFirst();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -3251,9 +3251,9 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenFirstElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
     ++itFirst;
 
     // [Execution]
@@ -3279,9 +3279,9 @@ QTEST_CASE ( RemoveRange1_AssertionFailsWhenLastElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
     ++itLast;
 
     // [Execution]
@@ -3309,9 +3309,9 @@ QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromLastPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 3U;
     const pointer_uint_q LAST = 5U;
 
@@ -3329,9 +3329,9 @@ QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 0;
     const pointer_uint_q LAST = 2U;
 
@@ -3349,9 +3349,9 @@ QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedFromBetweenTwoElements_Test
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 3U;
 
@@ -3369,8 +3369,8 @@ QTEST_CASE ( RemoveRange2_AllElementsCanBeRemoved_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int> arExpectedArray;
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray;
     const pointer_uint_q FIRST = 0;
     const pointer_uint_q LAST = arCommonArray.GetCount() - 1U;
 
@@ -3388,9 +3388,9 @@ QTEST_CASE ( RemoveRange2_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 2, 3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = FIRST;
 
@@ -3409,7 +3409,7 @@ QTEST_CASE ( RemoveRange2_CountDecreasesAfterRemovingElements_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_COUNT = 3;
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 3U;
 
@@ -3431,7 +3431,7 @@ QTEST_CASE ( RemoveRange2_DestructorOfEachElementIsCalled_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 2;
     const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 2U;
     CallCounter::ResetCounters();
@@ -3453,7 +3453,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 0;
 
@@ -3480,7 +3480,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Tes
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = arCommonArray.GetCount();
     const pointer_uint_q LAST = 2U;
 
@@ -3507,7 +3507,7 @@ QTEST_CASE ( RemoveRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = arCommonArray.GetCount();
 
@@ -3536,14 +3536,14 @@ QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromLastPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(3);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(3);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
 
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3556,14 +3556,14 @@ QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetIterator(2);
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetIterator(2);
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3576,14 +3576,14 @@ QTEST_CASE ( GetRange1_ElementsAreCorrectlyGotFromBetweenTwoElements_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1, 2, 3};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetIterator(3);
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3596,14 +3596,14 @@ QTEST_CASE ( GetRange1_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Te
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<int>::QArrayIterator itLast = itFirst;
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<int>::QArrayIterator itLast = itFirst;
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3619,10 +3619,10 @@ QTEST_CASE ( GetRange1_CopyConstructorOfEachElementIsCalledAtLeastOnce_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 2;
     const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
 
-    QDynamicArray<CallCounter>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
-    QDynamicArray<CallCounter>::QArrayIterator itLast = arCommonArray.GetIterator(2);
+    QArrayDynamic<CallCounter>::QArrayIterator itFirst = arCommonArray.GetIterator(1);
+    QArrayDynamic<CallCounter>::QArrayIterator itLast = arCommonArray.GetIterator(2);
     CallCounter::ResetCounters();
 
     // [Execution]
@@ -3640,13 +3640,13 @@ QTEST_CASE ( GetRange1_AllElementsCanBeRetrieved_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int> arExpectedArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));;
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));;
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetFirst();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
 
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(itFirst, itLast);
 
     // [Verification]
     BOOST_CHECK(arCommonArray == arExpectedArray);
@@ -3661,9 +3661,9 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetFirst();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetFirst();
 
     // [Execution]
     bool bAssertionFailed = false;
@@ -3688,9 +3688,9 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenFirstElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
     ++itFirst;
 
     // [Execution]
@@ -3716,9 +3716,9 @@ QTEST_CASE ( GetRange1_AssertionFailsWhenLastElementIsEnd_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int>::QArrayIterator itFirst = arCommonArray.GetLast();
-    QDynamicArray<int>::QArrayIterator itLast = arCommonArray.GetLast();
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int>::QArrayIterator itFirst = arCommonArray.GetLast();
+    QArrayDynamic<int>::QArrayIterator itLast = arCommonArray.GetLast();
     ++itLast;
 
     // [Execution]
@@ -3746,14 +3746,14 @@ QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromLastPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {3, 4, 5};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 3U;
     const pointer_uint_q LAST = 5U;
 
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3766,14 +3766,14 @@ QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromFirstPosition_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 0;
     const pointer_uint_q LAST = 2U;
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3786,14 +3786,14 @@ QTEST_CASE ( GetRange2_ElementsAreCorrectlyGotFromBetweenTwoElements_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1, 2, 3};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 3U;
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3806,14 +3806,14 @@ QTEST_CASE ( GetRange2_ElementsAreCorrectlyRemovedWhenBothPositionsAreTheSame_Te
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const int EXPECTED_VALUES[] = {1};
-    QDynamicArray<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(EXPECTED_VALUES, sizeof(EXPECTED_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = FIRST;
     
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
 
     // [Verification]
     BOOST_CHECK(arReturnedArray == arExpectedArray);
@@ -3829,7 +3829,7 @@ QTEST_CASE ( GetRange2_CopyConstructorOfEachElementIsCalledAtLeastOnce_Test )
     // [Preparation]
     const pointer_uint_q EXPECTED_CALLS = 2;
     const CallCounter COMMON_VALUES[] = {CallCounter(), CallCounter(), CallCounter()};
-    QDynamicArray<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
+    QArrayDynamic<CallCounter> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(CallCounter));
 
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 2U;
@@ -3850,13 +3850,13 @@ QTEST_CASE ( GetRange2_AllElementsCanBeRetrieved_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2, 3, 4, 5};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
-    QDynamicArray<int> arExpectedArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arExpectedArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 0;
     const pointer_uint_q LAST = arCommonArray.GetCount() - 1U;
 
     // [Execution]
-    QDynamicArray<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
+    QArrayDynamic<int> arReturnedArray = arCommonArray.GetRange(FIRST, LAST);
 
     // [Verification]
     BOOST_CHECK(arCommonArray == arExpectedArray);
@@ -3871,7 +3871,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastElementIsAnteriorToFirstElement_Tes
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = 0;
 
@@ -3898,7 +3898,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenFirstPositionIsNotLowerThanCount_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = arCommonArray.GetCount();
     const pointer_uint_q LAST = 2U;
 
@@ -3925,7 +3925,7 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
 {
     // [Preparation]
     const int COMMON_VALUES[] = {0, 1, 2};
-    QDynamicArray<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
+    QArrayDynamic<int> arCommonArray(COMMON_VALUES, sizeof(COMMON_VALUES) / sizeof(int));
     const pointer_uint_q FIRST = 1U;
     const pointer_uint_q LAST = arCommonArray.GetCount();
 
@@ -3947,5 +3947,5 @@ QTEST_CASE ( GetRange2_AssertionFailsWhenLastPositionIsNotLowerThanCount_Test )
 
 #endif
 
-// End - Test Suite: QDynamicArray
+// End - Test Suite: QArrayDynamic
 QTEST_SUITE_END()

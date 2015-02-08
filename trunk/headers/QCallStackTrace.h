@@ -30,7 +30,7 @@
 #include "SystemDefinitions.h"
 
 #include "QCallTrace.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 
 
 namespace Kinesis
@@ -122,7 +122,7 @@ protected:
     /// <summary>
     /// The function call traces in the call stack trace. It is used as a stack.
     /// </summary>
-    Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QCallTrace> m_arCallTraces;
+    Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QCallTrace> m_arCallTraces;
     
     /// <summary>
     /// The Id of the thread associated to this call stack trace.

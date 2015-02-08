@@ -29,7 +29,7 @@
 #include "EQComparisonType.h"
 #include "EQTextEncoding.h"
 #include "SQInteger.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 #include "QArrayResult.h"
 #include "QUri.h"
 #include "SQDirectory.h"

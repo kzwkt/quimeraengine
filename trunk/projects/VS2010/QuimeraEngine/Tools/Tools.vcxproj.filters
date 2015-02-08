@@ -188,9 +188,6 @@
     <ClInclude Include="..\..\..\..\headers\QDateTime.h">
       <Filter>Time</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QFixedArray.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QTimeZone.h">
       <Filter>Time</Filter>
     </ClInclude>
@@ -204,9 +201,6 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QNTree.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QDynamicArray.h">
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h">
@@ -240,6 +234,12 @@
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\SQStringHashProvider.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArrayDynamic.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArrayFixed.h">
       <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>

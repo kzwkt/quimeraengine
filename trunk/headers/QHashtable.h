@@ -29,7 +29,7 @@
 
 #include "ToolsDefinitions.h"
 
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 #include "QList.h"
 #include "SQKeyValuePairComparator.h"
 #include "SQComparatorDefault.h"
@@ -572,7 +572,7 @@ public:
 
 protected:
 
-    typedef QDynamicArray<QBucket> BucketsArrayType;
+    typedef QArrayDynamic<QBucket> BucketsArrayType;
 
 
     // CONSTANTS

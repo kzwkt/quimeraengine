@@ -30,7 +30,7 @@
 #include "Assertions.h"
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
-#include "QBasicArray.h"
+#include "QArrayBasic.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
 
@@ -283,10 +283,10 @@ public:
     /// <returns>
     /// A list of all the values of the enumeration.
     /// </returns>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray<const EnumType> GetValues()
+    static const Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic<const EnumType> GetValues()
     {
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
-        static const QBasicArray<const EnumType> ARRAY_OF_VALUES(sm_arValues, EQSpaceRelation::_GetNumberOfValues());
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic;
+        static const QArrayBasic<const EnumType> ARRAY_OF_VALUES(sm_arValues, EQSpaceRelation::_GetNumberOfValues());
         return ARRAY_OF_VALUES;
     }
 

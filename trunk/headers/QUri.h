@@ -29,7 +29,7 @@
 
 #include "SystemDefinitions.h"
 #include "DataTypesDefinitions.h"
-#include "QDynamicArray.h"
+#include "QArrayDynamic.h"
 #include <math.h>
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -415,7 +415,7 @@ protected:
     /// consecutive dot segments that appear at the beginning of relative URIs will not be removed.
     /// </remarks>
     /// <param name="arPathSegments">[IN/OUT] The path segments which may or may not be removed.</param>
-    static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments);
+    static void RemoveDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> &arPathSegments);
     
     /// <summary>
     /// Normalizes the URI.
@@ -544,7 +544,7 @@ private:
     /// Removes the dot segments ("." and "..") at the beginning of the path.
     /// </summary>
     /// <param name="arPathSegments">[IN/OUT] The path segments which may or may not be removed.</param>
-    static void RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> &arPathSegments);
+    static void RemoveFirstDotSegments(Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> &arPathSegments);
 
 
     // PROPERTIES
@@ -633,7 +633,7 @@ public:
     /// <returns>
     /// Array of segments of the path. If the path was empty, it will contain an empty string.
     /// </returns>
-    Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> GetPathSegments() const;
+    Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> GetPathSegments() const;
 
     /// <summary>
     /// Indicates whether the URI is relative or not.
@@ -773,7 +773,7 @@ protected:
     /// <summary>
     /// The path component.
     /// </summary>
-    Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<string_q> m_arPathSegments;
+    Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<string_q> m_arPathSegments;
 
     /// <summary>
     /// A bit field that indicates whether every component / sub-component is defined (1) or not (0). See FLAG_<component>_IS_DEFINED constants.

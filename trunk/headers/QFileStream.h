@@ -216,7 +216,7 @@ public:
     void CopyTo(StreamT &destinationStream, const pointer_uint_q uSourceOffset, const pointer_uint_q uDestinationOffset, 
                                             const pointer_uint_q uNumberOfBytes, const pointer_uint_q uBatchSize=QFileStream::_COPY_BATCH_SIZE)
     {
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic;
         using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
         
         QE_ASSERT_ERROR(uBatchSize > 0, "The number of bytes per batch must be greater than zero.");

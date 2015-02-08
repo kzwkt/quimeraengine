@@ -212,7 +212,7 @@ public:
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
         using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
-        using Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray;
+        using Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
         using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
         using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
@@ -226,7 +226,7 @@ public:
         static const u16_q BOM_UTF16 = 0xFEFF;
         static const string_q BOM_STRING(rcast_q(&BOM_UTF16, const i8_q*), sizeof(u16_q), string_q::GetLocalEncodingUTF16());
 
-        QBasicArray<i8_q> arBOM(null_q, 0);
+        QArrayBasic<i8_q> arBOM(null_q, 0);
 
         if(m_eEncoding == EQTextEncoding::E_UTF16LE ||
            m_eEncoding == EQTextEncoding::E_UTF16BE ||
@@ -368,7 +368,7 @@ protected:
     /// <summary>
     /// The characters that compound the new line separator.
     /// </summary>
-    Kinesis::QuimeraEngine::Common::DataTypes::QBasicArray<Kinesis::QuimeraEngine::Common::DataTypes::i8_q> m_arNewLineCharacters;
+    Kinesis::QuimeraEngine::Common::DataTypes::QArrayBasic<Kinesis::QuimeraEngine::Common::DataTypes::i8_q> m_arNewLineCharacters;
         
     /// <summary>
     /// The character size depending on the text encoding.

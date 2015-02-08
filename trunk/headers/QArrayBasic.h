@@ -48,7 +48,7 @@ namespace DataTypes
 /// </remarks>
 /// <typeparam name="T">The type of the elements in the array.</typeparam>
 template<class T>
-class QBasicArray
+class QArrayBasic
 {
 
     // CONSTRUCTORS
@@ -60,7 +60,7 @@ public:
     /// </summary>
     /// <param name="pArray">[IN] The array to be wrapped.</param>
     /// <param name="uCount">[IN] The number of elements in the array.</param>
-    QBasicArray(T* pArray, const pointer_uint_q uCount) : m_pArray(pArray),
+    QArrayBasic(T* pArray, const pointer_uint_q uCount) : m_pArray(pArray),
                                                           m_uCount(uCount)
     {
     }

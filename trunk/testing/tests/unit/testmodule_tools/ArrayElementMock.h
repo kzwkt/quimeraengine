@@ -43,7 +43,7 @@ namespace Test
 
 /// <summary>
 /// Class to be used to ensure that the copy constructor, assignment operator and destructor are called
-/// properly from QFixedArray.
+/// properly from QArrayFixed.
 /// </summary>
 class ArrayElementMock
 {

@@ -28,7 +28,7 @@
 #define __QARRAYRESULT__
 
 #include "CommonDefinitions.h"
-#include "QBasicArray.h"
+#include "QArrayBasic.h"
 
 namespace Kinesis
 {
@@ -50,11 +50,11 @@ namespace DataTypes
 /// </remarks>
 /// <typeparam name="T">The type of the elements in the array.</typeparam>
 template<class T>
-class QArrayResult : public QBasicArray<T>
+class QArrayResult : public QArrayBasic<T>
 {
 protected:
 
-    using QBasicArray<T>::m_pArray;
+    using QArrayBasic<T>::m_pArray;
     
 
     // CONSTRUCTORS
@@ -69,7 +69,7 @@ public:
     /// </remarks>
     /// <param name="pArray">[IN] The array to be wrapped.</param>
     /// <param name="uCount">[IN] The number of elements in the array.</param>
-    QArrayResult(T* pArray, const pointer_uint_q uCount) : QBasicArray<T>(pArray, uCount),
+    QArrayResult(T* pArray, const pointer_uint_q uCount) : QArrayBasic<T>(pArray, uCount),
                                                            m_bIsAttached(pArray != null_q)
     {
     }
@@ -81,7 +81,7 @@ public:
     /// If the input wrapper is attached to the array, it will be detached. Then the array will be attached to the resident wrapper.
     /// </remarks>
     /// <param name="array">[IN] The array wrapper to be copied.</param>
-    QArrayResult(const QArrayResult& array) : QBasicArray<T>(array),
+    QArrayResult(const QArrayResult& array) : QArrayBasic<T>(array),
                                               m_bIsAttached(array.m_bIsAttached) 
     {
         ccast_q(array, QArrayResult<T>&).Detach();

@@ -79,16 +79,12 @@
       <File Name="../../../../tests/unit/testmodule_tools/ArrayElementMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/ListElementMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp" ExcludeProjConfig=""/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArray_Test.cpp" ExcludeProjConfig=""/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayTestClass.h" ExcludeProjConfig=""/>
-      <File Name="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QList_Test.cpp" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QListWhiteBox.h" ExcludeProjConfig=""/>
       <File Name="../../../../tests/unit/testmodule_tools/QListIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QNTree_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QNTreeWhiteBox.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/CallCounter.cpp"/>
-      <File Name="../../../../tests/unit/testmodule_tools/QDynamicArray_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QNTreeIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QNTreeIteratorMock.h"/>
       <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTree_Test.cpp"/>
@@ -108,6 +104,10 @@
       <File Name="../../../../tests/unit/testmodule_tools/SQStringHashProvider_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstDictionaryIterator_Test.cpp"/>
       <File Name="../../../../tests/unit/testmodule_tools/QConstHashtableIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayDynamic_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixed_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixedTestClass.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixedWhiteBox.h"/>
     </VirtualDirectory>
     <VirtualDirectory Name="Time">
       <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>

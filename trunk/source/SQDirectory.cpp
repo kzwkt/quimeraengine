@@ -346,7 +346,7 @@ EQFileSystemError SQDirectory::Create(const QPath &directory, const string_q &st
     return SQDirectory::_ConvertErrorCodeToFileSystemError(errorCode);
 }
 
-EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles)
+EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arFiles)
 {
     QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
 
@@ -380,7 +380,7 @@ EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::Quimera
     return eErrorInfo;
 }
 
-EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arFiles, const string_q &strExtensionFilter)
+EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arFiles, const string_q &strExtensionFilter)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
@@ -422,7 +422,7 @@ EQFileSystemError SQDirectory::GetFiles(const QPath &directory, Kinesis::Quimera
     return eErrorInfo;
 }
 
-EQFileSystemError SQDirectory::GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QDynamicArray<QPath> &arDirectories)
+EQFileSystemError SQDirectory::GetSubdirectories(const QPath &directory, Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic<QPath> &arDirectories)
 {
     QE_ASSERT_ERROR(directory.IsDirectory(), string_q("The input path (\"") + directory.ToString() + "\") must refer to a directory.");
 
