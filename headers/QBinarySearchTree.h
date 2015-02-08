@@ -942,6 +942,17 @@ public:
         }
         
         /// <summary>
+        /// Gets the order in which the iterator traverses the tree.
+        /// </summary>
+        /// <returns>
+        /// The tree traversal order.
+        /// </returns>
+        EQTreeTraversalOrder GetTraversalOrder() const
+        {
+            return m_eTraversalOrder;
+        }
+
+        /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
         /// <returns>

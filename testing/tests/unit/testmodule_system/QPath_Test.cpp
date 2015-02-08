@@ -33,6 +33,7 @@ using namespace boost::unit_test;
 #include "QPath.h"
 
 #include "EQComparisonType.h"
+#include "Assertions.h"
 
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
 

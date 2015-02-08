@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __IQCALLSTACKTRACEPRINTER__
-#define __IQCALLSTACKTRACEPRINTER__
+#ifndef __QABSTRACTCALLSTACKTRACEPRINTER__
+#define __QABSTRACTCALLSTACKTRACEPRINTER__
 
 #include "SystemDefinitions.h"
 
@@ -110,4 +110,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __IQCALLSTACKTRACEPRINTER__
+#endif // __QABSTRACTCALLSTACKTRACEPRINTER__

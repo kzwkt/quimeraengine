@@ -3507,7 +3507,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheRadiusEqua
     QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED), SQFloat::_0 );
 
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
-    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
     const T EXPECTED_POINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
@@ -4136,7 +4136,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqua
     QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED), SQFloat::_0 );
 
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
-    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
     const T EXPECTED_FIRSTPOINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const T EXPECTED_SECONDPOINT_CONTAINED = T::GetNullVector();
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
