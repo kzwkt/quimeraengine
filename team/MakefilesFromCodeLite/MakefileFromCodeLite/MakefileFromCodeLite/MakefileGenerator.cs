@@ -272,13 +272,13 @@ namespace MakefileFromCodeLite
                 switch (config.Type)
                 {
                     case MakefileFromCodeLite.Model.OutputType.Executable:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") $(DEFINITIONS_" + CONFIG_NAME + ") $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
                         break;
                     case MakefileFromCodeLite.Model.OutputType.DynamicLibrary:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") -shared $(DEFINITIONS_" + CONFIG_NAME + ") $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(LD_" + CONFIG_NAME + ") -shared $(LINKEROPTIONS_" + CONFIG_NAME + ") $(LIBRARYDIRS_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ") $(LIBRARIES_" + CONFIG_NAME + ") -o $(OUTPUT_" + CONFIG_NAME + ")\n\n";
                         break;
                     case MakefileFromCodeLite.Model.OutputType.StaticLibrary:
-                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(AR_" + CONFIG_NAME + ") rcs $(DEFINITIONS_" + CONFIG_NAME + ") $(OUTPUT_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ")\n\n";
+                        projectResult += config.Name + ": $(OBJECTS_" + CONFIG_NAME + ")\n\t$(AR_" + CONFIG_NAME + ") rcu $(OUTPUT_" + CONFIG_NAME + ") $(OBJECTS_" + CONFIG_NAME + ")\n\n";
                         break;
                     default:
                         MessageBox.Show("Invalid output type");
