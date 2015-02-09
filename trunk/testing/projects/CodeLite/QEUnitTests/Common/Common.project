@@ -118,6 +118,9 @@
     <File Name="../../../../tests/unit/testmodule_common/RTTIDefinitions_Test.cpp"/>
     <File Name="../../../../tests/unit/testmodule_common/RTTITestClasses.cpp"/>
     <File Name="../../../../tests/unit/testmodule_common/RTTITestClasses.h"/>
+    <VirtualDirectory Name="Workarounds">
+      <File Name="../../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="TestSystem (shared)">
     <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
