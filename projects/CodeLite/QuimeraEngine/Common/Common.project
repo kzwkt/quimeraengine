@@ -421,4 +421,7 @@
       </Completion>
     </Configuration>
   </Settings>
+  <VirtualDirectory Name="Workarounds">
+    <File Name="../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+  </VirtualDirectory>
 </CodeLite_Project>
