@@ -160,6 +160,16 @@ public:
 
     };
 
+        
+    // CONSTANTS
+    // ---------------
+public:
+
+    /// <summary>
+    /// A constant that represents UTC timezone.
+    /// </summary>
+    static const QTimeZone* UTC;
+
     
     // CONSTRUCTORS
     // ---------------

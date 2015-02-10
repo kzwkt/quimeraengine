@@ -69,52 +69,52 @@ private:
     /// <summary>
     /// The central value representable by a 64 bits unsigned integer.
     /// </summary>
-    static const u64_q HALF_VALUE;
+    static const u64_q _HALF_VALUE;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per microsecond.
     /// </summary>
-    static const u64_q HNS_PER_MICROSECOND;
+    static const u64_q _HNS_PER_MICROSECOND;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per millisecond.
     /// </summary>
-    static const u64_q HNS_PER_MILLISECOND;
+    static const u64_q _HNS_PER_MILLISECOND;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per second.
     /// </summary>
-    static const u64_q HNS_PER_SECOND;
+    static const u64_q _HNS_PER_SECOND;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per minute.
     /// </summary>
-    static const u64_q HNS_PER_MINUTE;
+    static const u64_q _HNS_PER_MINUTE;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per hour.
     /// </summary>
-    static const u64_q HNS_PER_HOUR;
+    static const u64_q _HNS_PER_HOUR;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per day.
     /// </summary>
-    static const u64_q HNS_PER_DAY;
+    static const u64_q _HNS_PER_DAY;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per year.
     /// </summary>
-    static const u64_q HNS_PER_YEAR;
+    static const u64_q _HNS_PER_YEAR;
 
     /// <summary>
     /// The amount of hundreds of nanoseconds per leap year.
     /// </summary>
-    static const u64_q HNS_PER_LEAPYEAR;
+    static const u64_q _HNS_PER_LEAPYEAR;
 
     /// <summary>
     /// The internal value for the instant stored in an undefined date/time object.
     /// </summary>
-    static const QTimeSpan UNDEFINED_VALUE;
+    static const QTimeSpan _UNDEFINED_VALUE;
 
 
     // CONSTRUCTORS
@@ -153,12 +153,11 @@ public:
     /// <param name="uMillisecond">[IN] The millisecond, as it appears in the clock. It must be lower than 1.000.</param>
     /// <param name="uMicrosecond">[IN] The microsecond, as it appears in the clock. It must be lower than 1.000.</param>
     /// <param name="uHundredsOfNanosecond">[IN] The number of hundreds of nanoseconds (tenths of microsecond). It must be lower than 10.</param>
-    /// <param name="pTimeZone">[Optional][IN] The information about the time zone on which the time is based. Its default value 
-    /// is null, which means no time zone offset (UTC).</param>
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Use the QTimeZone::UTC constant to specify UTC.</param>
     QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, 
               const u64_q uHour, const u64_q uMinute, const u64_q uSecond, 
               const u64_q uMillisecond, const u64_q uMicrosecond, const u64_q uHundredsOfNanosecond, 
-              const QTimeZone* pTimeZone = null_q);
+              const QTimeZone* pTimeZone);
     
     /// <summary>
     /// Constructor that receives a date, in local time, plus the time zone information. The time will be set to 00:00:00.0.
@@ -178,9 +177,8 @@ public:
     /// <param name="uMonth">[IN] The month number, being January the number 1. It must be greater than zero and lower than 13.</param>
     /// <param name="uDay">[IN] The day number, as it appears in the calendar. It must be greater than zero and lower than or equal to
     /// the corresponding last day of the month.</param>
-    /// <param name="pTimeZone">[Optional][IN] The information about the time zone on which the time is based. Its default value 
-    /// is null, which means no time zone offset (UTC).</param>
-    QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, const QTimeZone* pTimeZone = null_q);
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Use the QTimeZone::UTC constant to specify UTC.</param>
+    QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, const QTimeZone* pTimeZone);
 
     /// <summary>
     /// Constructor that receives the time, in local time, plus the time zone information. The date will be 0001/01/01 A. D..
@@ -196,11 +194,10 @@ public:
     /// <param name="uMillisecond">[IN] The millisecond, as it appears in the clock. It must be lower than 1.000.</param>
     /// <param name="uMicrosecond">[IN] The microsecond, as it appears in the clock. It must be lower than 1.000.</param>
     /// <param name="uHundredsOfNanosecond">[IN] The number of hundreds of nanoseconds (tenths of microsecond). It must be lower than 10.</param>
-    /// <param name="pTimeZone">[Optional][IN] The information about the time zone on which the time is based. Its default value 
-    /// is null, which means no time zone offset (UTC).</param>
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Use the QTimeZone::UTC constant to specify UTC.</param>
     QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond, 
               const u64_q uMillisecond, const u64_q uMicrosecond, const u64_q uHundredsOfNanosecond, 
-              const QTimeZone* pTimeZone = null_q);
+              const QTimeZone* pTimeZone);
 
     /// <summary>
     /// Constructor that receives the time, in local time, plus the time zone information. The date will be 0001/01/01 A. D..
@@ -214,16 +211,15 @@ public:
     /// <param name="uMinute">[IN] The minute, as it appears in the clock. It must be lower than 60.</param>
     /// <param name="uSecond">[IN] The second, as it appears in the clock. It must be lower than 60.</param>
     /// <param name="uMillisecond">[IN] The millisecond, as it appears in the clock. It must be lower than 1.000.</param>
-    /// <param name="pTimeZone">[Optional][IN] The information about the time zone on which the time is based. Its default value 
-    /// is null, which means no time zone offset (UTC).</param>
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Use the QTimeZone::UTC constant to specify UTC.</param>
     QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond, const u64_q uMillisecond,
-              const QTimeZone* pTimeZone = null_q);
+              const QTimeZone* pTimeZone);
     
     /// <summary>
     /// Constructor that copies a date and time, using a different time zone.
     /// </summary>
     /// <param name="dateTime">[IN] The date and time to be copied.</param>
-    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Null means no time zone offset (UTC).</param>
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Use the QTimeZone::UTC constant to specify UTC.</param>
     QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone);
     
     /// <summary>
@@ -512,7 +508,7 @@ private:
     /// <returns>
     /// True if it is a leap year; False otherwise.
     /// </returns>
-    static bool IsLeapYear(const int nYear);
+    static bool _IsLeapYear(const int nYear);
 
     /// <summary>
     /// Subtracts the offset of the time zone and the DST to the time data so it becomes UTC.
@@ -522,7 +518,7 @@ private:
     /// <returns>
     /// The instant without time zone offset applied, if any.
     /// </returns>
-    QTimeSpan GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+    QTimeSpan _GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
     
     /// <summary>
     /// Adds the offset of the time zone and the DST to the time data so it becomes Local Time.
@@ -532,7 +528,7 @@ private:
     /// <returns>
     /// The instant with time zone offset applied, if any.
     /// </returns>
-    QTimeSpan GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
+    QTimeSpan _GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const;
     
     /// <summary>
     /// Parses a complete date from a timestamp.
@@ -542,7 +538,7 @@ private:
     /// <param name="nYear">[OUT] The year read from the timestamp.</param>
     /// <param name="uMonth">[OUT] The month read from the timestamp.</param>
     /// <param name="uDay">[OUT] The day read from the timestamp.</param>
-    void ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+    void _ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
 
     /// <summary>
     /// Parses a complete time from a timestamp.
@@ -557,8 +553,8 @@ private:
     /// <param name="uHundredOfNanosecond">[OUT] The hundred of nanosecond read from the timestamp.</param>
     /// <param name="nOffsetHours">[OUT] The offset hour read from the timestamp.</param>
     /// <param name="uOffsetMinutes">[OUT] The offset minute read from the timestamp.</param>
-    void ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
-                                    u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
+    void _ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
+                                     u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
 
     /// <summary>
     /// Parses a complete time from the time part of a timestamp, without fraction or time offset.
@@ -567,7 +563,7 @@ private:
     /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
     /// <param name="uMinute">[OUT] The minute read from the timestamp.</param>
     /// <param name="uSecond">[OUT] The second read from the timestamp.</param>
-    void ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
+    void _ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
 
     /// <summary>
     /// Parses a time offset of a timestamp, including the sign. It may be incomplete and use either basic or extended formats.
@@ -575,7 +571,7 @@ private:
     /// <param name="strTimeOffset">[IN] The time offset of a timestamp.</param>
     /// <param name="nOffsetHours">[OUT] The offset hours read from the timestamp.</param>
     /// <param name="uOffsetMinutes">[OUT] The offset minutes read from the timestamp.</param>
-    void ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const;
+    void _ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const;
 
     /// <summary>
     /// Parses a fraction of second of a timestamp, without the initial separator.
@@ -584,7 +580,7 @@ private:
     /// <param name="uMillisecond">[OUT] The milliseconds in the fraction.</param>
     /// <param name="uMicrosecond">[OUT] The microseconds in the fraction.</param>
     /// <param name="uHundredOfNanosecond">[OUT] The hundreds of nanoseconds in the fraction.</param>
-    void ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const;
+    void _ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const;
 
     /// <summary>
     /// Parses a date from a timestamp that may be incomplete and uses separators (extended format).
@@ -594,7 +590,7 @@ private:
     /// <param name="nYear">[OUT] The year read from the timestamp.</param>
     /// <param name="uMonth">[OUT] The month read from the timestamp.</param>
     /// <param name="uDay">[OUT] The day read from the timestamp. It will be equal to 1 if the day was not provided.</param>
-    void ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+    void _ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
 
     /// <summary>
     /// Parses a date from a timestamp that may be incomplete and does not use separators (basic format).
@@ -603,7 +599,7 @@ private:
     /// <param name="nYear">[OUT] The year read from the timestamp.</param>
     /// <param name="uMonth">[OUT] The month read from the timestamp. It will be equal to 1 if the month was not provided.</param>
     /// <param name="uDay">[OUT] The day read from the timestamp. It will be equal to 1 if the day was not provided.</param>
-    void ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
+    void _ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const;
 
     /// <summary>
     /// Parses a time from a timestamp which may be incomplete.
@@ -617,8 +613,8 @@ private:
     /// <param name="uHundredOfNanosecond">[OUT] The hundred of nanosecond read from the timestamp. It will be equal to 0 if the hundred of nanosecond was not provided.</param>
     /// <param name="nOffsetHours">[OUT] The offset hour read from the timestamp. It will be equal to 0 if the offset hours were not provided.</param>
     /// <param name="uOffsetMinutes">[OUT] The offset minute read from the timestamp. It will be equal to 0 if the offset minutes were not provided.</param>
-    void ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, 
-                                      u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
+    void _ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, 
+                                       u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const;
 
     /// <summary>
     /// Parses a time from a timestamp which may be incomplete, without time offset or fraction.
@@ -627,7 +623,7 @@ private:
     /// <param name="uHour">[OUT] The hour read from the timestamp.</param>
     /// <param name="uMinute">[OUT] The minute read from the timestamp. It will be equal to 0 if the minute was not provided.</param>
     /// <param name="uSecond">[OUT] The second read from the timestamp. It will be equal to 0 if the second was not provided.</param>
-    void ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
+    void _ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const;
 
     /// <summary>
     /// Parses a time from a timestamp which may be incomplete, without time offset or fraction.
@@ -637,7 +633,7 @@ private:
     /// <param name="uHour">[IN] The current hour read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
     /// <param name="uMinute">[IN] The current minute read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
     /// <param name="dateTime">[OUT] The current date/time instance to which apply the offset.</param>
-    void ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
+    void _ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
 
     /// <summary>
     /// Parses a time from a timestamp which may be incomplete, without time offset or fraction. If the final time overflows a day, it will be clamped to the original day of the date.
@@ -647,7 +643,7 @@ private:
     /// <param name="uHour">[IN] The current hour read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
     /// <param name="uMinute">[IN] The current minute read from the timestamp to which apply the offset. It is provided not to extract it back again from the date/time instance.</param>
     /// <param name="dateTime">[OUT] The current date/time instance to which apply the offset.</param>
-    void ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
+    void _ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime);
 
     /// <summary>
     /// Transforms milliseconds, microseconds and hundreds of seconds to the fraction part of a timestamp, appending the result to the output timestamp.
@@ -657,7 +653,7 @@ private:
     /// <param name="uMicrosecond">[IN] The microsecond to transform.</param>
     /// <param name="uHundredOfNanosecond">[IN] The hundred of nanosecond to transform.</param>
     /// <param name="strTimestamp">[OUT] The timestamp to which concatenate the fraction value, including the separator.</param>
-    void SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const;
+    void _SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const;
 
 
     // PROPERTIES

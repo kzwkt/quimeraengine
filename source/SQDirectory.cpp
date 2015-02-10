@@ -28,6 +28,7 @@
 
 #include "EQTextEncoding.h"
 #include "EQComparisonType.h"
+#include "QTimeZone.h"
 #include "QLocalTimeZone.h"
 #include "Assertions.h"
 #include "QStopwatch.h"
@@ -308,6 +309,7 @@ bool SQDirectory::Exists(const QPath &directory, EQFileSystemError& eErrorInfo)
 QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSystemError& eErrorInfo)
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
     using Kinesis::QuimeraEngine::System::Timing::QLocalTimeZone;
 
@@ -324,7 +326,7 @@ QDirectoryInfo SQDirectory::GetDirectoryInfo(const QPath& directory, EQFileSyste
     if(eErrorCode == boost::system::posix_error::success)
     {
         QTimeSpan seconds(0, 0, 0, creationTime, 0, 0, 0);
-        static const QDateTime EPOCH(1970, 1, 1);
+        static const QDateTime EPOCH(1970, 1, 1, QTimeZone::UTC);
         creationDateTime = QDateTime(EPOCH + seconds, QLocalTimeZone().Get());
     }
 

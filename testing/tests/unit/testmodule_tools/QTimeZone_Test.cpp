@@ -138,7 +138,7 @@ QTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPriorTo1916_Test )
     // [Preparation]
     const string_q COMMON_TIMEZONE_ID = QE_L("Europe/Madrid"); // +1 hour
     const QTimeZone* TIME_ZONE = SQTimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
-    const QDateTime DATE_BEFORE_1916 = QDateTime(1915, 7, 1);
+    const QDateTime DATE_BEFORE_1916 = QDateTime(1915, 7, 1, QTimeZone::UTC);
     const QTimeSpan EXPECTED_OFFSET = QTimeSpan(36000000000); 
     const bool EXPECTED_OFFSET_SIGN = false;
 
@@ -163,7 +163,7 @@ QTEST_CASE ( CalculateOffset_DstIsNotAppliedWhenDateIsPosteriorTo9999_Test )
     // [Preparation]
     const string_q COMMON_TIMEZONE_ID = QE_L("Europe/Madrid"); // +1 hour
     const QTimeZone* TIME_ZONE = SQTimeZoneFactory::GetTimeZoneById(COMMON_TIMEZONE_ID);
-    const QDateTime DATE_YEAR_10000 = QDateTime(10000, 7, 1);
+    const QDateTime DATE_YEAR_10000 = QDateTime(10000, 7, 1, QTimeZone::UTC);
     const QTimeSpan EXPECTED_OFFSET = QTimeSpan(36000000000);
     const bool EXPECTED_OFFSET_SIGN = false;
 
