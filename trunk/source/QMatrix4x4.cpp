@@ -554,22 +554,45 @@ bool QMatrix4x4::HasInverse() const
 
 string_q QMatrix4x4::ToString() const
 {
-    return string_q("M4x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[0][1]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[0][2]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[0][3]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][1]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][2]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][3]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[2][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[2][1]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[2][2]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[2][3]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[3][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[3][1]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[3][2]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[3][3]) + QE_L(")");
+    static const string_q STRING_PREFIX("M4x4(");
+    static const string_q STRING_COMMA(",");
+    static const string_q STRING_END(")");
+
+    string_q strOutput = STRING_PREFIX;
+    strOutput.Append(this->ij[0][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[0][1]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[0][2]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[0][3]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][1]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][2]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][3]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[2][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[2][1]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[2][2]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[2][3]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[3][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[3][1]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[3][2]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[3][3]);
+    strOutput.Append(STRING_END);
+
+    return strOutput;
 }
 
 

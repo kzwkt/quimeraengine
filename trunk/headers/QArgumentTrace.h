@@ -29,12 +29,14 @@
 
 #include "SystemDefinitions.h"
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "SQAnyTypeToStringConverter.h"
 #include "SQInteger.h"
 #include "QType.h"
 #include "QTypeWithGetType.h"
 #include "QTypeWithToString.h"
+
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -453,7 +455,7 @@ private:
         else
         {
             m_strTypeName.Append(UNKNOWN_TYPE_PART1);
-            m_strTypeName.Append(SQInteger::ToString(sizeof(T)));
+            m_strTypeName.Append(string_q::FromInteger(sizeof(T)));
             m_strTypeName.Append(UNKNOWN_TYPE_PART2);
         }
     }
@@ -549,7 +551,7 @@ private:
         {
             // Prints the memory address to which the pointer points
             strResult.Append(HEXADECIMAL_PREFIX);
-            strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(pObject, pointer_uint_q)));
+            strResult.Append(string_q::FromIntegerToHexadecimal(rcast_q(pObject, pointer_uint_q)));
             strResult.Append(WHITESPACE);
 
             // It is a pointer to either a basic data type or an unknown type

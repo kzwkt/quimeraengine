@@ -27,11 +27,13 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
 using namespace boost::unit_test;
+#include <boost/mpl/list.hpp>
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QStringUnicode.h"
 #include "SQInteger.h"
+#include "SQVF32.h"
 
 #include "CommonTestDefinitions.h"
 #include "UnicodeNormalizationTestData.h"
@@ -43,8 +45,22 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::f32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
+
+typedef boost::mpl::list<i8_q, i16_q, i32_q, i64_q, u8_q, u16_q, u32_q, u64_q> TQTemplateTypes;
+typedef boost::mpl::list<i8_q, i16_q, i32_q, i64_q> TQTemplateSignedTypes;
+typedef boost::mpl::list<u8_q, u16_q, u32_q, u64_q> TQTemplateUnsignedTypes;
+typedef boost::mpl::list<u8_q, u16_q, u32_q, u64_q> TQTemplateUnsignedTypes;
 
 
 QTEST_SUITE_BEGIN( QStringUnicode_TestSuite )
@@ -1290,7 +1306,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsTrueWhenStringsAreEquivalentButN
 /// <summary>
 /// Checks that it concatenates both strings, the left one before the right one.
 /// </summary>
-QTEST_CASE ( OperatorAddition_ConcatenatesBothStrings_Test )
+QTEST_CASE ( OperatorAddition1_ConcatenatesBothStrings_Test )
 {
     // [Preparation]
     const QStringUnicode STRING1("ABC");
@@ -1299,6 +1315,230 @@ QTEST_CASE ( OperatorAddition_ConcatenatesBothStrings_Test )
 
 	// [Execution]
     QStringUnicode strResult = STRING1 + STRING2;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates both strings, the left one before the right one.
+/// </summary>
+QTEST_CASE ( OperatorAddition2_ConcatenatesBothStrings_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABC");
+    const char* STRING2 = "DEF";
+    const QStringUnicode EXPECTED_RESULT("ABCDEF");
+
+	// [Execution]
+    QStringUnicode strResult = STRING1 + STRING2;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition3_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u8_q VALUE = 234;
+    const QStringUnicode EXPECTED_RESULT("ABC234");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition4_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i8_q VALUE = -123;
+    const QStringUnicode EXPECTED_RESULT("ABC-123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition5_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u16_q VALUE = 23456;
+    const QStringUnicode EXPECTED_RESULT("ABC23456");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition6_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i16_q VALUE = -23456;
+    const QStringUnicode EXPECTED_RESULT("ABC-23456");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition7_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u32_q VALUE = 23456890;
+    const QStringUnicode EXPECTED_RESULT("ABC23456890");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition8_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i32_q VALUE = -2345689;
+    const QStringUnicode EXPECTED_RESULT("ABC-2345689");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition9_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u64_q VALUE = 123456890123;
+    const QStringUnicode EXPECTED_RESULT("ABC123456890123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition10_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i64_q VALUE = -123456890123;
+    const QStringUnicode EXPECTED_RESULT("ABC-123456890123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition11_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const f32_q VALUE = -123.456f;
+    const QStringUnicode EXPECTED_RESULT("ABC-123.456001");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition12_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const f64_q VALUE = -123456.789;
+    const QStringUnicode EXPECTED_RESULT("ABC-123456.789");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition13_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const bool VALUE = true;
+    const QStringUnicode EXPECTED_RESULT("ABCtrue");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( OperatorAddition14_ConcatenatesStringAndInputValue_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    vf32_q VALUE;
+    SQVF32::Pack(1.0f, 2.0f, 3.0f, 4.0f, VALUE);
+    const QStringUnicode EXPECTED_RESULT("ABCVF(1, 2, 3, 4)");
+
+	// [Execution]
+    QStringUnicode strResult = STRING + VALUE;
 
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
@@ -7012,7 +7252,7 @@ QTEST_CASE ( Replace_MatchesAreCorrectlyReplacedWhenResidentStringIsEqualToPatte
 /// <summary>
 /// Checks that a common string is correctly appended.
 /// </summary>
-QTEST_CASE ( Append_CommonStringIsCorrectlyAppended_Test )
+QTEST_CASE ( Append1_CommonStringIsCorrectlyAppended_Test )
 {
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING("123456");
@@ -7030,7 +7270,7 @@ QTEST_CASE ( Append_CommonStringIsCorrectlyAppended_Test )
 /// <summary>
 /// Checks that appending an empty string takes no effect.
 /// </summary>
-QTEST_CASE ( Append_AppendingEmptyStringTakesNoEffect_Test )
+QTEST_CASE ( Append1_AppendingEmptyStringTakesNoEffect_Test )
 {
     // [Preparation]
     const QStringUnicode ORIGINAL_STRING("123456");
@@ -7043,6 +7283,242 @@ QTEST_CASE ( Append_AppendingEmptyStringTakesNoEffect_Test )
 
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates both strings, the left one before the right one.
+/// </summary>
+QTEST_CASE ( Append2_ConcatenatesBothStrings_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING1("ABC");
+    const char* STRING2 = "DEF";
+    const QStringUnicode EXPECTED_RESULT("ABCDEF");
+
+	// [Execution]
+    QStringUnicode strResult = STRING1 + STRING2;
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append3_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u8_q VALUE = 234;
+    const QStringUnicode EXPECTED_RESULT("ABC234");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append4_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i8_q VALUE = -123;
+    const QStringUnicode EXPECTED_RESULT("ABC-123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append5_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u16_q VALUE = 23456;
+    const QStringUnicode EXPECTED_RESULT("ABC23456");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append6_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i16_q VALUE = -23456;
+    const QStringUnicode EXPECTED_RESULT("ABC-23456");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append7_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u32_q VALUE = 23456890;
+    const QStringUnicode EXPECTED_RESULT("ABC23456890");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append8_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i32_q VALUE = -2345689;
+    const QStringUnicode EXPECTED_RESULT("ABC-2345689");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append9_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const u64_q VALUE = 123456890123;
+    const QStringUnicode EXPECTED_RESULT("ABC123456890123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append10_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const i64_q VALUE = -123456890123;
+    const QStringUnicode EXPECTED_RESULT("ABC-123456890123");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append11_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const f32_q VALUE = -123.456f;
+    const QStringUnicode EXPECTED_RESULT("ABC-123.456001");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append12_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const f64_q VALUE = -123456.789;
+    const QStringUnicode EXPECTED_RESULT("ABC-123456.789");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append13_ConcatenatesStringAndInputValue_Test )
+{
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    const bool VALUE = true;
+    const QStringUnicode EXPECTED_RESULT("ABCtrue");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it concatenates the converted input value to the string.
+/// </summary>
+QTEST_CASE ( Append14_ConcatenatesStringAndInputValue_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+
+    // [Preparation]
+    const QStringUnicode STRING("ABC");
+    vf32_q VALUE;
+    SQVF32::Pack(1.0f, 2.0f, 3.0f, 4.0f, VALUE);
+    const QStringUnicode EXPECTED_RESULT("ABCVF(1, 2, 3, 4)");
+
+	// [Execution]
+    QStringUnicode strResult = STRING;
+    strResult.Append(VALUE);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -7540,6 +8016,171 @@ QTEST_CASE ( ToInteger_ReturnsMaximumWhenStringsContainsTooBigNegativeNumber_Tes
 
     // [Verification]
     BOOST_CHECK_EQUAL(nParsedNumber, EXPECTED_NUMBER);
+}
+
+#endif
+
+/// <summary>
+/// Checks that a common hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_CreatesIntegerFromCommonHexadecimalValue_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING = "6AC5FF01";
+    const u32_q EXPECTED_VALUE = 0x6AC5FF01;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = INPUT_STRING.ToIntegerFromHexadecimal<u32_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a zero hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_CreatesIntegerFromHexadecimalValueWhenItEqualsZero_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING = "00000000";
+    const u32_q EXPECTED_VALUE = 0;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = INPUT_STRING.ToIntegerFromHexadecimal<u32_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a maximum hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_CreatesIntegerFromHexadecimalValueWhenItEqualsMaximum_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING = "FFFFFFFF";
+    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = INPUT_STRING.ToIntegerFromHexadecimal<u32_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a 0x-prefixed hexadecimal value is correctly converted to an integer.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_CreatesIntegerFromHexadecimalValueWhenItHas0xPrefix_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING = "0xFFFFFFFF";
+    const u32_q EXPECTED_VALUE = 0xFFFFFFFF;
+    u32_q uResult = 0;
+
+    // [Execution]
+    uResult = INPUT_STRING.ToIntegerFromHexadecimal<u32_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the 0x prefix is case insensitive.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_ThePrefixIsCaseInsensitive_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING_LOWER_CASE = "0xFFFFFFFF";
+    const QStringUnicode INPUT_STRING_UPPER_CASE = "0XFFFFFFFF";
+    u32_q uResultLowerCase = 0;
+    u32_q uResultUpperCase = 0;
+
+    // [Execution]
+    uResultLowerCase = INPUT_STRING_LOWER_CASE.ToIntegerFromHexadecimal<u32_q>();
+    uResultUpperCase = INPUT_STRING_UPPER_CASE.ToIntegerFromHexadecimal<u32_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResultLowerCase, uResultUpperCase);
+}
+
+/// <summary>
+/// Checks that it can create integers of different sizes.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_CreatesIntegersOfDifferentSizes_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING_8BITS  = "2A";
+    const QStringUnicode INPUT_STRING_16BITS = "6AC5";
+    const QStringUnicode INPUT_STRING_32BITS = "6AC5FF01";
+    const QStringUnicode INPUT_STRING_64BITS = "6AC5FF016AC5FF01";
+    const u8_q  EXPECTED_VALUE_8BITS  = 0x2AU;
+    const u16_q EXPECTED_VALUE_16BITS = 0x6AC5U;
+    const u32_q EXPECTED_VALUE_32BITS = 0x6AC5FF01U;
+    const u64_q EXPECTED_VALUE_64BITS = 0x6AC5FF016AC5FF01ULL;
+    u8_q  uResult8Bits  = 0;
+    u16_q uResult16Bits = 0;
+    u32_q uResult32Bits = 0;
+    u64_q uResult64Bits = 0;
+
+    // [Execution]
+    uResult8Bits = INPUT_STRING_8BITS.ToIntegerFromHexadecimal<u8_q>();
+    uResult16Bits = INPUT_STRING_16BITS.ToIntegerFromHexadecimal<u16_q>();
+    uResult32Bits = INPUT_STRING_32BITS.ToIntegerFromHexadecimal<u32_q>();
+    uResult64Bits = INPUT_STRING_64BITS.ToIntegerFromHexadecimal<u64_q>();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uResult8Bits,  EXPECTED_VALUE_8BITS);
+    BOOST_CHECK_EQUAL(uResult16Bits, EXPECTED_VALUE_16BITS);
+    BOOST_CHECK_EQUAL(uResult32Bits, EXPECTED_VALUE_32BITS);
+    BOOST_CHECK_EQUAL(uResult64Bits, EXPECTED_VALUE_64BITS);
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when string's length is greater than the integer type's size.
+/// </summary>
+QTEST_CASE ( ToIntegerFromHexadecimal_AssertionFailsWhenInputStringLengthIsGreaterThanntegerSize_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+
+    // [Preparation]
+    const QStringUnicode INPUT_STRING = "A45FA45FA45FA45F";
+    const bool ASSERTION_FAILED = true;
+
+    // [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        INPUT_STRING.ToIntegerFromHexadecimal<u32_q>();
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 #endif
@@ -8079,6 +8720,368 @@ QTEST_CASE ( ToFloat_ReturnsZeroWhenStringsContainsTooSmallNumber_Test )
 }
 
 #endif
+
+/// <summary>
+/// Checks that the signed number is correctly converted to a string.
+/// </summary>
+QTEST_CASE_TEMPLATE ( FromInteger_SignedValueIsCorrectlyConverted_Test, TQTemplateSignedTypes )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+#ifdef QE_COMPILER_MSVC
+    // This silents the warning caused by the switch structure below due to a type overflow, which is known and deliberated
+    #pragma warning( push )
+    #pragma warning( disable : 4244)
+#endif
+
+    // [Preparation]
+    const size_t SIZE_8 = 1;
+    const size_t SIZE_16 = 2;
+    const size_t SIZE_32 = 4;
+    const size_t SIZE_64 = 8;
+
+    const size_t T_SIZE = sizeof(T);
+
+    T INPUT;
+    QStringUnicode EXPECTED_RESULT;
+
+    switch(T_SIZE)
+    {
+    case SIZE_8:
+        INPUT = SQInteger::MaxNegativeI8_Q;
+        EXPECTED_RESULT = QE_L("-128");
+        break;
+    case SIZE_16:
+        INPUT = SQInteger::MaxNegativeI16_Q;
+        EXPECTED_RESULT = QE_L("-32768");
+        break;
+    case SIZE_32:
+        INPUT = SQInteger::MaxNegativeI32_Q;
+        EXPECTED_RESULT = QE_L("-2147483648");
+        break;
+    case SIZE_64:
+        INPUT = SQInteger::MaxNegativeI64_Q;
+        EXPECTED_RESULT = QE_L("-9223372036854775808");
+        break;
+    default: // This will cause that the test fails
+        INPUT = 0;
+        EXPECTED_RESULT = "";
+    }
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromInteger(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( pop )
+#endif
+}
+
+/// <summary>
+/// Checks that the unsigned number is correctly converted to a string.
+/// </summary>
+QTEST_CASE_TEMPLATE ( FromInteger_UnsignedValueIsCorrectlyConverted_Test, TQTemplateUnsignedTypes )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+#ifdef QE_COMPILER_MSVC
+    // This silents the warning caused by the switch structure below due to a type overflow, which is known and deliberated
+    #pragma warning( push )
+    #pragma warning( disable : 4244)
+#endif
+
+    // [Preparation]
+    const size_t SIZE_8 = 1;
+    const size_t SIZE_16 = 2;
+    const size_t SIZE_32 = 4;
+    const size_t SIZE_64 = 8;
+
+    const size_t T_SIZE = sizeof(T);
+
+    T INPUT;
+    QStringUnicode EXPECTED_RESULT;
+
+    switch(T_SIZE)
+    {
+    case SIZE_8:
+        INPUT = SQInteger::MaxU8_Q;
+        EXPECTED_RESULT = QE_L("255");
+        break;
+    case SIZE_16:
+        INPUT = SQInteger::MaxU16_Q;
+        EXPECTED_RESULT = QE_L("65535");
+        break;
+    case SIZE_32:
+        INPUT = SQInteger::MaxU32_Q;
+        EXPECTED_RESULT = QE_L("4294967295");
+        break;
+    case SIZE_64:
+        INPUT = SQInteger::MaxU64_Q;
+        EXPECTED_RESULT = QE_L("18446744073709551615");
+        break;
+    default: // This will cause that the test fails
+        INPUT = 0;
+        EXPECTED_RESULT = "";
+    }
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromInteger(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( pop )
+#endif
+
+}
+
+/// <summary>
+/// Checks that zero is correctly converted to a string.
+/// </summary>
+QTEST_CASE_TEMPLATE ( FromInteger_ZeroIsCorrectlyConverted_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+
+    // [Preparation]
+    T INPUT = 0;
+    QStringUnicode EXPECTED_RESULT = QE_L("0");
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromInteger(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for the TRUE value meets the expectations.
+/// </summary>
+QTEST_CASE ( FromBoolean_TrueValueIsConvertedFromBooleanAsExpected_Test )
+{
+    // [Preparation]
+    const bool BOOLEAN_VALUE_TRUE = true;
+    QStringUnicode EXPECTED_RESULT = QE_L("true");
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromBoolean(BOOLEAN_VALUE_TRUE);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for the FALSE value meets the expectations.
+/// </summary>
+QTEST_CASE ( FromBoolean_FalseValueIsConvertedFromBooleanAsExpected_Test )
+{
+    // [Preparation]
+    const bool BOOLEAN_VALUE_FALSE = false;
+    QStringUnicode EXPECTED_RESULT = QE_L("false");
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromBoolean(BOOLEAN_VALUE_FALSE);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for an high number (which requires scientific notation) is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat1_HighNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f32_q NUMBER = -12345678901234.0f;
+#if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux or Mac
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345679e+13");
+#else
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345679e+013");
+#endif
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for a tiny number (which requires scientific notation) is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat1_TinyNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f32_q NUMBER = -0.0000000012345678901234f;
+#if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux or Mac
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.23456789e-09");
+#else
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.23456789e-009");
+#endif
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for a common number is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat1_CommonNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f32_q NUMBER = -12345.6789f;
+    QStringUnicode EXPECTED_RESULT = QE_L("-12345.6787"); // There is a strange rounding here
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for an high number (which requires scientific notation) is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat2_HighNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f64_q NUMBER = -1234567890123456789123456789.0;
+#if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux or Mac
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345678901234569e+27");
+#else
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
+#endif
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for a tiny number (which requires scientific notation) is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat2_TinyNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f64_q NUMBER = -0.000000001234567890123412345678901234;
+#if defined(QE_COMPILER_GCC) && (defined(QE_OS_LINUX) || defined(QE_OS_MAC)) // This is necessary due to a different implementation of the Standard Library when compiling with GCC on Linux or Mac
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345678901234124e-09");
+#else
+    QStringUnicode EXPECTED_RESULT = QE_L("-1.2345678901234124e-009");
+#endif
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if the string returned for a common number is what expected.
+/// </summary>
+QTEST_CASE ( FromFloat2_CommonNumberIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+    const f64_q NUMBER = -1234567890.123456789;
+    QStringUnicode EXPECTED_RESULT = QE_L("-1234567890.1234567");
+
+	// [Execution]
+    QStringUnicode strResultUT = QStringUnicode::FromFloat(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the length of the string depends on the size of the integer type when the value is zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( FromIntegerToHexadecimal_TheLengthOfStringDependsOnTypeSizeWhenValueIsZero_Test, TQTemplateUnsignedTypes )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+
+    // [Preparation]
+    T INPUT = 0;
+    pointer_uint_q EXPECTED_LENGTH = sizeof(T) * 2U; // 2 letters per byte
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromIntegerToHexadecimal(INPUT);
+
+    // [Verification]
+    pointer_uint_q uLength = strResult.GetLength();
+    BOOST_CHECK_EQUAL(uLength, EXPECTED_LENGTH);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 1 byte.
+/// </summary>
+QTEST_CASE ( FromIntegerToHexadecimal_ItReturnsExpectedValueWhenUsingOneByte_Test )
+{
+    // [Preparation]
+    u8_q INPUT = 0x0F;
+    QStringUnicode EXPECTED_STRING = "0F";
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromIntegerToHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 2 bytes.
+/// </summary>
+QTEST_CASE ( FromIntegerToHexadecimal_ItReturnsExpectedValueWhenUsingTwoBytes_Test )
+{
+    // [Preparation]
+    u16_q INPUT = 0x01EF;
+    QStringUnicode EXPECTED_STRING = "01EF";
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromIntegerToHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 4 bytes.
+/// </summary>
+QTEST_CASE ( FromIntegerToHexadecimal_ItReturnsExpectedValueWhenUsingFourBytes_Test )
+{
+    // [Preparation]
+    u32_q INPUT = 0x0123CDEF;
+    QStringUnicode EXPECTED_STRING = "0123CDEF";
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromIntegerToHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
+
+/// <summary>
+/// Checks that it returns the expected string when using 8 bytes.
+/// </summary>
+QTEST_CASE ( FromIntegerToHexadecimal_ItReturnsExpectedValueWhenUsingEightBytes_Test )
+{
+    // [Preparation]
+    u64_q INPUT = 0x0123456789ABCDEF;
+    QStringUnicode EXPECTED_STRING = "0123456789ABCDEF";
+
+	// [Execution]
+    QStringUnicode strResult = QStringUnicode::FromIntegerToHexadecimal(INPUT);
+
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_STRING);
+}
 
 /// <summary>
 /// Checks that it returns zero when the string is empty.

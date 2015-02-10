@@ -26,12 +26,6 @@
 
 #include "SQAnyTypeToStringConverter.h"
 
-#include <iomanip>
-
-#include "SQFloat.h"
-#include "SQVF32.h"
-#include "SQBoolean.h"
-
 
 namespace Kinesis
 {
@@ -55,81 +49,73 @@ namespace DataTypes
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const bool &object)
 {
-    return SQBoolean::ToString(object);
+    return string_q::FromBoolean(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const u8_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const u16_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const u32_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const u64_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const i8_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const i16_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const i32_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const i64_q &object)
 {
-    return SQInteger::ToString(object);
+    return string_q::FromInteger(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const f32_q &object)
 {
-    // [TODO] Thund: Change this when an method of SQFloat to convert 32 bits floats exists
-    std::ostringstream output;
-    output << std::setprecision(9) << object;
-
-    return output.str().c_str();
+    return string_q::FromFloat(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const f64_q &object)
 {
-    // [TODO] Thund: Change this when an method of SQFloat to convert 64 bits floats exists
-    std::ostringstream output;
-    output << std::setprecision(17) << object;
-
-    return output.str().c_str();
+    return string_q::FromFloat(object);
 }
 
 template<>
 string_q SQAnyTypeToStringConverter::Convert(const vf32_q &object)
 {
-    return SQVF32::ToString(object);
+    return string_q::FromVF32(object);
 }
 
 template<>
@@ -151,7 +137,7 @@ string_q SQAnyTypeToStringConverter::Convert(const void* pObject)
     {
         // Prints the memory address to which the pointer points
         strResult.Append(HEXADECIMAL_PREFIX);
-        strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(pObject, pointer_uint_q)));
+        strResult.Append(string_q::FromIntegerToHexadecimal(rcast_q(pObject, pointer_uint_q)));
     }
     else
     {

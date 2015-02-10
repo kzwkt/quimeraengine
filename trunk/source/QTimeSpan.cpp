@@ -262,7 +262,7 @@ u64_q QTimeSpan::GetHundredsOfNanoseconds() const
 
 string_q QTimeSpan::ToString() const
 {
-    return SQInteger::ToString<u64_q>(m_uTimeSpan);
+    return string_q::FromInteger<u64_q>(m_uTimeSpan);
 }
 
 } //namespace Time

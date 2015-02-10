@@ -26,12 +26,11 @@
 
 #include "Assertions.h"
 
+#include "StringsDefinitions.h"
 #include "LoggingUtilities.h"
-#include "SQInteger.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::SQInternalLogger;
-using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 using Kinesis::QuimeraEngine::Common::EQAssertionType;
 
 
@@ -72,7 +71,7 @@ void QE_TRACE_FAILED_ASSERT(const string_q &strExpression,
     strLogText.Append(string_q("\" at "));
     strLogText.Append(strFileName);
     strLogText.Append(" (");
-    strLogText.Append(SQInteger::ToString(nLineNumber));
+    strLogText.Append(nLineNumber);
     strLogText.Append(") [");
     strLogText.Append(strExpression);
     strLogText.Append("]");

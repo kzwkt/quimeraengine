@@ -30,7 +30,9 @@
 #include "SystemDefinitions.h"
 #include "QSharedMutex.h"
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 #include <boost/thread/locks.hpp>
+
 
 namespace Kinesis
 {

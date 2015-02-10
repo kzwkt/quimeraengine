@@ -28,7 +28,7 @@
 #define __EQINTERSECTIONS__
 
 #include "Assertions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "ToolsDefinitions.h"
 #include "QArrayBasic.h"
 #include <cstring>

@@ -643,10 +643,21 @@ float_q QQuaternion::GetSquaredLength() const
 
 string_q QQuaternion::ToString() const
 {
-    return string_q("Q(") + SQFloat::ToString(this->x) +
-               QE_L(",")  + SQFloat::ToString(this->y) +
-               QE_L(",")  + SQFloat::ToString(this->z) +
-               QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
+    static const string_q STRING_PREFIX("Q(");
+    static const string_q STRING_COMMA(",");
+    static const string_q STRING_END(")");
+
+    string_q strOutput = STRING_PREFIX;
+    strOutput.Append(this->x);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->y);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->z);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->w);
+    strOutput.Append(STRING_END);
+
+    return strOutput;
 }
 
 

@@ -27,10 +27,12 @@
 #ifndef __ALLOCATIONOPERATORS__
 #define __ALLOCATIONOPERATORS__
 
-#include "DataTypesDefinitions.h"
+#include <new>
+#include "StringsDefinitions.h"
 #include "CommonDefinitions.h"
 #include "QAlignment.h"
 #include "Assertions.h"
+
 
 #ifdef QE_COMPILER_MSVC
     #pragma warning(disable:4290) // This disables the warning C4290 produced by throw exception specification

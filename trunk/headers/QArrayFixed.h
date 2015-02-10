@@ -30,13 +30,14 @@
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 #include "QPoolAllocator.h"
 #include "QAlignment.h"
 #include "SQComparatorDefault.h"
 #include "AllocationOperators.h"
 #include "EQIterationDirection.h"
-#include "SQInteger.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 
@@ -477,13 +478,10 @@ public:
         QConstArrayIterator& MoveForward(const pointer_uint_q uIncrement)
         {
             // Note: This code is a copy of the same method of QArrayIterator
-
-            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
             QE_ASSERT_ERROR(((m_uPosition + uIncrement) <= m_pArray->m_uLast + 1U && (m_uPosition + uIncrement) >= m_uPosition) ||
-                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + SQInteger::ToString(uIncrement) + ")");
+                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + string_q::FromInteger(uIncrement) + ")");
 
             m_uPosition += uIncrement;
 
@@ -506,15 +504,12 @@ public:
         QConstArrayIterator& MoveBackward(const pointer_uint_q uDecrement)
         {
             // Note: This code is a copy of the same method of QArrayIterator
-
-            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
             m_uPosition = m_uPosition > m_pArray->m_uLast + 1U ? m_pArray->m_uLast + 1U : m_uPosition;
 
-            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QArrayFixed::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + SQInteger::ToString(uDecrement) + ")");
+            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QArrayFixed::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + string_q::FromInteger(uDecrement) + ")");
 
             m_uPosition -= uDecrement;
 
@@ -805,13 +800,10 @@ public:
         QArrayIterator& MoveForward(const pointer_uint_q uIncrement)
         {
             // Note: This code is a copy of the same method of QConstArrayIterator
-
-            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Forward), "The iterator points to an end position, it is not possible to increment it");
             QE_ASSERT_ERROR(((m_uPosition + uIncrement) <= m_pArray->m_uLast + 1U && (m_uPosition + uIncrement) >= m_uPosition) ||
-                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + SQInteger::ToString(uIncrement) + ")");
+                            (this->IsEnd(EQIterationDirection::E_Backward) && (uIncrement - 1U) <= m_pArray->m_uLast + 1U), string_q("The iterator cannot be incremented by such amount (") + string_q::FromInteger(uIncrement) + ")");
 
             m_uPosition += uIncrement;
 
@@ -834,15 +826,12 @@ public:
         QArrayIterator& MoveBackward(const pointer_uint_q uDecrement)
         {
             // Note: This code is a copy of the same method of QConstArrayIterator
-
-            using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
             QE_ASSERT_ERROR(this->IsValid(), "The iterator is not valid, it cannot be decremented");
             QE_ASSERT_ERROR(!this->IsEnd(EQIterationDirection::E_Backward), "The iterator points to an end position, it is not possible to decrement it");
 
             m_uPosition = m_uPosition > m_pArray->m_uLast + 1U ? m_pArray->m_uLast + 1U : m_uPosition;
 
-            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QArrayFixed::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + SQInteger::ToString(uDecrement) + ")");
+            QE_ASSERT_ERROR((m_uPosition - uDecrement) <= m_uPosition || (m_uPosition - uDecrement) == QArrayFixed::END_POSITION_BACKWARD, string_q("The iterator cannot be decremented by such amount (") + string_q::FromInteger(uDecrement) + ")");
 
             m_uPosition -= uDecrement;
 

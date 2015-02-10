@@ -414,9 +414,19 @@ QVector3 QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &transforma
 
 string_q QVector3::ToString() const
 {
-    return string_q("V3(") + SQFloat::ToString(this->x) +
-               QE_L(",")   + SQFloat::ToString(this->y) +
-               QE_L(",")   + SQFloat::ToString(this->z) + QE_L(")");
+    static const string_q STRING_PREFIX("V3(");
+    static const string_q STRING_COMMA(",");
+    static const string_q STRING_END(")");
+
+    string_q strOutput = STRING_PREFIX;
+    strOutput.Append(this->x);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->y);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->z);
+    strOutput.Append(STRING_END);
+
+    return strOutput;
 }
 
 template <class MatrixT>

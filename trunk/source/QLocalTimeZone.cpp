@@ -28,7 +28,6 @@
 
 #include "SQTimeZoneFactory.h"
 #include "Assertions.h"
-#include "EQTextEncoding.h"
 
 #if defined(QE_OS_WINDOWS)
     #include <Windows.h>
@@ -39,7 +38,6 @@
 
 #elif defined(QE_OS_LINUX)
     #include <fstream>
-    #include "EQComparisonType.h"
 #endif
 
 using Kinesis::QuimeraEngine::Tools::Time::SQTimeZoneFactory;

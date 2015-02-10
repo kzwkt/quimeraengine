@@ -28,7 +28,7 @@
 #define __EQFILESYSTEMERROR__
 
 #include "Assertions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "SystemDefinitions.h"
 #include "QArrayBasic.h"
 #include <cstring>

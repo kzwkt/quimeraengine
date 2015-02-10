@@ -24,11 +24,10 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include <sstream>
-#include <iomanip>
-#include <cmath>
-
 #include "SQFloat.h"
+
+#include <cmath>
+#include "StringsDefinitions.h"
 
 namespace Kinesis
 {
@@ -297,18 +296,6 @@ float_q SQFloat::Abs(const float_q fValue)
     #endif
 }
 
-string_q SQFloat::ToString(const float_q fValue)
-{
-    std::ostringstream output;
-
-#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    output << std::setprecision(9) << fValue;
-#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    output << std::setprecision(17) << fValue;
-#endif
-
-    return output.str().c_str();
-}
 
 } //namespace DataTypes
 } //namespace Common

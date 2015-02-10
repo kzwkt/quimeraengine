@@ -28,7 +28,7 @@
 #define __EQENUMERATION__
 
 #include "Assertions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "<LayerName>Definitions.h"
 #include "QArrayBasic.h"
 #include <cstring>

@@ -26,8 +26,8 @@
 
 #include "SQInternalLogger.h"
 
-#include "EQTextEncoding.h"
 #include "QArrayResult.h"
+#include "StringsDefinitions.h"
 
 #if defined(QE_COMPILER_MSVC)
     #define NOMINMAX // This definition is necessary to bypass the min and max macros defined in Windows headers

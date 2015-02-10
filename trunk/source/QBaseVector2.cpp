@@ -27,6 +27,7 @@
 #include "QBaseVector2.h"
 
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
 

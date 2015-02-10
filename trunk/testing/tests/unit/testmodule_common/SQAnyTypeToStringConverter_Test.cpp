@@ -38,6 +38,7 @@ using namespace boost::unit_test;
 #include "RTTITestClasses.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQAnyTypeToStringConverter;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;

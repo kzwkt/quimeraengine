@@ -30,6 +30,7 @@
 #include "ToolsDefinitions.h"
 
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 
 
 namespace Kinesis

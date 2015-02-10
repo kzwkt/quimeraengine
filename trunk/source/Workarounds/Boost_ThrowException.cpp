@@ -33,6 +33,7 @@
 
 #include <exception>
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 
 namespace boost
 {

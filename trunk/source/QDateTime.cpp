@@ -29,7 +29,6 @@
 #include "Assertions.h"
 #include "SQInteger.h"
 #include "QTimeZone.h"
-#include "EQComparisonType.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
@@ -722,7 +721,7 @@ string_q QDateTime::ToString() const
     // Negative years are adjusted so the year 1 BC, or -1, is represented by "-0000" in timestamps
     uYear = this->IsNegative() ? uYear - 1U : uYear;
 
-    const string_q& YEAR_STRING = SQInteger::ToString(uYear);
+    const string_q& YEAR_STRING = string_q::FromInteger(uYear);
 
     // Padding with zeroes
     const unsigned int YEAR_STRING_LENGTH = YEAR_STRING.GetLength();
@@ -742,35 +741,35 @@ string_q QDateTime::ToString() const
     if(uMonth < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
         strTimestamp.Append(ZERO_STRING);
 
-    strTimestamp.Append(SQInteger::ToString(uMonth));
+    strTimestamp.Append(string_q::FromInteger(uMonth));
     strTimestamp.Append(DATE_SEPARATOR);
 
     // Padding with zeroes
     if(uDay < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
         strTimestamp.Append(ZERO_STRING);
 
-    strTimestamp.Append(SQInteger::ToString(uDay));
+    strTimestamp.Append(string_q::FromInteger(uDay));
     strTimestamp.Append(TIME_START_SEPARATOR);
 
     // Padding with zeroes
     if(uHour < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
         strTimestamp.Append(ZERO_STRING);
 
-    strTimestamp.Append(SQInteger::ToString(uHour));
+    strTimestamp.Append(string_q::FromInteger(uHour));
     strTimestamp.Append(TIME_SEPARATOR);
 
     // Padding with zeroes
     if(uMinute < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
         strTimestamp.Append(ZERO_STRING);
 
-    strTimestamp.Append(SQInteger::ToString(uMinute));
+    strTimestamp.Append(string_q::FromInteger(uMinute));
     strTimestamp.Append(TIME_SEPARATOR);
 
     // Padding with zeroes
     if(uSecond < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
         strTimestamp.Append(ZERO_STRING);
 
-    strTimestamp.Append(SQInteger::ToString(uSecond));
+    strTimestamp.Append(string_q::FromInteger(uSecond));
     
     // Converts milliseconds, microseconds and nanoseconds to a fraction of second
     this->SecondFractionToString(uMillisecond, uMicrosecond, uHundredOfNanosecond, strTimestamp);
@@ -799,14 +798,14 @@ string_q QDateTime::ToString() const
         if(OFFSET_HOURS < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
             strTimestamp.Append(ZERO_STRING);
 
-        strTimestamp.Append(SQInteger::ToString(OFFSET_HOURS));
+        strTimestamp.Append(string_q::FromInteger(OFFSET_HOURS));
         strTimestamp.Append(TIME_SEPARATOR);
 
         // Padding with zeroes
         if(OFFSET_MINUTES < FIRST_NUMBER_WITH_2_CYPHERS) // Less than 2 cyphers
             strTimestamp.Append(ZERO_STRING);
 
-        strTimestamp.Append(SQInteger::ToString(OFFSET_MINUTES));
+        strTimestamp.Append(string_q::FromInteger(OFFSET_MINUTES));
     }
 
     return strTimestamp;
@@ -826,7 +825,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
         bHasFraction = true;
         strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
 
-        const string_q& strMillisecond = SQInteger::ToString(uMillisecond);
+        const string_q& strMillisecond = string_q::FromInteger(uMillisecond);
 
         const unsigned int MILLISECOND_LENGTH = strMillisecond.GetLength();
 
@@ -838,7 +837,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
         if(uMicrosecond > 0)
         {
             // Has milliseconds and microseconds
-            const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
+            const string_q& strMicrosecond = string_q::FromInteger(uMicrosecond);
 
             const unsigned int MICROSECOND_LENGTH = strMicrosecond.GetLength();
 
@@ -850,7 +849,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
             if(uHundredOfNanosecond > 0)
             {
                 // Has milliseconds, microseconds and hundreds of nanoseconds
-                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+                strTimestamp.Append(string_q::FromInteger(uHundredOfNanosecond));
             }
         }
         else
@@ -859,7 +858,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
             {
                 // Has milliseconds and hundreds of nanoseconds, no microseconds
                 strTimestamp.Append(THREE_ZERO_STRING);
-                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+                strTimestamp.Append(string_q::FromInteger(uHundredOfNanosecond));
             }
         }
     }
@@ -872,7 +871,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
             strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
             strTimestamp.Append(THREE_ZERO_STRING);
 
-            const string_q& strMicrosecond = SQInteger::ToString(uMicrosecond);
+            const string_q& strMicrosecond = string_q::FromInteger(uMicrosecond);
 
             const unsigned int MICROSECOND_LENGTH = strMicrosecond.GetLength();
 
@@ -884,7 +883,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
             if(uHundredOfNanosecond > 0)
             {
                 // Has microseconds and hundreds of nanoseconds, no milliseconds
-                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+                strTimestamp.Append(string_q::FromInteger(uHundredOfNanosecond));
             }
         }
         else
@@ -895,7 +894,7 @@ void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const un
                 bHasFraction = true;
                 strTimestamp.Append(SECOND_FRACTION_SEPARATOR1);
                 strTimestamp.Append(SIX_ZERO_STRING);
-                strTimestamp.Append(SQInteger::ToString(uHundredOfNanosecond));
+                strTimestamp.Append(string_q::FromInteger(uHundredOfNanosecond));
             }
         }
     }

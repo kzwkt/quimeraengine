@@ -28,7 +28,7 @@
 #define __EQTESTTYPE__
 
 #include "Assertions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "QArrayBasic.h"
 #include <cstring>
 

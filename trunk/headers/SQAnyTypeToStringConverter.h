@@ -29,8 +29,7 @@
 
 #include "SystemDefinitions.h"
 
-#include "DataTypesDefinitions.h"
-#include "SQInteger.h"
+#include "StringsDefinitions.h"
 
 
 namespace Kinesis
@@ -82,7 +81,7 @@ public:
 
         string_q strResult = UNKNOWN_TYPE_PART1;
         strResult.Append(HEXADECIMAL_PREFIX);
-        strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(&object, pointer_uint_q)));
+        strResult.Append(string_q::FromIntegerToHexadecimal(rcast_q(&object, pointer_uint_q)));
         strResult.Append(UNKNOWN_TYPE_PART2);
 
         return strResult;
@@ -141,7 +140,7 @@ public:
         {
             // Prints the memory address to which the pointer points
             strResult.Append(HEXADECIMAL_PREFIX);
-            strResult.Append(SQInteger::ToStringHexadecimal(rcast_q(pObject, pointer_uint_q)));
+            strResult.Append(string_q::FromIntegerToHexadecimal(rcast_q(pObject, pointer_uint_q)));
             strResult.Append(WHITESPACE);
 
             // It is a pointer to either a basic data type or an unknown type

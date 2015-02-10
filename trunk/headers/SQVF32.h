@@ -31,7 +31,7 @@
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
 
 namespace Kinesis
 {
@@ -96,16 +96,6 @@ public:
     /// <param name="fThird">[OUT] Third value in the packet.</param>
     /// <param name="fFourth">[OUT] Fourth value in the packet.</param>
     static void Unpack(const vf32_q pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth);
-
-    /// <summary>
-    /// Represents the package content as a character string.
-    /// </summary>
-    /// <param name="inPack">[IN] A package containing four 32-bits floating point values.</param>
-    /// <returns>
-    /// The packet represented as a character string.<br/>
-    /// The format is: VF( First, Second, Third, Fourth ).
-    /// </returns>
-    static string_q ToString(const vf32_q inPack);
 
 };
 

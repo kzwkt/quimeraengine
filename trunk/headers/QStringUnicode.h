@@ -1,4 +1,4 @@
-﻿//-------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------//
 //                         QUIMERA ENGINE : LICENSE                              //
 //-------------------------------------------------------------------------------//
 // This file is part of Quimera Engine.                                          //
@@ -35,12 +35,16 @@
 #include <unicode/coll.h>
 #include <unicode/stsearch.h>
 #include <unicode/numfmt.h>
+#include <sstream>
+#include <math.h>
 
 #include "QCharUnicode.h"
 #include "QArrayResult.h"
 #include "EQTextEncoding.h"
 #include "EQNormalizationForm.h"
 #include "EQComparisonType.h"
+#include "Assertions.h"
+
 
 namespace Kinesis
 {
@@ -512,7 +516,7 @@ public:
     /// <param name="nLength">[Optional][IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
     /// When the encoding is ASCII or ISO 8859-1 and the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can
     /// be used instead.</param>
-    /// <param name="eEncoding">[IN] The text encoding of the input byte stream.</param>
+    /// <param name="eEncoding">[Optional][IN] The text encoding of the input byte stream.</param>
     QStringUnicode(const i8_q* arBytes, const int nLength, const EQTextEncoding &eEncoding);
 
     /// <summary>
@@ -529,7 +533,7 @@ public:
     /// </remarks>
     /// <param name="szCharacters">[IN] The input sequence of characters. It must not be null.</param>
     QStringUnicode(const wchar_t* szCharacters);
-
+    
 
     // METHODS
     // ---------------
@@ -608,6 +612,137 @@ public:
     /// A new string where the resident string appears in first place followed by the input string.
     /// </returns>
     QStringUnicode operator+(const QStringUnicode &strString) const;
+
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating two others.
+    /// </summary>
+    /// <param name="szString">[IN] The input null-terminated string to append to the resident string. It is assumed to be encoded in ISO 8859-1. It must not be null.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the input string.
+    /// </returns>
+    QStringUnicode operator+(const char* szString) const;
+
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const u8_q uInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const i8_q nInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const u16_q uInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const i16_q nInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const u32_q uInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const i32_q nInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const u64_q uInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of an integer to another string.
+    /// </summary>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input integer.
+    /// </returns>
+    QStringUnicode operator+(const i64_q nInteger) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of a floating point number to another string.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.<br/>
+    /// A dot is used as decimal separator.
+    /// </remarks>
+    /// <param name="fFloat">[IN] The input floating point number to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input floating point number.
+    /// </returns>
+    QStringUnicode operator+(const f32_q fFloat) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of a floating point number to another string.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.<br/>
+    /// A dot is used as decimal separator.
+    /// </remarks>
+    /// <param name="fFloat">[IN] The input floating point number to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input floating point number.
+    /// </returns>
+    QStringUnicode operator+(const f64_q fFloat) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of a boolean to another string.
+    /// </summary>
+    /// <remarks>
+    /// The input value is converted to either "true" or "false" strings.
+    /// </remarks>
+    /// <param name="bBoolean">[IN] The input boolean to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input boolean.
+    /// </returns>
+    QStringUnicode operator+(const bool bBoolean) const;
+    
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating the string representation of a vector of floating point numbers to another string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string to be appended is: VF(First, Second, Third, Fourth).
+    /// </remarks>
+    /// <param name="vfVector">[IN] The input vector of floating point numbers to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the string representation of the input vector of floating point numbers.
+    /// </returns>
+    QStringUnicode operator+(const vf32_q vfVector) const;
 
     /// <summary>
     /// Array subscripting operator that returns a Unicode character located at a given position.
@@ -915,7 +1050,143 @@ public:
     /// </remarks>
     /// <param name="strStringToAppend">[IN] The string to be appended.</param>
     void Append(const QStringUnicode &strStringToAppend);
+        
+    /// <summary>
+    /// Adds null-terminated text to the end of the string, assuming it is encoded in ISO 8859-1.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, appending a non-normalized string will make it non-normalized too.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="szStringToAppend">[IN] The string to be appended. It must not be null.</param>
+    void Append(const char* szStringToAppend);
+
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const u8_q uInteger);
+
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const i8_q nInteger);
     
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const u16_q uInteger);
+    
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const i16_q nInteger);
+    
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const u32_q uInteger);
+    
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const i32_q nInteger);
+    
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="uInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const u64_q uInteger);
+    
+    /// <summary>
+    /// Adds the string representation of an integer to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="nInteger">[IN] The input integer to append to the resident string.</param>
+    void Append(const i64_q nInteger);
+        
+    /// <summary>
+    /// Adds the string representation of a boolean to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// The input value is converted to either "true" or "false" strings.<br/>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="bBoolean">[IN] The input boolean to append to the resident string.</param>
+    void Append(const bool bBoolean);
+
+    /// <summary>
+    /// Adds the string representation of a floating point number to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.<br/>
+    /// A dot is used as decimal separator.<br/>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="fFloat">[IN] The input floating point number to append to the resident string.</param>
+    void Append(const f32_q fFloat);
+
+    /// <summary>
+    /// Adds the string representation of a floating point number to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.<br/>
+    /// A dot is used as decimal separator.<br/>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="fFloat">[IN] The input floating point number to append to the resident string.</param>
+    void Append(const f64_q fFloat);
+
+    /// <summary>
+    /// Adds the string representation of a vector of floating point numbers to the end of the string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string to be appended is: VF(First, Second, Third, Fourth).<br/>
+    /// If the resident string is normalized, it will be still normalized after this operation.<br/>
+    /// The result is stored in the resident string.
+    /// </remarks>
+    /// <param name="vfVector">[IN] The input vector of floating point numbers to append to the resident string.</param>
+    void Append(const vf32_q vfVector);
+
     /// <summary>
     /// Splits the string, searching for another string that acts as separator and storing every part in an output array.
     /// </summary>
@@ -944,6 +1215,62 @@ public:
     /// If the number expressed in the string is bigger than the range of values the type can represent, it will be clamped to that range.
     /// </returns>
     i64_q ToInteger() const;
+    
+    /// <summary>
+    /// Generates an integer value from an hexadecimal number contained in the string.
+    /// </summary>
+    /// <remarks>
+    /// The string can contain a "0x" prefix. Letters can be uppercase or lowercase.<br/>
+    /// The length of the string must be equal or lower than the size, in bytes, of the integral type multiplied by 2 (every byte is represented by 2 cyphers).
+    /// If the number has a prefix, it is not taken into account in the previous precondition.
+    /// </remarks>
+    /// <typeparam name="IntegerT">The unsigned integral type to be returned.</typeparam>
+    /// <returns>
+    /// The obtained integer value.
+    /// </returns>
+    template<class IntegerT>
+    IntegerT ToIntegerFromHexadecimal() const
+    {
+        using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
+        using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+        static const codepoint_q CODEPOINT_FIRST_NUMBER          = '0';
+        static const codepoint_q CODEPOINT_LAST_NUMBER           = '9';
+        static const codepoint_q CODEPOINT_FIRST_ALPHA_UPPERCASE = 'A';
+        static const codepoint_q CODEPOINT_LAST_ALPHA_UPPERCASE  = 'Z';
+        static const codepoint_q CODEPOINT_FIRST_ALPHA_LOWERCASE = 'a';
+        static const codepoint_q CODEPOINT_LAST_ALPHA_LOWERCASE  = 'z';
+        static const QStringUnicode HEX_PREFIX("0x");
+
+        const unsigned int START_POSITION = this->Contains(HEX_PREFIX, EQComparisonType::E_BinaryCaseInsensitive) ? HEX_PREFIX.GetLength() :
+                                                                                                                             0;
+        const unsigned int STRING_LENGTH = this->GetLength();
+
+        QE_ASSERT_ERROR(STRING_LENGTH - START_POSITION - 1U <= sizeof(IntegerT) * 2U, QStringUnicode("The string (\"") + *this + "\") must contain 2 letters per byte of the integer (apart from the prefix, if it has any).");
+
+        IntegerT uMultiplier = 0;
+        codepoint_q byteHalf = 0;
+        IntegerT value = 0;
+
+        for(unsigned int i = START_POSITION; i < STRING_LENGTH; ++i)
+        {
+            // It's a change of base (16 to 10), the exponent of the power of 16 is greater as the number occupies a more significant position in the string
+            uMultiplier = scast_q(powf(16.0f, scast_q(STRING_LENGTH - i - 1U, float)), IntegerT);
+
+            byteHalf = (*this)[i].GetCodePoint();
+
+            if(byteHalf >= CODEPOINT_FIRST_NUMBER && byteHalf <= CODEPOINT_LAST_NUMBER)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_NUMBER); // 16^n * number
+            else if(byteHalf >= CODEPOINT_FIRST_ALPHA_UPPERCASE && byteHalf <= CODEPOINT_LAST_ALPHA_UPPERCASE)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_ALPHA_UPPERCASE + 10U); // 16^n * letter [A-F] (where letters start with a value of 10)
+            else if(byteHalf >= CODEPOINT_FIRST_ALPHA_LOWERCASE && byteHalf <= CODEPOINT_LAST_ALPHA_LOWERCASE)
+                value += uMultiplier * (byteHalf - CODEPOINT_FIRST_ALPHA_LOWERCASE + 10U); // 16^n * letter [a-f] (where letters start with a value of 10)
+            else
+                QE_ASSERT_ERROR(false, "The string contains invalid characters.");
+        }
+
+        return value;
+    }
 
     /// <summary>
     /// Parses the complete string, which represents a boolean value.
@@ -964,7 +1291,7 @@ public:
     /// True when the string represents the "true" value; False when the string represents the "false" value. If the string does not contain a
     /// valid boolean value, False will be returned.
     /// </returns>
-    bool  ToBoolean() const;
+    bool ToBoolean() const;
 
     /// <summary>
     /// Parses the complete string, which represents a floating point number.
@@ -980,6 +1307,116 @@ public:
     /// zero will be returned.
     /// </returns>
     f64_q ToFloat() const;
+    
+    /// <summary>
+    /// Converts an integer number to a readable character string that represents it.
+    /// </summary>
+    /// <typeparam name="IntegerT">The type of integral type passed as argument.</typeparam>
+    /// <param name="value">[IN] The integer number to be converted.</param>
+    /// <returns>
+    /// The string that represents the number.
+    /// </returns>
+    template<class IntegerT>
+    static QStringUnicode FromInteger(const IntegerT value)
+    {
+        std::ostringstream output;
+        output << value;
+        return output.str().c_str();
+    }
+    
+    /// <summary>
+    /// Converts an input boolean type to its representation as a string.
+    /// </summary>
+    /// <param name="bValue">[IN] The boolean value to be converted.</param>
+    /// <returns>
+    /// The strings "true" or "false".
+    /// </returns>
+    static QStringUnicode FromBoolean(const bool bValue);
+        
+    /// <summary>
+    /// Converts the floating point number to a readable character string that represents it.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.
+    /// </remarks>
+    /// <param name="fValue">[IN] The floating point number to be converted.</param>
+    /// <returns>
+    /// The string that represents the number (using a dot as decimal separator).
+    /// </returns>
+    static QStringUnicode FromFloat(const f32_q fValue);
+        
+    /// <summary>
+    /// Converts the floating point number to a readable character string that represents it.
+    /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.
+    /// </remarks>
+    /// <param name="fValue">[IN] The floating point number to be converted.</param>
+    /// <returns>
+    /// The string that represents the number (using a dot as decimal separator).
+    /// </returns>
+    static QStringUnicode FromFloat(const f64_q fValue);
+    
+    /// <summary>
+    /// Converts the float vector package to a character string.
+    /// </summary>
+    /// <param name="vfValue">[IN] A float vector containing four 32-bits floating point values.</param>
+    /// <returns>
+    /// The package represented as a character string.<br/>
+    /// The format is: VF(First, Second, Third, Fourth).
+    /// </returns>
+    static QStringUnicode FromVF32(const vf32_q vfValue);
+    
+    /// <summary>
+    /// Converts an unsigned integer number to its hexadecimal representation as a string.
+    /// </summary>
+    /// <typeparam name="IntegerT">The unsigned integral type passed as argument.</typeparam>
+    /// <param name="uValue">[IN] The value whose bytes are to be printed.</param>
+    /// <returns>
+    /// The string that contains the hexadecimal representation of the integer.
+    /// </returns>
+    template<typename IntegerT>
+    static QStringUnicode FromIntegerToHexadecimal(const IntegerT uValue)
+    {
+        static const u8_q ASCII_FIRST_NUMBER = 48U;
+        static const u8_q ASCII_FIRST_CAPITAL_LETTER = 65U;
+
+        QStringUnicode strResult;
+        const u8_q* arBytes = rcast_q(&uValue, const u8_q*);
+        u8_q uCurrentByteHalf = 0;
+        QCharUnicode correspondingChar(0);
+
+        // Every half of every byte in the input variable is parsed and transformed to its textual hexadecimal representation
+#if QE_ENDIANNESS == QE_ENDIANNESS_LITTLEENDIAN
+        pointer_uint_q uIndexCorrection = 1U;
+
+        for(pointer_uint_q uMemOffset = sizeof(IntegerT); uMemOffset > 0; --uMemOffset)
+        {
+#elif QE_ENDIANNESS == QE_ENDIANNESS_BIGENDIAN
+        pointer_uint_q uIndexCorrection = 0;
+
+        for(pointer_uint_q uMemOffset = 0; uMemOffset < sizeof(IntegerT); ++uMemOffset)
+        {
+#endif
+            // Gets the first half of the byte
+            uCurrentByteHalf = arBytes[uMemOffset - uIndexCorrection] >> 4U;
+
+            // Writes the corresponding character for the first half
+            correspondingChar = uCurrentByteHalf > 9U ? QCharUnicode(ASCII_FIRST_CAPITAL_LETTER + uCurrentByteHalf - 0x0A) : // It's a letter
+                                                        QCharUnicode(ASCII_FIRST_NUMBER + uCurrentByteHalf);                 // It's a number
+            strResult.Append(correspondingChar);
+
+            // Gets the second half of the byte
+            uCurrentByteHalf = arBytes[uMemOffset - uIndexCorrection] & 0x0F;
+
+            // Writes the corresponding character for the second half
+            correspondingChar = uCurrentByteHalf > 9U ? QCharUnicode(ASCII_FIRST_CAPITAL_LETTER + uCurrentByteHalf - 0x0A) : // It's a letter
+                                                        QCharUnicode(ASCII_FIRST_NUMBER + uCurrentByteHalf);                 // It's a number
+            strResult.Append(correspondingChar);
+        }
+
+        return strResult;
+    }
 
 private:
 
@@ -988,7 +1425,7 @@ private:
     /// </summary>
     /// <param name="strSearchedPattern">[IN] The string pattern to search for.</param>
     /// <param name="strReplacement">[IN] The replacement string.</param>
-    void ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement);
+    void _ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement);
 
     /// <summary>
     /// Searches for a string pattern (using canonical comparisons) throuhout the resident string, replacing every occurrence with another string.
@@ -996,14 +1433,14 @@ private:
     /// <param name="strSearchedPattern">[IN] The string pattern to search for.</param>
     /// <param name="strReplacement">[IN] The replacement string.</param>
     /// <param name="eComparisonType">[IN] The type of comparison to perform during the search. Only canonical comparisons allowed.</param>
-    void ReplaceCanonical(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType);
+    void _ReplaceCanonical(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType);
 
     /// <summary>
     /// Configures an ICU string search object according to a given comparison type.
     /// </summary>
     /// <param name="eComparisonType">[IN] The comparison type on which to base the search object.</param>
     /// <param name="search">[OUT] The resultant search object.</param>
-    static void ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search);
+    static void _ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search);
 
     /// <summary>
     /// Gets an ICU number formatter configured to parse integer values.
@@ -1011,7 +1448,7 @@ private:
     /// <returns>
     /// A number formatter ready to be used.
     /// </returns>
-    static const icu::NumberFormat* GetIntegerFormatter();
+    static const icu::NumberFormat* _GetIntegerFormatter();
 
     /// <summary>
     /// Gets an ICU number formatter configured to parse floating point values.
@@ -1019,7 +1456,7 @@ private:
     /// <returns>
     /// A number formatter ready to be used.
     /// </returns>
-    static const icu::NumberFormat* GetFloatFormatter();
+    static const icu::NumberFormat* _GetFloatFormatter();
 
     /// <summary>
     /// Gets an ICU converter for a given text encoding.
@@ -1028,7 +1465,7 @@ private:
     /// <returns>
     /// A converter ready to be used.
     /// </returns>
-    static UConverter* GetConverter(const EQTextEncoding &eEncoding);
+    static UConverter* _GetConverter(const EQTextEncoding &eEncoding);
 
     /// <summary>
     /// Gets an ICU normalizer instance for a normalization form.
@@ -1037,7 +1474,7 @@ private:
     /// <returns>
     /// A normalizer ready to be used.
     /// </returns>
-    static const icu::Normalizer2* GetNormalizer(const EQNormalizationForm &eNormalizationForm);
+    static const icu::Normalizer2* _GetNormalizer(const EQNormalizationForm &eNormalizationForm);
 
     /// <summary>
     /// Gets an ICU collator instance for a comparison type.
@@ -1046,7 +1483,7 @@ private:
     /// <returns>
     /// An object that applies the chosen collation algorithm to Unicode strings.
     /// </returns>
-    static const icu::Collator* GetCollator(const EQComparisonType &eComparisonType);
+    static const icu::Collator* _GetCollator(const EQComparisonType &eComparisonType);
 
 
     // PROPERTIES
@@ -1122,6 +1559,31 @@ private:
     unsigned int m_uLength;
 
 };
+
+
+// TEMPLATE METHOD SPECIALIZATION
+// --------------------------------
+
+/// <summary>
+/// Converts an integer number to a readable character string that represents it.
+/// </summary>
+/// <param name="value">[IN] The integer number to be converted.</param>
+/// <returns>
+/// The string that represents the number.
+/// </returns>
+template<>
+QStringUnicode QE_LAYER_COMMON_SYMBOLS QStringUnicode::FromInteger<u8_q>(const u8_q value);
+
+/// <summary>
+/// Converts an integer number to a readable character string that represents it.
+/// </summary>
+/// <param name="value">[IN] The integer number to be converted.</param>
+/// <returns>
+/// The string that represents the number.
+/// </returns>
+template<>
+QStringUnicode QE_LAYER_COMMON_SYMBOLS QStringUnicode::FromInteger<i8_q>(const i8_q value);
+
 
 } //namespace DataTypes
 } //namespace Common

@@ -27,6 +27,7 @@
 #include "QBaseQuaternion.h"
 
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
 

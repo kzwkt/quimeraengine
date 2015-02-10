@@ -28,7 +28,7 @@
 #define __QTYPE__
 
 #include "CommonDefinitions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "Assertions.h"
 
 #ifdef QE_COMPILER_MSVC

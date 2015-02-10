@@ -26,17 +26,21 @@
 
 #include "QStringUnicode.h"
 
-#include <cstring> // Needed for strlen function
 #include "Assertions.h"
 #include "EQComparisonType.h"
 #include "EQNormalizationForm.h"
 #include "EQTextEncoding.h"
+#include "SQFloat.h"
+#include "SQVF32.h"
 
 #include <unicode/ucnv.h>
 #include <unicode/fmtable.h>
 #include <unicode/decimfmt.h>
 #include <unicode/locid.h>
 #include <unicode/uchar.h>
+#include <sstream>
+#include <iomanip>
+#include <cstring> // Needed for strlen function
 
 
 namespace Kinesis
@@ -108,7 +112,7 @@ QStringUnicode::QStringUnicode(const i8_q* arBytes,
                     nLength != QStringUnicode::LENGTH_NULL_TERMINATED, "Only ASCII and ISO 8859-1 encodings can be used along with null-terminated strings' length calculation");
 
     UErrorCode errorCode = U_ZERO_ERROR;
-    UConverter* pConverter = QStringUnicode::GetConverter(eEncoding);
+    UConverter* pConverter = QStringUnicode::_GetConverter(eEncoding);
 
     int nActualLength = nLength;
 
@@ -197,6 +201,131 @@ QStringUnicode QStringUnicode::operator+(const QStringUnicode &strString) const
     strNewString.m_strString =  m_strString;
     strNewString.m_strString += strString.m_strString;
     strNewString.m_uLength = m_uLength + strString.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const char* szString) const
+{
+    return this->operator+(QStringUnicode(szString));
+}
+
+QStringUnicode QStringUnicode::operator+(const u8_q uInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const i8_q nInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const u16_q uInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const i16_q nInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const u32_q uInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const i32_q nInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const u64_q uInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const i64_q nInteger) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    strNewString.m_strString += strInteger.m_strString;
+    strNewString.m_uLength = m_uLength + strInteger.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const f32_q fFloat) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strFloat = QStringUnicode::FromFloat(fFloat);
+    strNewString.m_strString += strFloat.m_strString;
+    strNewString.m_uLength = m_uLength + strFloat.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const f64_q fFloat) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strFloat = QStringUnicode::FromFloat(fFloat);
+    strNewString.m_strString += strFloat.m_strString;
+    strNewString.m_uLength = m_uLength + strFloat.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const bool bBoolean) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strBoolean = QStringUnicode::FromBoolean(bBoolean);
+    strNewString.m_strString += strBoolean.m_strString;
+    strNewString.m_uLength = m_uLength + strBoolean.m_uLength;
+    return strNewString;
+}
+
+QStringUnicode QStringUnicode::operator+(const vf32_q vfVector) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    QStringUnicode strFloatVector = QStringUnicode::FromVF32(vfVector);
+    strNewString.m_strString += strFloatVector.m_strString;
+    strNewString.m_uLength = m_uLength + strFloatVector.m_uLength;
     return strNewString;
 }
 
@@ -327,7 +456,7 @@ QArrayResult<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) cons
     if(CHARACTERS_COUNT > 0)
     {
         UErrorCode errorCode = U_ZERO_ERROR;
-        UConverter* pConverter = QStringUnicode::GetConverter(eEncoding);
+        UConverter* pConverter = QStringUnicode::_GetConverter(eEncoding);
         const unsigned int CODE_UNITS_COUNT = m_strString.length(); // It does not include the final null character
 
         // Depending on whether the string is already null-terminated or not, a null terminator will be added at the end
@@ -410,7 +539,7 @@ QArrayResult<i8_q> QStringUnicode::ToBytes(const EQTextEncoding &eEncoding) cons
     return QArrayResult<i8_q>(pOutputBytes, uOutputLength);
 }
 
-UConverter* QStringUnicode::GetConverter(const EQTextEncoding &eEncoding)
+UConverter* QStringUnicode::_GetConverter(const EQTextEncoding &eEncoding)
 {
     // About ICU converters: http://userguide.icu-project.org/conversion/converters
     static UErrorCode errorCode = U_ZERO_ERROR;
@@ -490,7 +619,7 @@ QStringUnicode QStringUnicode::ToCaseFolded() const
 
 void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
 {
-    const icu::Normalizer2* pNormalizer = QStringUnicode::GetNormalizer(eNormalizationForm);
+    const icu::Normalizer2* pNormalizer = QStringUnicode::_GetNormalizer(eNormalizationForm);
     UErrorCode eErrorCode = U_ZERO_ERROR;
     
     UBool bIsNormalized = pNormalizer->isNormalized(m_strString, eErrorCode); // [TODO] Thund: Change this by a call to this->IsNormalized when implemented
@@ -511,7 +640,7 @@ void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
     }
 }
 
-const icu::Normalizer2* QStringUnicode::GetNormalizer(const EQNormalizationForm &eNormalizationForm)
+const icu::Normalizer2* QStringUnicode::_GetNormalizer(const EQNormalizationForm &eNormalizationForm)
 {
     const icu::Normalizer2* pNormalizer = null_q;
     UErrorCode eErrorCode = U_ZERO_ERROR;
@@ -551,13 +680,13 @@ int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComp
         break;
     case EQComparisonType::E_CanonicalCaseInsensitive:
         {
-            const icu::Collator* pCollator = QStringUnicode::GetCollator(eComparisonType);
+            const icu::Collator* pCollator = QStringUnicode::_GetCollator(eComparisonType);
             nResult = pCollator->compare(m_strString, strInputString.m_strString);
         }
         break;
     case EQComparisonType::E_CanonicalCaseSensitive:
         {
-            const icu::Collator* pCollator = QStringUnicode::GetCollator(eComparisonType);
+            const icu::Collator* pCollator = QStringUnicode::_GetCollator(eComparisonType);
             nResult = pCollator->compare(m_strString, strInputString.m_strString);
         }
         break;
@@ -572,7 +701,7 @@ int QStringUnicode::CompareTo(const QStringUnicode &strInputString, const EQComp
     return nResult;
 }
 
-const icu::Collator* QStringUnicode::GetCollator(const EQComparisonType &eComparisonType)
+const icu::Collator* QStringUnicode::_GetCollator(const EQComparisonType &eComparisonType)
 {
     // Information of interest: http://userguide.icu-project.org/collation/architecture
     static bool bInitialized = false;
@@ -649,7 +778,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
 
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
-            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            QStringUnicode::_ConfigureSearch(eComparisonType, search);
             nPosition = search.next(errorCode);
             
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
@@ -665,7 +794,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
     return nPosition;
 }
 
-void QStringUnicode::ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search)
+void QStringUnicode::_ConfigureSearch(const EQComparisonType &eComparisonType, icu::StringSearch &search)
 {
     UErrorCode errorCode = U_ZERO_ERROR;
 
@@ -735,7 +864,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
             search.setOffset(nStartCodeUnitIndex, errorCode);
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
 
-            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            QStringUnicode::_ConfigureSearch(eComparisonType, search);
             nPosition = search.next(errorCode);
 
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
@@ -779,7 +908,7 @@ int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQCompar
 
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
-            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            QStringUnicode::_ConfigureSearch(eComparisonType, search);
             nPosition = search.last(errorCode);
             
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
@@ -829,7 +958,7 @@ int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQCompar
             search.setOffset(nStartCodeUnitIndex, errorCode);
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when setting the offset of the search");
 
-            QStringUnicode::ConfigureSearch(eComparisonType, search);
+            QStringUnicode::_ConfigureSearch(eComparisonType, search);
             nPosition = search.previous(errorCode);
 
             QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when searching the pattern");
@@ -906,15 +1035,15 @@ void QStringUnicode::Replace(const QStringUnicode &strSearchedPattern, const QSt
         if(eComparisonType == EQComparisonType::E_BinaryCaseSensitive)
             m_strString.findAndReplace(strSearchedPattern.m_strString, strReplacement.m_strString);
         else if(eComparisonType == EQComparisonType::E_BinaryCaseInsensitive)
-            this->ReplaceBinaryCaseInsensitive(strSearchedPattern, strReplacement);
+            this->_ReplaceBinaryCaseInsensitive(strSearchedPattern, strReplacement);
         else
-            this->ReplaceCanonical(strSearchedPattern, strReplacement, eComparisonType);
+            this->_ReplaceCanonical(strSearchedPattern, strReplacement, eComparisonType);
 
         m_uLength = scast_q(m_strString.countChar32(), unsigned int);;
     }
 }
 
-void QStringUnicode::ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement)
+void QStringUnicode::_ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearchedPattern, const QStringUnicode &strReplacement)
 {
     icu::UnicodeString strPatternCopy = strSearchedPattern.m_strString;
     strPatternCopy.foldCase(U_FOLD_CASE_DEFAULT);
@@ -940,14 +1069,14 @@ void QStringUnicode::ReplaceBinaryCaseInsensitive(const QStringUnicode &strSearc
     }
 }
 
-void QStringUnicode::ReplaceCanonical(const QStringUnicode& strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType)
+void QStringUnicode::_ReplaceCanonical(const QStringUnicode& strSearchedPattern, const QStringUnicode &strReplacement, const EQComparisonType &eComparisonType)
 {
     // Creates the search object
     UErrorCode errorCode = U_ZERO_ERROR;
     icu::StringSearch search(strSearchedPattern.m_strString, m_strString, Locale::getEnglish(), NULL, errorCode);
     QE_ASSERT_ERROR(U_SUCCESS(errorCode), "An unexpected error occurred when creating the internal search object");
 
-    QStringUnicode::ConfigureSearch(eComparisonType, search);
+    QStringUnicode::_ConfigureSearch(eComparisonType, search);
 
     // Iterates over a copy of the original string, modifying the original string
     int32_t nPosition = search.next(errorCode);
@@ -975,6 +1104,95 @@ void QStringUnicode::Append(const QStringUnicode &strStringToAppend)
 {
     m_strString.append(strStringToAppend.m_strString);
     m_uLength += strStringToAppend.GetLength();
+}
+
+void QStringUnicode::Append(const char* szStringToAppend)
+{
+    this->Append(QStringUnicode(szStringToAppend));
+}
+
+void QStringUnicode::Append(const u8_q uInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const i8_q nInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const u16_q uInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const i16_q nInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const u32_q uInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const i32_q nInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const u64_q uInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(uInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const i64_q nInteger)
+{
+    QStringUnicode strInteger = QStringUnicode::FromInteger(nInteger);
+    m_strString.append(strInteger.m_strString);
+    m_uLength += strInteger.GetLength();
+}
+
+void QStringUnicode::Append(const bool bBoolean)
+{
+    QStringUnicode strBoolean = QStringUnicode::FromBoolean(bBoolean);
+    m_strString.append(strBoolean.m_strString);
+    m_uLength += strBoolean.GetLength();
+}
+
+void QStringUnicode::Append(const f32_q fFloat)
+{
+    QStringUnicode strFloat = QStringUnicode::FromFloat(fFloat);
+    m_strString.append(strFloat.m_strString);
+    m_uLength += strFloat.GetLength();
+}
+
+void QStringUnicode::Append(const f64_q fFloat)
+{
+    QStringUnicode strFloat = QStringUnicode::FromFloat(fFloat);
+    m_strString.append(strFloat.m_strString);
+    m_uLength += strFloat.GetLength();
+}
+
+void QStringUnicode::Append(const vf32_q vfVector)
+{
+    QStringUnicode strVectorFloat = QStringUnicode::FromVF32(vfVector);
+    m_strString.append(strVectorFloat.m_strString);
+    m_uLength += strVectorFloat.GetLength();
 }
 
 QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSeparator) const
@@ -1033,7 +1251,7 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
 
 i64_q QStringUnicode::ToInteger() const
 {
-    const icu::NumberFormat* pFormatter = QStringUnicode::GetIntegerFormatter();
+    const icu::NumberFormat* pFormatter = QStringUnicode::_GetIntegerFormatter();
     UErrorCode errorCodeParsing = U_ZERO_ERROR;
     UErrorCode errorCodeGetting = U_ZERO_ERROR;
 
@@ -1105,7 +1323,7 @@ f64_q QStringUnicode::ToFloat() const
     static const f64_q POSITIVE_INFINITE = +1e308 * 1e308;
     static const f64_q NEGATIVE_INFINITE = -1e308 * 1e308;
 #endif
-    const icu::NumberFormat* pFormatter = QStringUnicode::GetFloatFormatter();
+    const icu::NumberFormat* pFormatter = QStringUnicode::_GetFloatFormatter();
     UErrorCode errorCodeParsing = U_ZERO_ERROR;
     UErrorCode errorCodeGetting = U_ZERO_ERROR;
 
@@ -1124,7 +1342,7 @@ f64_q QStringUnicode::ToFloat() const
     return fResult;
 }
 
-const icu::NumberFormat* QStringUnicode::GetIntegerFormatter()
+const icu::NumberFormat* QStringUnicode::_GetIntegerFormatter()
 {
     static UErrorCode errorCode = U_ZERO_ERROR;
     static icu::NumberFormat* pNumberFormatter = icu::NumberFormat::createInstance(icu::Locale::getEnglish(), UNUM_DECIMAL, errorCode);
@@ -1133,7 +1351,7 @@ const icu::NumberFormat* QStringUnicode::GetIntegerFormatter()
     return pNumberFormatter;
 }
 
-const icu::NumberFormat* QStringUnicode::GetFloatFormatter()
+const icu::NumberFormat* QStringUnicode::_GetFloatFormatter()
 {
     static UErrorCode errorCode = U_ZERO_ERROR;
     static const icu::NumberFormat* pNumberFormatter = icu::DecimalFormat::createInstance(icu::Locale::getEnglish(), UNUM_SCIENTIFIC, errorCode);
@@ -1141,6 +1359,60 @@ const icu::NumberFormat* QStringUnicode::GetFloatFormatter()
     return pNumberFormatter;
 }
 
+template<>
+QStringUnicode QStringUnicode::FromInteger<i8_q>(const i8_q nValue)
+{
+    // [SMELL] Thund: This specialization is necessary since STL's converter treats signed chars
+    //                in a different way than how it does with the other integer types.
+    std::ostringstream output;
+    output << scast_q(nValue, i32_q);
+
+    return output.str().c_str();
+}
+
+template<>
+QStringUnicode QStringUnicode::FromInteger<u8_q>(const u8_q uValue)
+{
+    // [SMELL] Thund: This specialization is necessary since STL's converter treats unsigned chars
+    //                in a different way than how it does with the other integer types.
+    std::ostringstream output;
+    output << scast_q(uValue, u32_q);
+
+    return output.str().c_str();
+}
+
+QStringUnicode QStringUnicode::FromBoolean(const bool bValue)
+{
+    return bValue ? "true" : "false";
+}
+
+QStringUnicode QStringUnicode::FromFloat(const f32_q fValue)
+{
+    std::ostringstream output;
+    output << std::setprecision(9) << fValue;
+    return output.str().c_str();
+}
+
+QStringUnicode QStringUnicode::FromFloat(const f64_q fValue)
+{
+    std::ostringstream output;
+    output << std::setprecision(17) << fValue;
+    return output.str().c_str();
+}
+
+QStringUnicode QStringUnicode::FromVF32(const vf32_q vfValue)
+{
+    f32_q fFirst  = SQFloat::_0;
+    f32_q fSecond = SQFloat::_0;
+    f32_q fThird  = SQFloat::_0;
+    f32_q fFourth = SQFloat::_0;
+
+    SQVF32::Unpack(vfValue, fFirst, fSecond, fThird, fFourth);
+
+    std::ostringstream output;
+    output << "VF(" << std::setprecision(9) << fFirst << ", " << fSecond << ", " << fThird << ", " << fFourth << ")";
+    return output.str().c_str();
+}
 
 
 //##################=======================================================##################

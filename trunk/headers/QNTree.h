@@ -251,6 +251,8 @@ public:
                                                                                                                            m_uPosition(uPosition), 
                                                                                                                            m_eTraversalOrder(eTraversalOrder)
         {
+            using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
             QE_ASSERT_ERROR(pTree != null_q, "Invalid argument: The pointer to the tree cannot be null");
             QE_ASSERT_WARNING(pTree->GetCapacity() > uPosition || 
                               uPosition == QNTree::END_POSITION_BACKWARD || 
@@ -1931,6 +1933,7 @@ public:
         //    0-1-2-X
         //
         using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+        using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
         QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
         QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
@@ -1953,7 +1956,7 @@ public:
                 ++uNumberOfElements;
             }
 
-            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to add another child to this node, maximum allowed exceeded (") + SQInteger::ToString(this->MAX_CHILDREN) + ").");
+            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to add another child to this node, maximum allowed exceeded (") + string_q::FromInteger(this->MAX_CHILDREN) + ").");
 
             if(uNumberOfElements < this->MAX_CHILDREN)
             {
@@ -2159,6 +2162,7 @@ public:
         //    X-X-X-X
         //
         using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+        using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
         QE_ASSERT_ERROR(parentNode.IsValid(), "The input iterator is not valid.");
         QE_ASSERT_ERROR(!parentNode.IsEnd(), "The input iterator must not point to an end position.");
@@ -2201,7 +2205,7 @@ public:
                 ++uNumberOfElements;
             }
 
-            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to insert another child to this node, maximum allowed exceeded (") + SQInteger::ToString(this->MAX_CHILDREN) + ").");
+            QE_ASSERT_ERROR(uNumberOfElements < this->MAX_CHILDREN, string_q("It is not possible to insert another child to this node, maximum allowed exceeded (") + string_q::FromInteger(this->MAX_CHILDREN) + ").");
 
             if(uNumberOfElements < this->MAX_CHILDREN)
             {
@@ -2269,8 +2273,9 @@ public:
     QNTreeIterator GetIterator(const pointer_uint_q uIndex, const EQTreeTraversalOrder &eTraversalOrder) const
     {
         using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+        using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
-        QE_ASSERT_WARNING(uIndex < this->GetCount(), string_q("The input index (") + SQInteger::ToString(uIndex) + ") is out of bounds.");
+        QE_ASSERT_WARNING(uIndex < this->GetCount(), string_q("The input index (") + string_q::FromInteger(uIndex) + ") is out of bounds.");
         QE_ASSERT_WARNING(!this->IsEmpty(), "It is not possible to get an iterator that points to the given position, the tree is empty.");
 
         QNTree::QNTreeIterator iterator(this, 0, eTraversalOrder);

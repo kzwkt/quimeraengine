@@ -410,7 +410,7 @@ bool QFileStream::_ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer
     {
         bSuccess = false;
         DWORD uReadFileLastError = ::GetLastError();
-        QE_ASSERT_ERROR(uReadFileResult != 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uReadFileLastError) + ".");
+        QE_ASSERT_ERROR(uReadFileResult != 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(uReadFileLastError) + ".");
     }
 
     return bSuccess;
@@ -446,7 +446,7 @@ bool QFileStream::_WritePlatformImplementation(const void* pInputBuffer, const p
         bSuccess = false;
             
         DWORD uWriteFileLastError = ::GetLastError();
-        QE_ASSERT_WARNING(uWriteFileResult != WRITE_OPERATION_FAILED, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uWriteFileLastError) + ".");
+        QE_ASSERT_WARNING(uWriteFileResult != WRITE_OPERATION_FAILED, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(uWriteFileLastError) + ".");
     }
 
     return bSuccess;
@@ -492,7 +492,7 @@ bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFil
     {
         bSuccess = false;
         DWORD uCreateFileWLastError = ::GetLastError();
-        QE_ASSERT_ERROR(handle != INVALID_HANDLE_VALUE, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCreateFileWLastError) + ".");
+        QE_ASSERT_ERROR(handle != INVALID_HANDLE_VALUE, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(uCreateFileWLastError) + ".");
 
         if(uCreateFileWLastError == ERROR_ACCESS_DENIED)
             eErrorInfo = EQFileSystemError::E_NoPermissions;
@@ -514,7 +514,7 @@ bool QFileStream::_ClosePlarformImplementation(const QFileStream::NativeHandle &
     {
         bSuccess = false;
         DWORD uCloseHandleLastError = ::GetLastError();
-        QE_ASSERT_ERROR(uCloseHandleResult != 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(uCloseHandleLastError) + ".");
+        QE_ASSERT_ERROR(uCloseHandleResult != 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(uCloseHandleLastError) + ".");
     }
 
     return bSuccess;
@@ -532,7 +532,7 @@ bool QFileStream::_ReadPlatformImplementation(u8_q* pOutputBuffer, const pointer
     {
         bSuccess = false;
         error_t lastError = errno;
-        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when reading from the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(lastError) + ".");
     }
 
     return bSuccess;
@@ -548,7 +548,7 @@ bool QFileStream::_WritePlatformImplementation(const void* pInputBuffer, const p
     {
         bSuccess = false;
         error_t lastError = errno;
-        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when writing to the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(lastError) + ".");
     }
 
     return bSuccess;
@@ -596,7 +596,7 @@ bool QFileStream::_OpenPlatformImplementation(const QPath &filePath, const EQFil
     {
         bSuccess = false;
         error_t lastError = errno;
-        QE_ASSERT_ERROR(handle >= 0, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+        QE_ASSERT_ERROR(handle >= 0, string_q("An unexpected error occurred when opening the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(lastError) + ".");
             
         if(lastError == EACCES)
             eErrorInfo = EQFileSystemError::E_NoPermissions;
@@ -617,7 +617,7 @@ bool QFileStream::_ClosePlarformImplementation(const QFileStream::NativeHandle &
     {
         bSuccess = false;
         error_t lastError = errno;
-        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + SQInteger::ToString(lastError) + ".");
+        QE_ASSERT_ERROR(nResult >= 0, string_q("An unexpected error occurred when closing the file \"") + filePath.GetAbsolutePath() + "\". The error code was: " + string_q::FromInteger(lastError) + ".");
     }
 
     return bSuccess;

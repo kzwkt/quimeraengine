@@ -59,7 +59,7 @@ struct TestStructure
 };
 
 QTEST_SUITE_BEGIN( QConstHashtableIterator_TestSuite )
-    /* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the iterator points to the given position when using a common hashtable.
 /// </summary>
@@ -79,7 +79,7 @@ QTEST_CASE ( Constructor_IteratorPointsToGivenPositionWhenUsingCommonHashtable_T
     
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -252,19 +252,19 @@ QTEST_CASE ( OperatorIndirection_AssertionFailsWhenIteratorPointsToBackwardEndPo
 }
 
 #endif
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the element pointed to by the iterator is returned.
 /// </summary>
 QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 {
     // [Preparation]
-    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(7);
+    QHashtable<string_q, int, SQStringHashProvider> HASHTABLE(7, 2);
     HASHTABLE.Add("key1", 1);
     HASHTABLE.Add("key2", 2);
     HASHTABLE.Add("key3", 3);
 
-    const string_q EXPECTED_KEY("key1");
+    const string_q EXPECTED_KEY("key2");
     QHashtable<string_q, int, SQStringHashProvider>::QConstHashtableIterator ITERATOR = HASHTABLE.GetFirst();
     ++ITERATOR;
 
@@ -273,7 +273,7 @@ QTEST_CASE ( OperatorDereferencing_ReturnsTheCorrespondingElement_Test )
 
     // [Verification]
     BOOST_CHECK(strKey == EXPECTED_KEY);
-}*/
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -576,7 +576,7 @@ QTEST_CASE ( OperatorPostDecrement_IteratorDoesNotChangeWhenItAlreadyPointsToEnd
 }
 
 #endif
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the iterator steps forward properly and returns the current state, when using depth-first in-order.
 /// </summary>
@@ -601,7 +601,7 @@ QTEST_CASE ( OperatorPreIncrement_CommonIteratorStepsForwardProperlyAndReturnsCu
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
 }
-*/
+
 
 /// <summary>
 /// Checks that the iterator points to the first position and returns the current state when it was pointing to the end position before the first one.
@@ -694,7 +694,7 @@ QTEST_CASE ( OperatorPreIncrement_IteratorDoesNotChangeWhenItAlreadyPointsToLast
 }
 
 #endif
-/* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the iterator steps backward properly and returns the current state.
 /// </summary>
@@ -719,7 +719,7 @@ QTEST_CASE ( OperatorPreDecrement_CommonIteratorStepsBackwardProperlyAndReturnsC
     BOOST_CHECK(iterator->GetKey() == SECOND_ELEMENT_KEY);
     BOOST_CHECK(iterator->GetValue() == SECOND_ELEMENT_VALUE);
 }
-*//* [TODO] Thund: Uncomment when GetFirst exists
+
 /// <summary>
 /// Checks that the iterator points to the last position and returns the current state when it was pointing to the end position after the last one.
 /// </summary>
@@ -747,7 +747,7 @@ QTEST_CASE ( OperatorPreDecrement_IteratorPointsToLastPositionAndReturnsCurrentS
     BOOST_CHECK(strCurrentElementKey == LAST_ELEMENT_KEY);
     BOOST_CHECK(nCurrentElementValue == LAST_ELEMENT_VALUE);
 }
-*/
+
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 

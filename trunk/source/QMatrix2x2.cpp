@@ -288,10 +288,21 @@ bool QMatrix2x2::HasInverse() const
 
 string_q QMatrix2x2::ToString() const
 {
-    return string_q("M2x2(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[0][1]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][1]) + QE_L(")");
+    static const string_q STRING_PREFIX("M2x2(");
+    static const string_q STRING_COMMA(",");
+    static const string_q STRING_END(")");
+
+    string_q strOutput = STRING_PREFIX;
+    strOutput.Append(this->ij[0][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[0][1]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][0]);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->ij[1][1]);
+    strOutput.Append(STRING_END);
+
+    return strOutput;
 }
 
 
