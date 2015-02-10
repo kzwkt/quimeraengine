@@ -27,6 +27,7 @@
 #include "QDateTimeNow.h"
 
 #include "QLocalTimeZone.h"
+#include "QTimeZone.h"
 
 using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
 using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
@@ -80,7 +81,7 @@ QDateTimeNow::QDateTimeNow(const QTimeZone* pTimeZone) : QDateTime(QDateTimeNow:
 QDateTime QDateTimeNow::GetSystemUtcDateTime()
 {
     // GetSystemTimeAsFileTime returns the number of hundreds of nanosecond since January 1, 1601 (UTC)
-    static const QDateTime SYSTEM_EPOCH(1601, 1, 1);
+    static const QDateTime SYSTEM_EPOCH(1601, 1, 1, QTimeZone::UTC);
 
     // Gets the raw data from the system
     FILETIME fileTime;

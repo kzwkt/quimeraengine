@@ -29,6 +29,7 @@
 #include "Assertions.h"
 #include "EQTextEncoding.h"
 #include "QDateTime.h"
+#include "QTimeZone.h"
 #include "QLocalTimeZone.h"
 #include "QStopwatch.h"
 #include "SQThisThread.h"
@@ -200,6 +201,7 @@ bool SQFile::Exists(const QPath &file, EQFileSystemError& eErrorInfo)
 QFileInfo SQFile::GetFileInfo(const QPath &file, EQFileSystemError &eErrorInfo)
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
     using Kinesis::QuimeraEngine::System::Timing::QLocalTimeZone;
 
@@ -223,7 +225,7 @@ QFileInfo SQFile::GetFileInfo(const QPath &file, EQFileSystemError &eErrorInfo)
 
         if(errorCode == boost::system::posix_error::success)
         {
-            static const QDateTime EPOCH(1970, 1, 1);
+            static const QDateTime EPOCH(1970, 1, 1, QTimeZone::UTC);
             QTimeSpan seconds(0, 0, 0, lastModificationTime, 0, 0, 0);
             lastModificationDateTime = QDateTime(EPOCH + seconds, QLocalTimeZone().Get());
         }
@@ -348,10 +350,11 @@ bool SQFile::_WaitForCreation(const boost::filesystem::path &filePath)
 Kinesis::QuimeraEngine::Tools::Time::QDateTime SQFile::_GetFileCreationDateTime(const QPath &file)
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
 
     // GetFileAttributesExW returns the number of hundreds of nanosecond since January 1, 1601 (UTC)
-    static const QDateTime SYSTEM_EPOCH(1601, 1, 1);
+    static const QDateTime SYSTEM_EPOCH(1601, 1, 1, QTimeZone::UTC);
 
     // Gets the raw data from the system
     WIN32_FILE_ATTRIBUTE_DATA fileAttributes;

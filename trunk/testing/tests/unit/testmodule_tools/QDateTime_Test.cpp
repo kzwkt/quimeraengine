@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 
 #include "SQTimeZoneFactory.h"
 #include "QAssertException.h"
+#include "QTimeZone.h"
 
 using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
@@ -366,7 +367,7 @@ QTEST_CASE ( Constructor3_TimeZoneDefaultValueIsNull_Test )
 	// [Execution]
     QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY,
                        EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
-                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS);
+                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS, QTimeZone::UTC);
 
     // [Verification]
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
@@ -1885,7 +1886,7 @@ QTEST_CASE ( Constructor4_TimeZoneDefaultValueIsNull_Test )
     const QTimeZone* EXPECTED_TIMEZONE = null_q;
 
 	// [Execution]
-    QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY);
+    QDateTime dateTime(EXPECTED_YEAR, EXPECTED_MONTH, EXPECTED_DAY, QTimeZone::UTC);
 
     // [Verification]
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
@@ -2914,7 +2915,7 @@ QTEST_CASE ( Constructor5_TimeZoneDefaultValueIsNull_Test )
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
-                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS);
+                       EXPECTED_MILLISECOND, EXPECTED_MICROSECOND, EXPECTED_HNS, QTimeZone::UTC);
 
     // [Verification]
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
@@ -3179,7 +3180,7 @@ QTEST_CASE ( Constructor6_TimeZoneDefaultValueIsNull_Test )
 
 	// [Execution]
     QDateTime dateTime(EXPECTED_HOUR, EXPECTED_MINUTE, EXPECTED_SECOND,
-                       EXPECTED_MILLISECOND);
+                       EXPECTED_MILLISECOND, QTimeZone::UTC);
 
     // [Verification]
     BOOST_CHECK_EQUAL(dateTime.GetTimeZone(), EXPECTED_TIMEZONE);
@@ -8518,7 +8519,7 @@ QTEST_CASE ( IsLeapYear_ReturnsTrueWhenYearIsLeapYear_Test )
     const i32_q LEAP_YEAR    = 4;
     const u64_q COMMON_MONTH = 1;
     const u64_q COMMON_DAY   = 2;
-    const QDateTime ORIGINAL_DATETIME(LEAP_YEAR, COMMON_MONTH, COMMON_DAY);
+    const QDateTime ORIGINAL_DATETIME(LEAP_YEAR, COMMON_MONTH, COMMON_DAY, QTimeZone::UTC);
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
@@ -8537,7 +8538,7 @@ QTEST_CASE ( IsLeapYear_ReturnsFalseWhenYearIsNotLeapYear_Test )
     const i32_q NONLEAP_YEAR = 100;
     const u64_q COMMON_MONTH = 1;
     const u64_q COMMON_DAY   = 2;
-    const QDateTime ORIGINAL_DATETIME(NONLEAP_YEAR, COMMON_MONTH, COMMON_DAY);
+    const QDateTime ORIGINAL_DATETIME(NONLEAP_YEAR, COMMON_MONTH, COMMON_DAY, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -15077,7 +15078,7 @@ QTEST_CASE ( IsPositive_ReturnsTrueWhenDateIsPositive_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = true;
-    const QDateTime SOURCE_DATETIME(4, 3, 2);
+    const QDateTime SOURCE_DATETIME(4, 3, 2, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = SOURCE_DATETIME.IsPositive();
@@ -15093,7 +15094,7 @@ QTEST_CASE ( IsPositive_ReturnsFalseWhenDateIsNotPositive_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = false;
-    const QDateTime SOURCE_DATETIME(-4, 3, 2);
+    const QDateTime SOURCE_DATETIME(-4, 3, 2, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = SOURCE_DATETIME.IsPositive();
@@ -15130,7 +15131,7 @@ QTEST_CASE ( IsPositive_FirstPositiveInstantIsConsideredPositive_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = true;
-    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0);
+    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = FIRST_POSITIVE_INSTANT.IsPositive();
@@ -15192,7 +15193,7 @@ QTEST_CASE ( IsNegative_ReturnsTrueWhenDateIsNegative_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = false;
-    const QDateTime SOURCE_DATETIME(4, 3, 2);
+    const QDateTime SOURCE_DATETIME(4, 3, 2, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = SOURCE_DATETIME.IsNegative();
@@ -15208,7 +15209,7 @@ QTEST_CASE ( IsNegative_ReturnsTrueWhenDateIsNotNegative_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = true;
-    const QDateTime SOURCE_DATETIME(-4, 3, 2);
+    const QDateTime SOURCE_DATETIME(-4, 3, 2, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = SOURCE_DATETIME.IsNegative();
@@ -15245,7 +15246,7 @@ QTEST_CASE ( IsNegative_FirstNegativeInstantIsNotConsideredNegative_Test )
 {
     // [Preparation]
     const bool EXPECTED_RESULT = false;
-    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0);
+    const QDateTime FIRST_POSITIVE_INSTANT(1, 1, 1, 0, 0, 0, 0, 0, 0, QTimeZone::UTC);
 
 	// [Execution]
     bool bResult = FIRST_POSITIVE_INSTANT.IsNegative();
@@ -15328,7 +15329,7 @@ QTEST_CASE ( IsUndefined_ReturnsTrueWithUndefinedDate_Test )
 /// </summary>
 QTEST_CASE ( IsUndefined_ReturnsFalseWithValidDate_Test )
 {
-    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0);
+    const QDateTime DATETIME(1, 1, 1, 0, 0, 0, 0, 0, 0, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]

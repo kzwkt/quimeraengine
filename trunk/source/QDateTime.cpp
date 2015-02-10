@@ -52,16 +52,16 @@ namespace Time
 //##################                                                       ##################
 //##################=======================================================##################
 
-const u64_q QDateTime::HALF_VALUE = 9223372036854775808ULL;
-const u64_q QDateTime::HNS_PER_MICROSECOND = 10ULL;
-const u64_q QDateTime::HNS_PER_MILLISECOND = 10000ULL;
-const u64_q QDateTime::HNS_PER_SECOND   = 10000000ULL;
-const u64_q QDateTime::HNS_PER_MINUTE   = 600000000ULL;
-const u64_q QDateTime::HNS_PER_HOUR     = 36000000000ULL;
-const u64_q QDateTime::HNS_PER_DAY      = 864000000000ULL;
-const u64_q QDateTime::HNS_PER_YEAR     = 315360000000000ULL;
-const u64_q QDateTime::HNS_PER_LEAPYEAR = 316224000000000ULL;
-const QTimeSpan QDateTime::UNDEFINED_VALUE(0ULL);
+const u64_q QDateTime::_HALF_VALUE = 9223372036854775808ULL;
+const u64_q QDateTime::_HNS_PER_MICROSECOND = 10ULL;
+const u64_q QDateTime::_HNS_PER_MILLISECOND = 10000ULL;
+const u64_q QDateTime::_HNS_PER_SECOND   = 10000000ULL;
+const u64_q QDateTime::_HNS_PER_MINUTE   = 600000000ULL;
+const u64_q QDateTime::_HNS_PER_HOUR     = 36000000000ULL;
+const u64_q QDateTime::_HNS_PER_DAY      = 864000000000ULL;
+const u64_q QDateTime::_HNS_PER_YEAR     = 315360000000000ULL;
+const u64_q QDateTime::_HNS_PER_LEAPYEAR = 316224000000000ULL;
+const QTimeSpan QDateTime::_UNDEFINED_VALUE(0ULL);
 
 
 //##################=======================================================##################
@@ -174,12 +174,12 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
     else
     {
         // All the input values are converted to hundreds of nanoseconds (hns)
-        const u64_q MICROSECOND_AS_HNS = uMicrosecond * QDateTime::HNS_PER_MICROSECOND;
-        const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::HNS_PER_MILLISECOND;
-        const u64_q SECOND_AS_HNS = uSecond * QDateTime::HNS_PER_SECOND;
-        const u64_q MINUTE_AS_HNS = uMinute * QDateTime::HNS_PER_MINUTE;
-        const u64_q HOUR_AS_HNS = uHour * QDateTime::HNS_PER_HOUR;
-        const u64_q DAY_AS_HNS = (uDay - DAY_ZERO_ADJUSTMENT) * QDateTime::HNS_PER_DAY;
+        const u64_q MICROSECOND_AS_HNS = uMicrosecond * QDateTime::_HNS_PER_MICROSECOND;
+        const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::_HNS_PER_MILLISECOND;
+        const u64_q SECOND_AS_HNS = uSecond * QDateTime::_HNS_PER_SECOND;
+        const u64_q MINUTE_AS_HNS = uMinute * QDateTime::_HNS_PER_MINUTE;
+        const u64_q HOUR_AS_HNS = uHour * QDateTime::_HNS_PER_HOUR;
+        const u64_q DAY_AS_HNS = (uDay - DAY_ZERO_ADJUSTMENT) * QDateTime::_HNS_PER_DAY;
 
         // Sums the days of all completed months
         u64_q uDaysInCompleteMonths = 0;
@@ -187,7 +187,7 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
         for(unsigned int i = 1U; i < uMonth; ++i)
             uDaysInCompleteMonths += QDateTime::GetDaysInMonth(i, nYear);
 
-        const u64_q MONTH_AS_HNS = uDaysInCompleteMonths * QDateTime::HNS_PER_DAY;
+        const u64_q MONTH_AS_HNS = uDaysInCompleteMonths * QDateTime::_HNS_PER_DAY;
 
         const u64_q ABS_YEAR = scast_q(SQInteger::Abs(nYear), u64_q);
 
@@ -196,11 +196,11 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
         const u64_q LEAP_DAYS = (PASSED_COMPLETE_YEARS / 4ULL - PASSED_COMPLETE_YEARS / 100ULL + PASSED_COMPLETE_YEARS / 400ULL);
 
         // Hundreds of nanoseconds in passed years: abs(T.YEAR) * nsh in 1 year + leap days * nsh in 1 day
-        u64_q uYearsAsHns = ABS_YEAR * QDateTime::HNS_PER_YEAR + LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        u64_q uYearsAsHns = ABS_YEAR * QDateTime::_HNS_PER_YEAR + LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Offset applied to positive dates in order to make the year zero-based
         if(nYear > 0)
-            uYearsAsHns -= QDateTime::HNS_PER_YEAR;
+            uYearsAsHns -= QDateTime::_HNS_PER_YEAR;
 
         // First, the last year's remaining time is summed
         const u64_q REMAINING_TIME = MONTH_AS_HNS + DAY_AS_HNS + HOUR_AS_HNS + MINUTE_AS_HNS + SECOND_AS_HNS +
@@ -226,21 +226,21 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay,
         //                         | |
         //                        |++| 1 day
         //                |<-- +1 day
-        if(nYear < 0 && QDateTime::IsLeapYear(nYear))
-            uYearsAsHns += QDateTime::HNS_PER_DAY;
+        if(nYear < 0 && QDateTime::_IsLeapYear(nYear))
+            uYearsAsHns += QDateTime::_HNS_PER_DAY;
 
         QTimeSpan instant;
 
         if(nYear < 0)
             // If the year is negative, years are subtracted to the offset and days and time are added
-            instant = QTimeSpan(QDateTime::HALF_VALUE - uYearsAsHns + REMAINING_TIME);
+            instant = QTimeSpan(QDateTime::_HALF_VALUE - uYearsAsHns + REMAINING_TIME);
         else
             // If the year is positive, years, days and time are added to the offset
-            instant = QTimeSpan(QDateTime::HALF_VALUE + uYearsAsHns + REMAINING_TIME);
+            instant = QTimeSpan(QDateTime::_HALF_VALUE + uYearsAsHns + REMAINING_TIME);
 
         // Removes the time zone offset
         m_instant = pTimeZone == null_q ? instant :
-                                          this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
+                                          this->_GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
     }
 }
 
@@ -297,7 +297,7 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
     else
     {
         // All the input values are converted to hundreds of nanoseconds (hns)
-        const u64_q DAY_AS_HNS = (uDay - DAY_ZERO_ADJUSTMENT) * QDateTime::HNS_PER_DAY;
+        const u64_q DAY_AS_HNS = (uDay - DAY_ZERO_ADJUSTMENT) * QDateTime::_HNS_PER_DAY;
 
         // Sums the days of all completed months
         u64_q uDaysInCompleteMonths = 0;
@@ -305,7 +305,7 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
         for(unsigned int i = 1U; i < uMonth; ++i)
             uDaysInCompleteMonths += QDateTime::GetDaysInMonth(i, nYear);
 
-        const u64_q MONTH_AS_HNS = uDaysInCompleteMonths * QDateTime::HNS_PER_DAY;
+        const u64_q MONTH_AS_HNS = uDaysInCompleteMonths * QDateTime::_HNS_PER_DAY;
 
         const u64_q ABS_YEAR = scast_q(SQInteger::Abs(nYear), u64_q);
 
@@ -314,11 +314,11 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
         const u64_q LEAP_DAYS = (PASSED_COMPLETE_YEARS / 4ULL - PASSED_COMPLETE_YEARS / 100ULL + PASSED_COMPLETE_YEARS / 400ULL);
 
         // Hundreds of nanoseconds in passed years: abs(T.YEAR) * nsh in 1 year + leap days * nsh in 1 day
-        u64_q uYearsAsHns = ABS_YEAR * QDateTime::HNS_PER_YEAR + LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        u64_q uYearsAsHns = ABS_YEAR * QDateTime::_HNS_PER_YEAR + LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Offset applied to positive dates in order to make the year zero-based
         if(nYear > 0)
-            uYearsAsHns -= QDateTime::HNS_PER_YEAR;
+            uYearsAsHns -= QDateTime::_HNS_PER_YEAR;
 
         // First, the last year's remaining time is summed
         const u64_q REMAINING_TIME = MONTH_AS_HNS + DAY_AS_HNS;
@@ -343,21 +343,21 @@ QDateTime::QDateTime(const i32_q nYear, const u64_q uMonth, const u64_q uDay, co
         //                         | |
         //                        |++| 1 day
         //                |<-- +1 day
-        if(nYear < 0 && QDateTime::IsLeapYear(nYear))
-            uYearsAsHns += QDateTime::HNS_PER_DAY;
+        if(nYear < 0 && QDateTime::_IsLeapYear(nYear))
+            uYearsAsHns += QDateTime::_HNS_PER_DAY;
 
         QTimeSpan instant;
 
         if(nYear < 0)
             // If the year is negative, years are subtracted to the offset and days and time are added
-            instant = QTimeSpan(QDateTime::HALF_VALUE - uYearsAsHns + REMAINING_TIME);
+            instant = QTimeSpan(QDateTime::_HALF_VALUE - uYearsAsHns + REMAINING_TIME);
         else
             // If the year is positive, years, days and time are added to the offset
-            instant = QTimeSpan(QDateTime::HALF_VALUE + uYearsAsHns + REMAINING_TIME);
+            instant = QTimeSpan(QDateTime::_HALF_VALUE + uYearsAsHns + REMAINING_TIME);
 
         // Removes the time zone offset
         m_instant = pTimeZone == null_q ? instant :
-                                          this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
+                                          this->_GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
     }
 }
 
@@ -385,21 +385,21 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
 
 
     // All the input values are converted to hundreds of nanoseconds (hns)
-    const u64_q MICROSECOND_AS_HNS = uMicrosecond * QDateTime::HNS_PER_MICROSECOND;
-    const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::HNS_PER_MILLISECOND;
-    const u64_q SECOND_AS_HNS = uSecond * QDateTime::HNS_PER_SECOND;
-    const u64_q MINUTE_AS_HNS = uMinute * QDateTime::HNS_PER_MINUTE;
-    const u64_q HOUR_AS_HNS = uHour * QDateTime::HNS_PER_HOUR;
+    const u64_q MICROSECOND_AS_HNS = uMicrosecond * QDateTime::_HNS_PER_MICROSECOND;
+    const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::_HNS_PER_MILLISECOND;
+    const u64_q SECOND_AS_HNS = uSecond * QDateTime::_HNS_PER_SECOND;
+    const u64_q MINUTE_AS_HNS = uMinute * QDateTime::_HNS_PER_MINUTE;
+    const u64_q HOUR_AS_HNS = uHour * QDateTime::_HNS_PER_HOUR;
 
     // First, the last year's remaining time is summed
     const u64_q REMAINING_TIME = HOUR_AS_HNS + MINUTE_AS_HNS + SECOND_AS_HNS +
                                  MILLISECOND_AS_HNS + MICROSECOND_AS_HNS + uHundredsOfNanosecond;
 
-    QTimeSpan instant = QTimeSpan(QDateTime::HALF_VALUE + REMAINING_TIME);
+    QTimeSpan instant = QTimeSpan(QDateTime::_HALF_VALUE + REMAINING_TIME);
 
     // Removes the time zone offset
     m_instant = pTimeZone == null_q ? instant :
-                                      this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
+                                      this->_GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
 }
 
 QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond, const u64_q uMillisecond, const QTimeZone* pTimeZone) :
@@ -420,20 +420,20 @@ QDateTime::QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond
     QE_ASSERT_ERROR(uMillisecond <= MAX_MILLISECOND, "The value of the milliseconds is not valid, it must be in the range [0, 999]");
 
     // All the input values are converted to hundreds of nanoseconds (hns)
-    const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::HNS_PER_MILLISECOND;
-    const u64_q SECOND_AS_HNS = uSecond * QDateTime::HNS_PER_SECOND;
-    const u64_q MINUTE_AS_HNS = uMinute * QDateTime::HNS_PER_MINUTE;
-    const u64_q HOUR_AS_HNS = uHour * QDateTime::HNS_PER_HOUR;
+    const u64_q MILLISECOND_AS_HNS = uMillisecond * QDateTime::_HNS_PER_MILLISECOND;
+    const u64_q SECOND_AS_HNS = uSecond * QDateTime::_HNS_PER_SECOND;
+    const u64_q MINUTE_AS_HNS = uMinute * QDateTime::_HNS_PER_MINUTE;
+    const u64_q HOUR_AS_HNS = uHour * QDateTime::_HNS_PER_HOUR;
 
     // First, the last year's remaining time is summed
     const u64_q REMAINING_TIME = HOUR_AS_HNS + MINUTE_AS_HNS + SECOND_AS_HNS + MILLISECOND_AS_HNS;
 
     // If the year is positive, years, days and time are added to the offset
-    QTimeSpan instant = QTimeSpan(QDateTime::HALF_VALUE + REMAINING_TIME);
+    QTimeSpan instant = QTimeSpan(QDateTime::_HALF_VALUE + REMAINING_TIME);
 
     // Removes the time zone offset
     m_instant = pTimeZone == null_q ? instant :
-                                      this->GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
+                                      this->_GetInstantWithSubtractedTimeZoneOffset(instant, pTimeZone);
 }
 
 QDateTime::QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone) : m_instant(dateTime.m_instant),
@@ -460,13 +460,13 @@ QDateTime::QDateTime(const string_q &strTimestamp)
     {
         // The timestamp combines Date and Time
 
-        this->ParseTimestampCompleteDate(strTimestamp, scast_q(nTimePosition, u32_q), nYear, uMonth, uDay);
-        this->ParseTimestampCompleteTime(strTimestamp, scast_q(nTimePosition, u32_q), uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+        this->_ParseTimestampCompleteDate(strTimestamp, scast_q(nTimePosition, u32_q), nYear, uMonth, uDay);
+        this->_ParseTimestampCompleteTime(strTimestamp, scast_q(nTimePosition, u32_q), uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
 
         // The date and time is constructed
-        *this = QDateTime(nYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+        *this = QDateTime(nYear, uMonth, uDay, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, QTimeZone::UTC);
 
-        this->ApplyOffsetToTimestamp(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+        this->_ApplyOffsetToTimestamp(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
     }
     else
     {
@@ -479,11 +479,11 @@ QDateTime::QDateTime(const string_q &strTimestamp)
             const int SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1); // Starts from 1 to skip the sign
 
             if(SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
-                this->ParseTimestampIncompleteDateWithSeparators(strTimestamp, SEPARATOR_POSITION, nYear, uMonth, uDay);
+                this->_ParseTimestampIncompleteDateWithSeparators(strTimestamp, SEPARATOR_POSITION, nYear, uMonth, uDay);
             else
-                this->ParseTimestampIncompleteDateWithoutSeparators(strTimestamp, nYear, uMonth, uDay);
+                this->_ParseTimestampIncompleteDateWithoutSeparators(strTimestamp, nYear, uMonth, uDay);
 
-            *this = QDateTime(nYear, uMonth, uDay);
+            *this = QDateTime(nYear, uMonth, uDay, QTimeZone::UTC);
         }
         else
         {
@@ -498,24 +498,24 @@ QDateTime::QDateTime(const string_q &strTimestamp)
                 if(SECOND_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
                 {
                     // It contains 2 hyphens, it must be a date
-                    this->ParseTimestampIncompleteDateWithSeparators(strTimestamp, FIRST_SEPARATOR_POSITION, nYear, uMonth, uDay);
-                    *this = QDateTime(nYear, uMonth, uDay);
+                    this->_ParseTimestampIncompleteDateWithSeparators(strTimestamp, FIRST_SEPARATOR_POSITION, nYear, uMonth, uDay);
+                    *this = QDateTime(nYear, uMonth, uDay, QTimeZone::UTC);
                 }
                 else
                 {
                     // It is interpreted as time by default, even if it does not contain colons (the hyphen is considered a minus sign of the time offset instead of a date seprator)
 
-                    this->ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
-                    *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
-                    this->ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+                    this->_ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+                    *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, QTimeZone::UTC);
+                    this->_ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
                 }
             }
             else
             {
                 // It is interpreted as time by default, even if it does not contain colons
-                this->ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
-                *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond);
-                this->ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
+                this->_ParseTimestampIncompleteTime(strTimestamp, uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, nOffsetHours, uOffsetMinutes);
+                *this = QDateTime(uHour, uMinute, uSecond, uMillisecond, uMicrosecond, uHundredOfNanosecond, QTimeZone::UTC);
+                this->_ApplyOffsetToTimestampWithoutAffectingDate(nOffsetHours, uOffsetMinutes, uHour, uMinute, *this);
             }
         }
     }
@@ -672,7 +672,7 @@ unsigned int QDateTime::GetDaysInMonth(const unsigned int uMonth, const int nYea
         uDays = DAYS_IN_MONTH[uMonth - 1];
 
     // If the year is a leap year, add 1 to the number of days in February
-    if(uMonth == FEBRUARY_INDEX && QDateTime::IsLeapYear(nYear))
+    if(uMonth == FEBRUARY_INDEX && QDateTime::_IsLeapYear(nYear))
         ++uDays;
 
     return uDays;
@@ -772,7 +772,7 @@ string_q QDateTime::ToString() const
     strTimestamp.Append(string_q::FromInteger(uSecond));
     
     // Converts milliseconds, microseconds and nanoseconds to a fraction of second
-    this->SecondFractionToString(uMillisecond, uMicrosecond, uHundredOfNanosecond, strTimestamp);
+    this->_SecondFractionToString(uMillisecond, uMicrosecond, uHundredOfNanosecond, strTimestamp);
 
     // Adds the time offset
     if(m_pTimeZone == null_q)
@@ -811,7 +811,7 @@ string_q QDateTime::ToString() const
     return strTimestamp;
 }
 
-void QDateTime::SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const
+void QDateTime::_SecondFractionToString(const unsigned int uMillisecond, const unsigned int uMicrosecond, const unsigned int uHundredOfNanosecond, string_q &strTimestamp) const
 {
     static const string_q SECOND_FRACTION_SEPARATOR1 = ".";
     static const string_q ZERO_STRING = "0";
@@ -926,29 +926,29 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYearProvisional = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -957,10 +957,10 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -970,12 +970,12 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYearProvisional * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYearProvisional * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -986,9 +986,9 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYearProvisional > 3ULL && QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYearProvisional > 3ULL && QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -1000,7 +1000,7 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -1013,7 +1013,7 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
@@ -1026,7 +1026,7 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -1034,13 +1034,13 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
         {
             // Fixes the year value
             ++uYearProvisional;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -1063,13 +1063,13 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -1087,22 +1087,22 @@ void QDateTime::Decompose(unsigned int &uYear, unsigned int &uMonth, unsigned in
         uMonth = uMonthCounter;
         uDay = scast_q(uDaysInLastYear, unsigned int) + 1;
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        uHour = scast_q(uHoursInLastDay / HNS_PER_HOUR, unsigned int);
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        uHour = scast_q(uHoursInLastDay / _HNS_PER_HOUR, unsigned int);
 
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        uMinute = scast_q(uMinutesInLastHour / HNS_PER_MINUTE, unsigned int);
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        uMinute = scast_q(uMinutesInLastHour / _HNS_PER_MINUTE, unsigned int);
 
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        uSecond = scast_q(uSecondsInLastMinute / HNS_PER_SECOND, unsigned int);
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        uSecond = scast_q(uSecondsInLastMinute / _HNS_PER_SECOND, unsigned int);
 
-        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % HNS_PER_SECOND;
-        uMillisecond = scast_q(uMillisecondsInLastSecond / HNS_PER_MILLISECOND, unsigned int);
+        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % _HNS_PER_SECOND;
+        uMillisecond = scast_q(uMillisecondsInLastSecond / _HNS_PER_MILLISECOND, unsigned int);
 
-        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % HNS_PER_MILLISECOND;
-        uMicrosecond = scast_q(uMicrosecondsInLastMillisecond / HNS_PER_MICROSECOND, unsigned int);
+        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % _HNS_PER_MILLISECOND;
+        uMicrosecond = scast_q(uMicrosecondsInLastMillisecond / _HNS_PER_MICROSECOND, unsigned int);
 
-        uHundredOfNanosecond = scast_q(uMicrosecondsInLastMillisecond % HNS_PER_MICROSECOND, unsigned int);
+        uHundredOfNanosecond = scast_q(uMicrosecondsInLastMillisecond % _HNS_PER_MICROSECOND, unsigned int);
     }
 }
 
@@ -1112,29 +1112,29 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYearProvisional = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -1143,10 +1143,10 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -1156,12 +1156,12 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYearProvisional * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYearProvisional * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -1172,9 +1172,9 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYearProvisional > 3ULL && QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYearProvisional > 3ULL && QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -1186,7 +1186,7 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -1199,7 +1199,7 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
@@ -1212,7 +1212,7 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -1220,13 +1220,13 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
         {
             // Fixes the year value
             ++uYearProvisional;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -1243,13 +1243,13 @@ void QDateTime::DecomposeDate(unsigned int &uYear, unsigned int &uMonth, unsigne
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -1275,29 +1275,29 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYearProvisional = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -1306,10 +1306,10 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -1319,12 +1319,12 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYearProvisional * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYearProvisional * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -1335,9 +1335,9 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYearProvisional > 3ULL && QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYearProvisional > 3ULL && QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -1349,7 +1349,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -1362,7 +1362,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
@@ -1375,7 +1375,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -1383,13 +1383,13 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
         {
             // Fixes the year value
             ++uYearProvisional;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -1405,20 +1405,20 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
         
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        uHour = scast_q(uHoursInLastDay / HNS_PER_HOUR, unsigned int);
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        uHour = scast_q(uHoursInLastDay / _HNS_PER_HOUR, unsigned int);
 
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        uMinute = scast_q(uMinutesInLastHour / HNS_PER_MINUTE, unsigned int);
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        uMinute = scast_q(uMinutesInLastHour / _HNS_PER_MINUTE, unsigned int);
 
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        uSecond = scast_q(uSecondsInLastMinute / HNS_PER_SECOND, unsigned int);
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        uSecond = scast_q(uSecondsInLastMinute / _HNS_PER_SECOND, unsigned int);
     }
 }
 
@@ -1429,29 +1429,29 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYearProvisional = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -1460,10 +1460,10 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYearProvisional = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -1473,12 +1473,12 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYearProvisional * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYearProvisional * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -1489,9 +1489,9 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYearProvisional > 3ULL && QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYearProvisional > 3ULL && QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -1503,7 +1503,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -1516,7 +1516,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYearProvisional;
         }
@@ -1529,7 +1529,7 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -1537,13 +1537,13 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYearProvisional + 1ULL, int)))
         {
             // Fixes the year value
             ++uYearProvisional;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -1562,38 +1562,38 @@ void QDateTime::DecomposeTime(unsigned int &uHour, unsigned int &uMinute, unsign
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYearProvisional, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYearProvisional, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        uHour = scast_q(uHoursInLastDay / HNS_PER_HOUR, unsigned int);
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        uHour = scast_q(uHoursInLastDay / _HNS_PER_HOUR, unsigned int);
 
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        uMinute = scast_q(uMinutesInLastHour / HNS_PER_MINUTE, unsigned int);
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        uMinute = scast_q(uMinutesInLastHour / _HNS_PER_MINUTE, unsigned int);
 
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        uSecond = scast_q(uSecondsInLastMinute / HNS_PER_SECOND, unsigned int);
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        uSecond = scast_q(uSecondsInLastMinute / _HNS_PER_SECOND, unsigned int);
 
-        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % HNS_PER_SECOND;
-        uMillisecond = scast_q(uMillisecondsInLastSecond / HNS_PER_MILLISECOND, unsigned int);
+        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % _HNS_PER_SECOND;
+        uMillisecond = scast_q(uMillisecondsInLastSecond / _HNS_PER_MILLISECOND, unsigned int);
 
-        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % HNS_PER_MILLISECOND;
-        uMicrosecond = scast_q(uMicrosecondsInLastMillisecond / HNS_PER_MICROSECOND, unsigned int);
+        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % _HNS_PER_MILLISECOND;
+        uMicrosecond = scast_q(uMicrosecondsInLastMillisecond / _HNS_PER_MICROSECOND, unsigned int);
 
-        uHundredOfNanosecond = scast_q(uMicrosecondsInLastMillisecond % HNS_PER_MICROSECOND, unsigned int);
+        uHundredOfNanosecond = scast_q(uMicrosecondsInLastMillisecond % _HNS_PER_MICROSECOND, unsigned int);
     }
 }
 
-bool QDateTime::IsLeapYear(const int nYear)
+bool QDateTime::_IsLeapYear(const int nYear)
 {
     const unsigned int ABS_YEAR = SQInteger::Abs(nYear);
     return (ABS_YEAR % 400U) == 0 || ((ABS_YEAR % 100U != 0) && (ABS_YEAR % 4U == 0));
 }
 
-QTimeSpan QDateTime::GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
+QTimeSpan QDateTime::_GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
 {
     QDateTime localDateTime;
     localDateTime.m_instant = instant;
@@ -1611,7 +1611,7 @@ QTimeSpan QDateTime::GetInstantWithSubtractedTimeZoneOffset(const QTimeSpan &ins
     return localDateTime.m_instant;
 }
 
-QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
+QTimeSpan QDateTime::_GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant, const QTimeZone* pTimeZone) const
 {
     QDateTime localDateTime;
     localDateTime.m_instant = instant;
@@ -1630,7 +1630,7 @@ QTimeSpan QDateTime::GetInstantWithAddedTimeZoneOffset(const QTimeSpan &instant,
 }
 
 
-void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+void QDateTime::_ParseTimestampCompleteDate(const string_q &strTimestamp, const u32_q uTPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
 {
     static const char_q DATE_SEPARATOR = '-';
 
@@ -1666,7 +1666,7 @@ void QDateTime::ParseTimestampCompleteDate(const string_q &strTimestamp, const u
         nYear -= 1;
 }
 
-void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
+void QDateTime::_ParseTimestampCompleteTime(const string_q &strTimestamp, const u32_q uTPosition, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
 {
     static const char_q SECOND_FRACTION_SEPARATOR1 = '.';
     static const char_q SECOND_FRACTION_SEPARATOR2 = ',';
@@ -1690,7 +1690,7 @@ void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u
         // Contains a fraction
 
         const string_q& TIME_WITHOUT_FRACTION = TIME_PART.Substring(0, nFractionSeparatorPosition - 1);
-        this->ParseTimestampCompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
+        this->_ParseTimestampCompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
 
         // Searches for a positive or a negative sign
         int nSignPosition = TIME_PART.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
@@ -1704,9 +1704,9 @@ void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u
             // Contains a positive or negative sign
 
             const string_q& TIME_FRACTION = TIME_PART.Substring(nFractionSeparatorPosition + 1, nSignPosition - 1);
-            this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+            this->_ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
             const string_q& TIME_OFFSET = TIME_PART.Substring(nSignPosition, TIME_PART.GetLength() - 1U);
-            this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+            this->_ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
         }
         else
         {
@@ -1724,7 +1724,7 @@ void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u
                 --uLastPosition;
 
             const string_q& TIME_FRACTION = TIME_PART.Substring(nFractionSeparatorPosition + 1, uLastPosition);
-            this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+            this->_ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
         }
     }
     else
@@ -1745,10 +1745,10 @@ void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u
         {
             // Contains a positive or negative sign
             const string_q& TIME_WITHOUT_OFFSET = TIME_PART.Substring(0, nSignPosition - 1);
-            this->ParseTimestampCompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
+            this->_ParseTimestampCompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
 
             const string_q& TIME_OFFSET = TIME_PART.Substring(nSignPosition, TIME_PART.GetLength() - 1U);
-            this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+            this->_ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
         }
         else
         {
@@ -1764,12 +1764,12 @@ void QDateTime::ParseTimestampCompleteTime(const string_q &strTimestamp, const u
             if(LAST_CHAR == ZULU_TIME)
                 --uLastPosition;
 
-            this->ParseTimestampCompleteTimePart(TIME_PART.Substring(0, uLastPosition), uHour, uMinute, uSecond);
+            this->_ParseTimestampCompleteTimePart(TIME_PART.Substring(0, uLastPosition), uHour, uMinute, uSecond);
         }
     }
 }
 
-void QDateTime::ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
+void QDateTime::_ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
 {
     static const char_q TIME_SEPARATOR = ':';
 
@@ -1792,7 +1792,7 @@ void QDateTime::ParseTimestampCompleteTimePart(const string_q& strTimeWithoutFra
         uHour = 0;
 }
 
-void QDateTime::ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const
+void QDateTime::_ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& nOffsetHours, u32_q& uOffsetMinutes) const
 {
     static const string_q TIME_SEPARATOR = ":";
 
@@ -1814,7 +1814,7 @@ void QDateTime::ParseTimestampTimeOffset(const string_q& strTimeOffset, i32_q& n
     }
 }
 
-void QDateTime::ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const
+void QDateTime::_ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_q& uMillisecond, u32_q& uMicrosecond, u32_q& uHundredOfNanosecond) const
 {
     static const double MAXIMUM_FRACTION_LENGTH = 7.0; // 3 numbers for milliseconds, 3 numbers for microseconds and 1 number for hundreds of nanoseconds
     const double FRACTION_LENGTH = scast_q(strTimeFraction.GetLength(), double);
@@ -1834,12 +1834,12 @@ void QDateTime::ParseTimestampTimeFraction(const string_q& strTimeFraction, u32_
         uHundredsOfNanoseconds *= DECIMAL_OFFSET;
     }
 
-    uMillisecond = uHundredsOfNanoseconds / QDateTime::HNS_PER_MILLISECOND;
-    uMicrosecond = (uHundredsOfNanoseconds % QDateTime::HNS_PER_MILLISECOND) / QDateTime::HNS_PER_MICROSECOND;
-    uHundredOfNanosecond = (uHundredsOfNanoseconds % QDateTime::HNS_PER_MICROSECOND);
+    uMillisecond = uHundredsOfNanoseconds / QDateTime::_HNS_PER_MILLISECOND;
+    uMicrosecond = (uHundredsOfNanoseconds % QDateTime::_HNS_PER_MILLISECOND) / QDateTime::_HNS_PER_MICROSECOND;
+    uHundredOfNanosecond = (uHundredsOfNanoseconds % QDateTime::_HNS_PER_MICROSECOND);
 }
 
-void QDateTime::ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+void QDateTime::_ParseTimestampIncompleteDateWithSeparators(const string_q &strTimestamp, const u32_q uFirstSeparatorPosition, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
 {
     static const u32_q FIRST_DAY_NUMBER = 1;
     static const u32_q SEPARATOR_WIDTH = 1;
@@ -1863,7 +1863,7 @@ void QDateTime::ParseTimestampIncompleteDateWithSeparators(const string_q &strTi
         nYear -= 1;
 }
 
-void QDateTime::ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
+void QDateTime::_ParseTimestampIncompleteDateWithoutSeparators(const string_q &strTimestamp, i32_q &nYear, u32_q &uMonth, u32_q &uDay) const
 {
     static const u32_q FIRST_MONTH_NUMBER = 1;
     static const u32_q FIRST_DAY_NUMBER = 1;
@@ -1892,7 +1892,7 @@ void QDateTime::ParseTimestampIncompleteDateWithoutSeparators(const string_q &st
         nYear -= 1;
 }
 
-void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
+void QDateTime::_ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q &uHour, u32_q &uMinute, u32_q &uSecond, u32_q &uMillisecond, 
                                              u32_q &uMicrosecond, u32_q &uHundredOfNanosecond, i32_q &nOffsetHours, u32_q& uOffsetMinutes) const
 {
     static const string_q SECOND_FRACTION_SEPARATOR1 = ".";
@@ -1915,7 +1915,7 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
         {
             // Contains a fraction
             const string_q& TIME_WITHOUT_FRACTION = strTimestamp.Substring(0, nFractionSeparator - 1U);
-            this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
+            this->_ParseTimestampIncompleteTimePart(TIME_WITHOUT_FRACTION, uHour, uMinute, uSecond);
 
             int nSignPosition = strTimestamp.IndexOf(POSITIVE_SIGN, EQComparisonType::E_BinaryCaseSensitive);
             if(nSignPosition == string_q::PATTERN_NOT_FOUND)
@@ -1926,9 +1926,9 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
                 // Contains an offset
 
                 const string_q& TIME_FRACTION = strTimestamp.Substring(nFractionSeparator + 1U, nSignPosition - 1U);
-                this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+                this->_ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
                 const string_q& TIME_OFFSET = strTimestamp.Substring(nSignPosition, TIME_LENGTH - 1U);
-                this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+                this->_ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
             }
             else
             {
@@ -1938,7 +1938,7 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
 
                 const u32_q Z_WIDTH = strTimestamp[TIME_LENGTH - 1U] == ZULU_TIME ? 1 : 0;
                 const string_q& TIME_FRACTION = strTimestamp.Substring(nFractionSeparator + 1U, TIME_LENGTH - 1U - Z_WIDTH);
-                this->ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
+                this->_ParseTimestampTimeFraction(TIME_FRACTION, uMillisecond, uMicrosecond, uHundredOfNanosecond);
             }
         }
         else
@@ -1953,9 +1953,9 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
             {
                 // Contains an offset
                 const string_q& TIME_WITHOUT_OFFSET = strTimestamp.Substring(0, nSignPosition - 1U);
-                this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
+                this->_ParseTimestampIncompleteTimePart(TIME_WITHOUT_OFFSET, uHour, uMinute, uSecond);
                 const string_q& TIME_OFFSET = strTimestamp.Substring(nSignPosition, TIME_LENGTH - 1U);
-                this->ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
+                this->_ParseTimestampTimeOffset(TIME_OFFSET, nOffsetHours, uOffsetMinutes);
             }
             else
             {
@@ -1966,7 +1966,7 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
                 const u32_q Z_WIDTH = strTimestamp[TIME_LENGTH - 1U] == ZULU_TIME ? 1 : 0;
 
                 const string_q& TIME_WITHOUT_Z = strTimestamp.Substring(0, TIME_LENGTH - 1U - Z_WIDTH);
-                this->ParseTimestampIncompleteTimePart(TIME_WITHOUT_Z, uHour, uMinute, uSecond);
+                this->_ParseTimestampIncompleteTimePart(TIME_WITHOUT_Z, uHour, uMinute, uSecond);
             }
 
             uMillisecond = 0;
@@ -1994,7 +1994,7 @@ void QDateTime::ParseTimestampIncompleteTime(const string_q &strTimestamp, u32_q
     }
 }
 
-void QDateTime::ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
+void QDateTime::_ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutFraction, u32_q& uHour, u32_q& uMinute, u32_q& uSecond) const
 {
     static const string_q TIME_SEPARATOR = ":";
 
@@ -2050,39 +2050,39 @@ void QDateTime::ParseTimestampIncompleteTimePart(const string_q& strTimeWithoutF
     }
 }
 
-void QDateTime::ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
+void QDateTime::_ApplyOffsetToTimestampWithoutAffectingDate(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
 {
-    static const QTimeSpan HNS_PER_DAY_TIMESPAN(QDateTime::HNS_PER_DAY);
+    static const QTimeSpan _HNS_PER_DAY_TIMESPAN(QDateTime::_HNS_PER_DAY);
 
     // The offset is subtracted to the time
 
     const i32_q OFFSET_SIGN = nOffsetHours < 0 ? -1 : 1;
-    QTimeSpan offset(QDateTime::HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::HNS_PER_MINUTE * uOffsetMinutes);
-    QTimeSpan timeInHNS(QDateTime::HNS_PER_HOUR * uHour + QDateTime::HNS_PER_MINUTE * uMinute);
+    QTimeSpan offset(QDateTime::_HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::_HNS_PER_MINUTE * uOffsetMinutes);
+    QTimeSpan timeInHNS(QDateTime::_HNS_PER_HOUR * uHour + QDateTime::_HNS_PER_MINUTE * uMinute);
 
     if(nOffsetHours < 0) // The offset is negative, so it will be added
     {
-        if(offset + timeInHNS > HNS_PER_DAY_TIMESPAN)
-            dateTime -= HNS_PER_DAY_TIMESPAN - offset; // 1 day is subtracted to keep the date being 0001-01-01
+        if(offset + timeInHNS > _HNS_PER_DAY_TIMESPAN)
+            dateTime -= _HNS_PER_DAY_TIMESPAN - offset; // 1 day is subtracted to keep the date being 0001-01-01
         else
             dateTime += offset;
     }
     else if(nOffsetHours > 0 || uOffsetMinutes > 0) // The offset is positive, so it will be subtracted
     {
         if(offset > timeInHNS)
-            dateTime += HNS_PER_DAY_TIMESPAN - offset; // 1 day is added to keep the date being 0001-01-01
+            dateTime += _HNS_PER_DAY_TIMESPAN - offset; // 1 day is added to keep the date being 0001-01-01
         else
             dateTime -= offset;
     }
 }
 
-void QDateTime::ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
+void QDateTime::_ApplyOffsetToTimestamp(const i32_q nOffsetHours, const u32_q uOffsetMinutes, const u32_q uHour, const u32_q uMinute, QDateTime &dateTime)
 {
     // The offset is subtracted to the time
 
     const i32_q OFFSET_SIGN = nOffsetHours < 0 ? -1 : 1;
-    QTimeSpan offset(QDateTime::HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::HNS_PER_MINUTE * uOffsetMinutes);
-    QTimeSpan timeInHNS(QDateTime::HNS_PER_HOUR * uHour + QDateTime::HNS_PER_MINUTE * uMinute);
+    QTimeSpan offset(QDateTime::_HNS_PER_HOUR * scast_q(OFFSET_SIGN * nOffsetHours, u64_q) + QDateTime::_HNS_PER_MINUTE * uOffsetMinutes);
+    QTimeSpan timeInHNS(QDateTime::_HNS_PER_HOUR * uHour + QDateTime::_HNS_PER_MINUTE * uMinute);
 
     if(nOffsetHours < 0) // The offset is negative, so it will be added
         dateTime += offset;
@@ -2106,7 +2106,7 @@ bool QDateTime::IsLeapYear() const
 
     const unsigned int THIS_YEAR = this->GetYear();
 
-    return QDateTime::IsLeapYear(scast_q(THIS_YEAR, int));
+    return QDateTime::_IsLeapYear(scast_q(THIS_YEAR, int));
 }
 
 const QTimeZone* QDateTime::GetTimeZone() const
@@ -2120,29 +2120,29 @@ unsigned int QDateTime::GetYear() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2151,10 +2151,10 @@ unsigned int QDateTime::GetYear() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2164,12 +2164,12 @@ unsigned int QDateTime::GetYear() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2180,9 +2180,9 @@ unsigned int QDateTime::GetYear() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2194,7 +2194,7 @@ unsigned int QDateTime::GetYear() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2207,7 +2207,7 @@ unsigned int QDateTime::GetYear() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -2220,7 +2220,7 @@ unsigned int QDateTime::GetYear() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -2228,13 +2228,13 @@ unsigned int QDateTime::GetYear() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -2247,31 +2247,31 @@ unsigned int QDateTime::GetMonth() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMonth = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2280,10 +2280,10 @@ unsigned int QDateTime::GetMonth() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2293,12 +2293,12 @@ unsigned int QDateTime::GetMonth() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2309,9 +2309,9 @@ unsigned int QDateTime::GetMonth() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2323,7 +2323,7 @@ unsigned int QDateTime::GetMonth() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2336,7 +2336,7 @@ unsigned int QDateTime::GetMonth() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -2349,7 +2349,7 @@ unsigned int QDateTime::GetMonth() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -2357,13 +2357,13 @@ unsigned int QDateTime::GetMonth() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -2377,13 +2377,13 @@ unsigned int QDateTime::GetMonth() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -2410,31 +2410,31 @@ unsigned int QDateTime::GetDay() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uDay = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2443,10 +2443,10 @@ unsigned int QDateTime::GetDay() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2456,12 +2456,12 @@ unsigned int QDateTime::GetDay() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2472,9 +2472,9 @@ unsigned int QDateTime::GetDay() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2486,7 +2486,7 @@ unsigned int QDateTime::GetDay() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2499,7 +2499,7 @@ unsigned int QDateTime::GetDay() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -2512,7 +2512,7 @@ unsigned int QDateTime::GetDay() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -2520,13 +2520,13 @@ unsigned int QDateTime::GetDay() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -2540,13 +2540,13 @@ unsigned int QDateTime::GetDay() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -2573,31 +2573,31 @@ unsigned int QDateTime::GetHour() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uHour = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2606,10 +2606,10 @@ unsigned int QDateTime::GetHour() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2619,12 +2619,12 @@ unsigned int QDateTime::GetHour() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2635,9 +2635,9 @@ unsigned int QDateTime::GetHour() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2649,7 +2649,7 @@ unsigned int QDateTime::GetHour() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2662,7 +2662,7 @@ unsigned int QDateTime::GetHour() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -2675,7 +2675,7 @@ unsigned int QDateTime::GetHour() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -2683,13 +2683,13 @@ unsigned int QDateTime::GetHour() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -2703,13 +2703,13 @@ unsigned int QDateTime::GetHour() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -2724,8 +2724,8 @@ unsigned int QDateTime::GetHour() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        uHour = uHoursInLastDay / HNS_PER_HOUR;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        uHour = uHoursInLastDay / _HNS_PER_HOUR;
     }
 
     return scast_q(uHour, unsigned int);
@@ -2737,31 +2737,31 @@ unsigned int QDateTime::GetMinute() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMinute = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2770,10 +2770,10 @@ unsigned int QDateTime::GetMinute() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2783,12 +2783,12 @@ unsigned int QDateTime::GetMinute() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2799,9 +2799,9 @@ unsigned int QDateTime::GetMinute() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2813,7 +2813,7 @@ unsigned int QDateTime::GetMinute() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2826,7 +2826,7 @@ unsigned int QDateTime::GetMinute() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -2839,7 +2839,7 @@ unsigned int QDateTime::GetMinute() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -2847,13 +2847,13 @@ unsigned int QDateTime::GetMinute() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -2867,13 +2867,13 @@ unsigned int QDateTime::GetMinute() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -2888,9 +2888,9 @@ unsigned int QDateTime::GetMinute() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        uMinute = uMinutesInLastHour / HNS_PER_MINUTE;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        uMinute = uMinutesInLastHour / _HNS_PER_MINUTE;
     }
 
     return scast_q(uMinute, unsigned int);
@@ -2902,31 +2902,31 @@ unsigned int QDateTime::GetSecond() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uSecond = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -2935,10 +2935,10 @@ unsigned int QDateTime::GetSecond() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -2948,12 +2948,12 @@ unsigned int QDateTime::GetSecond() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -2964,9 +2964,9 @@ unsigned int QDateTime::GetSecond() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -2978,7 +2978,7 @@ unsigned int QDateTime::GetSecond() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -2991,7 +2991,7 @@ unsigned int QDateTime::GetSecond() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -3004,7 +3004,7 @@ unsigned int QDateTime::GetSecond() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -3012,13 +3012,13 @@ unsigned int QDateTime::GetSecond() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -3032,13 +3032,13 @@ unsigned int QDateTime::GetSecond() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -3053,10 +3053,10 @@ unsigned int QDateTime::GetSecond() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        uSecond = uSecondsInLastMinute / HNS_PER_SECOND;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        uSecond = uSecondsInLastMinute / _HNS_PER_SECOND;
     }
 
     return scast_q(uSecond, unsigned int);
@@ -3068,31 +3068,31 @@ unsigned int QDateTime::GetMillisecond() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMillisecond = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -3101,10 +3101,10 @@ unsigned int QDateTime::GetMillisecond() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -3114,12 +3114,12 @@ unsigned int QDateTime::GetMillisecond() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -3130,9 +3130,9 @@ unsigned int QDateTime::GetMillisecond() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -3144,7 +3144,7 @@ unsigned int QDateTime::GetMillisecond() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -3157,7 +3157,7 @@ unsigned int QDateTime::GetMillisecond() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -3170,7 +3170,7 @@ unsigned int QDateTime::GetMillisecond() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -3178,13 +3178,13 @@ unsigned int QDateTime::GetMillisecond() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -3198,13 +3198,13 @@ unsigned int QDateTime::GetMillisecond() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -3219,11 +3219,11 @@ unsigned int QDateTime::GetMillisecond() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % HNS_PER_SECOND;
-        uMillisecond = uMillisecondsInLastSecond / HNS_PER_MILLISECOND;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % _HNS_PER_SECOND;
+        uMillisecond = uMillisecondsInLastSecond / _HNS_PER_MILLISECOND;
     }
 
     return scast_q(uMillisecond, unsigned int);
@@ -3235,31 +3235,31 @@ unsigned int QDateTime::GetMicrosecond() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uMicrosecond = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -3268,10 +3268,10 @@ unsigned int QDateTime::GetMicrosecond() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -3281,12 +3281,12 @@ unsigned int QDateTime::GetMicrosecond() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -3297,9 +3297,9 @@ unsigned int QDateTime::GetMicrosecond() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -3311,7 +3311,7 @@ unsigned int QDateTime::GetMicrosecond() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -3324,7 +3324,7 @@ unsigned int QDateTime::GetMicrosecond() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -3337,7 +3337,7 @@ unsigned int QDateTime::GetMicrosecond() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -3345,13 +3345,13 @@ unsigned int QDateTime::GetMicrosecond() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -3365,13 +3365,13 @@ unsigned int QDateTime::GetMicrosecond() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -3386,12 +3386,12 @@ unsigned int QDateTime::GetMicrosecond() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % HNS_PER_SECOND;
-        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % HNS_PER_MILLISECOND;
-        uMicrosecond = uMicrosecondsInLastMillisecond / HNS_PER_MICROSECOND;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % _HNS_PER_SECOND;
+        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % _HNS_PER_MILLISECOND;
+        uMicrosecond = uMicrosecondsInLastMillisecond / _HNS_PER_MICROSECOND;
     }
 
     return scast_q(uMicrosecond, unsigned int);
@@ -3403,31 +3403,31 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
 
     // Adds the time zone offset
     QTimeSpan localTimeInstant = m_pTimeZone == null_q ? m_instant :
-                                                         this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+                                                         this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
 
     u64_q uHundredOfNanosecond = 0;
 
     const u64_q HNS_IN_INSTANT = localTimeInstant.GetHundredsOfNanoseconds();
 
-    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::HALF_VALUE;
+    const bool IS_NEGATIVE_DATE = HNS_IN_INSTANT < QDateTime::_HALF_VALUE;
 
     // Depending on whether the date is negative or not, it is subtracted to the offset or vice versa
     u64_q uInputWithoutOffset = IS_NEGATIVE_DATE ?
-                                                  QDateTime::HALF_VALUE - HNS_IN_INSTANT :
-                                                  HNS_IN_INSTANT - QDateTime::HALF_VALUE;
+                                                  QDateTime::_HALF_VALUE - HNS_IN_INSTANT :
+                                                  HNS_IN_INSTANT - QDateTime::_HALF_VALUE;
     
     // If it is a positive date, the year-zero is added back
     if(!IS_NEGATIVE_DATE)
-        uInputWithoutOffset += QDateTime::HNS_PER_YEAR;
+        uInputWithoutOffset += QDateTime::_HNS_PER_YEAR;
 
     u64_q uYear = 1;
     u64_q uHnsInLastYear = uInputWithoutOffset;
 
     // Corner case: The year -1. Since the remaining time is substracted to the year, it will be lower than 1 year and hence the result would be zero
-    if(uInputWithoutOffset >= QDateTime::HNS_PER_YEAR)
+    if(uInputWithoutOffset >= QDateTime::_HNS_PER_YEAR)
     {
         // Calculates the number of common years that have passed, including the extra days of the leap years (they are removed later)
-        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::HNS_PER_YEAR;
+        const u64_q NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS = uInputWithoutOffset / QDateTime::_HNS_PER_YEAR;
 
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
         const u64_q NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS = NUMBER_OF_COMMON_YEARS_COUNTING_LEAP_DAYS - 1ULL;
@@ -3436,10 +3436,10 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
                                              NUMBER_OF_COMPLETE_PASSED_COMMON_YEARS_COUNTING_LEAP_DAYS / 400ULL;
 
         // Leap days are substracted to the original time
-        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::HNS_PER_DAY;
+        const u64_q INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS = uInputWithoutOffset - APPROXIMATED_LEAP_DAYS * QDateTime::_HNS_PER_DAY;
 
         // Counts the number of common years (extra days were substracted)
-        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::HNS_PER_YEAR;
+        uYear = INPUT_WITHOUT_OFFSET_WITHOUT_LEAP_DAYS / QDateTime::_HNS_PER_YEAR;
 
         // Now we know the actual year enclosed in the input time, we can know the actual amount of leap days
         // Leap days are calculated as: (Year - 1) / 4 - (Year - 1) / 100 + (Year - 1) / 400, as leap years rule states
@@ -3449,12 +3449,12 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
                                        ACTUAL_PASSED_COMPLETE_YEARS / 400ULL;
 
         // Gets the amount of time passed in the last year
-        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::HNS_PER_DAY - uYear * QDateTime::HNS_PER_YEAR;
+        uHnsInLastYear = uInputWithoutOffset - ACTUAL_LEAP_DAYS * QDateTime::_HNS_PER_DAY - uYear * QDateTime::_HNS_PER_YEAR;
     }
 
     if(IS_NEGATIVE_DATE)
     {
-        if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is lower than or equal to 1 day
 
@@ -3465,9 +3465,9 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
             //                [<]----|
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - (QDateTime::HNS_PER_DAY - uHnsInLastYear);
+            uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - (QDateTime::_HNS_PER_DAY - uHnsInLastYear);
         }
-        else if(uYear > 3ULL && QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::HNS_PER_DAY)
+        else if(uYear > 3ULL && QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)) && uHnsInLastYear <= QDateTime::_HNS_PER_DAY)
         {
             // Corner case: It is a leap year and the remaining time is grater than 1 day
 
@@ -3479,7 +3479,7 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
-        else if(QDateTime::IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::HNS_PER_DAY)
+        else if(QDateTime::_IsLeapYear(scast_q(uYear, int)) && uHnsInLastYear > QDateTime::_HNS_PER_DAY && uHnsInLastYear <= 2ULL * QDateTime::_HNS_PER_DAY)
         {
             // Corner case: The next year is a leap year and the remaining time is greater than 1 day and lower than or equal to 2 days
 
@@ -3492,7 +3492,7 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
             //             [>>>]|*| <---
 
             // The day is inverted and displaced to the beginning of the leap year
-            uHnsInLastYear -= QDateTime::HNS_PER_DAY;
+            uHnsInLastYear -= QDateTime::_HNS_PER_DAY;
             // The year is incremented. Since the remaining time was substracted to the year, it is normally 1 less than it should
             ++uYear;
         }
@@ -3505,7 +3505,7 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
         }
         
     }
-    else if(uHnsInLastYear >= QDateTime::HNS_PER_YEAR)
+    else if(uHnsInLastYear >= QDateTime::_HNS_PER_YEAR)
     {
         // It is a positive year
         // If the remaining time in the last year is equal to or greater than 1 year, it is a leap year
@@ -3513,13 +3513,13 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
         // There is a corner case: The first day of a leap year
         // It could not be accurately calculated previously, it is 1 year less than it actually is
         // This acts as a flag: If adding 1 year we get a leap year, then we are in the first day
-        if(QDateTime::IsLeapYear(scast_q(uYear + 1ULL, int)))
+        if(QDateTime::_IsLeapYear(scast_q(uYear + 1ULL, int)))
         {
             // Fixes the year value
             ++uYear;
 
             // Removes the year to get just the remaining time in the first day
-            uHnsInLastYear -= QDateTime::HNS_PER_YEAR;
+            uHnsInLastYear -= QDateTime::_HNS_PER_YEAR;
         }
     }
 
@@ -3533,13 +3533,13 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
         if(IS_NEGATIVE_DATE)
         {
             // The last year is reversed to get the actual remaining time
-            if(QDateTime::IsLeapYear(scast_q(uYear, int)))
-                uHnsInLastYear = QDateTime::HNS_PER_LEAPYEAR - uHnsInLastYear;
+            if(QDateTime::_IsLeapYear(scast_q(uYear, int)))
+                uHnsInLastYear = QDateTime::_HNS_PER_LEAPYEAR - uHnsInLastYear;
             else
-                uHnsInLastYear = QDateTime::HNS_PER_YEAR - uHnsInLastYear;
+                uHnsInLastYear = QDateTime::_HNS_PER_YEAR - uHnsInLastYear;
         }
 
-        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::HNS_PER_DAY;
+        u64_q uDaysInLastYear = uHnsInLastYear / QDateTime::_HNS_PER_DAY;
 
         static const unsigned int FIRST_MONTH_OF_THE_YEAR = 1;
         static const unsigned int LAST_MONTH_OF_THE_YEAR  = 12;
@@ -3554,12 +3554,12 @@ unsigned int QDateTime::GetHundredOfNanosecond() const
             uMonthCounter++;
         }
 
-        u64_q uHoursInLastDay = uHnsInLastYear % HNS_PER_DAY;
-        u64_q uMinutesInLastHour = uHoursInLastDay % HNS_PER_HOUR;
-        u64_q uSecondsInLastMinute = uMinutesInLastHour % HNS_PER_MINUTE;
-        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % HNS_PER_SECOND;
-        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % HNS_PER_MILLISECOND;
-        uHundredOfNanosecond = uMicrosecondsInLastMillisecond % HNS_PER_MICROSECOND;
+        u64_q uHoursInLastDay = uHnsInLastYear % _HNS_PER_DAY;
+        u64_q uMinutesInLastHour = uHoursInLastDay % _HNS_PER_HOUR;
+        u64_q uSecondsInLastMinute = uMinutesInLastHour % _HNS_PER_MINUTE;
+        u64_q uMillisecondsInLastSecond = uSecondsInLastMinute % _HNS_PER_SECOND;
+        u64_q uMicrosecondsInLastMillisecond = uMillisecondsInLastSecond % _HNS_PER_MILLISECOND;
+        uHundredOfNanosecond = uMicrosecondsInLastMillisecond % _HNS_PER_MICROSECOND;
     }
 
     return scast_q(uHundredOfNanosecond, unsigned int);
@@ -3572,13 +3572,13 @@ QDateTime QDateTime::GetUtc() const
 
 const QDateTime& QDateTime::GetMaxDateTime()
 {
-    static const QDateTime MAXIMUM_DATETIME(29228, 9, 14, 2, 48, 5, 477, 580, 7);
+    static const QDateTime MAXIMUM_DATETIME(29228, 9, 14, 2, 48, 5, 477, 580, 7, QTimeZone::UTC);
     return MAXIMUM_DATETIME;
 }
 
 const QDateTime& QDateTime::GetMinDateTime()
 {
-    static const QDateTime MINIMUM_DATETIME(-29228, 4, 18, 21, 11, 54, 522, 419, 3);
+    static const QDateTime MINIMUM_DATETIME(-29228, 4, 18, 21, 11, 54, 522, 419, 3, QTimeZone::UTC);
     return MINIMUM_DATETIME;
 }
 
@@ -3592,14 +3592,14 @@ bool QDateTime::IsPositive() const
     }
     else if(m_pTimeZone == null_q)
     {
-        bIsPositive = m_instant.GetHundredsOfNanoseconds() >= QDateTime::HALF_VALUE;
+        bIsPositive = m_instant.GetHundredsOfNanoseconds() >= QDateTime::_HALF_VALUE;
     }
     else
     {
         // Adds the time zone offset before checking
         QTimeSpan localTime = m_instant;
-        localTime = this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
-        bIsPositive = localTime.GetHundredsOfNanoseconds() >= QDateTime::HALF_VALUE;
+        localTime = this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+        bIsPositive = localTime.GetHundredsOfNanoseconds() >= QDateTime::_HALF_VALUE;
     }
 
     return bIsPositive;
@@ -3615,14 +3615,14 @@ bool QDateTime::IsNegative() const
     }
     else if(m_pTimeZone == null_q)
     {
-        bIsNegative = m_instant.GetHundredsOfNanoseconds() < QDateTime::HALF_VALUE;
+        bIsNegative = m_instant.GetHundredsOfNanoseconds() < QDateTime::_HALF_VALUE;
     }
     else
     {
         // Adds the time zone offset before checking
         QTimeSpan localTime = m_instant;
-        localTime = this->GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
-        bIsNegative = localTime.GetHundredsOfNanoseconds() < QDateTime::HALF_VALUE;
+        localTime = this->_GetInstantWithAddedTimeZoneOffset(m_instant, m_pTimeZone);
+        bIsNegative = localTime.GetHundredsOfNanoseconds() < QDateTime::_HALF_VALUE;
     }
 
     return bIsNegative;
@@ -3630,7 +3630,7 @@ bool QDateTime::IsNegative() const
 
 bool QDateTime::IsUndefined() const
 {
-    return m_instant == QDateTime::UNDEFINED_VALUE;
+    return m_instant == QDateTime::_UNDEFINED_VALUE;
 }
 
 } //namespace Time
