@@ -29,7 +29,7 @@
 
 #include "SystemDefinitions.h"
 
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "Assertions.h"
 
 namespace Kinesis

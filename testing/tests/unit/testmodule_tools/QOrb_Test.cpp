@@ -491,6 +491,8 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusEqualsZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
     // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T VECTOR_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
@@ -498,7 +500,7 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const QOrb<T> ORB( VECTOR_FOR_CENTER, RADIUS );
 
     const string_q CENTER_STRING = VECTOR_FOR_CENTER.ToString();
-    const string_q EXPECTED_STRING = string_q("OB(c(") + CENTER_STRING + QE_L("),r(") + SQFloat::ToString(RADIUS) + QE_L("))");
+    const string_q EXPECTED_STRING = string_q("OB(c(") + CENTER_STRING + QE_L("),r(") + string_q::FromFloat(RADIUS) + QE_L("))");
 
 	// [Execution]
     string_q strReturnedString = ORB.ToString();

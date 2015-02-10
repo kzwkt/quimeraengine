@@ -90,27 +90,6 @@ i64_q SQInteger::Abs(const i64_q nValue)
     return llabs(nValue);
 }
 
-template<>
-string_q SQInteger::ToString<i8_q>(const i8_q nValue)
-{
-    // [SMELL] Thund: This specialization is necessary since STL's converter treats signed chars
-    //                in a different way than how it does with the other integer types.
-    std::ostringstream output;
-    output << scast_q(nValue, i32_q);
-
-    return output.str().c_str();
-}
-
-template<>
-string_q SQInteger::ToString<u8_q>(const u8_q uValue)
-{
-    // [SMELL] Thund: This specialization is necessary since STL's converter treats unsigned chars
-    //                in a different way than how it does with the other integer types.
-    std::ostringstream output;
-    output << scast_q(uValue, u32_q);
-
-    return output.str().c_str();
-}
 
 } //namespace DataTypes
 } //namespace Common

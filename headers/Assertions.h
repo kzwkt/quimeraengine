@@ -32,8 +32,29 @@
                                    // to throw exceptions but do throw exceptions due to the assertion behavior compilation flag
 #endif
 
-#include "StringsDefinitions.h"
 #include "EQAssertionType.h"
+
+// This forward declaration is necessry to avoid mutual inclusion with string types
+namespace Kinesis 
+{ 
+    namespace QuimeraEngine 
+    { 
+        namespace Common 
+        { 
+            namespace DataTypes 
+            { 
+                class QStringUnicode; 
+
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_ASCII
+                typedef std::string string_q;
+#elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+                typedef QStringUnicode string_q;
+#endif
+
+            }
+        }
+    }
+}
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 

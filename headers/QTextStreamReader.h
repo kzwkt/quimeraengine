@@ -31,11 +31,11 @@
 #include "SystemDefinitions.h"
 
 #include "EQNewLineCharacters.h"
-#include "EQTextEncoding.h"
-#include "EQComparisonType.h"
+#include "StringsDefinitions.h"
 #include "SQInteger.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -456,11 +456,10 @@ public:
     /// the current encoding.</param>
     void ReadBlock(string_q &strOutput, const pointer_uint_q uNumberOfBytes)
     {
-        using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
         using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
         QE_ASSERT_ERROR(uNumberOfBytes > 0, "The number of bytes to read must be greater than zero.");
-        QE_ASSERT_WARNING(uNumberOfBytes % m_uCharSize == 0, string_q("The number of bytes to read should be multiple of the character size for the current encoding (") + SQInteger::ToString(m_uCharSize)  + ").");
+        QE_ASSERT_WARNING(uNumberOfBytes % m_uCharSize == 0, string_q("The number of bytes to read should be multiple of the character size for the current encoding (") + string_q::FromInteger(m_uCharSize)  + ").");
 
         i8_q* arBytes = new i8_q[uNumberOfBytes];
 

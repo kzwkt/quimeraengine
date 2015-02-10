@@ -29,6 +29,7 @@
 
 #include "SystemDefinitions.h"
 #include "Assertions.h"
+#include "StringsDefinitions.h"
 #include <boost/thread/condition_variable.hpp>
 
 #ifdef QE_COMPILER_MSVC

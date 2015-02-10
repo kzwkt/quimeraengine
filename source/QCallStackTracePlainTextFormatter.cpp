@@ -111,7 +111,7 @@ void QCallStackTracePlainTextFormatter::FormatCallTrace(const QCallTrace &trace,
     {
         strFormattedTrace.Append(strIndentation);
         strFormattedTrace.Append(ARGUMENT_PREFIX1);
-        strFormattedTrace.Append(SQInteger::ToString(i));
+        strFormattedTrace.Append(string_q::FromInteger(i));
         strFormattedTrace.Append(ARGUMENT_PREFIX2);
         strFormattedTrace.Append(arArguments[i].GetTypeName());
         strFormattedTrace.Append(EQUAL_SIGN);

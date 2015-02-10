@@ -26,7 +26,6 @@
 
 #include "QThread.h"
 
-#include "SQInteger.h"
 #include "SQThisThread.h"
 
 #if defined(QE_OS_WINDOWS)
@@ -36,8 +35,7 @@
     #include <errno.h>
 #endif
 
-using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 namespace Kinesis
 {
@@ -119,7 +117,7 @@ string_q QThread::ToString() const
     std::stringstream os(strOutput);
     os << this->GetId();
     string_q strId(os.str().c_str());
-    strResult.Append(SQInteger::ToString(SQInteger::FromHexadecimalString<IdInteger>(strId)));
+    strResult.Append(scast_q(strId.ToIntegerFromHexadecimal<IdInteger>(), pointer_uint_q));
     strResult.Append(STRING_PART3);
     return strResult;
 }
@@ -358,14 +356,12 @@ EQThreadPriority QThread::GetPriority() const
 
 void QThread::SetPriority(const EQThreadPriority &ePriority)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
     QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to get the priority of a not-running thread.");
 
     int nNativePriority = QThread::_ConvertToNativePriority(ePriority);
     BOOL uResult = ::SetThreadPriority(QThread::GetNativeHandle(), nNativePriority);
     
-    QE_ASSERT_WARNING(uResult != 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + SQInteger::ToString(::GetLastError()) + ".");
+    QE_ASSERT_WARNING(uResult != 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + string_q::FromInteger(::GetLastError()) + ".");
 }
 
 #elif defined(QE_OS_LINUX)
@@ -382,7 +378,7 @@ EQThreadPriority QThread::GetPriority() const
     int nResult = pthread_getschedparam(this->GetNativeHandle(), &nPolicy, &schedulingPolicy);
     int nNativePriority = schedulingPolicy.__sched_priority;
     
-    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + this->ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + this->ToString() + ". The error code is:" + string_q::FromInteger(errno) + ".");
     
     return QThread::_ConvertFromNativePriority(nNativePriority, nPolicy);
 }
@@ -400,7 +396,7 @@ void QThread::SetPriority(const EQThreadPriority &ePriority)
     
     int nResult = pthread_setschedparam(this->GetNativeHandle(), SCHED_OTHER, &schedulingPolicy);
     
-    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + string_q::FromInteger(errno) + ".");
 }
 
 #elif defined(QE_OS_MAC)
@@ -417,7 +413,7 @@ EQThreadPriority QThread::GetPriority() const
     int nResult = pthread_getschedparam(this->GetNativeHandle(), &nPolicy, &schedulingPolicy);
     int nNativePriority = schedulingPolicy.sched_priority;
     
-    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + this->ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to get the priority of the ") + this->ToString() + ". The error code is:" + string_q::FromInteger(errno) + ".");
     
     return QThread::_ConvertFromNativePriority(nNativePriority, nPolicy);
 }
@@ -435,7 +431,7 @@ void QThread::SetPriority(const EQThreadPriority &ePriority)
     
     int nResult = pthread_setschedparam(this->GetNativeHandle(), SCHED_OTHER, &schedulingPolicy);
     
-    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + SQInteger::ToString(errno) + ".");
+    QE_ASSERT_WARNING(nResult == 0, string_q("An unexpected error ocurred when attempting to set the priority of the ") + this->ToString() + " to " + ePriority.ToString() + ". The error code is:" + string_q::FromInteger(errno) + ".");
 }
 
 #endif

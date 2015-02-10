@@ -2139,9 +2139,8 @@ QTEST_CASE ( Remove2_ElementIsCorrectlyRemovedFromFirstPosition_Test )
     commonList.Remove(POSITION);
 
     // [Verification]
-    /* [TODO] Thund: Uncomment when Contains method exists
     bool bElementDoesNotExist = !commonList.Contains(ELEMENT_VALUE);
-    BOOST_CHECK_EQUAL(bElementDoesNotExist, ELEMENT_DOES_NOT_EXIST);*/
+    BOOST_CHECK(bElementDoesNotExist);
 }
 
 /// <summary>

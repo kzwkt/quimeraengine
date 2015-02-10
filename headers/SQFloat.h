@@ -28,11 +28,10 @@
 #define __SQFLOAT__
 
 #include "Assertions.h"
-#include "DataTypesDefinitions.h"
+#include "StringsDefinitions.h"
 #include "CommonDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -362,18 +361,6 @@ public:
     /// If the value doesn't equal zero, then it returns True. Otherwise, it returns False.
     /// </returns>
     static bool IsNotZero(const float_q fValue, const float_q fTolerance);
-
-    /// <summary>
-    /// Converts the floating point number to a readable character string that represents it.
-    /// </summary>
-    /// <remarks>
-    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.
-    /// </remarks>
-    /// <param name="fValue">[IN] The floating point number to be converted.</param>
-    /// <returns>
-    /// The string that represents the number (using a dot as decimal separator).
-    /// </returns>
-    static string_q ToString(const float_q fValue);
 
     /// <summary>
     /// Converts a floating point number type to an integer number type.

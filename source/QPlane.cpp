@@ -571,8 +571,21 @@ QPlane QPlane::TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &trans
 
 string_q QPlane::ToString() const
 {
-    return string_q("PL(") + SQFloat::ToString(this->a) + QE_L(",") + SQFloat::ToString(this->b) +
-               QE_L(",")   + SQFloat::ToString(this->c) + QE_L(",") + SQFloat::ToString(this->d) + QE_L(")");
+    static const string_q STRING_PREFIX("PL(");
+    static const string_q STRING_COMMA(",");
+    static const string_q STRING_END(")");
+
+    string_q strOutput = STRING_PREFIX;
+    strOutput.Append(this->a);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->b);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->c);
+    strOutput.Append(STRING_COMMA);
+    strOutput.Append(this->d);
+    strOutput.Append(STRING_END);
+
+    return strOutput;
 }
 
 template <class VectorT>

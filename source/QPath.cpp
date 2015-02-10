@@ -26,9 +26,6 @@
 
 #include "QPath.h"
 
-#include "EQComparisonType.h"
-#include "EQTextEncoding.h"
-#include "SQInteger.h"
 #include "QArrayDynamic.h"
 #include "QArrayResult.h"
 #include "QUri.h"
@@ -343,8 +340,6 @@ void QPath::_ExtractHostnameFromPath(string_q &strPath, string_q &strHostname)
 
 bool QPath::_ValidateHostname(const string_q &strHostname)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
     static const char_q CHAR_HYPHEN = '-';
 
     const bool IS_NOT_EMPTY = !strHostname.IsEmpty();
@@ -1147,7 +1142,6 @@ void QPath::SetFilename(const string_q &strFilename)
 
 void QPath::SetFilenameAndExtension(const string_q &strFilenameAndExtension)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     static const string_q BACK_SLASH("\\");
@@ -1184,7 +1178,7 @@ void QPath::SetFilenameAndExtension(const string_q &strFilenameAndExtension)
 
         // Note: About the length restriction of 255 characters http://www.linfo.org/file_name.html
         QE_ASSERT_WARNING(m_strFilename.GetLength() <= 255, 
-                          string_q("The length of the file name (") + SQInteger::ToString(m_strFilename.GetLength()) + ") exceeds the maximum allowed (255).");
+                          string_q("The length of the file name (") + string_q::FromInteger(m_strFilename.GetLength()) + ") exceeds the maximum allowed (255).");
     }
 }
 

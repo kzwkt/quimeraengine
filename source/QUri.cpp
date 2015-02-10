@@ -26,12 +26,11 @@
 
 #include "QUri.h"
 
-#include "SQInteger.h"
-#include "EQComparisonType.h"
-#include "EQTextEncoding.h"
+#include "Assertions.h"
 
 using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -330,7 +329,6 @@ void QUri::EncodeQueryOrFragment(const string_q &strInput, string_q &strOutput)
 void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q &strOutput)
 {
     using Kinesis::QuimeraEngine::Common::DataTypes::EQTextEncoding;
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
     using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::QArrayResult;
@@ -361,7 +359,7 @@ void QUri::Encode(const bool bIsPathSegment, const string_q &strInput, string_q 
                     // Adds the '%'
                     strResult.Append(QUri::CHAR_PERCENT_SIGN);
 
-                    strHexadecimal = SQInteger::ToStringHexadecimal(arUTF8Codeunits[iCodeunit]);
+                    strHexadecimal = string_q::FromIntegerToHexadecimal(arUTF8Codeunits[iCodeunit]);
                     strResult.Append(strHexadecimal);
                 }
 
@@ -388,7 +386,6 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
     using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
     using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
 
     static unsigned int PERCENT_ENCODED_LENGTH = 3U; // "%FF"
     
@@ -435,8 +432,9 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
             }
 
             // Gets the UTF8 code unit from the percent-encoded value
-            arCodeUnits[uCurrentCodeUnit] = SQInteger::FromHexadecimalString<u8_q>(strInput.Substring(uCurrentPercentPosition + QUri::CHAR_PERCENT_SIGN.GetLength(), 
-                                                                                                      uCurrentPercentPosition + PERCENT_ENCODED_LENGTH - 1U));
+            arCodeUnits[uCurrentCodeUnit] = strInput.Substring(uCurrentPercentPosition + QUri::CHAR_PERCENT_SIGN.GetLength(), 
+                                                               uCurrentPercentPosition + PERCENT_ENCODED_LENGTH - 1U)
+                                                               .ToIntegerFromHexadecimal<u8_q>();
 
             bPendingCharacters = true;
 

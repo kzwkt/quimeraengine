@@ -31,12 +31,12 @@
 #include "SystemDefinitions.h"
 
 #include "EQNewLineCharacters.h"
-#include "EQTextEncoding.h"
-#include "EQComparisonType.h"
 #include "SQInteger.h"
 #include "QArrayResult.h"
+#include "StringsDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis

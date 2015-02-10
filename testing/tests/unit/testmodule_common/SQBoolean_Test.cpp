@@ -36,41 +36,6 @@ using Kinesis::QuimeraEngine::Common::DataTypes::SQBoolean;
 
 QTEST_SUITE_BEGIN( SQBoolean_TestSuite )
 
-/// <summary>
-/// Checks if the string returned for the TRUE value meets the expectations.
-/// </summary>
-QTEST_CASE ( ToString_TrueValueIsConvertedToStringAsExpected_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-
-    // [Preparation]
-    const bool BOOLEAN_VALUE_TRUE = true;
-    string_q EXPECTED_RESULT = QE_L("true");
-
-	// [Execution]
-    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_TRUE);
-
-    // [Verification]
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks if the string returned for the FALSE value meets the expectations.
-/// </summary>
-QTEST_CASE ( ToString_FalseValueIsConvertedToStringAsExpected_Test )
-{
-    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
-
-    // [Preparation]
-    const bool BOOLEAN_VALUE_FALSE = false;
-    string_q EXPECTED_RESULT = QE_L("false");
-
-	// [Execution]
-    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_FALSE);
-
-    // [Verification]
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
 
 // End - Test Suite: SQBoolean
 QTEST_SUITE_END()
