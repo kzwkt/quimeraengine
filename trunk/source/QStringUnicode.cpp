@@ -1402,10 +1402,10 @@ QStringUnicode QStringUnicode::FromFloat(const f64_q fValue)
 
 QStringUnicode QStringUnicode::FromVF32(const vf32_q vfValue)
 {
-    f32_q fFirst  = SQFloat::_0;
-    f32_q fSecond = SQFloat::_0;
-    f32_q fThird  = SQFloat::_0;
-    f32_q fFourth = SQFloat::_0;
+    float_q fFirst  = SQFloat::_0;
+    float_q fSecond = SQFloat::_0;
+    float_q fThird  = SQFloat::_0;
+    float_q fFourth = SQFloat::_0;
 
     SQVF32::Unpack(vfValue, fFirst, fSecond, fThird, fFourth);
 
