@@ -87,7 +87,7 @@ public:
     /// <summary>
     /// Gets a call trace.
     /// </summary>
-    /// <param name="strThreadId">[IN] The position index (zero-based) in the stack of call traces, from bottom to top. It must be lower than the number of call traces in the stack.</param>
+    /// <param name="uIndex">[IN] The position index (zero-based) in the stack of call traces, from bottom to top. It must be lower than the number of call traces in the stack.</param>
     /// <returns>
     /// The obtained call trace.
     /// </returns>

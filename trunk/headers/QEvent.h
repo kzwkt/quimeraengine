@@ -139,9 +139,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -193,7 +193,7 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as parameter to every function.</param>
     void Raise(Param1T p1) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -243,9 +243,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -299,8 +299,8 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -350,9 +350,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -407,9 +407,9 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -459,9 +459,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -517,10 +517,10 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
-    /// <param names="p4">An instance to be passed as fourth parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p4">An instance to be passed as fourth parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3, Param4T p4) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -570,9 +570,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -629,11 +629,11 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
-    /// <param names="p4">An instance to be passed as fourth parameter to every function.</param>
-    /// <param names="p5">An instance to be passed as fifth parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p4">An instance to be passed as fourth parameter to every function.</param>
+    /// <param name="p5">An instance to be passed as fifth parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -683,9 +683,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -743,12 +743,12 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
-    /// <param names="p4">An instance to be passed as fourth parameter to every function.</param>
-    /// <param names="p5">An instance to be passed as fifth parameter to every function.</param>
-    /// <param names="p6">An instance to be passed as sixth parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p4">An instance to be passed as fourth parameter to every function.</param>
+    /// <param name="p5">An instance to be passed as fifth parameter to every function.</param>
+    /// <param name="p6">An instance to be passed as sixth parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -798,9 +798,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -859,13 +859,13 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
-    /// <param names="p4">An instance to be passed as fourth parameter to every function.</param>
-    /// <param names="p5">An instance to be passed as fifth parameter to every function.</param>
-    /// <param names="p6">An instance to be passed as sixth parameter to every function.</param>
-    /// <param names="p7">An instance to be passed as seventh parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p4">An instance to be passed as fourth parameter to every function.</param>
+    /// <param name="p5">An instance to be passed as fifth parameter to every function.</param>
+    /// <param name="p6">An instance to be passed as sixth parameter to every function.</param>
+    /// <param name="p7">An instance to be passed as seventh parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -915,9 +915,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;
@@ -977,14 +977,14 @@ public:
     /// <summary>
     /// Calls every subscribed function in FIFO order, passing them the same instance of the provided arguments if any.
     /// </summary>
-    /// <param names="p1">An instance to be passed as first parameter to every function.</param>
-    /// <param names="p2">An instance to be passed as second parameter to every function.</param>
-    /// <param names="p3">An instance to be passed as third parameter to every function.</param>
-    /// <param names="p4">An instance to be passed as fourth parameter to every function.</param>
-    /// <param names="p5">An instance to be passed as fifth parameter to every function.</param>
-    /// <param names="p6">An instance to be passed as sixth parameter to every function.</param>
-    /// <param names="p7">An instance to be passed as seventh parameter to every function.</param>
-    /// <param names="p8">An instance to be passed as eighth parameter to every function.</param>
+    /// <param name="p1">An instance to be passed as first parameter to every function.</param>
+    /// <param name="p2">An instance to be passed as second parameter to every function.</param>
+    /// <param name="p3">An instance to be passed as third parameter to every function.</param>
+    /// <param name="p4">An instance to be passed as fourth parameter to every function.</param>
+    /// <param name="p5">An instance to be passed as fifth parameter to every function.</param>
+    /// <param name="p6">An instance to be passed as sixth parameter to every function.</param>
+    /// <param name="p7">An instance to be passed as seventh parameter to every function.</param>
+    /// <param name="p8">An instance to be passed as eighth parameter to every function.</param>
     void Raise(Param1T p1, Param2T p2, Param3T p3, Param4T p4, Param5T p5, Param6T p6, Param7T p7, Param8T p8) const
     {
         const pointer_uint_q COUNT = m_arSubscribers.GetCount();
@@ -1034,9 +1034,9 @@ public:
     /// <summary>
     /// Gets the entire list of subscribed functions.
     /// </summary>
-    /// <summary>
+    /// <returns>
     /// A list of subscribed functions.
-    /// </summary>
+    /// </returns>
     SubscriberArray GetSubscribers() const
     {
         return m_arSubscribers;

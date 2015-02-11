@@ -291,9 +291,9 @@ public:
         /// <summary>
         /// Gets the string that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the string. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QStringUnicode* GetContainer() const;
 
 
@@ -793,7 +793,7 @@ public:
     /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
     /// </summary>
     /// <param name="startPosition">[IN] The position of the first character of the resultant substring.
-    /// It must not point to an end position.
+    /// It must not point to an end position.</param>
     /// <param name="lastPosition">[IN] The position of the last character of the resultant substring. It must be 
     /// posterior to the start position. If it is out bounds, the last position will be used instead.</param>
     /// <returns>
@@ -942,7 +942,7 @@ public:
     /// <param name="strPattern">[IN] The string pattern to search for. If performing a canonical comparison, it will be normalized internally if it is not already.</param>
     /// <param name="uStart">[IN] The start position to search from. If the position is greater than or equal to the length of the resident
     /// string, the pattern will not be found.</param>
-    /// <param name="eComparisonType">[Optional][IN] The type of comparison to perform during the search. By default, strings are compared using binary case-sensitive comparison.
+    /// <param name="eComparisonType">[Optional][IN] The type of comparison to perform during the search. By default, strings are compared using binary case-sensitive comparison.</param>
     /// <returns>
     /// If the pattern is found, it returns the position of the first Unicode character (zero-based) of the found pattern; if it is not found, it returns the PATTERN_NOT_FOUND constant.
     /// </returns>

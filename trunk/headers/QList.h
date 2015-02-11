@@ -659,9 +659,9 @@ public:
         /// <summary>
         /// Gets the container that is being traversed by the iterator.
         /// </summary>
-        /// <remarks>
+        /// <returns>
         /// A pointer to the container. It never changes since the iterator is created.
-        /// </remarks>
+        /// </returns>
         const QList* GetContainer() const
         {
             return m_pList;

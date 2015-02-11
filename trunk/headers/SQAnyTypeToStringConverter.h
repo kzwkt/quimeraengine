@@ -369,7 +369,7 @@ QE_LAYER_COMMON_SYMBOLS string_q SQAnyTypeToStringConverter::Convert(const strin
 /// </remarks>
 /// <typeparam name="T">The type of the pointer to be converted. Recognized types are: pointers to constant basic data types, 
 /// pointers to constant string_q or pointers to already mentioned types.</typeparam>
-/// <param name="pObject">[IN] The pointer to the instance to be converted.</param>
+/// <param name="object">[IN] The pointer to the instance to be converted.</param>
 /// <returns>
 /// The string that contains the representation of the object.
 /// </returns>

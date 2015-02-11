@@ -636,7 +636,7 @@ protected:
 /// - i32_q* pNull = null_q / i32* / "<Null>"
 /// </remarks>
 /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
-/// <param name="argument">[IN] The argument to be traced.</param>
+/// <param name="pArgument">[IN] The argument to be traced.</param>
 template<>
 QE_LAYER_SYSTEM_SYMBOLS void QArgumentTrace::_FillTypeName(void* pArgument);
 
@@ -663,7 +663,7 @@ QE_LAYER_SYSTEM_SYMBOLS void QArgumentTrace::_FillTypeName(void* pArgument);
 /// - i32_q* pNull = null_q / i32* / "<Null>"
 /// </remarks>
 /// <typeparam name="T">The type of the argument. It can be whichever.</typeparam>
-/// <param name="argument">[IN] The argument to be traced.</param>
+/// <param name="pArgument">[IN] The argument to be traced.</param>
 template<>
 QE_LAYER_SYSTEM_SYMBOLS void QArgumentTrace::_FillTypeName(const void* pArgument);
 

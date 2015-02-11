@@ -2227,6 +2227,7 @@ protected:
     /// Checks if a triangle contains a given point.
     /// </summary>
     /// <typeparam name="VectorParamT">Allowed types: QVector3, QVector4.</typeparam>
+    /// <param name="triangle">[IN] The triangle inside which the point may be.</param>
     /// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
     /// True if the point belongs to the triangle; False otherwise.

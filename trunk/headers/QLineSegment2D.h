@@ -439,6 +439,9 @@ protected:
     /// </summary>
     /// <param name="triangle">[IN] The triangle that may contain or not the point.</param>
     /// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point is inside the quadrilateral; False otherwise.
+    /// </returns>
     bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const; // [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
 
     /// <summary>
@@ -448,6 +451,9 @@ protected:
     /// <param name="vP2">[IN] The second point to be checked.</param>
     /// <param name="vLine1">[IN] A point that belongs to the line that divides the two-dimensional space in two parts.</param>
     /// <param name="vLine2">[IN] A second point that belongs to the line that divides the two-dimensional space in two parts.</param>
+    /// <returns>
+    /// True if the point is inside the quadrilateral; False otherwise.
+    /// </returns>
     bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const;
 
     /// <summary>
@@ -455,6 +461,9 @@ protected:
     /// </summary>
     /// <param name="quad">[IN] The quadrilateral that may contain or not the point.</param>
     /// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point is inside the quadrilateral; False otherwise.
+    /// </returns>
     bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const; // [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
 };
 
