@@ -44,6 +44,7 @@ using namespace boost::unit_test;
 #include "QSpaceConversionMatrix.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::Math::QRay3D;

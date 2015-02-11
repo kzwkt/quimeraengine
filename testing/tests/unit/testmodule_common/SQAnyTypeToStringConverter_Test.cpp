@@ -583,7 +583,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
@@ -604,7 +604,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
@@ -625,7 +625,7 @@ QTEST_CASE ( Convert2_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(bIsCorrectlyConverted);
 }
@@ -1017,7 +1017,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
@@ -1038,7 +1038,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.IndexOf(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND;
     BOOST_CHECK(bIsCorrectlyConverted);
 }
@@ -1059,7 +1059,7 @@ QTEST_CASE ( Convert3_ObjectIsCorrectlyConvertedToStringWhenUsingPointerToPointe
     // [Verification]
     // Checks that the result starts with 0x, then it appears again for the second address, and ends with the string representation of the object
     bool bIsCorrectlyConverted = strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                 strResult.IndexOf(string_q("0x"), EQComparisonType::E_BinaryCaseSensitive, 1U) != string_q::PATTERN_NOT_FOUND &&
+                                 strResult.IndexOf(string_q("0x"), 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                  strResult.Contains(EXPECTED_RESULT, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(bIsCorrectlyConverted);
 }

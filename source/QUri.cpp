@@ -401,7 +401,7 @@ void QUri::Decode(const string_q &strInput, string_q &strOutput)
         bool bPendingCharacters = false;
 
         // Searches for every percent sign ("%")
-        while( (uCurrentPercentPosition = strInput.IndexOf(QUri::CHAR_PERCENT_SIGN, EQComparisonType::E_BinaryCaseSensitive, uLastPercentPosition)) 
+        while( (uCurrentPercentPosition = strInput.IndexOf(QUri::CHAR_PERCENT_SIGN, uLastPercentPosition, EQComparisonType::E_BinaryCaseSensitive)) 
                != string_q::PATTERN_NOT_FOUND)
         {
             // Percent-encoded values represent code units of UTF8 characters, 
@@ -490,7 +490,7 @@ void QUri::DecomposeUri(const string_q &strInputUri)
     if(nAuthorityStartPosition != string_q::PATTERN_NOT_FOUND)
     {
         m_definedComponents |= QUri::FLAG_AUTHORITY_IS_DEFINED;
-        nPathStartPosition = strInputUri.IndexOf(QUri::CHAR_SLASH, EQComparisonType::E_BinaryCaseSensitive, nAuthorityStartPosition + QUri::DOUBLE_SLASH.GetLength());
+        nPathStartPosition = strInputUri.IndexOf(QUri::CHAR_SLASH, nAuthorityStartPosition + QUri::DOUBLE_SLASH.GetLength(), EQComparisonType::E_BinaryCaseSensitive);
 
         this->DecomposeAuthority(strInputUri, nAuthorityStartPosition, nPathStartPosition, nQueryStartPosition, nFragmentStartPosition, m_definedComponents);
     }
@@ -577,8 +577,8 @@ void QUri::DecomposeAuthority(const string_q &strInputUri,
     if(nIPv6EndPosition != string_q::PATTERN_NOT_FOUND)
     {
         nPortStartPosition = strAuthority.IndexOf(QUri::CHAR_COLON, 
-                                                    EQComparisonType::E_BinaryCaseSensitive, 
-                                                    nIPv6EndPosition + QUri::CHAR_CLOSING_SQUARE_BRACKET.GetLength());
+                                                  nIPv6EndPosition + QUri::CHAR_CLOSING_SQUARE_BRACKET.GetLength(),
+                                                  EQComparisonType::E_BinaryCaseSensitive);
     }
     else
     {

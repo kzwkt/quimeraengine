@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QList.h"
 
 #include "EQIterationDirection.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QList;
 
 /// <summary>

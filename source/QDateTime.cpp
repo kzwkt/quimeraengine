@@ -476,7 +476,7 @@ QDateTime::QDateTime(const string_q &strTimestamp)
         {
             // It is preceeded by a sign, so it must be a date
 
-            const int SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1); // Starts from 1 to skip the sign
+            const int SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, 1, EQComparisonType::E_BinaryCaseSensitive); // Starts from 1 to skip the sign
 
             if(SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
                 this->_ParseTimestampIncompleteDateWithSeparators(strTimestamp, SEPARATOR_POSITION, nYear, uMonth, uDay);
@@ -493,7 +493,7 @@ QDateTime::QDateTime(const string_q &strTimestamp)
 
             if(FIRST_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
             {
-                const int SECOND_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, FIRST_SEPARATOR_POSITION + 1U);
+                const int SECOND_SEPARATOR_POSITION = strTimestamp.IndexOf(DATE_SEPARATOR, FIRST_SEPARATOR_POSITION + 1U, EQComparisonType::E_BinaryCaseSensitive);
 
                 if(SECOND_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
                 {
@@ -1637,7 +1637,7 @@ void QDateTime::_ParseTimestampCompleteDate(const string_q &strTimestamp, const 
     // Gets the Date part only
     const string_q& DATE_PART = strTimestamp.Substring(0, uTPosition - 1);
 
-    const int FIRST_SEPARATOR_POSITION = DATE_PART.IndexOf(DATE_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 1U); // Starts from 1 because it may have a "-" sign at the beginning
+    const int FIRST_SEPARATOR_POSITION = DATE_PART.IndexOf(DATE_SEPARATOR, 1U, EQComparisonType::E_BinaryCaseSensitive); // Starts from 1 because it may have a "-" sign at the beginning
 
     if(FIRST_SEPARATOR_POSITION != string_q::PATTERN_NOT_FOUND)
     {

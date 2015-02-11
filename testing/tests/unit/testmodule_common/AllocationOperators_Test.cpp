@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 #include "QAlignment.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;

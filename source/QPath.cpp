@@ -198,8 +198,8 @@ void QPath::_RemoveNotAllowedCharactersInPath(string_q &strPathToBeReplaced)
 
     // Colons are not allowed in path names, but Windows uses the concept of drives, which are specified using a colon
     // Therefore, this colon must be treated differently
-    int nFirstSlashPosition = strPathToBeReplaced.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, 0);
-    int nFirstColonPosition = strPathToBeReplaced.IndexOf(COLON, EQComparisonType::E_BinaryCaseSensitive, 0);
+    int nFirstSlashPosition = strPathToBeReplaced.IndexOf(QPath::PATH_SEPARATOR, 0, EQComparisonType::E_BinaryCaseSensitive);
+    int nFirstColonPosition = strPathToBeReplaced.IndexOf(COLON, 0, EQComparisonType::E_BinaryCaseSensitive);
 
     if(nFirstSlashPosition != string_q::PATTERN_NOT_FOUND && nFirstColonPosition != string_q::PATTERN_NOT_FOUND)
     {
@@ -317,7 +317,7 @@ void QPath::_ExtractHostnameFromPath(string_q &strPath, string_q &strHostname)
     if(nHostnameStartPosition == 0)
     {
         nHostnameStartPosition += AUTHORITY_SEPARATOR.GetLength();
-        int nHostnameEndPosition = strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nHostnameStartPosition);
+        int nHostnameEndPosition = strPath.IndexOf(QPath::PATH_SEPARATOR, nHostnameStartPosition, EQComparisonType::E_BinaryCaseSensitive);
 
         if(nHostnameEndPosition != string_q::PATTERN_NOT_FOUND)
         {
@@ -544,7 +544,7 @@ void QPath::RemoveLastDirectory()
         m_strPath != LEADING_DOT &&
         m_strPath != QPath::PATH_SEPARATOR)
     {
-        int nPreviousDirectorySlash = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, m_strPath.GetLength() - 2);
+        int nPreviousDirectorySlash = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, m_strPath.GetLength() - 2, EQComparisonType::E_BinaryCaseSensitive);
 
         // If it is not a relative path with only one directory
         if(nPreviousDirectorySlash != string_q::PATTERN_NOT_FOUND)
@@ -773,12 +773,12 @@ string_q QPath::GetRelativePathTo(const QPath &absolutePath) const
 #endif
 
         // For every segment in the resident path
-        while((nSlashPosition1 = m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nSlashPosition1)) != string_q::PATTERN_NOT_FOUND)
+        while((nSlashPosition1 = m_strPath.IndexOf(QPath::PATH_SEPARATOR, nSlashPosition1, EQComparisonType::E_BinaryCaseSensitive)) != string_q::PATTERN_NOT_FOUND)
         {
             // If there were more segments in the input path
             if(nSlashPosition2 != string_q::PATTERN_NOT_FOUND)
             {
-                nSlashPosition2 = absolutePath.m_strPath.IndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, nSlashPosition2);
+                nSlashPosition2 = absolutePath.m_strPath.IndexOf(QPath::PATH_SEPARATOR, nSlashPosition2, EQComparisonType::E_BinaryCaseSensitive);
 
                 // If there are more segments in the input path
                 if(nSlashPosition2 != string_q::PATTERN_NOT_FOUND)
@@ -846,7 +846,7 @@ string_q QPath::GetLastDirectory() const
         }
         else
         {
-            int nLastSeparatorPosition = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, EQComparisonType::E_BinaryCaseSensitive, m_strPath.GetLength() - 2U);
+            int nLastSeparatorPosition = m_strPath.LastIndexOf(QPath::PATH_SEPARATOR, m_strPath.GetLength() - 2U, EQComparisonType::E_BinaryCaseSensitive);
 
             if(nLastSeparatorPosition != string_q::PATTERN_NOT_FOUND)
                 strResult = m_strPath.Substring(nLastSeparatorPosition + 1, m_strPath.GetLength() - 2U);
@@ -980,7 +980,7 @@ string_q QPath::GetRoot() const
         if(m_strPath.GetLength() > 1U)
         {
             // Gets the first segment
-            int nFirstSeparatorPosition = m_strPath.IndexOf(QPath::PATH_SEPARATOR_CHAR, EQComparisonType::E_BinaryCaseSensitive, 1U);
+            int nFirstSeparatorPosition = m_strPath.IndexOf(QPath::PATH_SEPARATOR_CHAR, 1U, EQComparisonType::E_BinaryCaseSensitive);
 
             if(nFirstSeparatorPosition != string_q::PATTERN_NOT_FOUND)
                 strResult.Append(m_strPath.Substring(0, nFirstSeparatorPosition));
@@ -1124,7 +1124,7 @@ void QPath::SetFilename(const string_q &strFilename)
     using Kinesis::QuimeraEngine::Common::DataTypes::EQComparisonType;
 
     // Replaces only the name
-    int nLastDotPosition = m_strFilename.LastIndexOf(QPath::DOT, EQComparisonType::E_BinaryCaseSensitive, m_strFilename.GetLength() - 2U);
+    int nLastDotPosition = m_strFilename.LastIndexOf(QPath::DOT, m_strFilename.GetLength() - 2U, EQComparisonType::E_BinaryCaseSensitive);
     string_q strReplacedName;
     
     if(nLastDotPosition != string_q::PATTERN_NOT_FOUND)

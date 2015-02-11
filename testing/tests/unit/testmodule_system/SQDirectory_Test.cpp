@@ -42,8 +42,10 @@ using namespace boost::unit_test;
 #include "SQFile.h"
 #include "SQThisThread.h"
 #include "QArrayDynamic.h"
+#include "QAssertException.h"
 #include <fstream>
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::SQDirectory;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::EQFileSystemError;

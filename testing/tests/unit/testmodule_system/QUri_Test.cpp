@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "QArrayDynamic.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::IO::QUri;
 using Kinesis::QuimeraEngine::System::IO::Test::QUriWhiteBox;
 

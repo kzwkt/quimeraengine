@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "AllocationOperators.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
@@ -4438,7 +4439,7 @@ QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4459,7 +4460,7 @@ QTEST_CASE ( IndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4480,7 +4481,7 @@ QTEST_CASE ( IndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4501,7 +4502,7 @@ QTEST_CASE ( IndexOf2_ReturnsTheFirstOccurrence_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4523,7 +4524,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompar
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4545,7 +4546,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparison
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4567,7 +4568,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndComparison
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4589,7 +4590,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCompar
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4612,7 +4613,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4635,7 +4636,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonType
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4657,7 +4658,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBi
     const unsigned int START_INDEX = 4;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4679,7 +4680,7 @@ QTEST_CASE ( IndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeIsBi
     const unsigned int START_INDEX = 4;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4709,8 +4710,8 @@ QTEST_CASE ( IndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalComparison_
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
-    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, START_INDEX, COMPARISON_TYPE);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.IndexOf(NONNORMALIZED_PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
@@ -4733,7 +4734,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
     const unsigned int START_INDEX = 0;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4755,7 +4756,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
     const unsigned int START_INDEX = 6;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4778,7 +4779,7 @@ QTEST_CASE ( IndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
     const unsigned int START_INDEX = 7;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4800,7 +4801,7 @@ QTEST_CASE ( IndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
     const unsigned int START_INDEX = 5;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4822,7 +4823,7 @@ QTEST_CASE ( IndexOf2_PatternIsNotFoundWhenStartPositionIsOutOfBounds_Test )
     const unsigned int START_INDEX = 50;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.IndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.IndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -4850,8 +4851,8 @@ QTEST_CASE ( IndexOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
     const int EXPECTED_POSITION2 = 9;
 
 	// [Execution]
-    int uPosition1 = SOURCE_STRING.IndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
-    int uPosition2 = SOURCE_STRING.IndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+    int uPosition1 = SOURCE_STRING.IndexOf(PATTERN1, EXPECTED_POSITION1, EQComparisonType::E_BinaryCaseSensitive);
+    int uPosition2 = SOURCE_STRING.IndexOf(PATTERN2, EXPECTED_POSITION2, EQComparisonType::E_BinaryCaseSensitive);
 
     // [Verification]
     BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
@@ -5226,7 +5227,7 @@ QTEST_CASE ( LastIndexOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5247,7 +5248,7 @@ QTEST_CASE ( LastIndexOf2_ReturnsNotFoundWhenResidentStringIsEmpty_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5268,7 +5269,7 @@ QTEST_CASE ( LastIndexOf2_ReturnsMinusOneWhenPatternIsNotFound_Test )
     const unsigned int START_INDEX = 1;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5289,7 +5290,7 @@ QTEST_CASE ( LastIndexOf2_ReturnsTheFirstOccurrence_Test )
     const unsigned int START_INDEX = 4;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5310,7 +5311,7 @@ QTEST_CASE ( LastIndexOf2_ReturnsTheFirstOccurrenceAfterIndex_Test )
     const unsigned int START_INDEX = 2;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5332,7 +5333,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCo
     const unsigned int START_INDEX = 10;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5354,7 +5355,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndCompar
     const unsigned int START_INDEX = 10;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5376,7 +5377,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndCompar
     const unsigned int START_INDEX = 10;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5398,7 +5399,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCo
     const unsigned int START_INDEX = 12;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5421,7 +5422,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparison
     const unsigned int START_INDEX = 13;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5444,7 +5445,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparison
     const unsigned int START_INDEX = 13;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5466,7 +5467,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonType
     const unsigned int START_INDEX = 12;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5488,7 +5489,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonType
     const unsigned int START_INDEX = 12;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5518,8 +5519,8 @@ QTEST_CASE ( LastIndexOf2_NormalizationAffectsTheResultWhenUsingCanonicalCompari
     const unsigned int START_INDEX = 4;
 
 	// [Execution]
-    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
-    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResultNormalized    = NORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, START_INDEX, COMPARISON_TYPE);
+    int nResultNonNormalized = NONNORMALIZED_RESIDENT_STRING.LastIndexOf(NONNORMALIZED_PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_NE(nResultNormalized, nResultNonNormalized);
@@ -5542,7 +5543,7 @@ QTEST_CASE ( LastIndexOf2_MatchesExactlyAtZeroIndexAreFound_Test )
     const unsigned int START_INDEX = 12;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5564,7 +5565,7 @@ QTEST_CASE ( LastIndexOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test 
     const unsigned int START_INDEX = 12;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5587,7 +5588,7 @@ QTEST_CASE ( LastIndexOf2_MatchesPreviousToStartIndexAreNotFound_Test )
     const unsigned int START_INDEX = 9;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5609,7 +5610,7 @@ QTEST_CASE ( LastIndexOf2_MatchesExactlyAtStartIndexAreFound_Test )
     const unsigned int START_INDEX = 5;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5631,7 +5632,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenStartPositionIsOutOfBounds_Test )
     const unsigned int START_INDEX = 50;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5659,8 +5660,8 @@ QTEST_CASE ( LastIndexOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
     const int EXPECTED_POSITION2 = 9;
 
 	// [Execution]
-    int uPosition1 = SOURCE_STRING.LastIndexOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
-    int uPosition2 = SOURCE_STRING.LastIndexOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+    int uPosition1 = SOURCE_STRING.LastIndexOf(PATTERN1, EXPECTED_POSITION1, EQComparisonType::E_BinaryCaseSensitive);
+    int uPosition2 = SOURCE_STRING.LastIndexOf(PATTERN2, EXPECTED_POSITION2, EQComparisonType::E_BinaryCaseSensitive);
 
     // [Verification]
     BOOST_CHECK_EQUAL(uPosition1, EXPECTED_POSITION1);
@@ -5683,7 +5684,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenIndexIsInsideAnOccurrenceUsingCanoni
     const unsigned int START_INDEX = 10;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -5705,7 +5706,7 @@ QTEST_CASE ( LastIndexOf2_PatternIsFoundWhenIndexIsInsideAnOccurrenceUsingBinary
     const unsigned int START_INDEX = 5;
 
 	// [Execution]
-    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, COMPARISON_TYPE, START_INDEX);
+    int nResult = RESIDENT_STRING.LastIndexOf(PATTERN, START_INDEX, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
@@ -6342,7 +6343,7 @@ QTEST_CASE ( PositionOf2_ReturnsNotFoundWhenPatternIsEmpty_Test )
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6366,7 +6367,7 @@ QTEST_CASE ( PositionOf2_ReturnsTheFirstOccurrence_Test )
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6389,7 +6390,7 @@ QTEST_CASE ( PositionOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCom
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6413,7 +6414,7 @@ QTEST_CASE ( PositionOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndCompari
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6437,7 +6438,7 @@ QTEST_CASE ( PositionOf2_PatternIsNotFoundWhenStringsDoNotMatchBitwiseAndCompari
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6461,7 +6462,7 @@ QTEST_CASE ( PositionOf2_PatternIsNotFoundWhenStringsDoNotMatchCanonicallyAndCom
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6487,7 +6488,7 @@ QTEST_CASE ( PositionOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonT
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6512,7 +6513,7 @@ QTEST_CASE ( PositionOf2_PatternIsFoundWhenStringsMatchCanonicallyAndComparisonT
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6534,7 +6535,7 @@ QTEST_CASE ( PositionOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeI
     QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator(4);
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6556,7 +6557,7 @@ QTEST_CASE ( PositionOf2_PatternIsFoundWhenStringsMatchBitwiseAndComparisonTypeI
     QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator(4);
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6579,7 +6580,7 @@ QTEST_CASE ( PositionOf2_MatchesExactlyAtZeroPositionAreFound_Test )
     const QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator();
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6601,7 +6602,7 @@ QTEST_CASE ( PositionOf2_MatchesExactlyAtLastPartOfResidentStringAreFound_Test )
     QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator(6);
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6624,7 +6625,7 @@ QTEST_CASE ( PositionOf2_MatchesPreviousToStartPositionAreNotFound_Test )
     QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator(7);
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();
@@ -6647,7 +6648,7 @@ QTEST_CASE ( PositionOf2_MatchesExactlyAtStartPositionAreFound_Test )
     QStringUnicode::QConstCharIterator START_POSITION = RESIDENT_STRING.GetConstCharIterator(5);
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     BOOST_CHECK(result == EXPECTED_RESULT);
@@ -6675,8 +6676,8 @@ QTEST_CASE ( PositionOf2_ReturnsExpectedResultWhenUsingSMPCharacters_Test )
     const QStringUnicode::QConstCharIterator EXPECTED_POSITION2(SOURCE_STRING, 9);
 
 	// [Execution]
-    QStringUnicode::QConstCharIterator position1 = SOURCE_STRING.PositionOf(PATTERN1, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION1);
-    QStringUnicode::QConstCharIterator position2 = SOURCE_STRING.PositionOf(PATTERN2, EQComparisonType::E_BinaryCaseSensitive, EXPECTED_POSITION2);
+    QStringUnicode::QConstCharIterator position1 = SOURCE_STRING.PositionOf(PATTERN1, EXPECTED_POSITION1, EQComparisonType::E_BinaryCaseSensitive);
+    QStringUnicode::QConstCharIterator position2 = SOURCE_STRING.PositionOf(PATTERN2, EXPECTED_POSITION2, EQComparisonType::E_BinaryCaseSensitive);
 
     // [Verification]
     BOOST_CHECK(position1 == EXPECTED_POSITION1);
@@ -6707,7 +6708,7 @@ QTEST_CASE ( PositionOf2_AssertionFailsWhenStartPositionIsOutOfBounds_Test )
 
     try
     {
-        QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+        QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
     }
     catch(const QAssertException&)
     {
@@ -6738,7 +6739,7 @@ QTEST_CASE ( PositionOf2_PatternIsNotFoundWhenStartPositionIsOutOfBounds_Test )
     ++START_POSITION;
 
 	// [Execution]
-    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, COMPARISON_TYPE, START_POSITION);
+    QStringUnicode::QCharIterator result = RESIDENT_STRING.PositionOf(PATTERN, START_POSITION, COMPARISON_TYPE);
 
     // [Verification]
     bool bPointsEnd = result.IsEnd();

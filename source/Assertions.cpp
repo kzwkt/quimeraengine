@@ -28,7 +28,9 @@
 
 #include "StringsDefinitions.h"
 #include "LoggingUtilities.h"
-
+#include "QAssertException.h"
+        
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;   
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::SQInternalLogger;
 using Kinesis::QuimeraEngine::Common::EQAssertionType;
@@ -78,3 +80,15 @@ void QE_TRACE_FAILED_ASSERT(const string_q &strExpression,
     strLogText.Append(string_q("\n"));
     QE_LOG(strLogText);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS 
+
+void QE_THROW_FAILED_ASSERT(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strExpression, 
+                            const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage,
+                            const int nLineNumber, 
+                            const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName)
+{
+    throw QAssertException(strExpression, strErrorMessage, nLineNumber, strFileName);
+}
+
+#endif

@@ -32,7 +32,9 @@ using namespace boost::unit_test;
 
 #include "QStackAllocator.h"
 #include "QStackAllocatorWhiteBox.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 using Kinesis::QuimeraEngine::Common::Memory::QStackAllocator;
 using Kinesis::QuimeraEngine::Common::Memory::Test::QStackAllocatorWhiteBox;

@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "QMemoryStream.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::IO::QBinaryStreamReader;
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
 

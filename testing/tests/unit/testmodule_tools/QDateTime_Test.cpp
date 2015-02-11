@@ -5278,7 +5278,7 @@ QTEST_CASE ( OperatorSubtraction2_AssertionFailsWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5320,7 +5320,7 @@ QTEST_CASE ( OperatorSubtraction2_ReturnsZeroWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const QTimeSpan ZERO_TIMESPAN(0);
 
 	// [Execution]
@@ -5606,7 +5606,7 @@ QTEST_CASE ( OperatorLowerThan_AssertionFailsWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5648,7 +5648,7 @@ QTEST_CASE ( OperatorLowerThan_ReturnsFalseWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -5776,7 +5776,7 @@ QTEST_CASE ( OperatorGreaterThan_AssertionFailsWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -5818,7 +5818,7 @@ QTEST_CASE ( OperatorGreaterThan_ReturnsFalseWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -5983,7 +5983,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefined_
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -6025,7 +6025,7 @@ QTEST_CASE ( OperatorLowerThanOrEquals_ReturnsFalseWhenDatesAreUndefined_Test )
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
@@ -6190,7 +6190,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_AssertionFailsWhenOnlyOneDateIsUndefine
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool ASSERTION_FAILED = true;
 
 	// [Execution]
@@ -6232,7 +6232,7 @@ QTEST_CASE ( OperatorGreaterThanOrEquals_ReturnsFalseWhenDatesAreUndefined_Test 
 
     // [Preparation]
     const QDateTime UNDEFINED_DATETIME = QDateTime::GetUndefinedDate();
-    const QDateTime ANY_DATETIME(1, 1, 1);
+    const QDateTime ANY_DATETIME(1, 1, 1, QTimeZone::UTC);
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]

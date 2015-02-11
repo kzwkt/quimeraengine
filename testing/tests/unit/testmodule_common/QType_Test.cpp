@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "QAssertException.h"
 #include "RTTITestClasses.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Common::DataTypes::QType;
 using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;

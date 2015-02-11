@@ -34,7 +34,9 @@ using namespace boost::unit_test;
 #include "QArrayDynamic.h"
 
 #include "EQIterationDirection.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
 using Kinesis::QuimeraEngine::Tools::Containers::QArrayDynamic;
 

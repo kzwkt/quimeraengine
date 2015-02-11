@@ -74,14 +74,23 @@ namespace Kinesis
                                                         const int nLineNumber, 
                                                         const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName,
                                                         const Kinesis::QuimeraEngine::Common::EQAssertionType &eAssertionType);
+        
+    /// <summary>
+	/// Throws an exception filled with some useful debugging information.
+	/// </summary>
+    /// <param name="strExpression">[IN] The expression which evaluates to false.</param>
+    /// <param name="strErrorMessage">[IN] The error message provided by the user in the assertion.</param>
+    /// <param name="nLineNumber">[IN] The number of the line of code where the failed assertion is.</param>
+    /// <param name="strFileName">[IN] The file name of the source code file where the assertion failed.</param>
+    QE_LAYER_COMMON_SYMBOLS void QE_THROW_FAILED_ASSERT(const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strExpression, 
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strErrorMessage,
+                                                        const int nLineNumber, 
+                                                        const Kinesis::QuimeraEngine::Common::DataTypes::string_q &strFileName);
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
     
-        #include "QAssertException.h"
-        using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;    
-        
         #ifdef QE_COMPILER_MSVC
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                            \
                     {                                                                                                                                 \
                         if(!(expression))                                                                                                             \
                         {                                                                                                                             \
@@ -89,12 +98,12 @@ namespace Kinesis
                             {                                                                                                                         \
                                 QE_TRACE_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__, eAssertionType);                             \
                             }                                                                                                                         \
-                            throw Kinesis::QuimeraEngine::Common::Exceptions::QAssertException(#expression, strErrorMessage, __LINE__, __FILE__);     \
+                            QE_THROW_FAILED_ASSERT(#expression, strErrorMessage, __LINE__, __FILE__);                                                 \
                         }                                                                                                                             \
                     }
         #else
             // It is not possible to use throw when compiling with GCC
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                           \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                                            \
                     {                                                                                                                                 \
                         if(!(expression))                                                                                                             \
                         {                                                                                                                             \
@@ -109,7 +118,7 @@ namespace Kinesis
 
         #ifdef QE_COMPILER_GCC
 
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                         \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                          \
                              {                                                                                                      \
                                  if(!(expression))                                                                                  \
                                  {                                                                                                  \
@@ -124,7 +133,7 @@ namespace Kinesis
                              // Note: asm("int $3") makes GDB to stop at the failing line and continue the execution later
         #else
 
-            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                               \
+            #define QE_ASSERT(expression, strErrorMessage, eAssertionType)                                                \
                     {                                                                                                     \
                         if(!(expression))                                                                                 \
                         {                                                                                                 \

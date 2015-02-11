@@ -813,7 +813,7 @@ QTEST_CASE ( Constructor5_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBa
     string_q strTypeName = trace.GetTypeName();
     string_q strValue = trace.GetValue();
     bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                      strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive, 1) != string_q::PATTERN_NOT_FOUND &&
+                                      strValue.IndexOf(EXPECTED_VALUE1, 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                       strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(strTypeName == EXPECTED_NAME);
     BOOST_CHECK(bValueContainsExpectedText);
@@ -1337,7 +1337,7 @@ QTEST_CASE ( Constructor9_TypeNameAndValueAreStoredWhenUsingPointerToPointerToBa
     string_q strTypeName = trace.GetTypeName();
     string_q strValue = trace.GetValue();
     bool bValueContainsExpectedText = strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive) == 0 &&
-                                      strValue.IndexOf(EXPECTED_VALUE1, EQComparisonType::E_BinaryCaseSensitive, 1) != string_q::PATTERN_NOT_FOUND &&
+                                      strValue.IndexOf(EXPECTED_VALUE1, 1U, EQComparisonType::E_BinaryCaseSensitive) != string_q::PATTERN_NOT_FOUND &&
                                       strValue.Contains(EXPECTED_VALUE2, EQComparisonType::E_BinaryCaseSensitive);
     BOOST_CHECK(strTypeName == EXPECTED_NAME);
     BOOST_CHECK(bValueContainsExpectedText);

@@ -35,7 +35,9 @@ using namespace boost::unit_test;
 #include "QArrayFixedTestClass.h"
 #include "ArrayElementMock.h"
 #include "CallCounter.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Tools::Containers::QArrayFixed;
