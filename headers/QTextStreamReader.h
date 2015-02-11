@@ -486,6 +486,9 @@ public:
     /// This method just calls the ReadToEnd method.
     /// </remarks>
     /// <param name="strOutput">[OUT] The output string to which the read characters will be appended.</param>
+    /// <returns>
+    /// A reference to the stream.
+    /// </returns>
     QTextStreamReader& operator>>(string_q &strOutput)
     {
         this->ReadToEnd(strOutput);

@@ -83,7 +83,12 @@ public:
     /// @copydoc QAbstractCallStackTracePrinter::PrintString
     virtual void PrintString(const string_q &strText);
 
-    /// @copydoc QAbstractCallStackTracePrinter::ToString
+    /// <summary>
+    /// A string representation of the instance.
+    /// </summary>
+    /// <returns>
+    /// The name of the class.
+    /// </returns>
     virtual string_q ToString() const;
 
 };

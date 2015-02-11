@@ -79,8 +79,13 @@ public:
 
     /// @copydoc IQCallStackTraceFormatter::FormatCallTraceHeader
     virtual void FormatCallTraceHeader(const QCallTrace &trace, const unsigned int uDepthLevel, string_q &strFormattedTrace) const;
-
-    /// @copydoc IQCallStackTraceFormatter::ToString
+    
+    /// <summary>
+    /// A string representation of the instance.
+    /// </summary>
+    /// <returns>
+    /// The name of the class.
+    /// </returns>
     virtual string_q ToString() const;
 
 };
