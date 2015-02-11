@@ -33,8 +33,10 @@ using namespace boost::unit_test;
 
 #include "QDelegate.h"
 
+#include "QAssertException.h"
 #include "FunctionsForQDelegateTests.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::QDelegate;
 using namespace Kinesis::QuimeraEngine::Common::Test;
 

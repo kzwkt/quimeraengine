@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "SQVF32.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;

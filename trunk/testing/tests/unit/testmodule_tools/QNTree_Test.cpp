@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QNTree.h"
 #include "QNTreeWhiteBox.h"
 #include "CallCounter.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QNTree;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QNTreeWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Containers::EQTreeTraversalOrder;

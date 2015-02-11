@@ -35,6 +35,7 @@ using namespace boost::unit_test;
 
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;

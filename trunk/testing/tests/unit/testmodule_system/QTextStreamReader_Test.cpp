@@ -37,6 +37,7 @@ using namespace boost::unit_test;
 #include "QArrayResult.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::IO::QTextStreamReader;
 using Kinesis::QuimeraEngine::System::IO::QMemoryStream;
 using Kinesis::QuimeraEngine::System::IO::EQNewLineCharacters;

@@ -36,6 +36,7 @@ using namespace boost::unit_test;
 #include "CallCounter.h"
 #include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QDictionary;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 

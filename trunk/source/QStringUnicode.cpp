@@ -750,7 +750,7 @@ const icu::Collator* QStringUnicode::_GetCollator(const EQComparisonType &eCompa
     return pCollator;
 }
 
-int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparisonType::EnumType &eComparisonType) const
 {
     int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
 
@@ -831,7 +831,7 @@ void QStringUnicode::_ConfigureSearch(const EQComparisonType &eComparisonType, i
     }
 }
 
-int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const
+int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const unsigned int uStart, const EQComparisonType::EnumType &eComparisonType) const
 {
     int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
 
@@ -880,7 +880,7 @@ int QStringUnicode::IndexOf(const QStringUnicode &strPattern, const EQComparison
     return nPosition;
 }
 
-int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType) const
+int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType::EnumType &eComparisonType) const
 {
     int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
 
@@ -924,7 +924,7 @@ int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQCompar
     return nPosition;
 }
 
-int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const unsigned int uStart) const
+int QStringUnicode::LastIndexOf(const QStringUnicode &strPattern, const unsigned int uStart, const EQComparisonType::EnumType &eComparisonType) const
 {
     int32_t nPosition = QStringUnicode::PATTERN_NOT_FOUND;
 
@@ -985,7 +985,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
 
     if(this->GetLength() > 0)
     {
-        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, 0);
+        int nPatternPosition = this->IndexOf(strPattern, 0, eComparisonType);
 
         if(nPatternPosition == QStringUnicode::PATTERN_NOT_FOUND)
         {
@@ -1002,7 +1002,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
     return resultIterator;
 }
 
-QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &strPattern, const EQComparisonType &eComparisonType, const QStringUnicode::QConstCharIterator &startPosition) const
+QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &strPattern, const QStringUnicode::QConstCharIterator &startPosition, const EQComparisonType &eComparisonType) const
 {
     QE_ASSERT_ERROR(!startPosition.IsEnd(), "The start position is out of bounds, it cannot be used to search for the pattern.");
     QE_ASSERT_ERROR(startPosition.IsValid(), "The input iterator is not valid, it cannot be used to search for the pattern.");
@@ -1011,7 +1011,7 @@ QStringUnicode::QCharIterator QStringUnicode::PositionOf(const QStringUnicode &s
 
     if(!this->IsEmpty())
     {
-        int nPatternPosition = this->IndexOf(strPattern, eComparisonType, startPosition.m_uIndex);
+        int nPatternPosition = this->IndexOf(strPattern, startPosition.m_uIndex, eComparisonType);
 
         if(nPatternPosition == QStringUnicode::PATTERN_NOT_FOUND)
         {
@@ -1209,7 +1209,7 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
     else
     {
         const unsigned int SEPARATOR_LENGTH = strSeparator.GetLength();
-        unsigned int uLastFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, 0);
+        unsigned int uLastFound = this->IndexOf(strSeparator, 0, EQComparisonType::E_BinaryCaseSensitive);
 
         // Separations are counted before the array of strings is created
         while(uLastFound != QStringUnicode::PATTERN_NOT_FOUND)
@@ -1217,7 +1217,7 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
             ++uNumberOfParts;
             uLastFound += SEPARATOR_LENGTH;
 
-            uLastFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
+            uLastFound = this->IndexOf(strSeparator, uLastFound, EQComparisonType::E_BinaryCaseSensitive);
         }
 
         // Adds the last part which was not counted since no more separators were found
@@ -1233,7 +1233,7 @@ QArrayResult<QStringUnicode> QStringUnicode::Split(const QStringUnicode &strSepa
         // Parses all the parts but the last one
         for(unsigned int iPart = 0; iPart < uNumberOfParts - 1U; ++iPart)
         {
-            uCurrentFound = this->IndexOf(strSeparator, EQComparisonType::E_BinaryCaseSensitive, uLastFound);
+            uCurrentFound = this->IndexOf(strSeparator, uLastFound, EQComparisonType::E_BinaryCaseSensitive);
 
             if(uLastFound != uCurrentFound)
                 arResultParts[iPart] = this->Substring(uLastFound, uCurrentFound - 1U);

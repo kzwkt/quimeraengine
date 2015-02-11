@@ -34,7 +34,9 @@ using namespace boost::unit_test;
 
 #include "EQComparisonType.h"
 #include "Assertions.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::System::IO::FileSystem::QPath;
 
 

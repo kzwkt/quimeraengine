@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QBinarySearchTree.h"
 #include "QBinarySearchTreeWhiteBox.h"
 #include "CallCounter.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QBinarySearchTree;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QBinarySearchTreeWhiteBox;
 

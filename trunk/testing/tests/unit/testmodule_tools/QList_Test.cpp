@@ -34,7 +34,9 @@ using namespace boost::unit_test;
 #include "QListWhiteBox.h"
 #include "ListElementMock.h"
 #include "CallCounter.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QList;
 using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;

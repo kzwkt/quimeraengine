@@ -31,8 +31,11 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QHashtable.h"
-#include "SQStringHashProvider.h"
 
+#include "SQStringHashProvider.h"
+#include "QAssertException.h"
+
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QHashtable;
 using Kinesis::QuimeraEngine::Tools::Containers::SQStringHashProvider;
 

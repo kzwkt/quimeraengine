@@ -32,8 +32,10 @@ using namespace boost::unit_test;
 
 #include "QLinearAllocator.h"
 
+#include "QAssertException.h"
 #include "AllocationOperators.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Common::Memory::QLinearAllocator;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 

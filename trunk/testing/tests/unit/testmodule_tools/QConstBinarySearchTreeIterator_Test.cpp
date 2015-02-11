@@ -33,7 +33,9 @@ using namespace boost::unit_test;
 #include "QBinarySearchTree.h"
 
 #include "QConstBinarySearchTreeIteratorMock.h"
+#include "QAssertException.h"
 
+using Kinesis::QuimeraEngine::Common::Exceptions::QAssertException;
 using Kinesis::QuimeraEngine::Tools::Containers::QBinarySearchTree;
 using Kinesis::QuimeraEngine::Tools::Containers::EQTreeTraversalOrder;
 using Kinesis::QuimeraEngine::Tools::Containers::Test::QConstBinarySearchTreeIteratorMock;
