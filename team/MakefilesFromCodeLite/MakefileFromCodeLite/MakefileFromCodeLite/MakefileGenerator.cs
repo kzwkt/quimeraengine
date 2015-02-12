@@ -168,13 +168,13 @@ namespace MakefileFromCodeLite
                 {
                     case ConfigurationOS.Windows:
                         projectResult += "CXX_" + CONFIG_NAME + " = g++.exe\n";
-                        projectResult += "AR_" + CONFIG_NAME + " = ar.exe\n";
+                        projectResult += "AR_" + CONFIG_NAME + " = ar.exe rcu\n";
                         projectResult += "LD_" + CONFIG_NAME + " = g++.exe\n";
                         projectResult += "AS_" + CONFIG_NAME + " = as.exe\n";
                         break;
                     case ConfigurationOS.Linux:
                         projectResult += "CXX_" + CONFIG_NAME + " = g++\n";
-                        projectResult += "AR_" + CONFIG_NAME + " = ar\n";
+                        projectResult += "AR_" + CONFIG_NAME + " = ar rcu\n";
                         projectResult += "LD_" + CONFIG_NAME + " = g++\n";
                         projectResult += "AS_" + CONFIG_NAME + " = as\n";
                         break;
