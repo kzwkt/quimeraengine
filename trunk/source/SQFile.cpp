@@ -381,9 +381,10 @@ Kinesis::QuimeraEngine::Tools::Time::QDateTime SQFile::_GetFileCreationDateTime(
 {
     using Kinesis::QuimeraEngine::Tools::Time::QDateTime;
     using Kinesis::QuimeraEngine::Tools::Time::QTimeSpan;
+    using Kinesis::QuimeraEngine::Tools::Time::QTimeZone;
     
     // getattrlist returns the number of seconds since January 1, 1970 (UTC)
-    static const QDateTime SYSTEM_EPOCH(1970, 1, 1);
+    static const QDateTime SYSTEM_EPOCH(1970, 1, 1, QTimeZone::UTC);
 
     struct FileCreationDataStructure
     {

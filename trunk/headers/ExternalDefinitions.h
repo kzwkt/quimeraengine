@@ -44,16 +44,22 @@
 // --------------------------------------------------------------------------------------------------------
 #ifdef _WIN32
     #define QE_OS_WINDOWS 32    // Windows 32 bits
+    #define QE_ARCH_32BITS 32
 #elif defined _WIN64
     #define QE_OS_WINDOWS 64    // Windows 64 bits
+    #define QE_ARCH_64BITS 64
 #elif defined(__i386) && defined(__linux__)
     #define QE_OS_LINUX 32      // Linux 32 bits
+    #define QE_ARCH_32BITS 32
 #elif defined(LINUX64) && defined(__linux__)
     #define QE_OS_LINUX 64      // Linux 64 bits
+    #define QE_ARCH_64BITS 64
 #elif defined(__APPLE__) && !defined(__LP64__)
-    #define QE_OS_MAC 32
+    #define QE_OS_MAC 32        // Mac 32 bits
+    #define QE_ARCH_32BITS 32
 #elif defined(__APPLE__) && defined(__LP64__)
-    #define QE_OS_MAC 64
+    #define QE_OS_MAC 64        // Mac 64 bits
+    #define QE_ARCH_64BITS 64
 #else
     #error Unknown operative system.
 #endif

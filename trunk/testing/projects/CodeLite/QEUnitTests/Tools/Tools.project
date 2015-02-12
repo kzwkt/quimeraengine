@@ -202,7 +202,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -265,7 +265,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
@@ -322,7 +322,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -342,7 +342,7 @@
         <Library Value="icui18n"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
@@ -385,7 +385,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit"/>
         <IncludePath Value="../../../../../3rdparty/ICU/include"/>
@@ -403,7 +403,7 @@
         <Library Value="icui18n"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
@@ -443,7 +443,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
         <IncludePath Value="../../../../tests/unit"/>
@@ -503,7 +503,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../../headers"/>
         <IncludePath Value="../../../../tests/unit/testmodule_system"/>
         <IncludePath Value="../../../../tests/unit"/>

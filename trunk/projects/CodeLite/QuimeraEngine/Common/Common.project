@@ -142,7 +142,10 @@
     <File Name="../../../../headers/QAssertException.h"/>
     <File Name="../../../../source/QAssertException.cpp"/>
   </VirtualDirectory>
-  <Settings Type="Static Library">
+  <VirtualDirectory Name="Workarounds">
+    <File Name="../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+  </VirtualDirectory>
+  <Settings Type="Dynamic Library">
     <GlobalSettings>
       <Compiler Options="-Wno-comment" C_Options="" Assembler="">
         <IncludePath Value="."/>
@@ -153,7 +156,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
@@ -200,7 +203,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="BOOST_NO_RTTI"/>
@@ -242,7 +245,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
@@ -289,7 +292,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="BOOST_NO_RTTI"/>
@@ -331,7 +334,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32 -Wall -Wno-comment -Wno-unused-local-typedefs -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -m32 -Wall -Wno-comment -Wno-unused-local-typedefs -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_COMMON"/>
@@ -379,7 +382,7 @@
       </Completion>
     </Configuration>
     <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g -m32 -Wall -Wno-comment -Wno-unused-local-typedefs -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+      <Compiler Options="-g -m32 -Wall -Wno-comment -Wno-unused-local-typedefs -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
         <IncludePath Value="../../../../headers"/>
         <IncludePath Value="../../../../3rdparty/ICU/include"/>
         <Preprocessor Value="BOOST_NO_RTTI"/>
@@ -421,7 +424,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="Workarounds">
-    <File Name="../../../../source/Workarounds/Boost_ThrowException.cpp"/>
-  </VirtualDirectory>
 </CodeLite_Project>
