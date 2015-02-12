@@ -122,7 +122,7 @@ QDateTime QDateTimeNow::GetSystemUtcDateTime()
 QDateTime QDateTimeNow::GetSystemUtcDateTime()
 {
     // gettimeofday gets the number of seconds passed since January 1, 1970 (UTC)
-    static const QDateTime SYSTEM_EPOCH(1970, 1, 1);
+    static const QDateTime SYSTEM_EPOCH(1970, 1, 1, QTimeZone::UTC);
     
     // Note: This is an alternative, greater resolution but much slower
     //

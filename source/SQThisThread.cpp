@@ -355,8 +355,6 @@ void SQThisThread::SetPriority(const EQThreadPriority &ePriority)
 
 EQThreadPriority SQThisThread::GetPriority()
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-    
     sched_param schedulingPolicy;
     int nPolicy;
     
@@ -370,8 +368,6 @@ EQThreadPriority SQThisThread::GetPriority()
 
 void SQThisThread::SetPriority(const EQThreadPriority &ePriority)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-
     int nNativePriority = SQThisThread::_ConvertToNativePriority(ePriority);
     
     sched_param schedulingPolicy;

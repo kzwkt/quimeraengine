@@ -16,13 +16,13 @@ DEFINITIONS_GLOBAL =
 #------------- DebugLinux32SharedrtDynamic --------------
 #------------------------------------------------------------
 CXX_DEBUGLINUX32SHAREDRTDYNAMIC = g++
-AR_DEBUGLINUX32SHAREDRTDYNAMIC = ar
+AR_DEBUGLINUX32SHAREDRTDYNAMIC = ar rcu
 LD_DEBUGLINUX32SHAREDRTDYNAMIC = g++
 AS_DEBUGLINUX32SHAREDRTDYNAMIC = as
 INCLUDES_DEBUGLINUX32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGLINUX32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../bin/GCC/DebugLinux32SharedrtDynamic
 LIBRARIES_DEBUGLINUX32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n
-COMPILEROPTIONS_DEBUGLINUX32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGLINUX32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGLINUX32SHAREDRTDYNAMIC = $(LINKEROPTIONS_GLOBAL) -m32
 DEFINITIONS_DEBUGLINUX32SHAREDRTDYNAMIC = $(DEFINITIONS_GLOBAL) -DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGLINUX32SHAREDRTDYNAMIC = $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtDynamic/Unit_TestModule_System.sh
@@ -182,13 +182,13 @@ cleanDebugLinux32SharedrtDynamic:
 #------------- DebugLinux32SharedrtStatic --------------
 #------------------------------------------------------------
 CXX_DEBUGLINUX32SHAREDRTSTATIC = g++
-AR_DEBUGLINUX32SHAREDRTSTATIC = ar
+AR_DEBUGLINUX32SHAREDRTSTATIC = ar rcu
 LD_DEBUGLINUX32SHAREDRTSTATIC = g++
 AS_DEBUGLINUX32SHAREDRTSTATIC = as
 INCLUDES_DEBUGLINUX32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGLINUX32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../bin/GCC/DebugLinux32SharedrtStatic
 LIBRARIES_DEBUGLINUX32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n -lrt
-COMPILEROPTIONS_DEBUGLINUX32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGLINUX32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGLINUX32SHAREDRTSTATIC = $(LINKEROPTIONS_GLOBAL) -m32
 DEFINITIONS_DEBUGLINUX32SHAREDRTSTATIC = $(DEFINITIONS_GLOBAL) -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGLINUX32SHAREDRTSTATIC = $(EXECUTION_PATH)../../../bin/GCC/DebugLinux32SharedrtStatic/Unit_TestModule_System.sh
@@ -347,7 +347,7 @@ AS_DEBUGMAC32SHAREDRTDYNAMIC = llvm-as
 INCLUDES_DEBUGMAC32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGMAC32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../bin/Clang/DebugMac32SharedrtDynamic
 LIBRARIES_DEBUGMAC32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n
-COMPILEROPTIONS_DEBUGMAC32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGMAC32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGMAC32SHAREDRTDYNAMIC = $(LINKEROPTIONS_GLOBAL) -m32
 DEFINITIONS_DEBUGMAC32SHAREDRTDYNAMIC = $(DEFINITIONS_GLOBAL) -DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGMAC32SHAREDRTDYNAMIC = $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtDynamic/Unit_TestModule_System.sh
@@ -513,7 +513,7 @@ AS_DEBUGMAC32SHAREDRTSTATIC = llvm-as
 INCLUDES_DEBUGMAC32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGMAC32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../bin/Clang/DebugMac32SharedrtStatic
 LIBRARIES_DEBUGMAC32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_unit_test_framework-mt-d -licudata -licuuc -licui18n
-COMPILEROPTIONS_DEBUGMAC32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGMAC32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGMAC32SHAREDRTSTATIC = $(LINKEROPTIONS_GLOBAL) -m32
 DEFINITIONS_DEBUGMAC32SHAREDRTSTATIC = $(DEFINITIONS_GLOBAL) -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGMAC32SHAREDRTSTATIC = $(EXECUTION_PATH)../../../bin/Clang/DebugMac32SharedrtStatic/Unit_TestModule_System.sh
@@ -666,13 +666,13 @@ cleanDebugMac32SharedrtStatic:
 #------------- DebugWin32SharedrtDynamic --------------
 #------------------------------------------------------------
 CXX_DEBUGWIN32SHAREDRTDYNAMIC = g++.exe
-AR_DEBUGWIN32SHAREDRTDYNAMIC = ar.exe
+AR_DEBUGWIN32SHAREDRTDYNAMIC = ar.exe rcu
 LD_DEBUGWIN32SHAREDRTDYNAMIC = g++.exe
 AS_DEBUGWIN32SHAREDRTDYNAMIC = as.exe
 INCLUDES_DEBUGWIN32SHAREDRTDYNAMIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGWIN32SHAREDRTDYNAMIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW -L$(EXECUTION_PATH)../../../../bin/MinGW/DebugWin32SharedrtDynamic
 LIBRARIES_DEBUGWIN32SHAREDRTDYNAMIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_unit_test_framework-mt-d -licudt -licuuc -licuin
-COMPILEROPTIONS_DEBUGWIN32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGWIN32SHAREDRTDYNAMIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGWIN32SHAREDRTDYNAMIC = $(LINKEROPTIONS_GLOBAL) -m32
 DEFINITIONS_DEBUGWIN32SHAREDRTDYNAMIC = $(DEFINITIONS_GLOBAL) -DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGWIN32SHAREDRTDYNAMIC = $(EXECUTION_PATH)../../../bin/MinGW/DebugWin32SharedrtDynamic/Unit_TestModule_System.exe
@@ -825,13 +825,13 @@ cleanDebugWin32SharedrtDynamic:
 #------------- DebugWin32SharedrtStatic --------------
 #------------------------------------------------------------
 CXX_DEBUGWIN32SHAREDRTSTATIC = g++.exe
-AR_DEBUGWIN32SHAREDRTSTATIC = ar.exe
+AR_DEBUGWIN32SHAREDRTSTATIC = ar.exe rcu
 LD_DEBUGWIN32SHAREDRTSTATIC = g++.exe
 AS_DEBUGWIN32SHAREDRTSTATIC = as.exe
 INCLUDES_DEBUGWIN32SHAREDRTSTATIC = $(INCLUDES_GLOBAL) -I$(EXECUTION_PATH)../../../../headers -I$(EXECUTION_PATH)../../../tests/unit/testmodule_system -I$(EXECUTION_PATH)../../../tests/unit -I$(EXECUTION_PATH)../../../../3rdparty/ICU/include
 LIBRARYDIRS_DEBUGWIN32SHAREDRTSTATIC = $(LIBRARYDIRS_GLOBAL) -L$(EXECUTION_PATH)../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic -L$(EXECUTION_PATH)../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW -L$(EXECUTION_PATH)../../../../bin/MinGW/DebugWin32SharedrtStatic
 LIBRARIES_DEBUGWIN32SHAREDRTSTATIC = $(LIBRARIES_GLOBAL) -lQuimeraEngineSystem -lQuimeraEngineTools -lQuimeraEngineCommon -lboost_thread-mt-d -lboost_system-mt-d -lboost_filesystem-mt-d -lboost_chrono-mt-d -lboost_unit_test_framework-mt-d -licudt -licuuc -licuin
-COMPILEROPTIONS_DEBUGWIN32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -mwindows -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti
+COMPILEROPTIONS_DEBUGWIN32SHAREDRTSTATIC = $(COMPILEROPTIONS_GLOBAL) -g -O0 -Wall -Wno-comment -Wno-unused-local-typedefs -m32 -mwindows -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -msse2
 LINKEROPTIONS_DEBUGWIN32SHAREDRTSTATIC = $(LINKEROPTIONS_GLOBAL) -m32 -mwindows
 DEFINITIONS_DEBUGWIN32SHAREDRTSTATIC = $(DEFINITIONS_GLOBAL) -DBOOST_NO_RTTI -DBOOST_NO_TYPEID
 OUTPUT_DEBUGWIN32SHAREDRTSTATIC = $(EXECUTION_PATH)../../../bin/MinGW/DebugWin32SharedrtStatic/Unit_TestModule_System.exe

@@ -27,7 +27,7 @@
 #include "AllocationOperators.h"
 
 
-void* operator new(const pointer_uint_q uSize, const QAlignment& alignment)
+void* operator new(const size_t uSize, const QAlignment& alignment)
 {
     // In C++ there's no way of providing a data type or class whose size is zero, the size of an empty struct
     // or class will be 1 byte, in order to avoid two objects to be addressed at the same memory address.
@@ -49,7 +49,7 @@ void* operator new(const pointer_uint_q uSize, const QAlignment& alignment)
     return p;
 }
 
-void* operator new[](const pointer_uint_q uSize, const QAlignment& alignment)
+void* operator new[](const size_t uSize, const QAlignment& alignment)
 {
     // In C++ there's no way of providing a data type or class whose size is zero, the size of an empty struct
     // or class will be 1 byte, in order to avoid two objects to be addressed at the same memory address.
@@ -90,7 +90,7 @@ void operator delete[](void* pMemoryBlock, const QAlignment& alignment)
 
 #ifdef QE_PREPROCESSOR_EXPORTLIB_COMMON
 
-void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
+void* operator new(const size_t uSize) throw(std::bad_alloc)
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -101,7 +101,7 @@ void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
     return p;
 }
 
-void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+void* operator new(const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -112,7 +112,7 @@ void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_val
     return p;
 }
 
-void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
+void* operator new[](const size_t uSize) throw(std::bad_alloc)
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 
@@ -123,7 +123,7 @@ void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
     return p;
 }
 
-void* operator new[](const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+void* operator new[](const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
 

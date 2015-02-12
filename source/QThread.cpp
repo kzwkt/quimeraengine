@@ -399,8 +399,6 @@ void QThread::SetPriority(const EQThreadPriority &ePriority)
 
 EQThreadPriority QThread::GetPriority() const
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-    
     QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to get the priority of a not-running thread.");
     
     sched_param schedulingPolicy;
@@ -416,8 +414,6 @@ EQThreadPriority QThread::GetPriority() const
 
 void QThread::SetPriority(const EQThreadPriority &ePriority)
 {
-    using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
-    
     QE_ASSERT_ERROR(this->IsAlive(), "It is not possible to set the priority of a not-running thread.");
 
     int nNativePriority = QThread::_ConvertToNativePriority(ePriority);

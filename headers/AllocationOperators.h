@@ -144,7 +144,7 @@ inline void* aligned_alloc_q (const pointer_uint_q uSize, const QAlignment& alig
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
+void* operator new (const size_t uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
@@ -170,7 +170,7 @@ void* operator new(const pointer_uint_q uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+void* operator new (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
@@ -195,7 +195,7 @@ void* operator new(const pointer_uint_q uSize, const std::nothrow_t& nothrow_val
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
+void* operator new[] (const size_t uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
@@ -221,7 +221,7 @@ void* operator new[](const pointer_uint_q uSize) throw(std::bad_alloc)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void* operator new[](const pointer_uint_q uSize, const std::nothrow_t& nothrow_value) throw()
+void* operator new[] (const size_t uSize, const std::nothrow_t& nothrow_value) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     QE_ASSERT_ERROR(uSize != 0, "The size of the block to allocate must be greater than zero");
@@ -243,7 +243,7 @@ void* operator new[](const pointer_uint_q uSize, const std::nothrow_t& nothrow_v
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void operator delete(void* pMemoryBlock) throw()
+void operator delete (void* pMemoryBlock) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
@@ -260,7 +260,7 @@ void operator delete(void* pMemoryBlock) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void operator delete(void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
+void operator delete (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
@@ -276,7 +276,7 @@ void operator delete(void* pMemoryBlock, const std::nothrow_t& nothrow_constant)
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void operator delete[](void* pMemoryBlock) throw()
+void operator delete[] (void* pMemoryBlock) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
@@ -293,7 +293,7 @@ void operator delete[](void* pMemoryBlock) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 inline
 #endif
-void operator delete[](void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
+void operator delete[] (void* pMemoryBlock, const std::nothrow_t& nothrow_constant) throw()
 #ifndef QE_PREPROCESSOR_EXPORTLIB_COMMON
 {
     free(pMemoryBlock);
@@ -310,7 +310,7 @@ void operator delete[](void* pMemoryBlock, const std::nothrow_t& nothrow_constan
 /// <returns>
 /// An aligned memory block of the specified size.
 /// </returns>
-QE_LAYER_COMMON_SYMBOLS void* operator new      (const pointer_uint_q uSize, const QAlignment& alignment);
+QE_LAYER_COMMON_SYMBOLS void* operator new (const size_t uSize, const QAlignment& alignment);
 
 /// <summary>
 /// Overload for new[] operator to get dynamic allocation of aligned memory blocks.
@@ -320,21 +320,21 @@ QE_LAYER_COMMON_SYMBOLS void* operator new      (const pointer_uint_q uSize, con
 /// <returns>
 /// An aligned memory block of the specified size.
 /// </returns>
-QE_LAYER_COMMON_SYMBOLS void* operator new[]    (const pointer_uint_q uSize, const QAlignment& alignment);
+QE_LAYER_COMMON_SYMBOLS void* operator new[] (const size_t uSize, const QAlignment& alignment);
 
 /// <summary>
 /// Overload for delete operator to get dynamic deallocation of aligned memory blocks.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the aligned memory block to be deallocated.</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two).</param>
-QE_LAYER_COMMON_SYMBOLS void operator delete    (void* pMemoryBlock, const QAlignment& alignment);
+QE_LAYER_COMMON_SYMBOLS void operator delete (void* pMemoryBlock, const QAlignment& alignment);
 
 /// <summary>
 /// Overload for delete[] operator to get dynamic deallocation aligned memory blocks, grouped as arrays.
 /// </summary>
 /// <param name="pMemoryBlock">[IN] Pointer to the first aligned memory block of the whole to be deallocated.</param>
 /// <param name="alignment">[IN] The data alignment value (must be always a power of two).</param>
-QE_LAYER_COMMON_SYMBOLS void operator delete[]  (void* pMemoryBlock, const QAlignment& alignment);
+QE_LAYER_COMMON_SYMBOLS void operator delete[] (void* pMemoryBlock, const QAlignment& alignment);
 
 
 #endif // __ALLOCATIONOPERATORS__
