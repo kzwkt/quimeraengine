@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Tools" InternalType="Console">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00070001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugMac32SharedrtDynamic0000000000000001N0024DebugMac32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+    </Plugin>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+		"name":	"Debug",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugWin32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugWin32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}]]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="Tests">
+    <File Name="../../../../tests/unit/testmodule_tools/TestModule_Tools.cpp"/>
+    <VirtualDirectory Name="Containers">
+      <File Name="../../../../tests/unit/testmodule_tools/ArrayElementMock.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/ListElementMock.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayIterator_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QList_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QListWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QListIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTree_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTreeWhiteBox.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/CallCounter.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QNTreeIteratorMock.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTree_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBinarySearchTreeWhiteBox.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstArrayIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstListIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstNTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstBinarySearchTreeIteratorMock.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQComparatorDefault_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QKeyValuePair_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQKeyValuePairComparator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQEqualityComparator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDictionary_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QHashtable_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQIntegerHashProvider_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQStringHashProvider_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstDictionaryIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QConstHashtableIterator_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayDynamic_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixed_Test.cpp"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixedTestClass.h"/>
+      <File Name="../../../../tests/unit/testmodule_tools/QArrayFixedWhiteBox.h"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Time">
+      <File Name="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDstInformation_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTimeSpan_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTimeZone_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQTimeZoneFactory_Test.cpp" ExcludeProjConfig=""/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Math">
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseHexahedron_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseLineSegment_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix2x2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix3x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseMatrix4x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseOrb_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBasePlane_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuadrilateral_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseRay_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseTriangle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QBaseVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QCircle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QLineSegmentWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix2x2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix3x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QMatrix4x4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QOrb_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QPlane_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QQuadrilateral_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QQuaternion_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay_QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRay_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QRotationMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QScalingMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QSpaceConversionMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QSphere_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix3x3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTransformationMatrixWhiteBox.h" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTranslationMatrix_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle2D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle3D_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QTriangle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector2_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector3_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/QVector4_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQAngle_Test.cpp" ExcludeProjConfig=""/>
+      <File Name="../../../../tests/unit/testmodule_tools/SQPoint_Test.cpp" ExcludeProjConfig=""/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Common">
+      <File Name="../../../../tests/unit/testmodule_tools/QEvent_Test.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="TestSystem (shared)">
+    <File Name="../../../../testsystem/CommonConfigDefinitions.h"/>
+    <File Name="../../../../testsystem/EQTestType.cpp"/>
+    <File Name="../../../../testsystem/EQTestType.h"/>
+    <File Name="../../../../testsystem/QCommonTestConfig.cpp"/>
+    <File Name="../../../../testsystem/QCommonTestConfig.h"/>
+    <File Name="../../../../testsystem/QPerformanceTestModuleBase.h"/>
+    <File Name="../../../../testsystem/QSimpleConfigLoader.cpp"/>
+    <File Name="../../../../testsystem/QSimpleConfigLoader.h"/>
+    <File Name="../../../../testsystem/QuimeraEngineFixtures.h"/>
+    <File Name="../../../../testsystem/QUnitTestModuleBase.h"/>
+    <File Name="../../../../testsystem/TestingExternalDefinitions.h"/>
+    <File Name="../../../../testsystem/TestingHelperDefinitions.h"/>
+    <File Name="../../../../testsystem/UnitTestTemplate.txt"/>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineCommon.so" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngineTools.so" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes">rm -f *.so</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="../../../bin/GCC/$(ConfigurationName)/Unit_TestModule_$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/GCC/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes"/>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/Clang/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineCommon.dylib" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineTools.dylib" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngineTools.dylib" "$(EXECUTION_PATH)."</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes">rm -f *.dylib</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../bin/Clang/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/Unit_TestModule_$(ProjectName).sh" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="./Unit_TestModule_$(ProjectName).sh" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild>
+        <Command Enabled="yes">mkdir -p $(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/TestConfig.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes">cp "$(EXECUTION_PATH)../../../../bin/NormalizationTest.txt" "$(EXECUTION_PATH)../../../../bin/Clang/$(ConfigurationName)"</Command>
+        <Command Enabled="yes"/>
+      </PreBuild>
+      <PostBuild>
+        <Command Enabled="yes"/>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_tools"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
+        <LibraryPath Value="../../../../../bin/MinGW/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudt"/>
+        <Library Value="icuuc"/>
+        <Library Value="icuin"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/MinGW/$(ConfigurationName)/Unit_TestModule_$(ProjectName).exe" IntermediateDirectory="../../../../garbage/MinGW/$(ConfigurationName)" Command="../../../bin/MinGW/$(ConfigurationName)/Unit_TestModule_$(ProjectName).exe" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/MinGW/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\TestConfig.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\NormalizationTest.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineCommon.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\bin\MinGW\$(ConfigurationName)\QuimeraEngineTools.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall -Wno-comment -Wno-unused-local-typedefs -m32 -isystem $(EXECUTION_PATH)../../../../../3rdparty/Boost/include -fno-rtti -msse2" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../../headers"/>
+        <IncludePath Value="../../../../tests/unit/testmodule_system"/>
+        <IncludePath Value="../../../../tests/unit"/>
+        <IncludePath Value="../../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic"/>
+        <LibraryPath Value="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
+        <LibraryPath Value="../../../../../bin/MinGW/$(ConfigurationName)"/>
+        <Library Value="QuimeraEngineTools"/>
+        <Library Value="QuimeraEngineCommon"/>
+        <Library Value="boost_unit_test_framework-mt-d"/>
+        <Library Value="icudt"/>
+        <Library Value="icuuc"/>
+        <Library Value="icuin"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/MinGW/$(ConfigurationName)/Unit_TestModule_$(ProjectName).exe" IntermediateDirectory="../../../../garbage/MinGW/$(ConfigurationName)" Command="../../../bin/MinGW/$(ConfigurationName)/Unit_TestModule_$(ProjectName).exe" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/MinGW/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\TestConfig.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\bin\NormalizationTest.txt" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+        <Command Enabled="yes">cmd /c copy "$(EXECUTION_PATH)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(EXECUTION_PATH)..\..\..\..\bin\MinGW\$(ConfigurationName)" /Y</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

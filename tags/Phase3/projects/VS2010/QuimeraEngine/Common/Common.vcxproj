@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DF1959E5-5AC9-4658-A4E1-71C599A74AEB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Common</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;BOOST_NO_RTTI;BOOST_NO_TYPEID;BOOST_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4530;</DisableSpecificWarnings>
+      <ExceptionHandling>false</ExceptionHandling>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_EXPORTLIB_COMMON;BOOST_NO_RTTI;BOOST_NO_TYPEID;BOOST_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>false</ExceptionHandling>
+      <DisableSpecificWarnings>4530;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+      <Version>0.0.0</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>icudt.lib;icuuc.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\AllocationOperators.h" />
+    <ClInclude Include="..\..\..\..\headers\Assertions.h" />
+    <ClInclude Include="..\..\..\..\headers\CommonDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\Configuration.h" />
+    <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h" />
+    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
+    <ClInclude Include="..\..\..\..\headers\Endianness.h" />
+    <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
+    <ClInclude Include="..\..\..\..\headers\EQComparisonType.h" />
+    <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />
+    <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
+    <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
+    <ClInclude Include="..\..\..\..\headers\QArrayBasic.h" />
+    <ClInclude Include="..\..\..\..\headers\QArrayResult.h" />
+    <ClInclude Include="..\..\..\..\headers\QAssertException.h" />
+    <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
+    <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
+    <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h" />
+    <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h" />
+    <ClInclude Include="..\..\..\..\headers\QReferenceWrapper.h" />
+    <ClInclude Include="..\..\..\..\headers\QStackAllocator.h" />
+    <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
+    <ClInclude Include="..\..\..\..\headers\QType.h" />
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h" />
+    <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
+    <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
+    <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
+    <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
+    <ClInclude Include="..\..\..\..\headers\StringsDefinitions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />
+    <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAssertException.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBlockHeader.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCharIterator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
+    <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLinearAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMark.cpp" />
+    <ClCompile Include="..\..\..\..\source\QPoolAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStackAllocator.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
+    <ClCompile Include="..\..\..\..\source\QType.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
