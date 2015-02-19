@@ -47,7 +47,7 @@ void QWindow::_Initialize()
 
 	windowClass.cbSize = sizeof(WNDCLASSEX);
 
-	windowClass.style			= CS_HREDRAW | CS_VREDRAW;
+	windowClass.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     windowClass.lpfnWndProc	    = m_messageDispatcher;
 	windowClass.cbClsExtra		= 0;
 	windowClass.cbWndExtra		= 0;

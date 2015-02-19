@@ -1,35 +1,90 @@
 
 #include "QDeviceContext.h"
-#include "qe/Assertions.h"
-#include "qe/StringsDefinitions.h"
+#include "QuimeraEngineIncludesAndUsings.h"
+#include "ErrorTracingDefinitions.h"
+#include "GL/glew.h"
+#include "GL/wglew.h"
 
-QDeviceContext::QDeviceContext(const QDeviceContext::NativeDeviceContext deviceContext) : m_deviceContext(deviceContext)
+QDeviceContext::QDeviceContext(const QDeviceContext::NativeDeviceContext deviceContext) : m_deviceContext(deviceContext),
+                                                                                          m_renderingContext(null_q),
+                                                                                          m_ePixelFormat(QDeviceContext::E_Undefined)
 {
 }
 
-QDeviceContext::NativeRenderingContext QDeviceContext::CreateRenderingContext() const
+QDeviceContext::NativeRenderingContext QDeviceContext::CreateRenderingContext()
 {
     QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
 
 #ifdef QE_OS_WINDOWS
 
-    HGLRC rc = ::wglCreateContext(m_deviceContext);
+    m_renderingContext = ::wglCreateContext(m_deviceContext);
 
-    QE_ASSERT_ERROR(rc != null_q, "The rendering context could not be created (wglCreateContext).");
+    QE_ASSERT_ERROR(m_renderingContext != null_q, "The rendering context could not be created (wglCreateContext).");
+    QE_ASSERT_WINDOWS_ERROR("The rendering context could not be created (wglCreateContext).");
 
-    return rc;
+    return m_renderingContext;
+
+#endif
+
+}
+#include "PrintSupportedPixelFormats.h"
+QDeviceContext::NativeRenderingContext QDeviceContext::CreateAdvancedRenderingContext(const QDeviceContext::EQPixelFormat ePixelFormat, const bool bDebug)
+{
+    QE_LOG("LOG: Creating rendering context...\n"); 
+
+    QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
+    QE_ASSERT_ERROR(m_renderingContext != null_q, "The rendering context must not be null.");
+
+#ifdef QE_OS_WINDOWS
+    
+    QArrayBasic<const int> arAttribs = QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(ePixelFormat);
+
+    const unsigned int MAX_DESIRED_FORMATS = 5;
+    unsigned int nActualMatchingFormats = 0;
+    int arMatchingFormatIndices[MAX_DESIRED_FORMATS];
+    ::wglChoosePixelFormatARB(m_deviceContext, arAttribs.Get(), null_q, MAX_DESIRED_FORMATS, arMatchingFormatIndices, &nActualMatchingFormats);
+
+    QE_LOG(string_q("LOG: Matching pixel formats: ") + nActualMatchingFormats + "\n");
+    QE_ASSERT_ERROR(nActualMatchingFormats > 0, "There is no matching pixel format supported (wglChoosePixelFormatARB).");
+
+    QE_LOG(string_q("LOG: Using pixel format: ") + arMatchingFormatIndices[0] + "\n");
+    BOOL bResult = ::SetPixelFormat(m_deviceContext, arMatchingFormatIndices[0], null_q);
+    //PrintPixelFormats(m_deviceContext);
+    if(bResult == FALSE)
+    {
+        QE_ASSERT_WINDOWS_ERROR("Failed to set the pixel format when creating the rendering context (SetPixelFormat).");
+    }
+    
+    int arContextAttributes[] = { WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+                                  WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
+                                  WGL_CONTEXT_MINOR_VERSION_ARB, 0,
+                                  WGL_CONTEXT_FLAGS_ARB, bDebug ? WGL_CONTEXT_DEBUG_BIT_ARB : 0,
+                                  0};
+
+    // [TODO]: Multiple rendering contexts? Sharing?
+    m_renderingContext = ::wglCreateContextAttribsARB(m_deviceContext, null_q, arContextAttributes);
+
+    if(m_renderingContext == null_q)
+    {
+        QE_ASSERT_WINDOWS_ERROR("Failed when attempring to create a custom rendering context (wglCreateContext).");
+    }
+
+    QE_LOG("LOG: OpenGL 4.0 Rendering context created.");
+
+    return m_renderingContext;
 
 #endif
 
 }
 
-void QDeviceContext::MakeRenderingContextCurrent(const QDeviceContext::NativeRenderingContext renderingContext) const
+void QDeviceContext::MakeRenderingContextCurrent() const
 {
     QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
+    QE_ASSERT_ERROR(m_renderingContext != null_q, "The rendering context must not be null.");
 
 #ifdef QE_OS_WINDOWS
 
-    BOOL bResult = ::wglMakeCurrent(m_deviceContext, renderingContext);
+    BOOL bResult = ::wglMakeCurrent(m_deviceContext, m_renderingContext);
 
     QE_ASSERT_ERROR(bResult != 0, "The rendering context could not set as current (wglMakeCurrent).");
 
@@ -38,37 +93,71 @@ void QDeviceContext::MakeRenderingContextCurrent(const QDeviceContext::NativeRen
 
 void QDeviceContext::ResetCurrentRenderingContext() const
 {
+    QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
+
 #ifdef QE_OS_WINDOWS
 
-    BOOL bResult = ::wglMakeCurrent(null_q, null_q);
+    BOOL bResult = ::wglMakeCurrent(m_deviceContext, null_q);
 
-    QE_ASSERT_ERROR(bResult != 0, "The current rendering context could not be nulled (wglMakeCurrent).");
+    if(bResult == FALSE)
+    {
+        QE_ASSERT_WINDOWS_ERROR("The current rendering context could not be nulled (wglMakeCurrent).");
+    }
 
 #endif
 }
 
-void QDeviceContext::DeleteRenderingContext(const QDeviceContext::NativeRenderingContext renderingContext) const
+void QDeviceContext::DeleteRenderingContext()
 {
+    QE_ASSERT_ERROR(m_renderingContext != null_q, "The rendering context must not be null.");
+
+#ifdef QE_OS_WINDOWS
+
+    BOOL bResult = ::wglDeleteContext(m_renderingContext);
+
+    QE_ASSERT_ERROR(bResult != 0, "The rendering context could not be deleted (wglDeleteContext).");
+
+    m_renderingContext = null_q;
+
+#endif
+}
+
+void QDeviceContext::DeleteRenderingContext(QDeviceContext::NativeRenderingContext renderingContext) const
+{
+    QE_ASSERT_ERROR(renderingContext != null_q, "The rendering context must not be null.");
+
 #ifdef QE_OS_WINDOWS
 
     BOOL bResult = ::wglDeleteContext(renderingContext);
 
     QE_ASSERT_ERROR(bResult != 0, "The rendering context could not be deleted (wglDeleteContext).");
 
+    renderingContext = null_q;
+
 #endif
 }
 
+void QDeviceContext::SwapBuffers() const
+{
+    QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
 
+#ifdef QE_OS_WINDOWS
+
+    BOOL bResult = ::SwapBuffers(m_deviceContext);
+
+    if(bResult == FALSE)
+    {
+        QE_TRACE_WINDOWS_ERROR("Rendering buffers could not be swapped (SwapBuffers).");
+    }
+
+#endif
+}
 
 QDeviceContext::NativeRenderingContext QDeviceContext::GetCurrentRenderingContext() const
 {
 #ifdef QE_OS_WINDOWS
 
-    HGLRC rc = ::wglGetCurrentContext();
-
-    QE_ASSERT_ERROR(rc != null_q, "The rendering context could not be retrieved (wglGetCurrentContext).");
-
-    return rc;
+    return m_renderingContext;
 
 #endif
 }
@@ -83,120 +172,16 @@ void QDeviceContext::SetNativeDeviceContext(const NativeDeviceContext deviceCont
     m_deviceContext = deviceContext;
 }
 
-void QDeviceContext::SetPixelFormat(const QDeviceContext::PixelFormat eFormat)
+void QDeviceContext::SetPixelFormat(const QDeviceContext::EQPixelFormat eFormat)
 {
     QE_ASSERT_ERROR(m_deviceContext != null_q, "The device context must not be null.");
+
+    m_ePixelFormat = eFormat;
 
 #ifdef QE_OS_WINDOWS
 
     ::PIXELFORMATDESCRIPTOR pixelFormat;
-    ::ZeroMemory(&pixelFormat, sizeof(::PIXELFORMATDESCRIPTOR));
-
-    pixelFormat.nSize = sizeof(::PIXELFORMATDESCRIPTOR);
-    pixelFormat.nVersion = 1;
-    pixelFormat.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_GENERIC_ACCELERATED | PFD_DOUBLEBUFFER;
-    pixelFormat.iPixelType = PFD_TYPE_RGBA;
-
-    switch(eFormat)
-    {
-    case QDeviceContext::E_A8B8G8R8:
-        {
-            pixelFormat.cColorBits = 24;
-            pixelFormat.cRedBits = 8;
-            pixelFormat.cRedShift = 0;
-            pixelFormat.cGreenBits = 8;
-            pixelFormat.cGreenShift = 8;
-            pixelFormat.cBlueBits = 8;
-            pixelFormat.cBlueShift = 16;
-            pixelFormat.cAlphaBits = 8;
-            pixelFormat.cAlphaShift = 24;
-            pixelFormat.cDepthBits = 0;
-            pixelFormat.cStencilBits = 0;
-            break;
-        }
-    case QDeviceContext::E_R32G32B32A32:
-        {
-            pixelFormat.cColorBits = 96;
-            pixelFormat.cRedBits = 32;
-            pixelFormat.cRedShift = 96;
-            pixelFormat.cGreenBits = 32;
-            pixelFormat.cGreenShift = 64;
-            pixelFormat.cBlueBits = 32;
-            pixelFormat.cBlueShift = 32;
-            pixelFormat.cAlphaBits = 32;
-            pixelFormat.cAlphaShift = 0;
-            pixelFormat.cDepthBits = 0;
-            pixelFormat.cStencilBits = 0;
-            break;
-        }
-    case QDeviceContext::E_R8G8B8A8:
-        {
-            pixelFormat.cColorBits = 24;
-            pixelFormat.cRedBits = 8;
-            pixelFormat.cRedShift = 24;
-            pixelFormat.cGreenBits = 8;
-            pixelFormat.cGreenShift = 16;
-            pixelFormat.cBlueBits = 8;
-            pixelFormat.cBlueShift = 8;
-            pixelFormat.cAlphaBits = 8;
-            pixelFormat.cAlphaShift = 0;
-            pixelFormat.cDepthBits = 0;
-            pixelFormat.cStencilBits = 0;
-            break;
-        }
-    case QDeviceContext::E_R8G8B8A8D24S8:
-        {
-            pixelFormat.cColorBits = 24;
-            pixelFormat.cRedBits = 8;
-            pixelFormat.cRedShift = 24;
-            pixelFormat.cGreenBits = 8;
-            pixelFormat.cGreenShift = 16;
-            pixelFormat.cBlueBits = 8;
-            pixelFormat.cBlueShift = 8;
-            pixelFormat.cAlphaBits = 8;
-            pixelFormat.cAlphaShift = 0;
-            pixelFormat.cDepthBits = 24;
-            pixelFormat.cStencilBits = 8;
-            break;
-        }
-    case QDeviceContext::E_R8G8B8A8D32:
-        {
-            pixelFormat.cColorBits = 24;
-            pixelFormat.cRedBits = 8;
-            pixelFormat.cRedShift = 24;
-            pixelFormat.cGreenBits = 8;
-            pixelFormat.cGreenShift = 16;
-            pixelFormat.cBlueBits = 8;
-            pixelFormat.cBlueShift = 8;
-            pixelFormat.cAlphaBits = 8;
-            pixelFormat.cAlphaShift = 0;
-            pixelFormat.cDepthBits = 32;
-            pixelFormat.cStencilBits = 0;
-            break;
-        }
-    default:
-        {
-            QE_ASSERT_ERROR(false, "The pixel format is not supported.");
-            break;
-        }
-    }
-
-    // Accumulation buffers were deprected since OpenGL 3.0
-    pixelFormat.cAccumBits;
-    pixelFormat.cAccumRedBits;
-    pixelFormat.cAccumGreenBits;
-    pixelFormat.cAccumBlueBits;
-    pixelFormat.cAccumAlphaBits;
-
-    // Not used
-    pixelFormat.cAuxBuffers;
-    pixelFormat.iLayerType;
-    pixelFormat.bReserved;
-
-    // Ignored for now
-    pixelFormat.dwLayerMask;
-    pixelFormat.dwVisibleMask;
-    pixelFormat.dwDamageMask;
+    QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(eFormat, pixelFormat);
 
     int nPixelFormat = ::ChoosePixelFormat(m_deviceContext, &pixelFormat);
     
@@ -207,6 +192,11 @@ void QDeviceContext::SetPixelFormat(const QDeviceContext::PixelFormat eFormat)
     QE_ASSERT_ERROR(bResult != 0, "The pixel format could not be set (SetPixelFormat).");
 
 #endif
+}
+
+QDeviceContext::EQPixelFormat QDeviceContext::GetPixelFormat() const
+{
+    return m_ePixelFormat;
 }
 
 void QDeviceContext::GetNativePixelFormatInfo(void* pPixelFormat) const

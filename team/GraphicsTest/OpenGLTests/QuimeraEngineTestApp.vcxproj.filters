@@ -4,6 +4,9 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{8089f263-376a-4f81-9a47-bb60cbf64e54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{95c75dfb-87bf-4fcf-a7b3-c9f965bb31f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QWindow.h">
@@ -13,6 +16,12 @@
     <ClInclude Include="QDeviceContext.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="PrintSupportedPixelFormats.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorTracingDefinitions.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -21,6 +30,9 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="QDeviceContext.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="QDeviceContext_PixelFormats.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
   </ItemGroup>
