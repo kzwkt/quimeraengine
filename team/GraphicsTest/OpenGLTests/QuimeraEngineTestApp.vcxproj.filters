@@ -7,6 +7,10 @@
     <Filter Include="Common">
       <UniqueIdentifier>{95c75dfb-87bf-4fcf-a7b3-c9f965bb31f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{8a370219-3116-4244-a207-80441a334b77}</UniqueIdentifier>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QWindow.h">
@@ -35,5 +39,13 @@
     <ClCompile Include="QDeviceContext_PixelFormats.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FragmentShader.txt">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Resources\VertexShader.txt">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

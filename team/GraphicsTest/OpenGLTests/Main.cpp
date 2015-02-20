@@ -13,6 +13,8 @@ void SetupCoreProfileRenderingContext(QDeviceContext &dc);
 int MainLoop();
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 void Cleanup();
+void SetupShaders();
+void SetupGeometry();
 
 QWindow* pMainWindow;
 
@@ -25,6 +27,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     InitializeRenderingContext(pMainWindow->GetDeviceContext());
     InitializeGlew();
     SetupCoreProfileRenderingContext(pMainWindow->GetDeviceContext());
+    SetupShaders();
+    SetupGeometry();
 
     int uResult = MainLoop();
 
@@ -70,6 +74,8 @@ int MainLoop()
         glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
         glViewport(0, 0, 800, 600); // Set the viewport size to fill the window
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, null_q);
 
         if(pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
             pMainWindow->GetDeviceContext().SwapBuffers();
@@ -118,7 +124,7 @@ void InitializeGlew()
 void SetupCoreProfileRenderingContext(QDeviceContext &dc)
 {
     QDeviceContext::NativeRenderingContext rc = dc.GetCurrentRenderingContext();
-    dc.CreateAdvancedRenderingContext(QDeviceContext::E_R8G8B8A8D24S8, false);
+    dc.CreateAdvancedRenderingContext(QDeviceContext::E_R8G8B8A8D24S8, true);
     dc.MakeRenderingContextCurrent();
     dc.DeleteRenderingContext(rc);
 }
@@ -131,4 +137,143 @@ void Cleanup()
     delete pMainWindow;
 
     QE_LOG("LOG: Clean up performed.\n");
+}
+
+void SetupShaders()
+{
+    // Reads the vertex shader from text file
+    string_q strFileContent;
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
+    QFileStream fs(QPath("./Resources/VertexShader.txt"), EQFileOpenMode::E_Open, 500, eErrorInfo);
+    QTextStreamReader<QFileStream> ts(fs, EQTextEncoding::E_ASCII);
+    ts.ReadToEnd(strFileContent);
+    fs.Close();
+    
+    // Adapts the content
+    QArrayResult<i8_q> arFileContent = strFileContent.ToBytes(EQTextEncoding::E_ASCII);
+    const char* szFileContent = arFileContent.Get();
+
+    // Compiles the vertex shader
+    QE_LOG("LOG: Compiling vertex shader...\n");
+    GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShaderID, 1, &szFileContent, null_q);
+    glCompileShader(vertexShaderID);
+
+    // Checks result
+    GLint nSucceed;
+    glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &nSucceed);
+
+    if(!nSucceed)
+    {
+        GLsizei nActualLength = 0;
+        GLchar szErrorMessage[512];
+        glGetShaderInfoLog(vertexShaderID, 512, &nActualLength, szErrorMessage);
+
+        QE_ASSERT_ERROR(false, szErrorMessage);
+    }
+
+    QE_LOG("LOG: Vertex shader compiled successfully.\n");
+
+    // Reads the fragment shader from text file
+    QFileStream fs2(QPath("./Resources/FragmentShader.txt"), EQFileOpenMode::E_Open, 500, eErrorInfo);
+    QTextStreamReader<QFileStream> ts2(fs2, EQTextEncoding::E_ASCII);
+    strFileContent = string_q::GetEmpty();
+    ts2.ReadToEnd(strFileContent);
+    fs2.Close();
+
+    // Adapts the content
+    QArrayResult<i8_q> arFileContent2 = strFileContent.ToBytes(EQTextEncoding::E_ASCII);
+    szFileContent = arFileContent2.Get();
+
+    // Compiles the fragment shader
+    QE_LOG("LOG: Compiling fragment shader...\n");
+    GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShaderID, 1, &szFileContent, null_q);
+    glCompileShader(fragmentShaderID);
+
+    // Checks result
+    nSucceed = 0;
+    glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &nSucceed);
+
+    if(!nSucceed)
+    {
+        GLsizei nActualLength = 0;
+        GLchar szErrorMessage[512];
+        glGetShaderInfoLog(fragmentShaderID, 512, &nActualLength, szErrorMessage);
+
+        QE_ASSERT_ERROR(false, szErrorMessage);
+    }
+
+    QE_LOG("LOG: Fragment shader compiled successfully.\n");
+
+    // Links the program
+    QE_LOG("LOG: Linking shader program...\n");
+    GLuint shaderProgramID = glCreateProgram();
+    glAttachShader(shaderProgramID, vertexShaderID);
+    glAttachShader(shaderProgramID, fragmentShaderID);
+    glLinkProgram(shaderProgramID);
+
+    // Checks result
+    nSucceed = 0;
+    glGetProgramiv(shaderProgramID, GL_LINK_STATUS, &nSucceed);
+
+    if(!nSucceed)
+    {
+        GLsizei nActualLength = 0;
+        GLchar szErrorMessage[512];
+        glGetProgramInfoLog(shaderProgramID, 512, &nActualLength, szErrorMessage);
+
+        QE_ASSERT_ERROR(false, szErrorMessage);
+    }
+
+    QE_LOG("LOG: Shader program linked successfully.\n");
+
+    // Deletes useless shaders
+    glDeleteShader(vertexShaderID);
+    glDeleteShader(fragmentShaderID);
+
+    // Makes the program the current
+    glUseProgram(shaderProgramID);
+
+    QE_LOG("LOG: Using shader program.\n");
+}
+
+void SetupGeometry()
+{
+    // Vertices
+    GLfloat arVertices[] = { 
+      0.5f,  0.5f, 0.0f,  // Top Right
+     0.5f, -0.5f, 0.0f,  // Bottom Right
+    -0.5f, -0.5f, 0.0f,  // Bottom Left
+    -0.5f,  0.5f, 0.0f   // Top Left 
+    };
+
+    // Indices
+    GLuint arIndices[] = { 
+        0, 1, 3,   // First Triangle
+    1, 2, 3    // Second Triangle
+    };
+
+    // create attribs
+    // create VAO
+    GLuint vaoTriangleID = 0;
+    glGenVertexArrays(1, &vaoTriangleID);
+    glBindVertexArray(vaoTriangleID);
+
+    // Set up VAO
+
+    // create VBO
+    GLuint vboTriangleID = 0;
+    glGenBuffers(1, &vboTriangleID);
+    glBindBuffer(GL_ARRAY_BUFFER, vboTriangleID);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(arVertices), arVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    // create EBO
+    GLuint eboTriangleID = 0;
+    glGenBuffers(1, &eboTriangleID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboTriangleID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(arIndices), arIndices, GL_STATIC_DRAW);
+
 }

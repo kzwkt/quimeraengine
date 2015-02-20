@@ -115,6 +115,10 @@ copy $(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(
     <ClCompile Include="QDeviceContext_PixelFormats.cpp" />
     <ClCompile Include="QWindow.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FragmentShader.txt" />
+    <None Include="Resources\VertexShader.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

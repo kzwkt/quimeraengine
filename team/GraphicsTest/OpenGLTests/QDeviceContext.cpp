@@ -69,7 +69,7 @@ QDeviceContext::NativeRenderingContext QDeviceContext::CreateAdvancedRenderingCo
         QE_ASSERT_WINDOWS_ERROR("Failed when attempring to create a custom rendering context (wglCreateContext).");
     }
 
-    QE_LOG("LOG: OpenGL 4.0 Rendering context created.");
+    QE_LOG("LOG: OpenGL 4.0 Rendering context created.\n");
 
     return m_renderingContext;
 
