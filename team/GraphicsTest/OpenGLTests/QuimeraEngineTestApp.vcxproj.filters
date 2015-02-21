@@ -9,7 +9,10 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{8a370219-3116-4244-a207-80441a334b77}</UniqueIdentifier>
-      <ParseFiles>false</ParseFiles>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{24054813-06a1-4ccf-a0d3-fe95829409ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +28,21 @@
     </ClInclude>
     <ClInclude Include="ErrorTracingDefinitions.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="QVertexShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QFragmentShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QShaderCompositor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QGraphicsEngine.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

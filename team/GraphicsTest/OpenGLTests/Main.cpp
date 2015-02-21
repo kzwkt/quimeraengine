@@ -5,6 +5,11 @@
 #include "GL/glew.h"
 #include "QWindow.h"
 #include "ErrorTracingDefinitions.h"
+#include "QResourceManager.h"
+#include "QGraphicsEngine.h"
+
+QResourceManager* QE_RESOURCE_MANAGER = null_q;
+QGraphicsEngine* QE_GRAPHICS_ENGINE = null_q;
 
 void InitializeMainWindow(HINSTANCE hInstance, QWindow** ppWindow);
 void InitializeRenderingContext(QDeviceContext &dc);
@@ -13,6 +18,7 @@ void SetupCoreProfileRenderingContext(QDeviceContext &dc);
 int MainLoop();
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 void Cleanup();
+void SetupEngine();
 void SetupShaders();
 void SetupGeometry();
 
@@ -27,6 +33,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     InitializeRenderingContext(pMainWindow->GetDeviceContext());
     InitializeGlew();
     SetupCoreProfileRenderingContext(pMainWindow->GetDeviceContext());
+    SetupEngine();
     SetupShaders();
     SetupGeometry();
 
@@ -139,103 +146,18 @@ void Cleanup()
     QE_LOG("LOG: Clean up performed.\n");
 }
 
+void SetupEngine()
+{
+    QE_RESOURCE_MANAGER = new QResourceManager(new QShaderCompositor());
+    QE_GRAPHICS_ENGINE = new QGraphicsEngine(QE_RESOURCE_MANAGER);
+}
+
 void SetupShaders()
 {
-    // Reads the vertex shader from text file
-    string_q strFileContent;
-    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
-    QFileStream fs(QPath("./Resources/VertexShader.txt"), EQFileOpenMode::E_Open, 500, eErrorInfo);
-    QTextStreamReader<QFileStream> ts(fs, EQTextEncoding::E_ASCII);
-    ts.ReadToEnd(strFileContent);
-    fs.Close();
-    
-    // Adapts the content
-    QArrayResult<i8_q> arFileContent = strFileContent.ToBytes(EQTextEncoding::E_ASCII);
-    const char* szFileContent = arFileContent.Get();
-
-    // Compiles the vertex shader
-    QE_LOG("LOG: Compiling vertex shader...\n");
-    GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShaderID, 1, &szFileContent, null_q);
-    glCompileShader(vertexShaderID);
-
-    // Checks result
-    GLint nSucceed;
-    glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &nSucceed);
-
-    if(!nSucceed)
-    {
-        GLsizei nActualLength = 0;
-        GLchar szErrorMessage[512];
-        glGetShaderInfoLog(vertexShaderID, 512, &nActualLength, szErrorMessage);
-
-        QE_ASSERT_ERROR(false, szErrorMessage);
-    }
-
-    QE_LOG("LOG: Vertex shader compiled successfully.\n");
-
-    // Reads the fragment shader from text file
-    QFileStream fs2(QPath("./Resources/FragmentShader.txt"), EQFileOpenMode::E_Open, 500, eErrorInfo);
-    QTextStreamReader<QFileStream> ts2(fs2, EQTextEncoding::E_ASCII);
-    strFileContent = string_q::GetEmpty();
-    ts2.ReadToEnd(strFileContent);
-    fs2.Close();
-
-    // Adapts the content
-    QArrayResult<i8_q> arFileContent2 = strFileContent.ToBytes(EQTextEncoding::E_ASCII);
-    szFileContent = arFileContent2.Get();
-
-    // Compiles the fragment shader
-    QE_LOG("LOG: Compiling fragment shader...\n");
-    GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShaderID, 1, &szFileContent, null_q);
-    glCompileShader(fragmentShaderID);
-
-    // Checks result
-    nSucceed = 0;
-    glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &nSucceed);
-
-    if(!nSucceed)
-    {
-        GLsizei nActualLength = 0;
-        GLchar szErrorMessage[512];
-        glGetShaderInfoLog(fragmentShaderID, 512, &nActualLength, szErrorMessage);
-
-        QE_ASSERT_ERROR(false, szErrorMessage);
-    }
-
-    QE_LOG("LOG: Fragment shader compiled successfully.\n");
-
-    // Links the program
-    QE_LOG("LOG: Linking shader program...\n");
-    GLuint shaderProgramID = glCreateProgram();
-    glAttachShader(shaderProgramID, vertexShaderID);
-    glAttachShader(shaderProgramID, fragmentShaderID);
-    glLinkProgram(shaderProgramID);
-
-    // Checks result
-    nSucceed = 0;
-    glGetProgramiv(shaderProgramID, GL_LINK_STATUS, &nSucceed);
-
-    if(!nSucceed)
-    {
-        GLsizei nActualLength = 0;
-        GLchar szErrorMessage[512];
-        glGetProgramInfoLog(shaderProgramID, 512, &nActualLength, szErrorMessage);
-
-        QE_ASSERT_ERROR(false, szErrorMessage);
-    }
-
-    QE_LOG("LOG: Shader program linked successfully.\n");
-
-    // Deletes useless shaders
-    glDeleteShader(vertexShaderID);
-    glDeleteShader(fragmentShaderID);
-
-    // Makes the program the current
-    glUseProgram(shaderProgramID);
-
-    QE_LOG("LOG: Using shader program.\n");
+    QE_RESOURCE_MANAGER->CreateVertexShader("VS1", QPath("./Resources/VertexShader.txt"));
+    QE_RESOURCE_MANAGER->CreateFragmentShader("FS1", QPath("./Resources/FragmentShader.txt"));
+    QE_GRAPHICS_ENGINE->SetVertexShader("VS1");
+    QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
 }
 
 void SetupGeometry()

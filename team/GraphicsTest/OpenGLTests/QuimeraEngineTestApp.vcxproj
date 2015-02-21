@@ -103,9 +103,14 @@ copy $(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ErrorTracingDefinitions.h" />
+    <ClInclude Include="QGraphicsEngine.h" />
     <ClInclude Include="PrintSupportedPixelFormats.h" />
     <ClInclude Include="QDeviceContext.h" />
+    <ClInclude Include="QFragmentShader.h" />
+    <ClInclude Include="QResourceManager.h" />
+    <ClInclude Include="QShaderCompositor.h" />
     <ClInclude Include="QuimeraEngineIncludesAndUsings.h" />
+    <ClInclude Include="QVertexShader.h" />
     <ClInclude Include="QWindow.h" />
   </ItemGroup>
   <ItemGroup>
