@@ -38,6 +38,29 @@ public:
         QE_LOG(string_q("LOG: Using fragment shader [") + strId + "].\n");
     }
 
+    void UpdateVertexShaderData(const QHashedString &strVertexShaderId, const string_q &strDataBufferName, const f32_q fValue0, const f32_q fValue1, const f32_q fValue2, const f32_q fValue3)
+    {
+        QVertexShader* pVertexShader = m_pResourceManager->GetVertexShader(strVertexShaderId);
+
+        GLint bufferLocation = glGetUniformLocation(pVertexShader->GetProgramID(), strDataBufferName.ToBytes(EQTextEncoding::E_ASCII).Get());
+
+        QE_ASSERT_ERROR(bufferLocation != -1, string_q("The shader data buffer with name \"") + strDataBufferName + "\" was not found in the shader with ID \"" + strVertexShaderId + "\".");
+        
+        glProgramUniform4f(pVertexShader->GetProgramID(), bufferLocation, fValue0, fValue1, fValue2, fValue3);
+    }
+
+    // Should receive pointers instead of string ids? performance vs robustness
+    void UpdateFragmentShaderData(const QHashedString &strVertexShaderId, const string_q &strDataBufferName, const f32_q fValue0, const f32_q fValue1, const f32_q fValue2, const f32_q fValue3)
+    {
+        QFragmentShader* pFragmentShader = m_pResourceManager->GetFragmentShader(strVertexShaderId);
+
+        GLint bufferLocation = glGetUniformLocation(pFragmentShader->GetProgramID(), strDataBufferName.ToBytes(EQTextEncoding::E_ASCII).Get());
+
+        QE_ASSERT_ERROR(bufferLocation != -1, string_q("The shader data buffer with name \"") + strDataBufferName + "\" was not found in the shader with ID \"" + strVertexShaderId + "\".");
+
+        glProgramUniform4f(pFragmentShader->GetProgramID(), bufferLocation, fValue0, fValue1, fValue2, fValue3);
+    }
+
 protected:
 
     QResourceManager* m_pResourceManager;

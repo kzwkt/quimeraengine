@@ -68,19 +68,28 @@ int MainLoop()
     QE_LOG("LOG: Entering de main loop...\n");
 
     MSG msg;
+    QStopwatch mainTimer;
+    mainTimer.Set();
+
+    glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
+    glViewport(0, 0, 800, 600); // Set the viewport size to fill the window
 
 	// Main message loop:
-	while (GetMessage(&msg, NULL, 0, 0))
+	while (true)
 	{
-		if (!TranslateAccelerator(msg.hwnd, NULL, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
+        while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            // Translate the message and dispatch it to WindowProc()
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
 
-        glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
-        glViewport(0, 0, 800, 600); // Set the viewport size to fill the window
+        if(msg.message == WM_QUIT)
+            break;
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
+
+        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", SQFloat::Clamp(sin(mainTimer.GetElapsedTimeAsFloat() / 20000.0f), 0.0f, 1.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 10000.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 30000.0f), 1.0f);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, null_q);
 

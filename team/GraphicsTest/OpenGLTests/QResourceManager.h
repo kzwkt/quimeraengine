@@ -41,8 +41,11 @@ public:
         return m_arFragmentShaders[strId];
     }
 
+    // FindNameOf***(pointer to resource ***)
+
 protected:
 
+    // Unify both hashtables? It seems shaders are always trated in the same way
     QHashtable<QHashedString, QVertexShader*, SQStringHashProvider> m_arVertexShaders;
     QHashtable<QHashedString, QFragmentShader*, SQStringHashProvider> m_arFragmentShaders;
     QShaderCompositor* m_pShaderCompositor;
