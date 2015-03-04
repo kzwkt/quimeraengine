@@ -7,6 +7,13 @@
 #include "ErrorTracingDefinitions.h"
 #include "QResourceManager.h"
 #include "QGraphicsEngine.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
+
+// [TODO]: Get opengl debugging log
+// [TODO]: Be able to save binary compilation of shaders
+// [TODO]: Bindless textures
+// [TODO]: Use Direct State Access commands
 
 QResourceManager* QE_RESOURCE_MANAGER = null_q;
 QGraphicsEngine* QE_GRAPHICS_ENGINE = null_q;
@@ -21,6 +28,7 @@ void Cleanup();
 void SetupEngine();
 void SetupShaders();
 void SetupGeometry();
+void SetupTextures(QFragmentShader* pFragmentShader);
 
 QWindow* pMainWindow;
 
@@ -33,9 +41,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     InitializeRenderingContext(pMainWindow->GetDeviceContext());
     InitializeGlew();
     SetupCoreProfileRenderingContext(pMainWindow->GetDeviceContext());
+    InitializeGlew(); // Every time glew is initialized, functions are associated to the current rendering context, so it should be initialized every time the context changes
     SetupEngine();
     SetupShaders();
     SetupGeometry();
+    SetupTextures(QE_RESOURCE_MANAGER->GetFragmentShader("FS1"));
 
     int uResult = MainLoop();
 
@@ -89,8 +99,8 @@ int MainLoop()
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
 
-        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", SQFloat::Clamp(sin(mainTimer.GetElapsedTimeAsFloat() / 20000.0f), 0.0f, 1.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 10000.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 30000.0f), 1.0f);
-
+        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", SQFloat::Clamp(sin(mainTimer.GetElapsedTimeAsFloat() / 50000.0f), 0.0f, 1.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 30000.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 40000.0f), 1.0f);
+        
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, null_q);
 
         if(pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
@@ -163,26 +173,53 @@ void SetupEngine()
 
 void SetupShaders()
 {
-    QE_RESOURCE_MANAGER->CreateVertexShader("VS1", QPath("./Resources/VertexShader.txt"));
-    QE_RESOURCE_MANAGER->CreateFragmentShader("FS1", QPath("./Resources/FragmentShader.txt"));
+    QE_RESOURCE_MANAGER->CreateVertexShader("VS1", QPath("./Resources/VertexShader.glsl"));
+    QE_RESOURCE_MANAGER->CreateFragmentShader("FS1", QPath("./Resources/FragmentShader.glsl"));
     QE_GRAPHICS_ENGINE->SetVertexShader("VS1");
     QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
 }
 
 void SetupGeometry()
 {
-    // Vertices
-    GLfloat arVertices[] = { 
-      0.5f,  0.5f, 0.0f,  // Top Right
-     0.5f, -0.5f, 0.0f,  // Bottom Right
-    -0.5f, -0.5f, 0.0f,  // Bottom Left
-    -0.5f,  0.5f, 0.0f   // Top Left 
+    struct QVertex
+    {
+        QVector3 Position;
+        QVector4 Color;
+        QVector2 TexCoords0;
+        QVector2 TexCoords1;
+    };
+
+    QVertex arVertices[] = {
+        
+        { QVector3(0.5f, 0.5f, 0.0f),
+          QVector4(1.0f, 0.0f, 0.0f, 1.0f),
+          QVector2(1.0f, 0.0f),// Images are flipped vertically, texture coordinates had to be reverted for Y axis
+          QVector2(1.0f, 1.0f)
+        },
+        
+        { QVector3(0.5f, -0.5f, 0.0f),
+          QVector4(0.0f, 1.0f, 0.0f, 1.0f),
+          QVector2(1.0f, 1.0f),
+          QVector2(1.0f, 0.0f)
+        },
+        
+        { QVector3(-0.5f, -0.5f, 0.0f),
+          QVector4(0.0f, 0.0f, 1.0f, 1.0f),
+          QVector2(0.0f, 1.0f),
+          QVector2(0.0f, 0.0f)
+        },
+        
+        { QVector3(-0.5f, 0.5f, 0.0f),
+          QVector4(1.0f, 1.0f, 1.0f, 1.0f),
+          QVector2(0.0f, 0.0f),
+          QVector2(0.0f, 1.0f)
+        }
     };
 
     // Indices
     GLuint arIndices[] = { 
         0, 1, 3,   // First Triangle
-    1, 2, 3    // Second Triangle
+        1, 2, 3    // Second Triangle
     };
 
     // create attribs
@@ -197,14 +234,127 @@ void SetupGeometry()
     GLuint vboTriangleID = 0;
     glGenBuffers(1, &vboTriangleID);
     glBindBuffer(GL_ARRAY_BUFFER, vboTriangleID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(arVertices), arVertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(arVertices), &arVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)0);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)(sizeof(QVector3)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)(sizeof(QVector3) + sizeof(QVector4)));
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)(sizeof(QVector3) + sizeof(QVector4) + sizeof(QVector2)));
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(3);
 
     // create EBO
     GLuint eboTriangleID = 0;
     glGenBuffers(1, &eboTriangleID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboTriangleID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(arIndices), arIndices, GL_STATIC_DRAW);
+    
+}
 
+void SetTexture(GLuint programId, const char* path, const char* samplerName, int textureIndex)
+{
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
+    QFileStream fs(QPath(path), EQFileOpenMode::E_Open, 256000, eErrorInfo);
+    QBinaryStreamReader<QFileStream> bs(fs);
+    stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
+    bs.ReadBytes(pImageFile, fs.GetLength());
+
+    int x, y, components;
+    stbi_uc* pTexture = null_q;
+    pTexture = stbi_load_from_memory(pImageFile, fs.GetLength(), &x, &y, &components, STBI_rgb);
+    GLuint textureID = 0;
+    glGenTextures(1, &textureID);
+    glActiveTexture(GL_TEXTURE0 + textureIndex);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, pTexture);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(pTexture);
+
+    GLint samplerLocation = glGetUniformLocation(programId, samplerName);
+
+    if (samplerLocation == -1)
+    {
+        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+    }
+
+    glProgramUniform1i(programId, samplerLocation, textureIndex);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+
+void SetupTextures(QFragmentShader* pFragmentShader)
+{
+   /* SetTexture(pFragmentShader->GetProgramID(), "./Resources/awesomeface.png", "sampler1", 0);
+    SetTexture(pFragmentShader->GetProgramID(), "./Resources/wall.jpg", "sampler2", 1);
+    */
+    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
+    QFileStream fs(QPath("./Resources/qe.png"), EQFileOpenMode::E_Open, 256000, eErrorInfo);
+    QBinaryStreamReader<QFileStream> bs(fs);
+    stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
+    bs.ReadBytes(pImageFile, fs.GetLength());
+
+    QFileStream fs2(QPath("./Resources/wall.jpg"), EQFileOpenMode::E_Open, 256000, eErrorInfo);
+    QBinaryStreamReader<QFileStream> bs2(fs2);
+    stbi_uc* pImageFile2 = new stbi_uc[fs2.GetLength()];
+    bs2.ReadBytes(pImageFile2, fs2.GetLength());
+
+    int x, y, components;
+    stbi_uc* pTexture = null_q;
+    pTexture = stbi_load_from_memory(pImageFile, fs.GetLength(), &x, &y, &components, STBI_rgb_alpha);
+    GLuint textureID = 0;
+    glGenTextures(1, &textureID);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pTexture);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(pTexture);
+
+    GLint samplerLocation = glGetUniformLocation(pFragmentShader->GetProgramID(), "sampler1");
+
+    if (samplerLocation == -1)
+    {
+        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+    }
+
+    glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation, 0);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_uc* pTexture2 = null_q;
+    x = 0;
+    y = 0;
+    components = 0;
+    pTexture2 = stbi_load_from_memory(pImageFile2, fs2.GetLength(), &x, &y, &components, STBI_rgb);
+    GLuint textureID2 = 0;
+    glGenTextures(1, &textureID2);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, textureID2);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, pTexture2);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    stbi_image_free(pTexture2);
+
+    GLint samplerLocation2 = glGetUniformLocation(pFragmentShader->GetProgramID(), "sampler2");
+
+    if (samplerLocation2 == -1)
+    {
+        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+    }
+
+    glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation2, 1);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }

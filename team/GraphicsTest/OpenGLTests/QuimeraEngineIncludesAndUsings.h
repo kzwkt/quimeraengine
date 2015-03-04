@@ -7,10 +7,15 @@
 #include "qe/LoggingUtilities.h"
 #include "qe/QFileStream.h"
 #include "qe/QTextStreamReader.h"
+#include "qe/QBinaryStreamReader.h"
 #include "qe/QHashtable.h"
 #include "qe/SQStringHashProvider.h"
 #include "qe/QStopwatch.h"
+#include "qe/QVector3.h"
+#include "qe/QVector4.h"
+#include "qe/QVector2.h"
 
+using namespace Kinesis::QuimeraEngine::Tools::Math;
 using namespace Kinesis::QuimeraEngine::Common;
 using namespace Kinesis::QuimeraEngine::Common::DataTypes;
 using namespace Kinesis::QuimeraEngine::System::IO::FileSystem;

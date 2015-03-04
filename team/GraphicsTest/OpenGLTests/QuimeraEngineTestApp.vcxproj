@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
       <Configuration>DebugWin32SharedrtDynamic</Configuration>
@@ -21,11 +21,13 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -78,7 +80,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;BOOST_NO_RTTI;BOOST_NO_TYPEID;BOOST_NO_EXCEPTIONS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdparty\Boost\include;$(SolutionDir)3rdparty\QuimeraEngine\include;$(SolutionDir)3rdparty\ICU\include;.;$(SolutionDir)3rdparty\glew\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdparty\stb\include;$(SolutionDir)3rdparty\Boost\include;$(SolutionDir)3rdparty\QuimeraEngine\include;$(SolutionDir)3rdparty\ICU\include;.;$(SolutionDir)3rdparty\glew\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsManaged>false</CompileAsManaged>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -109,6 +111,7 @@ copy $(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(
     <ClInclude Include="QFragmentShader.h" />
     <ClInclude Include="QResourceManager.h" />
     <ClInclude Include="QShaderCompositor.h" />
+    <ClInclude Include="QTexture2D.h" />
     <ClInclude Include="QuimeraEngineIncludesAndUsings.h" />
     <ClInclude Include="QVertexShader.h" />
     <ClInclude Include="QWindow.h" />
@@ -121,8 +124,8 @@ copy $(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(
     <ClCompile Include="QWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FragmentShader.txt" />
-    <None Include="Resources\VertexShader.txt" />
+    <None Include="Resources\FragmentShader.glsl" />
+    <None Include="Resources\VertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

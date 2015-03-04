@@ -64,6 +64,8 @@ public:
 protected:
 
     QResourceManager* m_pResourceManager;
+
+    // This should be in the QAspect class, which stores both vertex and fragment shaders
     GLuint m_pipelineId;
 };
 
