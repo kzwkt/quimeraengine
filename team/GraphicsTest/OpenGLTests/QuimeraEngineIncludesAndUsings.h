@@ -14,6 +14,9 @@
 #include "qe/QVector3.h"
 #include "qe/QVector4.h"
 #include "qe/QVector2.h"
+#include "qe/SQFile.h"
+#include "qe/QTransformationMatrix.h"
+#include "qe/QMatrix4x4.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::Math;
 using namespace Kinesis::QuimeraEngine::Common;
@@ -25,3 +28,4 @@ using namespace Kinesis::QuimeraEngine::System::Timing;
 using namespace Kinesis::QuimeraEngine::Tools::Time;
 
 typedef string_q QHashedString;
+typedef QVector4 QColor;

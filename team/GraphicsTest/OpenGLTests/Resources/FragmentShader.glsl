@@ -1,5 +1,7 @@
 #version 430 core
 
+layout(row_major) uniform;
+
 in vec4 colorFromVS;
 in vec2 textCoord0;
 in vec2 textCoord1;

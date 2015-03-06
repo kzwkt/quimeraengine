@@ -7,8 +7,7 @@
 #include "ErrorTracingDefinitions.h"
 #include "QResourceManager.h"
 #include "QGraphicsEngine.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
+
 
 // [TODO]: Get opengl debugging log
 // [TODO]: Be able to save binary compilation of shaders
@@ -28,7 +27,8 @@ void Cleanup();
 void SetupEngine();
 void SetupShaders();
 void SetupGeometry();
-void SetupTextures(QFragmentShader* pFragmentShader);
+void SetupTextures();
+void SetTexture(GLuint programId, GLuint textureId, const char* samplerName, int textureIndex);
 
 QWindow* pMainWindow;
 
@@ -45,7 +45,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     SetupEngine();
     SetupShaders();
     SetupGeometry();
-    SetupTextures(QE_RESOURCE_MANAGER->GetFragmentShader("FS1"));
+    SetupTextures();
+    QE_GRAPHICS_ENGINE->SetAspect("Aspect1");
 
     int uResult = MainLoop();
 
@@ -81,12 +82,17 @@ int MainLoop()
     QStopwatch mainTimer;
     mainTimer.Set();
 
+    QTransformationMatrix<QMatrix4x4> transformation(0.2, 0.2, 0, 0, 0, 0, 1, 0.5, 0.5, 0.5);
+    QRotationMatrix3x3 rotation(0, 0, 0.01);
+
     glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
     glViewport(0, 0, 800, 600); // Set the viewport size to fill the window
 
 	// Main message loop:
 	while (true)
 	{
+        transformation = transformation * rotation;
+
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
             // Translate the message and dispatch it to WindowProc()
@@ -100,6 +106,7 @@ int MainLoop()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
 
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", SQFloat::Clamp(sin(mainTimer.GetElapsedTimeAsFloat() / 50000.0f), 0.0f, 1.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 30000.0f), sin(mainTimer.GetElapsedTimeAsFloat() / 40000.0f), 1.0f);
+        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "transformationMatrix", transformation);
         
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, null_q);
 
@@ -252,109 +259,35 @@ void SetupGeometry()
     
 }
 
-void SetTexture(GLuint programId, const char* path, const char* samplerName, int textureIndex)
+void SetupTextures()
 {
-    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
-    QFileStream fs(QPath(path), EQFileOpenMode::E_Open, 256000, eErrorInfo);
-    QBinaryStreamReader<QFileStream> bs(fs);
-    stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
-    bs.ReadBytes(pImageFile, fs.GetLength());
+    QMaterial* pMaterial = QE_RESOURCE_MANAGER->CreateMaterial("DEFAULT");
+    pMaterial->Ambient = QColor(0, 0, 0, 1);
+    pMaterial->Diffuse = QColor(0.5, 0.5, 0.5, 1);
 
-    int x, y, components;
-    stbi_uc* pTexture = null_q;
-    pTexture = stbi_load_from_memory(pImageFile, fs.GetLength(), &x, &y, &components, STBI_rgb);
-    GLuint textureID = 0;
-    glGenTextures(1, &textureID);
-    glActiveTexture(GL_TEXTURE0 + textureIndex);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, pTexture);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    QE_RESOURCE_MANAGER->CreateImage("Image1", QPath("./Resources/qe.png"), QImage::E_RGBA);
+    QE_RESOURCE_MANAGER->CreateImage("Image2", QPath("./Resources/wall.jpg"), QImage::E_RGB);
+    QTexture2D* pTex1 = QE_RESOURCE_MANAGER->CreateTexture2D("Texture1", "Image1", QImage::E_RGBA);
 
-    stbi_image_free(pTexture);
+    pTex1->GenerateMipmaps();
+    pTex1->SetWrapModeS(QTexture2D::E_Repeat);
+    pTex1->SetWrapModeT(QTexture2D::E_Repeat);
+    pTex1->SetMinificationFilter(QTexture2D::E_LinearMipmaps);
+    pTex1->SetMagnificationFilter(QTexture2D::E_MagLinear);
 
-    GLint samplerLocation = glGetUniformLocation(programId, samplerName);
+    QTexture2D* pTex2 = QE_RESOURCE_MANAGER->CreateTexture2D("Texture2", "Image2", QImage::E_RGB);
 
-    if (samplerLocation == -1)
-    {
-        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
-    }
+    pTex2->GenerateMipmaps();
+    pTex2->SetWrapModeS(QTexture2D::E_Repeat);
+    pTex2->SetWrapModeT(QTexture2D::E_Repeat);
+    pTex2->SetMinificationFilter(QTexture2D::E_LinearMipmaps);
+    pTex2->SetMagnificationFilter(QTexture2D::E_MagLinear);
 
-    glProgramUniform1i(programId, samplerLocation, textureIndex);
+    QAspect* pAspect = QE_RESOURCE_MANAGER->CreateAspect("Aspect1");
+    pAspect->AddTexture("Texture2", "DEFAULT", "sampler2");
+    pAspect->AddTexture("Texture1", "DEFAULT", "sampler1");
+    pAspect->SetVertexShader("VS1");
+    pAspect->SetFragmentShader("FS1");
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-
-void SetupTextures(QFragmentShader* pFragmentShader)
-{
-   /* SetTexture(pFragmentShader->GetProgramID(), "./Resources/awesomeface.png", "sampler1", 0);
-    SetTexture(pFragmentShader->GetProgramID(), "./Resources/wall.jpg", "sampler2", 1);
-    */
-    EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
-    QFileStream fs(QPath("./Resources/qe.png"), EQFileOpenMode::E_Open, 256000, eErrorInfo);
-    QBinaryStreamReader<QFileStream> bs(fs);
-    stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
-    bs.ReadBytes(pImageFile, fs.GetLength());
-
-    QFileStream fs2(QPath("./Resources/wall.jpg"), EQFileOpenMode::E_Open, 256000, eErrorInfo);
-    QBinaryStreamReader<QFileStream> bs2(fs2);
-    stbi_uc* pImageFile2 = new stbi_uc[fs2.GetLength()];
-    bs2.ReadBytes(pImageFile2, fs2.GetLength());
-
-    int x, y, components;
-    stbi_uc* pTexture = null_q;
-    pTexture = stbi_load_from_memory(pImageFile, fs.GetLength(), &x, &y, &components, STBI_rgb_alpha);
-    GLuint textureID = 0;
-    glGenTextures(1, &textureID);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pTexture);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    stbi_image_free(pTexture);
-
-    GLint samplerLocation = glGetUniformLocation(pFragmentShader->GetProgramID(), "sampler1");
-
-    if (samplerLocation == -1)
-    {
-        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
-    }
-
-    glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation, 0);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    stbi_uc* pTexture2 = null_q;
-    x = 0;
-    y = 0;
-    components = 0;
-    pTexture2 = stbi_load_from_memory(pImageFile2, fs2.GetLength(), &x, &y, &components, STBI_rgb);
-    GLuint textureID2 = 0;
-    glGenTextures(1, &textureID2);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, textureID2);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, pTexture2);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    stbi_image_free(pTexture2);
-
-    GLint samplerLocation2 = glGetUniformLocation(pFragmentShader->GetProgramID(), "sampler2");
-
-    if (samplerLocation2 == -1)
-    {
-        QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
-    }
-
-    glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation2, 1);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Mipmap levels
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-}

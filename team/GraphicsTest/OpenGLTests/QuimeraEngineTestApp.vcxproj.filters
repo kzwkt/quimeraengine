@@ -49,6 +49,18 @@
     <ClInclude Include="QTexture2D.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="QImage.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QSampler2D.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QAspect.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

@@ -1,5 +1,7 @@
 #version 430 core
 
+layout(row_major) uniform;
+
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec4 inputColor;
 layout (location = 2) in vec2 inputTexCoords0;
@@ -9,6 +11,7 @@ out vec2 textCoord0;
 out vec2 textCoord1;
 
 uniform vec4 uColor;
+uniform mat4 transformationMatrix;
 
 out gl_PerVertex // In 4.3 core, it's mandatory to redefine this built-in variable in vertex shader
 {
@@ -17,7 +20,7 @@ out gl_PerVertex // In 4.3 core, it's mandatory to redefine this built-in variab
 
 void main()
 {
-    gl_Position = vec4(position.x, position.y, position.z, 1.0f);
+    gl_Position = vec4(position.x, position.y, position.z, 1.0f) * transformationMatrix;
 	colorFromVS = uColor * inputColor;
 	textCoord0 = inputTexCoords0;
 	textCoord1 = inputTexCoords1;
