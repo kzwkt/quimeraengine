@@ -14,6 +14,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{24054813-06a1-4ccf-a0d3-fe95829409ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{96c95dba-9746-4995-856c-5bc4be9a44f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QWindow.h">
@@ -61,6 +64,21 @@
     <ClInclude Include="QMaterial.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="QKeyboard.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="QEntity.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QCamera.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QFrustum.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QLight.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -75,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="Boost_ThrowException.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="QKeyboard.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

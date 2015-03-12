@@ -80,7 +80,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;BOOST_NO_RTTI;BOOST_NO_TYPEID;BOOST_NO_EXCEPTIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdparty\stb\include;$(SolutionDir)3rdparty\Boost\include;$(SolutionDir)3rdparty\QuimeraEngine\include;$(SolutionDir)3rdparty\ICU\include;.;$(SolutionDir)3rdparty\glew\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdparty\glm\include;$(SolutionDir)3rdparty\stb\include;$(SolutionDir)3rdparty\Boost\include;$(SolutionDir)3rdparty\QuimeraEngine\include;$(SolutionDir)3rdparty\ICU\include;.;$(SolutionDir)3rdparty\glew\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsManaged>false</CompileAsManaged>
       <StringPooling>true</StringPooling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -94,24 +94,36 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\QuimeraEngine\bin\Win32\DebugSharedrt\VS2010\;$(SolutionDir)3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;$(SolutionDir)3rdparty\glew\bin\Win32\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/ENTRY:"_tWinMain" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\QuimeraEngine\bin\Win32\DebugSharedrt\VS2010\;$(SolutionDir)3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;$(SolutionDir)3rdparty\glew\bin\Win32\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;opengl32.lib;glew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <NoEntryPoint>false</NoEntryPoint>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
     <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
       <Command>copy $(SolutionDir)3rdparty\QuimeraEngine\bin\Win32\DebugSharedrt\VS2010\*.* $(TargetDir)
 copy $(SolutionDir)3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)
-copy $(SolutionDir)3rdparty\glew\bin\Win32\Release\*.dll $(TargetDir)</Command>
-    </PreLinkEvent>
+copy $(SolutionDir)3rdparty\glew\bin\Win32\Debug\*.* $(TargetDir)
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ErrorTracingDefinitions.h" />
     <ClInclude Include="QAspect.h" />
+    <ClInclude Include="QCamera.h" />
+    <ClInclude Include="QEntity.h" />
+    <ClInclude Include="QFrustum.h" />
     <ClInclude Include="QGraphicsEngine.h" />
     <ClInclude Include="PrintSupportedPixelFormats.h" />
     <ClInclude Include="QDeviceContext.h" />
     <ClInclude Include="QFragmentShader.h" />
     <ClInclude Include="QImage.h" />
+    <ClInclude Include="QKeyboard.h" />
+    <ClInclude Include="QLight.h" />
     <ClInclude Include="QMaterial.h" />
     <ClInclude Include="QResourceManager.h" />
     <ClInclude Include="QSampler2D.h" />
@@ -126,6 +138,7 @@ copy $(SolutionDir)3rdparty\glew\bin\Win32\Release\*.dll $(TargetDir)</Command>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QDeviceContext.cpp" />
     <ClCompile Include="QDeviceContext_PixelFormats.cpp" />
+    <ClCompile Include="QKeyboard.cpp" />
     <ClCompile Include="QWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

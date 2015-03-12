@@ -12,5 +12,5 @@ uniform sampler2D sampler2;
 
 void main()
 {
-    color = mix(texture(sampler1, textCoord0), texture(sampler2, textCoord1 + vec2(0.2, 0.2)), 1.0 - texture(sampler1, textCoord0).a);
+    color = colorFromVS * mix(texture(sampler1, textCoord0), texture(sampler2, textCoord1 + vec2(0.2, 0.2)), 1.0 - texture(sampler1, textCoord0).a);
 }

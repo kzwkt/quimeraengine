@@ -93,7 +93,7 @@ public:
 
         QE_ASSERT_ERROR(bufferLocation != -1, string_q("The shader data buffer with name \"") + strDataBufferName + "\" was not found in the shader with ID \"" + strVertexShaderId + "\".");
 
-        glProgramUniformMatrix4fv(pVertexShader->GetProgramID(), bufferLocation, 1, GL_TRUE, &matrix.ij[0][0]); // No traspose
+        glProgramUniformMatrix4fv(pVertexShader->GetProgramID(), bufferLocation, 1, GL_FALSE, &matrix.ij[0][0]); // No traspose
     }
 
     // Should receive pointers instead of string ids? performance vs robustness

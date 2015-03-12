@@ -2,10 +2,9 @@
 
 layout(row_major) uniform;
 
-layout (location = 0) in vec3 position;
-layout (location = 1) in vec4 inputColor;
-layout (location = 2) in vec2 inputTexCoords0;
-layout (location = 3) in vec2 inputTexCoords1;
+layout (location = 0) in vec4 position;
+layout (location = 1) in vec2 inputTexCoords0;
+layout (location = 2) in vec2 inputTexCoords1;
 out vec4 colorFromVS;
 out vec2 textCoord0;
 out vec2 textCoord1;
@@ -20,8 +19,8 @@ out gl_PerVertex // In 4.3 core, it's mandatory to redefine this built-in variab
 
 void main()
 {
-    gl_Position = vec4(position.x, position.y, position.z, 1.0f) * transformationMatrix;
-	colorFromVS = uColor * inputColor;
+    gl_Position = position * transformationMatrix;
+	colorFromVS = uColor;
 	textCoord0 = inputTexCoords0;
 	textCoord1 = inputTexCoords1;
 }

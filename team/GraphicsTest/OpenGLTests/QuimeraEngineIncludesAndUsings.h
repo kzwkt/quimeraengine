@@ -17,6 +17,15 @@
 #include "qe/SQFile.h"
 #include "qe/QTransformationMatrix.h"
 #include "qe/QMatrix4x4.h"
+#include "qe/QSpaceConversionMatrix.h"
+#include "qe/SQAngle.h"
+#include "qe/QQuaternion.h"
+#include "qe/QHexahedron.h"
+#include "qe/QArrayDynamic.h"
+#include "qe/QEvent.h"
+#include "qe/QDictionary.h"
+#include "qe/QTranslationMatrix.h"
+#include "qe/QStopwatchEnclosed.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::Math;
 using namespace Kinesis::QuimeraEngine::Common;
