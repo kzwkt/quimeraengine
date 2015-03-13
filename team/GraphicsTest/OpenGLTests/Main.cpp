@@ -180,7 +180,7 @@ int MainLoop()
         viewMatrix.ij[1][1] = -viewMatrix.ij[1][1];
         viewMatrix.ij[2][1] = -viewMatrix.ij[2][1];
         viewMatrix.ij[3][1] = -viewMatrix.ij[3][1];*/
-        viewMatrix.ij[0][2] = -viewMatrix.ij[0][2];
+        /*viewMatrix.ij[0][2] = -viewMatrix.ij[0][2];
         viewMatrix.ij[1][2] = -viewMatrix.ij[1][2];
         viewMatrix.ij[2][2] = -viewMatrix.ij[2][2];
         viewMatrix.ij[3][2] = -viewMatrix.ij[3][2];
@@ -210,7 +210,7 @@ int MainLoop()
         
         projectionMatrix = QE_CAMERA->Frustum.GetProjectionSpaceMatrix();
         projectionMatrix.SetProjectionSpaceMatrix(QE_CAMERA->Frustum.NearPlaneDistance, QE_CAMERA->Frustum.FarPlaneDistance, QE_CAMERA->Frustum.AspectRatio, QE_CAMERA->Frustum.Fov);
-        //projectionMatrix = projectionMatrix.SwitchHandConventionProjectionSpaceMatrix();
+        projectionMatrix = projectionMatrix.SwitchHandConventionProjectionSpaceMatrix();
         //projectionMatrix = *(QSpaceConversionMatrix*)&projM;
         //projectionMatrix.ij[0][0] = -projectionMatrix.ij[0][0];
         
