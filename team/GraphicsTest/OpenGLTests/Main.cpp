@@ -135,7 +135,6 @@ int MainLoop()
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
-    //glCullFace(GL_FRONT); // LH -> RH
 
     QTransformationMatrix<QMatrix4x4> transformation;
 
@@ -152,78 +151,16 @@ int MainLoop()
         CheckInputs();
         ANIMATION_TIMER.Set();
 
-        QVector4 position = QVector4(QE_CAMERA->LocalPosition.x, QE_CAMERA->LocalPosition.y, QE_CAMERA->LocalPosition.z, QE_CAMERA->LocalPosition.w);
-        //position.z = -position.z;
-        QVector4 target = QVector4(QE_CAMERA->LocalPosition.x, QE_CAMERA->LocalPosition.y, QE_CAMERA->LocalPosition.z, QE_CAMERA->LocalPosition.w) + (-QVector4::GetUnitVectorZ()).Transform(QE_CAMERA->LocalOrientation.Invert());
-        //target.z = -target.z;
-        /////////target = -target;
-        QVector4 up = QVector4::GetUnitVectorY().Transform(QE_CAMERA->LocalOrientation.Invert());
-       // up.z = -up.z;
-
-        glm::mat4 viewM = glm::lookAt(glm::vec3(QE_CAMERA->LocalPosition.x, QE_CAMERA->LocalPosition.y, QE_CAMERA->LocalPosition.z),
-                                      glm::vec3(target.x, target.y, target.z),
-                                      glm::vec3(up.x, up.y, up.z));
-        glm::mat4 projM = glm::perspective(SQAngle::RadiansToDegrees(QE_CAMERA->Frustum.Fov), QE_CAMERA->Frustum.AspectRatio, QE_CAMERA->Frustum.NearPlaneDistance, QE_CAMERA->Frustum.FarPlaneDistance);
-        
         QSpaceConversionMatrix worldMatrix, viewMatrix, projectionMatrix;
-        worldMatrix.SetWorldSpaceMatrix(QVector4(0, 0, 0, 1.0f), QQuaternion::GetIdentity(), QVector3(1, 1, 1));
+
         viewMatrix = QE_CAMERA->GetViewSpaceMatrix();
-        /*viewMatrix.SetViewSpaceMatrix(QVector4(QE_CAMERA->LocalPosition.x, QE_CAMERA->LocalPosition.y, QE_CAMERA->LocalPosition.z, QE_CAMERA->LocalPosition.w),
-                                      QVector4(QE_CAMERA->LocalPosition.x, QE_CAMERA->LocalPosition.y, QE_CAMERA->LocalPosition.z, QE_CAMERA->LocalPosition.w) + (QVector4::GetUnitVectorZ()).Transform(QE_CAMERA->LocalOrientation.Invert()),
-                                      QVector4::GetUnitVectorY().Transform(QE_CAMERA->LocalOrientation.Invert()));*/
-        viewMatrix.SetViewSpaceMatrix(position, target, up);
-        viewMatrix.ij[0][0] = -viewMatrix.ij[0][0];
-        viewMatrix.ij[1][0] = -viewMatrix.ij[1][0];
-        viewMatrix.ij[2][0] = -viewMatrix.ij[2][0];
-        viewMatrix.ij[3][0] = -viewMatrix.ij[3][0];/*
-        viewMatrix.ij[0][1] = -viewMatrix.ij[0][1];
-        viewMatrix.ij[1][1] = -viewMatrix.ij[1][1];
-        viewMatrix.ij[2][1] = -viewMatrix.ij[2][1];
-        viewMatrix.ij[3][1] = -viewMatrix.ij[3][1];*/
-        /*viewMatrix.ij[0][2] = -viewMatrix.ij[0][2];
-        viewMatrix.ij[1][2] = -viewMatrix.ij[1][2];
-        viewMatrix.ij[2][2] = -viewMatrix.ij[2][2];
-        viewMatrix.ij[3][2] = -viewMatrix.ij[3][2];
-        //viewMatrix = viewMatrix.SwitchHandConventionViewSpaceMatrix(); // LH -> RH
-        //viewMatrix = *(QSpaceConversionMatrix*)&viewM;
-        //viewMatrix.ij[0][0] = -viewMatrix.ij[0][0];
-        //viewMatrix.ij[3][1] = -viewMatrix.ij[3][1];
-        //viewMatrix.ij[2][2] = -viewMatrix.ij[2][2];
-        /*
-        QVector3 vPOV = QVector3(-(viewMatrix.ij[3][0] * viewMatrix.ij[0][0] + viewMatrix.ij[3][1] * viewMatrix.ij[0][1] + viewMatrix.ij[3][2] * viewMatrix.ij[0][2]),
-            -(viewMatrix.ij[3][0] * viewMatrix.ij[1][0] + viewMatrix.ij[3][1] * viewMatrix.ij[1][1] + viewMatrix.ij[3][2] * viewMatrix.ij[1][2]),
-            -(viewMatrix.ij[3][0] * viewMatrix.ij[2][0] + viewMatrix.ij[3][1] * viewMatrix.ij[2][1] + viewMatrix.ij[3][2] * viewMatrix.ij[2][2]));
-
-        QVector3 vUp(viewMatrix.ij[0][1], viewMatrix.ij[1][1], viewMatrix.ij[2][1]);
-
-        QVector3 vZAxis = QVector3(-viewMatrix.ij[0][2], -viewMatrix.ij[1][2], -viewMatrix.ij[2][2]);
-
-        QVector3 vXAxis = vZAxis.CrossProduct(vUp);
-
-        QVector3 vYAxis = vZAxis.CrossProduct(vXAxis);
-
-        viewMatrix = QSpaceConversionMatrix(QMatrix4x4(vXAxis.x, vYAxis.x, vZAxis.x, SQFloat::_0,
-            vXAxis.y, vYAxis.y, vZAxis.y, SQFloat::_0,
-            vXAxis.z, vYAxis.z, vZAxis.z, SQFloat::_0,
-            -vXAxis.DotProduct(vPOV), -vYAxis.DotProduct(vPOV), -vZAxis.DotProduct(vPOV), SQFloat::_1));
-            */
-        
         projectionMatrix = QE_CAMERA->Frustum.GetProjectionSpaceMatrix();
-        projectionMatrix.SetProjectionSpaceMatrix(QE_CAMERA->Frustum.NearPlaneDistance, QE_CAMERA->Frustum.FarPlaneDistance, QE_CAMERA->Frustum.AspectRatio, QE_CAMERA->Frustum.Fov);
-        projectionMatrix = projectionMatrix.SwitchHandConventionProjectionSpaceMatrix();
-        //projectionMatrix = *(QSpaceConversionMatrix*)&projM;
-        //projectionMatrix.ij[0][0] = -projectionMatrix.ij[0][0];
-        
-        fTranslation = MAIN_TIMER.GetProgression();
-        fRotation = MAIN_TIMER.GetProgression();
 
-        QTranslationMatrix<QMatrix4x4> translation(0, 0, -10);
-        QRotationMatrix3x3 rotation(fRotation, fRotation, fRotation);
-        
-        QQuaternion quat(0, 0, SQAngle::_HalfPi * MAIN_TIMER.GetProgression());
-        rotation = QRotationMatrix3x3(quat);
+        QVector3 vTranslation(0, 0, 0);
+        QQuaternion qRotation(0, 0, SQAngle::_HalfPi * MAIN_TIMER.GetProgression());
+        QVector3 vScale(1, 1, 1);
 
-        //worldMatrix.SetWorldSpaceMatrix(QVector4::GetNullVector(), quat, QVector3::GetVectorOfOnes());
+        //worldMatrix.SetWorldSpaceMatrix(vTranslation, qRotation, vScale);
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
