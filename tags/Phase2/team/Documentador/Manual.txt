@@ -1,0 +1,23 @@
+COMO CREAR UN COMPLEMENTO A PARTIR DE UNA MACRO E INSTALARLO.
+
+1. Abrir VS2010 -> Nuevo Proyecto -> Otros tipos de proyecto -> Extensibilidad -> Complemento de VS. Dar nombre y ruta del proyecto.
+
+Se abre un wizard, marcar Visual Basic, que se carge en VS2010 y en Macros, dar nombre y descripción, marcar que cree un elemento en el menú Herramientas y no marcar Acerca de. Finalizar
+
+2. Abrir el IDE de Macros (menú Herramientas -> Macros -> IDE de Macros. Abrir el macro que se llama MakeAddin.
+Ejecutar paso a paso en modo debug, pq puede dar un par de errores. Uno deriva de no tener abierto en VS el proyecto de complemento adecuado. El otro deriva de esta línea (115):
+
+newProjectItem = DTE.ItemOperations.AddNewItem("Elementos comunes\Código\Módulo", projItem.Name + ".vb")
+
+En el original, el tipo de item está en inglés, pero puede que tengas la versión española y casque. En ese caso tendrás que traducirlo como está aquí puesto (o comprobar en tus menús como es).
+
+Seguimos ejecutando paso a paso y nos pide el nombre de la macro. Le damos el mismo nombre que tiene la macro que queremos convertir en addin, tal y como aparece en el Explorador de Proyectos del IDE de macros.
+
+Terminamos la ejecución (puede tardar) y posiblemente salgan un par de referencias que no puede establecer automaticamente. Aceptamos ignorandolo.
+
+Ya tenemos nuestro proyecto de complemento terminado.
+
+Cerramos el IDE de macros, nos vamos al proyecto de complemento, le ponemos que sea tipo release y generamos.
+En el menú herramientas nos saldrá un comando con nuestra macro.
+
+

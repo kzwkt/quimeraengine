@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="System" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Core\;" />
+		<Build>
+			<Target title="DebugLinux32SharedrtStatic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/libQuimeraEngineSystem.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtStatic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtDynamic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineSystem.dll" imp_lib="$(TARGET_OUTPUT_DIR)lib$(TARGET_OUTPUT_BASENAME).dll.a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_SYSTEM" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="libboost_thread-mt-d.a" />
+					<Add library="libboost_system-mt-d.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicuin.dll.a" />
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux32SharedrtDynamic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/libQuimeraEngineSystem.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_SYSTEM" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_TOOLS" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtStatic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic/libQuimeraEngineSystem.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtDynamic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic/libQuimeraEngineSystem.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_SYSTEM" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_TOOLS" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="boost_system-mt-d" />
+					<Add library="icudt" />
+					<Add library="icuuc" />
+					<Add library="icuin" />
+					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wshadow" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Winline" />
+			<Add option="-Wmissing-include-dirs" />
+			<Add option="-Wswitch-default" />
+			<Add option="-std=c++98" />
+			<Add option="-Wall" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
+		</Compiler>
+		<Unit filename="../../../../headers/QObject.h">
+			<Option virtualFolder="Core/" />
+		</Unit>
+		<Unit filename="../../../../headers/SystemDefinitions.h" />
+		<Unit filename="../../../../source/QObject.cpp">
+			<Option virtualFolder="Core/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

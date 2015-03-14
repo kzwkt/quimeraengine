@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Backend" InternalType="Library">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00050001N0005Debug0000000000000001N0012DebugLinux320000000000000001N0010DebugWin320000000000000001N0014ReleaseLinux320000000000000001N0012ReleaseWin32000000000000]]>
+    </Plugin>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+		"name":	"Debug",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugWin32",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"ReleaseLinux32",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"ReleaseWin32",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}]]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="Common">
+    <File Name="../../../headers/ExternalDefinitions.h"/>
+    <File Name="../../../headers/STATFileSystemHelper.h"/>
+    <File Name="../../../headers/STATStringHelper.h"/>
+    <File Name="../../../headers/TATNode.h"/>
+    <File Name="../../../headers/TATShellProcess.h"/>
+    <File Name="../../../source/STATFileSystemHelper.cpp"/>
+    <File Name="../../../source/STATStringHelper.cpp"/>
+    <File Name="../../../source/TATNode.cpp"/>
+    <File Name="../../../source/TATShellProcess.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="FG1 - Test Configuration">
+    <File Name="../../../headers/TestConfiguration/ETATConfigNodeType.h"/>
+    <File Name="../../../headers/TestConfiguration/ETATConfigurationSource.h"/>
+    <File Name="../../../headers/TestConfiguration/ITATConfigLoader.h"/>
+    <File Name="../../../headers/TestConfiguration/STATAppSettings.h"/>
+    <File Name="../../../headers/TestConfiguration/TATConfigLoaderFactory.h"/>
+    <File Name="../../../headers/TestConfiguration/TATConfigLoaderFromIniFile.h"/>
+    <File Name="../../../headers/TestConfiguration/TATConfigNode.h"/>
+    <File Name="../../../headers/TestConfiguration/TATKeyValueNode.h"/>
+    <File Name="../../../headers/TestConfiguration/TATRuleNode.h"/>
+    <File Name="../../../headers/TestConfiguration/TATTestAutomationToolConfiguration.h"/>
+    <File Name="../../../source/TestConfiguration/ETATConfigNodeType.cpp"/>
+    <File Name="../../../source/TestConfiguration/ETATConfigurationSource.cpp"/>
+    <File Name="../../../source/TestConfiguration/STATAppSettings.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATConfigLoaderFactory.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATConfigLoaderFromIniFile.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATConfigNode.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATKeyValueNode.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATRuleNode.cpp"/>
+    <File Name="../../../source/TestConfiguration/TATTestAutomationToolConfiguration.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="FG2 - Test Execution">
+    <File Name="../../../headers/TestExecution/ETATColor.h"/>
+    <File Name="../../../headers/TestExecution/ITATLogger.h"/>
+    <File Name="../../../headers/TestExecution/TATCompilerInfo.h"/>
+    <File Name="../../../headers/TestExecution/TATFormattedMessage.h"/>
+    <File Name="../../../headers/TestExecution/TATMessageFormat.h"/>
+    <File Name="../../../headers/TestExecution/TATTestAutomationToolExecution.h"/>
+    <File Name="../../../headers/TestExecution/TATTestModulesExecutionInfo.h"/>
+    <File Name="../../../headers/TestExecution/TATwxWidgetsControlLogger.h"/>
+    <File Name="../../../source/TestExecution/ETATColor.cpp"/>
+    <File Name="../../../source/TestExecution/TATCompilerInfo.cpp"/>
+    <File Name="../../../source/TestExecution/TATFormattedMessage.cpp"/>
+    <File Name="../../../source/TestExecution/TATMessageFormat.cpp"/>
+    <File Name="../../../source/TestExecution/TATTestAutomationToolExecution.cpp"/>
+    <File Name="../../../source/TestExecution/TATTestModulesExecutionInfo.cpp"/>
+    <File Name="../../../source/TestExecution/TATwxWidgetsControlLogger.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="FG3 - Editor"/>
+  <VirtualDirectory Name="FG4 - Test Results">
+    <File Name="../../../headers/TestResults/ETATResult.h"/>
+    <File Name="../../../headers/TestResults/ETATResultSource.h"/>
+    <File Name="../../../headers/TestResults/ETATTestResultNodeType.h"/>
+    <File Name="../../../headers/TestResults/ITATTestResultLoader.h"/>
+    <File Name="../../../headers/TestResults/TATTestAutomationToolResults.h"/>
+    <File Name="../../../headers/TestResults/TATTestResultConsultant.h"/>
+    <File Name="../../../headers/TestResults/TATTestResultInfo.h"/>
+    <File Name="../../../headers/TestResults/TATTestResultLoader.h"/>
+    <File Name="../../../headers/TestResults/TATTestResultLoaderFactory.h"/>
+    <File Name="../../../headers/TestResults/TATTestResultNode.h"/>
+    <File Name="../../../headers/TestResults/TATXmlReader.h"/>
+    <File Name="../../../source/TestResults/ETATResult.cpp"/>
+    <File Name="../../../source/TestResults/ETATResultSource.cpp"/>
+    <File Name="../../../source/TestResults/ETATTestResultNodeType.cpp"/>
+    <File Name="../../../source/TestResults/TATTestAutomationToolResults.cpp"/>
+    <File Name="../../../source/TestResults/TATTestResultConsultant.cpp"/>
+    <File Name="../../../source/TestResults/TATTestResultInfo.cpp"/>
+    <File Name="../../../source/TestResults/TATTestResultLoader.cpp"/>
+    <File Name="../../../source/TestResults/TATTestResultLoaderFactory.cpp"/>
+    <File Name="../../../source/TestResults/TATTestResultNode.cpp"/>
+  </VirtualDirectory>
+  <Dependencies Name="DebugWin32"/>
+  <Dependencies Name="ReleaseWin32"/>
+  <Settings Type="Static Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="DebugLinux32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;`wx-config --cflags`" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;`wx-config --cflags`" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugWin32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="ReleaseLinux32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="`wx-config --cflags`" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="ReleaseMac32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="`wx-config --cflags`" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="`wx-config --libs std richtext`" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="ReleaseWin32" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswu"/>
+        <IncludePath Value="../../../headers"/>
+        <IncludePath Value="../../../3rdparty/wxWidgets/include/include"/>
+        <IncludePath Value="../../../3rdparty/Boost/include"/>
+        <Preprocessor Value="wxUSE_UNICODE"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../bin/CodeLite/$(ConfigurationName)/lib$(ProjectName).a" IntermediateDirectory="../../../garbage/CodeLite/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

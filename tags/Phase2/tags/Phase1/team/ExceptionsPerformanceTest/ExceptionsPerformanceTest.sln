@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExceptionsPerformanceTest", "ExceptionsPerformanceTest\ExceptionsPerformanceTest.vcxproj", "{27C71D02-5DAA-4539-BC14-33752297890A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27C71D02-5DAA-4539-BC14-33752297890A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27C71D02-5DAA-4539-BC14-33752297890A}.Debug|Win32.Build.0 = Debug|Win32
+		{27C71D02-5DAA-4539-BC14-33752297890A}.Release|Win32.ActiveCfg = Release|Win32
+		{27C71D02-5DAA-4539-BC14-33752297890A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

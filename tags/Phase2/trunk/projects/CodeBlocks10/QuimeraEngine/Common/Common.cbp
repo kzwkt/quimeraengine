@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Common" />
+		<Option execution_dir="/home/mar/Proyectos/C++/QuimeraEngine/projects/CodeBlocks10/QuimeraEngine/" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="DataTypes\;Memory\;" />
+		<Build>
+			<Target title="DebugLinux32SharedrtStatic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/libQuimeraEngineCommon.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtStatic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtDynamic">
+				<Option platforms="Windows;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuin.dll.a" />
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
+				</Linker>
+			</Target>
+			<Target title="DebugLinux32SharedrtDynamic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/libQuimeraEngineCommon.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="icudata" />
+					<Add library="icuuc" />
+					<Add library="icui18n" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtDynamic" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtStatic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtStatic/libQuimeraEngineCommon.a" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugMac32SharedrtDynamic">
+				<Option platforms="Mac;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic/libQuimeraEngineCommon.so" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugMac32SharedrtDynamic" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="icudata" />
+					<Add library="icuuc" />
+					<Add directory="../../../../3rdparty/Boost/bin/Mac32/DebugSharedrtDynamic" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wshadow" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Winline" />
+			<Add option="-Wmissing-include-dirs" />
+			<Add option="-Wswitch-default" />
+			<Add option="-Wall" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
+		</Compiler>
+		<Unit filename="../../../../headers/AllocationOperators.h">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../headers/Assertions.h" />
+		<Unit filename="../../../../headers/CommonDefinitions.h" />
+		<Unit filename="../../../../headers/Configuration.h" />
+		<Unit filename="../../../../headers/CrossPlatformBasicTypes.h" />
+		<Unit filename="../../../../headers/DataTypesDefinitions.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/DelegateInternals.h" />
+		<Unit filename="../../../../headers/EQComparisonType.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/EQNormalizationForm.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/EQTextEncoding.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/ExternalDefinitions.h" />
+		<Unit filename="../../../../headers/InternalDefinitions.h" />
+		<Unit filename="../../../../headers/QAlignment.h">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../headers/QCharUnicode.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/QDelegate.h" />
+		<Unit filename="../../../../headers/QPoolAllocator.h">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../headers/QStackAllocator.h">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../headers/QStringUnicode.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/QType.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQBoolean.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQFloat.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQInteger.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/SQVF32.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/AllocationOperators.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/Assertions.cpp" />
+		<Unit filename="../../../../source/EQComparisonType.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/EQNormalizationForm.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/EQTextEncoding.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QAlignment.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QCharIterator.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QCharUnicode.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QConstCharIterator.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QMark.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QPoolAllocator.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QStackAllocator.cpp">
+			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QStringUnicode.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QType.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQBoolean.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQFloat.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQInteger.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQVF32.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

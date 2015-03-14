@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAutomationTool", "TestAutomationTool\TestAutomationTool.vcxproj", "{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02026DEB-1950-4407-BD09-4065A7FD2BB2} = {02026DEB-1950-4407-BD09-4065A7FD2BB2}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Backend", "Backend\Backend.vcxproj", "{02026DEB-1950-4407-BD09-4065A7FD2BB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugWin32|Win32 = DebugWin32|Win32
+		ReleaseWin32|Win32 = ReleaseWin32|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}.DebugWin32|Win32.ActiveCfg = DebugWin32|Win32
+		{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}.DebugWin32|Win32.Build.0 = DebugWin32|Win32
+		{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}.ReleaseWin32|Win32.ActiveCfg = ReleaseWin32|Win32
+		{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}.ReleaseWin32|Win32.Build.0 = ReleaseWin32|Win32
+		{02026DEB-1950-4407-BD09-4065A7FD2BB2}.DebugWin32|Win32.ActiveCfg = DebugWin32|Win32
+		{02026DEB-1950-4407-BD09-4065A7FD2BB2}.DebugWin32|Win32.Build.0 = DebugWin32|Win32
+		{02026DEB-1950-4407-BD09-4065A7FD2BB2}.ReleaseWin32|Win32.ActiveCfg = ReleaseWin32|Win32
+		{02026DEB-1950-4407-BD09-4065A7FD2BB2}.ReleaseWin32|Win32.Build.0 = ReleaseWin32|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

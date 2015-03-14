@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32|Win32">
+      <Configuration>DebugWin32</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseWin32|Win32">
+      <Configuration>ReleaseWin32</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{02026DEB-1950-4407-BD09-4065A7FD2BB2}</ProjectGuid>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Backend</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CLRSupport>false</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\3rdparty\Boost\include;$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\3rdparty\Boost\include;$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\TATShellProcess.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATResult.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATResultSource.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATTestResultNodeType.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestAutomationToolResults.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultConsultant.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultLoader.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultLoaderFactory.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultNode.cpp" />
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
+    <ClInclude Include="..\..\..\..\headers\STATStringHelper.h" />
+    <ClInclude Include="..\..\..\..\headers\TATNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TATShellProcess.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ITATConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\STATAppSettings.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFactory.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFromIniFile.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATKeyValueNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATRuleNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h" />
+    <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATFormattedMessage.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATResult.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATResultSource.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATTestResultNodeType.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\ITATTestResultLoader.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestAutomationToolResults.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultConsultant.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultLoader.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultLoaderFactory.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATXmlReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp" />
+    <ClCompile Include="..\..\..\..\source\TATNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigNodeType.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigurationSource.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\STATAppSettings.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFactory.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFromIniFile.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATKeyValueNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATRuleNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

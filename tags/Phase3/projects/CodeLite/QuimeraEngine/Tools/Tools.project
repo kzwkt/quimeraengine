@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="Tools" InternalType="Library">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00070001N0005Debug0000000000000001N0027DebugLinux32SharedrtDynamic0000000000000001N0026DebugLinux32SharedrtStatic0000000000000001N0025DebugMac32SharedrtDynamic0000000000000001N0024DebugMac32SharedrtStatic0000000000000001N0025DebugWin32SharedrtDynamic0000000000000001N0024DebugWin32SharedrtStatic000000000000]]>
+    </Plugin>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+		"name":	"Debug",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugLinux32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugMac32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugWin32SharedrtDynamic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}, {
+		"name":	"DebugWin32SharedrtStatic",
+		"enabled":	false,
+		"buildDirectory":	"build",
+		"sourceDirectory":	"$(ProjectPath)",
+		"generator":	"",
+		"buildType":	"",
+		"arguments":	[],
+		"parentProject":	""
+	}]]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="include">
+    <File Name="../../../../headers/ToolsDefinitions.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Math">
+    <File Name="../../../../headers/EQIntersections.h"/>
+    <File Name="../../../../headers/EQSpaceRelation.h"/>
+    <File Name="../../../../headers/MathDefinitions.h"/>
+    <File Name="../../../../headers/QBaseDualQuaternion.h"/>
+    <File Name="../../../../headers/QBaseHexahedron.h"/>
+    <File Name="../../../../headers/QBaseLineSegment.h"/>
+    <File Name="../../../../headers/QBaseMatrix2x2.h"/>
+    <File Name="../../../../headers/QBaseMatrix3x3.h"/>
+    <File Name="../../../../headers/QBaseMatrix3x4.h"/>
+    <File Name="../../../../headers/QBaseMatrix4x3.h"/>
+    <File Name="../../../../headers/QBaseMatrix4x4.h"/>
+    <File Name="../../../../headers/QBaseOrb.h"/>
+    <File Name="../../../../headers/QBasePlane.h"/>
+    <File Name="../../../../headers/QBaseQuadrilateral.h"/>
+    <File Name="../../../../headers/QBaseQuaternion.h"/>
+    <File Name="../../../../headers/QBaseRay.h"/>
+    <File Name="../../../../headers/QBaseTriangle.h"/>
+    <File Name="../../../../headers/QBaseVector2.h"/>
+    <File Name="../../../../headers/QBaseVector3.h"/>
+    <File Name="../../../../headers/QBaseVector4.h"/>
+    <File Name="../../../../headers/QCircle.h"/>
+    <File Name="../../../../headers/QDualQuaternion.h"/>
+    <File Name="../../../../headers/QHexahedron.h"/>
+    <File Name="../../../../headers/QLineSegment.h"/>
+    <File Name="../../../../headers/QLineSegment2D.h"/>
+    <File Name="../../../../headers/QLineSegment3D.h"/>
+    <File Name="../../../../headers/QMatrix2x2.h"/>
+    <File Name="../../../../headers/QMatrix3x3.h"/>
+    <File Name="../../../../headers/QMatrix3x4.h"/>
+    <File Name="../../../../headers/QMatrix4x3.h"/>
+    <File Name="../../../../headers/QMatrix4x4.h"/>
+    <File Name="../../../../headers/QOrb.h"/>
+    <File Name="../../../../headers/QPlane.h"/>
+    <File Name="../../../../headers/QQuadrilateral.h"/>
+    <File Name="../../../../headers/QQuaternion.h"/>
+    <File Name="../../../../headers/QRay.h"/>
+    <File Name="../../../../headers/QRay2D.h"/>
+    <File Name="../../../../headers/QRay3D.h"/>
+    <File Name="../../../../headers/QRotationMatrix3x3.h"/>
+    <File Name="../../../../headers/QScalingMatrix3x3.h"/>
+    <File Name="../../../../headers/QSpaceConversionMatrix.h"/>
+    <File Name="../../../../headers/QSphere.h"/>
+    <File Name="../../../../headers/QTransformationMatrix.h"/>
+    <File Name="../../../../headers/QTransformationMatrix3x3.h"/>
+    <File Name="../../../../headers/QTranslationMatrix.h"/>
+    <File Name="../../../../headers/QTriangle.h"/>
+    <File Name="../../../../headers/QTriangle2D.h"/>
+    <File Name="../../../../headers/QTriangle3D.h"/>
+    <File Name="../../../../headers/QVector2.h"/>
+    <File Name="../../../../headers/QVector3.h"/>
+    <File Name="../../../../headers/QVector4.h"/>
+    <File Name="../../../../headers/SQAngle.h"/>
+    <File Name="../../../../headers/SQPoint.h"/>
+    <File Name="../../../../source/EQIntersections.cpp"/>
+    <File Name="../../../../source/EQSpaceRelation.cpp"/>
+    <File Name="../../../../source/QBaseDualQuaternion.cpp"/>
+    <File Name="../../../../source/QBaseHexahedron.cpp"/>
+    <File Name="../../../../source/QBaseLineSegment.cpp"/>
+    <File Name="../../../../source/QBaseMatrix2x2.cpp"/>
+    <File Name="../../../../source/QBaseMatrix3x3.cpp"/>
+    <File Name="../../../../source/QBaseMatrix3x4.cpp"/>
+    <File Name="../../../../source/QBaseMatrix4x3.cpp"/>
+    <File Name="../../../../source/QBaseMatrix4x4.cpp"/>
+    <File Name="../../../../source/QBaseOrb.cpp"/>
+    <File Name="../../../../source/QBasePlane.cpp"/>
+    <File Name="../../../../source/QBaseQuadrilateral.cpp"/>
+    <File Name="../../../../source/QBaseQuaternion.cpp"/>
+    <File Name="../../../../source/QBaseRay.cpp"/>
+    <File Name="../../../../source/QBaseTriangle.cpp"/>
+    <File Name="../../../../source/QBaseVector2.cpp"/>
+    <File Name="../../../../source/QBaseVector3.cpp"/>
+    <File Name="../../../../source/QBaseVector4.cpp"/>
+    <File Name="../../../../source/QCircle.cpp"/>
+    <File Name="../../../../source/QDualQuaternion.cpp"/>
+    <File Name="../../../../source/QHexahedron.cpp"/>
+    <File Name="../../../../source/QLineSegment.cpp"/>
+    <File Name="../../../../source/QLineSegment2D.cpp"/>
+    <File Name="../../../../source/QLineSegment3D.cpp"/>
+    <File Name="../../../../source/QMatrix2x2.cpp"/>
+    <File Name="../../../../source/QMatrix3x3.cpp"/>
+    <File Name="../../../../source/QMatrix3x4.cpp"/>
+    <File Name="../../../../source/QMatrix4x3.cpp"/>
+    <File Name="../../../../source/QMatrix4x4.cpp"/>
+    <File Name="../../../../source/QOrb.cpp"/>
+    <File Name="../../../../source/QPlane.cpp"/>
+    <File Name="../../../../source/QQuadrilateral.cpp"/>
+    <File Name="../../../../source/QQuaternion.cpp"/>
+    <File Name="../../../../source/QRay.cpp"/>
+    <File Name="../../../../source/QRay2D.cpp"/>
+    <File Name="../../../../source/QRay3D.cpp"/>
+    <File Name="../../../../source/QRotationMatrix3x3.cpp"/>
+    <File Name="../../../../source/QScalingMatrix3x3.cpp"/>
+    <File Name="../../../../source/QSpaceConversionMatrix.cpp"/>
+    <File Name="../../../../source/QSphere.cpp"/>
+    <File Name="../../../../source/QTransformationMatrix.cpp"/>
+    <File Name="../../../../source/QTransformationMatrix3x3.cpp"/>
+    <File Name="../../../../source/QTranslationMatrix.cpp"/>
+    <File Name="../../../../source/QTriangle.cpp"/>
+    <File Name="../../../../source/QTriangle2D.cpp"/>
+    <File Name="../../../../source/QTriangle3D.cpp"/>
+    <File Name="../../../../source/QVector2.cpp"/>
+    <File Name="../../../../source/QVector3.cpp"/>
+    <File Name="../../../../source/QVector4.cpp"/>
+    <File Name="../../../../source/SQAngle.cpp"/>
+    <File Name="../../../../source/SQPoint.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Containers">
+    <File Name="../../../../headers/EQIterationDirection.h"/>
+    <File Name="../../../../headers/EQTreeTraversalOrder.h"/>
+    <File Name="../../../../headers/QList.h"/>
+    <File Name="../../../../source/EQIterationDirection.cpp"/>
+    <File Name="../../../../source/EQTreeTraversalOrder.cpp"/>
+    <File Name="../../../../headers/QNTree.h"/>
+    <File Name="../../../../headers/QBinarySearchTree.h"/>
+    <File Name="../../../../headers/SQComparatorDefault.h"/>
+    <File Name="../../../../headers/QKeyValuePair.h"/>
+    <File Name="../../../../headers/SQKeyValuePairComparator.h"/>
+    <File Name="../../../../headers/SQEqualityComparator.h"/>
+    <File Name="../../../../headers/SQNoComparator.h"/>
+    <File Name="../../../../headers/QDictionary.h"/>
+    <File Name="../../../../headers/QHashtable.h"/>
+    <File Name="../../../../headers/SQIntegerHashProvider.h"/>
+    <File Name="../../../../headers/SQStringHashProvider.h"/>
+    <File Name="../../../../source/SQStringHashProvider.cpp"/>
+    <File Name="../../../../headers/QArrayDynamic.h"/>
+    <File Name="../../../../headers/QArrayFixed.h"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Time">
+    <File Name="../../../../headers/QDateTime.h"/>
+    <File Name="../../../../headers/QTimeSpan.h"/>
+    <File Name="../../../../headers/QTimeZone.h"/>
+    <File Name="../../../../headers/SQTimeZoneFactory.h"/>
+    <File Name="../../../../source/QDateTime.cpp"/>
+    <File Name="../../../../source/QDstInformation.cpp"/>
+    <File Name="../../../../source/QTimeSpan.cpp"/>
+    <File Name="../../../../source/QTimeZone.cpp"/>
+    <File Name="../../../../source/SQTimeZoneFactory.cpp"/>
+    <File Name="../../../../source/TimeZoneDatabase.cpp"/>
+    <VirtualDirectory Name="Workarounds">
+      <File Name="../../../../source/Workarounds/Boost_ThrowException.cpp"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Dependencies Name="DebugWin32SharedrtStatic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <Dependencies Name="DebugWin32SharedrtDynamic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <Dependencies Name="DebugLinux32SharedrtDynamic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <Dependencies Name="DebugLinux32SharedrtStatic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <Dependencies Name="DebugMac32SharedrtDynamic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <Dependencies Name="DebugMac32SharedrtStatic">
+    <Project Name="Common"/>
+  </Dependencies>
+  <VirtualDirectory Name="Common">
+    <File Name="../../../../headers/QEvent.h"/>
+  </VirtualDirectory>
+  <Settings Type="Dynamic Library">
+    <GlobalSettings>
+      <Compiler Options="-Wno-comment" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="DebugLinux32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../bin/GCC/$(ConfigurationName)"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+        <Library Value="QuimeraEngineCommon"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngine$(ProjectName).so" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugLinux32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/GCC/$(ConfigurationName)/libQuimeraEngine$(ProjectName).a" IntermediateDirectory="../../../../garbage/GCC/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/GCC/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtDynamic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../bin/Clang/DebugMac32SharedrtDynamic"/>
+        <Library Value="icudata"/>
+        <Library Value="icuuc"/>
+        <Library Value="icui18n"/>
+        <Library Value="QuimeraEngineCommon"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngine$(ProjectName).dylib" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugMac32SharedrtStatic" CompilerType="clang( based on LLVM 3.4svn )" DebuggerType="LLDB Debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/Clang/$(ConfigurationName)/libQuimeraEngine$(ProjectName).a" IntermediateDirectory="../../../../garbage/Clang/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/Clang/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugWin32SharedrtDynamic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Dynamic Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="QE_PREPROCESSOR_EXPORTLIB_TOOLS"/>
+        <Preprocessor Value="QE_PREPROCESSOR_IMPORTLIB_COMMON"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes">
+        <LibraryPath Value="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW"/>
+        <LibraryPath Value="../../../../bin/MinGW/$(ConfigurationName)"/>
+        <Library Value="icudt"/>
+        <Library Value="icuuc"/>
+        <Library Value="icuin"/>
+        <Library Value="QuimeraEngineCommon"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/MinGW/$(ConfigurationName)/QuimeraEngine$(ProjectName).dll" IntermediateDirectory="../../../../garbage/MinGW/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/MinGW/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="DebugWin32SharedrtStatic" CompilerType="MinGW ( CodeLite-4.8.1 )" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g -Wall -Wno-comment -m32 -isystem $(EXECUTION_PATH)../../../../3rdparty/Boost/include -fno-rtti -fno-exceptions -msse2" C_Options="-g" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" UseDifferentPCHFlags="no" PCHFlags="">
+        <IncludePath Value="../../../../headers"/>
+        <IncludePath Value="../../../../3rdparty/ICU/include"/>
+        <Preprocessor Value="BOOST_NO_RTTI"/>
+        <Preprocessor Value="BOOST_NO_TYPEID"/>
+        <Preprocessor Value="BOOST_NO_EXCEPTIONS"/>
+      </Compiler>
+      <Linker Options="-m32" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../../../../bin/MinGW/$(ConfigurationName)/libQuimeraEngine$(ProjectName).a" IntermediateDirectory="../../../../garbage/MinGW/$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="../../../../bin/MinGW/$(ConfigurationName)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>

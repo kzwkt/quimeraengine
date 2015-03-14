@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Infrastructure">
+      <UniqueIdentifier>{7d1714c9-128c-4174-8c1a-036e8dd82c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{b73b8103-7b66-4ce3-b6d2-9eab131bcde0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WindowsStuff.cpp">
+      <Filter>Infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Infrastructure</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX9Stuff.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="TestHere.h">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="TestConfiguration.h">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Infrastructure</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

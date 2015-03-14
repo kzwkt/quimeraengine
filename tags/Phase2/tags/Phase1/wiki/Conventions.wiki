@@ -1,0 +1,27 @@
+= Conventions =
+<table>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[PatternsConv Patterns Convention]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[NamingConv Naming Convention]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[OrderConv Code Order Convention]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[GoodPracConv Good practices and Non-classified conventions]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[DocConv Documentation convention]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[ErrorConv Error Handling convention]</td>
+</tr>
+</table>

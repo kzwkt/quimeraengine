@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="TestAutomationTool" Database="">
+  <Project Name="Backend" Path="Backend.project" Active="No"/>
+  <Project Name="TestAutomationTool" Path="TestAutomationTool.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="DebugWin32" Selected="no">
+      <Project Name="Backend" ConfigName="DebugWin32"/>
+      <Project Name="TestAutomationTool" ConfigName="DebugWin32"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="ReleaseWin32" Selected="no">
+      <Project Name="Backend" ConfigName="ReleaseWin32"/>
+      <Project Name="TestAutomationTool" ConfigName="ReleaseWin32"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux32" Selected="no">
+      <Project Name="Backend" ConfigName="DebugLinux32"/>
+      <Project Name="TestAutomationTool" ConfigName="DebugLinux32"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="ReleaseLinux32" Selected="no">
+      <Project Name="Backend" ConfigName="ReleaseLinux32"/>
+      <Project Name="TestAutomationTool" ConfigName="ReleaseLinux32"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugMac32" Selected="no">
+      <Project Name="Backend" ConfigName="DebugMac32"/>
+      <Project Name="TestAutomationTool" ConfigName="DebugMac32"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="ReleaseMac32" Selected="yes">
+      <Project Name="Backend" ConfigName="ReleaseMac32"/>
+      <Project Name="TestAutomationTool" ConfigName="ReleaseMac32"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

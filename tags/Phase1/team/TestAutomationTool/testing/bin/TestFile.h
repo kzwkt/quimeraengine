@@ -1,0 +1,3 @@
+﻿#define FLAG1 VALUE1
+#define FLAG2 VALUE2
+#define FLAG3 VALUE3

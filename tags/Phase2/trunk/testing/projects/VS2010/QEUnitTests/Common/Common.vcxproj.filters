@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{9db66cd7-5975-43cc-b98d-531a9138caa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem %28shared%29">
+      <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\DataTypes">
+      <UniqueIdentifier>{539ea320-355d-4181-9c79-5e4fa6eff11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\General">
+      <UniqueIdentifier>{8cc96c95-271b-4301-abf4-4108d835eb8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Memory">
+      <UniqueIdentifier>{c44c38bc-170e-42af-88f6-4c449d4ec840}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\TestModule_Common.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQBoolean_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQFloat_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQInteger_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQVF32_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp">
+      <Filter>Tests\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QConstCharIterator_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QType_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QDelegate_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharIterator_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QLinearAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QBlockHeader_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMark_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QMarkMocked.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\EQEnumerationMock.h">
+      <Filter>Tests\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocatorWhiteBox.h">
+      <Filter>Tests\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeNormalizationTestData.h">
+      <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\CommonTestDefinitions.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeCollationTestData.h">
+      <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\FunctionsForQDelegateTests.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QAlignmentMocked.h">
+      <Filter>Tests\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QStackAllocatorWhiteBox.h">
+      <Filter>Tests\Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">
+      <Filter>TestSystem %28shared%29</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QArrayIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseLineSegment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix3x4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseOrb_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBasePlane_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_QVector4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseTriangle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector2_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTree_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstArrayIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstListIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstNTreeIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QConstBinarySearchTreeIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDateTime_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDstInformation_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QDynamicArray_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArray_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment3D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QListIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QList_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QNTree_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuadrilateral_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay2D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay3D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeSpan_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeZone_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle2D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle3D_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQTimeZoneFactory_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ArrayElementMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\CallCounter.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\ListElementMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QBinarySearchTreeWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QConstBinarySearchTreeIteratorMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QListWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeIteratorMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QNTreeWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QFixedArrayTestClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{40B8A776-0BED-40E6-B2F2-5CE7386733D8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ToolsTest</RootNamespace>
+    <ProjectName>Tools</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>Unit_TestModule_$(ProjectName)</TargetName>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>Unit_TestModule_$(ProjectName)</TargetName>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <ShowProgress>NotSet</ShowProgress>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <PreBuildEvent>
+      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <ShowProgress>NotSet</ShowProgress>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <PreBuildEvent>
+      <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineCommon.dll $(TargetDir)
+copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineTools.dll $(TargetDir)
+copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Link>
+      <RegisterOutput>false</RegisterOutput>
+    </Link>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\DebugWin32md_static;$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCore.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

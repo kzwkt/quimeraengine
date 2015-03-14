@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{2b39c0f3-786c-4d8b-937c-677d6f0f5e23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FG1 - Test Configuration">
+      <UniqueIdentifier>{0c77e513-9c31-44c6-9a42-fab14d2bb411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FG2 - Test Execution">
+      <UniqueIdentifier>{e657444e-311e-445e-ae20-5031ba34f1a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FG3 - Editor">
+      <UniqueIdentifier>{0d72079a-a246-4b8e-82db-d3aed6750c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FG4 - Test Results">
+      <UniqueIdentifier>{57c56132-11b6-40eb-9df5-90bfed421eb1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\TATNode.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ITATConfigLoader.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFactory.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFromIniFile.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATRuleNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\STATAppSettings.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATKeyValueNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\STATStringHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATFormattedMessage.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TATShellProcess.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATResult.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATResultSource.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\ETATTestResultNodeType.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\ITATTestResultLoader.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultConsultant.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultInfo.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultLoader.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultLoaderFactory.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestResultNode.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATXmlReader.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestResults\TATTestAutomationToolResults.h">
+      <Filter>FG4 - Test Results</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TATNode.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFactory.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFromIniFile.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigurationSource.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATRuleNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigNodeType.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\STATAppSettings.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATKeyValueNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TATShellProcess.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATResult.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATResultSource.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\ETATTestResultNodeType.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultConsultant.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultInfo.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultLoader.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultLoaderFactory.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestResultNode.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestResults\TATTestAutomationToolResults.cpp">
+      <Filter>FG4 - Test Results</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

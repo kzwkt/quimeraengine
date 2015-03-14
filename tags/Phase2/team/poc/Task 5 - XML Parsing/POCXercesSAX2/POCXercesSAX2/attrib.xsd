@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wmh="http://www.wmhelp.com/2003/eGenerator" elementFormDefault="qualified">
+  <xs:element name="Theme">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ThemeInfo"/>
+        <xs:element ref="Bitmap" maxOccurs="unbounded"/>
+        <xs:element ref="BitmapFont"/>
+        <xs:element ref="IniFile"/>
+        <xs:element ref="Window"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string"/>
+      <xs:attribute name="magnet" type="xs:string"/>
+      <xs:attribute name="alpha" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThemeInfo">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="author" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Bitmap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SubBitmap" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="file" type="xs:string" use="required"/>
+      <xs:attribute name="alphacolor" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubBitmap">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="width" type="xs:string" use="required"/>
+      <xs:attribute name="height" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BitmapFont">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="file" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IniFile">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="file" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Window">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Layout"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Layout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Group"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required"/>
+      <xs:attribute name="width" type="xs:string" use="required"/>
+      <xs:attribute name="height" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Group">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Anchor" maxOccurs="unbounded"/>
+        <xs:element ref="Image"/>
+        <xs:element ref="Text"/>
+        <xs:element ref="Button"/>
+        <xs:element ref="Image"/>
+        <xs:element ref="Slider"/>
+      </xs:sequence>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Anchor">
+    <xs:complexType>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="priority" type="xs:string" use="required"/>
+      <xs:attribute name="range" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Image">
+    <xs:complexType>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="image" type="xs:string" use="required"/>
+      <xs:attribute name="action" type="xs:string"/>
+      <xs:attribute name="action2" type="xs:string"/>
+      <xs:attribute name="visible" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Text">
+    <xs:complexType>
+      <xs:attribute name="font" type="xs:string" use="required"/>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="width" type="xs:string" use="required"/>
+      <xs:attribute name="text" type="xs:string" use="required"/>
+      <xs:attribute name="visible" type="xs:string" use="required"/>
+      <xs:attribute name="scrolling" type="xs:string" use="required"/>
+      <xs:attribute name="alignment" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Button">
+    <xs:complexType>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="up" type="xs:string" use="required"/>
+      <xs:attribute name="down" type="xs:string" use="required"/>
+      <xs:attribute name="over" type="xs:string" use="required"/>
+      <xs:attribute name="action" type="xs:string" use="required"/>
+      <xs:attribute name="tooltiptext" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Slider">
+    <xs:complexType>
+      <xs:attribute name="value" type="xs:string" use="required"/>
+      <xs:attribute name="x" type="xs:string" use="required"/>
+      <xs:attribute name="y" type="xs:string" use="required"/>
+      <xs:attribute name="up" type="xs:string" use="required"/>
+      <xs:attribute name="down" type="xs:string" use="required"/>
+      <xs:attribute name="points" type="xs:string" use="required"/>
+      <xs:attribute name="thickness" type="xs:string" use="required"/>
+      <xs:attribute name="tooltiptext" type="xs:string" use="required"/>
+      <xs:attribute name="visible" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

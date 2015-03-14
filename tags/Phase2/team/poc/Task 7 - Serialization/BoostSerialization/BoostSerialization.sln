@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostSerializationBinary", "BoostSerializationBinary\BoostSerializationBinary.vcxproj", "{EC411DF0-01A7-4D42-BC9C-57D1B6AAD2FA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostSerializationXML", "BoostSerializationXML\BoostSerializationXML.vcxproj", "{DA5C7E44-CB9E-4CC7-B016-EFEB69EC5B50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC411DF0-01A7-4D42-BC9C-57D1B6AAD2FA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EC411DF0-01A7-4D42-BC9C-57D1B6AAD2FA}.Debug|Win32.Build.0 = Debug|Win32
+		{EC411DF0-01A7-4D42-BC9C-57D1B6AAD2FA}.Release|Win32.ActiveCfg = Release|Win32
+		{EC411DF0-01A7-4D42-BC9C-57D1B6AAD2FA}.Release|Win32.Build.0 = Release|Win32
+		{DA5C7E44-CB9E-4CC7-B016-EFEB69EC5B50}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DA5C7E44-CB9E-4CC7-B016-EFEB69EC5B50}.Debug|Win32.Build.0 = Debug|Win32
+		{DA5C7E44-CB9E-4CC7-B016-EFEB69EC5B50}.Release|Win32.ActiveCfg = Release|Win32
+		{DA5C7E44-CB9E-4CC7-B016-EFEB69EC5B50}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

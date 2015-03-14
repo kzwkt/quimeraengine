@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{d6d4def4-d964-439f-a86f-f232a48c980c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{582dca16-3437-4d29-b0f9-59a5fc38bcc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{5ca82d16-a774-4ff7-92ed-2734b6e87197}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQBoolean.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQFloat.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQInteger.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQVF32.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CommonDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\Configuration.h" />
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\Assertions.h" />
+    <ClInclude Include="..\..\..\..\headers\QAlignment.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\AllocationOperators.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStringUnicode.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCharUnicode.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQComparisonType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CrossPlatformBasicTypes.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QType.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDelegate.h" />
+    <ClInclude Include="..\..\..\..\headers\DelegateInternals.h" />
+    <ClInclude Include="..\..\..\..\headers\LoggingUtilities.h" />
+    <ClInclude Include="..\..\..\..\headers\SQInternalLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\QLinearAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStackAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQAssertionType.h" />
+    <ClInclude Include="..\..\..\..\headers\QReferenceWrapper.h" />
+    <ClInclude Include="..\..\..\..\headers\Endianness.h" />
+    <ClInclude Include="..\..\..\..\headers\QAssertException.h">
+      <Filter>Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\RTTIDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAnyTypeToStringConverter.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArrayResult.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\StringsDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArrayBasic.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQFloat.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQInteger.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQVF32.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAlignment.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QPoolAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQComparisonType.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QType.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCharIterator.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQInternalLogger.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLinearAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QMark.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStackAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBlockHeader.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQAssertionType.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAssertException.cpp">
+      <Filter>Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQAnyTypeToStringConverter.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

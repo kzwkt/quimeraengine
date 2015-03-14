@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="QEUnitTests" Database="">
+  <Project Name="Common" Path="Common/Common.project" Active="Yes"/>
+  <Project Name="Tools" Path="Tools/Tools.project" Active="No"/>
+  <Project Name="System" Path="System/System.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="yes">
+      <Project Name="Common" ConfigName="DebugWin32SharedrtStatic"/>
+      <Project Name="Tools" ConfigName="DebugWin32SharedrtStatic"/>
+      <Project Name="System" ConfigName="DebugWin32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="no">
+      <Project Name="Common" ConfigName="DebugWin32SharedrtDynamic"/>
+      <Project Name="Tools" ConfigName="DebugWin32SharedrtDynamic"/>
+      <Project Name="System" ConfigName="DebugWin32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtStatic" Selected="no">
+      <Project Name="Tools" ConfigName="DebugLinux32SharedrtStatic"/>
+      <Project Name="System" ConfigName="DebugLinux32SharedrtStatic"/>
+      <Project Name="Common" ConfigName="DebugLinux32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="no">
+      <Project Name="Tools" ConfigName="DebugLinux32SharedrtDynamic"/>
+      <Project Name="System" ConfigName="DebugLinux32SharedrtDynamic"/>
+      <Project Name="Common" ConfigName="DebugLinux32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="no">
+      <Project Name="Tools" ConfigName="DebugMac32SharedrtStatic"/>
+      <Project Name="System" ConfigName="DebugMac32SharedrtStatic"/>
+      <Project Name="Common" ConfigName="DebugMac32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugMac32SharedrtDynamic" Selected="yes">
+      <Project Name="Tools" ConfigName="DebugMac32SharedrtDynamic"/>
+      <Project Name="System" ConfigName="DebugMac32SharedrtDynamic"/>
+      <Project Name="Common" ConfigName="DebugMac32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

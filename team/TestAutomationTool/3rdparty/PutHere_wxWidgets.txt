@@ -1,0 +1,27 @@
+Go to <wxWidgets installation folder>/build/msw
+
+Building wxWidgets for Visual Studio 2010 (use Visual Studio's command prompt):
+nmake -f makefile.vc BUILD=<debug/release> MONOLITHIC=0 SHARED=0 UNICODE=1
+
+Building wxWidgets for GCC (Mingw32, which has to be accessible for the command prompt, this means, the folder where mingw32-make.exe file resides has to be added to the environment variable called PATH):
+mingw32-make -f makefile.gcc BUILD=<debug/release> MONOLITHIC=0 SHARED=0 UNICODE=1
+
+Building wxWidgets for GCC:
+Go to the folder where the downloaded library is.
+Create a directory, for example: mkdir mybuild
+Enter to the directory: cd mybuild
+Execute:
+../configure --enable-debug --disable-monolithic --disable-shared --enable-unicode --with-gtk --without-libtiff --without-libjpeg --enable-richtext
+(here we use --with-gtk but it depends on the desired graphic framework)
+Execute:
+make
+sudo make install
+sudo ldconfig
+
+Create a folder called wxWidgets.
+Then, create another folder inside, called include. 
+Copy original folders "include" and "lib" from wxWidgets library's installation folder.
+If compiling using CodeBlocks on Windows (Mingw32), then it's necessary to link to Windows libraries, provided with CodeBlocks IDE:
+ -Create a folder called windows_lib inside /3rdparty/wxWidgets/include/lib/.
+ -Go to CodeBlocks installation folder.
+ -Copy all the static library files from the "/MinGW/lib" or the "/mybuild/lib" folder to the just created folder.

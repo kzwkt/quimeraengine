@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{8089f263-376a-4f81-9a47-bb60cbf64e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{95c75dfb-87bf-4fcf-a7b3-c9f965bb31f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{8a370219-3116-4244-a207-80441a334b77}</UniqueIdentifier>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{24054813-06a1-4ccf-a0d3-fe95829409ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{96c95dba-9746-4995-856c-5bc4be9a44f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="QDeviceContext.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintSupportedPixelFormats.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorTracingDefinitions.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="QVertexShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QFragmentShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QShaderCompositor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QGraphicsEngine.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QuimeraEngineIncludesAndUsings.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture2D.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QImage.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QSampler2D.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QAspect.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QMaterial.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QKeyboard.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="QEntity.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QCamera.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QFrustum.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QLight.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="QWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="QDeviceContext.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="QDeviceContext_PixelFormats.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Boost_ThrowException.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="QKeyboard.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FragmentShader.glsl">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Resources\VertexShader.glsl">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Theme version="2.0" magnet="9" alpha="255" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="attrib.xsd">
+    <ThemeInfo name="Winamp2" author="See README.txt in the skin file"/>
+    <Bitmap id="main" file="main.bmp" alphacolor="#FF0001"/>
+    <Bitmap id="cbuttons" file="cbuttons.bmp" alphacolor="#FF0001">
+        <SubBitmap id="previous_up" x="0" y="0" width="23" height="18"/>
+        <SubBitmap id="previous_down" x="0" y="18" width="23" height="18"/>
+        <SubBitmap id="play_up" x="23" y="0" width="23" height="18"/>
+        <SubBitmap id="play_down" x="23" y="18" width="23" height="18"/>
+        <SubBitmap id="pause_up" x="46" y="0" width="23" height="18"/>
+        <SubBitmap id="pause_down" x="46" y="18" width="23" height="18"/>
+        <SubBitmap id="stop_up" x="69" y="0" width="23" height="18"/>
+        <SubBitmap id="stop_down" x="69" y="18" width="23" height="18"/>
+        <SubBitmap id="next_up" x="92" y="0" width="22" height="18"/>
+        <SubBitmap id="next_down" x="92" y="18" width="22" height="18"/>
+        <SubBitmap id="eject_up" x="114" y="0" width="22" height="16"/>
+        <SubBitmap id="eject_down" x="114" y="16" width="22" height="16"/>
+    </Bitmap>
+    <BitmapFont id="text_font" file="text.bmp" type="text"/>
+    <IniFile id="pledit" file="pledit.txt"/>
+    <Window id="main_window" x="100" y="100">
+        <Layout id="small_layout" width="275" height="14">
+            <Group x="0" y="0">
+                <Anchor x="0" y="0" priority="100" range="15"/>
+                <Anchor x="0" y="14" priority="100" range="15"/>
+                <Image x="0" y="0" image="small_focus" action="move" action2="main_window.setLayout(big_layout)"/>
+                <Text font="text_font" x="122" y="4" width="35" text="$t" visible="not vlc.isStopped" scrolling="none" alignment="right"/>
+                <Button x="6" y="3" up="menu_up" down="menu_down" over="menu_up" action="dialogs.popup()" tooltiptext="Popup menu"/>
+                <Image x="226" y="4" image="small_time_bg" visible="not vlc.isStopped"/>
+                <Slider value="time" x="227" y="7" up="small_time_cursor_up" down="small_time_cursor_up" points="(0,0),(14,0)" thickness="7" tooltiptext="Time: $T" visible="not vlc.isStopped"/>
+            </Group>
+        </Layout>
+    </Window>
+</Theme>
+

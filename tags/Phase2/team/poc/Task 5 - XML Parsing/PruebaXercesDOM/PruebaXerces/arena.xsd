@@ -1,0 +1,94 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wmh="http://www.wmhelp.com/2003/eGenerator" elementFormDefault="qualified">
+  <xs:element name="HattrickData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="FileName"/>
+        <xs:element ref="Version"/>
+        <xs:element ref="UserID"/>
+        <xs:element ref="FetchedDate"/>
+        <xs:element ref="Arena"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="FileName" type="xs:string"/>
+  <xs:element name="Version" type="xs:string"/>
+  <xs:element name="UserID" type="xs:string"/>
+  <xs:element name="FetchedDate" type="xs:string"/>
+  <xs:element name="Arena">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ArenaID"/>
+        <xs:element ref="ArenaName"/>
+        <xs:element ref="League"/>
+        <xs:element ref="Region"/>
+        <xs:element ref="CurrentCapacity"/>
+        <xs:element ref="ExpandedCapacity"/>
+        <xs:element ref="Team" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ArenaID" type="xs:string"/>
+  <xs:element name="ArenaName" type="xs:string"/>
+  <xs:element name="League">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LeagueID"/>
+        <xs:element ref="LeagueName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeagueID" type="xs:string"/>
+  <xs:element name="LeagueName" type="xs:string"/>
+  <xs:element name="Region">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="RegionID"/>
+        <xs:element ref="RegionName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegionID" type="xs:string"/>
+  <xs:element name="RegionName" type="xs:string"/>
+  <xs:element name="CurrentCapacity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="RebuiltDate"/>
+        <xs:element ref="Terraces"/>
+        <xs:element ref="Basic"/>
+        <xs:element ref="Roof"/>
+        <xs:element ref="VIP"/>
+        <xs:element ref="Total"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RebuiltDate">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="Available" type="xs:string" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Terraces" type="xs:string"/>
+  <xs:element name="Basic" type="xs:string"/>
+  <xs:element name="Roof" type="xs:string"/>
+  <xs:element name="VIP" type="xs:string"/>
+  <xs:element name="Total" type="xs:string"/>
+  <xs:element name="ExpandedCapacity">
+    <xs:complexType>
+      <xs:attribute name="Available" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Team">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TeamID"/>
+        <xs:element ref="TeamName"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TeamID" type="xs:string"/>
+  <xs:element name="TeamName" type="xs:string"/>
+</xs:schema>

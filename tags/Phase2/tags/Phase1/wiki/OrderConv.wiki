@@ -1,0 +1,39 @@
+= Convenciones de Orden del Código =
+
+== Archivos de cabecera ==
+ # Pancarta con la licencia y la autoría.
+ # Sentencias #Ifndef y #define para evitar inclusiones múltiples.
+ # Inclusiones de cabeceras de la STL.
+ # Inclusiones cabeceras de librerías de terceras partes, incluyendo las librerías del S. O.
+ # Inclusiones de cabeceras propias.
+ # Predeclaraciones de clases.
+ # Sentencias using.
+ # Apertura de namespaces.
+ # Declaración de la clase.
+ # Sentencias friend.
+ # Sentencias typedef.
+ # Declaración de constantes.
+ # Declaración de enumeraciones.
+ # Constructores.
+ # Destructor.
+ # Métodos.
+ # Propiedades.
+ # Atributos.
+ # Cierre de namespaces.
+ # Cierre de #ifndef con #endif.
+
+== Archivos de implementación ==
+ # Pancarta con la licencia y la autoría.
+ # Inclusiones de cabeceras de la STL.
+ # Inclusiones cabeceras de librerías de terceras partes, incluyendo las librerías del S. O.
+ # Inclusiones de cabeceras propias.
+ # Sentencias using.
+ # Apertura de namespaces.
+ # Inicialización de atributos estáticos.
+ # Constructores.
+ # Destructor.
+ # Métodos y sobrecargas de operadores.
+ # Propiedades (Get / Set).
+ # Cierre de namespaces.
+
+Aunque no es nada del otro mundo, para facilitar más las cosas usaremos una plantilla, quien la quiera usar.

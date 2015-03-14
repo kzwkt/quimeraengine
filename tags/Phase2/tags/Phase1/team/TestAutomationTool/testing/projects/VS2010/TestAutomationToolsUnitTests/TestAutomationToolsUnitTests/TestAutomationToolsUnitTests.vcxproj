@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32|Win32">
+      <Configuration>DebugWin32</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseWin32|Win32">
+      <Configuration>ReleaseWin32</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D30ABC11-8048-453D-8D25-6B828D9C15CD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestAutomationToolsUnitTests</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>Unit_TestModule_$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>Unit_TestModule_$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;__WXMSW__;__WXDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\testsystem;$(SolutionDir)..\..\..\..\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib;$(SolutionDir)..\..\..\..\bin\VS2010\DebugWin32;$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;Backend.lib;wxbase29ud.lib;wxmsw29ud_core.lib;wxmsw29ud_aui.lib;wxmsw29ud_adv.lib;wxpngd.lib;wxzlibd.lib;wxmsw29ud_html.lib;wxmsw29ud_richtext.lib;wxbase29ud_xml.lib;wxexpatd.lib;comctl32.lib;rpcrt4.lib;winmm.lib;advapi32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <PostBuildEvent>
+      <Command>xcopy "$(TargetDir)..\..\TestConfig.txt" "$(TargetDir)" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.txt" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.exe" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\ConfigFileMock.ini" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;__WXMSW__;__WXDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\testsystem;$(SolutionDir)..\..\..\..\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt.lib;Backend.lib;wxbase29u.lib;wxmsw29u_core.lib;wxmsw29u_aui.lib;wxmsw29u_adv.lib;wxpng.lib;wxzlib.lib;wxmsw29u_html.lib;wxmsw29u_richtext.lib;wxbase29u_xml.lib;wxexpat.lib;comctl32.lib;rpcrt4.lib;winmm.lib;advapi32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib;$(SolutionDir)..\..\..\..\bin\VS2010\ReleaseWin32;$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\ReleaseSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <PostBuildEvent>
+      <Command>xcopy "$(TargetDir)..\..\TestConfig.txt" "$(TargetDir)" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.txt" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.exe" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\ConfigFileMock.ini" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\testsystem\ETATTestType.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\TATCommonTestConfig.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\TATSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATCompilerInfo_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactory_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFile_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATFormattedMessage_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATKeyValueNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATMessageFormat_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATShellProcess_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResults_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThread_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultConsultant_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultInfo_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactory_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoader_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLogger_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATXmlReader_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\Configuration.h" />
+    <ClInclude Include="..\..\..\..\testsystem\ETATTestType.h" />
+    <ClInclude Include="..\..\..\..\testsystem\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATCommonTestConfig.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATPerformanceTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATSimpleConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATFixtures.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRichTextCtrlMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactoryWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATLoggerMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATShellProcessListenerMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNodeMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFileWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfigurationWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThreadWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLoggerWhiteBox.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

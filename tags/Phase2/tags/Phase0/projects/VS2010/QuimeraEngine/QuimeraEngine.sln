@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tools", "Tools\Tools.vcxproj", "{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3} = {5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System", "System\System.vcxproj", "{0D9BEE67-77B1-4FBB-B327-A3421AE58EEC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C6C25664-23A3-43D3-9A35-08CC3CACDFA7} = {C6C25664-23A3-43D3-9A35-08CC3CACDFA7}
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3} = {5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugWin32SharedrtDynamic|Win32 = DebugWin32SharedrtDynamic|Win32
+		DebugWin32SharedrtStatic|Win32 = DebugWin32SharedrtStatic|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}.DebugWin32SharedrtDynamic|Win32.ActiveCfg = DebugWin32SharedrtDynamic|Win32
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
+		{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
+		{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}.DebugWin32SharedrtDynamic|Win32.ActiveCfg = DebugWin32SharedrtDynamic|Win32
+		{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
+		{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
+		{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
+		{0D9BEE67-77B1-4FBB-B327-A3421AE58EEC}.DebugWin32SharedrtDynamic|Win32.ActiveCfg = DebugWin32SharedrtDynamic|Win32
+		{0D9BEE67-77B1-4FBB-B327-A3421AE58EEC}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
+		{0D9BEE67-77B1-4FBB-B327-A3421AE58EEC}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
+		{0D9BEE67-77B1-4FBB-B327-A3421AE58EEC}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

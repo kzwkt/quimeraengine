@@ -1,0 +1,6 @@
+  * ==[SummPatterns Patterns]==
+  * ==[SummNaming Naming]==
+  * ==[SummCodeOrd Code Order]==
+  * ==[SummGoodPrac Good Practices]==
+  * ==[SummDoc Documentation]==
+  * ==[SummError Error Handling]==

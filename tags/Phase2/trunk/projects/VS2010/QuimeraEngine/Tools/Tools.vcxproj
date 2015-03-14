@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Tools</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\include;$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>false</StringPooling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>boost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_EXPORTLIB_TOOLS;QE_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\include;$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>false</StringPooling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\DebugWin32SharedrtDynamic;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <ImportLibrary>
+      </ImportLibrary>
+      <Version>0.0.0</Version>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>G:\Users\Animal\Desktop\QE SVN\trunk\bin\DebugWin32md;G:\Users\Animal\Desktop\QE SVN\trunk\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\EQIntersections.h" />
+    <ClInclude Include="..\..\..\..\headers\EQIterationDirection.h" />
+    <ClInclude Include="..\..\..\..\headers\EQSpaceRelation.h" />
+    <ClInclude Include="..\..\..\..\headers\EQTreeTraversalOrder.h" />
+    <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseDualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseHexahedron.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseLineSegment.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix2x2.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix3x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseOrb.h" />
+    <ClInclude Include="..\..\..\..\headers\QBasePlane.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseQuadrilateral.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseRay.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseTriangle.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseVector2.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QBinarySearchTree.h" />
+    <ClInclude Include="..\..\..\..\headers\QCircle.h" />
+    <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
+    <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
+    <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QDynamicArray.h" />
+    <ClInclude Include="..\..\..\..\headers\QFixedArray.h" />
+    <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment3D.h" />
+    <ClInclude Include="..\..\..\..\headers\QList.h" />
+    <ClInclude Include="..\..\..\..\headers\QMatrix2x2.h" />
+    <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QMatrix3x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QMatrix4x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QMatrix4x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QNTree.h" />
+    <ClInclude Include="..\..\..\..\headers\QOrb.h" />
+    <ClInclude Include="..\..\..\..\headers\QPlane.h" />
+    <ClInclude Include="..\..\..\..\headers\QQuadrilateral.h" />
+    <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
+    <ClInclude Include="..\..\..\..\headers\QRay.h" />
+    <ClInclude Include="..\..\..\..\headers\QRay2D.h" />
+    <ClInclude Include="..\..\..\..\headers\QRay3D.h" />
+    <ClInclude Include="..\..\..\..\headers\QRotationMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QScalingMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QSpaceConversionMatrix.h" />
+    <ClInclude Include="..\..\..\..\headers\QSphere.h" />
+    <ClInclude Include="..\..\..\..\headers\QTimeSpan.h" />
+    <ClInclude Include="..\..\..\..\headers\QTimeZone.h" />
+    <ClInclude Include="..\..\..\..\headers\QTransformationMatrix.h" />
+    <ClInclude Include="..\..\..\..\headers\QTransformationMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QTranslationMatrix.h" />
+    <ClInclude Include="..\..\..\..\headers\QTriangle.h" />
+    <ClInclude Include="..\..\..\..\headers\QTriangle2D.h" />
+    <ClInclude Include="..\..\..\..\headers\QTriangle3D.h" />
+    <ClInclude Include="..\..\..\..\headers\QVector2.h" />
+    <ClInclude Include="..\..\..\..\headers\QVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QVector4.h" />
+    <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
+    <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
+    <ClInclude Include="..\..\..\..\headers\SQTimeZoneFactory.h" />
+    <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQIterationDirection.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQTreeTraversalOrder.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseDualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseHexahedron.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseLineSegment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix2x2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix3x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix4x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix4x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseOrb.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBasePlane.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseQuadrilateral.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseRay.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseTriangle.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
+    <ClCompile Include="..\..\..\..\source\QDateTime.cpp" />
+    <ClCompile Include="..\..\..\..\source\QDstInformation.cpp" />
+    <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QHexahedron.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLineSegment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLineSegment3D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMatrix2x2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMatrix3x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMatrix4x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QMatrix4x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QOrb.cpp" />
+    <ClCompile Include="..\..\..\..\source\QPlane.cpp" />
+    <ClCompile Include="..\..\..\..\source\QQuadrilateral.cpp" />
+    <ClCompile Include="..\..\..\..\source\QQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QRay.cpp" />
+    <ClCompile Include="..\..\..\..\source\QRay2D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QRay3D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QRotationMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTimeSpan.cpp" />
+    <ClCompile Include="..\..\..\..\source\QSphere.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTimeZone.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTransformationMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTransformationMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTranslationMatrix.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTriangle.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTriangle2D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTriangle3D.cpp" />
+    <ClCompile Include="..\..\..\..\source\QVector2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQPoint.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQTimeZoneFactory.cpp" />
+    <ClCompile Include="..\..\..\..\source\TimeZoneDatabase.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

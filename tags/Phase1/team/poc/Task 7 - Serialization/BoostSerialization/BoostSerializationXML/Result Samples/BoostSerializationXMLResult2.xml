@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="7">
+<pThis class_id="0" tracking_level="1" version="0" object_id="_0">
+	<RootObjectBase class_id="1" tracking_level="1" version="0" object_id="_1">
+		<_nBaseClassValue>32</_nBaseClassValue>
+	</RootObjectBase>
+	<_nBasicAttribute>-5000</_nBasicAttribute>
+	<_fAttributePrecission>9.9999999e-009</_fAttributePrecission>
+	<_stlMap class_id="2" tracking_level="0" version="0">
+		<count>2</count>
+		<item_version>0</item_version>
+		<item class_id="3" tracking_level="0" version="0">
+			<first>Key1</first>
+			<second class_id="4" tracking_level="1" version="0" object_id="_2">
+				<_strStlString>&lt;\invalid_symbols?&quot;&apos;///*****FASDDF
+	d&gt;</_strStlString>
+				<_stlVector class_id="5" tracking_level="0" version="0">
+					<count>2</count>
+					<item_version>0</item_version>
+					<item>1</item>
+					<item>2</item>
+				</_stlVector>
+				<_arLetters>
+					<count>10</count>
+					<item>48</item>
+					<item>49</item>
+					<item>50</item>
+					<item>51</item>
+					<item>52</item>
+					<item>53</item>
+					<item>54</item>
+					<item>55</item>
+					<item>56</item>
+					<item>57</item>
+				</_arLetters>
+				<_pCircularReference class_id_reference="0" object_id_reference="_0"></_pCircularReference>
+			</second>
+		</item>
+		<item>
+			<first>Key2</first>
+			<second class_id_reference="4" object_id="_3">
+				<_strStlString>.ñ_______               .</_strStlString>
+				<_stlVector>
+					<count>2</count>
+					<item_version>0</item_version>
+					<item>3</item>
+					<item>4</item>
+				</_stlVector>
+				<_arLetters>
+					<count>10</count>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+					<item>-51</item>
+				</_arLetters>
+				<_pCircularReference class_id="-1"></_pCircularReference>
+			</second>
+		</item>
+	</_stlMap>
+</pThis>

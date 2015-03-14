@@ -1,0 +1,121 @@
+= Tracker =
+
+== Phase 2 ==
+
+<table>
+<tr>
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-2 All Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-2%20owner%3Aowner%2Cme My Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-2 Pending Development] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-2%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase-2 Pending Reviews]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/testing.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-2 Testing] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-2%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase-2 Pending Bug Fixes]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=type%3AManagement%20label%3APhase-2 Management]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=type%3ATranslation%20label%3APhase-2 Translation]</td>
+</tr>
+</table>
+
+== Phase 1 ==
+
+<table>
+<tr>
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-1 All Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-1%20owner%3Aowner%2Cme My Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-1 Pending Development] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-1%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase-1 Pending Reviews]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/testing.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-1 Testing] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-1%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase-1 Pending Bug Fixes]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=type%3AManagement%20label%3APhase-1 Management]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=type%3ATranslation%20label%3APhase-1 Translation]</td>
+</tr>
+</table>
+
+== Phase 0 ==
+
+<table>
+<tr>
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-0 All Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-0%20owner%3Aowner%2Cme My Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-0 Pending Development] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ADevelopment,Refactoring,Research,Correction+status%3ANew,Started,Blocked,Postponed+label%3APhase-0%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase-0 Pending Reviews]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/testing.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-0 Testing] ([https://code.google.com/p/quimeraengine/issues/list?can=2&q=type%3ATesting+status%3ANew,Started,Blocked,Postponed+label%3APhase-0%20owner%3Aowner%2Cme Mine])</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=type%3AManagement%20label%3APhase-0 Management]</td>
+</tr>
+</table>
+
+== Pre-Development Phase ==
+
+<table>
+<tr>
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase--1 All Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase--1%20owner%3Aowner%2Cme My Tasks]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase--1 Pending Reviews]</td>
+</tr>
+</table>

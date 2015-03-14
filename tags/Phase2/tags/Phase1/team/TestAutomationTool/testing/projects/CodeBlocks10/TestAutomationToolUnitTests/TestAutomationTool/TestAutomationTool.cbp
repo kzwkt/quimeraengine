@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TestAutomationTool" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;" />
+		<Build>
+			<Target title="DebugLinux32">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32/TestAutomationToolsUnitTests" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="`wx-config --cflags`" />
+					<Add option="-D__WXDEBUG__" />
+				</Compiler>
+				<Linker>
+					<Add option="`wx-config --libs std richtext`" />
+					<Add library="libboost_unit_test_framework.a" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='mkdir &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot; -p' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestFile.txt&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestFile&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../ConfigFileMock.ini&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestFile.h&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestFile.xml&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts/&quot;' />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="DebugWin32">
+				<Option platforms="Windows;Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32/TestAutomationToolsUnitTests" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D__WXDEBUG__" />
+					<Add option="-D__GNUWIN32__" />
+					<Add option="-D__WXMSW__" />
+					<Add directory="../../../../../3rdparty/wxWidgets/include/lib/gcc_lib/mswud" />
+					<Add directory="../../../../../3rdparty/wxWidgets/include/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-mthreads" />
+					<Add library="libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
+					<Add library="libwxmsw29ud_richtext.a" />
+					<Add library="libwxmsw29ud_aui.a" />
+					<Add library="libwxbase29ud_xml.a" />
+					<Add library="libwxmsw29ud_adv.a" />
+					<Add library="libwxmsw29ud_html.a" />
+					<Add library="libwxmsw29ud_core.a" />
+					<Add library="libwxbase29ud.a" />
+					<Add library="libwxpngd.a" />
+					<Add library="libwxzlibd.a" />
+					<Add library="libwxexpatd.a" />
+					<Add library="libadvapi32.a" />
+					<Add library="libcomctl32.a" />
+					<Add library="libctl3d32.a" />
+					<Add library="libglu32.a" />
+					<Add library="libodbc32.a" />
+					<Add library="libodbccp32.a" />
+					<Add library="libole32.a" />
+					<Add library="liboleaut32.a" />
+					<Add library="libopengl32.a" />
+					<Add library="libshell32.a" />
+					<Add library="libuuid.a" />
+					<Add library="libwinmm.a" />
+					<Add library="libwinspool.a" />
+					<Add library="libwsock32.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libcomdlg32.a" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugWin32" />
+					<Add directory="../../../../../3rdparty/wxWidgets/include/lib/windows_lib" />
+					<Add directory="../../../../../3rdparty/wxWidgets/include/lib/gcc_lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.txt&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.exe&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\ConfigFileMock.ini&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.h&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.xml&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wshadow" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Winline" />
+			<Add option="-Wmissing-include-dirs" />
+			<Add option="-Wswitch-default" />
+			<Add option="-Wall" />
+			<Add option="-DQE_ASSERT_THROWS_EXCEPTION" />
+			<Add directory="../../../../../headers" />
+			<Add directory="../../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../testsystem" />
+		</Compiler>
+		<Linker>
+			<Add library="libBackend.a" />
+		</Linker>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/STATAppSettings_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/STATFileSystemHelper_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/STATStringHelper_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATCompilerInfo_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATConfigLoaderFactoryWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATConfigLoaderFactory_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATConfigLoaderFromIniFileWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATConfigLoaderFromIniFile_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATConfigNode_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATFormattedMessage_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATKeyValueNode_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATLoggerMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATMessageFormat_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATNodeMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATNode_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATRichTextCtrlMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATRuleNodeMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATRuleNode_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATShellProcessListenerMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATShellProcess_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolConfigurationWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolConfiguration_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolExecutionMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolExecutionWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolExecution_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolResultsMock.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolResultsWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestAutomationToolResults_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestExecutionThreadWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestExecutionThread_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestModulesExecutionInfo_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultConsultant_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultInfo_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultLoaderFactoryWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultLoaderFactory_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultLoaderWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultLoader_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATTestResultNode_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATXmlReader_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATwxWidgetsControlLoggerWhiteBox.h">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TATwxWidgetsControlLogger_Tests.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_testautomationtool/TestModule_TestAutomationTool.cpp">
+			<Option virtualFolder="Tests/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/CommonConfigDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/ETATTestType.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/ETATTestType.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATCommonTestConfig.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATCommonTestConfig.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATFixtures.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATPerformanceTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATSimpleConfigLoader.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATSimpleConfigLoader.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TATUnitTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TestingExternalDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/TestingHelperDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Unit filename="../../../../testsystem/UnitTestTemplate.txt">
+			<Option virtualFolder="TestSystem (shared)/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

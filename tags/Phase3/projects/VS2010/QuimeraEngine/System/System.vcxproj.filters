@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{5c3d08c1-41de-4f23-8e4f-782bc2528628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing\Workarounds">
+      <UniqueIdentifier>{d0977b75-25bc-48db-aeba-1c7fdb2350ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{727a4e0b-0afe-4a4d-9f21-85fb894ea330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{562c444d-ac35-4fa5-9a34-f500fca2b890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\FileSystem">
+      <UniqueIdentifier>{a8b72246-8f33-46e5-8b2e-c38bb590a797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Diagnosis">
+      <UniqueIdentifier>{31a3958d-95b3-4f72-b86b-9433e422f0e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{2f46d2ff-b07d-4585-8806-8bf40cfef30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Workarounds">
+      <UniqueIdentifier>{260fd161-a70b-4330-9776-019ffc612dde}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\QLocalTimeZone.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\Workarounds\WinBase_Workarounds.h">
+      <Filter>Timing\Workarounds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDateTimeNow.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QMemoryStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QUri.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBinaryStreamReader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QPath.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QArgumentTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStopwatch.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFileInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDirectoryInfo.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QThread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBinaryStreamWriter.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTextStreamReader.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQNewLineCharacters.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQFileSystemError.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQDirectory.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQFile.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQThisThread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTrace.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFileStream.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQFileOpenMode.h">
+      <Filter>IO\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQThreadPriority.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\IQCallStackTraceFormatter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTracePlainTextFormatter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QMutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QSharedMutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QRecursiveMutex.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedExclusiveLock.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QConditionVariable.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTraceConsolePrinter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QAbstractCallStackTracePrinter.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTypeWithGetType.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTypeWithToString.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedSharedLock.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QCallStackTracer.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QTextStreamWriter.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedLockPair.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QStopwatchEnclosed.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQStopwatchEnclosedBehavior.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScopedCallTraceNotifier.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CallStackTracingDefinitions.h">
+      <Filter>Diagnosis</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\QLocalTimeZone.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDateTimeNow.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QUri.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QPath.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QArgumentTrace.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStopwatch.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QFileInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDirectoryInfo.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallTrace.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QThread.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQNewLineCharacters.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQFileSystemError.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQDirectory.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQFile.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQThisThread.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTrace.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QFileStream.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQFileOpenMode.cpp">
+      <Filter>IO\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQThreadPriority.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\IQCallStackTraceFormatter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTracePlainTextFormatter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QMutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QSharedMutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QRecursiveMutex.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QConditionVariable.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTraceConsolePrinter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QAbstractCallStackTracePrinter.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCallStackTracer.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QStopwatchEnclosed.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQStopwatchEnclosedBehavior.cpp">
+      <Filter>Timing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QScopedCallTraceNotifier.cpp">
+      <Filter>Diagnosis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\Workarounds\Boost_ThrowException.cpp">
+      <Filter>Workarounds</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

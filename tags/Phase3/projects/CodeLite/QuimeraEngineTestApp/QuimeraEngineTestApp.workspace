@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="QuimeraEngineTestApp" Database="">
+  <Project Name="QuimeraEngineTestApp" Path="QuimeraEngineTestApp/QuimeraEngineTestApp.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="DebugWin32SharedrtStatic" Selected="no">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugWin32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugWin32SharedrtDynamic" Selected="yes">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugWin32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtStatic" Selected="no">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugLinux32SharedrtDynamic" Selected="no">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugLinux32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugMac32SharedrtStatic" Selected="yes">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugMac32SharedrtStatic"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="DebugMac32SharedrtDynamic" Selected="yes">
+      <Project Name="QuimeraEngineTestApp" ConfigName="DebugMac32SharedrtDynamic"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{9db66cd7-5975-43cc-b98d-531a9138caa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem %28shared%29">
+      <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Core">
+      <UniqueIdentifier>{e5bb93da-60c2-49c4-be84-54e53ee2dfd7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\TestModule_System.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_system\QObject_Test.cpp">
+      <Filter>Tests\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_system\QObjectTestClasses.h">
+      <Filter>Tests\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">
+      <Filter>TestSystem %28shared%29</Filter>
+    </None>
+  </ItemGroup>
+</Project>
