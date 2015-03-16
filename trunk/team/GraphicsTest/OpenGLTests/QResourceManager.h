@@ -9,6 +9,9 @@
 #include "QTexture2D.h"
 #include "QImage.h"
 #include "QAspect.h"
+#include "QStaticModel.h"
+#include "VertexDefinitions.h"
+#include "QModelLoader.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
@@ -22,6 +25,7 @@ public:
                                                              m_arAspects(5, 2),
                                                              m_arImages(5, 2),
                                                              m_arTextures2D(5, 2), 
+                                                             m_arStaticModels(5, 2),
                                                              m_arVertexShaders(5, 2),
                                                              m_arFragmentShaders(5, 2),
                                                              m_pShaderCompositor(pShaderCompositor)
@@ -107,6 +111,16 @@ public:
         return pMaterial;
     }
 
+    QStaticModel* CreateStaticModel(const QHashedString strId, const QPath &modelPath, const QVertexDescription* pVertexDescription)
+    {
+        QStaticModel* pModel = new QStaticModel(pVertexDescription);
+        QModelLoader::LoadModel(modelPath, *pModel);
+        this->SetupStaticModelGeometry(pModel);
+
+        m_arStaticModels.Add(strId, pModel);
+        return pModel;
+    }
+
     QVertexShader* GetVertexShader(const QHashedString &strId) const
     {
         return m_arVertexShaders[strId];
@@ -137,14 +151,55 @@ public:
         return m_arMaterials[strId];
     }
 
+    QStaticModel* GetStaticModel(const QHashedString &strId) const
+    {
+        return m_arStaticModels[strId];
+    }
+
     // FindNameOf***(pointer to resource ***)
 
 protected:
+
+    virtual void SetupStaticModelGeometry(QStaticModel* pModel)
+    {
+        // create VAO
+        GLuint vaoMesh = 0;
+        glGenVertexArrays(1, &vaoMesh);
+        glBindVertexArray(vaoMesh);
+
+        // Set up VAO
+
+        // create VBO
+        GLuint vboMesh = 0;
+        glGenBuffers(1, &vboMesh);
+        glBindBuffer(GL_ARRAY_BUFFER, vboMesh);
+        glBufferData(GL_ARRAY_BUFFER, pModel->GetVertexCount() * pModel->GetVertexDescription()->GetVertexSize(), pModel->GetVertexBuffer(), GL_STATIC_DRAW);
+
+        u32_q uComponentOffset = 0;
+        u32_q uComponentsSize = 0;
+
+        for (u32_q i = 0; i < pModel->GetVertexDescription()->GetVertexComponentCount(); ++i)
+        {
+            uComponentsSize = pModel->GetVertexDescription()->GetVertexComponents()[i].Size;
+            glVertexAttribPointer(i, uComponentsSize / sizeof(float_q), GL_FLOAT, GL_FALSE, pModel->GetVertexDescription()->GetVertexSize(), (GLvoid*)uComponentOffset);
+            glEnableVertexAttribArray(i);
+            uComponentOffset += uComponentsSize;
+        }
+
+        // create EBO
+        GLuint eboMesh = 0;
+        glGenBuffers(1, &eboMesh);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboMesh);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, pModel->GetIndexCount() * sizeof(u32_q), pModel->GetIndexbuffer(), GL_STATIC_DRAW);
+
+        pModel->SetExternalId(vaoMesh);
+    }
 
     QHashtable<QHashedString, QMaterial*, SQStringHashProvider> m_arMaterials;
     QHashtable<QHashedString, QAspect*, SQStringHashProvider> m_arAspects;
     QHashtable<QHashedString, QImage*, SQStringHashProvider> m_arImages;
     QHashtable<QHashedString, QTexture2D*, SQStringHashProvider> m_arTextures2D;
+    QHashtable<QHashedString, QStaticModel *, SQStringHashProvider> m_arStaticModels;
     // Unify both hashtables? It seems shaders are always trated in the same way
     QHashtable<QHashedString, QVertexShader*, SQStringHashProvider> m_arVertexShaders;
     QHashtable<QHashedString, QFragmentShader*, SQStringHashProvider> m_arFragmentShaders;

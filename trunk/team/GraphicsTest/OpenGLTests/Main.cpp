@@ -9,16 +9,19 @@
 #include "QGraphicsEngine.h"
 #include "QKeyboard.h"
 #include "QCamera.h"
-#include "glm/glm.hpp"
+#include "QModelLoader.h"
+
+/*#include "glm/glm.hpp"
 #include "glm/gtc/matrix_projection.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_operation.hpp"
 #include "glm/gtx/transform2.hpp"
-
+*/
 // [TODO]: Get opengl debugging log
 // [TODO]: Be able to save binary compilation of shaders
 // [TODO]: Bindless textures
 // [TODO]: Use Direct State Access commands
+// [TODO]: #includes in shaders, semantics like HLSL with glBindAttribLocationARB http://www.g-truc.net/post-0267.html
 
 QResourceManager* QE_RESOURCE_MANAGER = null_q;
 QGraphicsEngine* QE_GRAPHICS_ENGINE = null_q;
@@ -37,7 +40,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 void Cleanup();
 void SetupEngine();
 void SetupShaders();
-void SetupGeometry();
+void SetupSimpleGeometry();
+void SetupModel();
 void SetupTextures();
 void SetTexture(GLuint programId, GLuint textureId, const char* samplerName, int textureIndex);
 void SetupScene();
@@ -63,7 +67,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     InitializeGlew(); // Every time glew is initialized, functions are associated to the current rendering context, so it should be initialized every time the context changes
     SetupEngine();
     SetupShaders();
-    SetupGeometry();
+    SetupModel();
+    //SetupSimpleGeometry();
     SetupTextures();
     QE_GRAPHICS_ENGINE->SetAspect("Aspect1");
     SetupScene();
@@ -135,6 +140,7 @@ int MainLoop()
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+    glFrontFace(GL_CW);
 
     QTransformationMatrix<QMatrix4x4> transformation;
 
@@ -169,7 +175,9 @@ int MainLoop()
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "transformationMatrix", transformation.Transpose());
 
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, null_q);
+        QStaticModel* pModel = QE_RESOURCE_MANAGER->GetStaticModel("Model1");
+        glBindVertexArray(pModel->GetExternalId());
+        glDrawElements(GL_TRIANGLES, pModel->GetIndexCount(), GL_UNSIGNED_INT, null_q);
 
         if (pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
             pMainWindow->GetDeviceContext().SwapBuffers();
@@ -257,7 +265,7 @@ void SetupShaders()
     QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
 }
 
-void SetupGeometry()
+void SetupSimpleGeometry()
 {
     struct QVertex
     {
@@ -270,7 +278,7 @@ void SetupGeometry()
 
     QVertex arVertices[] = {
         // Images are flipped vertically, texture coordinates had to be reverted for Y axis
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f),        QVector2(1.0f/*0.0f*/, 0.0f),        QVector2(0.0f, 0.0f)
+        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
         },
         
         { QVector4(0.5f, -0.5f, -0.5f, 1.0f),        QVector2(1.0f, 0.0f),          QVector2(1.0f, 0.0f)
@@ -282,7 +290,7 @@ void SetupGeometry()
         { QVector4(0.5f, 0.5f, -0.5f, 1.0f),        QVector2(1.0f, 1.0f),        QVector2(1.0f, 1.0f)
         },
 
-        { QVector4(-0.9f, 0.5f, -0.5f, 1.0f),        QVector2(0.0f, 1.0f),        QVector2(0.0f, 1.0f)
+        { QVector4(-0.5f, 0.5f, -0.5f, 1.0f),        QVector2(0.0f, 1.0f),        QVector2(0.0f, 1.0f)
         },
 
         { QVector4(-0.5f, -0.5f, -0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
@@ -402,7 +410,7 @@ void SetupGeometry()
     glBindVertexArray(vaoTriangleID);
 
     // Set up VAO
-
+    
     // create VBO
     GLuint vboTriangleID = 0;
     glGenBuffers(1, &vboTriangleID);
@@ -423,6 +431,31 @@ void SetupGeometry()
     
 }
 
+void SetupModel()
+{
+    QStaticModel* pModel = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    
+    /*
+    QE_LOG("Listing triangle indices\n");
+    QE_LOG("------------------------\n");
+
+    for (u32_q i = 0; i < pModel->GetIndexCount(); i += 3)
+        QE_LOG(string_q("[") + string_q::FromInteger(i / 3U) + "] \t" + string_q::FromInteger(pModel->GetIndexbuffer()[i + 0]) + ", \t" +
+                                                                        string_q::FromInteger(pModel->GetIndexbuffer()[i + 1]) + ", \t" +
+                                                                        string_q::FromInteger(pModel->GetIndexbuffer()[i + 2]) + "\n");
+                                                                        */
+    /*QE_LOG("Listing triangle vertices\n");
+    QE_LOG("------------------------\n");
+
+    QVertexWith1Normal2TextureCoords* pVertex = (QVertexWith1Normal2TextureCoords*)pModel->GetVertexBuffer();
+    for (u32_q i = 0; i < pModel->GetVertexCount(); ++i)
+        QE_LOG(string_q("[") + string_q::FromInteger(i) + "]\n" +
+               pVertex[i].Position.ToString() + "\n" +
+               pVertex[i].TextureCoords[0].ToString() + "\n" +
+               pVertex[i].TextureCoords[1].ToString() + "\n"
+               );*/
+}
+
 void SetupTextures()
 {
     QMaterial* pMaterial = QE_RESOURCE_MANAGER->CreateMaterial("DEFAULT");
@@ -430,7 +463,7 @@ void SetupTextures()
     pMaterial->Diffuse = QColor(0.5, 0.5, 0.5, 1);
 
     QE_RESOURCE_MANAGER->CreateImage("Image1", QPath("./Resources/qe.png"), QImage::E_RGBA);
-    QE_RESOURCE_MANAGER->CreateImage("Image2", QPath("./Resources/wall.jpg"), QImage::E_RGB);
+    QE_RESOURCE_MANAGER->CreateImage("Image2", QPath("./Resources/64124be4.jpg"), QImage::E_RGB);
     QTexture2D* pTex1 = QE_RESOURCE_MANAGER->CreateTexture2D("Texture1", "Image1", QImage::E_RGBA);
 
     pTex1->GenerateMipmaps();
@@ -470,7 +503,7 @@ void SetupScene()
     QE_CAMERA->Frustum.FarPlaneDistance = 1000.0f;
     QE_CAMERA->Frustum.Fov = SQAngle::_QuarterPi;
     QE_CAMERA->Frustum.NearPlaneDistance = 0.1f;
-    QE_CAMERA->SetPosition(QVector4(0.0f, 0.0f, 0.0f, 1.0f));
+    QE_CAMERA->SetPosition(QVector4(0, 0, 0, 1.0f));
     QE_CAMERA->SetOrientation(QQuaternion::GetIdentity());
     QE_CAMERA->SetScale(QVector3::GetVectorOfOnes());
 }
