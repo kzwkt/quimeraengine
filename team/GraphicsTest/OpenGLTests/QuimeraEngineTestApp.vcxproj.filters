@@ -17,6 +17,9 @@
     <Filter Include="IO">
       <UniqueIdentifier>{96c95dba-9746-4995-856c-5bc4be9a44f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry">
+      <UniqueIdentifier>{3e935e9f-588c-47ea-b923-b051c499f5a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QWindow.h">
@@ -79,6 +82,15 @@
     <ClInclude Include="QLight.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="QStaticModel.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexDefinitions.h">
+      <Filter>Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="QModelLoader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -96,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="QKeyboard.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexDefinitions.cpp">
+      <Filter>Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
