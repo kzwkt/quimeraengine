@@ -15,7 +15,7 @@ public:
         glGenProgramPipelines(1, &m_pipelineId);
         glBindProgramPipeline(m_pipelineId);
 
-        QE_LOG("LOG: Pogram pipeline set.\n");
+        //QE_LOG("LOG: Pogram pipeline set.\n");
     }
 
     void SetVertexShader(const QHashedString &strId)
@@ -25,7 +25,7 @@ public:
         // Makes the program the current
         glUseProgramStages(m_pipelineId, GL_VERTEX_SHADER_BIT, pVertexShader->GetProgramID());
 
-        QE_LOG(string_q("LOG: Using vertex shader [") + strId + "].\n");
+        //QE_LOG(string_q("LOG: Using vertex shader [") + strId + "].\n");
     }
 
     void SetFragmentShader(const QHashedString &strId)
@@ -35,42 +35,58 @@ public:
         // Makes the program the current
         glUseProgramStages(m_pipelineId, GL_FRAGMENT_SHADER_BIT, pFragmentShader->GetProgramID());
 
-        QE_LOG(string_q("LOG: Using fragment shader [") + strId + "].\n");
+        //QE_LOG(string_q("LOG: Using fragment shader [") + strId + "].\n");
     }
 
-    void SetTexture(const QHashedString &strTextureId, const unsigned int uIndex, const QHashedString &strShaderId, const char* szShaderSamplerName)
+    void SetTexture(const QHashedString &strTextureId, const unsigned int uTextureLayer, const QHashedString &strShaderId, const char* szShaderSamplerName)
     {
         QFragmentShader* pFragmentShader = m_pResourceManager->GetFragmentShader(strShaderId);
         QTexture2D* pTexture = m_pResourceManager->GetTexture2D(strTextureId);
 
-        glActiveTexture(GL_TEXTURE0 + uIndex);
-        glBindTexture(GL_TEXTURE_2D, pTexture->GetTextureID());
-
-        GLint samplerLocation = glGetUniformLocation(pFragmentShader->GetProgramID(), szShaderSamplerName);
-
-        if (samplerLocation == -1)
+        if (pTexture)
         {
-            QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+            glActiveTexture(GL_TEXTURE0 + uTextureLayer);
+            glBindTexture(GL_TEXTURE_2D, pTexture->GetTextureID());
+
+            GLint samplerLocation = glGetUniformLocation(pFragmentShader->GetProgramID(), szShaderSamplerName);
+
+            if (samplerLocation == -1)
+            {
+                QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+            }
+
+            glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation, uTextureLayer);
+
+            //QE_LOG(string_q("LOG: Using texture [") + strTextureId + "] in sampler \"" + szShaderSamplerName + "\" with index " + uTextureLayer + ".\n");
         }
+    }
 
-        glProgramUniform1i(pFragmentShader->GetProgramID(), samplerLocation, uIndex);
+    void SetSampler2D(const QHashedString &strSampler2DId, const unsigned int uTextureLayer)
+    {
+        QSampler2D* pSampler = m_pResourceManager->GetSampler2D(strSampler2DId);
 
-        QE_LOG(string_q("LOG: Using texture [") + strTextureId + "] in sampler \"" + szShaderSamplerName + "\" with index " + string_q::FromInteger(uIndex) + ".\n");
+        glBindSampler(uTextureLayer, pSampler->GetOpenGLId());
     }
 
     void SetAspect(const QHashedString &strAspectId)
     {
-        QE_LOG(string_q("LOG: Setting aspect [") + strAspectId + "]...\n");
+        //QE_LOG(string_q("LOG: Setting aspect [") + strAspectId + "]...\n");
 
         QAspect* pAspect = m_pResourceManager->GetAspect(strAspectId);
 
         this->SetVertexShader(pAspect->GetVertexShader());
         this->SetFragmentShader(pAspect->GetFragmentShader());
-        
-        for (unsigned int i = 0; i < pAspect->GetTextureCount(); ++i)
-            this->SetTexture(pAspect->GetTextureId(i), i, pAspect->GetFragmentShader(), pAspect->GetShaderSamplerName(i));
-        
-        QE_LOG(string_q("LOG: Aspect [") + strAspectId + "] set.\n");
+
+        QMaterial* pMaterial = m_pResourceManager->GetMaterial(pAspect->GetMaterial());
+
+        // [TODO]: Loop of textures
+        this->SetTexture(pAspect->GetTexture(QAspect::E_Diffuse, 0), 0, pAspect->GetFragmentShader(), "sampler1"); // It's possible to send textures to Vertex Shader for spherical mapping
+
+        this->SetSampler2D(pAspect->GetTextureSampler2D(QAspect::E_Diffuse, 0), 0);
+
+        // [TODO]: Alpha blending
+
+        //QE_LOG(string_q("LOG: Aspect [") + strAspectId + "] set.\n");
     }
 
     void UpdateVertexShaderData(const QHashedString &strVertexShaderId, const string_q &strDataBufferName, const f32_q fValue0, const f32_q fValue1, const f32_q fValue2, const f32_q fValue3)

@@ -36,12 +36,19 @@ class QStaticModel
         u32_q IndexCount;
     };
 
+    struct QSubmeshAspect
+    {
+        u32_q Submesh;
+        QHashedString AspectId;
+    };
+
 public:
 
     QStaticModel(const QVertexDescription* pVertexDescription) : m_arVertices(null_q),
                                                                  m_arIndices(null_q),
                                                                  m_arMeshes(null_q),
                                                                  m_arSubmeshes(null_q),
+                                                                 m_arSubmeshAspects(null_q),
                                                                  m_arMeshIds(null_q),
                                                                  m_pVertexDescription(pVertexDescription),
                                                                  m_uVertices(0),
@@ -93,9 +100,15 @@ public:
             delete[] m_arMeshIds;
         }
 
+        if (m_arSubmeshAspects)
+        {
+            delete[] m_arSubmeshAspects;
+        }
+
         m_arMeshes = new QMesh[uMeshes];
         m_arMeshIds = new QMeshId[uMeshes];
         m_arSubmeshes = new QSubmesh[uSubmeshes];
+        m_arSubmeshAspects = new QSubmeshAspect[uSubmeshes];
         m_uMeshes = uMeshes;
         m_uSubmeshes = uSubmeshes;
     }
@@ -120,13 +133,18 @@ public:
         return m_arSubmeshes + uIndex;
     }
 
-    QSubmesh* GetSubmeshFromMesh(const u32_q uMeshIndex, const u32_q uSubmeshIndex)
+    QSubmesh* GetSubmeshFromMesh(const u32_q uMeshIndex, const u32_q uSubmeshIndex) const
     {
         u32_q uIndex = (m_arMeshes + uMeshIndex)->FirstSubmesh + uSubmeshIndex;
         return m_arSubmeshes + uIndex;
     }
 
-    QMesh* GetMeshById(const QHashedString &strId)
+    QSubmeshAspect* GetSubmeshAspectByIndex(const u32_q uIndex) const
+    {
+        return m_arSubmeshAspects + uIndex;
+    }
+
+    QMesh* GetMeshById(const QHashedString &strId) const
     {
         QMesh* pFoundMesh = null_q;
 
@@ -141,7 +159,7 @@ public:
         return pFoundMesh;
     }
 
-    QMeshId* GetMeshIdByIndex(const u32_q uIndex)
+    QMeshId* GetMeshIdByIndex(const u32_q uIndex) const
     {
         return m_arMeshIds + uIndex;
     }
@@ -220,6 +238,7 @@ protected:
     u32_q* m_arIndices;
     QMesh* m_arMeshes;
     QSubmesh* m_arSubmeshes;
+    QSubmeshAspect* m_arSubmeshAspects;
     QMeshId* m_arMeshIds;
     const QVertexDescription* m_pVertexDescription;
 
