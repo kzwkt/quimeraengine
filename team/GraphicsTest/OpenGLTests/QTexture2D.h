@@ -4,79 +4,72 @@
 
 #include "GL/glew.h"
 
+#include "QSampler2D.h"
+
+
 class QTexture2D
 {
 public:
 
-    enum EQWrapMode
+    enum EQTextureMapping
     {
-        E_Repeat,
-        E_RepeatMirror,
-        E_Clamp,
-        E_Border
+        E_UV,
+        E_Spherical,
+        E_Cylindrical,
+        E_Cubic,
+        E_Planar
     };
 
-    enum EQMinificationFilter
-    {
-        E_MinNearest,
-        E_MinLinear,
-        E_LinearMipmaps
-    };
-
-    enum EQMagnificationFilter
-    {
-        E_MagNearest,
-        E_MagLinear
-    };
 
     QTexture2D(GLuint textureId) : m_textureId(textureId)
-    {
-    }
-
-    void GenerateMipmaps()
     {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
 
-    void SetWrapModeS(const EQWrapMode eWrapMode)
+    void GenerateMipmaps()
+    {
+        
+    }
+    /*
+    void SetWrapModeS(const QSampler2D::EQTextureWrapMode eWrapMode)
     {
         GLint nWrapMode = 0;
 
         switch (eWrapMode)
         {
-        case QTexture2D::E_Border:
+        case QSampler2D::E_Border:
             nWrapMode = GL_CLAMP_TO_BORDER;
             break;
-        case QTexture2D::E_Clamp:
+        case QSampler2D::E_Clamp:
             nWrapMode = GL_CLAMP_TO_EDGE;
             break;
-        case QTexture2D::E_Repeat:
-            nWrapMode = GL_MIRRORED_REPEAT;
-            break;
-        case QTexture2D::E_RepeatMirror:
+        case QSampler2D::E_Repeat:
             nWrapMode = GL_REPEAT;
+            break;
+        case QSampler2D::E_RepeatMirror:
+            nWrapMode = GL_MIRRORED_REPEAT;
             break;
         }
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, nWrapMode);
     }
 
-    void SetWrapModeT(const EQWrapMode eWrapMode)
+    void SetWrapModeT(const QSampler2D::EQTextureWrapMode eWrapMode)
     {
         GLint nWrapMode = 0;
 
         switch (eWrapMode)
         {
-        case QTexture2D::E_Border:
+        case QSampler2D::E_Border:
             nWrapMode = GL_CLAMP_TO_BORDER;
             break;
-        case QTexture2D::E_Clamp:
+        case QSampler2D::E_Clamp:
             nWrapMode = GL_CLAMP_TO_EDGE;
             break;
-        case QTexture2D::E_Repeat:
+        case QSampler2D::E_Repeat:
             nWrapMode = GL_MIRRORED_REPEAT;
             break;
-        case QTexture2D::E_RepeatMirror:
+        case QSampler2D::E_RepeatMirror:
             nWrapMode = GL_REPEAT;
             break;
         }
@@ -84,16 +77,16 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, nWrapMode);
     }
 
-    void SetMagnificationFilter(const EQMagnificationFilter eFilter)
+    void SetMagnificationFilter(const QSampler2D::EQMagnificationFilter eFilter)
     {
         GLint nFilter = 0;
 
         switch (eFilter)
         {
-        case QTexture2D::E_MagNearest:
+        case QSampler2D::E_MagNearest:
             nFilter = GL_NEAREST;
             break;
-        case QTexture2D::E_MagLinear:
+        case QSampler2D::E_MagLinear:
             nFilter = GL_LINEAR;
             break;
         }
@@ -101,24 +94,34 @@ public:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, nFilter);
     }
 
-    void SetMinificationFilter(const EQMinificationFilter eFilter)
+    void SetMinificationFilter(const QSampler2D::EQMinificationFilter eFilter)
     {
         GLint nFilter = 0;
 
         switch (eFilter)
         {
-        case QTexture2D::E_MinNearest:
+        case QSampler2D::E_MinNearest:
             nFilter = GL_NEAREST;
             break;
-        case QTexture2D::E_MinLinear:
+        case QSampler2D::E_MinLinear:
             nFilter = GL_LINEAR;
             break;
-        case QTexture2D::E_LinearMipmaps:
+        case QSampler2D::E_LinearMipmaps:
             nFilter = GL_LINEAR_MIPMAP_LINEAR;
             break;
         }
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, nFilter);
+    }
+    */
+    void SetMapping(const EQTextureMapping eTextureMapping)
+    {
+        m_eMapping = eTextureMapping;
+    }
+
+    EQTextureMapping GetMapping() const
+    {
+        return m_eMapping;
     }
 
     GLuint GetTextureID() const
@@ -129,7 +132,8 @@ public:
 protected:
 
     GLuint m_textureId;
-    // Sampler
+
+    EQTextureMapping m_eMapping;
 };
 
 #endif // __QTEXTURE2D__

@@ -115,6 +115,8 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ErrorTracingDefinitions.h" />
+    <ClInclude Include="QTextureBlender.h" />
+    <ClInclude Include="QImageLoader.h" />
     <ClInclude Include="QModelLoader.h" />
     <ClInclude Include="QAspect.h" />
     <ClInclude Include="QCamera.h" />

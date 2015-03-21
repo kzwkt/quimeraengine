@@ -91,6 +91,12 @@
     <ClInclude Include="QModelLoader.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="QImageLoader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTextureBlender.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

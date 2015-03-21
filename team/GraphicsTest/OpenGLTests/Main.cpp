@@ -70,7 +70,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     SetupModel();
     //SetupSimpleGeometry();
     SetupTextures();
-    QE_GRAPHICS_ENGINE->SetAspect("Aspect1");
+    //QE_GRAPHICS_ENGINE->SetAspect("Aspect1");
     SetupScene();
 
     int uResult = MainLoop();
@@ -151,7 +151,11 @@ int MainLoop()
 	// Main message loop:
 
     QColor cubeColor = QColor::GetVectorOfOnes();
-
+    /*QAspect* pAspect = QE_RESOURCE_MANAGER->GetAspect("f1f6d3cb_dds");
+    pAspect->SetTexture(QAspect::E_Diffuse, 0, "64124be4_dds_0");
+    pAspect->SetTextureSampler2D(QAspect::E_Diffuse, 0, "64124be4_dds_0");
+    pAspect->SetTextureBlender(QAspect::E_Diffuse, 0, "64124be4_dds_0");
+    QE_GRAPHICS_ENGINE->SetAspect(QE_RESOURCE_MANAGER->GetStaticModel("Model1")->GetSubmeshAspectByIndex(0)->AspectId);*/
 	while (true)
 	{
         CheckInputs();
@@ -166,18 +170,29 @@ int MainLoop()
         QQuaternion qRotation(0, 0, SQAngle::_HalfPi * MAIN_TIMER.GetProgression());
         QVector3 vScale(1, 1, 1);
 
-        //worldMatrix.SetWorldSpaceMatrix(vTranslation, qRotation, vScale);
+        worldMatrix.SetWorldSpaceMatrix(vTranslation, qRotation, vScale);
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
 
+
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "transformationMatrix", transformation.Transpose());
 
         QStaticModel* pModel = QE_RESOURCE_MANAGER->GetStaticModel("Model1");
-        glBindVertexArray(pModel->GetExternalId());
-        glDrawElements(GL_TRIANGLES, pModel->GetIndexCount(), GL_UNSIGNED_INT, null_q);
+
+        // [TODO]: Create array of matrices and update hierarchically
+
+        for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
+        {
+            glBindVertexArray(pModel->GetExternalId());
+            QE_GRAPHICS_ENGINE->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
+
+            //QE_LOG(string_q("FirstVertex: ") + pModel->GetSubmeshByIndex(i)->FirstVertex + ", FirstVertex+Count: " + (pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount) + ", IndexCount: " + pModel->GetSubmeshByIndex(i)->IndexCount + "\n");
+
+            glDrawRangeElements(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)));
+        }
 
         if (pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
             pMainWindow->GetDeviceContext().SwapBuffers();
@@ -433,7 +448,16 @@ void SetupSimpleGeometry()
 
 void SetupModel()
 {
-    QStaticModel* pModel = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QStaticModel* pModel = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+
+    for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
+    {
+        QHashedString strAspectId = pModel->GetSubmeshAspectByIndex(i)->AspectId;
+        QAspect* pAspect = QE_RESOURCE_MANAGER->GetAspect(strAspectId);
+        pAspect->SetVertexShader("VS1");
+        pAspect->SetFragmentShader("FS1");
+    }
+
     
     /*
     QE_LOG("Listing triangle indices\n");
@@ -444,11 +468,13 @@ void SetupModel()
                                                                         string_q::FromInteger(pModel->GetIndexbuffer()[i + 1]) + ", \t" +
                                                                         string_q::FromInteger(pModel->GetIndexbuffer()[i + 2]) + "\n");
                                                                         */
-    /*QE_LOG("Listing triangle vertices\n");
+   /* QE_LOG("Listing triangle vertices\n");
     QE_LOG("------------------------\n");
 
+    unsigned int i2 = pModel->GetSubmeshByIndex(6)->FirstVertex;
+
     QVertexWith1Normal2TextureCoords* pVertex = (QVertexWith1Normal2TextureCoords*)pModel->GetVertexBuffer();
-    for (u32_q i = 0; i < pModel->GetVertexCount(); ++i)
+    for (u32_q i = 27804; i < pModel->GetVertexCount(); ++i)
         QE_LOG(string_q("[") + string_q::FromInteger(i) + "]\n" +
                pVertex[i].Position.ToString() + "\n" +
                pVertex[i].TextureCoords[0].ToString() + "\n" +
@@ -458,7 +484,7 @@ void SetupModel()
 
 void SetupTextures()
 {
-    QMaterial* pMaterial = QE_RESOURCE_MANAGER->CreateMaterial("DEFAULT");
+    /*QMaterial* pMaterial = QE_RESOURCE_MANAGER->CreateMaterial("DEFAULT");
     pMaterial->Ambient = QColor(0, 0, 0, 1);
     pMaterial->Diffuse = QColor(0.5, 0.5, 0.5, 1);
 
@@ -484,7 +510,7 @@ void SetupTextures()
     pAspect->AddTexture("Texture2", "DEFAULT", "sampler2");
     pAspect->AddTexture("Texture1", "DEFAULT", "sampler1");
     pAspect->SetVertexShader("VS1");
-    pAspect->SetFragmentShader("FS1");
+    pAspect->SetFragmentShader("FS1");*/
 
 }
 
@@ -510,7 +536,7 @@ void SetupScene()
 
 void CheckInputs()
 {
-    const float_q SPEED = 1.0f;
+    const float_q SPEED = 3.0f;
 
     if (QE_KEYBOARD->IsDown(QKeyboard::E_LEFT))
     {

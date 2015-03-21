@@ -26,9 +26,12 @@
 #include "qe/QDictionary.h"
 #include "qe/QTranslationMatrix.h"
 #include "qe/QStopwatchEnclosed.h"
+#include "qe/QPoolAllocator.h"
+#include "qe/SQEqualityComparator.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::Math;
 using namespace Kinesis::QuimeraEngine::Common;
+using namespace Kinesis::QuimeraEngine::Common::Memory;
 using namespace Kinesis::QuimeraEngine::Common::DataTypes;
 using namespace Kinesis::QuimeraEngine::System::IO::FileSystem;
 using namespace Kinesis::QuimeraEngine::System::IO;
