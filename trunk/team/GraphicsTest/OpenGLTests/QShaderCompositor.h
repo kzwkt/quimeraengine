@@ -5,21 +5,23 @@
 #include "GL/glew.h"
 #include "GL/wglew.h"
 #include "QuimeraEngineIncludesAndUsings.h"
-#include "QVertexShader.h"
-#include "QFragmentShader.h"
+#include "QShader.h"
+#include "QShader.h"
 
 class QShaderCompositor
 {
 public:
 
-    virtual QVertexShader* CompileAndLinkVertexShader(const QPath &vertexShaderPath)
+    virtual QShader* CompileAndLinkShader(const QPath &shaderPath, const QShader::EQShaderType eShaderType, const QArrayDynamic<const char*>* arIncludes, const QArrayDynamic< QKeyValuePair<const char*, const char*> >* arPreprocessorDefinitions)
     {
-        QVertexShader* pResultantVertexShader = null_q;
+        // [TODO]: Implement includes and preprocessor definitions
 
-        // Reads the vertex shader from text file
+        QShader* pResultantShader = null_q;
+
+        // Reads the shader from text file
         string_q strFileContent;
         EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
-        QFileStream fs(vertexShaderPath, EQFileOpenMode::E_Open, 500, eErrorInfo);
+        QFileStream fs(shaderPath, EQFileOpenMode::E_Open, SQFile::GetFileInfo(shaderPath, eErrorInfo).GetSize(), eErrorInfo);
         QTextStreamReader<QFileStream> ts(fs, EQTextEncoding::E_ASCII);
         ts.ReadToEnd(strFileContent);
         fs.Close();
@@ -29,78 +31,32 @@ public:
         const char* szFileContent = arFileContent.Get();
 
         // Compiles the vertex shader
-        QE_LOG("LOG: Compiling vertex shader...\n");
-        GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShaderID, 1, &szFileContent, null_q);
-        glCompileShader(vertexShaderID);
+        QE_LOG("LOG: Compiling shader...\n");
+        GLuint shaderID = glCreateShader(QShaderCompositor::_GetEquivalentShaderTypeOpenGLValue(eShaderType));
+        glShaderSource(shaderID, 1, &szFileContent, null_q);
+        glCompileShader(shaderID);
 
         // Checks result
         GLint nSucceed = 0;
-        glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &nSucceed);
+        glGetShaderiv(shaderID, GL_COMPILE_STATUS, &nSucceed);
 
         if(!nSucceed)
         {
             GLsizei nActualLength = 0;
             GLchar szErrorMessage[512];
-            glGetShaderInfoLog(vertexShaderID, 512, &nActualLength, szErrorMessage);
+            glGetShaderInfoLog(shaderID, 512, &nActualLength, szErrorMessage);
 
             QE_ASSERT_ERROR(false, szErrorMessage);
         }
 
-        QE_LOG("LOG: Vertex shader compiled successfully.\n");
+        QE_LOG("LOG: Shader compiled successfully.\n");
 
-        pResultantVertexShader = new QVertexShader(QShaderCompositor::_LinkShader(vertexShaderID));
+        pResultantShader = new QShader(QShaderCompositor::_LinkShader(shaderID));
 
-        glDetachShader(pResultantVertexShader->GetProgramID(), vertexShaderID);
-        glDeleteShader(vertexShaderID);
+        glDetachShader(pResultantShader->GetExternalId(), shaderID);
+        glDeleteShader(shaderID);
 
-        return pResultantVertexShader;
-    }
-        
-    virtual QFragmentShader* CompileAndLinkFragmentShader(const QPath &vertexShaderPath)
-    {
-        QFragmentShader* pResultantFragmentShader = null_q;
-
-        // Reads the fragment shader from text file
-        string_q strFileContent;
-        EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
-        QFileStream fs(vertexShaderPath, EQFileOpenMode::E_Open, 500, eErrorInfo);
-        QTextStreamReader<QFileStream> ts(fs, EQTextEncoding::E_ASCII);
-        strFileContent = string_q::GetEmpty();
-        ts.ReadToEnd(strFileContent);
-        fs.Close();
-
-        // Adapts the content
-        QArrayResult<i8_q> arFileContent = strFileContent.ToBytes(EQTextEncoding::E_ASCII);
-        const char* szFileContent = arFileContent.Get();
-
-        // Compiles the fragment shader
-        QE_LOG("LOG: Compiling fragment shader...\n");
-        GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShaderID, 1, &szFileContent, null_q);
-        glCompileShader(fragmentShaderID);
-
-        // Checks result
-        GLint nSucceed = 0;
-        glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &nSucceed);
-
-        if(!nSucceed)
-        {
-            GLsizei nActualLength = 0;
-            GLchar szErrorMessage[512];
-            glGetShaderInfoLog(fragmentShaderID, 512, &nActualLength, szErrorMessage);
-
-            QE_ASSERT_ERROR(false, szErrorMessage);
-        }
-
-        QE_LOG("LOG: Fragment shader compiled successfully.\n");
-
-        pResultantFragmentShader = new QFragmentShader(QShaderCompositor::_LinkShader(fragmentShaderID));
-
-        glDetachShader(pResultantFragmentShader->GetProgramID(), fragmentShaderID);
-        glDeleteShader(fragmentShaderID);
-
-        return pResultantFragmentShader;
+        return pResultantShader;
     }
     
 protected:
@@ -132,6 +88,20 @@ protected:
         QE_LOG("LOG: Shader program linked successfully.\n");
 
         return shaderProgramID;
+    }
+
+    static GLenum _GetEquivalentShaderTypeOpenGLValue(const QShader::EQShaderType eShaderType)
+    {
+        static const GLenum EQUIVALENCIES[] = { 
+                                                GL_VERTEX_SHADER,
+                                                GL_FRAGMENT_SHADER,
+                                                GL_GEOMETRY_SHADER,
+                                                GL_TESS_CONTROL_SHADER, 
+                                                GL_TESS_EVALUATION_SHADER, 
+                                                GL_COMPUTE_SHADER
+                                              };
+
+        return EQUIVALENCIES[eShaderType];
     }
 };
 

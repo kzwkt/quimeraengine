@@ -28,6 +28,7 @@
 #include "qe/QStopwatchEnclosed.h"
 #include "qe/QPoolAllocator.h"
 #include "qe/SQEqualityComparator.h"
+#include "qe/QDictionary.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::Math;
 using namespace Kinesis::QuimeraEngine::Common;

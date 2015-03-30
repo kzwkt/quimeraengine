@@ -7,11 +7,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "QStaticModel.h"
-#include "VertexDefinitions.h"
+//#include "QStaticModel.h"
+#include "QStaticModelRawData.h"
+#include "QModelAspectsRawData.h"
 #include "QImageLoader.h"
-#include "QSampler2D.h"
-#include "QTextureBlender.h"
 
 #define ENABLE_LOGGING
 
@@ -35,31 +34,6 @@ public:
     typedef QArrayDynamic<QKeyValuePair<QHashedString, QAspect*>> LoadedAspectArray;
     */
 
-    struct QTextureInfo
-    {
-        QTexture2D::EQTextureMapping Mapping;
-        QSampler2D::EQTextureWrapMode WrapMode[3];
-        QTextureBlender::EQTextureBlendOperation BlendOperation;
-        float_q BlendFactor;
-        u8_q TextureCoordsIndex;
-    };
-
-    struct QModelAspects
-    {
-        QMaterial** Materials;
-        QTextureInfo* Textures;
-        QImage** Images;
-        QAspect** Aspects;
-        QHashedString* MaterialIds;
-        QHashedString* TextureIds;
-        QHashedString* ImageIds;
-        QHashedString* AspectIds;
-        u32_q MaterialCount;
-        u32_q TextureCount;
-        u32_q ImageCount;
-        u32_q AspectCount;
-    };
-
     // 1---------- Assign material indices to submeshes
     // 2------- Create Blender and Sampler
     // 3- Create textures from info
@@ -67,12 +41,12 @@ public:
 
     // The vertex type should be flexible
 
-    virtual void LoadModel(const QPath &filePath, QStaticModel &model, QModelAspects &modelAspects)
+    virtual void LoadModel(const QPath &filePath, const QVertexDescription* pVertexDescription, QStaticModelRawData &model, QModelAspectsRawData &modelAspects)
     {
         QE_LOG_MODELLOAD(string_q("Loading model from '") + filePath.GetAbsolutePath() + "'");
 
         Assimp::Importer importer;
-        const aiScene* pScene = importer.ReadFile(filePath.ToString().ToBytes(EQTextEncoding::E_UTF8).Get(), aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcess_FindInvalidData | aiProcess_ValidateDataStructure | aiProcess_GenSmoothNormals);
+        const aiScene* pScene = importer.ReadFile(filePath.ToString().ToBytes(EQTextEncoding::E_UTF8).Get(), aiProcess_Triangulate | aiProcess_ConvertToLeftHanded | aiProcess_FindInvalidData | aiProcess_ValidateDataStructure | aiProcess_GenSmoothNormals | aiProcess_SortByPType);
 
         QE_ASSERT_ERROR(pScene != null_q && pScene->mFlags != AI_SCENE_FLAGS_INCOMPLETE && pScene->mRootNode != null_q,
                         string_q("An error occurred when loading a model from '") + filePath.ToString() + "'. " + importer.GetErrorString());
@@ -84,13 +58,80 @@ public:
         QE_LOG_MODELLOAD("Processing ASSIMP materials...\n");
 
         QE_LOG_MODELLOAD("Loading internal textures...\n");
-
-        //ProcessTextures(pScene->mTextures, pScene->mNumTextures, modelAspects);
+        
+        // [TODO]: ProcessInternalTextures(pScene->mTextures, pScene->mNumTextures, modelAspects);
         
         QE_LOG_MODELLOAD("Internal textures loaded.\n");
 
         QE_LOG_MODELLOAD("Building model aspects...\n");
 
+        QModelLoader::PrepareModelAspectsOutputData(pScene, modelAspects);
+
+        QE_LOG_MODELLOAD("Creating aspects from ASSIMP materials...\n");
+
+        ProcessMaterials(pScene->mMaterials, pScene->mNumMaterials, modelAspects);
+
+        QE_LOG_MODELLOAD("Model aspects built.\n");
+
+        QE_LOG_MODELLOAD("ASSIMP materials processed.\n");
+
+        QModelLoader::PrepareStaticModelOutputData(pScene, pVertexDescription, model);
+        
+
+        QE_LOG_MODELLOAD("Processing ASSIMP model...\n");
+
+        u32_q uMeshIndex = 1;
+        u32_q uSubmeshIndex = 0;
+        ProcessNode(pScene->mRootNode, model, 0, 0);
+        //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
+        ProcessHierarchy(model, pScene->mMeshes, pScene->mRootNode, modelAspects, uMeshIndex, uSubmeshIndex, 0);
+
+        QE_LOG_MODELLOAD("Freeing intermediate resources...\n");
+
+        importer.FreeScene();
+
+        QE_LOG_MODELLOAD("Model loaded.\n");
+    }
+
+protected:
+
+    static void PrepareStaticModelOutputData(const aiScene* pScene, const QVertexDescription* pVertexDescription, QStaticModelRawData &model)
+    {
+        u32_q uNumVertices = 0;
+        u32_q uNumIndices = 0;
+        u32_q uNumNodes = CountNodes(pScene->mRootNode) + 1U;
+        aiMesh** pCurrenMesh = pScene->mMeshes;
+
+        for (u32_q i = 0; i < pScene->mNumMeshes; ++i, ++pCurrenMesh)
+        {
+            uNumVertices += (*pCurrenMesh)->mNumVertices;
+            uNumIndices += (*pCurrenMesh)->mNumFaces * 3U;
+        }
+
+        model.VertexDescription = pVertexDescription;
+        model.Vertices = new char[model.VertexDescription->GetVertexSize() * uNumVertices];
+        model.VertexCount = uNumVertices;
+
+        model.Indices = new u32_q[uNumIndices];
+        model.IndexCount = uNumIndices;
+
+        model.Meshes = new QStaticModelRawData::QMesh[uNumNodes];
+        model.MeshIds = new QStaticModelRawData::QMeshId[uNumNodes];
+        QE_ASSERT_ERROR(model.MeshIds[11].Id.GetLength() == 0, "ERROR");
+        model.Submeshes = new QStaticModelRawData::QSubmesh[pScene->mNumMeshes];
+        model.SubmeshAspects = new QStaticModelRawData::QSubmeshAspect[pScene->mNumMeshes];
+        model.MeshCount = uNumNodes;
+        model.SubmeshCount = pScene->mNumMeshes;
+
+        QE_LOG_MODELLOAD(string_q("Vertex buffer: ") + string_q::FromInteger(uNumVertices) + " vertices\n");
+        QE_LOG_MODELLOAD(string_q("Index buffer: ") + string_q::FromInteger(uNumIndices) + " indices\n");
+        QE_LOG_MODELLOAD(string_q("Mesh buffer: ") + string_q::FromInteger(uNumNodes) + " meshes\n");
+        QE_LOG_MODELLOAD(string_q("Submesh buffer: ") + string_q::FromInteger(pScene->mNumMeshes) + " submeshes\n");
+        QE_LOG_MODELLOAD("\n");
+    }
+
+    static void PrepareModelAspectsOutputData(const aiScene* pScene, QModelAspectsRawData &modelAspects)
+    {
         u32_q uNumExternalTextures = CountExternalTextures(pScene->mMaterials, pScene->mNumMaterials);
         u32_q uNumTextures = pScene->mNumTextures + uNumExternalTextures;
 
@@ -110,54 +151,9 @@ public:
         memset(modelAspects.Images, 0, sizeof(void*) * uNumTextures);
 
         modelAspects.TextureCount = uNumTextures;
-        modelAspects.Textures = new QTextureInfo[uNumTextures];
+        modelAspects.Textures = new QModelAspectsRawData::QTextureInfo[uNumTextures];
         modelAspects.TextureIds = new QHashedString[uNumTextures];
-
-        QE_LOG_MODELLOAD("Creating aspects from ASSIMP materials...\n");
-
-        ProcessMaterials(pScene->mMaterials, pScene->mNumMaterials, modelAspects);
-
-        QE_LOG_MODELLOAD("Model aspects built.\n");
-
-        QE_LOG_MODELLOAD("ASSIMP materials processed.\n");
-
-
-        u32_q uNumVertices = 0;
-        u32_q uNumIndices = 0;
-        u32_q uNumNodes = CountNodes(pScene->mRootNode) + 1U;
-        aiMesh** pCurrenMesh = pScene->mMeshes;
-
-        for (u32_q i = 0; i < pScene->mNumMeshes; ++i, ++pCurrenMesh)
-        {
-            uNumVertices += (*pCurrenMesh)->mNumVertices;
-            uNumIndices += (*pCurrenMesh)->mNumFaces * 3U;
-        }
-        
-        model.GenerateVertexBuffer(model.GetVertexDescription()->GetVertexSize(), uNumVertices);
-        model.GenerateIndexBuffer(uNumIndices);
-        model.GenerateMeshBuffers(uNumNodes, pScene->mNumMeshes);
-
-        QE_LOG_MODELLOAD(string_q("Vertex buffer: ") + string_q::FromInteger(uNumVertices) + " vertices\n");
-        QE_LOG_MODELLOAD(string_q("Index buffer: ") + string_q::FromInteger(uNumIndices) + " indices\n");
-        QE_LOG_MODELLOAD(string_q("Mesh buffer: ") + string_q::FromInteger(uNumNodes) + " meshes\n");
-        QE_LOG_MODELLOAD(string_q("Submesh buffer: ") + string_q::FromInteger(pScene->mNumMeshes) + " submeshes\n");
-        QE_LOG_MODELLOAD("\n");
-
-        QE_LOG_MODELLOAD("Processing ASSIMP model...\n");
-
-        u32_q uMeshIndex = 1;
-        u32_q uSubmeshIndex = 0;
-        ProcessNode(pScene->mRootNode, model, 0, 0);
-        ProcessHierarchy(model, pScene->mMeshes, pScene->mRootNode, modelAspects, uMeshIndex, uSubmeshIndex, 0);
-
-        QE_LOG_MODELLOAD("Freeing intermediate resources...\n");
-
-        importer.FreeScene();
-
-        QE_LOG_MODELLOAD("Model loaded.\n");
     }
-
-protected:
 
     static u32_q CountExternalTextures(aiMaterial** arInputMaterials, const u32_q uMaterials)
     {
@@ -200,7 +196,7 @@ protected:
         }
     }
 
-    static void ProcessMaterials(aiMaterial** arInputMaterials, const u32_q uMaterials, QModelAspects &modelAspects)
+    static void ProcessMaterials(aiMaterial** arInputMaterials, const u32_q uMaterials, QModelAspectsRawData &modelAspects)
     {
 
         // [TODO]: Optimize in such a way that existing elements (in the Resource manager) are not even loaded. Optional? A flag to choose whether they are not loaded or they are renamed or numerated?
@@ -281,7 +277,7 @@ protected:
         return eResult;
     }
 
-    static void ProcessMaterialColors(const aiMaterial* pInputMaterial, QMaterial* pOutputMaterial, QModelAspects &modelAspects)
+    static void ProcessMaterialColors(const aiMaterial* pInputMaterial, QMaterial* pOutputMaterial, QModelAspectsRawData &modelAspects)
     {
         // This array must coincide in order with the QMaterial structure
         static const char* COLOR_COMPONENTS[] = { AI_MATKEY_COLOR_AMBIENT,
@@ -309,23 +305,38 @@ protected:
         }
     }
 
-    static void ProcessMaterialTextures(aiMaterial* pInputMaterial, QModelAspects &modelAspects, const QHashedString aspectId, QAspect* pAspect, u32_q &uLastLoadedImage)
+    static void ProcessMaterialTextures(aiMaterial* pInputMaterial, QModelAspectsRawData &modelAspects, const QHashedString aspectId, QAspect* pAspect, u32_q &uLastLoadedImage)
     {
-        // [TODO]: Checks if the texture is already in the Resource manager
+        static const QAspect::EQAspectComponentType COMPONENT_TYPES[] = {   QAspect::E_Ambient,
+                                                                            QAspect::E_Diffuse,
+                                                                            QAspect::E_Specular,
+                                                                            QAspect::E_Normals,
+                                                                            QAspect::E_Opacity,
+                                                                            QAspect::E_Displacement,
+                                                                            QAspect::E_Height,
+                                                                            QAspect::E_Shininess,
+                                                                            QAspect::E_Reflection,
+                                                                            QAspect::E_Lightmap,
+                                                                            QAspect::E_Emissive
+                                                                        };
 
-        ProcessMaterialTexture(aiTextureType_AMBIENT, pInputMaterial, aspectId, QAspect::E_Ambient, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_DIFFUSE, pInputMaterial, aspectId, QAspect::E_Diffuse, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_SPECULAR, pInputMaterial, aspectId, QAspect::E_Specular, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_EMISSIVE, pInputMaterial, aspectId, QAspect::E_Emissive, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_LIGHTMAP, pInputMaterial, aspectId, QAspect::E_Lightmap, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_DISPLACEMENT, pInputMaterial, aspectId, QAspect::E_Displacement, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_REFLECTION, pInputMaterial, aspectId, QAspect::E_Reflection, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_HEIGHT, pInputMaterial, aspectId, QAspect::E_Height, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_OPACITY, pInputMaterial, aspectId, QAspect::E_Opacity, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_NORMALS, pInputMaterial, aspectId, QAspect::E_Normals, pAspect, modelAspects, uLastLoadedImage);
-        ProcessMaterialTexture(aiTextureType_SHININESS, pInputMaterial, aspectId, QAspect::E_Shininess, pAspect, modelAspects, uLastLoadedImage);
-        // NONE
-        // UNKNOWN
+        static const aiTextureType TEXTURE_TYPES[] = {  aiTextureType_AMBIENT,
+                                                        aiTextureType_DIFFUSE,
+                                                        aiTextureType_SPECULAR,
+                                                        aiTextureType_NORMALS,
+                                                        aiTextureType_OPACITY,
+                                                        aiTextureType_DISPLACEMENT,
+                                                        aiTextureType_HEIGHT,
+                                                        aiTextureType_SHININESS,
+                                                        aiTextureType_REFLECTION,
+                                                        aiTextureType_LIGHTMAP,
+                                                        aiTextureType_EMISSIVE
+                                                     };
+                                                    // NONE
+                                                    // UNKNOWN
+
+        for (u32_q i = 0; i < sizeof(COMPONENT_TYPES) / sizeof(COMPONENT_TYPES[0]); ++i)
+            ProcessMaterialTexture(TEXTURE_TYPES[i], pInputMaterial, aspectId, COMPONENT_TYPES[i], pAspect, modelAspects, uLastLoadedImage);
     }
 
     static void ProcessMaterialTexture(const aiTextureType textureType, 
@@ -333,7 +344,7 @@ protected:
                                        const QHashedString &aspectId, 
                                        const QAspect::EQAspectComponentType componentType,
                                        QAspect* pAspect, 
-                                       QModelAspects &modelAspects, 
+                                       QModelAspectsRawData &modelAspects,
                                        u32_q &uLastLoadedImage)
     {
         QImageLoader imageLoader;
@@ -503,7 +514,7 @@ protected:
         return pNode->mNumChildren + uNumNodes;
     }
 
-    static void ProcessHierarchy(QStaticModel &model, aiMesh** const arMeshes, const aiNode* pNode, const QModelAspects& modelAspects, u32_q &uOutpuMeshIndex, u32_q &uOutpuSubmeshIndex, const u32_q uParentMeshIndex)
+    static void ProcessHierarchy(QStaticModelRawData &model, aiMesh** const arMeshes, const aiNode* pNode, const QModelAspectsRawData& modelAspects, u32_q &uOutpuMeshIndex, u32_q &uOutpuSubmeshIndex, const u32_q uParentMeshIndex)
     {
         //        A
         //       / \
@@ -516,23 +527,31 @@ protected:
 
         // The intent is that meshes in the same level under a node, or brother nodes, are contiguous
 
-        QStaticModel::QMesh* pParentMesh = model.GetMeshByIndex(uParentMeshIndex);
-        pParentMesh->FirstChildMesh = -1;
-
-        if(pNode->mNumChildren != 0)
-            pParentMesh->FirstChildMesh = uOutpuMeshIndex;
+        QStaticModelRawData::QMesh* pParentMesh = model.Meshes + uParentMeshIndex;
+        
+        pParentMesh->FirstChildMesh = pNode->mNumChildren != 0 ? uOutpuMeshIndex : 
+                                                                 -1;
 
         QE_LOG_MODELLOAD(string_q("Processing children of mesh[") + string_q::FromInteger(uParentMeshIndex) + "]...\n");
         QE_LOG_MODELLOAD(string_q("First child: ") + string_q::FromInteger(pParentMesh->FirstChildMesh) + "\n");
 
-        QStaticModel::QMesh* pPreviousMesh = null_q;
+        QStaticModelRawData::QMesh* pPreviousMesh = null_q;
 
         for (u32_q i = 0; i < pNode->mNumChildren; ++i, ++uOutpuMeshIndex)
         {
+            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
             ProcessNode(pNode->mChildren[i], model, uOutpuMeshIndex, uOutpuSubmeshIndex);
 
+            model.Meshes[uOutpuSubmeshIndex].SiblingMesh = -1;
+
+            model.Meshes[uOutpuSubmeshIndex].SiblingMesh = i == pNode->mNumChildren ? -1 :
+                                                                                      uOutpuSubmeshIndex + 1U;
+            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
             if (pNode->mChildren[i]->mNumMeshes > 0)
                 ProcessMesh(arMeshes, pNode->mChildren[i]->mMeshes, model, uOutpuMeshIndex, modelAspects, uOutpuSubmeshIndex);
+
+            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
+            //QE_ASSERT_ERROR(uOutpuMeshIndex + 1 == model.MeshCount || model.MeshIds[uOutpuMeshIndex + 1].Id.GetLength() == 0, "ERROR");
         }
 
         QE_LOG_MODELLOAD(string_q("Children of mesh[") + string_q::FromInteger(uParentMeshIndex) + "] processed.\n");
@@ -544,12 +563,12 @@ protected:
         QE_LOG_MODELLOAD("Child's children processed.\n");
     }
 
-    static void ProcessNode(aiNode* const pInputNode, QStaticModel &model, const u32_q uMeshIndex, const u32_q uSubmeshIndex)
+    static void ProcessNode(aiNode* const pInputNode, QStaticModelRawData &model, const u32_q uMeshIndex, const u32_q uSubmeshIndex)
     {
         QE_LOG_MODELLOAD(string_q("Processing mesh[") + string_q::FromInteger(uMeshIndex) + "]...\n");
 
-        QStaticModel::QMesh* pMesh = model.GetMeshByIndex(uMeshIndex);
-        QStaticModel::QMeshId* pMeshId = model.GetMeshIdByIndex(uMeshIndex);
+        QStaticModelRawData::QMesh* pMesh = model.Meshes + uMeshIndex;
+        QStaticModelRawData::QMeshId* pMeshId = model.MeshIds + uMeshIndex;
         pMesh->SubmeshCount = pInputNode->mNumMeshes;
         pMesh->FirstSubmesh = uSubmeshIndex;
         pMeshId->Mesh = uMeshIndex;
@@ -566,31 +585,39 @@ protected:
         QE_LOG_MODELLOAD("\n");*/
     }
 
-    static void ProcessMesh(aiMesh** const arExternalSubmeshes, unsigned int* arSubmeshes, QStaticModel &model, const u32_q uMeshIndex, const QModelAspects& modelAspects, u32_q &uOutpuSubmeshIndex)
+    static void ProcessMesh(aiMesh** const arExternalSubmeshes, unsigned int* arSubmeshes, QStaticModelRawData &model, const u32_q uMeshIndex, const QModelAspectsRawData& modelAspects, u32_q &uOutpuSubmeshIndex)
     {
-        for (u32_q i = 0; i < model.GetMeshByIndex(uMeshIndex)->SubmeshCount; ++i, ++uOutpuSubmeshIndex)
+        // [TODO]: Support instancing
+        u32_q uNumSubmeshes = model.Meshes[uMeshIndex].SubmeshCount;
+
+        for (u32_q i = 0; i < uNumSubmeshes; ++i, ++uOutpuSubmeshIndex)
         {
             ProcessSubmesh(arExternalSubmeshes[arSubmeshes[i]], model, uOutpuSubmeshIndex/*model.GetMeshByIndex(uMeshIndex)->FirstSubmesh + i*/);
-            model.GetSubmeshAspectByIndex(uOutpuSubmeshIndex)->Submesh = uOutpuSubmeshIndex;
-            model.GetSubmeshAspectByIndex(uOutpuSubmeshIndex)->AspectId = modelAspects.AspectIds[arExternalSubmeshes[arSubmeshes[i]]->mMaterialIndex];
+            model.SubmeshAspects[uOutpuSubmeshIndex].Submesh = uOutpuSubmeshIndex;
+            model.SubmeshAspects[uOutpuSubmeshIndex].AspectId = modelAspects.AspectIds[arExternalSubmeshes[arSubmeshes[i]]->mMaterialIndex];
 
-            QE_LOG_MODELLOAD(string_q("Mesh[") + uMeshIndex + string_q("].Submesh[") + i + "] (actual submesh[" + uOutpuSubmeshIndex + "]), AspectId: " + model.GetSubmeshAspectByIndex(uOutpuSubmeshIndex)->AspectId + "\n");
+            QE_LOG_MODELLOAD(string_q("Mesh[") + uMeshIndex + string_q("].Submesh[") + i + "] (actual submesh[" + uOutpuSubmeshIndex + "]), AspectId: " + model.SubmeshAspects[uOutpuSubmeshIndex].AspectId + "\n");
         }
     }
 
-    static void ProcessSubmesh(const aiMesh* pExternalSubmesh, QStaticModel &model, const u32_q uSubmeshIndex)
+    static void ProcessSubmesh(const aiMesh* pExternalSubmesh, QStaticModelRawData &model, const u32_q uSubmeshIndex)
     {
         QE_LOG_MODELLOAD(string_q("Processing submesh[") + string_q::FromInteger(uSubmeshIndex) + "]...\n");
 
-        QStaticModel::QSubmesh* pSubmesh = model.GetSubmeshByIndex(uSubmeshIndex);
+        QStaticModelRawData::QSubmesh* pSubmesh = model.Submeshes + uSubmeshIndex;
         pSubmesh->VertexCount = pExternalSubmesh->mNumVertices;
         pSubmesh->IndexCount = pExternalSubmesh->mNumFaces * 3U;
         pSubmesh->FirstVertex = 0;
         pSubmesh->FirstIndex = 0;
+        pSubmesh->PrimitiveType = pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE ? QStaticModelRawData::E_Triangle :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POLYGON  ? QStaticModelRawData::E_Polygon :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_LINE     ? QStaticModelRawData::E_Line :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POINT    ? QStaticModelRawData::E_Point :
+                                                                                                 QStaticModelRawData::E_Triangle;
         
         if (uSubmeshIndex != 0)
         {
-            QStaticModel::QSubmesh* pPreviousSubmesh = model.GetSubmeshByIndex(uSubmeshIndex - 1U);
+            QStaticModelRawData::QSubmesh* pPreviousSubmesh = model.Submeshes + uSubmeshIndex - 1U;
             pSubmesh->FirstVertex = pPreviousSubmesh->FirstVertex + pPreviousSubmesh->VertexCount;
             pSubmesh->FirstIndex = pPreviousSubmesh->FirstIndex + pPreviousSubmesh->IndexCount;
         }
@@ -601,17 +628,16 @@ protected:
         QE_LOG_MODELLOAD(string_q("First index: ") + string_q::FromInteger(pSubmesh->FirstIndex) + "\n");
         */
 
-        const QVertexDescription* pVertexDescription = model.GetVertexDescription();
-        float_q* pFirstValueInSubmesh = rcast_q(rcast_q(model.GetVertexBuffer(), pointer_uint_q) + pSubmesh->FirstVertex * pVertexDescription->GetVertexSize(), float_q*);
+        float_q* pFirstValueInSubmesh = rcast_q(rcast_q(model.Vertices, pointer_uint_q) + pSubmesh->FirstVertex * model.VertexDescription->GetVertexSize(), float_q*);
 
         u32_q uComponentOffset = 0;
         u32_q uTextureCoordArrayIndex = 0;
         u32_q uColorArrayIndex = 0;
-        const u32_q NUMBER_OF_VALUES_IN_VERTEX = pVertexDescription->GetVertexSize() / sizeof(float_q);
+        const u32_q NUMBER_OF_VALUES_IN_VERTEX = model.VertexDescription->GetVertexSize() / sizeof(float_q);
 
-        for (u32_q i = 0; i < pVertexDescription->GetVertexComponentCount(); ++i)
+        for (u32_q i = 0; i < model.VertexDescription->GetVertexComponentCount(); ++i)
         {
-            switch (pVertexDescription->GetVertexComponents()[i].Type)
+            switch (model.VertexDescription->GetVertexComponents()[i].Type)
             {
             case QVertexComponent::E_Position3D:
                 Copy3DVectors(&pExternalSubmesh->mVertices->x, pFirstValueInSubmesh + uComponentOffset, pSubmesh->VertexCount, NUMBER_OF_VALUES_IN_VERTEX);
@@ -640,16 +666,16 @@ protected:
                 break;
             }
 
-            uComponentOffset += pVertexDescription->GetVertexComponents()[i].Size / sizeof(float_q);
+            uComponentOffset += model.VertexDescription->GetVertexComponents()[i].Size / sizeof(float_q);
         }
 
-        CopyTriangleIndices(model.GetIndexbuffer() + pSubmesh->FirstIndex, pExternalSubmesh->mFaces, pSubmesh->IndexCount, pSubmesh->FirstVertex);
+        CopyTriangleIndices(model.Indices + pSubmesh->FirstIndex, pExternalSubmesh->mFaces, pSubmesh->IndexCount);
     }
 
-    static void CopyTriangleIndices(u32_q* arOutputIndices, const aiFace* arInputFaces, const u32_q uIndexCount, const u32_q uIndexOffset)
+    static void CopyTriangleIndices(u32_q* arOutputIndices, const aiFace* arInputFaces, const u32_q uIndexCount)
     {
         for (u32_q i = 0; i < uIndexCount; ++i)
-            arOutputIndices[i] = arInputFaces[i / 3U].mIndices[i % 3U] + uIndexOffset;
+            arOutputIndices[i] = arInputFaces[i / 3U].mIndices[i % 3U];
         /*
         for (u32_q i = 0; i < uIndexCount / 3U; i += 3U)
         {
