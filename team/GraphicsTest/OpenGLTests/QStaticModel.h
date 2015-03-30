@@ -3,150 +3,64 @@
 #define __QSTATICMODEL__
 
 #include "QuimeraEngineIncludesAndUsings.h"
+#include "QStaticModelRawData.h"
 #include "VertexDefinitions.h"
 
 class QModelLoader;
 
+// Rename to QFixedSizeModel?
 class QStaticModel
 {
-    friend QModelLoader;
-
-    struct QMesh
-    {
-        u32_q FirstSubmesh;
-        u32_q SubmeshCount;
-        u32_q SiblingMesh;
-        u32_q FirstChildMesh;
-        QVector3 Translation;
-        QQuaternion Rotation;
-        QVector3 Scale;
-    };
-
-    struct QMeshId
-    {
-        QHashedString Id;
-        u32_q Mesh;
-    };
-
-    struct QSubmesh
-    {
-        u32_q FirstVertex;
-        u32_q VertexCount;
-        u32_q FirstIndex;
-        u32_q IndexCount;
-    };
-
-    struct QSubmeshAspect
-    {
-        u32_q Submesh;
-        QHashedString AspectId;
-    };
-
 public:
 
-    QStaticModel(const QVertexDescription* pVertexDescription) : m_arVertices(null_q),
-                                                                 m_arIndices(null_q),
-                                                                 m_arMeshes(null_q),
-                                                                 m_arSubmeshes(null_q),
-                                                                 m_arSubmeshAspects(null_q),
-                                                                 m_arMeshIds(null_q),
-                                                                 m_pVertexDescription(pVertexDescription),
-                                                                 m_uVertices(0),
-                                                                 m_uIndices(0),
-                                                                 m_uMeshes(0),
-                                                                 m_uSubmeshes(0),
-                                                                 m_uExternalId(0)
+    QStaticModel(const GLuint vaoId, const QHashedString &strVertexBufferId, const QHashedString &strIndexBufferId, const QStaticModelRawData* pRawData) : 
+                                                                                        m_arMeshes(pRawData->Meshes),
+                                                                                        m_arSubmeshes(pRawData->Submeshes),
+                                                                                        m_arSubmeshAspects(pRawData->SubmeshAspects),
+                                                                                        m_arMeshIds(pRawData->MeshIds),
+                                                                                        m_pVertexDescription(pRawData->VertexDescription),
+                                                                                        m_uMeshes(pRawData->MeshCount),
+                                                                                        m_uSubmeshes(pRawData->SubmeshCount),
+                                                                                        m_uExternalId(vaoId),
+                                                                                        m_strVertexBufferId(strVertexBufferId),
+                                                                                        m_strIndexBufferId(strIndexBufferId)
     {
     }
 
-    void* GenerateVertexBuffer(const u32_q uVertexSize, const u32_q uAmount)
+    QHashedString GetVertexBufferId() const
     {
-        if (m_arVertices)
-        {
-            delete[] (char*)m_arVertices;
-        }
-
-        m_arVertices = new char[uVertexSize * uAmount];
-        m_uVertices = uAmount;
-        return m_arVertices;
+        return m_strVertexBufferId;
     }
 
-    u32_q* GenerateIndexBuffer(const u32_q uAmount)
+    QHashedString GetIndexbufferId() const
     {
-        if (m_arIndices)
-        {
-            delete[] m_arIndices;
-        }
-
-        m_arIndices = new u32_q[uAmount];
-        m_uIndices = uAmount;
-        return m_arIndices;
+        return m_strIndexBufferId;
     }
 
-    void GenerateMeshBuffers(const u32_q uMeshes, const u32_q uSubmeshes)
-    {
-        if (m_arMeshes)
-        {
-            delete[] m_arMeshes;
-        }
-
-        if (m_arSubmeshes)
-        {
-            delete[] m_arSubmeshes;
-        }
-
-        if (m_arMeshIds)
-        {
-            delete[] m_arMeshIds;
-        }
-
-        if (m_arSubmeshAspects)
-        {
-            delete[] m_arSubmeshAspects;
-        }
-
-        m_arMeshes = new QMesh[uMeshes];
-        m_arMeshIds = new QMeshId[uMeshes];
-        m_arSubmeshes = new QSubmesh[uSubmeshes];
-        m_arSubmeshAspects = new QSubmeshAspect[uSubmeshes];
-        m_uMeshes = uMeshes;
-        m_uSubmeshes = uSubmeshes;
-    }
-
-    void* GetVertexBuffer() const
-    {
-        return m_arVertices;
-    }
-
-    u32_q* GetIndexbuffer() const
-    {
-        return m_arIndices;
-    }
-
-    QMesh* GetMeshByIndex(const u32_q uIndex) const
+    QStaticModelRawData::QMesh* GetMeshByIndex(const u32_q uIndex) const
     {
         return m_arMeshes + uIndex;
     }
 
-    QSubmesh* GetSubmeshByIndex(const u32_q uIndex) const
+    QStaticModelRawData::QSubmesh* GetSubmeshByIndex(const u32_q uIndex) const
     {
         return m_arSubmeshes + uIndex;
     }
 
-    QSubmesh* GetSubmeshFromMesh(const u32_q uMeshIndex, const u32_q uSubmeshIndex) const
+    QStaticModelRawData::QSubmesh* GetSubmeshFromMesh(const u32_q uMeshIndex, const u32_q uSubmeshIndex) const
     {
         u32_q uIndex = (m_arMeshes + uMeshIndex)->FirstSubmesh + uSubmeshIndex;
         return m_arSubmeshes + uIndex;
     }
 
-    QSubmeshAspect* GetSubmeshAspectByIndex(const u32_q uIndex) const
+    QStaticModelRawData::QSubmeshAspect* GetSubmeshAspectByIndex(const u32_q uIndex) const
     {
         return m_arSubmeshAspects + uIndex;
     }
 
-    QMesh* GetMeshById(const QHashedString &strId) const
+    QStaticModelRawData::QMesh* GetMeshById(const QHashedString &strId) const
     {
-        QMesh* pFoundMesh = null_q;
+        QStaticModelRawData::QMesh* pFoundMesh = null_q;
 
         u32_q uMeshIndex = 0;
 
@@ -159,7 +73,7 @@ public:
         return pFoundMesh;
     }
 
-    QMeshId* GetMeshIdByIndex(const u32_q uIndex) const
+    QStaticModelRawData::QMeshId* GetMeshIdByIndex(const u32_q uIndex) const
     {
         return m_arMeshIds + uIndex;
     }
@@ -167,16 +81,6 @@ public:
     const QVertexDescription* GetVertexDescription() const
     {
         return m_pVertexDescription;
-    }
-
-    u32_q GetVertexCount() const
-    {
-        return m_uVertices;
-    }
-
-    u32_q GetIndexCount() const
-    {
-        return m_uIndices;
     }
 
     u32_q GetMeshCount() const
@@ -187,16 +91,6 @@ public:
     u32_q GetSubmeshCount() const
     {
         return m_uSubmeshes;
-    }
-
-    u32_q HasVertices() const
-    {
-        return m_uVertices != 0;
-    }
-
-    u32_q HasIndices() const
-    {
-        return m_uIndices != 0;
     }
 
     u32_q HasMeshes() const
@@ -234,20 +128,18 @@ public:
 
 protected:
 
-    void* m_arVertices;
-    u32_q* m_arIndices;
-    QMesh* m_arMeshes;
-    QSubmesh* m_arSubmeshes;
-    QSubmeshAspect* m_arSubmeshAspects;
-    QMeshId* m_arMeshIds;
+    QStaticModelRawData::QMesh* m_arMeshes;
+    QStaticModelRawData::QSubmesh* m_arSubmeshes;
+    QStaticModelRawData::QSubmeshAspect* m_arSubmeshAspects;
+    QStaticModelRawData::QMeshId* m_arMeshIds;
     const QVertexDescription* m_pVertexDescription;
 
-    u32_q m_uVertices;
-    u32_q m_uIndices;
     u32_q m_uMeshes;
     u32_q m_uSubmeshes;
 
     pointer_uint_q m_uExternalId;
+    QHashedString m_strVertexBufferId;
+    QHashedString m_strIndexBufferId;
 };
 
 

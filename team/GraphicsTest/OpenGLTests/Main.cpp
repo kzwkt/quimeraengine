@@ -22,6 +22,8 @@
 // [TODO]: Bindless textures
 // [TODO]: Use Direct State Access commands
 // [TODO]: #includes in shaders, semantics like HLSL with glBindAttribLocationARB http://www.g-truc.net/post-0267.html
+// [TODO]: Buffer objects in shaders (i/o data)
+// [TODO]: Subroutines, seem to be slower
 
 QResourceManager* QE_RESOURCE_MANAGER = null_q;
 QGraphicsEngine* QE_GRAPHICS_ENGINE = null_q;
@@ -170,7 +172,7 @@ int MainLoop()
         QQuaternion qRotation(0, 0, SQAngle::_HalfPi * MAIN_TIMER.GetProgression());
         QVector3 vScale(1, 1, 1);
 
-        worldMatrix.SetWorldSpaceMatrix(vTranslation, qRotation, vScale);
+        //worldMatrix.SetWorldSpaceMatrix(vTranslation, qRotation, vScale);
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
@@ -191,7 +193,7 @@ int MainLoop()
 
             //QE_LOG(string_q("FirstVertex: ") + pModel->GetSubmeshByIndex(i)->FirstVertex + ", FirstVertex+Count: " + (pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount) + ", IndexCount: " + pModel->GetSubmeshByIndex(i)->IndexCount + "\n");
 
-            glDrawRangeElements(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)));
+            glDrawRangeElementsBaseVertex(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)), pModel->GetSubmeshByIndex(i)->FirstVertex);
         }
 
         if (pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
@@ -274,8 +276,8 @@ void SetupEngine()
 
 void SetupShaders()
 {
-    QE_RESOURCE_MANAGER->CreateVertexShader("VS1", QPath("./Resources/VertexShader.glsl"));
-    QE_RESOURCE_MANAGER->CreateFragmentShader("FS1", QPath("./Resources/FragmentShader.glsl"));
+    QE_RESOURCE_MANAGER->CreateShader("VS1", QPath("./Resources/VertexShader.glsl"), QShader::E_VertexShader);
+    QE_RESOURCE_MANAGER->CreateShader("FS1", QPath("./Resources/FragmentShader.glsl"), QShader::E_FragmentShader);
     QE_GRAPHICS_ENGINE->SetVertexShader("VS1");
     QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
 }
@@ -448,11 +450,11 @@ void SetupSimpleGeometry()
 
 void SetupModel()
 {
-    QStaticModel* pModel = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
 
-    for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
+    for (u32_q i = 0; i < model.GetValue()->GetSubmeshCount(); ++i)
     {
-        QHashedString strAspectId = pModel->GetSubmeshAspectByIndex(i)->AspectId;
+        QHashedString strAspectId = model.GetValue()->GetSubmeshAspectByIndex(i)->AspectId;
         QAspect* pAspect = QE_RESOURCE_MANAGER->GetAspect(strAspectId);
         pAspect->SetVertexShader("VS1");
         pAspect->SetFragmentShader("FS1");
@@ -529,7 +531,7 @@ void SetupScene()
     QE_CAMERA->Frustum.FarPlaneDistance = 1000.0f;
     QE_CAMERA->Frustum.Fov = SQAngle::_QuarterPi;
     QE_CAMERA->Frustum.NearPlaneDistance = 0.1f;
-    QE_CAMERA->SetPosition(QVector4(0, 0, 0, 1.0f));
+    QE_CAMERA->SetPosition(QVector4(-5, 15, -50, 1.0f));
     QE_CAMERA->SetOrientation(QQuaternion::GetIdentity());
     QE_CAMERA->SetScale(QVector3::GetVectorOfOnes());
 }

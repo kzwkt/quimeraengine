@@ -5,10 +5,70 @@
 
 layout(row_major) uniform;
 
-layout (location = 0) in vec4 position;
-layout (location = 1) in vec3 normal;
-layout (location = 2) in vec2 inputTexCoords0;
-layout (location = 3) in vec2 inputTexCoords1;
+const uint MAX_TEXTURE_LAYERS = 8;
+
+struct InputVertexData
+{
+	vec4 Position;
+	vec3 Normal;
+	vec2 TexCoords[MAX_TEXTURE_LAYERS];
+};
+
+struct QMaterial
+{
+	vec4 Ambient;
+	vec4 Diffuse;
+	vec4 Specular;
+};
+
+struct QVisualAspect
+{
+	QMaterial Material;
+};
+
+struct InputOmniLightData
+{
+	vec4 Position;
+};
+
+struct InputDirectionalLightData
+{
+	vec4 Position;
+};
+
+in InputVertexData Input;
+
+uniform Submesh
+{
+	QVisualAspect Aspect;
+};
+
+// Entity level data (not 
+uniform Entity
+{
+	mat4x4 TransformationMatrix;
+};
+
+// Scene level data (not contained in an entity)
+uniform Scene
+{
+	InputOmniLightData[32] OmniLights;
+	uint OmniLightCount;
+
+	InputDirectionalLightData[32] DirectionalLights;
+	uint DirectionalLightCount;
+
+	mat4x4 ViewMatrix;
+	mat4x4 ProjectionMatrix;
+};
+
+// Configuration settings of the application
+uniform Application
+{
+	vec2 MouseCoords;
+	uint FrameTimeDelta;
+};
+
 out vec4 colorFromVS;
 out vec3 outNormal;
 out vec2 textCoord0;
@@ -26,12 +86,12 @@ out gl_PerVertex // In 4.3 core, it's mandatory to redefine this built-in variab
 
 void main()
 {
-    gl_Position = position * transformationMatrix;
-	outNormal = (vec4(normal, 0.0f) * transformationMatrix).xyz;
+    gl_Position = Input.Position * transformationMatrix;
+	outNormal = (vec4(Input.Normal, 0.0f) * transformationMatrix).xyz;
 	colorFromVS = uColor;
-	textCoord0 = inputTexCoords0;
-	textCoord1 = inputTexCoords1;
-	positionSampled = (position * transformationMatrix).xyz;
+	textCoord0 = Input.TexCoords[0];
+	textCoord1 = Input.TexCoords[1];
+	positionSampled = (Input.Position * transformationMatrix).xyz;
 
 	vLight = (vec4(0, 200.0f, -250, 1) * transformationMatrix).xyz;
 }

@@ -4,8 +4,7 @@
 
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "QMaterial.h"
-#include "QVertexShader.h"
-#include "QFragmentShader.h"
+#include "QShader.h"
 #include "QTexture2D.h"
 
 class QAspect

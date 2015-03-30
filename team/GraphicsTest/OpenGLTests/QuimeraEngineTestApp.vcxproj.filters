@@ -34,12 +34,6 @@
     <ClInclude Include="ErrorTracingDefinitions.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="QVertexShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="QFragmentShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="QShaderCompositor.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -95,6 +89,18 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="QTextureBlender.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QStaticModelRawData.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QModelAspectsRawData.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QShader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>

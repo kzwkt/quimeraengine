@@ -19,7 +19,9 @@ struct QVertexComponent
 
     u32_q Size;
     EQVertexComponentType Type;
-    const char* Name;
+    const char* Name; // This may not be necessary since names are always the same and can be deduced from Type (DirectX). However, it could serve to get the location of an input with OpenGL.
+    // bool IsInstanced;
+    // u32_q InstanceUpdateFrequency;
 
     static const u32_q* GetValuesPerComponentType();
 };
