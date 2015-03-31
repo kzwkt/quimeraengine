@@ -48,6 +48,9 @@ public:
 
     // It is necessary to differentiate the type of image, (integer, float)
     // Maybe images should not be created using different factories for either graphic library
+
+    // [TODO]: Implement fallback mechanism to attempt loading the image from the current working directory
+
     QKeyValuePair<QHashedString, QImage*> CreateImage(const QHashedString strId, const QPath &imagePath, const QImage::EQImageColorComponents eColorComponents)
     {
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arImages);
@@ -55,9 +58,16 @@ public:
         QImageLoader loader;
         QImage* pNewImage = loader.LoadImage(imagePath, eColorComponents);
 
-        QE_ASSERT_ERROR(pNewImage != null_q, string_q("An error occurred when loading the image with ID \"") + strId + "\" from \"" + imagePath.ToString() + "\".");
-
-        m_arImages.Add(strDefinitiveId, pNewImage);
+        if (!pNewImage)
+        {
+            strDefinitiveId = "DEFAULT";
+            QE_LOG(string_q("An error occurred when loading the image with ID \"") + strId + "\" from \"" + imagePath.ToString() + "\".\n");
+        }
+        else
+        {
+            m_arImages.Add(strDefinitiveId, pNewImage);
+        }
+        
         return QKeyValuePair<QHashedString, QImage*>(strDefinitiveId, pNewImage);
     }
 
@@ -68,9 +78,16 @@ public:
         QImageLoader loader;
         QImage* pNewImage = loader.LoadImage(pImageBuffer, uBufferSize, eColorComponents);
 
-        QE_ASSERT_ERROR(pNewImage != null_q, string_q("An error occurred when loading the image with ID \"") + strId + "\".");
+        if (!pNewImage)
+        {
+            strDefinitiveId = "DEFAULT";
+            QE_LOG(string_q("An error occurred when loading the image with ID \"") + strId + "\".\n");
+        }
+        else
+        {
+            m_arImages.Add(strDefinitiveId, pNewImage);
+        }
 
-        m_arImages.Add(strDefinitiveId, pNewImage);
         return QKeyValuePair<QHashedString, QImage*>(strDefinitiveId, pNewImage);
     }
 
@@ -85,11 +102,11 @@ public:
         if (pImage)
         {
             GLint nInternalFormat = pImage->GetColorComponents() == QImage::E_RGB ? GL_RGB :
-                pImage->GetColorComponents() == QImage::E_RGBA ? GL_RGBA :
-                0;
+                                                                                    pImage->GetColorComponents() == QImage::E_RGBA ? GL_RGBA :
+                                                                                                                                     0;
             GLint nFormat = eFormat == QImage::E_RGB ? GL_RGB :
-                eFormat == QImage::E_RGBA ? GL_RGBA :
-                0;
+                                                       eFormat == QImage::E_RGBA ? GL_RGBA :
+                                                                                   0;
             GLuint textureID = 0;
             glGenTextures(1, &textureID);
             glBindTexture(GL_TEXTURE_2D, textureID);
@@ -123,6 +140,8 @@ public:
     }
 
     // Add an overload that retrieves lists of all the generated resource Ids
+    // Add parameter to inject a postprocessing algorithm
+    // Add possibility of setting the texture directory
     QKeyValuePair<QHashedString, QStaticModel*> CreateStaticModel(const QHashedString strId, const QPath &modelPath, const QVertexDescription* pVertexDescription)
     {
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arStaticModels);
@@ -269,12 +288,9 @@ protected:
     static void _FreeModelAspectsRawData(QModelAspectsRawData &modelAspectsRawData)
     {
         delete[] modelAspectsRawData.AspectIds;
-        delete[] modelAspectsRawData.ImageIds;
         delete[] modelAspectsRawData.MaterialIds;
         delete[] modelAspectsRawData.TextureIds;
         delete[] modelAspectsRawData.Textures;
-
-        delete[] modelAspectsRawData.Images;
         delete[] modelAspectsRawData.Aspects;
         delete[] modelAspectsRawData.Materials;
     }
@@ -338,10 +354,6 @@ protected:
 
     virtual void _GenerateTexturesSamplersBlenders(QModelAspectsRawData &modelAspects, QDictionary<QHashedString, QHashedString> &actualAspectIds)
     {
-        // Images
-        for (u32_q i = 0; i < modelAspects.ImageCount; ++i)
-            m_arImages.Add(QResourceManager::_GenerateId(modelAspects.ImageIds[i], m_arImages), modelAspects.Images[i]);
-
         // These dictionaries are used to store resource Id pairs, where the key is the original Id and the value is the final Id (which may be different if the Id already existed in the resource container)
         // Then the dictionaries are used to update the Ids stored in the Aspect, so they match
         QDictionary<QHashedString, QHashedString> actualTextureIds(modelAspects.TextureCount);
@@ -372,7 +384,8 @@ protected:
             actualTextureIds.Add(modelAspects.TextureIds[i], strTextureId);
             actualTextureBlenderIds.Add(modelAspects.TextureIds[i], strTextureBlenderId);
             actualSampler2DIds.Add(modelAspects.TextureIds[i], strSampler2DId);
-            QKeyValuePair<QHashedString, QTexture2D*> texture = this->CreateTexture2D(strTextureId, modelAspects.ImageIds[i], QImage::E_RGB, modelAspects.Textures[i].Mapping);
+            QKeyValuePair<QHashedString, QImage*> image = this->CreateImage(strTextureId, modelAspects.Textures[i].FilePath, QImage::E_RGB);
+            QKeyValuePair<QHashedString, QTexture2D*> texture = this->CreateTexture2D(strTextureId, image.GetKey(), QImage::E_RGB, modelAspects.Textures[i].Mapping);
             QKeyValuePair<QHashedString, QTextureBlender*> blender = this->CreateTextureBlender(strTextureBlenderId, modelAspects.Textures[i].BlendOperation, modelAspects.Textures[i].BlendFactor);
             QKeyValuePair<QHashedString, QSampler2D*> sampler = this->CreateSampler2D(strSampler2DId, modelAspects.Textures[i].WrapMode[0], modelAspects.Textures[i].WrapMode[1], modelAspects.Textures[i].WrapMode[2], QColor::GetVectorOfOnes(), QSampler2D::E_LinearMipmaps, QSampler2D::E_MagLinear);
         }
