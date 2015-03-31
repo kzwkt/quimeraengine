@@ -26,22 +26,28 @@ public:
 
     virtual QImage* LoadImage(const QPath &imagePath, const QImage::EQImageColorComponents eColorComponents)
     {
+        QImage* pNewImage = null_q;
+
         EQFileSystemError eErrorInfo = EQFileSystemError::E_Unknown;
         EQFileSystemError eGetSizeErrorInfo = EQFileSystemError::E_Unknown;
 
-        QFileStream fs(imagePath, EQFileOpenMode::E_Open, SQFile::GetFileInfo(imagePath, eGetSizeErrorInfo).GetSize(), eErrorInfo);
-        QBinaryStreamReader<QFileStream> bs(fs);
-        stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
-        bs.ReadBytes(pImageFile, fs.GetLength());
+        u64_q uFileSize = SQFile::GetFileInfo(imagePath, eGetSizeErrorInfo).GetSize();
 
-        i32_q nWidth = -1;
-        i32_q nHeight = -1;
-        stbi_uc* pLoadedImage = this->_LoadImageWithStb(pImageFile, fs.GetLength(), eColorComponents, nWidth, nHeight);
+        if (eGetSizeErrorInfo == EQFileSystemError::E_Success)
+        {
+            QFileStream fs(imagePath, EQFileOpenMode::E_Open, uFileSize, eErrorInfo);
+            QBinaryStreamReader<QFileStream> bs(fs);
+            stbi_uc* pImageFile = new stbi_uc[fs.GetLength()];
+            bs.ReadBytes(pImageFile, fs.GetLength());
 
-        QImage* pNewImage = null_q;
-        
-        if(pLoadedImage)
-            pNewImage = new QImage(pLoadedImage, imagePath, eColorComponents, scast_q(nWidth, unsigned int), scast_q(nHeight, unsigned int));
+            i32_q nWidth = -1;
+            i32_q nHeight = -1;
+            stbi_uc* pLoadedImage = this->_LoadImageWithStb(pImageFile, fs.GetLength(), eColorComponents, nWidth, nHeight);
+
+
+            if (pLoadedImage)
+                pNewImage = new QImage(pLoadedImage, imagePath, eColorComponents, scast_q(nWidth, unsigned int), scast_q(nHeight, unsigned int));
+        }
 
         return pNewImage;
     }

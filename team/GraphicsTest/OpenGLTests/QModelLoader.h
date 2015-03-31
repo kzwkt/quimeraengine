@@ -7,10 +7,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-//#include "QStaticModel.h"
 #include "QStaticModelRawData.h"
 #include "QModelAspectsRawData.h"
-#include "QImageLoader.h"
 
 #define ENABLE_LOGGING
 
@@ -144,11 +142,6 @@ protected:
         modelAspects.Materials = rcast_q(new char[pScene->mNumMaterials * sizeof(QMaterial*)], QMaterial**);
         modelAspects.MaterialIds = new QHashedString[pScene->mNumMaterials];
         memset(modelAspects.Materials, 0, sizeof(void*) * pScene->mNumMaterials);
-
-        modelAspects.ImageCount = uNumTextures;
-        modelAspects.Images = rcast_q(new char[uNumTextures * sizeof(QImage*)], QImage**);
-        modelAspects.ImageIds = new QHashedString[uNumTextures];
-        memset(modelAspects.Images, 0, sizeof(void*) * uNumTextures);
 
         modelAspects.TextureCount = uNumTextures;
         modelAspects.Textures = new QModelAspectsRawData::QTextureInfo[uNumTextures];
@@ -347,9 +340,9 @@ protected:
                                        QModelAspectsRawData &modelAspects,
                                        u32_q &uLastLoadedImage)
     {
-        QImageLoader imageLoader;
         aiString texturePath;
         u32_q uTextures = pMaterial->GetTextureCount(textureType);
+        string_q strTexturePath;
 
         for (u32_q i = 0; i < uTextures; ++i)
         {
@@ -357,56 +350,41 @@ protected:
 
             QE_ASSERT_ERROR(result == aiReturn_SUCCESS, string_q("The path of the texture is missing: ") + textureType + " type, slot " + i);
 
-            u32_q uExistingImageIndex = QModelLoader::GetIndexOfImageByPath(texturePath, modelAspects.Images, uLastLoadedImage + 1U);
+            strTexturePath = texturePath.C_Str();
+            if (strTexturePath[0] == '/' || strTexturePath[0] == '\'')
+                strTexturePath = string_q(".") + strTexturePath;
+
+            u32_q uExistingImageIndex = QModelLoader::GetIndexOfImageByPath(strTexturePath, modelAspects.Textures, uLastLoadedImage + 1U);
 
             if (uExistingImageIndex == -1)
             {
                 ++uLastLoadedImage;
 
-                // IMAGE
-                // ---------
-                EQFileSystemError eError = EQFileSystemError::E_Unknown;
-                QPath imagePath = texturePath.C_Str();
-                
-                QE_LOG(string_q("Loading image from ") + imagePath.GetAbsolutePath() + "...\n");
-
-
-                if (SQFile::Exists(imagePath, eError))
-                    modelAspects.Images[uLastLoadedImage] = imageLoader.LoadImage(imagePath, QImage::E_RGB);
-
-                // [TODO]: Implement fallback mechanism to attempt loading the image from the current working directory
-
-                QE_LOG(modelAspects.Images[uLastLoadedImage] != null_q ? "Image loaded successfully.\n" : "An error occurred when loading the image.");
-
-                QE_LOG(!SQFile::Exists(imagePath, eError) ? string_q("The image file was not found at ") + imagePath.GetAbsolutePath() + "\n" : string_q::GetEmpty());
-
-                modelAspects.ImageIds[uLastLoadedImage] = aspectId + "_" + i;
-
                 // TEXTURE
                 // -------------
-                modelAspects.TextureIds[uLastLoadedImage] = aspectId + "_" + i;
+                modelAspects.TextureIds[uLastLoadedImage] = QPath(texturePath.C_Str()).GetFilename();
 
-                if (modelAspects.Images[uLastLoadedImage] != null_q)
+                aiTextureMapping textureMapping = aiTextureMapping_OTHER;
+                aiTextureMapMode textureMapMode[] = { aiTextureMapMode_Wrap, aiTextureMapMode_Wrap, aiTextureMapMode_Wrap };
+                u32_q uUVindex = -1;
+                f32_q fBlendFactor = SQFloat::_0;
+                aiTextureOp textureOp = aiTextureOp_Add;
+
+                if (pMaterial->GetTexture(textureType, i, &texturePath, &textureMapping, &uUVindex, &fBlendFactor, &textureOp, textureMapMode) == aiReturn_SUCCESS)
                 {
-                    aiTextureMapping textureMapping = aiTextureMapping_OTHER;
-                    aiTextureMapMode textureMapMode[] = { aiTextureMapMode_Wrap, aiTextureMapMode_Wrap, aiTextureMapMode_Wrap };
-                    u32_q uUVindex = -1;
-                    f32_q fBlendFactor = SQFloat::_0;
-                    aiTextureOp textureOp = aiTextureOp_Add;
+                    modelAspects.Textures[uLastLoadedImage].BlendFactor = fBlendFactor;
+                    modelAspects.Textures[uLastLoadedImage].BlendOperation = GetEquivalentBlendOperationValue(textureOp);
+                    modelAspects.Textures[uLastLoadedImage].Mapping = GetEquivalentMappingValue(textureMapping);
+                    modelAspects.Textures[uLastLoadedImage].TextureCoordsIndex = uUVindex;
+                    modelAspects.Textures[uLastLoadedImage].WrapMode[0] = GetEquivalentWrapModeValue(textureMapMode[0]);
+                    modelAspects.Textures[uLastLoadedImage].WrapMode[1] = GetEquivalentWrapModeValue(textureMapMode[1]);
+                    modelAspects.Textures[uLastLoadedImage].WrapMode[2] = GetEquivalentWrapModeValue(textureMapMode[2]);
+                    
+                    modelAspects.Textures[uLastLoadedImage].FilePath = strTexturePath;
 
-                    if (pMaterial->GetTexture(textureType, i, &texturePath, &textureMapping, &uUVindex, &fBlendFactor, &textureOp, textureMapMode) == aiReturn_SUCCESS)
-                    {
-                        modelAspects.Textures[uLastLoadedImage].BlendFactor = fBlendFactor;
-                        modelAspects.Textures[uLastLoadedImage].BlendOperation = GetEquivalentBlendOperationValue(textureOp);
-                        modelAspects.Textures[uLastLoadedImage].Mapping = GetEquivalentMappingValue(textureMapping);
-                        modelAspects.Textures[uLastLoadedImage].TextureCoordsIndex = uUVindex;
-                        modelAspects.Textures[uLastLoadedImage].WrapMode[0] = GetEquivalentWrapModeValue(textureMapMode[0]);
-                        modelAspects.Textures[uLastLoadedImage].WrapMode[1] = GetEquivalentWrapModeValue(textureMapMode[1]);
-                        modelAspects.Textures[uLastLoadedImage].WrapMode[2] = GetEquivalentWrapModeValue(textureMapMode[2]);
-
-                        aiUVTransform uvTransform;
-                        pMaterial->Get(AI_MATKEY_UVTRANSFORM(textureType, i), uvTransform);
-                    }
+                    // [TODO]: Load UV transformations
+                    aiUVTransform uvTransform;
+                    pMaterial->Get(AI_MATKEY_UVTRANSFORM(textureType, i), uvTransform);
                 }
                 
                 uExistingImageIndex = uLastLoadedImage;
@@ -494,14 +472,14 @@ protected:
         return eResult;
     }
 
-    static u32_q GetIndexOfImageByPath(const aiString &imagePath, const QImage* const* arImages, const u32_q uImages)
+    static u32_q GetIndexOfImageByPath(const string_q &imagePath, const QModelAspectsRawData::QTextureInfo* const arTextures, const u32_q uTextureCount)
     {
         u32_q i = 0;
 
-        while (i < uImages && (arImages[i] == null_q || arImages[i]->GetPath() != QPath(imagePath.C_Str())))
+        while (i < uTextureCount && arTextures[i].FilePath != imagePath)
             ++i;
 
-        return i < uImages ? i : -1;
+        return i < uTextureCount ? i : -1;
     }
 
     static u32_q CountNodes(const aiNode* pNode)
@@ -539,19 +517,15 @@ protected:
 
         for (u32_q i = 0; i < pNode->mNumChildren; ++i, ++uOutpuMeshIndex)
         {
-            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
             ProcessNode(pNode->mChildren[i], model, uOutpuMeshIndex, uOutpuSubmeshIndex);
 
             model.Meshes[uOutpuSubmeshIndex].SiblingMesh = -1;
 
             model.Meshes[uOutpuSubmeshIndex].SiblingMesh = i == pNode->mNumChildren ? -1 :
                                                                                       uOutpuSubmeshIndex + 1U;
-            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
+
             if (pNode->mChildren[i]->mNumMeshes > 0)
                 ProcessMesh(arMeshes, pNode->mChildren[i]->mMeshes, model, uOutpuMeshIndex, modelAspects, uOutpuSubmeshIndex);
-
-            //QE_ASSERT_ERROR(model.MeshIds[12].Id.GetLength() == 0, "ERROR");
-            //QE_ASSERT_ERROR(uOutpuMeshIndex + 1 == model.MeshCount || model.MeshIds[uOutpuMeshIndex + 1].Id.GetLength() == 0, "ERROR");
         }
 
         QE_LOG_MODELLOAD(string_q("Children of mesh[") + string_q::FromInteger(uParentMeshIndex) + "] processed.\n");

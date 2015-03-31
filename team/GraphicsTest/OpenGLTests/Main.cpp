@@ -450,7 +450,9 @@ void SetupSimpleGeometry()
 
 void SetupModel()
 {
-    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QE_RESOURCE_MANAGER->CreateImage("DEFAULT", QPath("./Resources/wall.jpg"), QImage::E_RGB);
+
+    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
 
     for (u32_q i = 0; i < model.GetValue()->GetSubmeshCount(); ++i)
     {
