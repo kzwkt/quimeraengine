@@ -310,6 +310,8 @@ EQFileSystemError QFileStream::Open(const QPath &filePath, const EQFileOpenMode 
             m_bWritingIsAllowed = true;
         }
 
+        m_uBufferVirtualSize = 0;
+        m_uBufferStartPosition = 0;
         m_path = filePath;
 
         bool bOperationSuccessful = QFileStream::_OpenPlatformImplementation(m_path, eOpenMode, m_bWritingIsAllowed, m_nativeHandle, eErrorInfo);
