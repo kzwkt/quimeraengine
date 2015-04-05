@@ -53,7 +53,7 @@ void Wait_TestMethod(const unsigned int uMilliseconds)
     QStopwatchEnclosed stopwatch;
     stopwatch.Set();
 
-    while(stopwatch.GetElapsedTimeAsInteger() / 10000ULL < uMilliseconds)
+    while(stopwatch.GetElapsedTimeAsInteger() / 1000000ULL < uMilliseconds)
         ;
 }
 

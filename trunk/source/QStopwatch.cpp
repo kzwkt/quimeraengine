@@ -150,11 +150,11 @@ float_q QStopwatch::GetElapsedTimeAsFloat() const
     QE_ASSERT_WARNING(m_uReferenceTime > 0, "The stopwatch has not been set.");
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    static const u64_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000ULL;
-    return scast_q((QStopwatch::_GetCurrentInstant() - m_uReferenceTime) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND, float_q);
+    static const u64_q NANOSECONDS_IN_MILLISECOND = 1000000ULL;
+    return scast_q((QStopwatch::_GetCurrentInstant() - m_uReferenceTime) / NANOSECONDS_IN_MILLISECOND, float_q);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    static const float_q HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND = 10000.0;
-    return scast_q(QStopwatch::_GetCurrentInstant() - m_uReferenceTime, float_q) / HUNDREDS_OF_NANOSECONDS_IN_MILLISECOND;
+    static const float_q NANOSECONDS_IN_MILLISECOND = 1000000.0;
+    return scast_q(QStopwatch::_GetCurrentInstant() - m_uReferenceTime, float_q) / NANOSECONDS_IN_MILLISECOND;
 #endif
 }
 
