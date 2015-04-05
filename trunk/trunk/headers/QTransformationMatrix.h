@@ -1054,14 +1054,9 @@ template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<Kinesis::QuimeraEngi
 
 #endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
-} //namespace Math
-} //namespace Tools
-} //namespace QuimeraEngine
-} //namespace Kinesis
 
 // Note: The following global operators have been defined this way in order to avoid a mutual inclusion between QTranslationMatrix and QTransformationMatrix
-//       Besides, they have been placed outside the corresponding namespace to avoid usability penalties; the user can then multiply matrices without worrying
-//       about whether a global operator or a class method is called.
+//       The user can then multiply matrices without worrying about whether a global operator or a class method is called (Koenig Lookup takes place in this case and operators do not have to be "imported").
 
 /// <summary>
 /// Multiplies a translation matrix by a transformation matrix, following matrices product rules.
@@ -1140,5 +1135,10 @@ Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix<MatrixT> operator*(co
 
     return aux;
 }
+
+} //namespace Math
+} //namespace Tools
+} //namespace QuimeraEngine
+} //namespace Kinesis
     
 #endif // __QTRANSFORMATIONMATRIX__
