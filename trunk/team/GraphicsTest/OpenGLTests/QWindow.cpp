@@ -1,34 +1,50 @@
 
 #include "QWindow.h"
 
-QWindow::QWindow(const ProcessInstanceHandle handle) : m_uWidth(0),
-                                                       m_uHeight(0),
-                                                       m_uPositionX(0),
-                                                       m_uPositionY(0),
-                                                       m_messageDispatcher(null_q),
-                                                       m_strTitle(string_q::GetEmpty()),
-                                                       m_windowHandle(null_q),
-                                                       m_processInstanceHandle(handle),
-                                                       m_deviceContext(null_q)
+QWindow::QWindow(const ProcessInstanceHandle handle, const QWindow::QWindowSettings& settings) : 
+                                                                                       m_windowHandle(null_q),
+                                                                                       m_processInstanceHandle(handle),
+                                                                                       m_pDeviceContext(null_q)
 {
+    m_windowHandle = QWindow::_CreateWindow(settings, handle);
+    m_pDeviceContext = QWindow::_SetUpDeviceContext(settings, ::GetDC(m_windowHandle));
+
+    m_settings.MessageDispatcher = settings.MessageDispatcher;
+    m_settings.Title = settings.Title;
+    m_settings.Top = settings.Top;
+    m_settings.Left = settings.Left;
+    m_settings.Width = settings.Width;
+    m_settings.Height = settings.Height;
+    m_settings.PixelFormat = settings.PixelFormat;
+    m_settings.Samples = settings.Samples;
 }
 
 QWindow::~QWindow()
 {
 #ifdef QE_OS_WINDOWS
 
-    if(m_windowHandle)
+    if (m_windowHandle)
+    {
+        delete m_pDeviceContext;
+
+        wchar_t szClassName[256];
+        ::RealGetWindowClass(m_windowHandle, szClassName, 256);
+        
         ::DestroyWindow(m_windowHandle);
+
+        BOOL bResult = ::UnregisterClass(szClassName, m_processInstanceHandle);
+        
+        QE_ASSERT_WINDOWS_ERROR("LOG: An error occurred when destroying the window.");
+    }
 
 #endif
 }
 
 void QWindow::Show()
 {
-    if(m_windowHandle == null_q)
-        this->_Initialize();
-
 #ifdef QE_OS_WINDOWS
+
+    QWindow::_SetUpDeviceContext(m_settings, ::GetDC(m_windowHandle));
 
     ::ShowWindow(m_windowHandle, SW_SHOW);
     ::UpdateWindow(m_windowHandle);
@@ -36,64 +52,71 @@ void QWindow::Show()
 #endif
 }
 
-void QWindow::_Initialize()
+QWindow::WindowHandle QWindow::_CreateWindow(const QWindowSettings &settings, const ProcessInstanceHandle instanceHandle)
 {
-    QE_ASSERT_ERROR(m_messageDispatcher != null_q, "The message dispatcher must not be null.");
-    QE_ASSERT_ERROR(m_processInstanceHandle != null_q, "The process instance handle must not be null.");
+    QE_ASSERT_ERROR(settings.MessageDispatcher != null_q, "The message dispatcher must not be null.");
+    QE_ASSERT_ERROR(instanceHandle != null_q, "The process instance handle must not be null.");
 
 #ifdef QE_OS_WINDOWS
 
     WNDCLASSEX windowClass;
 
-	windowClass.cbSize = sizeof(WNDCLASSEX);
+    windowClass.cbSize = sizeof(WNDCLASSEX);
 
-	windowClass.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    windowClass.lpfnWndProc	    = m_messageDispatcher;
-	windowClass.cbClsExtra		= 0;
-	windowClass.cbWndExtra		= 0;
-	windowClass.hInstance		= m_processInstanceHandle;
-	windowClass.hIcon			= null_q;
-	windowClass.hCursor		    = LoadCursor(NULL, IDC_ARROW);
-	windowClass.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	windowClass.lpszMenuName	= null_q;
+    windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    windowClass.lpfnWndProc = settings.MessageDispatcher;
+    windowClass.cbClsExtra = 0;
+    windowClass.cbWndExtra = 0;
+    windowClass.hInstance = instanceHandle;
+    windowClass.hIcon = null_q;
+    windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+    windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    windowClass.lpszMenuName = null_q;
 
-    QArrayResult<i8_q> className = string_q::FromIntegerToHexadecimal(m_processInstanceHandle).ToBytes(EQTextEncoding::E_UTF16LE);
+    static u32_q uWindowCounter = 0;
+    string_q strClassName = string_q::FromIntegerToHexadecimal(instanceHandle) + uWindowCounter;
+    ++uWindowCounter;
+
+    QArrayResult<i8_q> className = strClassName.ToBytes(EQTextEncoding::E_UTF16LE);
     className.Detach();
 
-    windowClass.lpszClassName	= rcast_q(className.Get(), wchar_t*);
-	windowClass.hIconSm		    = null_q;
+    windowClass.lpszClassName = rcast_q(className.Get(), wchar_t*);
+    windowClass.hIconSm = null_q;
 
-	ATOM result = ::RegisterClassEx(&windowClass);
+    ATOM result = ::RegisterClassEx(&windowClass);
 
+    QE_ASSERT_WINDOWS_ERROR("Failed to register the window class (RegisterClassEx)");
     QE_ASSERT_ERROR(result != 0, "Failed to register the window class (RegisterClassEx)");
 
-    QArrayResult<i8_q> title = m_strTitle.ToBytes(EQTextEncoding::E_UTF16LE); 
+    QArrayResult<i8_q> title = settings.Title.ToBytes(EQTextEncoding::E_UTF16LE);
     title.Detach();
 
-    m_windowHandle = CreateWindow(windowClass.lpszClassName, 
-                                  rcast_q(title.Get(), wchar_t*), WS_OVERLAPPEDWINDOW,
-                                  m_uPositionX, m_uPositionY, 
-                                  m_uWidth, m_uHeight, 
-                                  NULL, NULL, m_processInstanceHandle, NULL);
+    HWND windowHandle = CreateWindow(windowClass.lpszClassName,
+                                     rcast_q(title.Get(), wchar_t*), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
+                                     settings.Top, settings.Left,
+                                     settings.Width, settings.Height,
+                                     NULL, NULL, instanceHandle, NULL);
 #endif
 
-    QE_ASSERT_ERROR(m_windowHandle, "Failed to create a window handle (CreateWindow).");
+    QE_ASSERT_ERROR(windowHandle, "Failed to create a window handle (CreateWindow).");
+
+    return windowHandle;
+}
+
+QDeviceContext* QWindow::_SetUpDeviceContext(const QWindowSettings &settings, const QDeviceContext::NativeDeviceContext deviceContextHandle)
+{
+#ifdef QE_OS_WINDOWS
+    QDeviceContext* pDeviceContext = new QDeviceContext(deviceContextHandle);
+#endif
+
+    return pDeviceContext;
 }
 
 
 
-
-
-QDeviceContext& QWindow::GetDeviceContext() const
+QDeviceContext* QWindow::GetDeviceContext() const
 {
-    QE_ASSERT_ERROR(m_windowHandle != null_q, "The window handle must not be null.");
-
-#ifdef QE_OS_WINDOWS
-    if(m_deviceContext.GetNativeDeviceContext() == null_q)
-        m_deviceContext = QDeviceContext(::GetDC(m_windowHandle));
-#endif
-
-    return m_deviceContext;
+    return m_pDeviceContext;
 }
 
 QWindow::WindowHandle QWindow::GetHandle() const
@@ -108,61 +131,33 @@ QWindow::ProcessInstanceHandle QWindow::GetInstanceHandle() const
 
 unsigned int QWindow::GetWidth() const
 {
-    return m_uWidth;
-}
-
-void QWindow::SetWidth(const unsigned int uWidth)
-{
-    m_uWidth = uWidth;
+    return m_settings.Width;
 }
 
 unsigned int QWindow::GetHeight() const
 {
-    return m_uHeight;
+    return m_settings.Height;
 }
 
-void QWindow::SetHeight(const unsigned int uHeight)
+unsigned int QWindow::GetTop() const
 {
-    m_uHeight = uHeight;
+    return m_settings.Top;
 }
 
-unsigned int QWindow::GetPositionX() const
-{
-    return m_uPositionX;
-}
 
-void QWindow::SetPositionX(const unsigned int uPosition)
+unsigned int QWindow::GetLeft() const
 {
-    m_uPositionX = uPosition;
-}
-
-unsigned int QWindow::GetPositionY() const
-{
-    return m_uPositionY;
-}
-
-void QWindow::SetPositionY(const unsigned int uPosition)
-{
-    m_uPositionY = uPosition;
+    return m_settings.Left;
 }
 
 QWindow::MessageDispatcherFunction QWindow::GetMessageDispatcher() const
 {
-    return m_messageDispatcher;
-}
-
-void QWindow::SetMessageDispatcher(const QWindow::MessageDispatcherFunction &messageDispatcher)
-{
-    m_messageDispatcher = messageDispatcher;
+    return m_settings.MessageDispatcher;
 }
 
 string_q QWindow::GetTitle() const
 {
-    return m_strTitle;
+    return m_settings.Title;
 }
 
-void QWindow::SetTitle(const string_q &strTitle)
-{
-    m_strTitle = strTitle;
-}
 

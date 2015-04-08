@@ -114,8 +114,10 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EQPixelFormat.h" />
     <ClInclude Include="ErrorTracingDefinitions.h" />
     <ClInclude Include="QBuffer.h" />
+    <ClInclude Include="QAlphaBlender.h" />
     <ClInclude Include="QModelAspectsRawData.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="QStaticModelRawData.h" />
@@ -139,6 +141,7 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     <ClInclude Include="QStaticModel.h" />
     <ClInclude Include="QTexture2D.h" />
     <ClInclude Include="QuimeraEngineIncludesAndUsings.h" />
+    <ClInclude Include="QViewport.h" />
     <ClInclude Include="QWindow.h" />
     <ClInclude Include="VertexDefinitions.h" />
   </ItemGroup>

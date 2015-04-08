@@ -24,6 +24,7 @@ struct QMaterial
 struct QVisualAspect
 {
 	QMaterial Material;
+	int AspectComponentTextureCount[MAX_TEXTURE_LAYERS];
 };
 
 struct InputOmniLightData
@@ -93,5 +94,5 @@ void main()
 	textCoord1 = Input.TexCoords[1];
 	positionSampled = (Input.Position * transformationMatrix).xyz;
 
-	vLight = (vec4(0, 200.0f, -250, 1) * transformationMatrix).xyz;
+	vLight = (vec4(200, 100.0f, -250, 1) * transformationMatrix).xyz;
 }

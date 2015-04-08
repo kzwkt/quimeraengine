@@ -311,6 +311,8 @@ protected:
     QHashedString m_strMaterial;
     QHashedString m_strVertexShader;
     QHashedString m_strFragmentShader;
+    // [TODO]: Put blenders into separate objects, adding also the source factor and destination factor, and constant value
+    QHashedString m_strAlphaBlender;
     EQAlphaBlendingMode m_eAplhaBlendingMode;
     float_q m_fOpacity;
     bool m_bWireframeEnabled;

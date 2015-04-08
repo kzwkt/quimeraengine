@@ -4,7 +4,7 @@
 #include "GL/glew.h"
 #include "GL/wglew.h"
 
-void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext::EQPixelFormat ePixelFormat, PIXELFORMATDESCRIPTOR& descriptor)
+void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const EQPixelFormat::EnumType ePixelFormat, PIXELFORMATDESCRIPTOR& descriptor)
 {
     ::ZeroMemory(&descriptor, sizeof(::PIXELFORMATDESCRIPTOR));
 
@@ -16,7 +16,7 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
 
     switch(ePixelFormat)
     {
-    case QDeviceContext::E_A8B8G8R8:
+    case EQPixelFormat::E_A8B8G8R8:
         {
             descriptor.cColorBits = 24;
             descriptor.cRedBits = 8;
@@ -31,7 +31,7 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
             descriptor.cStencilBits = 0;
             break;
         }
-    case QDeviceContext::E_R32G32B32A32:
+    case EQPixelFormat::E_R32G32B32A32:
         {
             descriptor.cColorBits = 96;
             descriptor.cRedBits = 32;
@@ -46,7 +46,7 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
             descriptor.cStencilBits = 0;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8:
+    case EQPixelFormat::E_R8G8B8A8:
         {
             descriptor.cColorBits = 24;
             descriptor.cRedBits = 8;
@@ -61,7 +61,7 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
             descriptor.cStencilBits = 0;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8D24S8:
+    case EQPixelFormat::E_R8G8B8A8D24S8:
         {
             descriptor.cColorBits = 24;
             descriptor.cRedBits = 8;
@@ -76,7 +76,7 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
             descriptor.cStencilBits = 8;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8D32:
+    case EQPixelFormat::E_R8G8B8A8D32:
         {
             descriptor.cColorBits = 24;
             descriptor.cRedBits = 8;
@@ -115,13 +115,13 @@ void QDeviceContext::_GeneratePixelFormatDescriptorFromEnum(const QDeviceContext
     descriptor.dwDamageMask;
 }
 
-QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(const QDeviceContext::EQPixelFormat ePixelFormat)
+void QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(const EQPixelFormat::EnumType ePixelFormat, const u32_q uSamples, int arAttributes[38])
 {
-    QArrayBasic<const int>arAttributeList(null_q, 0);
+    const u32_q MULTISAMPLING_ENABLED = uSamples > 0 ? GL_TRUE : GL_FALSE;
 
     switch(ePixelFormat)
     {
-    case QDeviceContext::E_A8B8G8R8:
+    case EQPixelFormat::E_A8B8G8R8:
         {
             static const int A8B8G8R8_ATTRIBS[] = { WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
                                                     WGL_ACCELERATION_ARB,   GL_TRUE,
@@ -139,11 +139,15 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
                                                     WGL_ALPHA_SHIFT_ARB,    24,
                                                     WGL_DEPTH_BITS_ARB,     0,
                                                     WGL_STENCIL_BITS_ARB,   0,
-                                                    0};
-            arAttributeList = QArrayBasic<const int>(A8B8G8R8_ATTRIBS, sizeof(A8B8G8R8_ATTRIBS) / sizeof(int));
+                                                    WGL_SAMPLE_BUFFERS_ARB, 0,
+                                                    WGL_SAMPLES_ARB,        0, 
+                                                    0, 0 };
+            memcpy(arAttributes, A8B8G8R8_ATTRIBS, sizeof(A8B8G8R8_ATTRIBS));
+            arAttributes[33] = MULTISAMPLING_ENABLED;
+            arAttributes[35] = uSamples;
             break;
         }
-    case QDeviceContext::E_R32G32B32A32:
+    case EQPixelFormat::E_R32G32B32A32:
         {
             static const int R32G32B32A32_ATTRIBS[] = { WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
                                                         WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
@@ -161,11 +165,15 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
                                                         WGL_ALPHA_SHIFT_ARB,    0,
                                                         WGL_DEPTH_BITS_ARB,     0,
                                                         WGL_STENCIL_BITS_ARB,   0,
-                                                        0};
-            arAttributeList = QArrayBasic<const int>(R32G32B32A32_ATTRIBS, sizeof(R32G32B32A32_ATTRIBS) / sizeof(int));
+                                                        WGL_SAMPLE_BUFFERS_ARB, MULTISAMPLING_ENABLED,
+                                                        WGL_SAMPLES_ARB,        uSamples,
+                                                        0, 0 };
+            memcpy(arAttributes, R32G32B32A32_ATTRIBS, sizeof(R32G32B32A32_ATTRIBS));
+            arAttributes[33] = MULTISAMPLING_ENABLED;
+            arAttributes[35] = uSamples;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8:
+    case EQPixelFormat::E_R8G8B8A8:
         {
             static const int R8G8B8A8_ATTRIBS[] = { WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
                                                     WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
@@ -183,18 +191,22 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
                                                     WGL_ALPHA_SHIFT_ARB,    0,
                                                     WGL_DEPTH_BITS_ARB,     0,
                                                     WGL_STENCIL_BITS_ARB,   0,
-                                                    0};
-            arAttributeList = QArrayBasic<const int>(R8G8B8A8_ATTRIBS, sizeof(R8G8B8A8_ATTRIBS) / sizeof(int));
+                                                    WGL_SAMPLE_BUFFERS_ARB, 0,
+                                                    WGL_SAMPLES_ARB,        0,
+                                                    0, 0 };
+            memcpy(arAttributes, R8G8B8A8_ATTRIBS, sizeof(R8G8B8A8_ATTRIBS));
+            arAttributes[33] = MULTISAMPLING_ENABLED;
+            arAttributes[35] = uSamples;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8D24S8:
+    case EQPixelFormat::E_R8G8B8A8D24S8:
         {
             static const int R8G8B8A8D24S8_ATTRIBS[] = { WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
                                                          WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
                                                          WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
                                                          WGL_DOUBLE_BUFFER_ARB,  GL_TRUE,
                                                          WGL_PIXEL_TYPE_ARB,     WGL_TYPE_RGBA_ARB,
-                                                         WGL_COLOR_BITS_ARB,     24,
+                                                         WGL_COLOR_BITS_ARB,     32,
                                                          WGL_RED_BITS_ARB,       8,
                                                          WGL_RED_SHIFT_ARB,      24,
                                                          WGL_GREEN_BITS_ARB,     8,
@@ -205,12 +217,15 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
                                                          WGL_ALPHA_SHIFT_ARB,    0,
                                                          WGL_DEPTH_BITS_ARB,     24,
                                                          WGL_STENCIL_BITS_ARB,   8,
-                                                         //WGL_ACCUM_ALPHA_BITS_ARB, 0, // [TODO] : Deactivate all accums
-                                                         0};
-            arAttributeList = QArrayBasic<const int>(R8G8B8A8D24S8_ATTRIBS, sizeof(R8G8B8A8D24S8_ATTRIBS) / sizeof(int));
+                                                         WGL_SAMPLE_BUFFERS_ARB, 0,
+                                                         WGL_SAMPLES_ARB,        0,
+                                                         0, 0 };
+            memcpy(arAttributes, R8G8B8A8D24S8_ATTRIBS, sizeof(R8G8B8A8D24S8_ATTRIBS));
+            arAttributes[33] = MULTISAMPLING_ENABLED;
+            arAttributes[35] = uSamples;
             break;
         }
-    case QDeviceContext::E_R8G8B8A8D32:
+    case EQPixelFormat::E_R8G8B8A8D32:
         {
             static const int R8G8B8A8D32_ATTRIBS[] = { WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
                                                        WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
@@ -228,8 +243,12 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
                                                        WGL_ALPHA_SHIFT_ARB,    0,
                                                        WGL_DEPTH_BITS_ARB,     32,
                                                        WGL_STENCIL_BITS_ARB,   0,
-                                                       0};
-            arAttributeList = QArrayBasic<const int>(R8G8B8A8D32_ATTRIBS, sizeof(R8G8B8A8D32_ATTRIBS) / sizeof(int));
+                                                       WGL_SAMPLE_BUFFERS_ARB, 0,
+                                                       WGL_SAMPLES_ARB,        0, 
+                                                       0, 0 };
+            memcpy(arAttributes, R8G8B8A8D32_ATTRIBS, sizeof(R8G8B8A8D32_ATTRIBS));
+            arAttributes[33] = MULTISAMPLING_ENABLED;
+            arAttributes[35] = uSamples;
             break;
         }
     default:
@@ -238,6 +257,4 @@ QArrayBasic<const int> QDeviceContext::_GeneratePixelFormatAttributeListFromEnum
             break;
         }
     }
-
-    return arAttributeList;
 }

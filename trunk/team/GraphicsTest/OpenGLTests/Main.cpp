@@ -33,19 +33,12 @@ QStopwatchEnclosed MAIN_TIMER(QTimeSpan(0, 0, 0, 1, 0, 0, 0), EQStopwatchEnclose
 QStopwatchEnclosed ANIMATION_TIMER(QTimeSpan(0, 0, 0, 1, 0, 0, 0), EQStopwatchEnclosedBehavior::E_Proportional);
 
 void SetupInputDevices();
-void InitializeMainWindow(HINSTANCE hInstance, QWindow** ppWindow);
-void InitializeRenderingContext(QDeviceContext &dc);
-void InitializeGlew();
-void SetupCoreProfileRenderingContext(QDeviceContext &dc);
 int MainLoop();
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-void Cleanup();
-void SetupEngine();
+QWindow* SetupWindowAndGraphicsEngine(HINSTANCE hInstance);
+void SetupEngine(QWindow* pWindow);
 void SetupShaders();
-void SetupSimpleGeometry();
 void SetupModel();
-void SetupTextures();
-void SetTexture(GLuint programId, GLuint textureId, const char* samplerName, int textureIndex);
 void SetupScene();
 QWindow* pMainWindow;
 void CheckInputs();
@@ -62,17 +55,11 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     ANIMATION_TIMER.Set();
 
     SetupInputDevices();
-    InitializeMainWindow(hInstance, &pMainWindow);
-    InitializeRenderingContext(pMainWindow->GetDeviceContext());
-    InitializeGlew();
-    SetupCoreProfileRenderingContext(pMainWindow->GetDeviceContext());
-    InitializeGlew(); // Every time glew is initialized, functions are associated to the current rendering context, so it should be initialized every time the context changes
-    SetupEngine();
+    QE_RESOURCE_MANAGER = new QResourceManager(new QShaderCompositor());
+    pMainWindow = SetupWindowAndGraphicsEngine(hInstance);
+    SetupEngine(pMainWindow);
     SetupShaders();
     SetupModel();
-    //SetupSimpleGeometry();
-    SetupTextures();
-    //QE_GRAPHICS_ENGINE->SetAspect("Aspect1");
     SetupScene();
 
     int uResult = MainLoop();
@@ -139,25 +126,15 @@ int MainLoop()
 
     MSG msg;
 
-
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_DEPTH_TEST);
-    glFrontFace(GL_CW);
-
     QTransformationMatrix<QMatrix4x4> transformation;
 
-    glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
-    glViewport(0, 0, 800, 600); // Set the viewport size to fill the window
     float_q fTranslation = 0;
     float_q fRotation = 0;
+
 	// Main message loop:
 
     QColor cubeColor = QColor::GetVectorOfOnes();
-    /*QAspect* pAspect = QE_RESOURCE_MANAGER->GetAspect("f1f6d3cb_dds");
-    pAspect->SetTexture(QAspect::E_Diffuse, 0, "64124be4_dds_0");
-    pAspect->SetTextureSampler2D(QAspect::E_Diffuse, 0, "64124be4_dds_0");
-    pAspect->SetTextureBlender(QAspect::E_Diffuse, 0, "64124be4_dds_0");
-    QE_GRAPHICS_ENGINE->SetAspect(QE_RESOURCE_MANAGER->GetStaticModel("Model1")->GetSubmeshAspectByIndex(0)->AspectId);*/
+
 	while (true)
 	{
         CheckInputs();
@@ -176,7 +153,7 @@ int MainLoop()
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // Clear required buffers
+        QE_GRAPHICS_ENGINE->ClearAllRenderTargets();
 
 
         QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
@@ -196,8 +173,7 @@ int MainLoop()
             glDrawRangeElementsBaseVertex(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)), pModel->GetSubmeshByIndex(i)->FirstVertex);
         }
 
-        if (pMainWindow->GetDeviceContext().GetCurrentRenderingContext() != null_q)
-            pMainWindow->GetDeviceContext().SwapBuffers();
+        QE_GRAPHICS_ENGINE->SwapBuffers();
 
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -215,63 +191,53 @@ int MainLoop()
 	return (int) msg.wParam;
 }
 
-void InitializeMainWindow(HINSTANCE hInstance, QWindow** ppWindow)
+QWindow* SetupWindowAndGraphicsEngine(HINSTANCE hInstance)
 {
-    *ppWindow = new QWindow(hInstance);
-    (*ppWindow)->SetMessageDispatcher(&WndProc);
-    (*ppWindow)->SetHeight(600);
-    (*ppWindow)->SetWidth(800);
-    (*ppWindow)->SetTitle("OpenGL test application");
+    QWindow::QWindowSettings windowSettings;
+    windowSettings.MessageDispatcher = &WndProc;
+    windowSettings.Title = "Quimera Engine OpenGL Graphics Engine Prototype";
+    windowSettings.Width = 1024;
+    windowSettings.Height = 768;
+    windowSettings.Top = 0;
+    windowSettings.Left = 0;
+    windowSettings.PixelFormat = EQPixelFormat::E_R8G8B8A8D24S8;
+    windowSettings.Samples = 4;
 
-    QE_LOG("LOG: Window initialized.\n");
+    QWindow* pFakeWindow = new QWindow(hInstance, windowSettings);
 
-    (*ppWindow)->Show();
+    QE_GRAPHICS_ENGINE = new QGraphicsEngine(QE_RESOURCE_MANAGER, pFakeWindow->GetDeviceContext());
 
-    QE_LOG("LOG: Window shown.\n");
+    QWindow* pActualWindow = new QWindow(hInstance, windowSettings);
+
+    QE_GRAPHICS_ENGINE->RegisterDeviceContext("MainWindowDC", pActualWindow->GetDeviceContext());
+
+    pActualWindow->GetDeviceContext()->SetPixelFormat(windowSettings.PixelFormat, windowSettings.Samples);
+
+    QE_GRAPHICS_ENGINE->CreateRenderingContext("MainWindowRC", "MainWindowDC", true);
+
+    QE_GRAPHICS_ENGINE->UnregisterDeviceContext("FAKE");
+    delete pFakeWindow;
+
+    pActualWindow->Show();
+
+    return pActualWindow;
 }
 
-void InitializeRenderingContext(QDeviceContext &dc)
+void SetupEngine(QWindow* pWindow)
 {
-    dc.SetPixelFormat(QDeviceContext::E_R8G8B8A8D24S8);
-    QDeviceContext::NativeRenderingContext renderingContext = dc.CreateRenderingContext();
-    dc.MakeRenderingContextCurrent();
-
-    QE_LOG("LOG: Pixel format set.\n");
-}
-
-void InitializeGlew()
-{
-    glewExperimental = GL_TRUE;
-    GLenum eInitResult = glewInit();
-    
-    QE_ASSERT_ERROR(eInitResult == GLEW_OK, string_q("An error occurred when attempting to initialize GLEW. ") + rcast_q(glewGetErrorString(eInitResult), const i8_q*));
-    const GLubyte* u = glewGetErrorString(eInitResult);
-    QE_LOG(string_q("LOG: GLEW Initialized (") + rcast_q(glewGetString(GLEW_VERSION), const i8_q*) + ")\n");
-    QE_LOG(string_q("LOG: Open GL Version ") + rcast_q(glGetString(GL_VERSION), const i8_q*) + "\n");
-}
-
-void SetupCoreProfileRenderingContext(QDeviceContext &dc)
-{
-    QDeviceContext::NativeRenderingContext rc = dc.GetCurrentRenderingContext();
-    dc.CreateAdvancedRenderingContext(QDeviceContext::E_R8G8B8A8D24S8, true);
-    dc.MakeRenderingContextCurrent();
-    dc.DeleteRenderingContext(rc);
-}
-
-void Cleanup()
-{
-    QDeviceContext::NativeRenderingContext rc = pMainWindow->GetDeviceContext().GetCurrentRenderingContext();
-    pMainWindow->GetDeviceContext().ResetCurrentRenderingContext();
-    pMainWindow->GetDeviceContext().DeleteRenderingContext(rc);
-    delete pMainWindow;
-
-    QE_LOG("LOG: Clean up performed.\n");
-}
-
-void SetupEngine()
-{
-    QE_RESOURCE_MANAGER = new QResourceManager(new QShaderCompositor());
-    QE_GRAPHICS_ENGINE = new QGraphicsEngine(QE_RESOURCE_MANAGER);
+    QViewport viewport;
+    viewport.Top = 0;
+    viewport.Left = 0;
+    viewport.Width = pWindow->GetWidth();
+    viewport.Height = pWindow->GetHeight();
+    QE_GRAPHICS_ENGINE->SetViewport(viewport);
+    QE_GRAPHICS_ENGINE->EnableDepthTest();
+    QE_GRAPHICS_ENGINE->EnableStencilTest();
+    QE_GRAPHICS_ENGINE->EnableMultisampling();
+    QE_GRAPHICS_ENGINE->SetWindingOrder(QGraphicsEngine::E_Clockwise);
+    QE_GRAPHICS_ENGINE->EnableFaceCulling();
+    QE_GRAPHICS_ENGINE->SetColorBufferClearValue(QColor(1.0f, 1.0f, 1.0f, 1.0f));
+    //glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
 }
 
 void SetupShaders()
@@ -282,177 +248,11 @@ void SetupShaders()
     QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
 }
 
-void SetupSimpleGeometry()
-{
-    struct QVertex
-    {
-        QVector4 Position;
-        QVector2 TexCoords0;
-        QVector2 TexCoords1;
-    };
-
-    QHexahedron<QVector4> hexahedron = QHexahedron<QVector4>::GetUnitCube();
-
-    QVertex arVertices[] = {
-        // Images are flipped vertically, texture coordinates had to be reverted for Y axis
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
-        },
-        
-        { QVector4(0.5f, -0.5f, -0.5f, 1.0f),        QVector2(1.0f, 0.0f),          QVector2(1.0f, 0.0f)
-        },
-        
-        { QVector4(0.5f, 0.5f, -0.5f, 1.0f),        QVector2(1.0f, 1.0f),        QVector2(1.0f, 1.0f)
-        },
-        
-        { QVector4(0.5f, 0.5f, -0.5f, 1.0f),        QVector2(1.0f, 1.0f),        QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, -0.5f, 1.0f),        QVector2(0.0f, 1.0f),        QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, 0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, 0.5f, 1.0f),        QVector2(1.0f, 0.0f),        QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f),        QVector2(1.0f, 1.0f),        QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f),        QVector2(1.0f, 1.0f),        QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, 0.5f, 1.0f),        QVector2(0.0f, 1.0f),        QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, 0.5f, 1.0f),        QVector2(0.0f, 0.0f),        QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, -0.5f, 1.0f), QVector2(1.0f, 1.0f), QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, 0.5f, 1.0f), QVector2(0.0f, 0.0f), QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, -0.5f, 1.0f), QVector2(1.0f, 1.0f), QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, 0.5f, 1.0f), QVector2(0.0f, 0.0f), QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, -0.5f, 1.0f), QVector2(1.0f, 1.0f), QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, -0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, 0.5f, 1.0f), QVector2(0.0f, 0.0f), QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, -0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, -0.5f, 1.0f), QVector2(1.0f, 1.0f), QVector2(1.0f, 1.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(0.5f, 0.5f, 0.5f, 1.0f), QVector2(1.0f, 0.0f), QVector2(1.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, 0.5f, 1.0f), QVector2(0.0f, 0.0f), QVector2(0.0f, 0.0f)
-        },
-
-        { QVector4(-0.5f, 0.5f, -0.5f, 1.0f), QVector2(0.0f, 1.0f), QVector2(0.0f, 1.0f)
-        },
-    };
-
-    // Indices
-    GLuint arIndices[] = { 
-        0, 1, 2,
-        3, 4, 5,
-        8, 7, 6,
-        11, 10, 9,
-        14, 13, 12,
-        17, 16, 15,
-        18, 19, 20,
-        21, 22, 23,
-        26, 25, 24,
-        29, 28, 27,
-        30, 31, 32,
-        33, 34, 35
-    };
-
-    // create attribs
-    // create VAO
-    GLuint vaoTriangleID = 0;
-    glGenVertexArrays(1, &vaoTriangleID);
-    glBindVertexArray(vaoTriangleID);
-
-    // Set up VAO
-    
-    // create VBO
-    GLuint vboTriangleID = 0;
-    glGenBuffers(1, &vboTriangleID);
-    glBindBuffer(GL_ARRAY_BUFFER, vboTriangleID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(arVertices), &arVertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)(sizeof(QVector4)));
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(QVertex), (GLvoid*)(sizeof(QVector4) + sizeof(QVector2)));
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-    // create EBO
-    GLuint eboTriangleID = 0;
-    glGenBuffers(1, &eboTriangleID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboTriangleID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(arIndices), arIndices, GL_STATIC_DRAW);
-    
-}
-
 void SetupModel()
 {
     QE_RESOURCE_MANAGER->CreateImage("DEFAULT", QPath("./Resources/wall.jpg"), QImage::E_RGB);
 
-    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/Dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
 
     for (u32_q i = 0; i < model.GetValue()->GetSubmeshCount(); ++i)
     {
@@ -486,38 +286,6 @@ void SetupModel()
                );*/
 }
 
-void SetupTextures()
-{
-    /*QMaterial* pMaterial = QE_RESOURCE_MANAGER->CreateMaterial("DEFAULT");
-    pMaterial->Ambient = QColor(0, 0, 0, 1);
-    pMaterial->Diffuse = QColor(0.5, 0.5, 0.5, 1);
-
-    QE_RESOURCE_MANAGER->CreateImage("Image1", QPath("./Resources/qe.png"), QImage::E_RGBA);
-    QE_RESOURCE_MANAGER->CreateImage("Image2", QPath("./Resources/64124be4.jpg"), QImage::E_RGB);
-    QTexture2D* pTex1 = QE_RESOURCE_MANAGER->CreateTexture2D("Texture1", "Image1", QImage::E_RGBA);
-
-    pTex1->GenerateMipmaps();
-    pTex1->SetWrapModeS(QTexture2D::E_Repeat);
-    pTex1->SetWrapModeT(QTexture2D::E_Repeat);
-    pTex1->SetMinificationFilter(QTexture2D::E_LinearMipmaps);
-    pTex1->SetMagnificationFilter(QTexture2D::E_MagLinear);
-
-    QTexture2D* pTex2 = QE_RESOURCE_MANAGER->CreateTexture2D("Texture2", "Image2", QImage::E_RGB);
-
-    pTex2->GenerateMipmaps();
-    pTex2->SetWrapModeS(QTexture2D::E_Repeat);
-    pTex2->SetWrapModeT(QTexture2D::E_Repeat);
-    pTex2->SetMinificationFilter(QTexture2D::E_LinearMipmaps);
-    pTex2->SetMagnificationFilter(QTexture2D::E_MagLinear);
-
-    QAspect* pAspect = QE_RESOURCE_MANAGER->CreateAspect("Aspect1");
-    pAspect->AddTexture("Texture2", "DEFAULT", "sampler2");
-    pAspect->AddTexture("Texture1", "DEFAULT", "sampler1");
-    pAspect->SetVertexShader("VS1");
-    pAspect->SetFragmentShader("FS1");*/
-
-}
-
 void SetupInputDevices()
 {
     QE_KEYBOARD = new QKeyboard();
@@ -529,7 +297,7 @@ void SetupInputDevices()
 void SetupScene()
 {
     QE_CAMERA = new QCamera();
-    QE_CAMERA->Frustum.AspectRatio = 800.0f / 600.0f;
+    QE_CAMERA->Frustum.AspectRatio = 1024.0f / 768.0f;
     QE_CAMERA->Frustum.FarPlaneDistance = 1000.0f;
     QE_CAMERA->Frustum.Fov = SQAngle::_QuarterPi;
     QE_CAMERA->Frustum.NearPlaneDistance = 0.1f;
@@ -540,7 +308,7 @@ void SetupScene()
 
 void CheckInputs()
 {
-    const float_q SPEED = 3.0f;
+    const float_q SPEED = 9.0f;
 
     if (QE_KEYBOARD->IsDown(QKeyboard::E_LEFT))
     {
