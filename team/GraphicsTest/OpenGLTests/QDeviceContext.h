@@ -3,6 +3,10 @@
 #define __QDEVICECONTEXT__
 
 #include "QuimeraEngineIncludesAndUsings.h"
+#include "EQPixelFormat.h"
+#include "ErrorTracingDefinitions.h"
+#include <GL/glew.h>
+#include <GL/wglew.h>
 #include <Windows.h>
 
 class QDeviceContext
@@ -18,60 +22,68 @@ public:
 
 public:
 
-    enum EQPixelFormat
-    {
-        E_R8G8B8A8D24S8,
-        E_R8G8B8A8D32,
-        E_R32G32B32A32,
-        E_A8B8G8R8,
-        E_R8G8B8A8,
-        E_Undefined
-    };
+
 
 public:
 
-    QDeviceContext(const NativeDeviceContext deviceContext);
-
-    NativeRenderingContext CreateRenderingContext();
-
-    NativeRenderingContext CreateAdvancedRenderingContext(const QDeviceContext::EQPixelFormat ePixelFormat, const bool bDebug);
-
-    void MakeRenderingContextCurrent() const;
-
-    void ResetCurrentRenderingContext() const;
-
-    void DeleteRenderingContext();
-
-    void DeleteRenderingContext(QDeviceContext::NativeRenderingContext renderingContext) const;
-
-    void SwapBuffers() const;
+    QDeviceContext(const NativeDeviceContext nativeDeviceContext);
     
 protected:
 
 #ifdef QE_OS_WINDOWS
 
-    static void _GeneratePixelFormatDescriptorFromEnum(const QDeviceContext::EQPixelFormat ePixelFormat, PIXELFORMATDESCRIPTOR& descriptor);
-    static QArrayBasic<const int> _GeneratePixelFormatAttributeListFromEnum(const QDeviceContext::EQPixelFormat ePixelFormat);
+    static void _GeneratePixelFormatDescriptorFromEnum(const EQPixelFormat::EnumType ePixelFormat, PIXELFORMATDESCRIPTOR& descriptor);
+    static void _GeneratePixelFormatAttributeListFromEnum(const EQPixelFormat::EnumType ePixelFormat, const u32_q uSamples, int arAttributes[38]);
 
 #endif
 
 public:
 
-    NativeRenderingContext GetCurrentRenderingContext() const;
-
     NativeDeviceContext GetNativeDeviceContext() const;
     void SetNativeDeviceContext(const NativeDeviceContext deviceContext);
 
-    void SetPixelFormat(const EQPixelFormat eFormat);
-    EQPixelFormat GetPixelFormat() const;
+    void SetPixelFormat(const EQPixelFormat::EnumType eFormat);
+    EQPixelFormat::EnumType GetPixelFormat() const;
+
+    void SetMultisamplingSamples(const u32_q uSampleCount);
+    u32_q GetMultisamplingSamples() const;
 
     void GetNativePixelFormatInfo(void* pPixelFormat) const;
 
+    void SetPixelFormat(const EQPixelFormat::EnumType ePixelFormat, const u32_q uMultisamplingSamples)
+    {
+        QE_ASSERT_ERROR(m_ePixelFormat == EQPixelFormat::E_Undefined, "The pixel format of a device context can only be set once.");
+
+        int arAttributes[38];
+
+        QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(ePixelFormat, uMultisamplingSamples, arAttributes);
+
+        const unsigned int MAX_DESIRED_FORMATS = 5;
+        unsigned int nActualMatchingFormats = 0;
+        int arMatchingFormatIndices[MAX_DESIRED_FORMATS];
+        ::wglChoosePixelFormatARB(m_deviceContext, arAttributes, null_q, MAX_DESIRED_FORMATS, arMatchingFormatIndices, &nActualMatchingFormats);
+
+        QE_LOG(string_q("LOG: Matching pixel formats: ") + nActualMatchingFormats + "\n");
+        QE_ASSERT_ERROR(nActualMatchingFormats > 0, "There is no matching pixel format supported (wglChoosePixelFormatARB).");
+
+        QE_LOG(string_q("LOG: Using pixel format: ") + arMatchingFormatIndices[0] + "\n");
+        BOOL bResult = ::SetPixelFormat(m_deviceContext, arMatchingFormatIndices[0], null_q);
+        //    PrintPixelFormats(m_deviceContext);
+        if (bResult == FALSE)
+        {
+            QE_ASSERT_WINDOWS_ERROR("Failed to set the pixel format when creating the rendering context (SetPixelFormat).");
+        }
+
+        m_ePixelFormat = ePixelFormat;
+        m_uMultisamplingSamples = uMultisamplingSamples;
+    }
+
 private:
 
+    QArrayDynamic<HGLRC> m_arRenderingContexts;
     NativeDeviceContext m_deviceContext;
-    NativeRenderingContext m_renderingContext;
-    EQPixelFormat m_ePixelFormat;
+    EQPixelFormat::EnumType m_ePixelFormat;
+    u32_q m_uMultisamplingSamples;
 
 };
 

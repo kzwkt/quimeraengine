@@ -103,6 +103,15 @@
     <ClInclude Include="QShader.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="QViewport.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QAlphaBlender.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EQPixelFormat.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

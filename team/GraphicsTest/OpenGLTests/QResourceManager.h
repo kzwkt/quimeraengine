@@ -16,6 +16,7 @@
 #include "QStaticModelRawData.h"
 #include "QModelAspectsRawData.h"
 #include "QBuffer.h"
+#include "QAlphaBlender.h"
 #include "ErrorTracingDefinitions.h"
 
 // The resource manager should receive a set of factories, one per type of asset, depending on whether using DirectX or OpenGL
@@ -32,6 +33,7 @@ public:
                                                              m_arSamplers2D(5, 2),
                                                              m_arTextureBlenders(5, 2),
                                                              m_arBuffers(5, 2),
+                                                             m_arAlphaBlenders(5, 2),
                                                              m_arShaders(5, 2),
                                                              m_pShaderCompositor(pShaderCompositor)
     {
@@ -229,6 +231,37 @@ public:
         return QKeyValuePair<QHashedString, QBuffer*>(strDefinitiveId, pBuffer);
     }
 
+    QKeyValuePair<QHashedString, QAlphaBlender*> CreateAlphaBlender(const QHashedString strId, const QAlphaBlender::EQBlendingFunction eSourceFactor, const QAlphaBlender::EQBlendingFunction eDestinationFactor, const QColor &constantColor=QColor())
+    {
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arAlphaBlenders);
+
+        QAlphaBlender* pAlphaBlender = new QAlphaBlender();
+        pAlphaBlender->SetConstantColor(constantColor);
+        pAlphaBlender->SetDestinationColorFactor(eDestinationFactor);
+        pAlphaBlender->SetSourceColorFactor(eSourceFactor);
+
+        m_arAlphaBlenders.Add(strDefinitiveId, pAlphaBlender);
+
+        return QKeyValuePair<QHashedString, QAlphaBlender*>(strDefinitiveId, pAlphaBlender);
+    }
+
+    QKeyValuePair<QHashedString, QAlphaBlender*> CreateAlphaBlender(const QHashedString strId, const QAlphaBlender::EQBlendingFunction eSourceColorFactor, const QAlphaBlender::EQBlendingFunction eDestinationColorFactor, const QAlphaBlender::EQBlendingFunction eSourceAlphaFactor, const QAlphaBlender::EQBlendingFunction eDestinationAlphaFactor, const QColor &constantColor = QColor())
+    {
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arAlphaBlenders);
+
+        QAlphaBlender* pAlphaBlender = new QAlphaBlender();
+        pAlphaBlender->SetConstantColor(constantColor);
+        pAlphaBlender->SetDestinationColorFactor(eDestinationColorFactor);
+        pAlphaBlender->SetSourceColorFactor(eSourceColorFactor);
+        pAlphaBlender->SetDestinationAlphaFactor(eDestinationAlphaFactor);
+        pAlphaBlender->SetSourceAlphaFactor(eSourceAlphaFactor);
+        pAlphaBlender->SetSeparateAlphaFactors(true);
+
+        m_arAlphaBlenders.Add(strDefinitiveId, pAlphaBlender);
+
+        return QKeyValuePair<QHashedString, QAlphaBlender*>(strDefinitiveId, pAlphaBlender);
+    }
+
     QShader* GetShader(const QHashedString &strId) const
     {
         return m_arShaders[strId];
@@ -272,6 +305,11 @@ public:
     QBuffer* GetBuffer(const QHashedString &strId) const
     {
         return m_arBuffers[strId];
+    }
+
+    QAlphaBlender* GetAlphaBlender(const QHashedString &strId)
+    {
+        return m_arAlphaBlenders[strId];
     }
 
     // FindNameOf***(pointer to resource ***)
@@ -531,6 +569,7 @@ protected:
     QHashtable<QHashedString, QTextureBlender*, SQStringHashProvider> m_arTextureBlenders;
     QHashtable<QHashedString, QBuffer*, SQStringHashProvider> m_arBuffers;
     QHashtable<QHashedString, QShader*, SQStringHashProvider> m_arShaders;
+    QHashtable<QHashedString, QAlphaBlender*, SQStringHashProvider> m_arAlphaBlenders;
     QShaderCompositor* m_pShaderCompositor;
 
 };

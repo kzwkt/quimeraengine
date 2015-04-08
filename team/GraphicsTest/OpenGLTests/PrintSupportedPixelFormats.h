@@ -10,7 +10,7 @@ void PrintPixelFormats(HDC hdc)
 
 int nMaxPixelFormatIndex = ::DescribePixelFormat(hdc, 1, sizeof(PIXELFORMATDESCRIPTOR), &pixelFormat);
 
-    for(int i = 2; i < nMaxPixelFormatIndex; ++i)
+    for(int i = 1; i < nMaxPixelFormatIndex; ++i)
     {
         ZeroMemory(&pixelFormat, sizeof(PIXELFORMATDESCRIPTOR));
         
@@ -49,7 +49,7 @@ int nMaxPixelFormatIndex = ::DescribePixelFormat(hdc, 1, sizeof(PIXELFORMATDESCR
                                            "iLayerType = " + pixelFormat.iLayerType + "\n" +
                                            "iPixelType = " + pixelFormat.iPixelType + "\n" +
                                            "nSize = " + pixelFormat.nSize + "\n" +
-                                           "nVersion = " + pixelFormat.nVersion + "\n";
+                                           "nVersion = " + pixelFormat.nVersion + "\n\n";
 
         QE_LOG(strPixelFormat);
     }

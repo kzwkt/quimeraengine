@@ -6,7 +6,7 @@
 layout(row_major) uniform;
 
 in vec3 positionSampled;
-in vec4 colorFromVS;
+in /*sample*/ vec4 colorFromVS;
 in vec3 normal;
 in vec2 textCoord0;
 in vec2 textCoord1;
@@ -28,6 +28,6 @@ void main()
 
 	float fSpecularPower = pow(max(dot(viewToPosition, reflectedLight), 0.0), 4);
 
-	vec4 outputColor = (vec4(0.3, 0.3, 0.3, 1.0) + fSpecularPower * 0.3f + max(dot(normalize(vLightVector), normalize(normal)), 0) * max(fLightMaxDist / length(vLightVector), 1.0f)) * texture(sampler1, textCoord0);// colorFromVS * mix(texture(sampler1, textCoord1), texture(sampler2, textCoord0 + vec2(0.2, 0.2)), 1.0 - texture(sampler1, textCoord1).a);;
+	vec4 outputColor = (/*vec4(0.3, 0.3, 0.3, 1.0) + fSpecularPower * 0.3f +*/ max(dot(normalize(vLightVector), normalize(normal)), 0) * max(fLightMaxDist / length(vLightVector), 1.0f)) * texture(sampler1, textCoord0);// colorFromVS * mix(texture(sampler1, textCoord1), texture(sampler2, textCoord0 + vec2(0.2, 0.2)), 1.0 - texture(sampler1, textCoord1).a);;
     color = vec4(clamp(outputColor.r, 0.0f, 1.0f), clamp(outputColor.g, 0.0f, 1.0f), clamp(outputColor.b, 0.0f, 1.0f), clamp(outputColor.a, 0.0f, 1.0f));
 }

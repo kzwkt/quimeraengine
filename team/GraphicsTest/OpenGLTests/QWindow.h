@@ -4,6 +4,7 @@
 
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "QDeviceContext.h"
+#include "ErrorTracingDefinitions.h"
 
 using Kinesis::QuimeraEngine::Common::QDelegate;
 
@@ -19,49 +20,50 @@ public:
     Error: Operating system not supported
 #endif
 
-    QWindow(const ProcessInstanceHandle handle);
+    struct QWindowSettings
+    {
+        MessageDispatcherFunction MessageDispatcher;
+        string_q Title;
+        u32_q Width;
+        u32_q Height;
+        u32_q Top;
+        u32_q Left;
+        EQPixelFormat::EnumType PixelFormat;
+        u32_q Samples;
+    };
+
+    QWindow(const ProcessInstanceHandle handle, const QWindowSettings &settings);
     ~QWindow();
 
     void Show();
 
-    QDeviceContext& GetDeviceContext() const;
+    QDeviceContext* GetDeviceContext() const;
 
     WindowHandle GetHandle() const;
     ProcessInstanceHandle GetInstanceHandle() const;
 
     unsigned int GetWidth() const;
-    void SetWidth(const unsigned int uWidth);
-
     unsigned int GetHeight() const;
-    void SetHeight(const unsigned int uHeight);
 
-    unsigned int GetPositionX() const;
-    void SetPositionX(const unsigned int uPosition);
-
-    unsigned int GetPositionY() const;
-    void SetPositionY(const unsigned int uPosition);
+    unsigned int GetTop() const;
+    unsigned int GetLeft() const;
 
     MessageDispatcherFunction GetMessageDispatcher() const;
-    void SetMessageDispatcher(const MessageDispatcherFunction &messageDispatcher);
 
     string_q GetTitle() const;
-    void SetTitle(const string_q &strTitle);
 
 protected:
 
-    void _Initialize();
+    static WindowHandle _CreateWindow(const QWindowSettings &settings, const ProcessInstanceHandle instanceHandle);
+
+    static QDeviceContext* _SetUpDeviceContext(const QWindowSettings &settings, const QDeviceContext::NativeDeviceContext deviceContextHandle);
 
 protected:
 
-    unsigned int m_uPositionX;
-    unsigned int m_uPositionY;
-    unsigned int m_uWidth;
-    unsigned int m_uHeight;
-    MessageDispatcherFunction m_messageDispatcher;
-    string_q m_strTitle;
+    QWindowSettings m_settings;
     WindowHandle m_windowHandle;
     const ProcessInstanceHandle m_processInstanceHandle;
-    mutable QDeviceContext m_deviceContext;
+    QDeviceContext* m_pDeviceContext;
 
 };
 
