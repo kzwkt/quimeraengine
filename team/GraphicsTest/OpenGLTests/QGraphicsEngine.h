@@ -6,6 +6,7 @@
 #include "QResourceManager.h"
 #include "QViewport.h"
 #include "EQPixelFormat.h"
+#include "QDeviceContext.h"
 
 class QGraphicsEngine
 {
@@ -135,7 +136,6 @@ protected:
 public:
 
     QGraphicsEngine(QResourceManager* pResourceManager, QDeviceContext* pDeviceContext) : m_pResourceManager(pResourceManager),
-                                                                                          m_pipelineId(0),
                                                                                           m_renderingContexts(2, 2),
                                                                                           m_deviceContexts(2, 2),
                                                                                           m_framebuffers(5, 2),

@@ -112,6 +112,12 @@
     <ClInclude Include="EQPixelFormat.h">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="QShadingPipeline.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QuimeraEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -132,6 +138,15 @@
     </ClCompile>
     <ClCompile Include="VertexDefinitions.cpp">
       <Filter>Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="QuimeraEngine.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="QGraphicsEngine.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="QImageLoader.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
