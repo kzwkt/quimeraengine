@@ -5,7 +5,9 @@
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "QMaterial.h"
 #include "QShader.h"
+#include "QShadingPipeline.h"
 #include "QTexture2D.h"
+
 
 class QAspect
 {
@@ -58,8 +60,7 @@ public:
     {
         static QHashedString DEFAULT_ID = "QE:DEFAULT";
 
-        m_strVertexShader = DEFAULT_ID;
-        m_strFragmentShader = DEFAULT_ID;
+        m_strShadingPipeline = DEFAULT_ID;
         m_strMaterial = DEFAULT_ID;
 
         static QAspectComponent DEFAULT_ASPECT_COMPONENTS[] = { { { DEFAULT_ID, DEFAULT_ID, DEFAULT_ID,
@@ -156,14 +157,9 @@ public:
 
     }
 
-    void SetVertexShader(const QHashedString &strId)
+    void SetShadingPipeline(const QHashedString &strId)
     {
-        m_strVertexShader = strId;
-    }
-
-    void SetFragmentShader(const QHashedString &strId)
-    {
-        m_strFragmentShader = strId;
+        m_strShadingPipeline = strId;
     }
 
     void AddTextureLayer(const EQAspectComponentType eComponentType, const QHashedString textureId, const QHashedString samplerId, const QHashedString blenderId)
@@ -235,15 +231,12 @@ public:
         return m_arAspectComponents[eComponentType].TextureStack[uTextureLayer].BlenderId;
     }
 
-    QHashedString GetVertexShader() const
+    QHashedString GetShadingPipelineId() const
     {
-        return m_strVertexShader;
+        return m_strShadingPipeline;
     }
 
-    QHashedString GetFragmentShader() const
-    {
-        return m_strFragmentShader;
-    }
+    QShadingPipeline* GetShadingPipeline() const;
 
     unsigned int GetAspectComponentCount() const
     {
@@ -309,8 +302,7 @@ protected:
 
     QAspectComponent m_arAspectComponents[QAspect::MAX_COMPONENTS];
     QHashedString m_strMaterial;
-    QHashedString m_strVertexShader;
-    QHashedString m_strFragmentShader;
+    QHashedString m_strShadingPipeline;
     // [TODO]: Put blenders into separate objects, adding also the source factor and destination factor, and constant value
     QHashedString m_strAlphaBlender;
     EQAlphaBlendingMode m_eAplhaBlendingMode;
