@@ -394,30 +394,12 @@ public:
 #endif
     }
 
-    void SetVertexShader(const QHashedString &strId)
+    void SetShadingPipeline(const QHashedString &strId)
     {
-/////////////////////////////---------------------------------------------------------------------MOVE THIS TO ASPECT!!!!
-        glGenProgramPipelines(1, &m_pipelineId);
-        glBindProgramPipeline(m_pipelineId);
-
-        QE_LOG("LOG: Pogram pipeline set.\n");
-///////////////////////////////----------------------------------------------------------------------
-        QShader* pVertexShader = m_pResourceManager->GetShader(strId);
+        QShadingPipeline* pShadingPipeline = m_pResourceManager->GetShadingPipeline(strId);
 
         // Makes the program the current
-        glUseProgramStages(m_pipelineId, GL_VERTEX_SHADER_BIT, pVertexShader->GetExternalId());
-
-        //QE_LOG(string_q("LOG: Using vertex shader [") + strId + "].\n");
-    }
-
-    void SetFragmentShader(const QHashedString &strId)
-    {
-        QShader* pFragmentShader = m_pResourceManager->GetShader(strId);
-
-        // Makes the program the current
-        glUseProgramStages(m_pipelineId, GL_FRAGMENT_SHADER_BIT, pFragmentShader->GetExternalId());
-
-        //QE_LOG(string_q("LOG: Using fragment shader [") + strId + "].\n");
+        glBindProgramPipeline(pShadingPipeline->GetExternalId());
     }
 
     void SetTexture(const QHashedString &strTextureId, const unsigned int uTextureLayer, const QHashedString &strShaderId, const char* szShaderSamplerName)
@@ -456,13 +438,12 @@ public:
 
         QAspect* pAspect = m_pResourceManager->GetAspect(strAspectId);
 
-        this->SetVertexShader(pAspect->GetVertexShader());
-        this->SetFragmentShader(pAspect->GetFragmentShader());
+        this->SetShadingPipeline(pAspect->GetShadingPipelineId());
 
         QMaterial* pMaterial = m_pResourceManager->GetMaterial(pAspect->GetMaterial());
 
         // [TODO]: Loop of textures
-        this->SetTexture(pAspect->GetTexture(QAspect::E_Diffuse, 0), 0, pAspect->GetFragmentShader(), "sampler1"); // It's possible to send textures to Vertex Shader for spherical mapping
+        this->SetTexture(pAspect->GetTexture(QAspect::E_Diffuse, 0), 0, pAspect->GetShadingPipeline()->GetFragmentShaderId(), "sampler1"); // It's possible to send textures to Vertex Shader for spherical mapping
 
         this->SetSampler2D(pAspect->GetTextureSampler2D(QAspect::E_Diffuse, 0), 0);
 
@@ -595,9 +576,6 @@ protected:
     QHashtable<QHashedString, QDeviceContext*, SQStringHashProvider> m_deviceContexts;
     // 1 window -> many rendering contexts
     QHashtable<QHashedString, QArrayDynamic<QRenderingContextOpenGL>, SQStringHashProvider> m_renderingContexts;
-
-    // This should be in the QAspect class, which stores both vertex and fragment shaders
-    GLuint m_pipelineId;
 
     // Graphic pipeline states
     QRenderPipelineStates m_states;

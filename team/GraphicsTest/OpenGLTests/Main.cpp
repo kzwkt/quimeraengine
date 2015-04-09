@@ -228,8 +228,9 @@ void SetupShaders()
 {
     QE->Resources->CreateShader("VS1", QPath("./Resources/VertexShader.glsl"), QShader::E_VertexShader);
     QE->Resources->CreateShader("FS1", QPath("./Resources/FragmentShader.glsl"), QShader::E_FragmentShader);
-    QE->Graphics->SetVertexShader("VS1");
-    QE->Graphics->SetFragmentShader("FS1");
+    QShadingPipeline* pShadingPipeline = QE->Resources->CreateShadingPipeline("Pipeline1").GetValue();
+    pShadingPipeline->SetVertexShaderId("VS1");
+    pShadingPipeline->SetFragmentShaderId("FS1");
 }
 
 void SetupModel()
@@ -242,8 +243,7 @@ void SetupModel()
     {
         QHashedString strAspectId = model.GetValue()->GetSubmeshAspectByIndex(i)->AspectId;
         QAspect* pAspect = QE->Resources->GetAspect(strAspectId);
-        pAspect->SetVertexShader("VS1");
-        pAspect->SetFragmentShader("FS1");
+        pAspect->SetShadingPipeline("Pipeline1");
     }
 
     

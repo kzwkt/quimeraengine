@@ -150,11 +150,13 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
   <ItemGroup>
     <ClCompile Include="Boost_ThrowException.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="QAspect.cpp" />
     <ClCompile Include="QDeviceContext.cpp" />
     <ClCompile Include="QDeviceContext_PixelFormats.cpp" />
     <ClCompile Include="QGraphicsEngine.cpp" />
     <ClCompile Include="QImageLoader.cpp" />
     <ClCompile Include="QKeyboard.cpp" />
+    <ClCompile Include="QShadingPipeline.cpp" />
     <ClCompile Include="QuimeraEngine.cpp" />
     <ClCompile Include="QWindow.cpp" />
     <ClCompile Include="VertexDefinitions.cpp" />

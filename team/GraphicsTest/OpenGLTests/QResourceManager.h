@@ -18,6 +18,7 @@
 #include "QBuffer.h"
 #include "QAlphaBlender.h"
 #include "ErrorTracingDefinitions.h"
+#include "QShadingPipeline.h"
 
 // The resource manager should receive a set of factories, one per type of asset, depending on whether using DirectX or OpenGL
 class QResourceManager
@@ -35,6 +36,7 @@ public:
                                                              m_arBuffers(5, 2),
                                                              m_arAlphaBlenders(5, 2),
                                                              m_arShaders(5, 2),
+                                                             m_arShadingPipelines(5, 2),
                                                              m_pShaderCompositor(pShaderCompositor)
     {
     }
@@ -262,6 +264,18 @@ public:
         return QKeyValuePair<QHashedString, QAlphaBlender*>(strDefinitiveId, pAlphaBlender);
     }
 
+    QKeyValuePair<QHashedString, QShadingPipeline*> CreateShadingPipeline(const QHashedString strId)
+    {
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arShadingPipelines);
+
+        GLuint pipelineId = 0;
+        glGenProgramPipelines(1, &pipelineId);
+        QShadingPipeline* pShadingPipeline = new QShadingPipeline(pipelineId);
+
+        m_arShadingPipelines.Add(strDefinitiveId, pShadingPipeline);
+        return QKeyValuePair<QHashedString, QShadingPipeline*>(strDefinitiveId, pShadingPipeline);
+    }
+
     QShader* GetShader(const QHashedString &strId) const
     {
         return m_arShaders[strId];
@@ -310,6 +324,11 @@ public:
     QAlphaBlender* GetAlphaBlender(const QHashedString &strId)
     {
         return m_arAlphaBlenders[strId];
+    }
+
+    QShadingPipeline* GetShadingPipeline(const QHashedString &strId)
+    {
+        return m_arShadingPipelines[strId];
     }
 
     // FindNameOf***(pointer to resource ***)
@@ -569,6 +588,7 @@ protected:
     QHashtable<QHashedString, QTextureBlender*, SQStringHashProvider> m_arTextureBlenders;
     QHashtable<QHashedString, QBuffer*, SQStringHashProvider> m_arBuffers;
     QHashtable<QHashedString, QShader*, SQStringHashProvider> m_arShaders;
+    QHashtable<QHashedString, QShadingPipeline*, SQStringHashProvider> m_arShadingPipelines;
     QHashtable<QHashedString, QAlphaBlender*, SQStringHashProvider> m_arAlphaBlenders;
     QShaderCompositor* m_pShaderCompositor;
 

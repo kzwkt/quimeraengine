@@ -5,6 +5,8 @@
 #include "QuimeraEngineIncludesAndUsings.h"
 #include <GL/glew.h>
 
+class QShader;
+
 class QShadingPipeline
 {
 public:
@@ -13,83 +15,45 @@ public:
     {
     }
 
-    void SetVertexShader(const QHashedString &strId)
-    {
+    void SetVertexShaderId(const QHashedString &strId);
 
+    QHashedString GetVertexShaderId() const;
 
-        //glUseProgramStages(m_pipelineId, GL_VERTEX_SHADER_BIT, 
-        //m_strVertexShader = strId;
-    }
+    // There will be two versions of every getter: one returns the pointer to the object, obtained from the Resource Manager, and the other returns just the ID
 
-    QHashedString GetVertexShader() const
-    {
-        return m_strVertexShader;
-    }
+    QShader* GetVertexShader() const;
 
-    void SetFragmentShader(const QHashedString &strId)
-    {
-        m_strFragmentShader = strId;
-    }
+    void SetFragmentShaderId(const QHashedString &strId);
 
-    QHashedString GetFragmentShader() const
-    {
-        return m_strFragmentShader;
-    }
+    QHashedString GetFragmentShaderId() const;
 
-    void SetGeometryShader(const QHashedString &strId)
-    {
-        m_strGeometryShader = strId;
-    }
+    QShader* GetFragmentShader() const;
 
-    QHashedString GetGeometryShader() const
-    {
-        return m_strGeometryShader;
-    }
+    void SetGeometryShaderId(const QHashedString &strId);
 
-    void SetGeometryShader(const QHashedString &strId)
-    {
-        m_strGeometryShader = strId;
-    }
+    QHashedString GetGeometryShaderId() const;
 
-    QHashedString GetGeometryShader() const
-    {
-        return m_strGeometryShader;
-    }
+    QShader* GetGeometryShader() const;
 
-    void SetTesselationEvaluationShader(const QHashedString &strId)
-    {
-        m_strTesselationEvaluationShader = strId;
-    }
+    void SetTesselationEvaluationShaderId(const QHashedString &strId);
 
-    QHashedString GetTesselationEvaluationShader() const
-    {
-        return m_strTesselationEvaluationShader;
-    }
+    QHashedString GetTesselationEvaluationShaderId() const;
 
-    void SetTesselationEvaluationShader(const QHashedString &strId)
-    {
-        m_strTesselationEvaluationShader = strId;
-    }
+    QShader* GetTesselationEvaluationShader() const;
 
-    QHashedString GetTesselationEvaluationShader() const
-    {
-        return m_strTesselationEvaluationShader;
-    }
+    void SetTesselationControlShaderId(const QHashedString &strId);
 
-    void SetComputeShader(const QHashedString &strId)
-    {
-        m_strComputeShader = strId;
-    }
+    QShader* GetTesselationControlShader() const;
 
-    QHashedString GetComputeShader() const
-    {
-        return m_strComputeShader;
-    }
+    QHashedString GetTesselationControlShaderId() const;
 
-    GLuint GetExternalId() const
-    {
-        return m_pipelineId;
-    }
+    void SetComputeShaderId(const QHashedString &strId);
+
+    QHashedString GetComputeShaderId() const;
+
+    QShader* GetComputeShader() const;
+
+    GLuint GetExternalId() const;
 
 protected:
 
