@@ -5,11 +5,9 @@
 #include "GL/glew.h"
 #include "QWindow.h"
 #include "ErrorTracingDefinitions.h"
-#include "QResourceManager.h"
-#include "QGraphicsEngine.h"
 #include "QKeyboard.h"
 #include "QCamera.h"
-#include "QModelLoader.h"
+#include "QuimeraEngine.h"
 
 /*#include "glm/glm.hpp"
 #include "glm/gtc/matrix_projection.hpp"
@@ -25,8 +23,6 @@
 // [TODO]: Buffer objects in shaders (i/o data)
 // [TODO]: Subroutines, seem to be slower
 
-QResourceManager* QE_RESOURCE_MANAGER = null_q;
-QGraphicsEngine* QE_GRAPHICS_ENGINE = null_q;
 QKeyboard* QE_KEYBOARD = null_q;
 QCamera* QE_CAMERA = null_q;
 QStopwatchEnclosed MAIN_TIMER(QTimeSpan(0, 0, 0, 1, 0, 0, 0), EQStopwatchEnclosedBehavior::E_Proportional);
@@ -35,7 +31,7 @@ QStopwatchEnclosed ANIMATION_TIMER(QTimeSpan(0, 0, 0, 1, 0, 0, 0), EQStopwatchEn
 void SetupInputDevices();
 int MainLoop();
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-QWindow* SetupWindowAndGraphicsEngine(HINSTANCE hInstance);
+QWindow* SetupWindowAndEngine(HINSTANCE hInstance);
 void SetupEngine(QWindow* pWindow);
 void SetupShaders();
 void SetupModel();
@@ -55,8 +51,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     ANIMATION_TIMER.Set();
 
     SetupInputDevices();
-    QE_RESOURCE_MANAGER = new QResourceManager(new QShaderCompositor());
-    pMainWindow = SetupWindowAndGraphicsEngine(hInstance);
+    pMainWindow = SetupWindowAndEngine(hInstance);
     SetupEngine(pMainWindow);
     SetupShaders();
     SetupModel();
@@ -153,27 +148,27 @@ int MainLoop()
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
-        QE_GRAPHICS_ENGINE->ClearAllRenderTargets();
+        QE->Graphics->ClearAllRenderTargets();
 
 
-        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
-        QE_GRAPHICS_ENGINE->UpdateVertexShaderData("VS1", "transformationMatrix", transformation.Transpose());
+        QE->Graphics->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
+        QE->Graphics->UpdateVertexShaderData("VS1", "transformationMatrix", transformation.Transpose());
 
-        QStaticModel* pModel = QE_RESOURCE_MANAGER->GetStaticModel("Model1");
+        QStaticModel* pModel = QE->Resources->GetStaticModel("Model1");
 
         // [TODO]: Create array of matrices and update hierarchically
 
         for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
         {
             glBindVertexArray(pModel->GetExternalId());
-            QE_GRAPHICS_ENGINE->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
+            QE->Graphics->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
 
             //QE_LOG(string_q("FirstVertex: ") + pModel->GetSubmeshByIndex(i)->FirstVertex + ", FirstVertex+Count: " + (pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount) + ", IndexCount: " + pModel->GetSubmeshByIndex(i)->IndexCount + "\n");
 
             glDrawRangeElementsBaseVertex(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)), pModel->GetSubmeshByIndex(i)->FirstVertex);
         }
 
-        QE_GRAPHICS_ENGINE->SwapBuffers();
+        QE->Graphics->SwapBuffers();
 
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -191,7 +186,7 @@ int MainLoop()
 	return (int) msg.wParam;
 }
 
-QWindow* SetupWindowAndGraphicsEngine(HINSTANCE hInstance)
+QWindow* SetupWindowAndEngine(HINSTANCE hInstance)
 {
     QWindow::QWindowSettings windowSettings;
     windowSettings.MessageDispatcher = &WndProc;
@@ -203,20 +198,9 @@ QWindow* SetupWindowAndGraphicsEngine(HINSTANCE hInstance)
     windowSettings.PixelFormat = EQPixelFormat::E_R8G8B8A8D24S8;
     windowSettings.Samples = 4;
 
-    QWindow* pFakeWindow = new QWindow(hInstance, windowSettings);
-
-    QE_GRAPHICS_ENGINE = new QGraphicsEngine(QE_RESOURCE_MANAGER, pFakeWindow->GetDeviceContext());
-
     QWindow* pActualWindow = new QWindow(hInstance, windowSettings);
 
-    QE_GRAPHICS_ENGINE->RegisterDeviceContext("MainWindowDC", pActualWindow->GetDeviceContext());
-
-    pActualWindow->GetDeviceContext()->SetPixelFormat(windowSettings.PixelFormat, windowSettings.Samples);
-
-    QE_GRAPHICS_ENGINE->CreateRenderingContext("MainWindowRC", "MainWindowDC", true);
-
-    QE_GRAPHICS_ENGINE->UnregisterDeviceContext("FAKE");
-    delete pFakeWindow;
+    QuimeraEngine::Initilize(pActualWindow->GetDeviceContext());
 
     pActualWindow->Show();
 
@@ -230,34 +214,34 @@ void SetupEngine(QWindow* pWindow)
     viewport.Left = 0;
     viewport.Width = pWindow->GetWidth();
     viewport.Height = pWindow->GetHeight();
-    QE_GRAPHICS_ENGINE->SetViewport(viewport);
-    QE_GRAPHICS_ENGINE->EnableDepthTest();
-    QE_GRAPHICS_ENGINE->EnableStencilTest();
-    QE_GRAPHICS_ENGINE->EnableMultisampling();
-    QE_GRAPHICS_ENGINE->SetWindingOrder(QGraphicsEngine::E_Clockwise);
-    QE_GRAPHICS_ENGINE->EnableFaceCulling();
-    QE_GRAPHICS_ENGINE->SetColorBufferClearValue(QColor(1.0f, 1.0f, 1.0f, 1.0f));
+    QE->Graphics->SetViewport(viewport);
+    QE->Graphics->EnableDepthTest();
+    QE->Graphics->EnableStencilTest();
+    QE->Graphics->EnableMultisampling();
+    QE->Graphics->SetWindingOrder(QGraphicsEngine::E_Clockwise);
+    QE->Graphics->EnableFaceCulling();
+    QE->Graphics->SetColorBufferClearValue(QColor(1.0f, 1.0f, 1.0f, 1.0f));
     //glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
 }
 
 void SetupShaders()
 {
-    QE_RESOURCE_MANAGER->CreateShader("VS1", QPath("./Resources/VertexShader.glsl"), QShader::E_VertexShader);
-    QE_RESOURCE_MANAGER->CreateShader("FS1", QPath("./Resources/FragmentShader.glsl"), QShader::E_FragmentShader);
-    QE_GRAPHICS_ENGINE->SetVertexShader("VS1");
-    QE_GRAPHICS_ENGINE->SetFragmentShader("FS1");
+    QE->Resources->CreateShader("VS1", QPath("./Resources/VertexShader.glsl"), QShader::E_VertexShader);
+    QE->Resources->CreateShader("FS1", QPath("./Resources/FragmentShader.glsl"), QShader::E_FragmentShader);
+    QE->Graphics->SetVertexShader("VS1");
+    QE->Graphics->SetFragmentShader("FS1");
 }
 
 void SetupModel()
 {
-    QE_RESOURCE_MANAGER->CreateImage("DEFAULT", QPath("./Resources/wall.jpg"), QImage::E_RGB);
+    QE->Resources->CreateImage("DEFAULT", QPath("./Resources/wall.jpg"), QImage::E_RGB);
 
-    QKeyValuePair<QHashedString, QStaticModel*> model = QE_RESOURCE_MANAGER->CreateStaticModel("Model1", QPath("./Resources/dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QKeyValuePair<QHashedString, QStaticModel*> model = QE->Resources->CreateStaticModel("Model1", QPath("./Resources/dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
 
     for (u32_q i = 0; i < model.GetValue()->GetSubmeshCount(); ++i)
     {
         QHashedString strAspectId = model.GetValue()->GetSubmeshAspectByIndex(i)->AspectId;
-        QAspect* pAspect = QE_RESOURCE_MANAGER->GetAspect(strAspectId);
+        QAspect* pAspect = QE->Resources->GetAspect(strAspectId);
         pAspect->SetVertexShader("VS1");
         pAspect->SetFragmentShader("FS1");
     }
