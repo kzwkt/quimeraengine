@@ -16,12 +16,19 @@
     }
 
 
-#define QE_ASSERT_OPENGL_ERROR(strErrorMessage, eErrorCode) \
-    if(errorMessageID != 0) \
-    { \
-        const GLubyte* szMessage = gluErrorString(eErrorCode); \
-                                     \
-        QE_ASSERT_ERROR(false, string_q(strErrorMessage) + " Error: 0x" + string_q::FromIntegerToHexadecimal(scast_q(eErrorCode, u32_q)) + ". " + string_q(rcast_q(szMessge, const i8_q*)); \
+#define QE_ASSERT_OPENGL_ERROR(strErrorMessage) \
+    {\
+        GLenum eErrorCode = glGetError();\
+        if (eErrorCode != 0) \
+        { \
+            const GLubyte* szMessage = gluErrorString(eErrorCode); \
+            const GLubyte EMPTY_STRING[] = { 0 };\
+            \
+            if (szMessage == null_q)\
+                szMessage = EMPTY_STRING;\
+        \
+            QE_ASSERT_ERROR(false, string_q(strErrorMessage) + " Error: 0x" + string_q::FromIntegerToHexadecimal(scast_q(eErrorCode, u32_q)) + ". " + string_q(rcast_q(szMessage, const i8_q*))); \
+        }\
     }
 
 #define QE_TRACE_WINDOWS_ERROR(strErrorMessage) \

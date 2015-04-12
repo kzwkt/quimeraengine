@@ -4,16 +4,10 @@
 
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "VertexDefinitions.h"
+#include "EQPrimitiveType.h"
 
 struct QStaticModelRawData
 {
-    enum EQPrimitiveType
-    {
-        E_Point,
-        E_Line,
-        E_Triangle,
-        E_Polygon
-    };
 
     struct QMesh
     {
@@ -38,7 +32,7 @@ struct QStaticModelRawData
         u32_q VertexCount;
         u32_q FirstIndex;
         u32_q IndexCount;
-        EQPrimitiveType PrimitiveType;
+        EQPrimitiveType::EnumType PrimitiveType;
     };
 
     struct QSubmeshAspect
