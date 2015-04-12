@@ -583,11 +583,11 @@ protected:
         pSubmesh->IndexCount = pExternalSubmesh->mNumFaces * 3U;
         pSubmesh->FirstVertex = 0;
         pSubmesh->FirstIndex = 0;
-        pSubmesh->PrimitiveType = pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE ? QStaticModelRawData::E_Triangle :
-                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POLYGON  ? QStaticModelRawData::E_Polygon :
-                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_LINE     ? QStaticModelRawData::E_Line :
-                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POINT    ? QStaticModelRawData::E_Point :
-                                                                                                 QStaticModelRawData::E_Triangle;
+        pSubmesh->PrimitiveType = pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE ? EQPrimitiveType::E_Triangle :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POLYGON  ? EQPrimitiveType::E_Polygon :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_LINE     ? EQPrimitiveType::E_Line :
+                                  pExternalSubmesh->mPrimitiveTypes & aiPrimitiveType_POINT    ? EQPrimitiveType::E_Point :
+                                                                                                 EQPrimitiveType::E_Triangle;
         
         if (uSubmeshIndex != 0)
         {

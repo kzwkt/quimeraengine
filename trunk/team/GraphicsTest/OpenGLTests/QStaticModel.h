@@ -6,7 +6,6 @@
 #include "QStaticModelRawData.h"
 #include "VertexDefinitions.h"
 
-class QModelLoader;
 
 // Rename to QFixedSizeModel?
 class QStaticModel

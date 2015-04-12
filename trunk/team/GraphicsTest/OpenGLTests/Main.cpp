@@ -22,6 +22,8 @@
 // [TODO]: #includes in shaders, semantics like HLSL with glBindAttribLocationARB http://www.g-truc.net/post-0267.html
 // [TODO]: Buffer objects in shaders (i/o data)
 // [TODO]: Subroutines, seem to be slower
+// [TODO]: Path rendering
+
 
 QKeyboard* QE_KEYBOARD = null_q;
 QCamera* QE_CAMERA = null_q;
@@ -129,8 +131,45 @@ int MainLoop()
 	// Main message loop:
 
     QColor cubeColor = QColor::GetVectorOfOnes();
+    
+    GLuint framebuffer;
+    u32_q NumRenderbuffers = 3;
+    GLuint renderbuffer[3];
+    /*glGenRenderbuffers(NumRenderbuffers, renderbuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer[0]);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, 1024, 768);
+    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer[1]);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1024, 768);
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+    glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+        GL_RENDERBUFFER, renderbuffer[0]);
+    glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT,
+        GL_RENDERBUFFER, renderbuffer[1]);
+        */
+   /* glCreateRenderbuffers(NumRenderbuffers, renderbuffer);
+    glNamedRenderbufferStorageMultisample(renderbuffer[0], 4, GL_RGBA, 1024, 768);
+    glNamedRenderbufferStorageMultisample(renderbuffer[1], 4, GL_DEPTH24_STENCIL8, 1024, 768);
+    glCreateFramebuffers(1, &framebuffer);
+    glNamedFramebufferRenderbuffer(framebuffer, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffer[0]);
+    glNamedFramebufferRenderbuffer(framebuffer, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffer[1]);
+    */
+    
 
-	while (true)
+    QE_ASSERT_OPENGL_ERROR("");
+    
+    QFramebuffer* pFramebuffer = QE->Graphics->CreateFramebuffer("FB1");
+    QE->Graphics->CreateRenderbuffer("RB1", QRenderbuffer::E_Color, QRenderbuffer::E_RGBA32F, 1024, 768, 4);
+    QE->Graphics->CreateRenderbuffer("RBD", QRenderbuffer::E_DepthAndStencil, QRenderbuffer::E_D24S8, 1024, 768, 4);
+    //QE->Graphics->CreateRenderbuffer("RBS", QRenderbuffer::E_Stencil, QRenderbuffer::E_S8, 1024, 768, 4);
+    
+    pFramebuffer->AddColorBuffer("RB1");
+    pFramebuffer->SetDepthStencilBuffer("RBD");
+    //pFramebuffer->SetStencilBuffer("RBS");
+
+    bool validation = pFramebuffer->IsValid();
+    
+    while (true)
 	{
         CheckInputs();
         ANIMATION_TIMER.Set();
@@ -148,7 +187,6 @@ int MainLoop()
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
-        QE->Graphics->ClearAllRenderTargets();
 
 
         QE->Graphics->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
@@ -158,17 +196,35 @@ int MainLoop()
 
         // [TODO]: Create array of matrices and update hierarchically
 
+        QE->Graphics->SetStaticModel("Model1");
+        
+   //     glNamedFramebufferDrawBuffer(framebuffer, GL_COLOR_ATTACHMENT0);
+ //       glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+        QE->Graphics->SetDestinationFramebuffer("FB1");
+        QE_ASSERT_OPENGL_ERROR("");
+        QE->Graphics->ClearAllRenderTargets();
+
         for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
         {
-            glBindVertexArray(pModel->GetExternalId());
             QE->Graphics->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
-
-            //QE_LOG(string_q("FirstVertex: ") + pModel->GetSubmeshByIndex(i)->FirstVertex + ", FirstVertex+Count: " + (pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount) + ", IndexCount: " + pModel->GetSubmeshByIndex(i)->IndexCount + "\n");
-
-            glDrawRangeElementsBaseVertex(GL_TRIANGLES, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->FirstVertex + pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->IndexCount, GL_UNSIGNED_INT, (void*)(pModel->GetSubmeshByIndex(i)->FirstIndex * sizeof(u32_q)), pModel->GetSubmeshByIndex(i)->FirstVertex);
+            QE->Graphics->Draw(EQPrimitiveType::E_Triangle, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->FirstIndex, pModel->GetSubmeshByIndex(i)->IndexCount);
         }
+        QE_ASSERT_OPENGL_ERROR("");
+        
+//        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+//        glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer);
+        
+    //    glNamedFramebufferDrawBuffer(0, GL_FRONT_AND_BACK);
+    //    glNamedFramebufferReadBuffer(framebuffer, GL_COLOR_ATTACHMENT0);
+        
+  //      glBlitNamedFramebuffer(framebuffer, 0, 0, 0, 1024, 768, 0, 0, 1024, 768, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, GL_NEAREST);
+    //    glBlitFramebuffer(0, 0, 1024, 768, 0, 0, 1024, 768, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT, GL_NEAREST);
+        QE->Graphics->CopyPixelsBetweenFramebuffers("FB1", "DEFAULT", QScreenRectangle<u32_q>(QPoint<u32_q>(), 1024, 768), QScreenRectangle<u32_q>(QPoint<u32_q>(), 1024, 768), QGraphicsEngine::E_Color | QGraphicsEngine::E_Depth | QGraphicsEngine::E_Stencil, QGraphicsEngine::E_Nearest);
+        QE_ASSERT_OPENGL_ERROR("");
 
         QE->Graphics->SwapBuffers();
+
+        QE_ASSERT_OPENGL_ERROR("");
 
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -237,7 +293,7 @@ void SetupModel()
 {
     QE->Resources->CreateImage("DEFAULT", QPath("./Resources/wall.jpg"), QImage::E_RGB);
 
-    QKeyValuePair<QHashedString, QStaticModel*> model = QE->Resources->CreateStaticModel("Model1", QPath("./Resources/dargon posing.obj"), &CUSTOM_VERTEX_DESCRIPTION);
+    QKeyValuePair<QHashedString, QStaticModel*> model = QE->Resources->CreateStaticModel("Model1", QPath("./Resources/sonic.obj"), &CUSTOM_VERTEX_DESCRIPTION);
 
     for (u32_q i = 0; i < model.GetValue()->GetSubmeshCount(); ++i)
     {

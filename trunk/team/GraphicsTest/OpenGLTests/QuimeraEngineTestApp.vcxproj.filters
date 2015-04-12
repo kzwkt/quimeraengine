@@ -118,6 +118,21 @@
     <ClInclude Include="QuimeraEngine.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="EQPrimitiveType.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QFramebuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QRenderbuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="QScreenRectangle.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="QPoint.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -152,6 +167,9 @@
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="QAspect.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="QFramebuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>

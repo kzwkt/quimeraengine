@@ -115,10 +115,15 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EQPixelFormat.h" />
+    <ClInclude Include="EQPrimitiveType.h" />
     <ClInclude Include="ErrorTracingDefinitions.h" />
     <ClInclude Include="QBuffer.h" />
     <ClInclude Include="QAlphaBlender.h" />
+    <ClInclude Include="QFramebuffer.h" />
     <ClInclude Include="QModelAspectsRawData.h" />
+    <ClInclude Include="QPoint.h" />
+    <ClInclude Include="QRenderbuffer.h" />
+    <ClInclude Include="QScreenRectangle.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="QShadingPipeline.h" />
     <ClInclude Include="QStaticModelRawData.h" />
@@ -153,6 +158,7 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     <ClCompile Include="QAspect.cpp" />
     <ClCompile Include="QDeviceContext.cpp" />
     <ClCompile Include="QDeviceContext_PixelFormats.cpp" />
+    <ClCompile Include="QFramebuffer.cpp" />
     <ClCompile Include="QGraphicsEngine.cpp" />
     <ClCompile Include="QImageLoader.cpp" />
     <ClCompile Include="QKeyboard.cpp" />
