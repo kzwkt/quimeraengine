@@ -198,10 +198,10 @@ protected:
 public:
 
     QGraphicsEngine(QResourceManager* pResourceManager, QDeviceContext* pDeviceContext) : m_pResourceManager(pResourceManager),
-        m_renderingContexts(2, 2),
-        m_deviceContexts(2, 2),
-        m_framebuffers(5, 2),
-        m_renderbuffers(5, 2)
+                                                                                          m_renderingContexts(2, 2),
+                                                                                          m_deviceContexts(2, 2),
+                                                                                          m_framebuffers(5, 2),
+                                                                                          m_renderbuffers(5, 2)
     {
         static const QHashedString FAKE_RENDERING_CONTEXT_ID("FAKE");
         this->RegisterDeviceContext(FAKE_RENDERING_CONTEXT_ID, pDeviceContext);
@@ -247,7 +247,7 @@ public:
 
         glNamedRenderbufferStorageMultisample(renderbufferId, uSamples, internalFormat, uWidth, uHeight);
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when storing a renderbuffer (glRenderbufferStorageMultisample).");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when storing a renderbuffer (glNamedRenderbufferStorageMultisample).");
 
         m_renderbuffers.Add(strId, pRenderbuffer);
     }
@@ -324,7 +324,7 @@ public:
 
         glNamedFramebufferReadBuffer(sourceFramebuffer, QGraphicsEngine::_GetEquivalentColorBufferOpenGLValue(eColorBuffer));
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when setting buffer of the framebuffer to read (glReadBuffer).");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when setting buffer of the framebuffer to read (glNamedFramebufferReadBuffer).");
 
         QE_ASSERT_ERROR(sourceFramebuffer == 0 || glCheckNamedFramebufferStatus(sourceFramebuffer, GL_READ_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for reading.");
 
@@ -370,7 +370,7 @@ public:
 
         glNamedFramebufferDrawBuffers(destinationFramebuffer, arColorBuffers.GetCount(), arEquivalentColorBuffers);
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when setting buffers of the framebuffer to write (glDrawBuffers).");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when setting buffers of the framebuffer to write (glNamedFramebufferDrawBuffers).");
 
         QE_ASSERT_ERROR(destinationFramebuffer == 0 || glCheckNamedFramebufferStatus(destinationFramebuffer, GL_DRAW_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for drawing.");
 
@@ -397,7 +397,6 @@ public:
 
         GLuint sourceFramebuffer = strSourceFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strSourceFramebufferId]->GetExternalId();
         GLuint destinationFramebuffer = strDestinationFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strDestinationFramebufferId]->GetExternalId();
-        QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitFramebuffer).");
 
         QE_ASSERT_ERROR(sourceFramebuffer == 0 || glCheckNamedFramebufferStatus(sourceFramebuffer, GL_READ_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for reading.");
         QE_ASSERT_ERROR(destinationFramebuffer == 0 || glCheckNamedFramebufferStatus(destinationFramebuffer, GL_DRAW_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for drawing.");
@@ -415,7 +414,7 @@ public:
                                bufferMask,
                                equivalentFilter);
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitFramebuffer).");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitNamedFramebuffer).");
     }
 
     // Using Enable and Disable functions instead of 1 function with boolean parameters just because it is more readable in client's code
@@ -568,7 +567,7 @@ public:
 
         if (renderingContextHandle == null_q)
         {
-            QE_ASSERT_WINDOWS_ERROR("Failed when attempring to create a custom rendering context (wglCreateContext).");
+            QE_ASSERT_WINDOWS_ERROR("Failed when attempring to create a custom rendering context (wglCreateContextAttribsARB).");
         }
 
         QRenderingContextOpenGL renderingContext;
@@ -576,7 +575,7 @@ public:
         renderingContext.Handle = renderingContextHandle;
         m_renderingContexts[strDeviceContextId].Add(renderingContext);
 
-        QE_LOG("LOG: OpenGL 4.3 Rendering context created.\n");
+        QE_LOG("LOG: OpenGL 4.5 Rendering context created.\n");
 
         // Makes the rendering context the current one for the current thread
         BOOL bResult = wglMakeCurrent(deviceContexHandle, renderingContextHandle);
@@ -675,9 +674,9 @@ public:
 
             if (samplerLocation == -1)
             {
-                QE_ASSERT_WINDOWS_ERROR("An error occurred while getting the location of a uniform (SetupTextures).");
+                QE_ASSERT_OPENGL_ERROR("An error occurred while getting the location of a uniform (glGetUniformLocation).");
             }
-
+            
             glProgramUniform1i(pFragmentShader->GetExternalId(), samplerLocation, uTextureLayer);
 
             //QE_LOG(string_q("LOG: Using texture [") + strTextureId + "] in sampler \"" + szShaderSamplerName + "\" with index " + uTextureLayer + ".\n");

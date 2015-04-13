@@ -41,8 +41,6 @@ public:
 
     QHashedString GetDepthStencilBuffer() const;
 
-    bool IsValid();
-
     GLuint GetExternalId() const;
     
 protected:

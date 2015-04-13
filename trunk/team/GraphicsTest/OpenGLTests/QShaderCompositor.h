@@ -5,6 +5,7 @@
 #include "GL/glew.h"
 #include "GL/wglew.h"
 #include "QuimeraEngineIncludesAndUsings.h"
+#include "ErrorTracingDefinitions.h"
 #include "QShader.h"
 #include "QShader.h"
 
@@ -69,8 +70,13 @@ protected:
         QE_LOG("LOG: Linking shader program...\n");
         
         glProgramParameteri(shaderProgramID, GL_PROGRAM_SEPARABLE, GL_TRUE);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when setting a property of the program (glProgramParameteri).");
+
         glAttachShader(shaderProgramID, shaderID);
         glLinkProgram(shaderProgramID);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when linking the program (glLinkProgram).");
 
         // Checks result
         GLint nSucceed = 0;
