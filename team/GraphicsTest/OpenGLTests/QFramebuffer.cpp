@@ -20,7 +20,7 @@ void QFramebuffer::AddColorBuffer(const QHashedString &strId)
     
     glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
 
-    QE_ASSERT_OPENGL_ERROR("An error occurred when adding a color buffer (glFramebufferRenderbuffer).");
+    QE_ASSERT_OPENGL_ERROR("An error occurred when adding a color buffer (glNamedFramebufferRenderbuffer).");
 
     m_arColorBuffers.Add(strId);
 }
@@ -38,7 +38,7 @@ void QFramebuffer::SetRenderbufferOperation(const QHashedString &strRenderbuffer
 
     glNamedFramebufferRenderbuffer(m_framebufferId, pRenderbuffer->GetExternalAttachment(), GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
 
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the operation of a renderbuffer (glFramebufferRenderbuffer).");
+    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the operation of a renderbuffer (glNamedFramebufferRenderbuffer).");
 }
 
 void QFramebuffer::SetDepthBuffer(const QHashedString &strId)
@@ -51,7 +51,7 @@ void QFramebuffer::SetDepthBuffer(const QHashedString &strId)
 
     glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
 
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the depth buffer (glFramebufferRenderbuffer).");
+    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the depth buffer (glNamedFramebufferRenderbuffer).");
 
     m_strDepthBuffer = strId;
 }
@@ -105,11 +105,6 @@ QHashedString QFramebuffer::GetDepthStencilBuffer() const
 GLuint QFramebuffer::GetExternalId() const
 {
     return m_framebufferId;
-}
-
-bool QFramebuffer::IsValid()
-{
-    return glCheckNamedFramebufferStatus(0, GL_DRAW_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
 }
 
 GLenum QFramebuffer::_GetEquivalentRenderbufferTargetOpenGLValue(const QFramebuffer::EQRenderbufferOperation eTarget)

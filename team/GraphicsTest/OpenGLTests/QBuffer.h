@@ -4,6 +4,7 @@
 
 #include <GL/glew.h>
 #include "QuimeraEngineIncludesAndUsings.h"
+#include "ErrorTracingDefinitions.h"
 
 class QBuffer
 {
@@ -62,8 +63,6 @@ public:
         GLenum eFinalMappingMode;
         GLbitfield uFinalAccessMode;
 
-        glBindBuffer(m_eTarget, m_uId);
-
         if (pImplementationParameters)
         {
             // This could be a way to let users customize things depending on implementation
@@ -77,12 +76,16 @@ public:
             uFinalAccessMode = QBuffer::GetEquivalentBufferMapAccessOpenGLValue(eMappingMode);
         }
 
-        return glMapBufferRange(m_eTarget, uRangeStart, uRangeSize, eFinalMappingMode | uFinalAccessMode); // [TODO]: Put both bitfields together in the enumeration
+        void* pContent = glMapNamedBufferRange(m_uId, uRangeStart, uRangeSize, eFinalMappingMode | uFinalAccessMode); // [TODO]: Put both bitfields together in the enumeration
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when mapping a buffer (glMapNamedBufferRange).");
+
+        return pContent;
     }
 
     bool Unmap()
     {
-        return glUnmapBuffer(m_eTarget) == GL_TRUE;
+        return glUnmapNamedBuffer(m_uId) == GL_TRUE;
     }
 
     GLuint GetOpenGLId() const

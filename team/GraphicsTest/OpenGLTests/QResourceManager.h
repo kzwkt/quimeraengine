@@ -112,9 +112,8 @@ public:
                                                        eFormat == QImage::E_RGBA ? GL_RGBA :
                                                                                    0;
             GLuint textureID = 0;
-            glGenTextures(1, &textureID);
-            glBindTexture(GL_TEXTURE_2D, textureID);
-            glTexImage2D(GL_TEXTURE_2D, 0, nInternalFormat, pImage->GetWidth(), pImage->GetHeight(), 0, nFormat, GL_UNSIGNED_BYTE, pImage->GetData());
+            glCreateTextures(GL_TEXTURE_2D, 1, &textureID);
+            glTextureImage2DEXT(textureID, GL_TEXTURE_2D, 0, nInternalFormat, pImage->GetWidth(), pImage->GetHeight(), 0, nFormat, GL_UNSIGNED_BYTE, pImage->GetData());
 
             pTexture = new QTexture2D(textureID);
             pTexture->SetMapping(eTextureMapping);
@@ -181,8 +180,7 @@ public:
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arSamplers2D);
 
         GLuint samplerID = 0;
-
-        glGenSamplers(1, &samplerID);
+        glCreateSamplers(1, &samplerID);
         
         glSamplerParameteri(samplerID, GL_TEXTURE_MAG_FILTER, QResourceManager::_GetEquivalentMagnificationFilterOpenGLValue(eMagFilter));
         glSamplerParameteri(samplerID, GL_TEXTURE_MIN_FILTER, QResourceManager::_GetEquivalentMinificationFilterOpenGLValue(eMinFilter));
@@ -221,12 +219,11 @@ public:
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arBuffers);
 
         GLuint bufferId = 0;
-        glGenBuffers(1, &bufferId);
+        glCreateBuffers(1, &bufferId);
 
         QBuffer* pBuffer = new QBuffer(bufferId, eType, uSize, eModificationFrequency, eExpectedOperations);
 
-        glBindBuffer(pBuffer->GetOpenGLTarget(), bufferId);
-        glBufferData(pBuffer->GetOpenGLTarget(), uSize, null_q, pBuffer->GetOpenGLUsage());
+        glNamedBufferData(bufferId, uSize, null_q, pBuffer->GetOpenGLUsage());
         
         m_arBuffers.Add(strDefinitiveId, pBuffer);
 
@@ -269,7 +266,7 @@ public:
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arShadingPipelines);
 
         GLuint pipelineId = 0;
-        glGenProgramPipelines(1, &pipelineId);
+        glCreateProgramPipelines(1, &pipelineId);
         QShadingPipeline* pShadingPipeline = new QShadingPipeline(pipelineId);
 
         m_arShadingPipelines.Add(strDefinitiveId, pShadingPipeline);
@@ -356,11 +353,11 @@ protected:
     {
         // create VAO
         GLuint vaoMesh = 0;
-        glGenVertexArrays(1, &vaoMesh);
-        glBindVertexArray(vaoMesh);
+        glCreateVertexArrays(1, &vaoMesh);
 
         // create VBO
         QKeyValuePair<QHashedString, QBuffer*> vertexBuffer = this->CreateBuffer(pModel->MeshIds[0].Id, QBuffer::E_VertexArray, pModel->VertexCount * pModel->VertexDescription->GetVertexSize(), QBuffer::E_Rarely, QBuffer::E_GPUReadsCPUWrites);
+        glVertexArrayVertexBuffer(vaoMesh, 0, vertexBuffer.GetValue()->GetOpenGLId(), 0, pModel->VertexDescription->GetVertexSize());
         void* pVertices = vertexBuffer.GetValue()->MapRange(QBuffer::E_Write, 0, vertexBuffer.GetValue()->GetSize());
         memcpy(pVertices, pModel->Vertices, vertexBuffer.GetValue()->GetSize());
         bool bUnmapResult = vertexBuffer.GetValue()->Unmap();
@@ -374,7 +371,10 @@ protected:
 
         // create EBO
         QKeyValuePair<QHashedString, QBuffer*> indexBuffer = this->CreateBuffer(pModel->MeshIds[0].Id, QBuffer::E_IndexArray, pModel->IndexCount * sizeof(u32_q), QBuffer::E_Never, QBuffer::E_GPUReadsCPUWrites);
+
+        //QBuffer* pVertexBuffer = m_pResourceManager->GetBuffer(pModel->GetVertexBufferId());
         void* pIndices = indexBuffer.GetValue()->MapRange(QBuffer::E_Write, 0, indexBuffer.GetValue()->GetSize());
+        glVertexArrayElementBuffer(vaoMesh, indexBuffer.GetValue()->GetOpenGLId());
         memcpy(pIndices, pModel->Indices, indexBuffer.GetValue()->GetSize());
         bUnmapResult = indexBuffer.GetValue()->Unmap();
         
@@ -386,7 +386,7 @@ protected:
         }
 
         // Vertex description
-        QResourceManager::_SetVertexLayout(pModel->VertexDescription);
+        QResourceManager::_SetVertexLayout(pModel->VertexDescription, vaoMesh);
 
         // Updates aspect ids to actual ids (after aspects have been added to the manager)
         for (u32_q i = 0; i < pModel->SubmeshCount; ++i)
@@ -395,7 +395,7 @@ protected:
         *pOutputModel = new QStaticModel(vaoMesh, vertexBuffer.GetKey(), indexBuffer.GetKey(), pModel);
     }
 
-    static void _SetVertexLayout(const QVertexDescription* pVertexDescription)
+    static void _SetVertexLayout(const QVertexDescription* pVertexDescription, const GLuint vertexArrayObject)
     {
         u32_q uComponentOffset = 0;
         u32_q uComponentsSize = 0;
@@ -403,8 +403,9 @@ protected:
         for (u32_q i = 0; i < pVertexDescription->GetVertexComponentCount(); ++i)
         {
             uComponentsSize = pVertexDescription->GetVertexComponents()[i].Size;
-            glVertexAttribPointer(i, uComponentsSize / sizeof(float_q), GL_FLOAT, GL_FALSE, pVertexDescription->GetVertexSize(), (GLvoid*)uComponentOffset);
-            glEnableVertexAttribArray(i);
+            glEnableVertexArrayAttrib(vertexArrayObject, i);
+            glVertexArrayAttribBinding(vertexArrayObject, i, 0);
+            glVertexArrayAttribFormat(vertexArrayObject, i, uComponentsSize / sizeof(float_q), GL_FLOAT, GL_FALSE, uComponentOffset);
             uComponentOffset += uComponentsSize;
         }
     }

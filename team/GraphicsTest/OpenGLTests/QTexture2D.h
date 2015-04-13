@@ -23,7 +23,7 @@ public:
 
     QTexture2D(GLuint textureId) : m_textureId(textureId)
     {
-        glGenerateMipmap(GL_TEXTURE_2D);
+        glGenerateTextureMipmap(m_textureId);
     }
 
     void GenerateMipmaps()
