@@ -5,12 +5,13 @@
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "QResourceManager.h"
 #include "QViewport.h"
-#include "EQPixelFormat.h"
 #include "QDeviceContext.h"
 #include "EQPrimitiveType.h"
 #include "QFramebuffer.h"
 #include "QRenderbuffer.h"
 #include "QScreenRectangle.h"
+#include "SQEnumerationToOpenGLConverter.h"
+#include "EQPixelFormat.h"
 
 // [TODO]: Check framebuffer with glCheckFramebufferStatus
 // [TODO]: Clear specific buffer with glClearBuffer
@@ -171,7 +172,7 @@ protected:
     {
         QColor ColorBufferClearValue;
         f64_q DepthBufferClearValue;
-        f32_q StencilBufferClearValue;
+        u32_q StencilBufferClearValue;
         QViewport Viewport;
         bool IsMultisamplingEnabled;
         bool IsStencilTestEnabled;
@@ -226,8 +227,7 @@ public:
     }
 
     void CreateRenderbuffer(const QHashedString &strId,
-                            const QRenderbuffer::EQRenderbufferType eType,
-                            const QRenderbuffer::EQRenderbufferPixelFormat ePixelFormat,
+                            const EQPixelFormat::EnumType eFormat,
                             const u32_q uWidth,
                             const u32_q uHeight,
                             const u32_q uSamples)
@@ -235,15 +235,15 @@ public:
         GLuint renderbufferId = 0;
         glCreateRenderbuffers(1, &renderbufferId);
 
-        GLenum internalFormat = QGraphicsEngine::_GetEquivalentRenderbufferInternalFormatOpenGLValue(ePixelFormat);
+        GLenum internalFormat = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatSized(eFormat);
 
         QRenderbuffer* pRenderbuffer = new QRenderbuffer(renderbufferId,
-                                                         QGraphicsEngine::_GetEquivalentRenderbufferAttachmentOpenGLValue(eType),
+                                                         SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataType(eFormat),
                                                          internalFormat,
-                                                         ePixelFormat,
-                                                         eType);
-        pRenderbuffer->SetHeight(uHeight);
-        pRenderbuffer->SetWidth(uWidth);
+                                                         eFormat,
+                                                         uSamples,
+                                                         uWidth,
+                                                         uHeight);
 
         glNamedRenderbufferStorageMultisample(renderbufferId, uSamples, internalFormat, uWidth, uHeight);
 
@@ -313,8 +313,7 @@ public:
     void ReadPixelsFromFramebufferColorBuffer(const QHashedString &strFramebufferId, 
                                               const EQColorBuffer eColorBuffer, 
                                               const QScreenRectangle<u32_q> rectangleToRead, 
-                                              const EQPixelLayout eDestinationPixelLayout, 
-                                              const EQPixelDataType eDestinationType, 
+                                              const EQPixelFormat::EnumType eOutputFormat, 
                                               void* pOutput)
     {
         if (m_strFramebufferForReading != strFramebufferId)
@@ -332,52 +331,15 @@ public:
                      rectangleToRead.TopLeftCorner.y, 
                      rectangleToRead.BottomRightCorner.x, 
                      rectangleToRead.BottomRightCorner.y, 
-                     QGraphicsEngine::_GetEquivalentFormatOpenGLValue(eDestinationPixelLayout), 
-                     QGraphicsEngine::_GetEquivalentDataTypeOpenGLValue(eDestinationType), 
+                     SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatNonSized(eOutputFormat), 
+                     SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataType(eOutputFormat),
                      pOutput);
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when reading pixels from a color buffer (glReadPixels).");
     }
 
-    void WritePixelsToFramebufferColorBuffers(const QHashedString &strFramebufferId, 
-                                              const QArrayBasic<EQColorBuffer> arColorBuffers,
-                                              const QArrayBasic<u8_q> arRenderbuffers,
-                                              const u32_q uWidth, 
-                                              const u32_q uHeight, 
-                                              const EQPixelLayout eDestinationPixelLayout, 
-                                              const EQPixelDataType eDestinationType, 
-                                              const void* pInput)
-    {
-        if (m_strFramebufferForWriting != strFramebufferId)
-            this->SetDestinationFramebuffer(strFramebufferId);
-
-        GLenum arEquivalentColorBuffers[GL_MAX_COLOR_ATTACHMENTS + 6U];
-        u32_q uAttachmentIndex = 0;
-        for (u32_q i = 0; i < arColorBuffers.GetCount(); ++i)
-        {
-            arEquivalentColorBuffers[i] = QGraphicsEngine::_GetEquivalentColorBufferOpenGLValue(arColorBuffers[i]);
-
-            if (arColorBuffers[i] == E_Renderbuffer)
-            {
-                QE_ASSERT_ERROR(uAttachmentIndex < arRenderbuffers.GetCount(), "There are renderbuffers without specifying their indices.");
-
-                arEquivalentColorBuffers[i] += arRenderbuffers[uAttachmentIndex];
-                ++uAttachmentIndex;
-            }
-        }
-
-        GLuint destinationFramebuffer = strFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strFramebufferId]->GetExternalId();
-
-        glNamedFramebufferDrawBuffers(destinationFramebuffer, arColorBuffers.GetCount(), arEquivalentColorBuffers);
-
-        QE_ASSERT_OPENGL_ERROR("An error occurred when setting buffers of the framebuffer to write (glNamedFramebufferDrawBuffers).");
-
-        QE_ASSERT_ERROR(destinationFramebuffer == 0 || glCheckNamedFramebufferStatus(destinationFramebuffer, GL_DRAW_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for drawing.");
-
-        glDrawPixels(uWidth, uHeight, QGraphicsEngine::_GetEquivalentFormatOpenGLValue(eDestinationPixelLayout), QGraphicsEngine::_GetEquivalentDataTypeOpenGLValue(eDestinationType), pInput);
-
-        QE_ASSERT_OPENGL_ERROR("An error occurred when writing pixels to a color buffer (glDrawPixels).");
-    }
+    // [TODO]: Draw rectangle (2 triangles occupying a rect of the screen)
+    // [TODO]: Copy texture to color buffer
     
     void CopyPixelsBetweenFramebuffers(const QHashedString &strSourceFramebufferId,
                                        const QHashedString &strDestinationFramebufferId,
@@ -489,16 +451,16 @@ public:
         glClearColor(color.x, color.y, color.z, color.w);
     }
 
-    void SetDepthBufferClearValue(const f64_q &fValue)
+    void SetDepthBufferClearValue(const f64_q fValue)
     {
         m_states.DepthBufferClearValue = fValue;
         glClearDepth(fValue);
     }
 
-    void SetStencilBufferClearValue(const f32_q &fValue)
+    void SetStencilBufferClearValue(const u32_q uValue)
     {
-        m_states.StencilBufferClearValue = fValue;
-        glClearStencil(fValue);
+        m_states.StencilBufferClearValue = uValue;
+        glClearStencil(uValue);
     }
 
     void SetViewport(const QViewport &viewport)
@@ -668,7 +630,7 @@ public:
         if (pTexture)
         {
             glActiveTexture(GL_TEXTURE0 + uTextureLayer);
-            glBindTexture(GL_TEXTURE_2D, pTexture->GetTextureID());
+            glBindTexture(GL_TEXTURE_2D, pTexture->GetExternalId());
 
             GLint samplerLocation = glGetUniformLocation(pFragmentShader->GetExternalId(), szShaderSamplerName);
 
@@ -829,91 +791,6 @@ protected:
         }
 
         return eFrontFace;
-    }
-
-    static GLenum _GetEquivalentRenderbufferInternalFormatOpenGLValue(const QRenderbuffer::EQRenderbufferPixelFormat eType)
-    {
-        static const GLenum EQUIVALENT_VALUES[] = {
-                                                    GL_R8,//E_R8UI_Normalized,
-                                                    GL_R16,//E_R16UI_Normalized,
-                                                    GL_RG,//E_RGUI_Normalized,
-                                                    GL_RG8,//E_RG8UI_Normalized,
-                                                    GL_RG16,//E_RG16UI_Normalized,
-                                                    GL_R3_G3_B2,//E_R3G3B2UI_Normalized,
-                                                    GL_RGB4,//E_RGB4UI_Normalized,
-                                                    GL_RGB5,//E_RGB5UI_Normalized,
-                                                    GL_RGB8,//E_RGB8UI_Normalized,
-                                                    GL_RGB10,//E_RGB10UI_Normalized,
-                                                    GL_RGB12,//E_RGB12UI_Normalized,
-                                                    GL_RGB16,//E_RGB16UI_Normalized,
-                                                    GL_RGBA2,//E_RGBA2UI_Normalized,
-                                                    GL_RGBA4,//E_RGBA4UI_Normalized,
-                                                    GL_RGB5_A1,//E_RGB5A1UI_Normalized,
-                                                    GL_RGBA8,//E_RGBA8UI_Normalized,
-                                                    GL_RGB10_A2,//E_RGB10A2UI_Normalized,
-                                                    GL_RGBA12,//E_RGBA12UI_Normalized,
-                                                    GL_RGBA16,//E_RGBA16UI_Normalized,
-                                                    GL_SRGB8,//E_RGB8_Compressed,
-                                                    GL_SRGB8_ALPHA8,//E_RGB8A8_Compressed,
-                                                    GL_R16F,//E_R16F,
-                                                    GL_R32F,//E_R32F,
-                                                    GL_RG16F,//E_RG16F,
-                                                    GL_RG32F,//E_RG32F,
-                                                    GL_RGB16F,//E_RGB16F,
-                                                    GL_RGB32F,//E_RGB32F,
-                                                    GL_RGBA16F,//E_RGBA16F,
-                                                    GL_RGBA32F,//E_RGBA32F,
-                                                    GL_R11F_G11F_B10F,//E_R11FG11FB10F,
-                                                    GL_RGB9_E5,//E_RGB9E5,
-                                                    GL_R8I,//E_R8I,
-                                                    GL_R8UI,//E_R8UI,
-                                                    GL_R16I,//E_R16I,
-                                                    GL_R16UI,//E_R16UI,
-                                                    GL_R32I,//E_R32I,
-                                                    GL_R32UI,//E_R32UI,
-                                                    GL_RG8I,//E_RG8I,
-                                                    GL_RG8UI,//E_RG8UI,
-                                                    GL_RG16I,//E_RG16I,
-                                                    GL_RG16UI,//E_RG16UI,
-                                                    GL_R32I,//E_RG32I,
-                                                    GL_R32UI,//E_RG32UI,
-                                                    GL_RGB8I,//E_RGB8I,
-                                                    GL_RGB8UI,//E_RGB8UI,
-                                                    GL_RGB16I,//E_RGB16I,
-                                                    GL_RGB16UI,//E_RGB16UI,
-                                                    GL_RGB32I,//E_RGB32I,
-                                                    GL_RGB32UI,//E_RGB32UI,
-                                                    GL_RGBA8I,//E_RGBA8I,
-                                                    GL_RGBA8UI,//E_RGBA8UI,
-                                                    GL_RGBA16I,//E_RGBA16I,
-                                                    GL_RGBA16UI,//E_RGBA16UI,
-                                                    GL_RGBA32I,//E_RGBA32I,
-                                                    GL_RGBA32UI,//E_RGBA32UI,
-                                                    GL_R8_SNORM,//E_R8I_Normalized,
-                                                    GL_R16_SNORM,//E_R16I_Normalized,
-                                                    GL_RG8_SNORM,//E_RG8I_Normalized,
-                                                    GL_RG16_SNORM,//E_RG16I_Normalized,
-                                                    GL_RGB8_SNORM,//E_RGB8I_Normalized,
-                                                    GL_RGB16_SNORM,//E_RGB16I_Normalized,
-                                                    GL_RGBA8_SNORM,//E_RGBA8I_Normalized,
-                                                    GL_RGBA16_SNORM,//E_RGBA16I_Normalized,
-                                                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                                    0, 0, 0, 0, 0, 0, 0,
-                                                    GL_DEPTH_COMPONENT16,//E_D16,
-                                                    GL_DEPTH_COMPONENT24,//E_D24,
-                                                    GL_DEPTH_COMPONENT32,//E_D32,
-                                                    GL_DEPTH_COMPONENT32F,//E_D32F,
-                                                    0, 0, 0, 0, 0, 0,
-                                                    GL_STENCIL_INDEX1,//E_S1,
-                                                    GL_STENCIL_INDEX4,//E_S4,
-                                                    GL_STENCIL_INDEX8,//E_S8,
-                                                    GL_STENCIL_INDEX16,//E_S16,
-                                                    0, 0, 0, 0, 0, 0,
-                                                    GL_DEPTH24_STENCIL8,//E_D24S8,
-                                                    GL_DEPTH32F_STENCIL8,//E_D32FS8
-                                                    0, 0, 0
-                                                };
-        return EQUIVALENT_VALUES[eType];
     }
 
     static GLenum _GetEquivalentRenderbufferAttachmentOpenGLValue(const QRenderbuffer::EQRenderbufferType eType)

@@ -6,7 +6,9 @@
 #include "QShader.h"
 #include "QShader.h"
 #include "QShaderCompositor.h"
+#include "QTexture1D.h"
 #include "QTexture2D.h"
+#include "QTexture3D.h"
 #include "QImage.h"
 #include "QAspect.h"
 #include "QStaticModel.h"
@@ -19,6 +21,15 @@
 #include "QAlphaBlender.h"
 #include "ErrorTracingDefinitions.h"
 #include "QShadingPipeline.h"
+#include "SQEnumerationToOpenGLConverter.h"
+
+// [TODO]: Unbind objects when they are deleted
+// [TODO]: Add the capability of creating memory blocks, so every time a resource is created, it is associated to the block Id in such a way that the user can destroy the entire block with one call
+
+// There will not be Mutable Textures, only immutable textures used via glTexStorage, at first sight there is no reason to allow changing a texture layout and there are some dangers, see:
+// http://stackoverflow.com/questions/17946881/what-techniques-require-mutable-texture-storage
+// Also DX does not seem to provide any similar feature
+
 
 // The resource manager should receive a set of factories, one per type of asset, depending on whether using DirectX or OpenGL
 class QResourceManager
@@ -29,7 +40,9 @@ public:
                                                              m_arMaterials(5, 2),
                                                              m_arAspects(5, 2),
                                                              m_arImages(5, 2),
-                                                             m_arTextures2D(5, 2), 
+                                                             m_arTextures1D(5, 2),
+                                                             m_arTextures2D(5, 2),
+                                                             m_arTextures3D(5, 2),
                                                              m_arStaticModels(5, 2),
                                                              m_arSamplers2D(5, 2),
                                                              m_arTextureBlenders(5, 2),
@@ -95,8 +108,7 @@ public:
         return QKeyValuePair<QHashedString, QImage*>(strDefinitiveId, pNewImage);
     }
 
-    // [TODO]: It could return a key-value pair with the ID and the pointer (the input ID may already exist so a numeration could be appended)
-    QKeyValuePair<QHashedString, QTexture2D*> CreateTexture2D(const QHashedString strId, const QHashedString &strImageId, const QImage::EQImageColorComponents eFormat, const QTexture2D::EQTextureMapping eTextureMapping)
+    QKeyValuePair<QHashedString, QTexture2D*> CreateTexture2D(const QHashedString strId, const QHashedString &strImageId, const QImage::EQImageColorComponents eImageFormat)
     {
         QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
         
@@ -105,23 +117,124 @@ public:
 
         if (pImage)
         {
-            GLint nInternalFormat = pImage->GetColorComponents() == QImage::E_RGB ? GL_RGB :
-                                                                                    pImage->GetColorComponents() == QImage::E_RGBA ? GL_RGBA :
-                                                                                                                                     0;
-            GLint nFormat = eFormat == QImage::E_RGB ? GL_RGB :
-                                                       eFormat == QImage::E_RGBA ? GL_RGBA :
-                                                                                   0;
+            GLint nFormat = eImageFormat == QImage::E_RGB ? GL_RGB8 :
+                                                            eImageFormat == QImage::E_RGBA ? GL_RGBA8 :
+                                                                                             0;
+            GLint nLayout = eImageFormat == QImage::E_RGB ? GL_RGB :
+                                                            eImageFormat == QImage::E_RGBA ? GL_RGBA :
+                                                                                             0;
+            EQPixelFormat::EnumType eFormat = QImage::E_RGB ? EQPixelFormat::E_RGB8UI_Normalized :
+                                                              eImageFormat == QImage::E_RGBA ? EQPixelFormat::E_RGBA8UI_Normalized :
+                                                                                               EQPixelFormat::E_Undefined;
+
+            static const GLint MIPMAP_LEVELS = 1;
             GLuint textureID = 0;
             glCreateTextures(GL_TEXTURE_2D, 1, &textureID);
-            glTextureImage2DEXT(textureID, GL_TEXTURE_2D, 0, nInternalFormat, pImage->GetWidth(), pImage->GetHeight(), 0, nFormat, GL_UNSIGNED_BYTE, pImage->GetData());
+            glTextureStorage2D(textureID, MIPMAP_LEVELS, nFormat, pImage->GetWidth(), pImage->GetHeight());
 
-            pTexture = new QTexture2D(textureID);
-            pTexture->SetMapping(eTextureMapping);
+            QE_ASSERT_OPENGL_ERROR("An error occurred when reserving memory for the texture.");
+
+            static const GLint MIPMAP_LEVEL = 0;
+            static const GLint OFFSET_X = 0;
+            static const GLint OFFSET_Y = 0;
+            static const GLenum PIXEL_DATA_TYPE = GL_UNSIGNED_BYTE;
+            glTextureSubImage2D(textureID, MIPMAP_LEVEL, OFFSET_X, OFFSET_Y, pImage->GetWidth(), pImage->GetHeight(), nLayout, PIXEL_DATA_TYPE, pImage->GetData());
+
+            QE_ASSERT_OPENGL_ERROR("An error occurred when copying image data to the texture.");
+
+            static const u8_q NUM_SAMPLES = 0;
+            pTexture = new QTexture2D(textureID, PIXEL_DATA_TYPE, nLayout, eFormat, pImage->GetWidth(), pImage->GetHeight(), MIPMAP_LEVELS, NUM_SAMPLES);
+            //pTexture->SetMapping(eTextureMapping); [TODO]: Depending on the mapping, the texture may be created as a cube map or a UV map
         }
 
         m_arTextures2D.Add(strDefinitiveId, pTexture);
 
         return QKeyValuePair<QHashedString, QTexture2D*>(strDefinitiveId, pTexture);
+    }
+
+    QKeyValuePair<QHashedString, QTexture2D*> CreateTexture2D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
+    {
+        QE_ASSERT_WARNING(uMipmapLevels == 1 || uMultisamplingSamples == 0, "Multisample textures cannot store multiple mipmaps, only 1 will be stored.");
+        QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
+
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
+
+        QTexture2D* pTexture = null_q;
+
+        GLenum formatType = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataType(eTextureFormat);
+        GLenum formatLayout = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatNonSized(eTextureFormat);
+        GLenum nFormat = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatSized(eTextureFormat);
+
+        GLuint textureID = 0;
+        glCreateTextures(GL_TEXTURE_2D, 1, &textureID);
+
+        if(uMultisamplingSamples > 0)
+            glTextureStorage2DMultisample(textureID, uMultisamplingSamples, nFormat, uWidth, uHeight, GL_FALSE);
+        else
+            glTextureStorage2D(textureID, uMipmapLevels, nFormat, uWidth, uHeight);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reserving memory for the texture.");
+
+        pTexture = new QTexture2D(textureID, formatType, formatLayout, eTextureFormat, uWidth, uHeight, uMipmapLevels, uMultisamplingSamples);
+
+        m_arTextures2D.Add(strDefinitiveId, pTexture);
+
+        return QKeyValuePair<QHashedString, QTexture2D*>(strDefinitiveId, pTexture);
+    }
+
+    QKeyValuePair<QHashedString, QTexture1D*> CreateTexture1D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u8_q uMipmapLevels)
+    {
+        QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
+
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
+
+        QTexture1D* pTexture = null_q;
+
+        GLenum formatType = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataType(eTextureFormat);
+        GLenum formatLayout = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatNonSized(eTextureFormat);
+        GLenum nFormat = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatSized(eTextureFormat);
+
+        GLuint textureID = 0;
+        glCreateTextures(GL_TEXTURE_1D, 1, &textureID);
+        glTextureStorage1D(textureID, uMipmapLevels, nFormat, uWidth);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reserving memory for the texture.");
+
+        pTexture = new QTexture1D(textureID, formatType, formatLayout, eTextureFormat, uWidth, uMipmapLevels);
+
+        m_arTextures1D.Add(strDefinitiveId, pTexture);
+
+        return QKeyValuePair<QHashedString, QTexture1D*>(strDefinitiveId, pTexture);
+    }
+
+    QKeyValuePair<QHashedString, QTexture3D*> CreateTexture3D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u32_q uDepth, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
+    {
+        QE_ASSERT_WARNING(uMipmapLevels == 1 || uMultisamplingSamples == 0, "Multisample textures cannot store multiple mipmaps, only 1 will be stored.");
+        QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
+
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
+
+        QTexture3D* pTexture = null_q;
+
+        GLenum formatType = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataType(eTextureFormat);
+        GLenum formatLayout = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatNonSized(eTextureFormat);
+        GLenum nFormat = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatSized(eTextureFormat);
+
+        GLuint textureID = 0;
+        glCreateTextures(GL_TEXTURE_3D, 1, &textureID);
+
+        if (uMultisamplingSamples > 0)
+            glTextureStorage3DMultisample(textureID, uMultisamplingSamples, nFormat, uWidth, uHeight, uDepth, GL_FALSE);
+        else
+            glTextureStorage3D(textureID, uMipmapLevels, nFormat, uWidth, uHeight, uDepth);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reserving memory for the texture.");
+
+        pTexture = new QTexture3D(textureID, formatType, formatLayout, eTextureFormat, uWidth, uHeight, uDepth, uMipmapLevels);
+
+        m_arTextures3D.Add(strDefinitiveId, pTexture);
+
+        return QKeyValuePair<QHashedString, QTexture3D*>(strDefinitiveId, pTexture);
     }
 
     QKeyValuePair<QHashedString, QAspect*> CreateAspect(const QHashedString strId)
@@ -288,6 +401,16 @@ public:
         return m_arTextures2D[strId];
     }
 
+    QTexture1D* GetTexture1D(const QHashedString &strId) const
+    {
+        return m_arTextures1D[strId];
+    }
+
+    QTexture3D* GetTexture3D(const QHashedString &strId) const
+    {
+        return m_arTextures3D[strId];
+    }
+
     QAspect* GetAspect(const QHashedString &strId) const
     {
         return m_arAspects[strId];
@@ -328,7 +451,9 @@ public:
         return m_arShadingPipelines[strId];
     }
 
-    // FindNameOf***(pointer to resource ***)
+    // [TODO]: FindNameOf***(pointer to resource ***)
+    // [TODO]: Destroy functions
+    // [TODO]: Clone functions
 
 protected:
 
@@ -443,7 +568,7 @@ protected:
             actualTextureBlenderIds.Add(modelAspects.TextureIds[i], strTextureBlenderId);
             actualSampler2DIds.Add(modelAspects.TextureIds[i], strSampler2DId);
             QKeyValuePair<QHashedString, QImage*> image = this->CreateImage(strTextureId, modelAspects.Textures[i].FilePath, QImage::E_RGB);
-            QKeyValuePair<QHashedString, QTexture2D*> texture = this->CreateTexture2D(strTextureId, image.GetKey(), QImage::E_RGB, modelAspects.Textures[i].Mapping);
+            QKeyValuePair<QHashedString, QTexture2D*> texture = this->CreateTexture2D(strTextureId, image.GetKey(), QImage::E_RGB);
             QKeyValuePair<QHashedString, QTextureBlender*> blender = this->CreateTextureBlender(strTextureBlenderId, modelAspects.Textures[i].BlendOperation, modelAspects.Textures[i].BlendFactor);
             QKeyValuePair<QHashedString, QSampler2D*> sampler = this->CreateSampler2D(strSampler2DId, modelAspects.Textures[i].WrapMode[0], modelAspects.Textures[i].WrapMode[1], modelAspects.Textures[i].WrapMode[2], QColor::GetVectorOfOnes(), QSampler2D::E_LinearMipmaps, QSampler2D::E_MagLinear);
         }
@@ -580,10 +705,13 @@ protected:
         return strDefinitiveId;
     }
 
+    // Instances must be stored using pool allocators
     QHashtable<QHashedString, QMaterial*, SQStringHashProvider> m_arMaterials;
     QHashtable<QHashedString, QAspect*, SQStringHashProvider> m_arAspects;
     QHashtable<QHashedString, QImage*, SQStringHashProvider> m_arImages;
+    QHashtable<QHashedString, QTexture1D*, SQStringHashProvider> m_arTextures1D;
     QHashtable<QHashedString, QTexture2D*, SQStringHashProvider> m_arTextures2D;
+    QHashtable<QHashedString, QTexture3D*, SQStringHashProvider> m_arTextures3D;
     QHashtable<QHashedString, QStaticModel*, SQStringHashProvider> m_arStaticModels;
     QHashtable<QHashedString, QSampler2D*, SQStringHashProvider> m_arSamplers2D;
     QHashtable<QHashedString, QTextureBlender*, SQStringHashProvider> m_arTextureBlenders;

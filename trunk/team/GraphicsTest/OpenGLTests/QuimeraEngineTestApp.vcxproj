@@ -116,17 +116,31 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
   <ItemGroup>
     <ClInclude Include="EQPixelFormat.h" />
     <ClInclude Include="EQPrimitiveType.h" />
+    <ClInclude Include="EQTextureFormat.h" />
     <ClInclude Include="ErrorTracingDefinitions.h" />
+    <ClInclude Include="QAbstractTexture1D.h" />
+    <ClInclude Include="QAbstractTexture1DArray.h" />
+    <ClInclude Include="QAbstractTexture2D.h" />
+    <ClInclude Include="QAbstractTexture2DArray.h" />
+    <ClInclude Include="QAbstractTexture3D.h" />
+    <ClInclude Include="QAbstractTextureCube.h" />
+    <ClInclude Include="QBaseTexture.h" />
+    <ClInclude Include="QBaseTextureArray.h" />
     <ClInclude Include="QBuffer.h" />
     <ClInclude Include="QAlphaBlender.h" />
     <ClInclude Include="QFramebuffer.h" />
     <ClInclude Include="QModelAspectsRawData.h" />
+    <ClInclude Include="QPixelFormatDescriptor.h" />
     <ClInclude Include="QPoint.h" />
     <ClInclude Include="QRenderbuffer.h" />
     <ClInclude Include="QScreenRectangle.h" />
     <ClInclude Include="QShader.h" />
     <ClInclude Include="QShadingPipeline.h" />
     <ClInclude Include="QStaticModelRawData.h" />
+    <ClInclude Include="QTexture1D.h" />
+    <ClInclude Include="QTexture1DArray.h" />
+    <ClInclude Include="QTexture2DArray.h" />
+    <ClInclude Include="QTexture3D.h" />
     <ClInclude Include="QTextureBlender.h" />
     <ClInclude Include="QImageLoader.h" />
     <ClInclude Include="QModelLoader.h" />
@@ -146,10 +160,14 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     <ClInclude Include="QShaderCompositor.h" />
     <ClInclude Include="QStaticModel.h" />
     <ClInclude Include="QTexture2D.h" />
+    <ClInclude Include="QAbstractTextureCubeArray.h" />
+    <ClInclude Include="QTextureCube.h" />
+    <ClInclude Include="QTextureCubeArray.h" />
     <ClInclude Include="QuimeraEngine.h" />
     <ClInclude Include="QuimeraEngineIncludesAndUsings.h" />
     <ClInclude Include="QViewport.h" />
     <ClInclude Include="QWindow.h" />
+    <ClInclude Include="SQEnumerationToOpenGLConverter.h" />
     <ClInclude Include="VertexDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +175,6 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QAspect.cpp" />
     <ClCompile Include="QDeviceContext.cpp" />
-    <ClCompile Include="QDeviceContext_PixelFormats.cpp" />
     <ClCompile Include="QFramebuffer.cpp" />
     <ClCompile Include="QGraphicsEngine.cpp" />
     <ClCompile Include="QImageLoader.cpp" />

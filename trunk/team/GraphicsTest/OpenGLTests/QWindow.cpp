@@ -15,7 +15,9 @@ QWindow::QWindow(const ProcessInstanceHandle handle, const QWindow::QWindowSetti
     m_settings.Left = settings.Left;
     m_settings.Width = settings.Width;
     m_settings.Height = settings.Height;
-    m_settings.PixelFormat = settings.PixelFormat;
+    m_settings.ColorBufferFormat = settings.ColorBufferFormat;
+    m_settings.DepthBufferFormat = settings.DepthBufferFormat;
+    m_settings.StencilBufferFormat = settings.StencilBufferFormat;
     m_settings.Samples = settings.Samples;
 }
 
