@@ -2,105 +2,112 @@
 #include "QFramebuffer.h"
 
 #include "QuimeraEngine.h"
+#include "QTexture1D.h"
+#include "QTexture2D.h"
+#include "QTexture3D.h"
 
-
-QHashedString QFramebuffer::GetColorBufferId(const u32_q uIndex) const
+QFramebuffer::QRenderTarget QFramebuffer::GetColorBufferId(const u32_q uIndex) const
 {
     return m_arColorBuffers[uIndex];
 }
 
-void QFramebuffer::AddColorBuffer(const QHashedString &strId)
+void QFramebuffer::SetColorBuffer(const u32_q uColorBufferIndex, const QHashedString &strId, const QFramebuffer::EQRenderTargetType eType, const u32_q uMipmapLevel, const u32_q uLayer)
 {
-    QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strId);
+    QE_ASSERT_ERROR(uColorBufferIndex < GL_MAX_COLOR_ATTACHMENTS, "The input index is out of bounds.");
+    QE_ASSERT_ERROR(eType != QFramebuffer::E_Texture2DMultisample || uMipmapLevel == 0, "The mipmap level cannot be greater than zero when using a multisample texture.");
 
-    GLenum attachment = pRenderbuffer->GetExternalAttachment() + m_arColorBuffers.GetCount();
+    QFramebuffer::_SetBuffer(m_framebufferId, strId, GL_COLOR_ATTACHMENT0 + uColorBufferIndex, eType, uMipmapLevel, uLayer);
 
-    QE_ASSERT_ERROR(attachment == GL_COLOR_ATTACHMENT0, "The renderbuffer is not a color buffer.");
-    QE_ASSERT_ERROR(m_arColorBuffers.GetCount() < GL_MAX_COLOR_ATTACHMENTS, "It is not possible to attach more color buffers, maximum allowed reached.");
-    
-    glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
-
-    QE_ASSERT_OPENGL_ERROR("An error occurred when adding a color buffer (glNamedFramebufferRenderbuffer).");
-
-    m_arColorBuffers.Add(strId);
+    m_arColorBuffers[uColorBufferIndex].Id = strId;
+    m_arColorBuffers[uColorBufferIndex].Type = eType;
+    m_arColorBufferStates[uColorBufferIndex] = true;
 }
 
-void QFramebuffer::RemoveColorBuffer(const QHashedString &strId)
+void QFramebuffer::RemoveColorBuffer(const u32_q uColorBufferIndex)
 {
-    m_arColorBuffers.Remove(m_arColorBuffers.IndexOf(strId));
+    QE_ASSERT_WARNING(m_arColorBufferStates[uColorBufferIndex], "No color buffer is attached to the slot of the framebuffer.");
+    QE_ASSERT_ERROR(uColorBufferIndex < GL_MAX_COLOR_ATTACHMENTS, "The input index is out of bounds.");
+
+    QFramebuffer::_RemoveBuffer(m_framebufferId, GL_COLOR_ATTACHMENT0 + uColorBufferIndex, m_arColorBuffers[uColorBufferIndex].Type);
+
+    m_arColorBufferStates[uColorBufferIndex] = false;
 }
 
-void QFramebuffer::SetRenderbufferOperation(const QHashedString &strRenderbufferId)
+void QFramebuffer::SetDepthBuffer(const QHashedString &strId, const QFramebuffer::EQRenderTargetType eType, const u32_q uMipmapLevel, const u32_q uLayer)
 {
-    QE_ASSERT_ERROR(m_arColorBuffers.Contains(strRenderbufferId) || m_strDepthBuffer == strRenderbufferId || m_strStencilBuffer == strRenderbufferId, "The specified renderbuffer does not belong to the framebuffer.");
+    QE_ASSERT_ERROR(eType != QFramebuffer::E_Texture2DMultisample || uMipmapLevel == 0, "The mipmap level cannot be greater than zero when using a multisample texture.");
 
-    QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strRenderbufferId);
+    QFramebuffer::_SetBuffer(m_framebufferId, strId, GL_DEPTH_ATTACHMENT, eType, uMipmapLevel, uLayer);
 
-    glNamedFramebufferRenderbuffer(m_framebufferId, pRenderbuffer->GetExternalAttachment(), GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
-
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the operation of a renderbuffer (glNamedFramebufferRenderbuffer).");
+    m_depthBuffer.Id = strId;
+    m_depthBuffer.Type = eType;
+    m_bDepthBufferState = true;
 }
 
-void QFramebuffer::SetDepthBuffer(const QHashedString &strId)
+void QFramebuffer::RemoveDepthBuffer()
 {
-    QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strId);
+    QE_ASSERT_WARNING(m_bDepthBufferState, "No depth buffer is attached to the framebuffer.");
 
-    GLenum attachment = pRenderbuffer->GetExternalAttachment();
+    QFramebuffer::_RemoveBuffer(m_framebufferId, GL_DEPTH_ATTACHMENT, m_depthBuffer.Type);
 
-    QE_ASSERT_ERROR(attachment == GL_DEPTH_ATTACHMENT, "The renderbuffer is not a depth buffer.");
-
-    glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
-
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the depth buffer (glNamedFramebufferRenderbuffer).");
-
-    m_strDepthBuffer = strId;
+    m_bDepthBufferState = false;
 }
 
-QHashedString QFramebuffer::GetDepthBuffer() const
+QFramebuffer::QRenderTarget QFramebuffer::GetDepthBuffer() const
 {
-
-    return m_strDepthBuffer;
+    return m_depthBuffer;
 }
 
-void QFramebuffer::SetStencilBuffer(const QHashedString &strId)
+void QFramebuffer::SetStencilBuffer(const QHashedString &strId, const QFramebuffer::EQRenderTargetType eType, const u32_q uMipmapLevel, const u32_q uLayer)
 {
-    QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strId);
+    QE_ASSERT_ERROR(eType != QFramebuffer::E_Texture2DMultisample || uMipmapLevel == 0, "The mipmap level cannot be greater than zero when using a multisample texture.");
 
-    GLenum attachment = pRenderbuffer->GetExternalAttachment();
+    QFramebuffer::_SetBuffer(m_framebufferId, strId, GL_STENCIL_ATTACHMENT, eType, uMipmapLevel, uLayer);
 
-    QE_ASSERT_ERROR(attachment == GL_STENCIL_ATTACHMENT, "The renderbuffer is not a stencil buffer.");
-
-    glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
-
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the stencil buffer (glFramebufferRenderbuffer).");
-
-    m_strStencilBuffer = strId;
+    m_stencilBuffer.Id = strId;
+    m_stencilBuffer.Type = eType;
+    m_bStencilBufferState = true;
 }
 
-QHashedString QFramebuffer::GetStencilBuffer() const
+void QFramebuffer::RemoveStencilBuffer()
 {
-    return m_strStencilBuffer;
+    QE_ASSERT_WARNING(m_bStencilBufferState, "No stencil buffer is attached to the framebuffer.");
+
+    QFramebuffer::_RemoveBuffer(m_framebufferId, GL_STENCIL_ATTACHMENT, m_stencilBuffer.Type);
+
+    m_bStencilBufferState = false;
 }
 
-void QFramebuffer::SetDepthStencilBuffer(const QHashedString &strId)
+QFramebuffer::QRenderTarget QFramebuffer::GetStencilBuffer() const
 {
-    QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strId);
-
-    GLenum attachment = pRenderbuffer->GetExternalAttachment();
-
-    QE_ASSERT_ERROR(attachment == GL_DEPTH_STENCIL_ATTACHMENT, "The renderbuffer is not a depth-stencil buffer.");
-
-    glNamedFramebufferRenderbuffer(m_framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
-
-    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the depth-stencil buffer (glFramebufferRenderbuffer).");
-
-    m_strDepthStencilBuffer = strId;
+    return m_stencilBuffer;
 }
 
-QHashedString QFramebuffer::GetDepthStencilBuffer() const
+void QFramebuffer::SetDepthStencilBuffer(const QHashedString &strId, const QFramebuffer::EQRenderTargetType eType, const u32_q uMipmapLevel, const u32_q uLayer)
 {
-    return m_strDepthStencilBuffer;
+    QE_ASSERT_ERROR(eType != QFramebuffer::E_Texture2DMultisample || uMipmapLevel == 0, "The mipmap level cannot be greater than zero when using a multisample texture.");
+
+    QFramebuffer::_SetBuffer(m_framebufferId, strId, GL_DEPTH_STENCIL_ATTACHMENT, eType, uMipmapLevel, uLayer);
+
+    m_depthStencilBuffer.Id = strId;
+    m_depthStencilBuffer.Type = eType;
+    m_bDepthStencilBufferState = true;
 }
+
+void QFramebuffer::RemoveDepthStencilBuffer()
+{
+    QE_ASSERT_WARNING(m_bDepthStencilBufferState, "No depth-stencil buffer is attached to the framebuffer.");
+
+    QFramebuffer::_RemoveBuffer(m_framebufferId, GL_DEPTH_STENCIL_ATTACHMENT, m_depthStencilBuffer.Type);
+
+    m_bDepthStencilBufferState = false;
+}
+
+QFramebuffer::QRenderTarget QFramebuffer::GetDepthStencilBuffer() const
+{
+    return m_depthStencilBuffer;
+}
+
 
 GLuint QFramebuffer::GetExternalId() const
 {
@@ -114,4 +121,66 @@ GLenum QFramebuffer::_GetEquivalentRenderbufferTargetOpenGLValue(const QFramebuf
                                                 GL_DRAW_FRAMEBUFFER
                                             };
     return EQUIVALENT_VALUES[eTarget];
+}
+
+void QFramebuffer::_SetBuffer(const GLuint framebufferId, const QHashedString &strRenderTargetId, const GLenum attachment, const QFramebuffer::EQRenderTargetType eRenderTargetType, const u32_q uMipmapLevel, const u32_q uLayer)
+{
+    if (eRenderTargetType == QFramebuffer::E_Renderbuffer)
+    {
+        QRenderbuffer* pRenderbuffer = QE->Graphics->GetRenderbuffer(strRenderTargetId);
+        glNamedFramebufferRenderbuffer(framebufferId, attachment, GL_RENDERBUFFER, pRenderbuffer->GetExternalId());
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture1D)
+    {
+        QTexture1D* pTexture = QE->Resources->GetTexture1D(strRenderTargetId);
+        glNamedFramebufferTexture1DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), pTexture->GetExternalId(), uMipmapLevel);
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture2D                ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveX ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeX ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveY ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeY ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveZ ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeZ ||
+             eRenderTargetType == QFramebuffer::E_Texture2DMultisample)
+    {
+        QTexture2D* pTexture = QE->Resources->GetTexture2D(strRenderTargetId);
+        glNamedFramebufferTexture2DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), pTexture->GetExternalId(), uMipmapLevel);
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture3D)
+    {
+        QTexture3D* pTexture = QE->Resources->GetTexture3D(strRenderTargetId);
+        glNamedFramebufferTexture3DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), pTexture->GetExternalId(), uMipmapLevel, uLayer);
+    }
+
+    QE_ASSERT_OPENGL_ERROR("An error occurred when setting the attachment.");
+}
+
+void QFramebuffer::_RemoveBuffer(GLuint framebufferId, const GLenum attachment, const EQRenderTargetType eRenderTargetType)
+{
+    if (eRenderTargetType == QFramebuffer::E_Renderbuffer)
+    {
+        glNamedFramebufferRenderbuffer(framebufferId, attachment, GL_RENDERBUFFER, 0);
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture1D)
+    {
+        glNamedFramebufferTexture1DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), 0, 0);
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture2D                ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveX ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeX ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveY ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeY ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFacePositiveZ ||
+             eRenderTargetType == QFramebuffer::E_TextureCubeFaceNegativeZ ||
+             eRenderTargetType == QFramebuffer::E_Texture2DMultisample)
+    {
+        glNamedFramebufferTexture2DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), 0, 0);
+    }
+    else if (eRenderTargetType == QFramebuffer::E_Texture3D)
+    {
+        glNamedFramebufferTexture3DEXT(framebufferId, attachment, QFramebuffer::_ConvertRenderTargetTypeToTextureTarget(eRenderTargetType), 0, 0, 0);
+    }
+
+    QE_ASSERT_OPENGL_ERROR("An error occurred when removing the attachment.");
 }

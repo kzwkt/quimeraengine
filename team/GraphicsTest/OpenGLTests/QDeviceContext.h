@@ -32,8 +32,7 @@ protected:
 
 #ifdef QE_OS_WINDOWS
 
-    static void _GeneratePixelFormatDescriptorFromEnum(const EQPixelFormat::EnumType ePixelFormat, PIXELFORMATDESCRIPTOR& descriptor);
-    static void _GeneratePixelFormatAttributeListFromEnum(const EQPixelFormat::EnumType ePixelFormat, const u32_q uSamples, int arAttributes[38]);
+    static void _GeneratePixelFormatAttributeListFromEnum(const EQPixelFormat::EnumType eColorBuffersFormat, const EQPixelFormat::EnumType eDepthBufferFormat, const EQPixelFormat::EnumType eStencilBufferFormat, const u32_q uSamples, int arAttributes[38]);
 
 #endif
 
@@ -42,21 +41,24 @@ public:
     NativeDeviceContext GetNativeDeviceContext() const;
     void SetNativeDeviceContext(const NativeDeviceContext deviceContext);
 
-    void SetPixelFormat(const EQPixelFormat::EnumType eFormat);
-    EQPixelFormat::EnumType GetPixelFormat() const;
+    EQPixelFormat::EnumType GetColorBufferFormat() const;
+    EQPixelFormat::EnumType GetDepthBufferFormat() const;
+    EQPixelFormat::EnumType GetStencilBufferFormat() const;
 
     void SetMultisamplingSamples(const u32_q uSampleCount);
     u32_q GetMultisamplingSamples() const;
 
     void GetNativePixelFormatInfo(void* pPixelFormat) const;
 
-    void SetPixelFormat(const EQPixelFormat::EnumType ePixelFormat, const u32_q uMultisamplingSamples)
+    void SetPixelFormat(const EQPixelFormat::EnumType eColorBufferFormat, const EQPixelFormat::EnumType eDepthBufferFormat, const EQPixelFormat::EnumType eStencilBufferFormat, const u32_q uMultisamplingSamples)
     {
-        QE_ASSERT_ERROR(m_ePixelFormat == EQPixelFormat::E_Undefined, "The pixel format of a device context can only be set once.");
+        QE_ASSERT_ERROR(m_eColorBufferFormat == EQPixelFormat::E_Undefined, "The pixel format of a device context can only be set once.");
+        QE_ASSERT_ERROR(m_eDepthBufferFormat == EQPixelFormat::E_Undefined, "The pixel format of a device context can only be set once.");
+        QE_ASSERT_ERROR(m_eStencilBufferFormat == EQPixelFormat::E_Undefined, "The pixel format of a device context can only be set once.");
 
         int arAttributes[38];
 
-        QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(ePixelFormat, uMultisamplingSamples, arAttributes);
+        QDeviceContext::_GeneratePixelFormatAttributeListFromEnum(eColorBufferFormat, eDepthBufferFormat, eStencilBufferFormat, uMultisamplingSamples, arAttributes);
 
         const unsigned int MAX_DESIRED_FORMATS = 5;
         unsigned int nActualMatchingFormats = 0;
@@ -74,7 +76,9 @@ public:
             QE_ASSERT_WINDOWS_ERROR("Failed to set the pixel format when creating the rendering context (SetPixelFormat).");
         }
 
-        m_ePixelFormat = ePixelFormat;
+        m_eColorBufferFormat = eColorBufferFormat;
+        m_eDepthBufferFormat = eDepthBufferFormat;
+        m_eStencilBufferFormat = eStencilBufferFormat;
         m_uMultisamplingSamples = uMultisamplingSamples;
     }
 
@@ -82,7 +86,9 @@ private:
 
     QArrayDynamic<HGLRC> m_arRenderingContexts;
     NativeDeviceContext m_deviceContext;
-    EQPixelFormat::EnumType m_ePixelFormat;
+    EQPixelFormat::EnumType m_eColorBufferFormat;
+    EQPixelFormat::EnumType m_eDepthBufferFormat;
+    EQPixelFormat::EnumType m_eStencilBufferFormat;
     u32_q m_uMultisamplingSamples;
 
 };

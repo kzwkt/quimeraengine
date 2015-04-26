@@ -1,16 +1,15 @@
 
-#ifndef __QRENDERBUFFER__
-#define __QRENDERBUFFER__
+#ifndef __EQTEXTUREFORMAT__
+#define __EQTEXTUREFORMAT__
 
-#include "QuimeraEngineIncludesAndUsings.h"
 #include "EQPixelFormat.h"
-#include <GL/glew.h>
 
-class QRenderbuffer
+// There will be an original set, pixel format, and several subsets for every use: color buffer, depth buffer, textures, etc. so it's easier to maintain and more usable for users
+class EQTextureFormat
 {
 public:
 
-    enum EQRenderbufferPixelFormat
+    enum EnumType
     {
         E_R8UI_Normalized = EQPixelFormat::E_R8UI_Normalized,
         E_R16UI_Normalized = EQPixelFormat::E_R16UI_Normalized,
@@ -23,6 +22,7 @@ public:
         E_RGB10UI_Normalized = EQPixelFormat::E_RGB10UI_Normalized,
         E_RGB12UI_Normalized = EQPixelFormat::E_RGB12UI_Normalized,
         E_RGB16UI_Normalized = EQPixelFormat::E_RGB16UI_Normalized,
+        E_RGB565UI_Normalized = EQPixelFormat::E_RGB565UI_Normalized,
         E_RGBA2UI_Normalized = EQPixelFormat::E_RGBA2UI_Normalized,
         E_RGBA4UI_Normalized = EQPixelFormat::E_RGBA4UI_Normalized,
         E_RGB5A1UI_Normalized = EQPixelFormat::E_RGB5A1UI_Normalized,
@@ -66,6 +66,7 @@ public:
         E_RGBA16UI = EQPixelFormat::E_RGBA16UI,
         E_RGBA32I = EQPixelFormat::E_RGBA32I,
         E_RGBA32UI = EQPixelFormat::E_RGBA32UI,
+        E_RGB10A2UI = EQPixelFormat::E_RGB10A2UI,
         E_R8I_Normalized = EQPixelFormat::E_R8I_Normalized,
         E_R16I_Normalized = EQPixelFormat::E_R16I_Normalized,
         E_RG8I_Normalized = EQPixelFormat::E_RG8I_Normalized,
@@ -74,74 +75,7 @@ public:
         E_RGB16I_Normalized = EQPixelFormat::E_RGB16I_Normalized,
         E_RGBA8I_Normalized = EQPixelFormat::E_RGBA8I_Normalized,
         E_RGBA16I_Normalized = EQPixelFormat::E_RGBA16I_Normalized,
-        E_D16 = EQPixelFormat::E_D16,
-        E_D24 = EQPixelFormat::E_D24,
-        E_D32 = EQPixelFormat::E_D32,
-        E_D32F = EQPixelFormat::E_D32F,
-        E_S1 = EQPixelFormat::E_S1,
-        E_S4 = EQPixelFormat::E_S4,
-        E_S8 = EQPixelFormat::E_S8,
-        E_S16 = EQPixelFormat::E_S16,
-        E_D24S8 = EQPixelFormat::E_D24S8,
-        E_D32FS8 = EQPixelFormat::E_D32FS8
     };
-
-    enum EQRenderbufferType
-    {
-        E_Color,
-        E_Depth,
-        E_Stencil,
-        E_DepthAndStencil
-    };
-
-
-    QRenderbuffer(const GLuint renderbufferId, const GLenum formatType, const GLenum format, const EQPixelFormat::EnumType ePixelFormat, const u32_q uMultisamplingSamples, const u32_q uWidth, const u32_q uHeight) :
-                                                                                                                m_renderbufferId(renderbufferId),
-                                                                                                                m_pixelFormatLayout(format),
-                                                                                                                m_pixelFormatType(formatType),
-                                                                                                                m_ePixelFormat(ePixelFormat)
-    {
-    }
-
-    u32_q GetWidth() const
-    {
-        return m_uWidth;
-    }
-
-    u32_q GetHeight() const
-    {
-        return m_uHeight;
-    }
-
-    EQPixelFormat::EnumType GetPixelFormat() const
-    {
-        return m_ePixelFormat;
-    }
-
-    GLuint GetExternalId() const
-    {
-        return m_renderbufferId;
-    }
-
-    GLenum GetExternalFormatLayout() const
-    {
-        return m_pixelFormatLayout;
-    }
-
-    GLenum GetExternalFormatType() const
-    {
-        return m_pixelFormatType;
-    }
-
-protected:
-
-    GLuint m_renderbufferId;
-    GLenum m_pixelFormatLayout;
-    GLenum m_pixelFormatType;
-
-    u32_q m_uWidth;
-    u32_q m_uHeight;
-    EQPixelFormat::EnumType m_ePixelFormat;
 };
 
-#endif // __QRENDERBUFFER__
+#endif // __EQTEXTUREFORMAT__

@@ -28,7 +28,9 @@ public:
         u32_q Height;
         u32_q Top;
         u32_q Left;
-        EQPixelFormat::EnumType PixelFormat;
+        EQPixelFormat::EnumType ColorBufferFormat;
+        EQPixelFormat::EnumType DepthBufferFormat;
+        EQPixelFormat::EnumType StencilBufferFormat;
         u32_q Samples;
     };
 

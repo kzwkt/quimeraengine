@@ -34,9 +34,6 @@
     <ClInclude Include="ErrorTracingDefinitions.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="QShaderCompositor.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="QResourceManager.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -46,16 +43,7 @@
     <ClInclude Include="QuimeraEngineIncludesAndUsings.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="QTexture2D.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="QImage.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="QSampler2D.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="QAspect.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="QMaterial.h">
@@ -88,32 +76,17 @@
     <ClInclude Include="QImageLoader.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="QTextureBlender.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="QBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="QStaticModelRawData.h">
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="QModelAspectsRawData.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="QShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="QViewport.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="QAlphaBlender.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="EQPixelFormat.h">
       <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="QShadingPipeline.h">
-      <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="QuimeraEngine.h">
       <Filter>Common</Filter>
@@ -133,6 +106,87 @@
     <ClInclude Include="QPoint.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="QPixelFormatDescriptor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="EQTextureFormat.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SQEnumerationToOpenGLConverter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTexture1D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTexture1DArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTexture2D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTexture2DArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTexture3D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTextureCube.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAbstractTextureCubeArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture2D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture2DArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture3D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTextureBlender.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture1DArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTexture1D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QShadingPipeline.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QShaderCompositor.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QShader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QSampler2D.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QBuffer.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QBaseTextureArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QBaseTexture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAspect.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QAlphaBlender.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTextureCube.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="QTextureCubeArray.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -140,9 +194,6 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="QDeviceContext.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="QDeviceContext_PixelFormats.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="Boost_ThrowException.cpp">
@@ -163,14 +214,14 @@
     <ClCompile Include="QImageLoader.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="QShadingPipeline.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="QAspect.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="QFramebuffer.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="QShadingPipeline.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="QAspect.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

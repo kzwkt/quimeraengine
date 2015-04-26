@@ -36,7 +36,9 @@ QGraphicsEngine* QuimeraEngine::_CreateGraphicsEngine(QDeviceContext* pDeviceCon
     windowSettings.Height = 600;
     windowSettings.Top = 0;
     windowSettings.Left = 0;
-    windowSettings.PixelFormat = EQPixelFormat::E_R8G8B8A8D24S8;
+    windowSettings.ColorBufferFormat = EQPixelFormat::E_RGBA8UI_Normalized;
+    windowSettings.DepthBufferFormat = EQPixelFormat::E_D24S8;
+    windowSettings.StencilBufferFormat = EQPixelFormat::E_D24S8;
     windowSettings.Samples = 4;
 
     QWindow* pFakeWindow = new QWindow(::GetModuleHandle(NULL), windowSettings);
@@ -45,7 +47,7 @@ QGraphicsEngine* QuimeraEngine::_CreateGraphicsEngine(QDeviceContext* pDeviceCon
 
     pGraphicsEngine->RegisterDeviceContext("MainWindowDC", pDeviceContext);
 
-    pDeviceContext->SetPixelFormat(windowSettings.PixelFormat, windowSettings.Samples);
+    pDeviceContext->SetPixelFormat(windowSettings.ColorBufferFormat, windowSettings.DepthBufferFormat, windowSettings.StencilBufferFormat, windowSettings.Samples);
 
     pGraphicsEngine->CreateRenderingContext("MainWindowRC", "MainWindowDC", true);
 

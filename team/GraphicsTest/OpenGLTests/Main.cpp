@@ -23,6 +23,7 @@
 // [TODO]: Buffer objects in shaders (i/o data)
 // [TODO]: Subroutines, seem to be slower
 // [TODO]: Path rendering
+// [TODO]: Pixel Buffer Objects and Pixel Transfers
 
 
 QKeyboard* QE_KEYBOARD = null_q;
@@ -196,7 +197,9 @@ QWindow* SetupWindowAndEngine(HINSTANCE hInstance)
     windowSettings.Height = 768;
     windowSettings.Top = 0;
     windowSettings.Left = 0;
-    windowSettings.PixelFormat = EQPixelFormat::E_R8G8B8A8D24S8;
+    windowSettings.ColorBufferFormat = EQPixelFormat::E_RGBA8UI_Normalized;
+    windowSettings.DepthBufferFormat = EQPixelFormat::E_D24S8;
+    windowSettings.StencilBufferFormat = EQPixelFormat::E_D24S8;
     windowSettings.Samples = 4;
 
     QWindow* pActualWindow = new QWindow(hInstance, windowSettings);
