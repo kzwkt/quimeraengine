@@ -4,11 +4,15 @@
 
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "QShader.h"
-#include "QShader.h"
 #include "QShaderCompositor.h"
 #include "QTexture1D.h"
 #include "QTexture2D.h"
 #include "QTexture3D.h"
+#include "QTextureBuffer.h"
+#include "QTexture1DArray.h"
+#include "QTexture2DArray.h"
+#include "QTextureCube.h"
+#include "QTextureCubeArray.h"
 #include "QImage.h"
 #include "QAspect.h"
 #include "QStaticModel.h"
@@ -43,6 +47,7 @@ public:
                                                              m_arTextures1D(5, 2),
                                                              m_arTextures2D(5, 2),
                                                              m_arTextures3D(5, 2),
+                                                             m_arTexturesBuffer(5, 2),
                                                              m_arStaticModels(5, 2),
                                                              m_arSamplers2D(5, 2),
                                                              m_arTextureBlenders(5, 2),
@@ -123,9 +128,9 @@ public:
             GLint nLayout = eImageFormat == QImage::E_RGB ? GL_RGB :
                                                             eImageFormat == QImage::E_RGBA ? GL_RGBA :
                                                                                              0;
-            EQPixelFormat::EnumType eFormat = QImage::E_RGB ? EQPixelFormat::E_RGB8UI_Normalized :
-                                                              eImageFormat == QImage::E_RGBA ? EQPixelFormat::E_RGBA8UI_Normalized :
-                                                                                               EQPixelFormat::E_Undefined;
+            EQTextureFormat::EnumType eFormat = QImage::E_RGB ? EQTextureFormat::E_RGB8UI_Normalized :
+                                                                eImageFormat == QImage::E_RGBA ? EQTextureFormat::E_RGBA8UI_Normalized :
+                                                                                                 EQTextureFormat::E_Undefined;
 
             static const GLint MIPMAP_LEVELS = 1;
             GLuint textureID = 0;
@@ -152,7 +157,7 @@ public:
         return QKeyValuePair<QHashedString, QTexture2D*>(strDefinitiveId, pTexture);
     }
 
-    QKeyValuePair<QHashedString, QTexture2D*> CreateTexture2D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
+    QKeyValuePair<QHashedString, QTexture2D*> CreateTexture2D(const QHashedString strId, const EQTextureFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
     {
         QE_ASSERT_WARNING(uMipmapLevels == 1 || uMultisamplingSamples == 0, "Multisample textures cannot store multiple mipmaps, only 1 will be stored.");
         QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
@@ -182,11 +187,11 @@ public:
         return QKeyValuePair<QHashedString, QTexture2D*>(strDefinitiveId, pTexture);
     }
 
-    QKeyValuePair<QHashedString, QTexture1D*> CreateTexture1D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u8_q uMipmapLevels)
+    QKeyValuePair<QHashedString, QTexture1D*> CreateTexture1D(const QHashedString strId, const EQTextureFormat::EnumType eTextureFormat, const u32_q uWidth, const u8_q uMipmapLevels)
     {
         QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
 
-        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures1D);
 
         QTexture1D* pTexture = null_q;
 
@@ -207,12 +212,12 @@ public:
         return QKeyValuePair<QHashedString, QTexture1D*>(strDefinitiveId, pTexture);
     }
 
-    QKeyValuePair<QHashedString, QTexture3D*> CreateTexture3D(const QHashedString strId, const EQPixelFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u32_q uDepth, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
+    QKeyValuePair<QHashedString, QTexture3D*> CreateTexture3D(const QHashedString strId, const EQTextureFormat::EnumType eTextureFormat, const u32_q uWidth, const u32_q uHeight, const u32_q uDepth, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples)
     {
         QE_ASSERT_WARNING(uMipmapLevels == 1 || uMultisamplingSamples == 0, "Multisample textures cannot store multiple mipmaps, only 1 will be stored.");
         QE_ASSERT_ERROR(uMipmapLevels > 0, "It is mandatory to store, at least, 1 mipmap level.");
 
-        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures2D);
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTextures3D);
 
         QTexture3D* pTexture = null_q;
 
@@ -235,6 +240,32 @@ public:
         m_arTextures3D.Add(strDefinitiveId, pTexture);
 
         return QKeyValuePair<QHashedString, QTexture3D*>(strDefinitiveId, pTexture);
+    }
+
+    QKeyValuePair<QHashedString, QTextureBuffer*> CreateTextureBuffer(const QHashedString strId, const QHashedString strBufferId, const EQTextureFormat::EnumType eTextureFormat)
+    {
+        QE_ASSERT_ERROR(m_arBuffers.ContainsKey(strId), string_q("The buffer specified ('") + strId + "') does not exist.");
+        
+        QBuffer* pBuffer = m_arBuffers[strId];
+        
+        QHashedString strDefinitiveId = QResourceManager::_GenerateId(strId, m_arTexturesBuffer);
+        GLenum nFormat = SQEnumerationToOpenGLConverter::ConvertPixelFormatToPixelDataFormatSized(eTextureFormat);
+
+        GLuint textureID = 0;
+
+        QTextureBuffer* pTexture = null_q;
+        glCreateTextures(GL_TEXTURE_BUFFER, 1, &textureID);
+        glTextureBuffer(textureID, nFormat, pBuffer->GetOpenGLId());
+
+        QPixelFormatDescriptor pixelDescriptor(scast_q(eTextureFormat, EQPixelFormat::EnumType));
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reserving memory for the texture.");
+
+        pTexture = new QTextureBuffer(textureID, nFormat, strBufferId, pBuffer->GetSize() / pixelDescriptor.GetSize(), eTextureFormat);
+
+        m_arTexturesBuffer.Add(strDefinitiveId, pTexture);
+
+        return QKeyValuePair<QHashedString, QTextureBuffer*>(strDefinitiveId, pTexture);
     }
 
     QKeyValuePair<QHashedString, QAspect*> CreateAspect(const QHashedString strId)
@@ -294,13 +325,6 @@ public:
 
         GLuint samplerID = 0;
         glCreateSamplers(1, &samplerID);
-        
-        glSamplerParameteri(samplerID, GL_TEXTURE_MAG_FILTER, QResourceManager::_GetEquivalentMagnificationFilterOpenGLValue(eMagFilter));
-        glSamplerParameteri(samplerID, GL_TEXTURE_MIN_FILTER, QResourceManager::_GetEquivalentMinificationFilterOpenGLValue(eMinFilter));
-        glSamplerParameteri(samplerID, GL_TEXTURE_WRAP_S, QResourceManager::_GetEquivalentWrapModeOpenGLValue(eWrapModeU));
-        glSamplerParameteri(samplerID, GL_TEXTURE_WRAP_T, QResourceManager::_GetEquivalentWrapModeOpenGLValue(eWrapModeV));
-        glSamplerParameteri(samplerID, GL_TEXTURE_WRAP_R, QResourceManager::_GetEquivalentWrapModeOpenGLValue(eWrapModeW));
-        glSamplerParameterfv(samplerID, GL_TEXTURE_BORDER_COLOR, &borderColor.x);
 
         QSampler2D* pSampler = new QSampler2D(samplerID);
         pSampler->SetMagnificationFilter(eMagFilter);
@@ -409,6 +433,11 @@ public:
     QTexture3D* GetTexture3D(const QHashedString &strId) const
     {
         return m_arTextures3D[strId];
+    }
+
+    QTextureBuffer* GetTextureBuffer(const QHashedString &strId) const
+    {
+        return m_arTexturesBuffer[strId];
     }
 
     QAspect* GetAspect(const QHashedString &strId) const
@@ -631,67 +660,6 @@ protected:
         }
     }
 
-    static GLint _GetEquivalentWrapModeOpenGLValue(const QSampler2D::EQTextureWrapMode eWrapMode)
-    {
-        GLint nWrapMode = 0;
-
-        switch (eWrapMode)
-        {
-        case QSampler2D::E_Border:
-            nWrapMode = GL_CLAMP_TO_BORDER;
-            break;
-        case QSampler2D::E_Clamp:
-            nWrapMode = GL_CLAMP_TO_EDGE;
-            break;
-        case QSampler2D::E_Repeat:
-            nWrapMode = GL_REPEAT;
-            break;
-        case QSampler2D::E_RepeatMirror:
-            nWrapMode = GL_MIRRORED_REPEAT;
-            break;
-        }
-
-        return nWrapMode;
-    }
-
-
-    static GLint _GetEquivalentMagnificationFilterOpenGLValue(const QSampler2D::EQMagnificationFilter eFilter)
-    {
-        GLint nFilter = 0;
-
-        switch (eFilter)
-        {
-        case QSampler2D::E_MagNearest:
-            nFilter = GL_NEAREST;
-            break;
-        case QSampler2D::E_MagLinear:
-            nFilter = GL_LINEAR;
-            break;
-        }
-
-        return nFilter;
-    }
-
-    static GLint _GetEquivalentMinificationFilterOpenGLValue(const QSampler2D::EQMinificationFilter eFilter)
-    {
-        GLint nFilter = 0;
-
-        switch (eFilter)
-        {
-        case QSampler2D::E_MinNearest:
-            nFilter = GL_NEAREST;
-            break;
-        case QSampler2D::E_MinLinear:
-            nFilter = GL_LINEAR;
-            break;
-        case QSampler2D::E_LinearMipmaps:
-            nFilter = GL_LINEAR_MIPMAP_LINEAR;
-            break;
-        }
-
-        return nFilter;
-    }
-
     template<class ResourceT>
     static QHashedString _GenerateId(const QHashedString &strProposedId, const QHashtable<QHashedString, ResourceT*, SQStringHashProvider> &container)
     {
@@ -712,6 +680,7 @@ protected:
     QHashtable<QHashedString, QTexture1D*, SQStringHashProvider> m_arTextures1D;
     QHashtable<QHashedString, QTexture2D*, SQStringHashProvider> m_arTextures2D;
     QHashtable<QHashedString, QTexture3D*, SQStringHashProvider> m_arTextures3D;
+    QHashtable<QHashedString, QTextureBuffer*, SQStringHashProvider> m_arTexturesBuffer;
     QHashtable<QHashedString, QStaticModel*, SQStringHashProvider> m_arStaticModels;
     QHashtable<QHashedString, QSampler2D*, SQStringHashProvider> m_arSamplers2D;
     QHashtable<QHashedString, QTextureBlender*, SQStringHashProvider> m_arTextureBlenders;

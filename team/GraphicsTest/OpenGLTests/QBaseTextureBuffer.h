@@ -1,11 +1,10 @@
-
-#ifndef __QBASETEXTURE__
-#define __QBASETEXTURE__
+#ifndef __QBASETEXTUREBUFFER__
+#define __QBASETEXTUREBUFFER__
 
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "EQTextureFormat.h"
 
-class QBaseTexture
+class QBaseTextureBuffer
 {
 public:
 
@@ -14,24 +13,21 @@ public:
         return m_eFormat;
     }
 
-    u8_q GetMipmapLevels() const
-    {
-        return m_uMipmapLevels;
-    }
-
     u32_q GetWidth() const
     {
         return m_uWidth;
     }
 
+    QHashedString GetBufferId() const
+    {
+        return m_strBufferId;
+    }
 
 protected:
 
+    QHashedString m_strBufferId;
     u32_q m_uWidth;
     EQTextureFormat::EnumType m_eFormat;
-    // EQTextureDataArrangement m_eDataArrangement;
-    u8_q m_uMipmapLevels;
 };
 
-
-#endif // __QBASETEXTURE__
+#endif // __QBASETEXTUREBUFFER__
