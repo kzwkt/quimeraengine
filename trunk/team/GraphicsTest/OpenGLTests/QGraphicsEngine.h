@@ -24,6 +24,12 @@ class QGraphicsEngine
 {
 public:
 
+    enum EQPointSpriteOrigin
+    {
+        E_UpperLeft,
+        E_LowerLeft
+    };
+
     enum EQFramebufferOperation
     {
         E_Read,
@@ -340,6 +346,7 @@ public:
 
     // [TODO]: Draw rectangle (2 triangles occupying a rect of the screen)
     // [TODO]: Copy texture to color buffer
+    // Store a default FBO to which attach textures?
     
     void CopyPixelsBetweenFramebuffers(const QHashedString &strSourceFramebufferId,
                                        const QHashedString &strDestinationFramebufferId,
@@ -379,7 +386,38 @@ public:
         QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitNamedFramebuffer).");
     }
 
-    // Using Enable and Disable functions instead of 1 function with boolean parameters just because it is more readable in client's code
+    // [TODO]: Change GL_DEPTH_STENCIL_TEXTURE_MODE to STENCIL_INDEX to access stencil data in a DEPTH_STENCIL-format texture
+    
+    void EnableCubeMapSeamlessFiltering() // [TODO]: Check if there's equivalent in DX
+    {
+        glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+    }
+
+    void DisableCubeMapSeamlessFiltering() // [TODO]: Check if there's equivalent in DX
+    {
+        glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+    }
+
+    void SetPointSpriteOrigin(const EQPointSpriteOrigin eOrigin) // [TODO]: Check if there's equivalent in DX
+    {
+        GLenum origin = eOrigin == QGraphicsEngine::E_UpperLeft ? GL_UPPER_LEFT :
+                                                                  eOrigin == QGraphicsEngine::E_LowerLeft ? GL_LOWER_LEFT : 0;
+
+        glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, origin);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when setting the point sprite coordinate origin.");
+    }
+
+    void SetPointSpriteFadeThresholdSize(const f32_q fThreshold) // [TODO]: Check if there's equivalent in DX
+    {
+        QE_ASSERT_WARNING(fThreshold <= 1.0f, "The threshold value must be lower than or equal to 1.");
+
+        glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, fThreshold);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when setting the point sprite fade threshold size.");
+    }
+
+    // Using Enable and Disable functions instead of 1 function with boolean parameters just because it is more readable in client's code. In exchange, it's less "wrappable"
     void EnableDepthTest()
     {
         glEnable(GL_DEPTH_TEST);

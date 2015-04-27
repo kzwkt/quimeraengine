@@ -12,7 +12,7 @@ class QTextureCube : public QAbstractTextureCube
 {
 public:
 
-    QTextureCube(const GLuint textureId, const GLenum type, const GLenum format, const EQPixelFormat::EnumType eFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels) :
+    QTextureCube(const GLuint textureId, const GLenum type, const GLenum format, const EQTextureFormat::EnumType eFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels) :
                                                                                             m_textureId(textureId),
                                                                                             m_type(type),
                                                                                             m_format(format)
@@ -42,7 +42,7 @@ public:
 
         if (ppOutputSubtexture == null_q)
         {
-            QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+            QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
             // Allocate memory
             uFinalSubtextureSize = pixelFormatDescriptor.GetSize() * uWidth * uHeight * 6U;
@@ -63,7 +63,7 @@ public:
 
         if (ppOutputSubtexture == null_q)
         {
-            QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+            QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
             // Allocate memory
             uFinalSubtextureSize = pixelFormatDescriptor.GetSize() * m_uWidth * m_uHeight * 6U;

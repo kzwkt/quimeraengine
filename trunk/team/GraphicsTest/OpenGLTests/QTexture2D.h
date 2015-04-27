@@ -23,7 +23,7 @@ public:
         E_Planar
     };
     
-    QTexture2D(const GLuint textureId, const GLenum type, const GLenum format, const EQPixelFormat::EnumType eFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples) : 
+    QTexture2D(const GLuint textureId, const GLenum type, const GLenum format, const EQTextureFormat::EnumType eFormat, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevels, const u8_q uMultisamplingSamples) :
                                                                                                                             m_textureId(textureId),
                                                                                                                             m_type(type),
                                                                                                                             m_format(format)
@@ -54,7 +54,7 @@ public:
 
         if (ppOutputSubtexture == null_q)
         {
-            QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+            QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
             // Allocate memory
             uFinalSubtextureSize = pixelFormatDescriptor.GetSize() * uWidth * uHeight;
@@ -76,7 +76,7 @@ public:
 
         if (ppOutputSubtexture == null_q)
         {
-            QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+            QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
             // Allocate memory
             uFinalSubtextureSize = pixelFormatDescriptor.GetSize() * m_uWidth * m_uHeight;

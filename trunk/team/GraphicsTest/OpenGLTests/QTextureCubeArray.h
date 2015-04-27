@@ -41,7 +41,7 @@ public:
         QE_ASSERT_ERROR(ppOutputSubtexture != null_q, "The output subtexture cannot be null.");
 
         u32_q uFinalSubtextureSize = uSubtextureSize;
-        QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+        QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
         if (ppOutputSubtexture == null_q)
         {
@@ -61,7 +61,7 @@ public:
         {
             nCubeFaceSliceInArray = i * 6U + eFace;
             glGetTextureSubImage(m_textureId, uMipmapLevel, nXOffset, nYOffset, nCubeFaceSliceInArray, uWidth, uHeight, DEPTH, m_format, m_type, CUBE_FACE_SIZE, *ppSlice);
-            *ppSlice = void*(pointer_uint_q(*ppSlice) + CUBE_SIZE);
+            *ppSlice = (void*)(pointer_uint_q(*ppSlice) + CUBE_SIZE);
         }
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when writing to the texture.");
@@ -77,7 +77,7 @@ public:
         QE_ASSERT_ERROR(ppOutputSubtexture != null_q, "The output subtexture cannot be null.");
 
         u32_q uFinalSubtextureSize = uSubtextureSize;
-        QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+        QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
         if (ppOutputSubtexture == null_q)
         {
@@ -101,7 +101,7 @@ public:
 
         if (ppOutputSubtexture == null_q)
         {
-            QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+            QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
             // Allocate memory
             uFinalSubtextureSize = pixelFormatDescriptor.GetSize() * m_uWidth * m_uHeight * m_uSlices * 6U;
@@ -128,7 +128,7 @@ public:
         QE_ASSERT_ERROR(nYOffset + uHeight > m_uHeight, "The region to be written overwrites memory outside the texture's dimensions.");
         QE_ASSERT_ERROR(nFirstSlice + uSlices > m_uSlices, "The region to be written overwrites memory outside the texture's dimensions.");
 
-        QPixelFormatDescriptor pixelFormatDescriptor(m_eFormat);
+        QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
         static const GLsizei DEPTH = 1;
         static const u32_q CUBE_SIZE = pixelFormatDescriptor.GetSize() * uWidth * uHeight * 6U;
         const void* pSlice = pSubtexture;
@@ -139,7 +139,7 @@ public:
         {
             nCubeFaceSliceInArray = i * 6U + eFace;
             glTextureSubImage3D(m_textureId, uMipmapLevel, nXOffset, nYOffset, nCubeFaceSliceInArray, uWidth, uHeight, DEPTH, m_format, m_type, pSlice);
-            pSlice = void*(pointer_uint_q(pSlice) + CUBE_SIZE);
+            pSlice = (void*)(pointer_uint_q(pSlice) + CUBE_SIZE);
         }
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when writing to the texture.");

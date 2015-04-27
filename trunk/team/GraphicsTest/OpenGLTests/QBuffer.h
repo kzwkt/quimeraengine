@@ -3,6 +3,7 @@
 #define __QBUFFER__
 
 #include <GL/glew.h>
+
 #include "QuimeraEngineIncludesAndUsings.h"
 #include "ErrorTracingDefinitions.h"
 
@@ -58,35 +59,11 @@ public:
     {
     }
 
-    void* MapRange(const EQBufferMappingMode eMappingMode, const pointer_uint_q uRangeStart, const pointer_uint_q uRangeSize, const void* pImplementationParameters = null_q)
-    {
-        GLenum eFinalMappingMode;
-        GLbitfield uFinalAccessMode;
+    void* MapRange(const EQBufferMappingMode eMappingMode, const pointer_uint_q uRangeStart, const pointer_uint_q uRangeSize, const void* pImplementationParameters = null_q);
 
-        if (pImplementationParameters)
-        {
-            // This could be a way to let users customize things depending on implementation
-            const OpenGLMapParameters* pParams = rcast_q(pImplementationParameters, const OpenGLMapParameters*);
-            eFinalMappingMode = pParams->MappingMode;
-            uFinalAccessMode = pParams->AccessMode;
-        }
-        else
-        {
-            eFinalMappingMode = QBuffer::GetEquivalentBufferMappingModeOpenGLValue(eMappingMode);
-            uFinalAccessMode = QBuffer::GetEquivalentBufferMapAccessOpenGLValue(eMappingMode);
-        }
+    bool Unmap();
 
-        void* pContent = glMapNamedBufferRange(m_uId, uRangeStart, uRangeSize, eFinalMappingMode | uFinalAccessMode); // [TODO]: Put both bitfields together in the enumeration
-
-        QE_ASSERT_OPENGL_ERROR("An error occurred when mapping a buffer (glMapNamedBufferRange).");
-
-        return pContent;
-    }
-
-    bool Unmap()
-    {
-        return glUnmapNamedBuffer(m_uId) == GL_TRUE;
-    }
+    void CopyRange(const QHashedString strDestinationBuffer, const u32_q uSourceOffset, const u32_q uDestinationOffset, const u32_q uSizeToCopy) const;
 
     GLuint GetOpenGLId() const
     {

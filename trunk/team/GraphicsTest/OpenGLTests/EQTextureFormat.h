@@ -75,6 +75,7 @@ public:
         E_RGB16I_Normalized = EQPixelFormat::E_RGB16I_Normalized,
         E_RGBA8I_Normalized = EQPixelFormat::E_RGBA8I_Normalized,
         E_RGBA16I_Normalized = EQPixelFormat::E_RGBA16I_Normalized,
+        E_Undefined = EQPixelFormat::E_Undefined
     };
 };
 
