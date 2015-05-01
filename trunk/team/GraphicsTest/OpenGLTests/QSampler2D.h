@@ -32,7 +32,8 @@ public:
                              m_eWrapModeW(E_Border),
                              m_eMinificationFilter(E_LinearMipmaps),
                              m_eMagnificationFilter(E_MagLinear),
-                             m_uId(uId)
+                             m_uId(uId),
+                             m_bCubeMapFilteringEnabled(false)
     {
     }
 
@@ -107,6 +108,18 @@ public:
         return m_borderColor;
     }
 
+    void EnableCubeMapSeamlessFiltering()
+    {
+        glSamplerParameteri(m_uId, GL_TEXTURE_CUBE_MAP_SEAMLESS, GL_TRUE);
+        m_bCubeMapFilteringEnabled = true;
+    }
+
+    void DisableCubeMapSeamlessFiltering()
+    {
+        glSamplerParameteri(m_uId, GL_TEXTURE_CUBE_MAP_SEAMLESS, GL_FALSE);
+        m_bCubeMapFilteringEnabled = false;
+    }
+
 protected:
 
     static GLint _GetEquivalentMagnificationFilterOpenGLValue(const QSampler2D::EQMagnificationFilter eFilter)
@@ -176,6 +189,7 @@ protected:
     EQMagnificationFilter m_eMagnificationFilter;
     QColor m_borderColor;
     GLuint m_uId;
+    bool m_bCubeMapFilteringEnabled; // [TODO]: Move this to a SamplerCube
 
 };
 

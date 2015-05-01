@@ -6,7 +6,7 @@
 #include "QTexture2D.h"
 #include "QTexture3D.h"
 
-QFramebuffer::QRenderTarget QFramebuffer::GetColorBufferId(const u32_q uIndex) const
+QFramebuffer::QRenderTarget QFramebuffer::GetColorBuffer(const u32_q uIndex) const
 {
     return m_arColorBuffers[uIndex];
 }

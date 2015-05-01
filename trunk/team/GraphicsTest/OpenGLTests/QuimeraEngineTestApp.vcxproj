@@ -170,6 +170,7 @@ copy $(SolutionDir)3rdparty\assimp\bin\Win32\*.* $(TargetDir)
     <ClInclude Include="QViewport.h" />
     <ClInclude Include="QWindow.h" />
     <ClInclude Include="SQEnumerationToOpenGLConverter.h" />
+    <ClInclude Include="SQSystemManager.h" />
     <ClInclude Include="VertexDefinitions.h" />
   </ItemGroup>
   <ItemGroup>

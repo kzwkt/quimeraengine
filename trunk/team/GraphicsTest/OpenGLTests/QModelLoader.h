@@ -10,7 +10,7 @@
 #include "QStaticModelRawData.h"
 #include "QModelAspectsRawData.h"
 
-#define ENABLE_LOGGING
+//#define ENABLE_LOGGING
 
 #ifdef ENABLE_LOGGING
 #define QE_LOG_MODELLOAD(strMessage) QE_LOG(strMessage)

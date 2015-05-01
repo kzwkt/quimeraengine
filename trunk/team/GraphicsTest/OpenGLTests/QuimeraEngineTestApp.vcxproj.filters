@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{8089f263-376a-4f81-9a47-bb60cbf64e54}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{95c75dfb-87bf-4fcf-a7b3-c9f965bb31f1}</UniqueIdentifier>
     </Filter>
@@ -14,22 +11,28 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{24054813-06a1-4ccf-a0d3-fe95829409ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IO">
-      <UniqueIdentifier>{96c95dba-9746-4995-856c-5bc4be9a44f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Geometry">
       <UniqueIdentifier>{3e935e9f-588c-47ea-b923-b051c499f5a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System.GUI">
+      <UniqueIdentifier>{8089f263-376a-4f81-9a47-bb60cbf64e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System.IO.Peripherals">
+      <UniqueIdentifier>{96c95dba-9746-4995-856c-5bc4be9a44f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{9d5e1ed8-1390-4224-894e-e62cf9ab1376}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QWindow.h">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClInclude>
     <ClInclude Include="QDeviceContext.h">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClInclude>
     <ClInclude Include="PrintSupportedPixelFormats.h">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClInclude>
     <ClInclude Include="ErrorTracingDefinitions.h">
       <Filter>Common</Filter>
@@ -50,7 +53,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="QKeyboard.h">
-      <Filter>IO</Filter>
+      <Filter>System.IO.Peripherals</Filter>
     </ClInclude>
     <ClInclude Include="QEntity.h">
       <Filter>Graphics</Filter>
@@ -86,7 +89,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="EQPixelFormat.h">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClInclude>
     <ClInclude Include="QuimeraEngine.h">
       <Filter>Common</Filter>
@@ -193,20 +196,23 @@
     <ClInclude Include="QBaseTextureBuffer.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="SQSystemManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="QWindow.cpp">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClCompile>
     <ClCompile Include="QDeviceContext.cpp">
-      <Filter>GUI</Filter>
+      <Filter>System.GUI</Filter>
     </ClCompile>
     <ClCompile Include="Boost_ThrowException.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="QKeyboard.cpp">
-      <Filter>IO</Filter>
+      <Filter>System.IO.Peripherals</Filter>
     </ClCompile>
     <ClCompile Include="VertexDefinitions.cpp">
       <Filter>Geometry</Filter>

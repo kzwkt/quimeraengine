@@ -96,10 +96,12 @@ public:
 
 
     QRenderbuffer(const GLuint renderbufferId, const GLenum formatType, const GLenum format, const EQPixelFormat::EnumType ePixelFormat, const u32_q uMultisamplingSamples, const u32_q uWidth, const u32_q uHeight) :
-                                                                                                                m_renderbufferId(renderbufferId),
-                                                                                                                m_pixelFormatLayout(format),
-                                                                                                                m_pixelFormatType(formatType),
-                                                                                                                m_ePixelFormat(ePixelFormat)
+                                                                                                                                                        m_renderbufferId(renderbufferId),
+                                                                                                                                                        m_pixelFormatLayout(format),
+                                                                                                                                                        m_pixelFormatType(formatType),
+                                                                                                                                                        m_ePixelFormat(ePixelFormat),
+                                                                                                                                                        m_uWidth(uWidth),
+                                                                                                                                                        m_uHeight(uHeight)
     {
     }
 

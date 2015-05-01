@@ -12,7 +12,7 @@ private:
 
 public:
 
-    static GLenum ConvertPixelFormatToPixelDataFormatNonSized(const u32_q eFormat)
+    static GLenum ConvertPixelFormatToPixelDataFormatSized(const u32_q eFormat)
     {
         static const GLenum EQUIVALENT_VALUES[] = {
                                                     GL_R8,//E_R8UI_Normalized,
@@ -98,7 +98,7 @@ public:
         return EQUIVALENT_VALUES[eFormat];
     }
     
-    static GLenum ConvertPixelFormatToPixelDataFormatSized(const u32_q eFormat)
+    static GLenum ConvertPixelFormatToPixelDataFormatNonSized(const u32_q eFormat)
     {
         static const GLenum EQUIVALENT_VALUES[] = {
                                                     GL_RED,//E_R8UI_Normalized,

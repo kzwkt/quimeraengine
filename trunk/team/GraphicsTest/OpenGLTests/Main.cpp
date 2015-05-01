@@ -25,6 +25,8 @@
 // [TODO]: Path rendering
 // [TODO]: Pixel Buffer Objects and Pixel Transfers
 
+// Since it will not be possible to add precise documentation for every implementation (DX or OGL), main documentation will contain the common behavior and the rest
+// of restrictions will be explained through assertions
 
 QKeyboard* QE_KEYBOARD = null_q;
 QCamera* QE_CAMERA = null_q;
@@ -65,7 +67,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     std::exit(uResult);
 }
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT WndProc(QWindow* pSender, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -104,18 +106,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         swprintf_s(msg, L"WM_CHAR: %c\n", (wchar_t)wParam);
         OutputDebugString(msg);
         break;*/
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		// TODO: Add any drawing code here...
-		EndPaint(hWnd, &ps);
-		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
+}
+
+void OnWindowSizeChanged(QWindow* pWindows, const QWindow::QSizeChangedEventData eventArgs)
+{
+    // [TODO]: Add an option so all this is updated automatically
+    // [TODO]: Implement SetFullscreen, when windowing set the previous configuration
+    // [TODO]: Receive the window status (minimized, maximized, restored)
+    // [TODO]: Add option to minimize when window is not active and it's fullscreen (clicking outside the window)
+
+    if (eventArgs.WindowStatus != QWindow::E_Minimized)
+    {
+        QE->Graphics->SetCanvas(eventArgs.NewClientAreaWidth, eventArgs.NewClientAreaHeight);
+
+        QViewport viewport;
+        viewport.Top = 0;
+        viewport.Left = 0;
+        viewport.Width = eventArgs.NewClientAreaWidth;
+        viewport.Height = eventArgs.NewClientAreaHeight;
+        QE->Graphics->SetViewport(viewport);
+
+        if (QE_CAMERA)
+            QE_CAMERA->Frustum.AspectRatio = (float_q)eventArgs.NewClientAreaWidth / (float_q)eventArgs.NewClientAreaHeight;
+    }
 }
 
 int MainLoop()
@@ -130,9 +148,47 @@ int MainLoop()
     float_q fRotation = 0;
 
 	// Main message loop:
+    QAspect* pAspect = QE->Resources->GetAspect("64124be4_dds");
+    QTexture2D* pTexture = QE->Resources->GetTexture2D("64124be4.jpg");
+    QFramebuffer* pFramebuffer = QE->Graphics->CreateFramebuffer("FBO");
+    QFramebuffer* pFramebuffer2 = QE->Graphics->CreateFramebuffer("FBO2");
+    
+    QKeyValuePair<QHashedString, QTexture2D*> texture = QE->Resources->CreateTexture2D("MyTexture", EQTextureFormat::E_RGB8UI_Normalized, 512, 512, 1, 0);
+    pAspect->SetTexture(QAspect::E_Diffuse, 0, "MyTexture");
+    GETFULLCONTENT AND GETSUBTEXTURE should return the number of bytes reserved for the buffer
+    void* pSubtexture = null_q;
+    pTexture->GetFullContent(0, 0, &pSubtexture);
+    texture.GetValue()->SetFullContent(0, pSubtexture);
+    
+    QKeyValuePair<QHashedString, QTexture2D*> texture2 = QE->Resources->CreateTexture2D("MyTexture2", EQTextureFormat::E_RGBA8UI_Normalized, 320, 240, 1, 0);
+    pFramebuffer->SetColorBuffer(0, "MyTexture", QFramebuffer::E_Texture2D);
+    pFramebuffer2->SetColorBuffer(0, "MyTexture2", QFramebuffer::E_Texture2D);
+
+    QE->Graphics->CreateRenderbuffer("RC1", EQPixelFormat::E_RGBA8UI_Normalized, QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight(), 0);
+    pFramebuffer->SetColorBuffer(0, "RC1", QFramebuffer::E_Renderbuffer);
 
     QColor cubeColor = QColor::GetVectorOfOnes();
+    /*
+    GLuint textureID = 0;
+    glCreateTextures(GL_TEXTURE_2D_MULTISAMPLE, 1, &textureID);
+    glTextureStorage2DMultisample(textureID, 4, GL_RGBA8, 512, 512, 0);
 
+    GLuint textureID2 = 0;
+    glCreateTextures(GL_TEXTURE_2D_MULTISAMPLE, 1, &textureID2);
+    glTextureStorage2DMultisample(textureID2, 4, GL_RGBA8, 256, 256, 0);
+
+    GLuint framebufferID = 0;
+    glCreateFramebuffers(1, &framebufferID);
+    glNamedFramebufferTexture2DEXT(framebufferID, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureID, 0);
+
+    GLuint framebufferID2 = 0;
+    glCreateFramebuffers(1, &framebufferID2);
+    glNamedFramebufferTexture2DEXT(framebufferID2, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureID2, 0);
+
+    glBlitNamedFramebuffer(framebufferID, framebufferID2, 0, 0, 512, 512, 0, 0, 256, 256, GL_COLOR_BUFFER_BIT, GL_SCALED_RESOLVE_FASTEST_EXT);
+
+    QE_ASSERT_OPENGL_ERROR("YEAH");
+    */
     while (true)
 	{
         CheckInputs();
@@ -151,17 +207,39 @@ int MainLoop()
         
         transformation = worldMatrix * viewMatrix * projectionMatrix;
 
-
-
+        QE->Graphics->ClearAllRenderTargets();
+        /*
+        QE->Graphics->SetDestinationFramebuffer("FBO");*/
+        QViewport textureViewport;
+        textureViewport.Height = 512;
+        textureViewport.Width = 512;
+        textureViewport.Top = 0;
+        textureViewport.Left = 0;
+        QViewport originalViewport = QE->Graphics->GetViewport();
+        
         QE->Graphics->UpdateVertexShaderData("VS1", "uColor", cubeColor.x, cubeColor.y, cubeColor.z, cubeColor.w);
         QE->Graphics->UpdateVertexShaderData("VS1", "transformationMatrix", transformation.Transpose());
 
         QStaticModel* pModel = QE->Resources->GetStaticModel("Model1");
-
+         
         // [TODO]: Create array of matrices and update hierarchically
-
+        
         QE->Graphics->SetStaticModel("Model1");
-
+        QE->Graphics->SetDestinationFramebuffer("FBO");
+        QE->Graphics->SetColorBufferClearValue(QColor(1, 0, 0, 1));
+        QE->Graphics->DisableDepthTest();
+        QE->Graphics->ClearAllRenderTargets();
+        /*
+        for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
+        {
+            QE->Graphics->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
+            QE->Graphics->Draw(EQPrimitiveType::E_Triangle, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->FirstIndex, pModel->GetSubmeshByIndex(i)->IndexCount);
+        }
+        */
+        QE->Graphics->EnableDepthTest();
+        QE->Graphics->SetDestinationFramebuffer("QE_DEFAULT");
+        QE->Graphics->SetViewport(originalViewport);
+        QE->Graphics->SetColorBufferClearValue(QColor(1, 1, 1, 1));
         QE->Graphics->ClearAllRenderTargets();
 
         for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
@@ -170,6 +248,11 @@ int MainLoop()
             QE->Graphics->Draw(EQPrimitiveType::E_Triangle, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->FirstIndex, pModel->GetSubmeshByIndex(i)->IndexCount);
         }
 
+        QE->Graphics->CopyPixelsBetweenFramebuffers("QE_DEFAULT", "FBO", QScreenRectangle<u32_q>(QPoint<u32_q>(), QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Nearest);
+        QE->Graphics->CopyPixelsBetweenFramebuffers("FBO", "QE_DEFAULT", QScreenRectangle<u32_q>(QPoint<u32_q>(), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(100, 100), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Nearest);
+
+        //QE->Graphics->CopyPixelsBetweenFramebuffers("FBO2", "QE_DEFAULT", QScreenRectangle<u32_q>(QPoint<u32_q>(0, 0), texture2.GetValue()->GetWidth(), texture2.GetValue()->GetHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(100, 100), QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Linear);
+        
         QE->Graphics->SwapBuffers();
 
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -191,20 +274,32 @@ int MainLoop()
 QWindow* SetupWindowAndEngine(HINSTANCE hInstance)
 {
     QWindow::QWindowSettings windowSettings;
-    windowSettings.MessageDispatcher = &WndProc;
     windowSettings.Title = "Quimera Engine OpenGL Graphics Engine Prototype";
-    windowSettings.Width = 1024;
-    windowSettings.Height = 768;
+    windowSettings.ClientAreaWidth = 1024;
+    windowSettings.ClientAreaHeight = 768;
     windowSettings.Top = 0;
     windowSettings.Left = 0;
     windowSettings.ColorBufferFormat = EQPixelFormat::E_RGBA8UI_Normalized;
     windowSettings.DepthBufferFormat = EQPixelFormat::E_D24S8;
     windowSettings.StencilBufferFormat = EQPixelFormat::E_D24S8;
-    windowSettings.Samples = 4;
+    windowSettings.Samples = 0;
+    windowSettings.IsFullscreen = false;
 
     QWindow* pActualWindow = new QWindow(hInstance, windowSettings);
+    pActualWindow->AfterOSMessageReceived += WndProc;
+    pActualWindow->SizeChanged += OnWindowSizeChanged;
+    pActualWindow->SetMinimizationOnDeactivation(true);
 
-    QuimeraEngine::Initilize(pActualWindow->GetDeviceContext());
+    QGraphicsEngine::QGraphicsEngineSettings graphicsEngineSettings;
+    graphicsEngineSettings.Framebuffer.ColorBufferFormat = windowSettings.ColorBufferFormat;
+    graphicsEngineSettings.Framebuffer.DepthBufferFormat = windowSettings.DepthBufferFormat;
+    graphicsEngineSettings.Framebuffer.StencilBufferFormat = windowSettings.StencilBufferFormat;
+    graphicsEngineSettings.Framebuffer.Width = windowSettings.ClientAreaWidth;
+    graphicsEngineSettings.Framebuffer.Height = windowSettings.ClientAreaHeight;
+    graphicsEngineSettings.Framebuffer.Samples = windowSettings.Samples;
+    graphicsEngineSettings.DeviceContext = pActualWindow->GetDeviceContext();
+
+    QuimeraEngine::Initilize(graphicsEngineSettings);
 
     pActualWindow->Show();
 
@@ -213,18 +308,6 @@ QWindow* SetupWindowAndEngine(HINSTANCE hInstance)
 
 void SetupEngine(QWindow* pWindow)
 {
-    QViewport viewport;
-    viewport.Top = 0;
-    viewport.Left = 0;
-    viewport.Width = pWindow->GetWidth();
-    viewport.Height = pWindow->GetHeight();
-    QE->Graphics->SetViewport(viewport);
-    QE->Graphics->EnableDepthTest();
-    QE->Graphics->EnableStencilTest();
-    QE->Graphics->EnableMultisampling();
-    QE->Graphics->SetWindingOrder(QGraphicsEngine::E_Clockwise);
-    QE->Graphics->EnableFaceCulling();
-    QE->Graphics->SetColorBufferClearValue(QColor(1.0f, 1.0f, 1.0f, 1.0f));
     //glClearColor(0.4f, 0.6f, 0.9f, 0.0f);
 }
 
@@ -277,7 +360,7 @@ void SetupModel()
 void SetupInputDevices()
 {
     QE_KEYBOARD = new QKeyboard();
-    //QE_KEYBOARD->KeyPressedEvent += &OnKeyPressed;
+    QE_KEYBOARD->KeyPressedEvent += &OnKeyPressed;
     //QE_KEYBOARD->KeyKeptEvent += &OnKeyKept;
     //QE_KEYBOARD->KeyReleasedEvent += &OnKeyReleased;
 }
@@ -366,7 +449,7 @@ void CheckInputs()
 
 void OnKeyPressed(const QKeyboard* pKeyboard, const QKeyboard::KeyInfo &info)
 {
-    if (info.Code == QKeyboard::E_LEFT)
+   /* if (info.Code == QKeyboard::E_LEFT)
     {
         QE_CAMERA->Move(QVector3(-ANIMATION_TIMER.GetProgression() * 0.0001f, 0, 0));
     }
@@ -402,7 +485,20 @@ void OnKeyPressed(const QKeyboard* pKeyboard, const QKeyboard::KeyInfo &info)
     {
         exit(0);
     }
-    
+    else*/ if (info.Code == QKeyboard::E_ENTER && pKeyboard->IsDown(QKeyboard::E_LEFTALT) && !info.HasCharacter)
+    {
+        if (pMainWindow->IsFullscreen())
+            pMainWindow->SetWindowed();
+        else
+            pMainWindow->SetFullscreen();
+    }
+    else if (info.Code == QKeyboard::E_ENTER && pKeyboard->IsDown(QKeyboard::E_LEFTCONTROL) && !info.HasCharacter)
+    {
+        if (pMainWindow->GetWindowStatus() == QWindow::E_Restored)
+            pMainWindow->SetWindowStatus(QWindow::E_Maximized);
+        else
+            pMainWindow->SetWindowStatus(QWindow::E_Restored);
+    }
 
     /*QE_LOG("KEY PRESSED\n");
     QE_LOG(string_q("Code: 0x") + string_q::FromIntegerToHexadecimal(info.Code) + "\n");

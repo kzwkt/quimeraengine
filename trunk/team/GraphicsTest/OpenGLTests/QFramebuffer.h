@@ -49,7 +49,7 @@ public:
         m_bDepthStencilBufferState = false;
     }
 
-    QRenderTarget GetColorBufferId(const u32_q uIndex) const;
+    QRenderTarget GetColorBuffer(const u32_q uIndex) const;
 
     void SetColorBuffer(const u32_q uColorBufferIndex, const QHashedString &strId, const QFramebuffer::EQRenderTargetType eType, const u32_q uMipmapLevel = 0, const u32_q uLayer = 0);
 
