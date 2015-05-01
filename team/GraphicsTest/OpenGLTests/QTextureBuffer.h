@@ -14,7 +14,7 @@ public:
         m_eFormat = eFormat;
     }
 
-    GLint GetExternalId() const
+    GLuint GetExternalId() const
     {
         return m_textureId;
     }
@@ -26,7 +26,7 @@ public:
 
 protected:
 
-    GLint m_textureId;
+    GLuint m_textureId;
     GLenum m_format;
 
 };

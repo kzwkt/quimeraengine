@@ -33,15 +33,6 @@ public:
 
     virtual void SetSubtexture(const i32_q nXOffset, const i32_q nYOffset, const EQCubeMapFace eFace, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevel, const void* pSubtexture) = 0;
 
-
-    u32_q GetHeight() const
-    {
-        return m_uHeight;
-    }
-
-protected:
-
-    u32_q m_uHeight;
 };
 
 #endif // __QABSTRACTTEXTURECUBE__

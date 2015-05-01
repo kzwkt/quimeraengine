@@ -17,8 +17,11 @@
 // [TODO]: Clear specific buffer with glClearBuffer
 // [TODO]: Invalidation of framebuffer with glInvalidateFramebuffer and glInvalidateSubFramebuffer
 // [TODO]: Binding fragment shader output variables with indices to different renderbuffers (glBindFragDataLocation, glBindFragDataLocationIndexed), (glGetFragDataLocation, glGetFragDataIndex) (glEnablei with GL_BLEND or GL_SCISSOR_TEST)
+// [TODO]: Set a static background image
 
+// Using top left screen coordinates origin
 
+#define QE_DEFAULT_ID "QE_DEFAULT"
 
 class QGraphicsEngine
 {
@@ -190,6 +193,8 @@ protected:
         QStencilDrawingStates StencilDrawingStates;
         QAspect AspectStates;
         QHashedString StaticModel;
+        EQPointSpriteOrigin PointerSpriteOrigin;
+        f32_q PointerSpriteFadeThreshold;
     };
 
     struct QRenderingContext
@@ -204,20 +209,90 @@ protected:
 
 public:
 
-    QGraphicsEngine(QResourceManager* pResourceManager, QDeviceContext* pDeviceContext) : m_pResourceManager(pResourceManager),
-                                                                                          m_renderingContexts(2, 2),
-                                                                                          m_deviceContexts(2, 2),
-                                                                                          m_framebuffers(5, 2),
-                                                                                          m_renderbuffers(5, 2)
+    struct QGraphicsEngineSettings
+    {
+        struct QFramebufferSettings
+        {
+            EQPixelFormat::EnumType ColorBufferFormat;
+            EQPixelFormat::EnumType DepthBufferFormat;
+            EQPixelFormat::EnumType StencilBufferFormat;
+            u32_q Width;
+            u32_q Height;
+            u32_q Samples;
+        };
+
+        QFramebufferSettings Framebuffer;
+        QDeviceContext* DeviceContext;
+    };
+
+public:
+
+    QGraphicsEngine(const QGraphicsEngineSettings &settings, QDeviceContext* pFakeDeviceContext, QResourceManager* pResourceManager) : m_pResourceManager(pResourceManager),
+                                                                                                                                        m_renderingContexts(2, 2),
+                                                                                                                                        m_deviceContexts(2, 2),
+                                                                                                                                        m_framebuffers(5, 2),
+                                                                                                                                        m_renderbuffers(5, 2),
+                                                                                                                                        m_uCanvasWidth(settings.Framebuffer.Width),
+                                                                                                                                        m_uCanvasHeight(settings.Framebuffer.Height)
     {
         static const QHashedString FAKE_RENDERING_CONTEXT_ID("FAKE");
-        this->RegisterDeviceContext(FAKE_RENDERING_CONTEXT_ID, pDeviceContext);
-        HGLRC fakeRenderingContext = QGraphicsEngine::_CreateFakeRenderingContextAndInitializeGLEW(pDeviceContext);
+        this->RegisterDeviceContext(FAKE_RENDERING_CONTEXT_ID, pFakeDeviceContext);
+        HGLRC fakeRenderingContext = QGraphicsEngine::_CreateFakeRenderingContextAndInitializeGLEW(pFakeDeviceContext);
 
         QRenderingContextOpenGL renderingContextInfo;
         renderingContextInfo.Handle = fakeRenderingContext;
         renderingContextInfo.DeviceContextId = FAKE_RENDERING_CONTEXT_ID;
         m_renderingContexts[FAKE_RENDERING_CONTEXT_ID].Add(renderingContextInfo);
+
+        this->_CreateDefaultObjects();
+    }
+
+    void ResetDefaultState()
+    {
+        this->EnableDepthTest();
+        this->EnableStencilTest();
+        this->DisableMultisampling();
+        this->SetWindingOrder(QGraphicsEngine::E_Clockwise);
+        this->EnableFaceCulling();
+        this->SetColorBufferClearValue(QColor(1.0f, 1.0f, 1.0f, 1.0f));
+        this->SetDepthBufferClearValue(1.0); // not checked
+        this->SetStencilBufferClearValue(0); // not checked
+        this->SetDestinationFramebuffer(QE_DEFAULT_ID);
+        this->SetPointSpriteFadeThresholdSize(1.0f); // not checked
+        this->SetPointSpriteOrigin(E_UpperLeft);
+        //this->SetShadingPipeline(QE_DEFAULT_ID);
+        this->SetSourceFramebuffer(QE_DEFAULT_ID);
+        //this->SetStaticModel(QE_DEFAULT_ID);
+        QViewport defaultViewport;
+        defaultViewport.Top = 0;
+        defaultViewport.Left = 0;
+        defaultViewport.Width = m_uCanvasWidth;
+        defaultViewport.Height = m_uCanvasHeight;
+        this->SetViewport(defaultViewport);
+        //this->SetAspect(QE_DEFAULT_ID);
+    }
+
+    void _CreateDefaultObjects()
+    {
+        // Main framebuffer, used when no FBO is bound
+        m_framebuffers.Add(QE_DEFAULT_ID, new QFramebuffer(0));
+    }
+
+    // Must be updated every time the window dimensions change
+    void SetCanvas(const u32_q uWidth, const u32_q uHeight)
+    {
+        m_uCanvasWidth = uWidth;
+        m_uCanvasHeight = uHeight;
+    }
+
+    u32_q GetCanvasWidth() const
+    {
+        return m_uCanvasWidth;
+    }
+
+    u32_q GetCanvasHeight() const
+    {
+        return m_uCanvasHeight;
     }
 
     QFramebuffer* CreateFramebuffer(const QHashedString &strId)
@@ -274,13 +349,8 @@ public:
 
     void SetSourceFramebuffer(const QHashedString &strFramebufferId)
     {
-        static QHashedString DEFAULT_FRAMEBUFFER("DEFAULT");
-
-        GLuint framebufferId = 0;
         GLenum target = 0;
-
-        if (strFramebufferId != DEFAULT_FRAMEBUFFER)
-            framebufferId = m_framebuffers[strFramebufferId]->GetExternalId();
+        GLuint framebufferId = m_framebuffers[strFramebufferId]->GetExternalId();
 
         m_strFramebufferForReading = strFramebufferId;
 
@@ -291,13 +361,8 @@ public:
 
     void SetDestinationFramebuffer(const QHashedString &strFramebufferId)
     {
-        static QHashedString DEFAULT_FRAMEBUFFER("DEFAULT");
-
-        GLuint framebufferId = 0;
         GLenum target = 0;
-
-        if (strFramebufferId != DEFAULT_FRAMEBUFFER)
-            framebufferId = m_framebuffers[strFramebufferId]->GetExternalId();
+        GLuint framebufferId = m_framebuffers[strFramebufferId]->GetExternalId();
 
         m_strFramebufferForWriting = strFramebufferId;
 
@@ -325,7 +390,7 @@ public:
         if (m_strFramebufferForReading != strFramebufferId)
             this->SetSourceFramebuffer(strFramebufferId);
 
-        GLuint sourceFramebuffer = strFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strFramebufferId]->GetExternalId();
+        GLuint sourceFramebuffer = m_framebuffers[strFramebufferId]->GetExternalId();
 
         glNamedFramebufferReadBuffer(sourceFramebuffer, QGraphicsEngine::_GetEquivalentColorBufferOpenGLValue(eColorBuffer));
 
@@ -364,45 +429,74 @@ public:
         GLbitfield bufferMask = QGraphicsEngine::_GetEquivalentBufferMaskOpenGLValue(impliedBuffers);
         GLenum equivalentFilter = QGraphicsEngine::_GetEquivalentFilterOpenGLValue(filter);
 
-        GLuint sourceFramebuffer = strSourceFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strSourceFramebufferId]->GetExternalId();
-        GLuint destinationFramebuffer = strDestinationFramebufferId == "DEFAULT" ? 0 : m_framebuffers[strDestinationFramebufferId]->GetExternalId();
+        GLuint sourceFramebuffer = m_framebuffers[strSourceFramebufferId]->GetExternalId();
+        GLuint destinationFramebuffer = m_framebuffers[strDestinationFramebufferId]->GetExternalId();
 
         QE_ASSERT_ERROR(sourceFramebuffer == 0 || glCheckNamedFramebufferStatus(sourceFramebuffer, GL_READ_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for reading.");
         QE_ASSERT_ERROR(destinationFramebuffer == 0 || glCheckNamedFramebufferStatus(destinationFramebuffer, GL_DRAW_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE, "The framebuffer is not complete for drawing.");
         
+        u32_q uSourceHeight = m_uCanvasHeight;
+        u32_q uDestinationHeight = m_uCanvasHeight;
+
+        if (strSourceFramebufferId != QE_DEFAULT_ID)
+        {
+            QFramebuffer* pSourceFramebuffer = m_framebuffers[strSourceFramebufferId];
+            QFramebuffer::QRenderTarget sourceRenderTarget;
+
+            if (impliedBuffers & QGraphicsEngine::E_Color)
+                sourceRenderTarget = pSourceFramebuffer->GetColorBuffer(0);
+            else if (impliedBuffers & QGraphicsEngine::E_Depth)
+                sourceRenderTarget = pSourceFramebuffer->GetDepthBuffer();
+            else if (impliedBuffers & QGraphicsEngine::E_Stencil)
+                sourceRenderTarget = pSourceFramebuffer->GetStencilBuffer();
+
+            uSourceHeight = QGraphicsEngine::_GetRenderTargetHeight(sourceRenderTarget.Type, sourceRenderTarget.Id);
+        }
+
+        if (strDestinationFramebufferId != QE_DEFAULT_ID)
+        {
+            QFramebuffer* pDestinationFramebuffer = m_framebuffers[strDestinationFramebufferId];
+            QFramebuffer::QRenderTarget destinationRenderTarget;
+
+            if (impliedBuffers & QGraphicsEngine::E_Color)
+                destinationRenderTarget = pDestinationFramebuffer->GetColorBuffer(0);
+            else if (impliedBuffers & QGraphicsEngine::E_Depth)
+                destinationRenderTarget = pDestinationFramebuffer->GetDepthBuffer();
+            else if (impliedBuffers & QGraphicsEngine::E_Stencil)
+                destinationRenderTarget = pDestinationFramebuffer->GetStencilBuffer();
+
+            uDestinationHeight = QGraphicsEngine::_GetRenderTargetHeight(destinationRenderTarget.Type, destinationRenderTarget.Id);
+        }
+
+        // Multisample framebuffers must have the same size for the copy to work, there are extensions:
+        // https://www.opengl.org/registry/specs/EXT/framebuffer_multisample_blit_scaled.txt
+
         glBlitNamedFramebuffer(sourceFramebuffer,
                                destinationFramebuffer,
                                rectangleToRead.TopLeftCorner.x, 
-                               rectangleToRead.TopLeftCorner.y, 
+                               uSourceHeight - rectangleToRead.TopLeftCorner.y, // Y reversed so it grows top-to-bottom
                                rectangleToRead.BottomRightCorner.x, 
-                               rectangleToRead.BottomRightCorner.y, 
+                               uSourceHeight - rectangleToRead.BottomRightCorner.y,
                                rectangleToWrite.TopLeftCorner.x,
-                               rectangleToWrite.TopLeftCorner.y, 
+                               uDestinationHeight - rectangleToWrite.TopLeftCorner.y, 
                                rectangleToWrite.BottomRightCorner.x, 
-                               rectangleToWrite.BottomRightCorner.y, 
+                               uDestinationHeight - rectangleToWrite.BottomRightCorner.y,
                                bufferMask,
                                equivalentFilter);
-
-        QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitNamedFramebuffer).");
+        
+        QE_ASSERT_OPENGL_ERROR("An error occurred when copying pixels of framebuffers (glBlitNamedFramebuffer). \
+When both source and destination buffers have more than one sample, they must have the same \
+number of samples. When the source buffer has multiple samples, both buffers must have the same size.");
     }
 
     // [TODO]: Change GL_DEPTH_STENCIL_TEXTURE_MODE to STENCIL_INDEX to access stencil data in a DEPTH_STENCIL-format texture
-    
-    void EnableCubeMapSeamlessFiltering() // [TODO]: Check if there's equivalent in DX
-    {
-        glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-    }
-
-    void DisableCubeMapSeamlessFiltering() // [TODO]: Check if there's equivalent in DX
-    {
-        glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-    }
 
     void SetPointSpriteOrigin(const EQPointSpriteOrigin eOrigin) // [TODO]: Check if there's equivalent in DX
     {
         GLenum origin = eOrigin == QGraphicsEngine::E_UpperLeft ? GL_UPPER_LEFT :
                                                                   eOrigin == QGraphicsEngine::E_LowerLeft ? GL_LOWER_LEFT : 0;
 
+        m_states.PointerSpriteOrigin = eOrigin;
         glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, origin);
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when setting the point sprite coordinate origin.");
@@ -412,6 +506,7 @@ public:
     {
         QE_ASSERT_WARNING(fThreshold <= 1.0f, "The threshold value must be lower than or equal to 1.");
 
+        m_states.PointerSpriteFadeThreshold = fThreshold;
         glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, fThreshold);
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when setting the point sprite fade threshold size.");
@@ -505,7 +600,10 @@ public:
     {
         QE_ASSERT_ERROR(viewport.Width != 0 && viewport.Height != 0, string_q("Invalid viewport dimensions: ") + viewport.Width + "x" + viewport.Height);
 
-        glViewport(viewport.Left, viewport.Top, viewport.Width, viewport.Height);
+        glViewport(viewport.Left, 
+                   viewport.Top, 
+                   viewport.Width, 
+                   viewport.Height);
         m_states.Viewport = viewport;
     }
 
@@ -658,6 +756,8 @@ public:
             QE_LOG("The number of vertex to draw is zero (Draw).\n");
 
         glDrawRangeElementsBaseVertex(GL_TRIANGLES, uFirstVertex, uFirstVertex + uVertexCount, uIndexCount, GL_UNSIGNED_INT, (void*)(uFirstIndex * sizeof(u32_q)), uFirstVertex);
+
+        QE_ASSERT_OPENGL_ERROR("An error occurred when drawing.");
     }
 
     void SetTexture(const QHashedString &strTextureId, const unsigned int uTextureLayer, const QHashedString &strShaderId, const char* szShaderSamplerName)
@@ -963,12 +1063,49 @@ protected:
         return mask;
     }
 
+    u32_q _GetRenderTargetHeight(const QFramebuffer::EQRenderTargetType eRenderTargetType, const QHashedString &renderTargetId) const
+    {
+        u32_q uHeight = 0;
+
+        switch (eRenderTargetType)
+        {
+        case QFramebuffer::E_Renderbuffer:
+            uHeight = m_renderbuffers[renderTargetId]->GetHeight();
+            break;
+        case QFramebuffer::E_Texture1D:
+            uHeight = 0;
+            break;
+        case QFramebuffer::E_Texture2D:
+        case QFramebuffer::E_Texture2DMultisample:
+            uHeight = m_pResourceManager->GetTexture2D(renderTargetId)->GetHeight();
+            break;
+        case QFramebuffer::E_Texture3D:
+            uHeight = m_pResourceManager->GetTexture3D(renderTargetId)->GetHeight();
+            break;
+        case QFramebuffer::E_TextureCubeFacePositiveX:
+        case QFramebuffer::E_TextureCubeFaceNegativeX:
+        case QFramebuffer::E_TextureCubeFacePositiveY:
+        case QFramebuffer::E_TextureCubeFaceNegativeY:
+        case QFramebuffer::E_TextureCubeFacePositiveZ:
+        case QFramebuffer::E_TextureCubeFaceNegativeZ:
+            uHeight = m_pResourceManager->GetTextureCube(renderTargetId)->GetWidth();
+            break;
+        default:
+            break;
+        }
+
+        return uHeight;
+    }
+
 protected:
 
     QResourceManager* m_pResourceManager;
     QHashtable<QHashedString, QDeviceContext*, SQStringHashProvider> m_deviceContexts;
     // 1 window -> many rendering contexts
     QHashtable<QHashedString, QArrayDynamic<QRenderingContextOpenGL>, SQStringHashProvider> m_renderingContexts;
+
+    u32_q m_uCanvasWidth;
+    u32_q m_uCanvasHeight;
 
     // Graphic pipeline states
     QRenderPipelineStates m_states;

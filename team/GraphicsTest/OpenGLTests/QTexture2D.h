@@ -33,8 +33,6 @@ public:
         m_uHeight = uHeight;
         m_uMipmapLevels = uMipmapLevels;
         m_uSamples = uMultisamplingSamples;
-
-        //glGenerateTextureMipmap(m_textureId);
     }
 
     virtual void GetSubtexture( const i32_q nXOffset,
@@ -45,6 +43,8 @@ public:
                                 const u32_q uSubtextureSize,
                                 void** ppOutputSubtexture) const
     {
+        Y AXIS OF TEXTURE MUST BE FLIPPED
+
         QE_ASSERT_ERROR(nXOffset + uWidth > m_uWidth, "The region to be read lays outside the texture's dimensions.");
         QE_ASSERT_ERROR(nYOffset + uHeight > m_uHeight, "The region to be read lays outside the texture's dimensions.");
         QE_ASSERT_ERROR(m_uSamples == 0, "Reading a region of a multisample texture is not supported.");
@@ -52,7 +52,7 @@ public:
 
         u32_q uFinalSubtextureSize = uSubtextureSize;
 
-        if (ppOutputSubtexture == null_q)
+        if (*ppOutputSubtexture == null_q)
         {
             QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
@@ -65,7 +65,7 @@ public:
         static const GLsizei NUM_SLICES = 1;
         glGetTextureSubImage(m_textureId, uMipmapLevel, nXOffset, nYOffset, FIRST_SLICE, uWidth, uHeight, NUM_SLICES, m_format, m_type, uFinalSubtextureSize, *ppOutputSubtexture);
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when writing to the texture.");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reading from the texture.");
     }
 
     virtual void GetFullContent(const u8_q uMipmapLevel, const u32_q uSubtextureSize, void** ppOutputSubtexture) const
@@ -74,7 +74,7 @@ public:
 
         u32_q uFinalSubtextureSize = uSubtextureSize;
 
-        if (ppOutputSubtexture == null_q)
+        if (*ppOutputSubtexture == null_q)
         {
             QPixelFormatDescriptor pixelFormatDescriptor(scast_q(m_eFormat, EQPixelFormat::EnumType));
 
@@ -86,7 +86,7 @@ public:
 
         glGetTextureImage(m_textureId, uMipmapLevel, m_format, m_type, uFinalSubtextureSize, *ppOutputSubtexture);
 
-        QE_ASSERT_OPENGL_ERROR("An error occurred when writing to the texture.");
+        QE_ASSERT_OPENGL_ERROR("An error occurred when reading from the texture.");
     }
 
     // COPY full and region
@@ -97,7 +97,7 @@ public:
 
         QE_ASSERT_OPENGL_ERROR("An error occurred when writing to the texture.");
     }
-
+    // [TODO]: Rename to nDestinationOffsetX , etc..
     virtual void SetSubtexture(const i32_q nXOffset, const i32_q nYOffset, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevel, const void* pSubtexture)
     {
         QE_ASSERT_ERROR(nXOffset + uWidth > m_uWidth, "The region to be written overwrites memory outside the texture's dimensions.");

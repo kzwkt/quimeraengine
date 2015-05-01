@@ -11,7 +11,7 @@ class QuimeraEngine
 {
 public:
 
-    static void Initilize(QDeviceContext* pDeviceContext);
+    static void Initilize(const QGraphicsEngine::QGraphicsEngineSettings &graphicsEngineSettings);
 
     static bool IsInitialized();
 
@@ -23,7 +23,7 @@ public:
 
 private:
 
-    static QGraphicsEngine* _CreateGraphicsEngine(QDeviceContext* pDeviceContext, QResourceManager* pResourceManager);
+    static QGraphicsEngine* _CreateGraphicsEngine(const QGraphicsEngine::QGraphicsEngineSettings &graphicsEngineSettings, QResourceManager* pResourceManager);
 
     static QResourceManager* _CreateResourceManager();
 
