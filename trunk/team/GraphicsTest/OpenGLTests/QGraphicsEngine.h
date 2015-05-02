@@ -438,11 +438,13 @@ public:
         u32_q uSourceHeight = m_uCanvasHeight;
         u32_q uDestinationHeight = m_uCanvasHeight;
 
+        QFramebuffer* pSourceFramebuffer = m_framebuffers[strSourceFramebufferId];
+        QFramebuffer::QRenderTarget sourceRenderTarget;
+        sourceRenderTarget.Id = QE_DEFAULT_ID;
+        sourceRenderTarget.Type = QFramebuffer::E_Renderbuffer;
+
         if (strSourceFramebufferId != QE_DEFAULT_ID)
         {
-            QFramebuffer* pSourceFramebuffer = m_framebuffers[strSourceFramebufferId];
-            QFramebuffer::QRenderTarget sourceRenderTarget;
-
             if (impliedBuffers & QGraphicsEngine::E_Color)
                 sourceRenderTarget = pSourceFramebuffer->GetColorBuffer(0);
             else if (impliedBuffers & QGraphicsEngine::E_Depth)
@@ -453,11 +455,13 @@ public:
             uSourceHeight = QGraphicsEngine::_GetRenderTargetHeight(sourceRenderTarget.Type, sourceRenderTarget.Id);
         }
 
+        QFramebuffer* pDestinationFramebuffer = m_framebuffers[strDestinationFramebufferId];
+        QFramebuffer::QRenderTarget destinationRenderTarget;
+        destinationRenderTarget.Id = QE_DEFAULT_ID;
+        destinationRenderTarget.Type = QFramebuffer::E_Renderbuffer;
+
         if (strDestinationFramebufferId != QE_DEFAULT_ID)
         {
-            QFramebuffer* pDestinationFramebuffer = m_framebuffers[strDestinationFramebufferId];
-            QFramebuffer::QRenderTarget destinationRenderTarget;
-
             if (impliedBuffers & QGraphicsEngine::E_Color)
                 destinationRenderTarget = pDestinationFramebuffer->GetColorBuffer(0);
             else if (impliedBuffers & QGraphicsEngine::E_Depth)
@@ -468,19 +472,38 @@ public:
             uDestinationHeight = QGraphicsEngine::_GetRenderTargetHeight(destinationRenderTarget.Type, destinationRenderTarget.Id);
         }
 
+        u32_q uAdjustedSourceTop = rectangleToRead.TopLeftCorner.y;
+        u32_q uAdjustedSourceBottom = rectangleToRead.BottomRightCorner.y;
+        u32_q uAdjustedDestinationTop = rectangleToWrite.TopLeftCorner.y;
+        u32_q uAdjustedDestinationBottom = rectangleToWrite.BottomRightCorner.y;
+
+        // Moves the renderbuffer using screen coordinates (top-left origin) without flipping the image
+        if (destinationRenderTarget.Type == QFramebuffer::E_Renderbuffer && sourceRenderTarget.Type == QFramebuffer::E_Renderbuffer)
+        {
+            uAdjustedDestinationTop = uDestinationHeight - rectangleToWrite.BottomRightCorner.y;
+            uAdjustedDestinationBottom = uDestinationHeight - rectangleToWrite.TopLeftCorner.y;
+        }
+
+        // Flips the result vertically and uses screen coordinates before writing
+        if (destinationRenderTarget.Type == QFramebuffer::E_Renderbuffer && sourceRenderTarget.Type != QFramebuffer::E_Renderbuffer)
+        {
+            uAdjustedDestinationTop = uDestinationHeight - rectangleToWrite.TopLeftCorner.y;
+            uAdjustedDestinationBottom = uDestinationHeight - rectangleToWrite.BottomRightCorner.y;
+        }
+
         // Multisample framebuffers must have the same size for the copy to work, there are extensions:
         // https://www.opengl.org/registry/specs/EXT/framebuffer_multisample_blit_scaled.txt
 
         glBlitNamedFramebuffer(sourceFramebuffer,
                                destinationFramebuffer,
                                rectangleToRead.TopLeftCorner.x, 
-                               uSourceHeight - rectangleToRead.TopLeftCorner.y, // Y reversed so it grows top-to-bottom
+                               uAdjustedSourceTop, // Y reversed so it grows top-to-bottom
                                rectangleToRead.BottomRightCorner.x, 
-                               uSourceHeight - rectangleToRead.BottomRightCorner.y,
+                               uAdjustedSourceBottom,
                                rectangleToWrite.TopLeftCorner.x,
-                               uDestinationHeight - rectangleToWrite.TopLeftCorner.y, 
+                               uAdjustedDestinationTop,
                                rectangleToWrite.BottomRightCorner.x, 
-                               uDestinationHeight - rectangleToWrite.BottomRightCorner.y,
+                               uAdjustedDestinationBottom,
                                bufferMask,
                                equivalentFilter);
         

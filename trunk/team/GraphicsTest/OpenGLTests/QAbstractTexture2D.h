@@ -8,19 +8,20 @@ class QAbstractTexture2D : public QBaseTexture
 {
 public:
 
-    virtual void GetSubtexture( const i32_q nXOffset,
-                                const i32_q nYOffset,
-                                const u32_q uWidth,
-                                const u32_q uHeight,
-                                const u8_q uMipmapLevel,
-                                const u32_q uSubtextureSize,
-                                void** ppOutputSubtexture) const = 0;
+    virtual void GetSubtexture( const i32_q nSourceOffsetX,
+                                const i32_q nSourceOffsetY,
+                                const u32_q nSourceWidth,
+                                const u32_q nSourceHeight,
+                                const EQTextureFormat::EnumType eSourceFormat,
+                                const u8_q uSourceMipmapLevel,
+                                u32_q &uSourceSize,
+                                void** ppDestination) const = 0;
 
-    virtual void GetFullContent(const u8_q uMipmapLevel, const u32_q uSubtextureSize, void** ppOutputSubtexture) const = 0;
+    virtual void GetFullContent(const EQTextureFormat::EnumType eSourceFormat, const u8_q uDestinationMipmapLevel, u32_q &uDestinationSize, void** ppDestination) const = 0;
     
-    virtual void SetFullContent(const u8_q uMipmapLevel, const void* pSubtexture) = 0;
+    virtual void SetFullContent(const u8_q uDestinationMipmapLevel, const EQTextureFormat::EnumType eSourceFormat, const void* pSource) = 0;
 
-    virtual void SetSubtexture(const i32_q nXOffset, const i32_q nYOffset, const u32_q uWidth, const u32_q uHeight, const u8_q uMipmapLevel, const void* pSubtexture) = 0;
+    virtual void SetSubtexture(const i32_q nDestinationOffsetX, const i32_q nDestinationOffsetY, const u32_q nDestinationWidth, const u32_q nDestinationHeight, const u8_q uDestinationMipmapLevel, const EQTextureFormat::EnumType eSourceFormat, const void* pSource) = 0;
 
     u32_q GetHeight() const
     {

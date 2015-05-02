@@ -292,7 +292,7 @@ void QWindow::SetFullscreen()
                                                                        WS_EX_CLIENTEDGE |    // Border with sunken edge
                                                                        WS_EX_STATICEDGE));   // 3D border
 
-        SQSystemManager::QScreenInfo screenInfo = SQSystemManager::GetWindowScreen(this);
+        SQSystemManager::QScreenResolution screenInfo = SQSystemManager::GetWindowScreen(this);
         ::SetWindowPos( m_windowHandle, NULL,
                         0, 0,
                         screenInfo.Width, screenInfo.Height,

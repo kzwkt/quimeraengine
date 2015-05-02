@@ -8,6 +8,7 @@
 #include "QKeyboard.h"
 #include "QCamera.h"
 #include "QuimeraEngine.h"
+#include "SQSystemManager.h"
 
 /*#include "glm/glm.hpp"
 #include "glm/gtc/matrix_projection.hpp"
@@ -148,21 +149,24 @@ int MainLoop()
     float_q fRotation = 0;
 
 	// Main message loop:
-    QAspect* pAspect = QE->Resources->GetAspect("64124be4_dds");
-    QTexture2D* pTexture = QE->Resources->GetTexture2D("64124be4.jpg");
+    
     QFramebuffer* pFramebuffer = QE->Graphics->CreateFramebuffer("FBO");
-    QFramebuffer* pFramebuffer2 = QE->Graphics->CreateFramebuffer("FBO2");
-    
-    QKeyValuePair<QHashedString, QTexture2D*> texture = QE->Resources->CreateTexture2D("MyTexture", EQTextureFormat::E_RGB8UI_Normalized, 512, 512, 1, 0);
+    QKeyValuePair<QHashedString, QTexture2D*> texture = QE->Resources->CreateTexture2D("MyTexture", EQTextureFormat::E_RGBA8UI_Normalized, 512, 512, 1, 0);
+
+    QAspect* pAspect = QE->Resources->GetAspect("64124be4_dds");
     pAspect->SetTexture(QAspect::E_Diffuse, 0, "MyTexture");
-    GETFULLCONTENT AND GETSUBTEXTURE should return the number of bytes reserved for the buffer
+
+    QTexture2D* pTexture = QE->Resources->GetTexture2D("64124be4.jpg");
+
     void* pSubtexture = null_q;
-    pTexture->GetFullContent(0, 0, &pSubtexture);
-    texture.GetValue()->SetFullContent(0, pSubtexture);
+    u32_q uBufferSize = 0;
+    pTexture->GetSubtexture(0, 0, 256, 256, EQTextureFormat::E_RGBA8UI_Normalized, 0, uBufferSize, &pSubtexture);
+    texture.GetValue()->SetSubtexture(0, 0, 256, 256, 0, EQTextureFormat::E_RGBA8UI_Normalized, pSubtexture);
     
-    QKeyValuePair<QHashedString, QTexture2D*> texture2 = QE->Resources->CreateTexture2D("MyTexture2", EQTextureFormat::E_RGBA8UI_Normalized, 320, 240, 1, 0);
+    //pTexture->GetFullContent(EQTextureFormat::E_RGBA8UI_Normalized, 0, uBufferSize, &pSubtexture);
+    //texture.GetValue()->SetFullContent(0, EQTextureFormat::E_RGBA8UI_Normalized, pSubtexture);
+
     pFramebuffer->SetColorBuffer(0, "MyTexture", QFramebuffer::E_Texture2D);
-    pFramebuffer2->SetColorBuffer(0, "MyTexture2", QFramebuffer::E_Texture2D);
 
     QE->Graphics->CreateRenderbuffer("RC1", EQPixelFormat::E_RGBA8UI_Normalized, QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight(), 0);
     pFramebuffer->SetColorBuffer(0, "RC1", QFramebuffer::E_Renderbuffer);
@@ -225,17 +229,18 @@ int MainLoop()
         // [TODO]: Create array of matrices and update hierarchically
         
         QE->Graphics->SetStaticModel("Model1");
+        
         QE->Graphics->SetDestinationFramebuffer("FBO");
         QE->Graphics->SetColorBufferClearValue(QColor(1, 0, 0, 1));
         QE->Graphics->DisableDepthTest();
         QE->Graphics->ClearAllRenderTargets();
-        /*
+        
         for (u32_q i = 0; i < pModel->GetSubmeshCount(); ++i)
         {
             QE->Graphics->SetAspect(pModel->GetSubmeshAspectByIndex(i)->AspectId);
             QE->Graphics->Draw(EQPrimitiveType::E_Triangle, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->FirstIndex, pModel->GetSubmeshByIndex(i)->IndexCount);
         }
-        */
+        
         QE->Graphics->EnableDepthTest();
         QE->Graphics->SetDestinationFramebuffer("QE_DEFAULT");
         QE->Graphics->SetViewport(originalViewport);
@@ -248,11 +253,8 @@ int MainLoop()
             QE->Graphics->Draw(EQPrimitiveType::E_Triangle, pModel->GetSubmeshByIndex(i)->FirstVertex, pModel->GetSubmeshByIndex(i)->VertexCount, pModel->GetSubmeshByIndex(i)->FirstIndex, pModel->GetSubmeshByIndex(i)->IndexCount);
         }
 
-        QE->Graphics->CopyPixelsBetweenFramebuffers("QE_DEFAULT", "FBO", QScreenRectangle<u32_q>(QPoint<u32_q>(), QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Nearest);
         QE->Graphics->CopyPixelsBetweenFramebuffers("FBO", "QE_DEFAULT", QScreenRectangle<u32_q>(QPoint<u32_q>(), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(100, 100), texture.GetValue()->GetWidth(), texture.GetValue()->GetHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Nearest);
 
-        //QE->Graphics->CopyPixelsBetweenFramebuffers("FBO2", "QE_DEFAULT", QScreenRectangle<u32_q>(QPoint<u32_q>(0, 0), texture2.GetValue()->GetWidth(), texture2.GetValue()->GetHeight()), QScreenRectangle<u32_q>(QPoint<u32_q>(100, 100), QE->Graphics->GetCanvasWidth(), QE->Graphics->GetCanvasHeight()), QGraphicsEngine::E_Color, QGraphicsEngine::E_Linear);
-        
         QE->Graphics->SwapBuffers();
 
         while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -273,6 +275,13 @@ int MainLoop()
 
 QWindow* SetupWindowAndEngine(HINSTANCE hInstance)
 {
+    SQSystemManager::EnumerateGraphicsDevices();
+    SQSystemManager::EnumerateScreens();
+    SQSystemManager::QScreenResolution resolution;
+    resolution.Width = 1920;
+    resolution.Height = 1080;
+    SQSystemManager::ChangeScreenResolution(resolution, 32);
+
     QWindow::QWindowSettings windowSettings;
     windowSettings.Title = "Quimera Engine OpenGL Graphics Engine Prototype";
     windowSettings.ClientAreaWidth = 1024;

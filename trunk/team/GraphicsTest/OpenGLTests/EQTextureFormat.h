@@ -26,7 +26,7 @@ public:
         E_RGBA2UI_Normalized = EQPixelFormat::E_RGBA2UI_Normalized,
         E_RGBA4UI_Normalized = EQPixelFormat::E_RGBA4UI_Normalized,
         E_RGB5A1UI_Normalized = EQPixelFormat::E_RGB5A1UI_Normalized,
-        E_RGBA8UI_Normalized = EQPixelFormat::E_RGB5A1UI_Normalized,
+        E_RGBA8UI_Normalized = EQPixelFormat::E_RGBA8UI_Normalized,
         E_RGB10A2UI_Normalized = EQPixelFormat::E_RGB10A2UI_Normalized,
         E_RGBA12UI_Normalized = EQPixelFormat::E_RGBA12UI_Normalized,
         E_RGBA16UI_Normalized = EQPixelFormat::E_RGBA16UI_Normalized,
